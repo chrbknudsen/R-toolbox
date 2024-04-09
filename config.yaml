@@ -60,6 +60,7 @@ contact: 'kubdatalab@kb.dk'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
+- notes.Rmd
 
 # Information for Learners
 learners: 
