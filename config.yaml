@@ -8,16 +8,16 @@
 # lc: Library Carpentry
 # cp: Carpentries (to use for instructor training for instance)
 # incubator: The Carpentries Incubator
-carpentry: 'incubator'
+carpentry: 'lc'
 
 # Overall title for pages.
-title: 'Lesson Title'
+title: 'R-toolbox'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
 created: '2024-04-09'
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, data, lesson'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -27,13 +27,13 @@ life_cycle: 'pre-alpha'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/chrbknudsen/toolbox'
+source: 'https://github.com/KUBDatalab/R-toolbox'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'kubdatalab@kb.dk'
 
 # Navigation ------------------------------------------------
 #
