@@ -62,10 +62,7 @@ paste("This", "new", "lesson", "looks", "good")
 
 :::::::::::::::::::::::::::::::::
 
----
-title: "Untitled"
-format: html
----
+
 
 ```{r}
 library(tidyverse)
