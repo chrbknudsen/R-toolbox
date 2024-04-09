@@ -62,6 +62,8 @@ episodes:
 - introduction.Rmd
 - notes.Rmd
 - notes2.Rmd
+- reading-files.Rmd
+- descript-stat.Rmd
 
 # Information for Learners
 learners: 
