@@ -1,0 +1,31 @@
+name: Kopier fil til gh-pages
+
+on:
+  workflow_run:
+    workflows: ["01 Build and Deploy Site"]
+    types:
+      - completed
+
+jobs:
+  kopier-fil:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+
+      - name: Download fil fra internettet
+        run: curl -o logotest.svg https://kubdatalab.github.io/R-intro/fig/logotest.svg
+
+      - name: Kopier fil til det bestemte sted
+        run: mv logotest.svg assets/images/library-logo.svg
+
+      - name: Commit og push ændringer
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Opdateret fil på gh-pages"
+          git push
