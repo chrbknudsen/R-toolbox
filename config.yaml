@@ -64,6 +64,7 @@ episodes:
 - notes2.Rmd
 - reading-files.Rmd
 - descript-stat.Rmd
+- normal-distribution.Rmd
 
 # Information for Learners
 learners: 
