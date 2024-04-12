@@ -12,8 +12,7 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Explain how to read in data from a selection of different data files. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -22,76 +21,101 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+Den væsenligste pointe er egentlig at der med meget stor sandsynlighed
+eksisterer mindst en pakke der er designet til at indlæse lige netop din
+underlige filtype. Google er din ven!
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## CSV-files
 
-read.csv
-read.csv2
+The most basic file type for storing and transferring data. A "simple" textfile,
+containing tabular data. One line of text for each row of data, each cell in
+that row, corresponding to a column, separated with a separator, typically a 
+comma.
 
-read_
-preferred.
+Many languages use commas as decimal separators. That neccesitates an option 
+for using something else than a comma. Typicalla a semicolon.
+
+### Truly commaseparated files
+
+Use `read.csv()` (from base-R) or `read_csv()` (from `readr`, included in `tidyverse`)
+
+We recommend `read_csv()`
+
+### Semicolon separated files
+
+Use `read.csv2()` (from base-R) or `read_csv2()` (from `readr`, included in `tidyverse`)
+
+We recommend `read_csv2()`
+
+Especially `read_csv` and `read_csv2` take a lot of arguments that can control 
+datatypes, handling of headers.
 
 ## Excel-files
 
-Use the readxl package
+Use the `readxl` package. Excel comes in two variants, `xls` and `xlsx`. `read_excel()`
+makes a qualified quess of the actual type your excel-file is. Should we need to
+specify, we can use `read_xls()` or `read_xlsx()`.
 
-choose sheet, by number or name
+Workbooks often contains more than one sheet. We can specify which we want to 
+read in:
 
-you can specify which cells in a sheet to import. Read the documentation!
+`read_excel(path = "filename", sheet = 2`
 
+Which will read in sheet number 2 from the workbook "filename".
+
+Read the documentation for details on how to read in specific cells or ranges.
 
 
 ## SPSS
 
-Haven er pakken der hjælper med det.
+Use the package `haven` to read in spss files:
+
 ```{r eval = F}
-haven::read_spss()
+library(haven)
+read_spss("filename")
 ```
 
 
 ## Stata
-Her hjælper haven også:
+
+Use the package `haven` to read in stata files:
+
 ```{r eval = F}
-haven::read_stata()
+library(haven)
+read_stata("filename")
 ```
+
 
 ## SAS
-Gæt selv hvilken pakke der kan det?
 
+Use the package `haven` to read in spss files:
 
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1: Can you do it?
-
-What is the output of this command?
-
-```r
-paste("This", "new", "lesson", "looks", "good")
+```{r eval = F}
+library(haven)
+read_sas("filename")
 ```
 
-:::::::::::::::::::::::: solution 
 
-## Output
- 
-```output
-[1] "This new lesson looks good"
-```
+## Other formats
 
-:::::::::::::::::::::::::::::::::
+In general if a piece of software is in widespread enough use that you encounter
+the weird file-format it uses, someone will have written a package for reading
+it. Google is your friend here!
 
-:::::::::::::::::::::::::::::::::
+Also, if you encounter a really weird dataformat, please send us an example so
+we can expand our knowledge.
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- The `readr` version of `read_csv()` is preferred
+- Remember that csv is not always actually separated with commas.
+- The `haven` package contians a _lot_ of functions for handling weird datatypes
+- In general a package will exist for reading strange datatypes. Google is your friend!
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -5,6 +5,20 @@ title: Setup
 FIXME: Setup instructions live in this document. Please specify the tools and
 the data sets the Learner needs to have installed.
 
+Fundamentet for to slags kurser. 
+
+Det generelle toolbox kursus. Her kommer vi gennem et udvalg af episoderne.
+
+Og fundamentet for mere skræddersyede toolbox kurser, hvor vi udvælger andre
+episoder. Som eksempel: Vi har episoden om "table1" med når målgruppen er 
+medicinere. Og ellers ikke, for der er ikke andre end medicinere der interesserer
+sig for det alligevel.
+
+For nogen af episoderne har vi emnet fuldt udfoldet. Det har vi når nogen af os
+synes at vi forstår matematikken så godt at vi tør forklare den. Og så er der 
+de episoder hvor vi kun ser på hvordan man gør dette eller hint i R. Det er når vi
+ikke synes at vi forstår matematikken.
+
 ## Data Sets
 
 <!--
