@@ -65,6 +65,10 @@ episodes:
 - reading-files.Rmd
 - descript-stat.Rmd
 - normal-distribution.Rmd
+- regression.Rmd
+- regression2.Rmd
+- regression3.Rmd
+- regression4.Rmd
 
 # Information for Learners
 learners: 
