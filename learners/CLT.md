@@ -4,7 +4,15 @@ title: CLT
 
 # Et bevis for Central Limit Teoremet.
 
-Overordnet: CLT forklarer hvorfor mange fordelinger af data, tenderer en normalfordeling (klokkekurven), når stikprøvestørrelsen bliver stor, uanset den oprindelige fordelings form.
+Overordnet: CLT forklarer hvorfor mange fordelinger af data, tenderer en 
+normalfordeling (klokkekurven), når stikprøvestørrelsen bliver stor, uanset den 
+oprindelige fordelings form.
+
+Teoremet fortæller os, at fordelingen af det standardiserede gennemsnit af en 
+stikprøve tilnærmer sig standard normalfordelingen.
+
+Eller, knap så præcist, for store stikprøver er deres gennemsnit
+mere eller mindre normalfordelt omkring det sande gennemsnit for populationen.
 
 ## Moment generende funktioner
 Vi starter med at introducere fænomenet "moment genererende funktion".
@@ -34,7 +42,8 @@ Det næste led er så $\frac{(tX)^4}{4!}$. Det tillader os at beregne
 venstresiden med den præcision vi ønsker, vi tilføjer bare flere led.
 
 Under passende forudsætninger, har vi lov til at erstatte X med $E(X)$, hvor
-$E(X) = \mu$, altså middelværdien - også kaldet forventningsværdien. Eller på engelsk "Expectation value". Det er der "E" kommer fra.
+$E(X) = \mu$, altså middelværdien - også kaldet forventningsværdien. Eller på 
+engelsk "Expectation value". Det er der "E" kommer fra.
 
 Gør vi det får vi:
 
@@ -63,10 +72,27 @@ $$\text{Var}(X) = E[X^2] - (E[X])^2$$
 Med andre ord, det rå andet moment, minus det rå første moment kvadreret,
 giver os variansen.
 
-Vi kan fortsætte, tredie moment, som vi får ved at differentiere mht t tre gange, og indsætte t = 0, giver os "skewness", eller skævhed. Det fjerde er "kurtosis", der hedder det samme på dansk. Det er et udtryk for hvor tykke
+Vi kan fortsætte, tredie moment, som vi får ved at differentiere mht t tre gange, 
+og indsætte t = 0, giver os "skewness", eller skævhed. Det fjerde er "kurtosis", 
+der hedder det samme på dansk. Det er et udtryk for hvor tykke
 haler en fordeling har.
 
-En central pointe er at hvis alle momenterne for to fordelingsfunktioner er ens, så er funktionerne ens. 
+En central pointe er at hvis alle momenterne for to fordelingsfunktioner er ens, 
+så er funktionerne ens. 
+
+Når vi nu i det efterfølgende arbejder med en momentgenerende funktion - så er det 
+interessante altså om den ender med at være den samme som den momentgenererende
+funktion for normalfordelingen.
+
+Den udleder vi ikke her, men den findes ved:
+
+$$
+N(xM \mu, \sigma^2) = \frac{1}{\sqrt{(2\pi\sigma^2)}}e^{-\frac{1}{2}(x-\mu)^2/\sigma^2} \\
+M_z(t) = E(e^{zt}) = \int e^{zt} \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}z^2/\sigma^2}\,dz \\
+= e^{\frac{1}{2}t^2}
+$$
+
+
 
 ## Videre!
 Med dette på plads, kan vi komme videre.
@@ -202,6 +228,9 @@ $$
 \ln(M_Z(t)) = n\ln \left(1 + \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right)
 $$
 
+Dette bringer mig til den del af Matematisk Analyse 3 som jeg virkelig hadede.
+Vi skal gætte på en løsning...
+
 På samme måde som der var en taylor-række for $e^x$, er der en taylor-række for 
 $\ln(1+x)$:
 
@@ -209,5 +238,60 @@ $$
 \ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \frac{x^5}{5} - \frac{x^6}{6} + ... \\
 = \sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}x^n
 $$
+Hvis vi sætter:
+$$
+x = 1 + \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n)
+$$
 
-Dette bringer mig til den del af Matematisk Analyse 3 som jeg virkelig hadede.
+Får vi:
+$$
+\ln(M_Z(t)) = n\ln(1+x) =\\
+n\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n}x^n = \\
+n\left( \sum_{k=1}^{\infty}\frac{(-1)^{k+1}}{k} \left( \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right)^k\right)
+$$
+Den kan vi splitte op (det er endnu en ide man skal "få").
+Vi sætter k = 1, og 
+
+$$
+\ln(M_Z(t)) = n\left(\left( \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right) + 
+\sum_{k=2}^{\infty}\frac{(-1)^{k+1}}{k} \left( \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right)^k\right)
+$$
+
+Så ganger vi n ind i parantesen og reducerer den første sum:
+
+$$
+\ln(M_Z(t)) = \left( \frac{nt^2}{2!n} + \frac{nt^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{nt^n}{n!n^{n/2}}E(Y_i^n) \right) + 
+n\sum_{k=2}^{\infty}\frac{(-1)^{k+1}}{k} \left( \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right)^k \\
+= \left( \frac{t^2}{2!} + \frac{t^3}{3!n^{1/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{(n-2)/2}}E(Y_i^n) \right) + 
+n\sum_{k=2}^{\infty}\frac{(-1)^{k+1}}{k} \left( \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right)^k
+$$
+
+n er jo antallet af fordelinger fra start. Og hele pointen er jo at undersøge
+hvad der sker når det antal stiger og nærmer sig uendelig.
+
+$$
+\lim_{n \rightarrow \infty}\ln(M_Z(t)) = \lim_{n \rightarrow \infty} \left( \frac{t^2}{2!} + \frac{t^3}{3!n^{1/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{(n-2)/2}}E(Y_i^n) \right) + 
+n\sum_{k=2}^{\infty}\frac{(-1)^{k+1}}{k} \left( \frac{t^2}{2!n} + \frac{t^3}{3!n^{3/2}}E(Y_i^3) + ... + \frac{t^n}{n!n^{n/2}}E(Y_i^n) \right)^k
+$$
+Hvad sker der når n går mod uendelig? I alle brøker, bortset fra den 
+første $\frac{t^2}{2!}$, er der en nævner hvor n optræder med en positiv 
+eksponent. Den nævner går derfor mod uendelig, alle brøkerne går derfor mod 0.
+Og det eneste der er tilbage er derfor:
+
+$$ 
+\lim_{n \rightarrow \infty}\ln(M_Z(t)) \\
+= \frac{t^2}{2!} \\
+= \frac{t^2}{2}
+$$
+
+Når vi så eksponentierer for at komme af med logaritmen får vi:
+
+$$
+M_Z(t) = e^{\ln(M_Z(t))} = e^{t^2/2}, n \rightarrow \infty
+$$
+
+
+Det er identisk med den momentgenerende funktion for (den standardiserede) 
+normalfordeling. 
+
+Hermed bevist!
