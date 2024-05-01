@@ -98,6 +98,9 @@ del af observationerne der skal være mindre eller større.
 Så tæller vi op hvordan vores observationer faktisk fordeler sig. og sammenligner 
 med hvordan normalfordelingen ser ud - så kan vi se afvigelsen.
 
+her er der link til hvad jeg har fået skrevet om percentiler i episoden
+om deskriptiv statistik.
+
 indsæt qqplot.
 
 Punkterne kan selvfølgelig følge linien 100%. I så fald er vores data i hvert fald
