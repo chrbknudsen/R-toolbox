@@ -35,13 +35,13 @@ that row, corresponding to a column, separated with a separator, typically a
 comma.
 
 Many languages use commas as decimal separators. That neccesitates an option 
-for using something else than a comma. Typicalla a semicolon.
+for using something else than a comma. Typically a semicolon.
 
 ### Truly commaseparated files
 
 Use `read.csv()` (from base-R) or `read_csv()` (from `readr`, included in `tidyverse`)
 
-We recommend `read_csv()`
+We recommend using `read_csv()`.
 
 ### Semicolon separated files
 
@@ -50,7 +50,8 @@ Use `read.csv2()` (from base-R) or `read_csv2()` (from `readr`, included in `tid
 We recommend `read_csv2()`
 
 Especially `read_csv` and `read_csv2` take a lot of arguments that can control 
-datatypes, handling of headers.
+datatypes, handling of headers etc. For most use, the default options are 
+enough, but if you need to adjust something, there are plenty of options for that.
 
 ## Excel-files
 
