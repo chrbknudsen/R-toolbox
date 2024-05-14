@@ -45,6 +45,56 @@ The area under the curve is 1, equivalent to 100%.
 The normal distribution have a lot of nice mathematical properties, some of which
 are indicated on the graph. 
 
+Konceptet med - hvad er sandsynligheden for at se en observation der ligger
+x standardafvigelser fra middelværdien.
+
+This allows us to calculate the probability of finding a certain value in the data,
+if the data is normally distributed, if we know the mean and the standard deviation.
+
+R provides us with a set of functions:
+
+pnorm the probability of having a smaller value than. 
+qnorm the value corresponding to a given probability
+dnorm the probability density of the norma distribution at a given x.
+
+Og det er for den standardiserede normalfordeling N(0,1)
+
+De har mulighed for at returnere værdier for en hvilken som helst normalfordeling
+med arbitrære middelværdi og standardafvigelse.
+
+An example:
+
+If the height of men are normally distributed, with a mean (mu) = 183 cm, and 
+a standarddeviation of 9.7 cm. How probably is it to find a man that is taller
+than 2 meters? 
+
+Directly:
+```{r}
+1 - pnorm(200,183,9.7)
+```
+In this example, pnorm returns the probability of an observation smaller than
+200, if data is normally distributed with mean 183, and standard deviation 9.7.
+
+The probability of finding any observation is 1. So the probability of finding
+an observation larger than 200, is 1 minus the probability of finding an observation 
+smaller than 200.
+
+Manually we could calculate the distance from 200 to 183 = 17. And divide that
+with the standard deviation 9.7: 17/9.7 = 1.752577. 
+
+```{r}
+1 - pnorm(1.752577)
+```
+
+
+
+How many men are between 170 and 190 cm tall?
+Lidt før dette punkt skal vi videre til næste lesson.
+
+Og efter clt videre til hypotesetests
+
+## CLT
+
 CLT fører til at vi kan betragte middelværdien for vores data som normalfordelt.
 selv når disse data ikke _er_ normalfordelte.
 

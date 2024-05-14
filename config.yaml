@@ -70,6 +70,8 @@ episodes:
 - regression3.Rmd
 - regression4.Rmd
 - table1.Rmd
+- descreptive-statistics.Rmd
+- diagramtest.Rmd
 
 # Information for Learners
 learners: 
