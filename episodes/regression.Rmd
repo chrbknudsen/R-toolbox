@@ -1,5 +1,5 @@
 ---
-title: 'regression'
+title: 'Linear regression'
 teaching: 10
 exercises: 2
 ---
@@ -19,16 +19,6 @@ exercises: 2
 
 ## Introduction
 
-When making a regression, we are attempting to construct a model, explaining a
-dependent variable, with one or more independent variables.
-
-We are positing that at variable in our dataset varies, and that that variation
-can be explained by variations in other varibles. Ideally variables we can 
-control. That allows us to change an independent variable, and confirm that 
-the dependent variable actually changes as predicted.
-
-We begin by looking at the simplest case; identifying a linear relationship
-between two variables:
 
 
 Here is some data:
@@ -62,6 +52,23 @@ mtcars %>%
 
 Not that bad, the connection is not 100%, we are seeing variation.
 
+$$mpg = $$
+
+
+
+When making a regression, we are attempting to construct a model, explaining a
+dependent variable, with one or more independent variables.
+
+We are positing that at variable in our dataset varies, and that that variation
+can be explained by variations in other varibles. Ideally variables we can 
+control. That allows us to change an independent variable, and confirm that 
+the dependent variable actually changes as predicted.
+
+We begin by looking at the simplest case; identifying a linear relationship
+between two variables:
+
+
+Det der er pointen er at modellen også forudsiger.
 
 Lad os prøve at lægge en linie ind:
 
@@ -90,6 +97,7 @@ En ret linie kan beskrives som:
 
 
 $$ y = ax + b$$
+
 
 Eller, mere generelt
 
@@ -160,13 +168,17 @@ Vi kan få flere detaljer:
 summary(linear_model)
 ```
 
-
-
-
-
 summary - fortolkning af parametre.
 
+Let us look at the output, step by step.
+
+First, we get a repetition of the model we build
+
 Forudsætning: residualerne skal være normal fordelte. med andre ord, test det!
+
+
+
+
 
 ## Multipel lineær regression
 

@@ -2,7 +2,7 @@
 main_topsize: 0.2 #percent coverage of the poster
 main_bottomsize: 0.1
 #ESSENTIALS
-title: '**A pick and choose course in data**'
+title: ''
 author:
   - name: '**Ene Rammer**'
     affil: 1
@@ -17,9 +17,10 @@ author:
   
 affiliation:
   - num: 1
-    address: KUB Datalab
+    address: Københavns Universitetsbibliotek, KUB Datalab, Nørre Allé 49, 2200 København N
+
 main_findings:
-  - "Et vælg og vrag data kursus"
+  - "Made-to-Measure data kurser"
 logoleft_name: Datalab_colours_clear.png
 logoright_name: DKB_logo_expanded_black_RGB.png
 # logocenter_name: http://raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png
@@ -60,17 +61,23 @@ er efterspørgsel på.
 knitr::write_bib(c('posterdown', 'rmarkdown','pagedown'), 'packages.bib')
 ```
 
-## Infrastruktur
+# Infrastruktur
 
-carpentries, sandpaper  noget [@sandpaper], github
+Kurset er opbygget i Workbench infrastrukturen fra Carpentries [@TheCarpentries] 
+med brug af sandpaper [@sandpaper] pakken, og tilgængeliggjort på GitHub.
+
 
 <!-- pagedown	pagedown::chrome_print("myfile.Rmd") -->
-
-# Methods
 
 Hvordan bygger vi så hurtigt et kursus?
 
 klon siden, rediger config.yaml, PR - og så er den der.
+
+
+# Methods
+
+Kursets didaktiske tilgang er baseret på teaching tech together. code-along
+etc.
 
 I will show here how to include poster elements that may be useful, such as an equation using mathjax:
 
@@ -84,13 +91,13 @@ knitr::include_graphics("kursussiden.png")
 
 
 
-To reference a citation you can add your `.bib` file to the working directory and name it in the YAML metadata or generate an automated one as done here, then you only need to reference the label value in the `.bib` file. For example this package is built on top of the wonderful {pagedown} package and I will cite it at the end of this sentance using this in the rmd `[@R-pagedown]` [@R-pagedown].
+
 
 To get a better understanding of how to include features like these please refer to the {posterdown} [wiki](https://github.com/posterdown/wiki).
 
 **_Now on to the results!_**
 
-# Results
+# Indhold
 
 Here you may have some figures to show off, bellow I have made a scatterplot with the infamous Iris dataset and I can even reference to the figure automatically like this, `Figure \@ref(fig:irisfigure)`, Figure \@ref(fig:irisfigure).
 
@@ -128,4 +135,9 @@ knitr::kable(
   escape = FALSE)
 ```
 
-# References
+Hvor finder du den?
+https://github.com/kubdatalab/R-toolbox
+
+https://kubdatalab.github.io/R-toolbox/
+
+# Referencer

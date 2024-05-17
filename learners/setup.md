@@ -2,6 +2,7 @@
 title: Setup
 ---
 
+## Setup
 FIXME: Setup instructions live in this document. Please specify the tools and
 the data sets the Learner needs to have installed.
 
@@ -27,6 +28,8 @@ FIXME: place any data you want learners to use in `episodes/data` and then use
        link to it, replacing the example.com link.
 -->
 Download the [data zip file](https://example.com/FIXME) and unzip it to your Desktop
+
+palmerpenguins
 
 ## Software Setup
 
