@@ -19,41 +19,63 @@ exercises: 2
 
 ## Introduction
 
-
-
-Here is some data:
+Here is some data, observations of the distance (in ft) it takes to stop a car driving
+at different speeds (in mph):
 
 ```{r}
 library(tidyverse)
-mtcars %>% 
-  ggplot(aes(wt,mpg)) +
+cars %>% 
+  ggplot(aes(speed,dist)) +
   geom_point()
 
 
 ```
 
-We are looking at cars, and have their weight (in 1000 pound) on the x-axis, and
-their fuel economy (in miles pr gallon) on the y-axis.
+Not surprisingly the faster the car travels, the longer distance it takes to stop it.
 
-It is not much of a surprise, that the heavyer the car, the worse fuel economy.
+If we want to predict how long a car traveling at 10 mph takes to stop, we could
+look at the observations at 10 mph and note that there is some variation. We 
+might take the average of those observations, and use that as an estimate of 
+how many feet it takes to stop a car traveling at 10 mph. 
 
-It also appears that we could draw a straight line through the points, describing
-the connection between the two variables.
+But what if we want to predict how long it takes to stop the car if we are driving
+it at 12.5 mph instead? That would be nice to know, in order to avoid hitting stuff.
+There are no observations in the data at 12.5 mph! We could estimate it as the
+average of the stopping distance at 12 mph and at 13 mph (21.5 and 35 ft respectively)
+and give an estimate of 28.25 ft.
 
+But what if we want the distance at 12.4 mph? 12.5 is exactly at the middle of
+the interval of 12 to 13 mph.
 
-Let us add a straight line:
+Instead of this, we note that it appears possible to draw a straight line 
+through the points, describing the connection between the two variables.
+
+Let's do that:
 
 ```{r}
-mtcars %>% 
-  ggplot(aes(wt,mpg)) +
+cars %>% 
+  ggplot(aes(speed,dist)) +
   geom_point() +
   geom_smooth(method = "lm", se = F)
 ```
 
-Not that bad, the connection is not 100%, we are seeing variation.
+The points do not fall precisely on the line, but it's not very bad.
 
-$$mpg = $$
+When we want to figure out how long it takes to stop a car driving at 12.5 mph,
+we can locate 12.5 on the x-axis, move vertically up to the line, and read the
+corresponding value on the y-axis, about 30 mph.
 
+But we can do better. Such a line can be described mathematically. Straight lines
+in two dimensions can in general be described using the formula:
+
+$$
+y = ax + b
+$$
+or, in this specific case:
+
+$$
+dist = a*speed + b
+$$
 
 
 When making a regression, we are attempting to construct a model, explaining a

@@ -18,7 +18,7 @@ sig for det alligevel.
 For nogen af episoderne har vi emnet fuldt udfoldet. Det har vi når nogen af os
 synes at vi forstår matematikken så godt at vi tør forklare den. Og så er der 
 de episoder hvor vi kun ser på hvordan man gør dette eller hint i R. Det er når vi
-ikke synes at vi forstår matematikken.
+ikke synes at vi forstår matematikken (godt nok).
 
 ## Data Sets
 
