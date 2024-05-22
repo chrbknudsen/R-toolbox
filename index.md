@@ -19,8 +19,5 @@ absolut minimum.
 This is a general collection of content covering concepts and curriculum
 frequently requested for tailormode courses in KUB Datalab. The 
 
-This is a new lesson built with [The Carpentries Workbench][workbench]. 
 
-
-[workbench]: https://carpentries.github.io/sandpaper-docs
 

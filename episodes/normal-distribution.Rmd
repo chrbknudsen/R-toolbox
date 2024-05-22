@@ -37,13 +37,19 @@ standard deviation. We can see that it is the "true" mean and standard deviation
 the entire population, basically for the _entire_ universe, because they are 
 written using greek letters.
 
-If we plot the distribution, it looks like this:
+We are often working with the standardized normal distribution,
+where mean is 0 and the standard deviation is 1. 
+
+If we plot that, it looks like this:
 
 ![The Normal Distribution. Source: https://en.m.wikipedia.org/wiki/File:The_Normal_Distribution.svg](fig/The_Normal_Distribution.svg){alt='The Normal Distribution.'}
 The area under the curve is 1, equivalent to 100%.
 
 The normal distribution have a lot of nice mathematical properties, some of which
 are indicated on the graph. 
+
+CDF-plottet - så vi har forbindelsen til den deskriptive 
+statistik.
 
 Konceptet med - hvad er sandsynligheden for at se en observation der ligger
 x standardafvigelser fra middelværdien.
@@ -154,7 +160,7 @@ om deskriptiv statistik.
 indsæt qqplot.
 
 Punkterne kan selvfølgelig følge linien 100%. I så fald er vores data i hvert fald
-normal fordelte. 
+normalfordelte. 
 
 Det vi oftest ser er at punkterne i midten af plottet følger linien ret nøje. Men at 
 der er afvigelser i hver ende, hvor de enten ligger over eller under linien. 

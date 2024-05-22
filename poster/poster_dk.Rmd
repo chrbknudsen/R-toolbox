@@ -135,6 +135,11 @@ knitr::kable(
   escape = FALSE)
 ```
 
+
+```{r pingviner, echo=FALSE, fig.cap="palmer penguins hexsticker -Artwork by @allison_horst ", out.width = '20%'}
+knitr::include_graphics("../figure/palmerpenguins.png")
+```
+
 Hvor finder du den?
 https://github.com/kubdatalab/R-toolbox
 
