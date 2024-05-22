@@ -73,6 +73,7 @@ episodes:
 - descreptive-statistics.Rmd
 - diagramtest.Rmd
 - clt.Rmd
+- multiple-regression.Rmd
 
 # Information for Learners
 learners: 
