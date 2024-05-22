@@ -77,89 +77,53 @@ $$
 dist = a*speed + b
 $$
 
+`a` and `b` are the coefficients of this "model". `a` is the slope, or how much
+the distance changes, if we change speed by one. `b` is the intercept, the value
+where the linie crosses the y-axis. Or the distance it takes to stop a car, traveling
+at a speed of 0 miles per hour - a value that does not necessarily make sense,
+but is still a part of the model.
 
-When making a regression, we are attempting to construct a model, explaining a
-dependent variable, with one or more independent variables.
+If we want to be very strict about it, that `=` is not really equal. The expression
+describes the straight line, but the actual observations do not actually fall on
+the line. If, for a given dist and speed, we want the expression to actually be 
+equal, there is some variation that we need to include. We do that by adding 
+a `residual`:
 
-We are positing that at variable in our dataset varies, and that that variation
-can be explained by variations in other varibles. Ideally variables we can 
-control. That allows us to change an independent variable, and confirm that 
-the dependent variable actually changes as predicted.
+$$
+dist = a*speed + b + \epsilon
+$$
 
-We begin by looking at the simplest case; identifying a linear relationship
-between two variables:
+And, if we want to be very mathematical concise, instead of using `a`and `b` for
+the coefficients in the expression, we would instead write it like this:
 
+$$
+dist = \beta_0 + \beta_1 speed + \epsilon
+$$
 
-Det der er pointen er at modellen også forudsiger.
+That is all very nice. But how do we find the actual `a` and `b` (or $\beta_i$)?
+What is the "best" line or model for this?
 
-Lad os prøve at lægge en linie ind:
+We do that by fitting `a` and `b` to values that minimizes $\epsilon$, that is,
+we need to find the difference between the actual observed values, and the 
+prediction from the expression or model. Instead of looking at the individual
+differences one by one, we look at the sum of the differences, and minimized that.
+However, the observed values can be larger than
+the prediction, or smaller. The differences can therefore be both negative and
+positive, and the sum might be zero because the difference might cancel each other
+out. 
 
+To avoid that problem, we square the differences, and the minimize the sum of the
+squares. That is the reason for calling the method for minimizing $\epsilon$,
+and by that findin the optimal `a` and `b`, "least squares".
 
-Ikke helt fjollet. Vi kan tænke på linien som en forudsigelse. Hvis vi ved at 
-bilen vejer 4 (og det er i enheden tusinde pund), så finder vi 4 på x-aksen,
-går lodret op til linie, vandret til y-aksen, og så kan vi aflæse hvilken
-brændstoføkonomi den bil har. 
-Vi kan se at der ikke er ret mange af punkterne der ligger præcist på linien.
-Det er et udtryk for den fejl der er i vores linie, eller vores model, for biler,
-der forudsiger mpg. En given bil med en bestemt vægt har en bestemt brændstoføkonomi.
-Og den er normalt forskellig fra hvad vores model forudsiger at den har. Den
-forskel kalder vi for et "residual", og den vises i plottet, som afstanden mellem
-punktet og linien.
-Linien er den vi finder, når vi leder efter en linie, hvor summen af residualerne
-er mindst mulig. Der hvor, hvis vi ændrer en lille smule på linien, så bliver den
-sum større.
-I praksis lægger vi ikke residualerne sammen. Nogen af dem ligger over linien, de
-er positive. De der ligger under er negative. Og vi risikerer at deres sum 
-bliver 0, at de udligner hinanden, selvom de er meget store.
-Derfor kvadrerer vi dem - på den måde er vi sikre på at de alle er positive.
+In a simple linear model like this, we can calculate the coefficients directly:
 
-I plottet finder R linien for os. Men hvordan ser den ud?
-
-En ret linie kan beskrives som:
-
-
-$$ y = ax + b$$
-
-
-Eller, mere generelt
-
-$$ Y = \beta_0 + \beta_1X$$
-
-$\beta_0$ er skæringen med y-aksen. $\beta_1$ er liniens hælding. Altså hvor
-meget værdien af Y på linien ændrer sig når vi ændrer X med 1.
-
-Y omtaler vi ofte som den afhængige variabel, og X som den uafhængige. Det er X
-vi i et forsøg kan ændre på. Og så finder vi ud af hvad Y bliver når vi har gjort det.
-
-Øvelsen i en lineær regression er at finde ud af hvilke $\beta$ der giver en
-ret linie, der passer bedst med de punkter vi har.
-
-Alle punkterne i vores datasæt har en x-værdi og en y-værdi. Og med vores ligning
-kan vi for en given x-værdi beregne hvad y burde være i følge modellen. Den passer
-sjælden præcist med de værdier vi har i datasættet.
-
-Derfor beskriver vi ligningen, modellen, lidt mere generelt:
-
-$$ Y = \beta_0 + \beta_1X + \epsilon$$
-
-$\epsilon$ er fejlen. Det er forskellen på hvad modellen siger y er for en 
-bestemt værdi af x. Og så det y i virkeligheden er i vores data.
-
-Vi har altså et $\epsilon$ for hver observation i vores datasæt.
-
-Når vi laver sådan en lineær model, finder R de $\beta_0$ og $\beta_1$ der
-giver den mindst mulige sum af alle $\epsilon$ for alt vores data. $\epsilon$ kan
-være både negativ og positiv. Så i stedet for bare at lægge dem samme, kvadrerer vi dem
-først. Det gør at de alle er positive, og derfor ikke kan udligne hinanden. Det 
-gør også noget af den bagvedliggende matematik enklere.
-
-Når det er den helt enkle lineære model vi har her, kan vi springe noget matematik over, og 
-beregne koefficienterne direkte:
 
 $$\beta_1 = \frac{\sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y})}{\sum_{i=1}^{n} (x_i - \overline{x})^2}$$
 
 $$\beta_0 = \overline{y} - \beta_1\overline{x}$$
 
+We do not want to do that - R can do it for us, with the function `lm()`
 Det gider vi ikke selv, det får vi R. Og det gør vi med funktionen lm():
 
 
@@ -167,62 +131,160 @@ Det gider vi ikke selv, det får vi R. Og det gør vi med funktionen lm():
 lm(y~x, data = data)
 ```
 
-y~x er Rs formelnotation, der beskriver at y er en funktion af x.
+y~x is the "formula notation" in R, and describes that y is a function of x.
 
-For vores eksempel ovenfor:
+Using the example from above:
 
 ```{r}
-linear_model <- lm(mpg~wt, data = mtcars)
+linear_model <- lm(dist~speed, data = cars)
 ```
 
-Vi gemte resultatet i et objekt, så vi kan arbejde videre med det:
+We saved the result of the function in an object, in order to be able to work 
+with it. If we just want the coefficients we can output the result directly:
 
 ```{r}
 linear_model
 ```
-Vi får koeeficienterne ud. Skæringen med y-aksen, og hældningen, der fortæller
-os at når vi øger bilens vægt med 1 (tusinde pund), så falder mpg, brændstoføkonomien,
-med 5.344.
+This gives us the coefficients in the model. The intercept, `b` or $\beta_0$ is
+-17.579. And the slope, `a` or $\beta_1$ is 3.932.
 
-Vi kan få flere detaljer:
+Having a negative intercept, or in this case any intercept different from 0
+does not make physical sense - a car travelling at 0 miles pr hour should have 
+a stopping distance of 0 ft. 
+
+The slope tells us, that if we increase the speed of the car by 1 mph, the stopping
+distance will increase by 3.932 ft.
+
+Øvelse - hvilken dist forudsiger modellen at vi får hvis speed er 12.5
+
+We can get more details using the `summary()` function:
+
 
 ```{r}
 summary(linear_model)
 ```
+Let us look at that output in detail.
 
-summary - fortolkning af parametre.
+`Call` simply repeats the model that we build, just in case we have forgotten it - 
+but also to have the actual model included in the output, in order for other functions
+to access it and use it. We will get to that.
 
-Let us look at the output, step by step.
+The residuals are included. It is often important to take a look at those, and 
+we will do that shortly.
 
-First, we get a repetition of the model we build
+Now, the coefficients. 
 
-Forudsætning: residualerne skal være normal fordelte. med andre ord, test det!
+The estimates for intercept and speed, that is the intercept and the slope of 
+the line, are given. Those are the same we saw previously. We also get a standard
+error. That is similar, but not quite, the standard deviation of the 
+
+Det må forklares bedre end jeg kan lige nu...
+
+The t-value tests the coefficients. We are trying to describe all cars in the 
+population, but have only a small sample. How likely are we to see a specific
+value for the slope, that is as large as the one we find in our model, if the true
+value, had we looked at all cars, not just this sample, was in fact 0?
+
+If we had taken many different samples, we would have found many different
+estimates of the slope. The central limit theorem tells us, that all these
+different estimates would be normally distributed. If the true value for the 
+population, all cars ever, was zero, what is the probability of getting an estimate
+that is as extreme, or large, as the one we get here?
+
+Since we can assume that the estimates are normally distributed, we can see that,
+_if_ the true value of the slope was zero, the value we get here, is 3.9324/0.4155 = 9.46426,
+standard errors away from zero. 
+
+Calculating the probability of finding a value of the slope as large as that,
+is:
+```{r}
+1-pnorm(3.9324/0.4155)
+```
+That is the p-value, and it is essentially identical to 1.49e-12. We are very confident that the true
+value of the slope is not 0.
+
+The intercept has similarly a p-value of 0.0123.
+
+Typically we use a cut-off for significance at 0.05. If the p-value is smaller than
+that, we deem the estimate significant.
+
+RSE is the squareroot of the sum of the squared residuals, divided by the number
+of observations, $n$ minus the number of parameters in the model, in this case
+2. It is an estimate of the average difference between the observed values, and 
+the values the model predicts. We want RSE to be as small as possible. What is small?
+That depends on the size of the values. If we predict values in the range of 0 to 2, 
+an RSE of 15 is very large. If we predict values in the range 0 to 1000, it is 
+small.
+
+Multiple R-squared, is a measure of how much of the variation in `dist` that our
+model explains. In this case the model explains ~65% of the variation. Not that
+impressive, but acceptable.
+
+The adjusted R-squared adjusts the multiple R-square by the number of independent
+variables in the model. It becomes an important measure of how good the model is,
+when we get to multiple linear regression, because we will get a better R-squared 
+by adding independent variables, even if these variables do not actually have any 
+connection to the dependent variables.
+
+
+The F-statistic is 89.57 and has a p-value of 1.49e-12.
+
+This tests our model against a model where all the slopes (we only have one in this
+case) are 0; that is, is the overall model significant. In this case it is, and 
+there is overall strong evidence for the claim that the speed of the car influences
+the stopping distance.
+
+Øvelse - byg en model hvor du forudsiger længden på flipperen på en pingvin, som
+funktion af dens vægt.
+
+```{r}
+library(palmerpenguins)
+plot(penguins)
+penguin_model <- lm(flipper_length_mm~body_mass_g, data = penguins)
+
+```
+
+
+## Testing the assumptions
+
+There are certain assumptions that needs to be met in order to use a linear model.
+
+1. There should be a linear connection between the dependent and independent variable. We test
+that by comparing the observed values with the predicted values (the straight line).
+
+2. Independence. The observations needs to be independent. If one measurement influences
+another measurement, we are not allowed to use a linear model.
+
+3. Normality of residuals. The residuals must be normally distributed.
+
+There exist specific tests for the first two assumptions, but in general we know
+our data well enough to determine if they are fulfilled. The third assumptions 
+can be tested using a `qqplot`. We begin by extracting the residuals from our
+model:
+```{r}
+residuals <- residuals(linear_model)
+```
+
+And then plotting them:
+```{r}
+qqnorm(residuals)
+qqline(residuals)
+```
+The points should be (close to be) on the straight line in the plot. In this
+case they are close enough.
+
+This is also a handy way to test if our data is normally distributed.
+
+Øvelse - test om resdiualerne i pingvinmodellen er normalfordelte
+
+```{r}
+penguin_residuals <- residuals(penguin_model)
+qqnorm(penguin_residuals)
+qqline(penguin_residuals)
+```
 
 
 
-
-
-## Multipel lineær regression
-
-Det er når vi har mere end en uafhængig parameter vi vil bruge til at forklare
-den afhængige.
-
-lm(y~x+z, data = data)
-
-Det er årsage tila t vi bruger $\beta$ og nummererer. Det hænger også sammen
-med den matematik der foregår bag kulissen, som vi ikke vil bruge tid på.
-
-Teknikken kaldes "ordinary least squares" eller OLS regression. Så det er ikke
-så farligt hvis nogen taler om OLS. Det betyder enten at de virkelig ved hvad de
-taler om. Eller at de ikke har forstået så meget af det.
-
-yderligere en omgang tolkning af parametre.
-
-lad nu være med at overfitte. Vi kan bygge en model der 100% forklarer data.
-Det er ikke det samme som at det er en god model.
-
-
-## predict!
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
