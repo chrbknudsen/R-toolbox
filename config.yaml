@@ -72,6 +72,7 @@ episodes:
 - table1.Rmd
 - descreptive-statistics.Rmd
 - diagramtest.Rmd
+- clt.Rmd
 
 # Information for Learners
 learners: 
