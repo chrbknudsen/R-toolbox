@@ -129,11 +129,13 @@ intervallet.
 ## SEM og hypotesetest
 
 Vi fortsætter med haem dataene. 
-
+:::::::::::::::::::::::: challenge
 Kan vi med rimelighed antage at baggrundsværdien, den "sande" middelværdi for 
 alle kvinder, er 12. Eller, Hvad er sandsynligheden for at et gennemsnit på
 `r mean(unlist(haem))` er trukket fra en population med et gennemsnit på 12,
 og en stikprøvespredning på SEM = [hvad den nu er]?
+
+:::::::::::::::::::::::: solution
 
 1 sample t-test: t = (xbar - mu)/sem.
 Vi forestiller os at vi trækker fra en fordeling med mu = 12, og at spredningen
@@ -144,10 +146,12 @@ Skal man for langt ud er t/Z stor, og derfor er det usandsynligt.
 -> normalfordelingsemnet - hvis middelværdien er det her, og standardafvigelsen
 er det her, hvad er så sandsynligheden for at se denne værdi?
 
+:::::::::::::::::::::::: 
+
 ## endnu en hypotesetest øvelse
 
 i [] kan vi med fordel ændre ting.
-
+:::::::::::::::::::::::: challenge
 For en given population ved vi, at fordelingen af [hæmoglobinniveauet] er normalfordelt
 med middelværdi $\mu$ = [13.3] g/100ml og en spredning på $\sigma$ = 1.12 g/100 ml.
 
@@ -161,6 +165,7 @@ vil ligge mellem [13.0] og [13.6] g/100 ml
 c - hvor stor skal n være, hvis 95% af de udtagne stikprøver skal have et gennemsnit
 der ligger mellem $\mu$ - 0.2 og $\mu$+0.2
 
+:::::::::::::::::::::::: solution
 a - det er også kendt som "standard error of the mean, SEM" eller standardfejlen.
 Den finder vi ved at dividere $\sigma$ med kvadratroden af stikprøve størrelsen, n.
 b - nu sætter vi n = 15, og kan beregne SEM. 
@@ -178,6 +183,31 @@ er grænserne 13.1 og 13.5.
 95% z-værdien er 1.96. Derfor skal standardfejlen have en størrelse hvor
 intervallet \mu +/- 0.2 svarer til +/- 1.96*SEM.
 dvs 0.2 = 1.96 = sigma/sqrt(n). Løs for n. 
+:::::::::::::::::::::::: 
+
+## en eksamensopgave 
+Reformuleret så vi må bruge den.
+:::::::::::::::::::::::: challenge
+Vi antaer at fødselsvægten for børn født indenfor termine, med gestationsalder 40 uger, er approximativt _normalfordelt_ med
+middelværdi 3400 gram og spredning 420 gram. Vi kan antage at 
+disse værdier er populationsværdier. Der ønskes udført et studie for
+at afgøre om fødselsvægten for børn født indenfor termin af mødre,´
+der røg gennem hele graviditete, har samme middelværdi ($\mu$).
+
+a. Antag at der indsamles n observationer af fødselsvægten som 
+beskrevet ovenfor. Hvilken test ville du anvende, hvis det ønskes 
+undersøgt om $\mu$ = 3400? Angiv envidere den konkrete teststørrelse
+som du ville beregne baseret på de n observationer, hvor du kan bruge
+passende notation.
+:::::::::::::::::::::::: solution 
+svar. Vi kan udføre en one-sample t-test. Test-størrelsen er 
+(Xbar - 3500)/SEM.
+
+Vi tester hyootesen at fødselsvægten er trukket fra en fordeling med 
+$\mu$ = 3400, dvs hvor sandsynligt er det at trække gennemsnittet \mu, når vi kender fordelingen af stikprøve gennemsnittet.
+::::::::::::::::::::::::
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
