@@ -1,0 +1,190 @@
+---
+title: 'opgaver'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Opgave ang. mean og spredning
+
+Haemoglobin levels, g/100 ml for 70 women, raw data with highest and lowest 
+values set as bold:
+```{r echo  = FAlSE}
+haem <- tibble(x=rnorm(70, 11.98429, 1.416122) %>% round(digits = 1)) %>% 
+  mutate(a = rep(paste0("V",1:7),10)) %>% 
+  group_by(a) %>%
+  mutate(row = row_number()) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = a, values_from = x)  %>% 
+  select(-row)
+min_val <- min(haem)
+max_val <- max(haem)
+
+# Find the positions of the minimum and maximum values
+min_pos <- which(haem == min_val, arr.ind = TRUE)
+max_pos <- which(haem == max_val, arr.ind = TRUE)
+
+# Create the table using gt and style the min and max values
+gt_table <- gt(haem) %>%
+  cols_label(
+    V1 = "", V2 = "", V3 = "", V4 = "", V5 = "", V6 = "", V7 = ""
+  )
+
+# Style the minimum value cells
+for(i in 1:nrow(min_pos)) {
+  gt_table <- gt_table %>%
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_body(
+        columns = names(haem)[min_pos[i, "col"]],
+        rows = min_pos[i, "row"]
+      )
+    )
+}
+
+# Style the maximum value cells
+for(i in 1:nrow(max_pos)) {
+  gt_table <- gt_table %>%
+    tab_style(
+      style = cell_text(weight = "bold"),
+      locations = cells_body(
+        columns = names(data)[max_pos[i, "col"]],
+        rows = max_pos[i, "row"]
+      )
+    )
+}
+gt_table
+```
+
+How would we describe this dataset? 
+
+Solution - range, min and max,
+mean - men det beregner vi nok ikke.
+Spredning. 
+
+Summen af forskellen mellem hver værdi og gennemsnit - hvad er problemet med det?
+Definitorisk vil resultatet give 0 - de værdier der ligger over udligner dem der ligger under.
+
+Beregn varians i stedet.
+
+Bonus spørgsmål - Hvad er enheden? Hvordan gør vi noget med det? Kvadratroden giver 
+bedre resultat. Den kalder vi standard afvigelsen.
+
+
+## referenceintervaller
+
+Du får oplyst følgende værider, som stammer frar målte hastigheder af cykler på en cykelsti i km/h.
+Under antagelse af at hastighederne er normalfordelte, beregn et interval, som 
+indeholder 95% af værdierne.
+```{r}
+cars %>% 
+  mutate(speed = speed * 1.609344 ) %>% 
+  summarise(mean = mean(speed), sd = sd(speed))
+```
+Mean +/- 1.96 gange sd.
+```{r}
+c(24.7839 - 1.96*8.509639, 24.7839 + 1.96*8.509639)
+```
+eller mere elegant:
+```{r}
+24.7839 + c(-1,1)*1.96*8.509639
+```
+95% af hastighederne målt på cykelstien ligger mellem 8.1 og 41.5 km/t. Og - 
+vi kan antage, at denne fordeling også gælder i baggrundspopulationen, dvs alle
+cykler på cykelstien, ikke kun dem vi har målt.
+
+
+## interval på haem
+
+Vi fandt tidligere at middelværdien af hæmoglobin var `r mean(unlist(haem))` og
+standardafvigelsen var `r sd(unlist(haem))`. Antallet af observationer i stikprøven
+var `r length(unlist(haem))`. Beregn "standard error of the mean, SEM", for og
+95% konfidensintervallet for det sande gennemsnit i baggrundspopulationen.
+
+NB erstat de beregnede tal her, med selve tallene. 
+
+Løsning:
+```{r}
+SEM <- sd(unlist(haem))/sqrt(length(unlist(haem)))
+mean(unlist(haem)) + c(-1,1)*1.96*SEM
+```
+Dette interval indeholder med 95% sandsynlighed gennemsnittet $\mu$ i 
+baggrundspopulationen. Eller, lidt mere upræcist, der er 95%
+sandsynlighed for at baggrundspopulationens gennemsnit $\mu$ er indehold i
+intervallet.
+
+
+## SEM og hypotesetest
+
+Vi fortsætter med haem dataene. 
+
+Kan vi med rimelighed antage at baggrundsværdien, den "sande" middelværdi for 
+alle kvinder, er 12. Eller, Hvad er sandsynligheden for at et gennemsnit på
+`r mean(unlist(haem))` er trukket fra en population med et gennemsnit på 12,
+og en stikprøvespredning på SEM = [hvad den nu er]?
+
+1 sample t-test: t = (xbar - mu)/sem.
+Vi forestiller os at vi trækker fra en fordeling med mu = 12, og at spredningen
+af vores stikprøvegennemsnit xbar er SEM. så beregner vi hvor mange 
+SEM vi skal gå ud af x-aksen, for tilfældigt at få vores stikprøve gennemsnit.
+Skal man for langt ud er t/Z stor, og derfor er det usandsynligt.
+
+-> normalfordelingsemnet - hvis middelværdien er det her, og standardafvigelsen
+er det her, hvad er så sandsynligheden for at se denne værdi?
+
+## endnu en hypotesetest øvelse
+
+i [] kan vi med fordel ændre ting.
+
+For en given population ved vi, at fordelingen af [hæmoglobinniveauet] er normalfordelt
+med middelværdi $\mu$ = [13.3] g/100ml og en spredning på $\sigma$ = 1.12 g/100 ml.
+
+Nu udtages der stikprøver af størrelse n fra populationen, og for hver af dem
+beregnes stikprøvegennemsnittet. Fordelingen af disse gennemsnit - hvis der udtages
+uendeligt mange stikprøver - er normalfordelt med middelværdien $\mu$.
+
+a- hvad er spredningen i fordelingen af stikprøvegennemsnittene
+b - Hvis vi sætter n til [15] - beregn da proportionen af stikprøver hvis gennemsnit 
+vil ligge mellem [13.0] og [13.6] g/100 ml
+c - hvor stor skal n være, hvis 95% af de udtagne stikprøver skal have et gennemsnit
+der ligger mellem $\mu$ - 0.2 og $\mu$+0.2
+
+a - det er også kendt som "standard error of the mean, SEM" eller standardfejlen.
+Den finder vi ved at dividere $\sigma$ med kvadratroden af stikprøve størrelsen, n.
+b - nu sætter vi n = 15, og kan beregne SEM. 
+så beregner vi z-værdien for 13.0 - det er 13.0 - 13.3 divideret med SEM = ca -1.04
+Og for 13.6 det er 13.6 - 13.3 divideret med SEM = cirka 1.04 (bemærk symmetrien).
+Nu skal vi så finde sandsynligheden for at se en Z der ligger mellem disse to værdier.
+P(Z≤1.04)≈0.8508
+P(Z≤−1.04)≈0.1492
+0.8508−0.1492=0.7016
+Så proportionen af stikprøver hvis gennemsnit ligger mellem 13.0 og 13.6 er ca
+70.16%
+
+c. Hvis stikprøve gennemsnittet med 95% sandsynlighed ligger mellem +/- 0.2,
+er grænserne 13.1 og 13.5. 
+95% z-værdien er 1.96. Derfor skal standardfejlen have en størrelse hvor
+intervallet \mu +/- 0.2 svarer til +/- 1.96*SEM.
+dvs 0.2 = 1.96 = sigma/sqrt(n). Løs for n. 
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
