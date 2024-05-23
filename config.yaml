@@ -74,6 +74,8 @@ episodes:
 - diagramtest.Rmd
 - clt.Rmd
 - multiple-regression.Rmd
+- opgaver.Rmd
+- powerberegninger.Rmd
 
 # Information for Learners
 learners: 
