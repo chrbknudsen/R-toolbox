@@ -19,6 +19,10 @@ exercises: 2
 
 ## Opgave ang. mean og spredning
 
+:::::::::::::::::::::::: challenge
+
+
+
 Haemoglobin levels, g/100 ml for 70 women, raw data with highest and lowest 
 values set as bold:
 ```{r echo  = FAlSE}
@@ -70,6 +74,8 @@ gt_table
 
 How would we describe this dataset? 
 
+:::::::::::::::::::::::: solution
+
 Solution - range, min and max,
 mean - men det beregner vi nok ikke.
 Spredning. 
@@ -81,6 +87,7 @@ Beregn varians i stedet.
 
 Bonus spørgsmål - Hvad er enheden? Hvordan gør vi noget med det? Kvadratroden giver 
 bedre resultat. Den kalder vi standard afvigelsen.
+::::::::::::::::::::::::
 
 
 ## referenceintervaller
