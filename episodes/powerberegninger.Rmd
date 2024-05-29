@@ -19,6 +19,8 @@ exercises: 2
 
 ## Introduction
 
+https://www2.compute.dtu.dk/courses/introstat/slides02323/week12.pdf
+
 Vi laver en undersøgelse af et eller andet. Vi vil gerne finde svar på noget - 
 virker denne sovemedicin bedre end en anden - for en given værdi af bedre.
 Det kunne være "patienten sover to timer længere". Vi ønsker nu at vide, hvor
