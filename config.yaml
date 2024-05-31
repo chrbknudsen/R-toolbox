@@ -77,6 +77,7 @@ episodes:
 - opgaver.Rmd
 - powerberegninger.Rmd
 - rstudio.Rmd
+- packages.Rmd
 
 # Information for Learners
 learners: 
