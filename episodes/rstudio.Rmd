@@ -1,0 +1,40 @@
+---
+title: 'Tips & Tricks 4 RStudio'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How can I use RStudio more efficiently?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+tips og tricks til rstudio
+
+ctrl+shift+p - command palette. Genvej til genveje!
+
+Rainbow paranteser
+
+zoom på paneler
+
+du kan ændre layout af dine panes
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

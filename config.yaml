@@ -76,6 +76,7 @@ episodes:
 - multiple-regression.Rmd
 - opgaver.Rmd
 - powerberegninger.Rmd
+- rstudio.Rmd
 
 # Information for Learners
 learners: 
