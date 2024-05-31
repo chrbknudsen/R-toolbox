@@ -17,15 +17,26 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r setup}
+library(tidyverse)
+library(gt)
+```
+
+
+
 ## Opgave ang. mean og spredning
 
 :::::::::::::::::::::::: challenge
 
+```{python}
+1+1
+```
 
 
 Haemoglobin levels, g/100 ml for 70 women, raw data with highest and lowest 
 values set as bold:
-```{r echo  = FAlSE}
+```{r echo  = FALSE}
+set.seed(47)
 haem <- tibble(x=rnorm(70, 11.98429, 1.416122) %>% round(digits = 1)) %>% 
   mutate(a = rep(paste0("V",1:7),10)) %>% 
   group_by(a) %>%
@@ -69,6 +80,13 @@ for(i in 1:nrow(max_pos)) {
       )
     )
 }
+haem_min <- min(haem)
+haem_max <- max(haem)
+haem_range <- range(haem)
+haem_mean <- round(mean(unlist(haem)),2)
+haem_median <- round(median(unlist(haem)),2)
+haem_sd <- sd(unlist(haem))
+haem_var <- var(unlist(haem))
 gt_table
 ```
 
@@ -76,26 +94,33 @@ How would we describe this dataset?
 
 :::::::::::::::::::::::: solution
 
-Solution - range, min and max,
-mean - men det beregner vi nok ikke.
-Spredning. 
+A reasonable place to start would be reporting the minimum: `r haem_min` and 
+maximum: `r haem_max`, and, by implication, the range: `r haem_range`
 
-Summen af forskellen mellem hver værdi og gennemsnit - hvad er problemet med det?
-Definitorisk vil resultatet give 0 - de værdier der ligger over udligner dem der ligger under.
+Those are easy to find in this table, using the `min()`, `max()´, and `range()`
+functions respectively.
 
-Beregn varians i stedet.
+The mean, or average would also be relevant. In this case it is `r haem_mean`.
 
-Bonus spørgsmål - Hvad er enheden? Hvordan gør vi noget med det? Kvadratroden giver 
-bedre resultat. Den kalder vi standard afvigelsen.
+Similarly the median: `r haem_median`
+
+It would also be relevant to calculate a measure of how spread out the data 
+is. Do the observations cluster close to the mean, or are they more equally 
+distributed between the minimum and the maximum?
+
+The standard deviataion: `r haem_sd` and variance: `r haem_var` describes this,
+and can be found using the functions  `sd()` and `var()` respectively.
+
 ::::::::::::::::::::::::
 
 
 ## referenceintervaller
 
-Du får oplyst følgende værider, som stammer frar målte hastigheder af cykler på en cykelsti i km/h.
-Under antagelse af at hastighederne er normalfordelte, beregn et interval, som 
-indeholder 95% af værdierne.
-```{r}
+You are given the following values, originating from the measured speed of 
+bikes in a bikelane, measured in km/h.
+Assuming the speed is normally distributed, calculate an interval that contains
+95% of the observed values.
+```{r echo = F}
 cars %>% 
   mutate(speed = speed * 1.609344 ) %>% 
   summarise(mean = mean(speed), sd = sd(speed))
@@ -707,6 +732,10 @@ cat(sprintf("wt           %8.4f %10.4f %7.3f %9.2e ***\n",
 
 ```
 
+::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
