@@ -117,6 +117,7 @@ we can expand our knowledge.
 - Remember that csv is not always actually separated with commas.
 - The `haven` package contians a _lot_ of functions for handling weird datatypes
 - In general a package will exist for reading strange datatypes. Google is your friend!
+- Use code to read your data
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
