@@ -78,6 +78,11 @@ episodes:
 - powerberegninger.Rmd
 - rstudio.Rmd
 - packages.Rmd
+- reproducible-analysis.Rmd
+- datamanipulation.Rmd
+- tidy-data.Rmd
+- datamanipulation-advanced.Rmd
+- datatidying.Rmd
 
 # Information for Learners
 learners: 

@@ -1,0 +1,43 @@
+PUFF R4forskning
+det kommer meget an på hvilket niveau vi starter på.
+dag 1 kan vi nå intro til R, markdown, strukturing af projekt, indlæsning af data.
+
+Måske også første eksplorative øvelser.
+
+Dag 2 kan vi nå datamanipulatiion, rensning, datatyper etc.
+
+? reproducerbar analyse
+! RMarkdown
+
+Strukturer projekt. Og ikke noget med at flytte rproj filen.
+
+Indlæs data
+  Vi ændrer ikke på original data
+  Strukturer jeres data fra start
+  
+Første eksplorative øvelser
+
+Strukturer data
+  tidy
+  datatyper
+  rens og manipuler
+  
+Andet sæt eksplorative øvelser
+
+Tests. Parret, to-samples, one-sample
+
+Hvad er der ellers af tests
+
+lineære modeller
+logistiske modeller
+
+Modelbygning og evaluering - ridge og lasso, polynomisk udvidelse.
+
+plots
+
+Mere avancerede ting - k-means, pca?
+
+Markdown - hvorfor - reprodu
+Indlæs data
+
+

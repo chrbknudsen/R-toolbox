@@ -1,0 +1,238 @@
+---
+title: 'datamanipulation'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r setup, echo = FALSE}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+## Introduction
+
+Det meste af det vi skal gøre er let. Hvis vores data har den rette form.
+
+Tommelfingerreglen er at vi bruger 80% af tiden på at rense data, og 20% på
+at analysere data. Det er ikke helt ved siden af.
+
+Hvordan gør vi det?
+
+## pipen
+
+Vi taler tidy-dialekten her. Så pipen er vigtig.
+
+## dplyr
+
+A collection of functions used for changing and filtering rows and columns. 
+
+Det er de basale funktioner, som vi tager i brug når vi har en pæn og tidy
+dataframe.
+
+## select
+
+Used for selecting individual variables - otherwise known as columns. Here we
+are selecting the columns `species` and `island`:
+```{r}
+penguins %>%
+  select(species, island)
+```
+
+For most purposes select is used for paring down the data to something that is
+easier to grasp. Having 50 columns can be confusing, especially if we are only 
+interested in two. 
+
+Rather than specifying which columns we are interested in, we can specify
+which columns we are _not_ interested in:
+
+```{r}
+penguins %>% 
+  select(-c(bill_length_mm, bill_depth_mm, year))
+```
+Collecting the uninteresting columns in a vector, and placing a `-` in front,
+we can de-select the specified columns. In this case it is easier to specify
+three columns we are not interested in, than specifying the six columns that we
+_are_ interested in.
+
+A range of functions for selecting columns exists:
+```{r}
+penguins %>% 
+  select(-starts_with("bill"), year)
+```
+Most can be found in the help for the package `tidyselect`.
+
+A special way of specifying columns is the  `:` notation:
+
+```{r}
+penguins %>% 
+  select(species:bill_depth_mm)
+```
+
+It selects all columns from `species` to `bill_depth_mm` (inclusive).
+
+## filter()
+
+The filter() function filters data, that is returns only the rows that conform
+to one or more criteria:
+
+```{r}
+penguins %>% 
+  filter(species == "Adelie")
+```
+
+The arguments given to filter are predicate functions, functions returning 
+either TRUE or FALSE. The expression `species == "Adelie"` compares the values in
+the column `species` with the value `"Adelie"`, and returns TRUE for each 
+row where the expression is TRUE. Only the rows corresponding to a TRUE value,
+are returned.
+
+We are able to do a multitude of logical comparisons. Is bill_lenght_mm larger 
+than 40 mm? Simply enter the expression `bill_length > 40`. Does `species` begin
+with an "A"? Give filter() the expression str_starts(species, "A")
+
+```{r}
+penguins %>% 
+  filter(str_starts(species, "A"))
+```
+
+Any expression that can return a TRUE or FALSE value can be used in a filter(), 
+and multiple expressions can be added:
+
+```{r}
+penguins %>% 
+  filter(str_starts(species, "A"),
+         bill_length_mm > 40 | bill_depth_mm < 20)
+```
+Here we get all the rows, where species starts with an "A", bill_length_mm 
+is larger than 40, and bill_depth_mm is smaller than 20. 
+
+## mutate()
+
+The mutate() function allows us to make new columns, based on existing columns:
+
+```{r}
+penguins %>% 
+  select(species, bill_length_mm) %>% 
+  mutate(bill_length_inch = bill_length_mm*0.0393701)
+```
+
+The syntax specifies the name of the new column, and what it should be equal to.
+If we specify an name that already exists in the dataframe, it will be overwritten.
+In that way we are able to change an existing column, rather than making a new 
+column.
+
+By default mutate adds new columns to the end of the dataframe. A few arguments
+`.before` and `.after` allows us to specify a location of the new column.
+
+## summarise() and group_by()
+
+The summarise function allows us to summarise values in columns to a single value:
+
+```{r}
+penguins %>% 
+  summarise(average_weight = mean(body_mass_g, na.rm = TRUE))
+```
+Note that the result is a dataframe. We get the column with the name that we
+specified, and a value calculated, here with mean(body_mass_g, na.rm = TRUE).
+
+We are able to calculate more than one summary statistic:
+
+```{r}
+penguins %>% 
+  summarise(average_weight = mean(body_mass_g, na.rm = TRUE),
+            std_dev_weight = sd(body_mass_g, na.rm = TRUE))
+```
+Any function that can take a vector (remember that a column in a dataframe is a 
+vector), and return a single value, can be used, including string-functions:
+
+```{r}
+penguins %>% 
+  summarise(a_whole_lot_of_islands = paste0(island, collapse  = ""))
+```
+But try to use more meaningful functions than this example...
+
+`summarise` combined with `filter` allows us to calculate the mean weight
+of Adelie penguins:
+
+```{r}
+penguins %>% 
+  filter(species == "Adelie") %>% 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
+```
+
+If we want to do that calculation for each species of penguin, we can group 
+the dataframe:
+
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
+```
+
+`group_by()` will group the dataframe based on the values specified, in this case
+"species", and subsequent operations will then be done on each group. 
+
+group_by allows us to group on more than one variable/column. 
+
+```{r}
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
+```
+
+Note that the tibble (synonymous with dataframe) returned by summarise, is a grouped
+dataframe, grouped by "species". Summarise always removes the last level of grouping.
+
+If we do further operations on this dataframe, they will be done on a grouped
+dataframe. We should therefore _always_ add an "ungroup" function to our pipe:
+
+```{r}
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) %>% 
+  ungroup()
+```
+
+Doing that assures that subsequent operations happens on an ungrouped dataframe.
+
+## arrange()
+
+Finally - primarily for presentation purposes, we might want to sort a dataframe.
+
+We do that using the `arrange()` function:
+```{r}
+penguins %>% 
+  group_by(species, sex) %>% 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  arrange(avg_weight)
+```
+
+We can sort on more than one column/variable, and by default `arrange()` sort
+in ascending order. If we want to sort in descending order, we would write:
+
+`arrange(desc(avg_weight))` using the `desc()`-helper function.
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
