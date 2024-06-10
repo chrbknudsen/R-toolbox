@@ -22,7 +22,7 @@ Vi har en fordeling, det kunne eksempelvis være normalfordelingen.
 Den er defineret ved:
 
 $$X(x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}$$
-Hvor $\mu$ er middelværdien, og $\sigma$ er standardafvigelsen (og $\var^2$ er variansen).
+Hvor $\mu$ er middelværdien, og $\sigma$ er standardafvigelsen (og $var^2$ er variansen).
 
 Vi definerer nu en momentgenererende funktion:
 
@@ -171,15 +171,12 @@ $$Z = \frac{S \sqrt{n}}{n} = \frac{S}{\sqrt{n}}$$
 Og nu handler det så om at vise, at dette Z, som kommer fra vores stikprøver, 
 er det samme Z som vi definerede ovenfor.
 
-$$
-
-Z = \frac{S\sqrt{n}}{n} \\
+$$Z = \frac{S\sqrt{n}}{n} \\
 = \frac{\sqrt{n}}{n}\sum_{i=1}^nY_i \\
 = \frac{\sqrt{n}}{n}\sum_{i=1}^n \frac{X_i - \mu}{\sigma} \\
 = \frac{\sqrt{n}}{n\sigma}\left[\left(\sum_{i=1}^n X_i \right) - n\sigma\right] \\
 = \frac{\sqrt{n}}{\sigma}(\overline{X} - \mu) \\
-= \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}
-$$
+= \frac{\overline{X}-\mu}{\sigma/\sqrt{n}}$$
 
 Det betyder, at vi kender forventningsværdien og variansen af Z:
 

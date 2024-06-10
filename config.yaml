@@ -67,6 +67,7 @@ episodes:
 - datamanipulation-advanced.Rmd
 - datatidying.Rmd
 - descript-stat.Rmd
+- table1.Rmd
 - normal-distribution.Rmd
 - notes.Rmd
 - notes2.Rmd
@@ -74,7 +75,6 @@ episodes:
 - regression2.Rmd
 - regression3.Rmd
 - regression4.Rmd
-- table1.Rmd
 - diagramtest.Rmd
 - clt.Rmd
 - multiple-regression.Rmd
@@ -82,7 +82,6 @@ episodes:
 - powerberegninger.Rmd
 - rstudio.Rmd
 - packages.Rmd
-
 
 
 # Information for Learners
