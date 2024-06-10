@@ -60,17 +60,27 @@ contact: 'kubdatalab@kb.dk'
 # Order of episodes in your lesson
 episodes: 
 - introduction.Rmd
+- reproducible-analysis.Rmd
+- reading-files.Rmd
+- datamanipulation.Rmd
+- tidy-data.Rmd
+- datamanipulation-advanced.Rmd
+- datatidying.Rmd
+- descript-stat.Rmd
+- descreptive-statistics.Rmd
+- normal-distribution.Rmd
+
 - notes.Rmd
 - notes2.Rmd
-- reading-files.Rmd
-- descript-stat.Rmd
-- normal-distribution.Rmd
+
+
+
 - regression.Rmd
 - regression2.Rmd
 - regression3.Rmd
 - regression4.Rmd
 - table1.Rmd
-- descreptive-statistics.Rmd
+
 - diagramtest.Rmd
 - clt.Rmd
 - multiple-regression.Rmd
@@ -78,11 +88,8 @@ episodes:
 - powerberegninger.Rmd
 - rstudio.Rmd
 - packages.Rmd
-- reproducible-analysis.Rmd
-- datamanipulation.Rmd
-- tidy-data.Rmd
-- datamanipulation-advanced.Rmd
-- datatidying.Rmd
+
+
 
 # Information for Learners
 learners: 
