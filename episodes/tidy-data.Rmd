@@ -12,20 +12,31 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Explain what tidy data is
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
-Den konceptuelle forklaring på hvad tidy data er, og hvorfor det er smart.
+Tidy data is not the opposite of messy data. Data can be 
+nice and well structured, tidy, without being tidy in the 
+way we understand it in this context.
+
+“Tidy datasets are all alike, but every messy dataset is messy in its own way.”
+— Hadley Wickham
+
+Tidy data in the world of R, especially the dialect of R we 
+call tidyverse, are characterized by:
+
+* Each variable is a column; each column is a variable.
+* Each observation is a row; each row is an observation.
+* Each value is a cell; each cell is a single value.
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- tidy data provides a consistent way of organizing data
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
