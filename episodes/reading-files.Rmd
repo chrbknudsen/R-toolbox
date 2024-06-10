@@ -18,14 +18,30 @@ exercises: 2
 
 ## Introduction
 
+The first step of doing dataanalysis, is normally to read-in
+the data. 
+
+Data can come from many different sources, and it is practically
+impossible to cover every possible format. Here we cover some of
+the more common.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Den væsenligste pointe er egentlig at der med meget stor sandsynlighed
-eksisterer mindst en pakke der er designet til at indlæse lige netop din
-underlige filtype. Google er din ven!
+The most important point is that there is a very high probability
+that at least one package exists that is designed to read a specific
+weird data format.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Use code!
+
+RStudio makes it simple to load most common data formats. Right-click on the file in RStudio, and choose import. RStudio will then provide an interface for loading the data.
+
+However in general we prefer to have a script or a document, that can be run without us pointing and clicking. So - instead of importing the data in this way, copy the code that
+RStudio uses to import the data, and paste it into your script or document.
+
+HER KUNNE VI GODT HAVE EN ILLUSTRATION.
+
 
 ## CSV-files
 
@@ -49,9 +65,30 @@ Use `read.csv2()` (from base-R) or `read_csv2()` (from `readr`, included in `tid
 
 We recommend `read_csv2()`
 
-Especially `read_csv` and `read_csv2` take a lot of arguments that can control 
+### What they have in common
+
+`read_csv` and `read_csv2` take a lot of arguments that can control 
 datatypes, handling of headers etc. For most use, the default options are 
 enough, but if you need to adjust something, there are plenty of options for that.
+
+An especially useful argument is `guess_max`
+
+`read_csv` and `read_csv2` tries to guess the datatypes in
+the file, and will convert the data accordingly. That will 
+return a dataframe where date-time data is stored as such.
+The functions by default reads the first 1000 rows, and 
+makes a guess on the datatype based on that. 
+
+That can lead to problems if the first 1000 rows of a 
+column contain numbers, and row 1001 contains text. In that case the entire
+row will be coerced to `numeric`, and the following rows
+will contain `NA` values. Adjust the argument `guess_max` to
+something larger to catch this problem.
+
+To include every row in the guess, add `guess_max = Inf` - 
+but be carefull if you have a very large dataset.
+
+
 
 ## Excel-files
 
@@ -62,42 +99,76 @@ specify, we can use `read_xls()` or `read_xlsx()`.
 Workbooks often contains more than one sheet. We can specify which we want to 
 read in:
 
-`read_excel(path = "filename", sheet = 2`
+`read_excel(path = "filename", sheet = 2)`
 
 Which will read in sheet number 2 from the workbook "filename".
 
 Read the documentation for details on how to read in specific cells or ranges.
 
 
+
 ## SPSS
 
-Use the package `haven` to read in spss files:
+SPSS, originally "Statistical Package for the Social Sciences", later renamed "Statistical Product and Service Solutions" is a proprietary statistical software suite 
+developed by IBM.
+
+Not surprisingly it is widely used in social science.
+
+The package `haven` supports reading SPSS (Stata and SAS) files
+
+Use the package  to read in spss files:
 
 ```{r eval = F}
 library(haven)
 read_spss("filename")
 ```
 
+The function returns at tibble.
+
+Note that SPSS uses a variety of different formats.
+`read_spss()` will make a guess of the correct format, but
+if problems arise, try using one of the other functions provided in `haven`
+
 
 ## Stata
 
-Use the package `haven` to read in stata files:
+Stata is a proprietary statistical software package, used
+in a multitude of different fields, primarily biomedicine,
+epidemiololy, sociology and economics.
+
+As mentioned above, hte `haven` package provides functions
+for reading Stata files:
 
 ```{r eval = F}
 library(haven)
 read_stata("filename")
 ```
 
+The function returns at tibble.
+
+As with SPSS Stata uses a couple of different fileformats, and `read_stata` makes a guess as to which format is used.
+If problems arise, `haven` has more specific functions for
+reading specific file formats.
 
 ## SAS
 
-Use the package `haven` to read in spss files:
+SAS is a proprietary statistical software suite developed
+by SAS Institute.
+
+As mentioned above the package `haven` can read SAS-files:
+
 
 ```{r eval = F}
 library(haven)
 read_sas("filename")
 ```
 
+The function returns at tibble.
+
+As with SPSS and Stata, SAS uses a couple of different fileformats, and `read_sas` tries to guess the correct format.
+
+If problems arise, `haven` has more specific functions for
+reading specific file formats.
 
 ## Other formats
 
@@ -115,7 +186,7 @@ we can expand our knowledge.
 
 - The `readr` version of `read_csv()` is preferred
 - Remember that csv is not always actually separated with commas.
-- The `haven` package contians a _lot_ of functions for handling weird datatypes
+- The `haven` package contains functions for reading common proprietary file formats.
 - In general a package will exist for reading strange datatypes. Google is your friend!
 - Use code to read your data
 
