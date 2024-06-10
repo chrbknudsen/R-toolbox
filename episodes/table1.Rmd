@@ -29,7 +29,7 @@ demographic and clinical variables.
 It typically compares different groups (male~female, treatment~control), to highlight similarities and differences.
 
 
-```{r prep_table1_data echo = FALSE}
+```{r prep_table1_data, echo = FALSE}
 library(table1)
 dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treatment=c("Treated", "Placebo"))
 dat$age <- runif(nrow(dat), 10, 50)
@@ -168,7 +168,6 @@ Primarily of use if there are medical students on the course
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

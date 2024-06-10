@@ -1,5 +1,5 @@
 ---
-title: 'reading_files'
+title: 'Reading datafiles'
 teaching: 10
 exercises: 2
 ---
