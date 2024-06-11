@@ -28,9 +28,7 @@ library(gt)
 
 :::::::::::::::::::::::: challenge
 
-```{python}
-1+1
-```
+
 
 
 Haemoglobin levels, g/100 ml for 70 women, raw data with highest and lowest 
