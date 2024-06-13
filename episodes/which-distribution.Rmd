@@ -40,45 +40,95 @@ library(gamlss.dist)
 library(gamlss.add)
 ```
 
-Generalised Akaike information criterion
+`gamlss` has the advantage of implementing a _lot_ of different statistical 
+distributions.
+
+Let us look at some data. The `faithful` data set contains 272 observations of
+the Old Faithful geyser in Yellowstone National Park in USA. We only look at 
+eruptions that lasts longer than 3 seconds:
+
+
 ```{r}
 faithful %>% 
-  filter(eruptions > 3.1) %>% 
+  filter(eruptions > 3) %>% 
   ggplot(aes(eruptions)) +
   geom_histogram(bins=20)
 ```
-Hvilken fordeling passer bedst?
-Vi trækker data ud, og gemmer dem som objektet `y`.
+This does not look very normally distributed, and the fact that eruptions can not
+have negative lengths in it self, indicates that the data is probably not normally
+distributed. This is because the normal distribution would give us non-zero 
+probabilities for negative eruption-lengths.
+
+So - which statistical distribution best matches our data?
+
+We begin by preparing the data:
 
 ```{r}
-y <- faithful %>% 
-  filter(eruptions > 3.1) %>% 
-  pull(eruptions)
+eruption_example <- faithful %>% 
+  filter(eruptions > 3) %>% 
+  select(eruptions)
 ```
 
-Så beder vi `fitDist` lave et fit. `k = 2` angiver at penalty i den "generaliserede Akaike Informations Kriterium" (GAIC), skal være 2. Det er i øvrigt defaultværdien.
+The function `fitDist()` from `gamlss` will fit the data to a selection of different
+statistical distributions, calculate a measure of the goodness of fit, and return
+the best fit (and information on all the others). Rather than testing agains all 
+97 different distributions supported by `gamlss`, we can specify only a selection,
+in this case `realplus`, that only includes the 23 distributions that are defined
+for positive, real numbers:
 
-fitDist kan fitte til mange forskellige modeller.
 
-Her beder vi den om at fitte til fordelingsfunktioner der er defineret for reelle, positive tal.
+```{r warning=FALSE, message=FALSE}
+fit <- fitDist(eruptions, type = "realplus", data = eruption_example)
+```
+If you do this yourself, you will notice a lot of error-messages. It is not 
+possible to fit this particular data to _all_ the distributions, and the ones
+where the fit fails (enough), we will get an error message.
+
+The output from `fitDist()` will return the best fit:
+
 ```{r}
-fit <- fitDist(y, k = 2, type = "realplus")
+fit
 ```
-Det er ikke alle fordelingerne det går lige godt for. Vi er alligevel mest interesserede i dem hvor det går godt.
+We are told that the statistical distribution that best fits the data is
+`Weibull type 2` and that the AIC-measurement of goodness of fit is 170.245.
 
-Så beder vi om summary:
+Is that a good fit? That is a good question. It strongly depends on the 
+values in the dataset. In this dataset, the length of the eruptions are 
+measured in seconds. If we choose to measure that length in another unit, eg
+`wiblies` defined as two seconds - equivalent to dividing the values with 2,
+the distribution should not change. But the AIC will change.
+
+We can use the AIC to decide that one distribution fits the data better than 
+another, but not to conclude that that distribution is the correct one.
+
+The `fit` object containing the output of the `fitDist()` function contains 
+quite a bit more.
+
+If we start by getting the errors out of the way, `fit$failed` returns the 
+two distributions that failed enough to cause errors:
+
+```{r}
+fit$failed
+```
+As mentioned `fitDist()` fitted the data to 23 different distributions. We can
+inspect the rest, and their associated AIC-values like this:
+
 ```{r}
 fit$fits
-summary(fit)
 ```
-Og får at vide at det bedste bud på en sandsynlighedsfordeling for disse data er "Weibull type 3". Den er faktisk mistænkelig god... 
+Here we get `WEI2` first, with an AIC of 179.2449, but we can see that `WEI3` and
+`WEI1` have almost exactly the same AIC. Not that surprising if we guess that 
+`Weibull type 3` is probably rather similar to `Weibull type 2`. 
 
-Vi får også parametrene for den.
+The difference in AIC for the first two distributions tested is very small. Is it
+large enough for us to think that `WEI2` is significantly better than `WEI3`?
 
-Beder vi om at plotte fittet, får vi dette output:
+No. As a general rule of thumb, the difference between the AIC of two distributions
+have to be larger than 2 for us to see a significant difference.
+
 
 ```{r}
-plot(fit)
+summary(fit)
 ```
 Det er et pænt QQ-plot.
 
@@ -86,7 +136,8 @@ Det er et pænt QQ-plot.
 
 Dem kan vi også få: 
 ```{r}
-fit$fits
+plot(fit)
+fitte <- gamlss(eruptions ~ 1, family = LOGNO, data = test)
 ```
 Og det var så de fordelinger der er definerede for reelle, positive tal. Vi går efter den mindste "deviance" - afvigelsen fra idealet. Bemærk at jo flere datapunkter vi har, jo større bliver tallene. Det bedste fit er dog stadig det med den laveste værdi.
 
@@ -114,10 +165,20 @@ Så vil vi gerne have estimaterne fra de andre funktioner, kan vi få dem ved
 at lave samme kald - men med en anden `family`:
 ```{r}
 nyt_fit <- gamlssML(formula = y, family = "GG")
+
+LOGNO2    
 nyt_fit
 ```
 Resultatet kan behandles ganske som tidligere.
 
+```{r}
+test <- as_tibble(faithful) %>% 
+select(eruptions) %>% 
+  filter(eruptions > 3)
+
+faithful$eruptions
+gamlss(eruptions ~ 1, family = LOGNO2, data = eruption_example) %>% plot()
+```
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

@@ -19,7 +19,12 @@ exercises: 2
 
 ## Introduction
 
-Liste over ting der kan tilføjes
+Liste over ting der kan tilføjes når dette er tilføjet, kan R-Bestiarium repoet 
+slettes
+
+Der kan tilføjes en del punkter fra 
+https://kubdatalab.github.io/forklaringer/
+også
 
 Dyb redigering af ggplot objekter https://kubdatalab.github.io/R-Bestiarium/21-dyb-ggplot2/index.html
 https://kubdatalab.github.io/R-Bestiarium/22-programmer-ggplot2/index.html
@@ -47,13 +52,15 @@ https://kubdatalab.github.io/R-Bestiarium/17-animationer/index.html
 Generering af farvepaletter
 https://kubdatalab.github.io/R-Bestiarium/15-farver-og-striber/index.html
 
-Hvilken fordeling følger mine data?
-https://kubdatalab.github.io/R-Bestiarium/16-hvilken-fordeling/index.html
+
 
 Debugging af R
 https://kubdatalab.github.io/R-Bestiarium/20-debugging/index.html
 
 
+# Herunder er de tilføjet
+Hvilken fordeling følger mine data?
+https://kubdatalab.github.io/R-Bestiarium/16-hvilken-fordeling/index.html
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

@@ -20,17 +20,59 @@ exercises: 2
 
 ```{r setup}
 library(tidyverse)
+library(palmerpenguins)
+```
+
+## How to test if our data is normally distributed?
+
+If the statistical treatment we want to apply to our data assumes that the
+data is normally distributed - we need a way to determine if it actually is
+normally distributed.
+
+What does it mean that it is normally distributed? It means that the distribution
+of our data has the same properties as the normal distribution.
+
+### Mean and median
+
+One of the properties of the normal distribution is that the mean and median
+of the data is equal. 
+Let us look at the penguins:
+```{r}
+summary(penguins)
+```
+The categorical variables, species, island, sex and year are of course not normally
+distributed. However bill_length_mm have almost the same values of median and 
+mean, as do bill_depth_mm and flipper_length_mm. But body_mass_g have a relatively
+large difference between mean and median. Not that much of a surprise, since we
+are looking at weights of three different species of penguins, of both sexes.
+
+What next. A histogram of the data should look normal. Let us take a closer
+look at bill_depth_mm where mean and median are closest:
+
+```{r}
+penguins %>% 
+  ggplot(aes(x=bill_depth_mm)) +
+  geom_histogram()
+```
+This does not really look like a normaldistribution. The fact that mean and
+median are almost identical was not a sufficient criterium for normalcy.
+
+A better way of visualising is often density-plots:
+```{r}
+penguins %>% 
+  ggplot(aes(x=bill_depth_mm)) +
+  geom_density()
+```
+We can think of this as a histogram with infinitely small bins.
+
+```{r}
+penguins %>% 
+  ggplot(aes(x=bill_depth_mm, color = species)) +
+  geom_density()
 ```
 
 
-Hvordan tester vi så om et datasæt er normalt fordelt?
 
-Start med summary. I en normalfordeling er median og middelværdi ens.
-
-Dernæst et histogram. Hvor mange observationer falder i et bestemt interval.
-Det histogram skal helst ligne en normalfordeling.
-
-Indsæt plot.
 
 Men i hvor høj grad ligner det faktisk en normalfordeling?
 
