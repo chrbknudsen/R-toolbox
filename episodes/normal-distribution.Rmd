@@ -290,6 +290,44 @@ et p.
 i pnorm finder vi sandsynligheden for at værdien er mindre end x. I qnorm finder
 vi x for en given sandsynlighed.
 
+Er ting normalfordelte?
+
+Normalfordelingen kaldes normal fordi Karl Pearson og Francis Galton i det 19.
+århundrede observerede at det var den statistiske fordeling der forklarede 
+rigtig mange fænomener i befolkningsdata. Højde, vægt, blodtryk, intelligenskvotienter
+mv. 
+
+Så den er normal fordi det er normen, den hyppigst forekommende. Ikke at forveksle
+med en mere løs, dagligsprogs, normativ anvendelse af ordet norm. Normalen i 
+en statistisk sammenhæng er ganske enkelt den hyppigst forekommende observation.
+
+Det i statistisk forstand normale, normen, er at have brune øjne (>50% af klodens
+befolkning har brune øjne). Det betyder ikke at der er noget galt med at have
+blå øjne.
+
+Og rigtig mange ting er ret tæt på at være normalfordelte. Men i virkeligheden
+er der ikke mange fænomener der følger normalfordelingen fuldstændig. Et eksempel:
+
+Serum (en del af blod) Molybdæn (der er et essentielt sporstof i human fysiologi), har en 
+middelværdi på 1.55 og en standardafvigelse på 0.74 hos normale, raske mennesker.
+
+Rifai, N. (2017). Tietz textbook of clinical chemistry and molecular diagnostics : Tietz textbook of clinical chemistry and molecular diagnostics - e-book. Elsevier - Health Sciences Division.
+
+Hvis vi antager at serum-Molybdæn er normalfordelt i populationen, kan vi 
+beregne hvor stor en andel af den normale raske befolkning i danmark, der har 
+en Molybdæn-koncentration under 0:
+
+```{r}
+pnorm(0, mean = 1.55, sd = 0.74)
+
+```
+Hvilket vil sige at vi forventer at lidt over 100.000 danskere har et negativt 
+indhold af Molybdæn i blodet. Hvilket er fysisk umuligt.
+Hvorfor går det så godt alligevel? Fordi serum molybdæn er normalfordelt _nok_.
+
+
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content

@@ -1,0 +1,161 @@
+---
+title: 'is-it-normal'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+```{r setup}
+library(tidyverse)
+```
+
+
+Hvordan tester vi så om et datasæt er normalt fordelt?
+
+Start med summary. I en normalfordeling er median og middelværdi ens.
+
+Dernæst et histogram. Hvor mange observationer falder i et bestemt interval.
+Det histogram skal helst ligne en normalfordeling.
+
+Indsæt plot.
+
+Men i hvor høj grad ligner det faktisk en normalfordeling?
+
+Normalfordelingens egenskaber fortæller os at 50% af observationerne skal være
+større end gennemsnittet. Og 50% af observationerne skal være mindre.
+
+For hver eneste værdi på x-aksen i plottet af normalfordelingen, ved vi hvor stor en
+del af observationerne der skal være mindre eller større. 
+
+Så tæller vi op hvordan vores observationer faktisk fordeler sig. og sammenligner 
+med hvordan normalfordelingen ser ud - så kan vi se afvigelsen.
+
+her er der link til hvad jeg har fået skrevet om percentiler i episoden
+om deskriptiv statistik.
+
+indsæt qqplot.
+
+Punkterne kan selvfølgelig følge linien 100%. I så fald er vores data i hvert fald
+normalfordelte. 
+
+Det vi oftest ser er at punkterne i midten af plottet følger linien ret nøje. Men at 
+der er afvigelser i hver ende, hvor de enten ligger over eller under linien. 
+Det giver fire forskellige udfald.
+
+Hvis punkterne ligger over linien i begge ender.
+
+Det indikerer at data har tykkere haler end forventet. at der er flere 
+ekstreme værdier, både høje og lave, end vi forventer. større kurtosis end normalfordelingen.
+
+punkter ligger under linien i begge ender:
+
+data har tyndere haler end forventet. Der er færre ekstreme værdier end vi ville
+forvente. lavere kurtosis end normalfordelingen. 
+
+Øvre hale over, nedre hale under.
+Skæve data, hvor data er skubbet mod højere værdier. Høje værdier optræder 
+hyppigere end forventet. Eller lave værdier optræder sjældnere end forventet.
+
+øvre under, nedre over. 
+skæve data. i omvendt retning relativt til umiddelbart ovenstående.
+
+kurtosis 
+
+skewness
+
+kan vi sætte tal på?
+
+Ja. kurtosis og skewness. Jo tættere skewness kommer på 0, og kurtosis minus 3 på
+0, jo tættere på normalfordelt er data.
+
+R i sig selv kan ikke beregne det. Men det kan pakken
+e1071
+```{r}
+library(e1071)
+test <- rnorm(1000)
+
+```
+
+Skewness:
+```{r}
+skewness(test)
+```
+
+kurtosis
+```{r}
+kurtosis(test)
+```
+Bemærk at vores test-vektor er ret normal fordelt. Men ingen af parametrene er
+lig 0.
+
+Andre tests:
+Shapiro-Wilk
+
+```{r}
+shapiro.test(test) 
+```
+nul-hypotesen er her at data er normalfordelte. Hvis vi afviser null-hypotesen,vil det 
+i dette tilfælde, være forkert i ca. 94% af tilfældene.
+
+Testen er særligt godt til små stikprøver (<50, nogen siger den er ok op op til <2000)
+
+Det er, vist nok, principielt et mål for den lineære korrelation mellem data og 
+normalfordelte kvantiler - altså det vi ser i qq-plottet.
+
+### Kolmogorov-Smirnov
+
+vi skal specificere at det er normalfordelingen vi tester imod ("pnorm") - den kan
+nemlig teste for andre fordelinger også.
+
+```{r}
+ks.test(test, "pnorm", mean = mean(test), sd = sd(test))
+```
+Vær forsigtig. Den forudsætter at vi kender "den sande" middelværdi og standardafvigelse,
+i stedet for som i dette eksempel at estimere dem fra vores stikprøve.
+
+NULL-hypotesen er også her at data er normalfordelte, p-værdien er her 0.99, og 
+vi kan derfor ikke afvise null-hypotesen.
+
+### Liliefors test
+Den er en variation af ks-testen, der er  designet specifikt til at teste normalitet.
+Og forudsætter _ikke_ at vi på forhånd kender middelværdi og standardafvigelse.
+
+```{r}
+library(nortest)
+lillie.test(test)
+```
+Samme null-hypotese som før. Men læg igen mærke til at selvom data er 
+designet til at være normalfordelte, så er p-værdien ikke 1. 
+
+### Anderson-darling test
+
+Ikke tilgængelig i R direkte:
+```{r}
+library(nortest)
+ad.test(test)
+```
+Også her er null-hypotesen at data er normaltfordelte. 
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

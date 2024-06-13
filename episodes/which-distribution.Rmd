@@ -1,0 +1,131 @@
+---
+title: 'which-distribution'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+Certain statistical tests and procedures requires that our data
+is normally distributed. And we have to use other tests if it is
+not normally distributed. In that case we need to figure out which
+statistical distribution best fit our data.
+
+We could find that out by guessing at a distribution, fit our data
+to it, and evaluate how good the fit is.
+
+Or we can figure out a way to test at lot of different distributions
+in one go.
+
+The package `gamlss` and its plugin packages `gamlss.dist` and `gamlss.add`
+can do just that:
+
+
+```{r message = FALSE, warning = FALSE}
+library(gamlss)
+library(gamlss.dist)
+library(gamlss.add)
+```
+
+Generalised Akaike information criterion
+```{r}
+faithful %>% 
+  filter(eruptions > 3.1) %>% 
+  ggplot(aes(eruptions)) +
+  geom_histogram(bins=20)
+```
+Hvilken fordeling passer bedst?
+Vi trækker data ud, og gemmer dem som objektet `y`.
+
+```{r}
+y <- faithful %>% 
+  filter(eruptions > 3.1) %>% 
+  pull(eruptions)
+```
+
+Så beder vi `fitDist` lave et fit. `k = 2` angiver at penalty i den "generaliserede Akaike Informations Kriterium" (GAIC), skal være 2. Det er i øvrigt defaultværdien.
+
+fitDist kan fitte til mange forskellige modeller.
+
+Her beder vi den om at fitte til fordelingsfunktioner der er defineret for reelle, positive tal.
+```{r}
+fit <- fitDist(y, k = 2, type = "realplus")
+```
+Det er ikke alle fordelingerne det går lige godt for. Vi er alligevel mest interesserede i dem hvor det går godt.
+
+Så beder vi om summary:
+```{r}
+fit$fits
+summary(fit)
+```
+Og får at vide at det bedste bud på en sandsynlighedsfordeling for disse data er "Weibull type 3". Den er faktisk mistænkelig god... 
+
+Vi får også parametrene for den.
+
+Beder vi om at plotte fittet, får vi dette output:
+
+```{r}
+plot(fit)
+```
+Det er et pænt QQ-plot.
+
+## Hvordan med de andre muligheder?
+
+Dem kan vi også få: 
+```{r}
+fit$fits
+```
+Og det var så de fordelinger der er definerede for reelle, positive tal. Vi går efter den mindste "deviance" - afvigelsen fra idealet. Bemærk at jo flere datapunkter vi har, jo større bliver tallene. Det bedste fit er dog stadig det med den laveste værdi.
+
+"realline" dækker kontinuerte fordelingsfunktioner på hele den reelle tallinie
+
+"realplus" dækker kontinuerte fordelingsfunktioner på den positive, reelle tallinie
+
+"realAll" har alle kontinuerte fordelingsfunktioner på hele den relle tallinie, det vil sige alt der er omfattet af "realline" og "realplus"
+
+"real0to1" de kontinuerte fordelingsfunktioner der er defineret for værdier mellem 0 og 1.
+
+"counts" fordelingsfunktioner for tælletal
+
+"binom" fordelingsfunktioner for binomiale data.
+
+Der er mange. Læs mere om dem i [dokumentationen](https://www.gamlss.com/wp-content/uploads/2013/01/gamlss-manual.pdf), særligt appendix A.
+   
+## Hvordan med de andre fordelinger?
+
+Inde bagved er `fitDist` i virkeligheden gentagne kald til den samme funktion.
+Det afsløres i outputtet:
+`Call:  gamlssML(formula = y, family = DIST[i])` 
+
+Så vil vi gerne have estimaterne fra de andre funktioner, kan vi få dem ved
+at lave samme kald - men med en anden `family`:
+```{r}
+nyt_fit <- gamlssML(formula = y, family = "GG")
+nyt_fit
+```
+Resultatet kan behandles ganske som tidligere.
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

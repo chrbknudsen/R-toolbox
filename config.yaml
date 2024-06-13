@@ -82,7 +82,9 @@ episodes:
 - powerberegninger.Rmd
 - rstudio.Rmd
 - packages.Rmd
-
+- best-noter.Rmd
+- which-distribution.Rmd
+- is-it-normal.Rmd
 
 # Information for Learners
 learners: 
