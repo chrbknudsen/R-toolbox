@@ -1,5 +1,5 @@
 ---
-title: 'reproducible-analysis'
+title: 'Reproducible Data Analysis'
 teaching: 10
 exercises: 2
 ---
