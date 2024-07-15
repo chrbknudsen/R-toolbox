@@ -19,6 +19,8 @@ exercises: 2
 
 ## Introduction
 
+? Why in danish?
+
 A key concept in the scientific process is reproducibility. We should be able to 
 run the same experiment again, and get, more or less, the same result. 
 

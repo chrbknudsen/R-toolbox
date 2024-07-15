@@ -16,7 +16,9 @@ exercises: 2
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+https://rstats-wtf.github.io/wtf-debugging-slides/#/additional-resources
 
+https://github.com/jennybc/debugging
 
 CC-BY "Artwork by [@allison_horst](https://twitter.com/allison_horst), CC-BY".
 
