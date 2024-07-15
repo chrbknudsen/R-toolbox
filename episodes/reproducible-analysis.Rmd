@@ -19,19 +19,26 @@ exercises: 2
 
 ## Introduction
 
-? Why in danish?
-
 A key concept in the scientific process is reproducibility. We should be able to 
 run the same experiment again, and get, more or less, the same result. 
 
+::: instructor
+We will not always get the same result, applying the same functions on the
+same data - some statistical techniques relies on randomness.
+
+An example is k-means, that clusters data based on randomly selected initial
+centroids.
+
+:::
+
 This also applies to the analysis of data. If we have a collection of 
-measurements of bloodpressure from patients before and after they have taken 
+measurements of blood pressure from patients before and after they have taken 
 an antihypertensive drug, we might arrive at the result that this specific drug 
 is not working. Doing the same analysis tomorrow, we should reach the same result.
 
 And that can be surprisingly difficult!
 
-There are a lot of pitfalls, ranging from accessibility to incentive structure
+There are a lot of pitfalls, ranging from accessibility to incentive structures
 in academia. But the two areas where R can help us are:
 
 * Software Environment
@@ -40,7 +47,7 @@ in academia. But the two areas where R can help us are:
 
 ## Software Environment
 
-Doing data analysis happens using specific software, libraries or packages,
+Data analysis is done using specific software, libraries or packages,
 in a variety of versions. And it happens in an environment on the computer that
 might not be identical from day to day.
 
@@ -57,13 +64,22 @@ If our analysis relies on the way the `filter()` function works in the
 We might also have data stored in memory. Every time we close RStudio, we are 
 asked if we want to save the environment:
 
-![Should we save the environmet?](fig/save_environment.png)
+![Should we save the environment? No!](fig/save_environment.png)
 
 This will save all the objects we have in our environment, in order for RStudio
 to be able to load them into memory when we open RStudio again.
 
 That can be nice and useful. On the other hand we run the risk of having the 
-wrong version of `my_data_that_is_ready_for_analysis` lying around in memory.
+wrong version of the `my_data_that_is_ready_for_analysis` dataframe lying around in memory. 
+
+In addition we can experience performance problems. Storing a lot of large objects
+before closing RStudio can take a lot of time. And loading them into memory
+when opening RStudio will also take a lot of time.
+
+On modern computers we normally have plenty of storage - but it is entirely 
+possible to fill your harddrive with R-environments to the point where your 
+computer crashes.
+
 
 
 ## Documentation and Metadata:
@@ -73,17 +89,18 @@ the conclusion we have got to?
 
 Three very good questions. Having good metadata, data that describes your data,
 often makes understanding your data easier. Documenting the individual steps of
-your analysis, may not seem nessecary right now - you know why you are doing
+your analysis, may not seem necessary right now - you know why you are doing
 what you are doing. But future you - you in three months, or some one else,
-might not remember or be able to guess (correctly)
+might not remember or be able to guess (correctly).
+
 
 ## Complex Workflows
 
 Doing data analysis in eg Excel, can involve a lot of pointing and clicking.
 
-And in any piece of software, it will normally always involve more than one
-step. And those steps will have to be done in the correct order. Calculating
-a mean of some values, depends heavily on wether it happens before or after 
+And in any piece of software, the analysis will normally always involve more than one
+step. Those steps will have to be done in the correct order. Calculating
+a mean of some values, depends heavily on whether it happens before or after 
 deleting irrelevant observations.
 
 ## The solution to all of this!
@@ -117,6 +134,7 @@ text to one html-document.
 If you do not want an HTMl-document, you can knit to a MicroSoft Word document. 
 Depending on your computer, you can knit directly to a pdf.
 
+
 Having the entirety of your analysis in an RMarkdown document, and then running it,
 ensures that the individual steps in the analysis are run in the correct order.
 
@@ -128,23 +146,19 @@ makes it easy to add it, but you still have to do it.
 So we force ourself to have the steps in our analysis in the correct order, and
 we make it easy to add documentation. What about the environment?
 
-That is the really nice thing. Every time we `knit` our document, RStudio 
+Working with RMarkdown also adresses this problem. 
+Every time we `knit` our document, RStudio 
 opens a new session of R, without libraries or objects in memory. This ensures
 that the analysis is done in the exact same way each and every time.
 
-
-
-SPØRGSMÅL TIL RESTEN AF R-HOLDET
-
-ER DET HER VI HAR OMTALE AF PROJEKTER? OG NAVNGIVNING AF CHUNKS?
-
-OG INDLÆSNING AF KODE?
+This, on the other hand, requires us to add code chunks loading libraries and 
+data to our document.
 
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
+- Use RMarkdown to enforce reproducible analysis
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
