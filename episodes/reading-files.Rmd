@@ -1,5 +1,5 @@
 ---
-title: 'Reading datafiles'
+title: 'Reading data from file'
 teaching: 10
 exercises: 2
 ---
@@ -18,7 +18,7 @@ exercises: 2
 
 ## Introduction
 
-The first step of doing dataanalysis, is normally to read-in
+The first step of doing dataanalysis, is normally to read in
 the data. 
 
 Data can come from many different sources, and it is practically
@@ -33,14 +33,18 @@ weird data format.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+![](fig/manyfiles.webp)
+
 ## Use code!
 
 RStudio makes it simple to load most common data formats. Right-click on the file in RStudio, and choose import. RStudio will then provide an interface for loading the data.
 
+![](fig/data_import.png)
+
 However in general we prefer to have a script or a document, that can be run without us pointing and clicking. So - instead of importing the data in this way, copy the code that
 RStudio uses to import the data, and paste it into your script or document.
 
-HER KUNNE VI GODT HAVE EN ILLUSTRATION.
+
 
 
 ## CSV-files
@@ -188,7 +192,7 @@ we can expand our knowledge.
 - Remember that csv is not always actually separated with commas.
 - The `haven` package contains functions for reading common proprietary file formats.
 - In general a package will exist for reading strange datatypes. Google is your friend!
-- Use code to read your data
+- Use code to read in your data
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

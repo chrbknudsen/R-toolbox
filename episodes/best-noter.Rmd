@@ -16,7 +16,15 @@ exercises: 2
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+https://rstats-wtf.github.io/wtf-debugging-slides/#/additional-resources
 
+https://github.com/jennybc/debugging
+
+CC-BY "Artwork by [@allison_horst](https://twitter.com/allison_horst), CC-BY".
+
+
+CC-BY (Creative Commons Attribution 4.0 International License). Unless otherwise indicated, please cite using "Artwork by [@allison_horst](https://twitter.com/allison_horst)".
+https://twitter.com/allison_horst
 ## Introduction
 
 Liste over ting der kan tilføjes når dette er tilføjet, kan R-Bestiarium repoet 
@@ -52,11 +60,13 @@ https://kubdatalab.github.io/R-Bestiarium/17-animationer/index.html
 Generering af farvepaletter
 https://kubdatalab.github.io/R-Bestiarium/15-farver-og-striber/index.html
 
-
+https://x.com/allison_horst/status/1216411271903318016
 
 Debugging af R
 https://kubdatalab.github.io/R-Bestiarium/20-debugging/index.html
+https://cosimameyer.com/post/mastering-debugging-in-r/
 
+https://blogs.rstudio.com/ai/posts/2022-10-06-audio-classification-torch/
 
 # Herunder er de tilføjet
 Hvilken fordeling følger mine data?
