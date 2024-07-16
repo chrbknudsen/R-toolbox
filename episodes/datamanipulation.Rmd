@@ -1,12 +1,12 @@
 ---
-title: 'datamanipulation'
+title: 'Elementary Datamanipulation'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How do I manipulate the data to have a specific shape?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -17,24 +17,34 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r setup, echo = FALSE}
+```{r setup, echo = FALSE, message = FALSE}
 library(tidyverse)
 library(palmerpenguins)
 ```
 
 
 ## Introduction
+Og det er elementær fordi det er de grundlæggende elementer. Så måske et andet
+ord? det er elementary som i "periodic table of the elements".
 
-Det meste af det vi skal gøre er let. Hvis vores data har den rette form.
+Konceptet er at vi kan manipulere, opsummere og transformere data.
+filter(): Filtrerer rækker baseret på betingelser.
+select(): Vælger specifikke kolonner.
+mutate(): Tilføjer nye kolonner eller ændrer eksisterende.
+group_by()
+summarise(): Opsummerer data med aggregerede funktioner.
+arrange(): Sorterer rækker.
+join(): Kombinerer flere datasæt.
 
-Tommelfingerreglen er at vi bruger 80% af tiden på at rense data, og 20% på
-at analysere data. Det er ikke helt ved siden af.
-
-Hvordan gør vi det?
 
 ## pipen
 
-Vi taler tidy-dialekten her. Så pipen er vigtig.
+Vi taler tidy-dialekten her. Så pipen er vigtig. Vi bruger magrittr pipen,
+som kan håndtere mere komplekse operationer, og som stadig er meget udbredt når
+vi finder hjælp på nettet.
+
+Der findes også den native pipe |> som undertiden vil være hurtigere.
+
 
 ## dplyr
 
