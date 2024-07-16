@@ -1,0 +1,255 @@
+---
+title: 'barcharts'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+En huskeliste.
+
+De er lette at lave - sværere at få til at se pæne ud.
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+```{r}
+penguin_example <- penguins %>% 
+  select(species)
+```
+
+```{r}
+penguin_example %>% 
+ggplot(aes(x = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  x = element_blank(),
+  y = "Number of penguins",
+  title = "Number of penguins"
+)
+
+```
+Meningsfuld rækkefølge?
+
+De er pt sorteret alfabetisk. Normalt giver det mest mening at sortere dem
+efter antal.
+
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(x = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  x = element_blank(),
+  y = "Number of penguins",
+  title = "Number of penguins"
+)
+```
+Det gør det lettere at sammeligne.
+
+Vi har ikke så mange forskellige kategorier - men det er ofte en god ide at
+have dem på y-aksen når der er mange.
+
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins"
+)
+```
+Er teksten stor nok?
+
+
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins"
+) +
+  theme_grey(base_size = 14) +
+  theme(plot.title = element_text(size = rel(1.1)))
+```
+Der er en del tom plads mellem labels og "søjlern" der jo ikke er søjler længere.
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins") +
+  theme_grey(base_size = 14) +
+  theme(plot.title = element_text(size = rel(1.1))) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01)))
+```
+Fjern clutter - det har tufte holdninger til. Der er i hvert fald horisontale
+linier der er unødvendige. Og den grå baggrund? det er ikke kønt.
+
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins") +
+  theme_grey(base_size = 14) +
+  theme(plot.title = element_text(size = rel(1.1))) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+  )
+```
+Vi behøver ikke. Men - det kan være rart at have de rå tal direkte på 
+søjlerne. Det er bibliotekets ledelse særligt glade for...
+
+```{r}
+penguin_count <- count(penguin_example, species)
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins") +
+  theme_grey(base_size = 14) +
+  theme(plot.title = element_text(size = rel(1.1))) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+  ) +
+geom_text(data = penguin_count,
+mapping = aes(x = n, y = species, label = n),
+hjust = 1,
+nudge_x = -0.25,
+color = "white"
+) +
+  geom_vline(xintercept = 0) +
+  scale_x_continuous(breaks = NULL, expand = expansion(mult = c(0, 0.01))) +
+  labs(x = element_blank()) +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+```
+
+Vi kan lave ca. samme trick med labels hvis vi har lyst.
+
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue") +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins") +
+  theme_grey(base_size = 14) +
+  theme(plot.title = element_text(size = rel(1.1))) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+  ) +
+geom_text(data = penguin_count,
+mapping = aes(x = n, y = species, label = n),
+hjust = 1,
+nudge_x = -0.25,
+color = "white" ) +
+geom_text(
+  data  = penguin_count,
+  mapping = aes(x=0,y=species, label = species),
+  hjust = 0, nudge_x = 0.25, color = "white", fontface = "bold", size = 4.5) +
+geom_vline(xintercept = 0) +
+scale_x_continuous(breaks = NULL, expand = expansion(mult = c(0, 0.01))) +
+scale_y_discrete(breaks = NULL) +
+  labs(x = element_blank()) +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+```
+
+Det er en smagssag - men det kan se pænere ud med smallere bars.
+
+```{r}
+penguin_example %>% 
+  mutate(species = fct_infreq(species)) %>% 
+ggplot(aes(y = species)) + 
+geom_bar(fill = "blue",
+just = 1, 
+width = 0.4) +
+labs(
+  y = element_blank(),
+  x = "Number of penguins",
+  title = "Number of penguins") +
+  theme_grey(base_size = 14) +
+  theme(plot.title = element_text(size = rel(1.1))) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+  ) +
+geom_text(data = penguin_count,
+  mapping = aes(x = n, y = species, label = n),
+  hjust = 1,
+  vjust = 0,
+  nudge_y = 0.1,
+  color = "black",
+  size = 5.5) +
+geom_text(
+  data  = penguin_count,
+  mapping = aes(x=0,y=species, label = species),
+  hjust = 0, 
+  vjust = 0,
+  nudge_x = 0.5, 
+  nudge_y = 0.1,
+  color = "black", 
+  fontface = "bold", 
+  size = 4.5) +
+geom_vline(xintercept = 0) +
+scale_x_continuous(breaks = NULL, expand = expansion(mult = c(0, 0.01))) +
+scale_y_discrete(breaks = NULL) +
+  labs(x = element_blank()) +
+  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+```
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
