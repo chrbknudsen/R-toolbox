@@ -22,7 +22,14 @@ scoped dplyr-funktioner
 som jo så er pick og across - fordi vi faktisk ikke har scoped
 verbs længere.
 
-Så reelt de to - i kombi med mutate, filter, select etc.
+Så reelt de to - i kombi med mutate, filter, select etc. 
+
+Og hvad vi ellers har af mere komplekse dplyr funktioner.
+
+```{r}
+
+```
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
