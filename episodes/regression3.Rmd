@@ -1,5 +1,5 @@
 ---
-title: 'logistisk'
+title: 'Logistisk regression'
 teaching: 10
 exercises: 2
 editor_options: 
@@ -13,8 +13,6 @@ editor_options:
 
 ::: objectives
 -   Explain how to use markdown with the new lesson template
--   Demonstrate how to include pieces of code, figures, and nested
-    challenge blocks
 :::
 
 ## Logistisk Regression
@@ -45,7 +43,7 @@ variabler.
 
 
 Funktionen ser således ud:
-```{r}
+```{r logit_func_plot, echo = FALSE}
 library(ggplot2)
 
 logistic_function <- function(x) {
@@ -79,12 +77,18 @@ for at svaret er 1 i virkeligheden er 49%
 # fit modellen
 
 Alt det er udemærket. Måden vi i praksis gør det på er ved:
-
-model \<- glm(y \~ x1 + x2, family = binomial, data = data)
+```{r eval = FALSE}
+model <- glm(y~x1+x2, family = "binomial", data = data)
+```
 
 # koefficienter og p-værdier
 
+```{r eval = FALSE}
 summary(model)
+```
+
+
+
 
 # predict
 
@@ -112,8 +116,4 @@ Der er andre.
 
 ::: keypoints
 -   Use `.md` files for episodes when you want static content
--   Use `.Rmd` files for episodes when you need to generate output
--   Run `sandpaper::check_lesson()` to identify any issues with your
-    lesson
--   Run `sandpaper::build_lesson()` to preview your lesson locally
 :::
