@@ -1,5 +1,5 @@
 ---
-title: 'Ikke lineær'
+title: 'Non-linear regression'
 teaching: 10
 exercises: 2
 ---
@@ -13,7 +13,6 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,10 +35,7 @@ Og hvorfor vi en gang imellem skal bruge I()
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - De her ikke lineære ting er i virkeligheden lineære modeller.
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
