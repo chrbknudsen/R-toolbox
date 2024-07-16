@@ -72,6 +72,26 @@ mycumfun(0)
 ```
 
 
+https://rstudio.github.io/renv/
+
+xkcd.com/1179
+
+og how to name stuff af jenny bc
+
+Læs advarsler...
+
+Det største problem med warnings er at folk ikke læser dem.
+Mange af de warnings vores nybegyndere får, behøver de ikke bekymre sig om.
+Mange af dem behøver man heller ikke bekymre sig om.
+
+Men. Det du bør gøre når du ser en warning er:
+figure out what the warning is saying.
+figure out why the warning is triggerede.
+Figure out the effect on the results of the computation
+baseret på trin 3 figure out wether or not the results will be erronious.
+
+globale vs lokale assignments. Og environments.
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
