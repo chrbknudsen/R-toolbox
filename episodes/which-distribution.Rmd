@@ -34,7 +34,8 @@ The package `gamlss` and its plugin packages `gamlss.dist` and `gamlss.add`
 can do just that:
 
 
-```{r message = FALSE, warning = FALSE}
+```{r setup, message = FALSE, warning = FALSE}
+library(tidyverse)
 library(gamlss)
 library(gamlss.dist)
 library(gamlss.add)
@@ -61,7 +62,7 @@ probabilities for negative eruption-lengths.
 
 So - which statistical distribution best matches our data?
 
-We begin by preparing the data:
+We begin by preparing the data.:
 
 ```{r}
 eruption_example <- faithful %>% 
@@ -71,7 +72,7 @@ eruption_example <- faithful %>%
 
 The function `fitDist()` from `gamlss` will fit the data to a selection of different
 statistical distributions, calculate a measure of the goodness of fit, and return
-the best fit (and information on all the others). Rather than testing agains all 
+the best fit (and information on all the others). Rather than testing against all 
 97 different distributions supported by `gamlss`, we can specify only a selection,
 in this case `realplus`, that only includes the 23 distributions that are defined
 for positive, real numbers:
@@ -92,6 +93,7 @@ fit
 We are told that the statistical distribution that best fits the data is
 `Weibull type 2` and that the AIC-measurement of goodness of fit is 170.245.
 
+:::: callout
 Is that a good fit? That is a good question. It strongly depends on the 
 values in the dataset. In this dataset, the length of the eruptions are 
 measured in seconds. If we choose to measure that length in another unit, eg
@@ -100,6 +102,7 @@ the distribution should not change. But the AIC will change.
 
 We can use the AIC to decide that one distribution fits the data better than 
 another, but not to conclude that that distribution is the correct one.
+::::
 
 The `fit` object containing the output of the `fitDist()` function contains 
 quite a bit more.
@@ -126,18 +129,26 @@ large enough for us to think that `WEI2` is significantly better than `WEI3`?
 No. As a general rule of thumb, the difference between the AIC of two distributions
 have to be larger than 2 for us to see a significant difference.
 
-
+We can get more details using the `summary()` function:
 ```{r}
 summary(fit)
 ```
-Det er et pænt QQ-plot.
+And we can get at graphical description as well:
+
+```{r}
+plot(fit)
+```
 
 ## Hvordan med de andre muligheder?
 
 Dem kan vi også få: 
+
+
+
 ```{r}
-plot(fit)
+
 fitte <- gamlss(eruptions ~ 1, family = LOGNO, data = test)
+plot(fitte)
 ```
 Og det var så de fordelinger der er definerede for reelle, positive tal. Vi går efter den mindste "deviance" - afvigelsen fra idealet. Bemærk at jo flere datapunkter vi har, jo større bliver tallene. Det bedste fit er dog stadig det med den laveste værdi.
 
@@ -183,10 +194,8 @@ gamlss(eruptions ~ 1, family = LOGNO2, data = eruption_example) %>% plot()
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- The data generating function is not neccesarily the same as the distribution that best fit the data.
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
