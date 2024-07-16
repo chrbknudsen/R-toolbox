@@ -86,6 +86,8 @@ episodes:
 - which-distribution.Rmd
 - is-it-normal.Rmd
 - hvad-vi-glemte.Rmd
+- noter.Rmd
+- barcharts.Rmd
 
 # Information for Learners
 learners: 
