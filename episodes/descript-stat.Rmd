@@ -12,9 +12,7 @@ editor_options:
 :::
 
 ::: objectives
--   Explain how to use markdown with the new lesson template
--   Demonstrate how to include pieces of code, figures, and nested
-    challenge blocks
+-   Learn about the most common ways of describing a variable
 :::
 
 ## Introduction
@@ -23,8 +21,9 @@ editor_options:
 Det kan være en udfordring hvis deltagene ikke ved hvad et gennemsnit
 er.
 
-Inline instructor notes can help inform instructors of timing challenges
-associated with the lessons. They appear in the "Instructor View"
+En af de overordnede pointer vi gerne vil frem til her, er percentilerne og 
+det kumulative densitetsplot - der danner grundlag for forståelsen af 
+normalfordelingens sammenhæng med statistiske tests.
 :::
 
 Descriptive statistic involves summarising or describing a set of data.
@@ -151,36 +150,11 @@ We count the different values in the `sex` variable, and arrange the
 counts in descending order (`desc`). The mode of the `sex` variable is
 male.
 
-In this specific case, we note that the dataset is pretty balanced
+In this specific case, we note that the dataset is pretty evenly balanced
 regarding the two sexes.
 
 
-## A histogram
 
-A histogram is a plot or graph where we split the range of observations
-in a number of "buckets", and count the number of observations in each
-bucket:
-
-```{r}
-penguins %>% 
-  select(body_mass_g) %>% 
-  filter(!is.na(body_mass_g)) %>% 
-  mutate(buckets = cut(body_mass_g, breaks=seq(2500,6500,500))) %>% 
-group_by(buckets) %>% 
-summarise(antal = n())
-```
-
-Typically, rather that counting ourself, we leave the work to R, and
-make a histogram:
-
-```{r}
-penguins %>% 
-ggplot((aes(x=body_mass_g))) +
-geom_histogram()
-```
-
-By default ggplot chooses 30 bins, typically we should chose a different
-number, ideally set the widths of them, manually.
 
 # Measures of variance
 
@@ -313,7 +287,60 @@ Since the standard deviation occurs in several statistical tests, it is
 more frequently used that the variance. It is also more intuitively
 relateable to the mean.
 
+## A histogram
+A visual illustration of the data can be nice. Often one of the first we make, is
+a histogram. 
 
+A histogram is a plot or graph where we split the range of observations
+in a number of "buckets", and count the number of observations in each
+bucket:
+
+```{r}
+penguins %>% 
+  select(body_mass_g) %>% 
+  filter(!is.na(body_mass_g)) %>% 
+  mutate(buckets = cut(body_mass_g, breaks=seq(2500,6500,500))) %>% 
+group_by(buckets) %>% 
+summarise(antal = n())
+```
+
+Typically, rather that counting ourself, we leave the work to R, and
+make a histogram directly:
+
+```{r}
+penguins %>% 
+ggplot((aes(x=body_mass_g))) +
+geom_histogram()
+```
+
+By default ggplot chooses 30 bins, typically we should chose a different
+number:
+
+```{r}
+penguins %>% 
+ggplot((aes(x=body_mass_g))) +
+geom_histogram(bins = 25)
+```
+
+Or, ideally, set the widths of them, manually:
+
+```{r}
+penguins %>% 
+ggplot((aes(x=body_mass_g))) +
+geom_histogram(binwidth = 250) +
+ggtitle("Histogram with binwidth = 250 g")
+```
+Or even specify the exact intervals we want, here intervals from 0 to 6500 gram
+in intervals of 250 gram:
+
+```{r}
+penguins %>% 
+ggplot((aes(x=body_mass_g))) +
+geom_histogram(breaks = seq(0,6500,250)) +
+ggtitle("Histogram with bins in 250 g steps from 0 to 6500 g")
+```
+The histogram provides us with a visual indication of both range, the variation
+of the values, and an idea about where the data is located.
 
 ## Quartiles
 
@@ -473,6 +500,8 @@ penguins %>%
 
 We have removed some summary statistics in order to get a smaller table.
 
+## Boxplots
+
 Finally boxplots offers a way of visualising some of the summary
 statistics:
 
@@ -483,7 +512,7 @@ penguins %>%
 ```
 
 The boxplot shows us the median (the fat line in the middel of each
-box)m, the 1st and 3rd quartiles (the ends of the boxes), and the range,
+box), the 1st and 3rd quartiles (the ends of the boxes), and the range,
 with the whiskers at each end of the boxes, illustrating the minimum and
 maximum. Any observations, more than 1.5 times the IQR from either the
 1st or 3rd quartiles, are deemed as outliers and would be plotted as
@@ -491,9 +520,5 @@ individual points in the plot.
 
 
 ::: keypoints
--   Use `.md` files for episodes when you want static content
--   Use `.Rmd` files for episodes when you need to generate output
--   Run `sandpaper::check_lesson()` to identify any issues with your
-    lesson
--   Run `sandpaper::build_lesson()` to preview your lesson locally
+-   Nogen statisktiske pointer om det her
 :::
