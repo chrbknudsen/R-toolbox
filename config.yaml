@@ -62,11 +62,12 @@ episodes:
 - introduction.Rmd
 - reproducible-analysis.Rmd
 - reading-files.Rmd
-- datamanipulation.Rmd
+- descript-stat.Rmd
 - tidy-data.Rmd
+- datamanipulation.Rmd
+
 - datamanipulation-advanced.Rmd
 - datatidying.Rmd
-- descript-stat.Rmd
 - table1.Rmd
 - normal-distribution.Rmd
 - notes.Rmd
@@ -86,7 +87,6 @@ episodes:
 - which-distribution.Rmd
 - is-it-normal.Rmd
 - hvad-vi-glemte.Rmd
-- noter.Rmd
 - barcharts.Rmd
 
 # Information for Learners
