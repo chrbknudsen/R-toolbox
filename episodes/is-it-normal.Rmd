@@ -134,7 +134,7 @@ wrong with the data - in regards to how it deviates from normalcy.
 | Above     | Above      | Right skewed | A tail that stretches to the higher values - the extreme values are larger. |
 | Below     | Below      | Left skewed  | A tail that stretches to the lower values - the extreme values are smaller. |
 
-```{r echo = FALSE}
+```{r echo = FALSE, message=FALSE}
 library(ggplot2)
 library(gridExtra)
 
@@ -175,10 +175,10 @@ plot2 <- create_qq_plot(data_platykurtic, "")
 plot3 <- create_qq_plot(data_right_skewed, "")
 plot4 <- create_qq_plot(data_left_skewed, "")
 
-plot1d <- create_dens_plot(data_leptokurtic, "Leptokurtisk fordeling (heavier tails)")
-plot2d <- create_dens_plot(data_platykurtic, "Platykurtisk fordeling (lighter tails)")
-plot3d <- create_dens_plot(data_right_skewed, "right-skewed distribution")
-plot4d <- create_dens_plot(data_left_skewed, "Left-skewed distribution")
+plot1d <- create_dens_plot(data_leptokurtic, "Leptokurtic distribution (heavier tails)")
+plot2d <- create_dens_plot(data_platykurtic, "Platykurtic distribution (lighter tails)")
+plot3d <- create_dens_plot(data_right_skewed, "Right-skewed distribution (longer right tail)")
+plot4d <- create_dens_plot(data_left_skewed, "Left-skewed distribution (longer left tail)")
 
 # Display the plots
 grid.arrange(plot1d,plot1, plot2d, plot2, plot3d, plot3, plot4d, plot4, ncol = 2)
@@ -186,90 +186,161 @@ grid.arrange(plot1d,plot1, plot2d, plot2, plot3d, plot3, plot4d, plot4, ncol = 2
 ```
 :::
 
+## Numerical measures rather than graphical
 
+With experience the qq-plots can be used to determine if
+the data is normally distributed - the points are exactly on
+the line. But only rarely the points matches exactly - even
+if the data is normally distributed *enough*. And how much
+can the tails deviate from the line before the data is not 
+normally distributed *enough*?
 
-Ja. kurtosis og skewness. Jo tættere skewness kommer på 0, og kurtosis
-minus 3 på 0, jo tættere på normalfordelt er data.
+The deviations can be described numerically using two parameters:
 
-R i sig selv kan ikke beregne det. Men det kan pakken e1071
+Kurtosis and skewness. 
+
+Base-R do not have functions for this, but the package `e1071` does.
+
 
 ```{r}
 library(e1071)
-test <- rnorm(1000)
-
 ```
 
-Skewness:
-
 ```{r}
-skewness(test)
+skewness(normal_test_data$bill_depth_mm, na.rm = TRUE)
 ```
 
 kurtosis
 
 ```{r}
-kurtosis(test)
+kurtosis(normal_test_data$bill_depth_mm, na.rm = TRUE)
 ```
+As a rule of thumb, skewness should be within +/-0.5 if the data is normally distributed. Values between +/-0.5 and +/- 1 
+indicates a moderate skewness, where data *can* still be approximately normally distributed. Values larger that +/-1 indicates a
+significant skewness, and the data is probably not normally distributed.
 
-Bemærk at vores test-vektor er ret normal fordelt. Men ingen af
-parametrene er lig 0.
+For the kurtosis matters are a bit more complicated as the
+kurtosis for a normal distribution is 3. We therefore look at 
+excess kurtosis, where i subtract 3 from the calculated kurtosis.
+An value of +/-1 exces kurtosis indicates that the data has
+a 'tailedness' close to the normal distribution.
+Values between +/-1 and +/-2 indicates a moderate deviation from
+the normal distribution, but the data can still be approximately
+normally distributed.
+Values larger than +/-2 is in general taken as an indication that the data is not normally distributed.
 
-Andre tests: Shapiro-Wilk
+The absolute value of the excess kurtosis is larger than 2, indicating that
+the data is not normally distributed.
+
+HAR DU FAKTISK DE RETTE BETEGNELSER PÅ
+KURVERNE?
+
+## More direct tests
+
+The question of wether or not data is normally distributed is
+important in many contexts, and it should come as no surprise
+that a multitude of tests has been devised for testing exactly
+that.
+
+::::: instructor
+
+These tests can be difficult for learners that have not
+encountered hypothesis-testing before.
+
+:::::
+
+### Shapiro-Wilk
+
+The Shapiro-Wilk test is especially suited for small
+sample sizes (<50, some claim it works well up to <2000).
+
+It is a measure of the linear correlation between data and
+the normally distributed quantiles, what we see in the qqplot.
+
+The null-hypothesis is that data is normally distributed, and
+the Shapiro-Wilk test returns a p-value reporting the risk
+of being wrong if we reject the null-hypothesis. 
 
 ```{r}
-shapiro.test(test) 
+shapiro.test(normal_test_data$bill_depth_mm) 
 ```
-
-nul-hypotesen er her at data er normalfordelte. Hvis vi afviser
-null-hypotesen,vil det i dette tilfælde, være forkert i ca. 94% af
-tilfældene.
-
-Testen er særligt godt til små stikprøver (\<50, nogen siger den er ok
-op op til \<2000)
-
-Det er, vist nok, principielt et mål for den lineære korrelation mellem
-data og normalfordelte kvantiler - altså det vi ser i qq-plottet.
+The p-value in this case is 0.1418 - and we do not have 
+enough evidense to reject the null-hypothesis. The data is 
+probably normally distributed.
 
 ### Kolmogorov-Smirnov
 
-vi skal specificere at det er normalfordelingen vi tester imod
-("pnorm") - den kan nemlig teste for andre fordelinger også.
+The KS-test allows us to test if the data is distributed
+as a lot of different distributions, not only the normal 
+distribution. Because of this, we need to specify the
+specific distribution we are testing for, in this case
+a normal distribution with specific values for mean and
+standard deviation.
+
+Therefore we need to calculate those:
 
 ```{r}
-ks.test(test, "pnorm", mean = mean(test), sd = sd(test))
+mean <- mean(normal_test_data$bill_depth_mm, na.rm = TRUE)
+sd <- sd(normal_test_data$bill_depth_mm, na.rm = TRUE)
+ks.test(normal_test_data$bill_depth_mm, "pnorm", mean = mean, sd = sd)
 ```
+In this test the null-hypothesis is also that data is normally
+distributed. The p-values is very high, and therefore we 
+cannot reject the null-hypothesis. Again, this is not the same
+as the data *actually* being normally distributed. 
 
-Vær forsigtig. Den forudsætter at vi kender "den sande" middelværdi og
-standardafvigelse, i stedet for som i dette eksempel at estimere dem fra
-vores stikprøve.
+This test assumes that there are no repeated values in the data,
+as that can affect the precision of the test. The p-value is 
+still very high, and we will conclude that we cannot rule out
+that the data is not normally distributed.
 
-NULL-hypotesen er også her at data er normalfordelte, p-værdien er her
-0.99, og vi kan derfor ikke afvise null-hypotesen.
+Note that the KS-test assumes that we actually know the true
+mean and standard deviation. Here we calculate those values based on the sample, which is problematic.
 
 ### Liliefors test
 
-Den er en variation af ks-testen, der er designet specifikt til at teste
-normalitet. Og forudsætter *ikke* at vi på forhånd kender middelværdi og
-standardafvigelse.
+This is a variation on the KS-test, that is designed specifically
+for testing for normality. It does not require us to know the 
+true mean and standard deviation for the population.
+
+This test is also not available in base-R, but can be found in
+the `nortest` package:
 
 ```{r}
 library(nortest)
-lillie.test(test)
+lillie.test(normal_test_data$bill_depth_mm)
 ```
+Again the p-value is so high, that we cannot reject the null-hypothesis.
 
-Samme null-hypotese som før. Men læg igen mærke til at selvom data er
-designet til at være normalfordelte, så er p-værdien ikke 1.
+### Anderson-Darling test
 
-### Anderson-darling test
+This test is more sensitive for deviations in the tails.
 
-Ikke tilgængelig i R direkte:
+It is not available in base-R, but can be found in the 
+`nortest` package. 
 
 ```{r}
-library(nortest)
-ad.test(test)
+ad.test(normal_test_data$bill_depth_mm)
 ```
+In this case the null-hypothesis is also that data is normally
+distributed, and the p-value indicates that we cannot reject
+the null-hypothesis.
 
-Også her er null-hypotesen at data er normaltfordelte.
+
+## And is it actually normally distributed?
+
+Probably not. Except for the excess kurtosis all the tests we have 
+done indicate that the depth of the beaks of chinstrap penguins 
+can be normally distributed. Or rather, that we cannot reject the
+null-hypothesis that they are normally distributed.
+
+But the fact that we cannot reject this hypothesis is not the same
+as concluding that the data actually **is** normally distributed. 
+
+Based on the excess kurtosis and the qq-plot, it would be reasonable to
+conclude that it is not. 
+
+
 
 ::: keypoints
 -   Use `.md` files for episodes when you want static content
