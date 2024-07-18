@@ -8,13 +8,11 @@ editor_options:
 ---
 
 ::: questions
--   How do you write a lesson using R Markdown and `{sandpaper}`?
+-   How do we determine if a dataset might be normally distributed?
 :::
 
 ::: objectives
 -   Explain how to use markdown with the new lesson template
--   Demonstrate how to include pieces of code, figures, and nested
-    challenge blocks
 :::
 
 ```{r setup, warning=F, message=F}
@@ -32,7 +30,7 @@ distribution.
 
 Let us get some data that we can test:
 
-```{r}
+```{r making_test_data}
 normal_test_data <- penguins %>% 
   filter(species == "Chinstrap") %>% 
   select(bill_depth_mm)
@@ -43,7 +41,7 @@ normal_test_data <- penguins %>%
 One of the properties of the normal distribution is that the mean and
 median of the data is equal. Let us look at the penguins:
 
-```{r}
+```{r summary_of_test_data}
 summary(normal_test_data)
 ```
 
@@ -53,7 +51,7 @@ neccesary, not a sufficient condition.
 What next. A histogram of the data should look normal. Let us take a
 closer look at bill_depth_mm where mean and median are closest:
 
-```{r}
+```{r histogram}
 normal_test_data %>% 
   ggplot(aes(x=bill_depth_mm)) +
   geom_histogram()
@@ -66,7 +64,7 @@ normalcy.
 The shape of a histogram is heavily dependent on the bins we choose. A
 better way of visualizing often density-plots:
 
-```{r}
+```{r densityplot}
 normal_test_data %>% 
   ggplot(aes(x=bill_depth_mm)) +
   geom_density()
@@ -96,7 +94,7 @@ a normal distribution.
 Rather than doing that by hand, we can get R to do it for us in a nice
 graphical way:
 
-```{r}
+```{r qq-plot}
 normal_test_data %>% 
   ggplot(aes(sample = bill_depth_mm)) +
   geom_qq() +
@@ -158,10 +156,11 @@ create_dens_plot <- function(data,title){
 set.seed(123)
 
 # 1. Leptokurtic distribution (heavy tails)
-data_leptokurtic <- rt(100, df = 2)  # t-distribution with low df for heavier tails
+data_leptokurtic <- rt(1000, df = 2)  # t-distribution with low df for heavier tails
 
 # 2. Platykurtic distribution (lighter tails)
-data_platykurtic <- rbeta(100, 2, 2)  # beta distribution with peak
+data_platykurtic <- rbeta(1000, 2, 2)  # beta distribution with peak
+
 
 # 3. Right-skewed distribution
 data_right_skewed <- rlnorm(100)  # log-normal distribution
@@ -232,8 +231,7 @@ Values larger than +/-2 is in general taken as an indication that the data is no
 The absolute value of the excess kurtosis is larger than 2, indicating that
 the data is not normally distributed.
 
-HAR DU FAKTISK DE RETTE BETEGNELSER PÅ
-KURVERNE?
+
 
 ## More direct tests
 
