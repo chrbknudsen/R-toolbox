@@ -55,6 +55,7 @@ We have collected some good rules of thumb for structuring data in Excel, based
 on time-consuming and traumatic experiences wrangling data from Excel to R.
 
 **Always**
+
 * Use one column for one variable
 * Use one row for one observation
 * Use one cell for one value
@@ -63,6 +64,7 @@ on time-consuming and traumatic experiences wrangling data from Excel to R.
 
 
 **Never (EVER!)**
+
 * Modify your raw data - always make a copy before making any change
 * Merge cells
 * Use colors for information
