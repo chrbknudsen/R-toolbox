@@ -75,6 +75,7 @@ episodes:
 - notes.Rmd
 - notes2.Rmd
 - regression.Rmd
+- multiple-linear-regression.Rmd
 - regression2.Rmd
 - regression3.Rmd
 - regression4.Rmd
