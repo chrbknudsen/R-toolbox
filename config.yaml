@@ -66,10 +66,10 @@ episodes:
 - table1.Rmd
 - tidy-data.Rmd
 - datamanipulation.Rmd
-
 - datamanipulation-advanced.Rmd
 - datatidying.Rmd
 - normal-distribution.Rmd
+- hypothesis-testing.Rmd
 - is-it-normal.Rmd
 - which-distribution.Rmd
 - notes.Rmd
@@ -86,9 +86,9 @@ episodes:
 - rstudio.Rmd
 - packages.Rmd
 - best-noter.Rmd
-
 - hvad-vi-glemte.Rmd
 - barcharts.Rmd
+
 
 # Information for Learners
 learners: 
