@@ -46,8 +46,15 @@ eruptions that lasts longer than 3 minutes:
 library(tidyverse)
 eruption_example <- faithful %>% 
   filter(eruptions > 3) %>% 
-  select(eruptions)
+  dplyr::select(eruptions)
 ```
+
+:::: instructor
+
+Det er nødvendigt at specificere at vi bruger `dplyr::select` da den maskeres af
+MASS-pakken
+
+::::
 
 Rather than testing a lot of different distributions, we can use the `gamlss`
 package, and two add-ons to that.
@@ -133,56 +140,78 @@ And we can get at graphical description as well:
 plot(fit)
 ```
 
-## Hvordan med de andre muligheder?
+## What about the other options?
 
-Dem kan vi også få: 
+### General comments
 
+Above we got the "best" fit. But we also noted that in order for us to conclude
+that one distribution is a better fit than another, the difference in AIC should
+be at least 2.
 
+What we are looking for might not actually be the probability distribution that
+best fits our data. Our data might be noisy or there might me systematic errors.
+The probability distribution we really want, is the one that best matches 
+the underlying data generating function, the mechanisms in the real world that
+we are studying, that actually is at the hearth of the data we collect.
+
+We might not be able to find that. But we should consider if some of the other
+possibilities provided by `fitDist()` might actually be better.
+
+:::: instructor
+
+Og her er det vi holder dem fast på at det faktisk er dem selv der er de
+bedst kvalificerede til at afgøre det. For det er dem der forstår domænet og data.
+
+::::
+
+First step is to look at the relevant distributions. In the setup with
+`gamlss`, `gamlss.dist` and `gamlss.add` we can test distributions of different
+types. The complete list can be found using the help function for `fitDist()`, but
+falls in the following families:
+
+* realline - continuous distributions for all real values
+* realplus - continuous distributions for positive real values
+* realAll - all continuous distributions - the combination of realline and realplus
+* real0to1 - continuous distributions defined for real values between 0 and 1
+* counts - distributions for counts
+* binom - binomial distributions
+
+Begin by considering which type whatever your data is describing, best matches. 
+
+### Actually looking at the fits
+
+For the selection of eruptions that we fitted, we chose 
+the "realplus" selection of distibutions to test. We did that, because
+the eruption times are all positive, and on the real number line.
+
+:::: instructur
+
+"Real numbers", på dansk reelle tal. Hvis du ved hvad imaginære
+tal er, ved du også hvad reelle tal er. Hvis ikke - så er reelle tal alle de tal
+du vil tænke på som tal.
+
+::::
+
+Behind the scenes `fitDist` fits the data to the chosen selection of distributions,
+and returns the best.
+
+Looking at the result of the fit we see this:
 
 ```{r}
-
-fitte <- gamlss(eruptions ~ 1, family = LOGNO, data = test)
-plot(fitte)
+fit
 ```
-Og det var så de fordelinger der er definerede for reelle, positive tal. Vi går efter den mindste "deviance" - afvigelsen fra idealet. Bemærk at jo flere datapunkter vi har, jo større bliver tallene. Det bedste fit er dog stadig det med den laveste værdi.
 
-"realline" dækker kontinuerte fordelingsfunktioner på hele den reelle tallinie
+In the `Call` part of the output, we see this: 
 
-"realplus" dækker kontinuerte fordelingsfunktioner på den positive, reelle tallinie
-
-"realAll" har alle kontinuerte fordelingsfunktioner på hele den relle tallinie, det vil sige alt der er omfattet af "realline" og "realplus"
-
-"real0to1" de kontinuerte fordelingsfunktioner der er defineret for værdier mellem 0 og 1.
-
-"counts" fordelingsfunktioner for tælletal
-
-"binom" fordelingsfunktioner for binomiale data.
-
-Der er mange. Læs mere om dem i [dokumentationen](https://www.gamlss.com/wp-content/uploads/2013/01/gamlss-manual.pdf), særligt appendix A.
-   
-## Hvordan med de andre fordelinger?
-
-Inde bagved er `fitDist` i virkeligheden gentagne kald til den samme funktion.
-Det afsløres i outputtet:
 `Call:  gamlssML(formula = y, family = DIST[i])` 
 
-Så vil vi gerne have estimaterne fra de andre funktioner, kan vi få dem ved
-at lave samme kald - men med en anden `family`:
-```{r}
-nyt_fit <- gamlssML(formula = y, family = "GG")
-
-LOGNO2    
-nyt_fit
-```
-Resultatet kan behandles ganske som tidligere.
+and from that we can deduces that if we want to fit the data to eg the log-normal 
+distribution (in the documentation we find that the abbreviation for that is 
+"LOGNO"), we can do it like this:
 
 ```{r}
-test <- as_tibble(faithful) %>% 
-select(eruptions) %>% 
-  filter(eruptions > 3)
-
-faithful$eruptions
-gamlss(eruptions ~ 1, family = LOGNO2, data = eruption_example) %>% plot()
+log_norm_fit <- gamlss(eruptions ~ 1, family = LOGNO, data = test)
+summary(log_norm_fit)
 ```
 
 
