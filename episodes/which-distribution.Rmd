@@ -1,19 +1,18 @@
 ---
-title: 'which-distribution'
+title: 'How is the data distributed?'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- If my data is not normally distributed - which distribution does it actually follow?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Show how to identify possible distributions describing the data
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -210,14 +209,15 @@ distribution (in the documentation we find that the abbreviation for that is
 "LOGNO"), we can do it like this:
 
 ```{r}
-log_norm_fit <- gamlss(eruptions ~ 1, family = LOGNO, data = test)
+log_norm_fit <- gamlss(eruptions ~ 1, family = LOGNO, data = eruption_example)
 summary(log_norm_fit)
 ```
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- The data generating function is not neccesarily the same as the distribution that best fit the data.
+- The data generating function is not necessarily the same as the distribution that best fit the data
+- Chose the distribution that best describes your data - not the one that fits best
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
