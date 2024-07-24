@@ -91,6 +91,7 @@ episodes:
 - advanced-ggplot-objects.Rmd
 - ggplot-animation.Rmd
 - parallel.Rmd
+- github-and-r.Rmd
 
 # Information for Learners
 learners: 

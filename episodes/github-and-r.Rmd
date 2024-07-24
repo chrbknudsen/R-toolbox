@@ -1,0 +1,62 @@
+---
+title: 'github-and-R'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+# Interaktion med github i R-sammenhænge.
+
+Der er mange detaljer. Dette er noten om hvordan man får sat sit Personal
+Access Token (PAT) i RStudio.
+
+## Update personal access token:
+
+Det gøres lettest ved at bruge pakken `gitcreds`
+```{r gitcreds-eksempel, eval = F}
+install.packages("gitcreds")
+library(gitcreds)
+gitcreds_set()
+```
+
+Funktionen returnerer:
+```{r setcreds-output, eval  =F }
+1: Keep these credentials
+2: Replace these credentials
+3: See the password / token
+```
+
+Vælg "2" og paste dit PAT ind på prompten.
+
+Hvor får du så et PAT? Det sker heromkring fra:
+
+
+Det token får vi heromkring fra:
+
+[https://github.com/settings/tokens](https://github.com/settings/tokens)
+
+Hvilket selvfølgelig forudsætter at du er logget på GitHub.
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
