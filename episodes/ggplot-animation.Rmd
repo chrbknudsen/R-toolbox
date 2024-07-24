@@ -1,0 +1,130 @@
+---
+title: 'ggplot-animation'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+### Bar race Animation
+
+
+
+Vi skal bruge to pakker:
+```{r}
+library(ggplot2)
+library(gganimate)
+```
+
+```{r}
+library(gapminder)
+```
+
+```{r}
+data <- gapminder %>% 
+  filter(continent == "Europe") %>% 
+  group_by(year) %>% 
+  mutate(rank = rank(gdpPercap)) %>% 
+  ungroup()
+  
+
+data %>% 
+  ggplot()
+
+static_plot <- data %>% 
+  ggplot(aes(x=rank, y=gdpPercap)) +
+  geom_col() +
+  facet_wrap(~year) +
+  aes(fill = country) +
+  geom_text(col = "gray13",
+            hjust = "right",
+            aes(label = country),
+            y = -5) +
+  theme(legend.position = "none") +
+  coord_flip() +
+  scale_y_reverse() +  
+  labs(fill = NULL)
+  
+static_plot +
+  facet_null() +
+  aes(group = country) +
+  transition_time(year)
+static_plot +
+  transition_states(year, transition_length = 4, state_length = 1)
+```
+
+
+### animering i alm 
+
+Særligt når vi vil visualisere data der har en 
+tidskomponent, kan det være nyttigt at animere data.
+
+
+
+Vi skal bruge to pakker:
+```{r}
+library(ggplot2)
+library(gganimate)
+```
+
+```{r}
+library(gapminder)
+```
+
+```{r}
+data <- gapminder %>% 
+  filter(continent == "Europe") %>% 
+  group_by(year) %>% 
+  mutate(rank = rank(gdpPercap)) %>% 
+  ungroup()
+  
+
+data %>% 
+  ggplot()
+
+static_plot <- data %>% 
+  ggplot(aes(x=rank, y=gdpPercap)) +
+  geom_col() +
+  facet_wrap(~year) +
+  aes(fill = country) +
+  geom_text(col = "gray13",
+            hjust = "right",
+            aes(label = country),
+            y = -5) +
+  theme(legend.position = "none") +
+  coord_flip() +
+  scale_y_reverse() +  
+  labs(fill = NULL)
+  
+static_plot +
+  facet_null() +
+  aes(group = country) +
+  transition_time(year)
+static_plot +
+  transition_states(year, transition_length = 4, state_length = 1)
+```
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

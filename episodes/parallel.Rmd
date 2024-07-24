@@ -1,0 +1,100 @@
+---
+title: 'parallel'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+# Parallelprocessering i R
+Der køres ingen kode her - for det giver ingen mening at køre den slags på
+GitHub
+
+Når vi normalt kører R, bruger vi en enkelt kerne på computeren. Og til det
+meste rækker det. En moderne computer har normalt mere end en kerne. Selv en
+meget lille computer som en Raspberry Pi har fire.
+
+Så hvis vi har en række beregninger der kan køres uafhængigt af hinanden, kan 
+vi dele dem op i flere portioner, lade hver kerne på computeren klare en
+hver, og samle resultaterne bagefter.
+
+Det kan gøres på mange måder. Dette er en.
+
+Biblioteket parallel understøtter parallelle beregninger:
+```{r library-parallel}
+library(parallel)
+```
+
+Det første vi kan undersøge er hvor mange kerner vi kan arbejde med:
+
+```{r detectcores, eval = F}
+detectCores()
+```
+
+Det giver outputtet:
+
+```{r antal-kerner-eksempel}
+8
+```
+
+Fordi jeg på min computer har 8 kerner. 
+
+Det er god praksis ikke at bruge alle kernerne - der skal være noget tilbage
+til at holde liv i computeren. Så almindeligvis kører vi på antallet af kerner,
+minus 1. Det gemmer vi som en variabel:
+
+
+```{r define-cores, eval = F}
+num_cores <- detectCores() - 1
+```
+
+
+Ting kan køres parallelt på mere end en måde.
+
+Hvis man er bekendt med apply funktioner, er den hrugtige måde at gøre 
+det på mclapply
+
+```{r eval = F}
+kmeans
+MASS::Boston
+```
+
+
+library(foreach)
+library(doParallel)
+
+
+foreach (i=1:3) %dopar% {
+  sqrt(i)
+}
+
+
+## i tidyverse
+library(multidplyr)
+
+cluster <- new_cluster(2)
+
+https://multidplyr.tidyverse.org/articles/multidplyr.html
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

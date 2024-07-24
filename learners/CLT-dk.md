@@ -1,8 +1,11 @@
 ---
-title: CLT
+title: CLT - på dansk
 ---
 
 # Et bevis for Central Limit Teoremet.
+
+This can be pretty difficult to follow - so we have it in danish - and an 
+english version (when we get around to translating it).
 
 Overordnet: CLT forklarer hvorfor mange fordelinger af data, tenderer en 
 normalfordeling (klokkekurven), når stikprøvestørrelsen bliver stor, uanset den 
