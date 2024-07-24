@@ -1,0 +1,150 @@
+---
+title: 'advanced-ggplot-objects'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+der er ganske givet grafikker der skal have ændret stier.
+
+Vi har et ggplot. Hvordan piller vi i ting der ligger dybt inde i det?
+
+Vi tager et fjollet eksempel:
+
+```{r}
+library(tidyverse)
+p <- ggplot(mtcars, aes(mpg, wt )) +
+  geom_point(aes(shape = factor(am))) +
+  geom_smooth(method = lm, color = "red")
+p
+```
+
+
+Nu vil vi godt have regressionslinien til at være blå, i stedet for rød. 
+Det er et fjollet eksempel, for det er jo blot at ændre i color argumentet i
+geom_smooth. Men lad os nu prøve.
+
+Objektet p optræder i environment:
+![](../fig/21-environment.png)
+
+Det er her vi får afsløret at p ikke er selve plottet, men et list-object,
+der indeholder de instruktioner der skal til for at lave plottet. 
+
+Det betyder også, at hvis vi ellers kan finde ud af hvad der skal
+skrives til hvor i den liste - så kan vi pille i _alt_ i plottet.
+
+Klik nu på luppen ud for "List of 9" - og vi få et view af p, som 
+vi kan kigge videre på:
+
+![](../fig/21-view-p.png)
+
+Og hvordan finder man så det man leder efter? Søgefunktionen er fristende;
+vi ved at farven er sat til "red", men vi har ikke endnu gennemskuet hvad der skal til for at den bliver fundet. En gang i mellem dukker den op
+i søgningen. Andre gange ikke.
+
+Vi ved dog at det er lag 2 vi skal have fat på - hver geom_ tilføjer et lag, og geom_smooth bliver lagt på som lag nr. 2.
+
+Den kan vi folde ud, og så er den der:
+![](../fig/22-vie-p-params.png)
+
+Længst til højre er der - og den dukker op efterhånden som man
+fører musen over elementerne, en lille ikon. Klik på den, og den 
+base-R kodestump der subsetter præcist det element overføres til 
+konsollen:
+```{r}
+p[["layers"]][[2]][["aes_params"]][["colour"]]
+```
+
+Vi kan nu skrive en anden værdi til den - og skifte farven.
+
+Teknikken fungerer generelt - vi kan justere på _alt_ i objektet. 
+
+Det kan være vanskeligt programmatisk at få de nødvendige oplysninger. Men det 
+kan gøres. Her foreslår vi at pakken `gginnards` bruges - i hvert fald til vi
+har pillet dens funktioner fra hinanden og gennemskuet hvordan man selv får fingre
+i tingene.
+
+Hvis man ønsker at pille i eksempelvis farven, er det her nødvendigt at finde
+ud af hvilket af de to lag - og der kunne være flere - der indeholder `geom_smooth`.
+
+Det kan gøres på denne måde:
+```{r eval  =F}
+library(gginnards)
+which_layers(p, "GeomSmooth")
+```
+
+
+
+
+## og programmering af ggplot
+
+Eller hvad det nu hedder. Vi vil godt kunne lade et script styre om 
+punkter i et plot skal plottes med color i stedet for shape:
+
+```{r}
+library(tidyverse)
+mtcars %>% 
+  ggplot(aes(mpg, wt, shape = factor(am))) +
+  geom_point()
+```
+
+Det gør vi ved at bruge tidy evaluation idiomer. 
+```{r}
+noget <- "am"
+andet <- "color"
+mtcars %>% 
+  ggplot(aes(mpg, wt, !!andet := factor(!!as.symbol(noget)))) +
+  geom_point()
+
+
+```
+
+
+Det funger ikke alene her - det fungerer også med de øvrige tidyverse
+funktioner. 
+
+Hvad hvis vi godt ville plotte med geom_lines i stedet for geom_point?
+
+
+Fungerer det også med dplyr?
+```{r}
+mtcars %>% 
+  group_by(!!as.symbol(noget)) %>% 
+  summarise(n = n()) %>% 
+  mutate(test = !!andet)
+```
+Vil vi styre hvilken geom vi skal bruge, vil det her virke:
+
+```{r}
+
+a <- "geom_point()"  # eller a <- "geom_line"
+
+mtcars %>%
+  ggplot(aes(mpg, wt, shape = factor(am))) +
+  eval(parse(text = a))  # Evaluere og udføre den dynamiske funktion
+
+```
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
