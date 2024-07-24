@@ -92,6 +92,7 @@ episodes:
 - ggplot-animation.Rmd
 - parallel.Rmd
 - github-and-r.Rmd
+- debugging.Rmd
 
 # Information for Learners
 learners: 
