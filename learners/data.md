@@ -1,16 +1,13 @@
 ---
-title: "Datasæt"
+title: "Data sets"
 ---
 
-Det er ikke let at lære om statistik uden eksempler på data. 
-
-I dette kursus bruger vi et udvalg af følgende datasæt. Ikke alle tages i 
-brug, men her er de.
-
+A selection of data sets
 
 ### BETACAR
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/BETACAR.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
+
 
 
 |  Variable  |  Description/Code                               |
@@ -38,7 +35,7 @@ fire præparationer hver dag i 12 uger, og karoten blev målt i deres blod i uge
 
 ### BLOOD
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/BLOOD.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
 
 |Variable  |  Description        |  Code                  |
 |----------|---------------------|------------------------|
@@ -68,7 +65,7 @@ på eksempelvis testosteron indholdet i deres blod.
 
 ### BONEDEN
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/BONEDEN.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BONEDEN.csv)
 
 
 |  Variable  |  Code       |
@@ -129,7 +126,7 @@ kaffe dækker over. Dog:
 
 ### BOTOX
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/BOTOX.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BOTOX.csv)
 
 
 |  Variable  |  Code                               |
@@ -166,7 +163,7 @@ lidokain (TL), gruppe 2 der som kodningen antyder fik en placebo. Og gruppe
 tre, der fik en injektion af botox
 
 ### BREAST
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/BREAST.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BREAST.csv)
 
 
 |variable |  Description                                            |
@@ -196,7 +193,7 @@ tre, der fik en injektion af botox
 
 ###  CORNEAL
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/CORNEAL.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
 
 
 |Variable  |  Variable label                       |
@@ -222,7 +219,7 @@ tre, der fik en injektion af botox
 
 ### DIABETES
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/DIABETES.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
 
 
 |Variable  |  Code                          |
@@ -239,7 +236,7 @@ tre, der fik en injektion af botox
 
 ### EAR
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/EAR.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EAR.csv)
 
 
 | Variable  |         Description    |  Format or Code       |
@@ -268,7 +265,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 ### EFF
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/EFF.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
 
 
 |Variable  |  Description/Code|
@@ -286,7 +283,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 ###  ENDOCRIN
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/ENDOCRIN.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ENDOCRIN.csv)
 
 
 | Variable   |  LABEL           |
@@ -301,7 +298,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 ### ESTRADL
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/ESTRADL.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTRADL.csv)
 
 
 |Variable |  Code	                                           |
@@ -320,7 +317,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 ### ESTROGEN
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/ESTROGEN.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTROGEN.csv)
 
 
 |Variable  |  LABEL                        |
@@ -364,7 +361,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 ### FEV
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/FEV.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FEV.csv)
 
 |Variable |  Description      |  Format or Code                         |
 |---------|-------------------|-----------------------------------------|
@@ -387,7 +384,7 @@ Effect of parental cigarette smoking on pulmonary function in children.
 American Journal of Epidemiology, 110, 15-26.
 
 ### FIELD
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/FIELD.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
 
 |  Variable  |  Description                                                   |
 |------------|----------------------------------------------------------------|
@@ -401,7 +398,7 @@ American Journal of Epidemiology, 110, 15-26.
 |  totfldos  |  total field area left eye (OS) in degrees²                    |
 
 ### HEART
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/HEART.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
 
 |Variable    |  code                                                                          |
 |------------|--------------------------------------------------------------------------------|
@@ -423,7 +420,7 @@ American Journal of Epidemiology, 110, 15-26.
 
 
 ### HORMONE
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/HORMONE.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HORMONE.csv)
 
 |  Variable  |  Description/Code                      |
 |------------|----------------------------------------|
@@ -442,7 +439,7 @@ American Journal of Epidemiology, 110, 15-26.
 
 ### HOSPITAL
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/HOSPITAL.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
 
 |  Variable  |  Label                                  |
@@ -473,7 +470,7 @@ Infectious Diseases, 139(6) 688-697.
 
 ### INFANTBP
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/INFANTBP.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
 Salt Taste Variables
 
@@ -509,7 +506,7 @@ Sugar Taste Variables
 
 ### LEAD
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/LEAD.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
 |  VARIABLE  |  DESCRIPTION                 |
 |------------|------------------------------|
@@ -609,7 +606,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### MICE
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/MICE.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
 
 |  Variable  |  Description           |
 |------------|------------------------|
@@ -626,7 +623,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### NEPHRO
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/NEPHRO.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
 |  Variable  |  Description/Code                                  |
 |------------|----------------------------------------------------|
@@ -642,7 +639,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### NIFED
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/NIFED.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
 
 |  Variable  |  Description            |  Code                    |
 |------------|-------------------------|--------------------------|
@@ -674,7 +671,7 @@ Values of 999 indicates that either
 
 ### OTO
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/OTO.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
 |  Variable  |  Description/Code                                    |
 |------------|------------------------------------------------------|
@@ -689,7 +686,7 @@ Values of 999 indicates that either
 
 ### PIRIFORM
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/PIRIFORM.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
 |  Variable  |  Code                                         |
 |------------|-----------------------------------------------|
@@ -702,7 +699,7 @@ Values of 999 indicates that either
 
 ### SEXRAT
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/SEXRAT.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
 
 |  Variable   |  code                 |
 |-------------|-----------------------|
@@ -727,7 +724,7 @@ such families.
 
 ### SMOKE
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/SMOKE.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
 |  Variable  |  Code                                               |
 |------------|-----------------------------------------------------|
@@ -750,7 +747,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### SWISS
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/SWISS.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
 |  Variable   |  Codes                                            |
 |-------------|---------------------------------------------------|
@@ -769,7 +766,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### TEAR
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/TEAR.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
 
 |  Variable  |  Code                          |
 |------------|--------------------------------|
@@ -837,7 +834,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### TEMPERAT
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/TEMPERAT.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
 |  Variable  |    LABEL                                 |
 |------------|------------------------------------------|
@@ -856,7 +853,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### TENNIS1
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/TENNIS1.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
 |  VARIABLE  |  VARIABLE NAME                                    |
 |------------|---------------------------------------------------|
@@ -917,7 +914,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### TENNIS2
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/TENNIS2.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
 
 |  VARIABLE  |  PERIOD*  |  VARIABLE NAME                                                             |
 |------------|-----------|----------------------------------------------------------------------------|
@@ -972,7 +969,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### VALID
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/VALID.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
 |  Variable  |  Description              |Format or Code  |
 |------------|---------------------------|----------------|
@@ -989,7 +986,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### spermatozoa
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/spermatozoa.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
 
 |  Variable          |  Description                                      |  Format  |
 |--------------------|---------------------------------------------------|----------|
@@ -1018,7 +1015,7 @@ https://www.jstor.org/stable/2532505
 
 ### who
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/who.csv)
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/who.csv)
 
 NB: Filen er semikolon-separeret
 
