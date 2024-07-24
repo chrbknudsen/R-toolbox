@@ -30,10 +30,6 @@ nesting - måske til en Avanceret? Både nest og unnest
 fill
 drop_na
 
-```{r}
-tidyr::
-```
-
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
