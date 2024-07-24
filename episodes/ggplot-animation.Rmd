@@ -24,7 +24,7 @@ exercises: 2
 
 
 Vi skal bruge to pakker:
-```{r}
+```{r eval = F}
 library(ggplot2)
 library(gganimate)
 ```
@@ -33,7 +33,7 @@ library(gganimate)
 library(gapminder)
 ```
 
-```{r}
+```{r eval = F}
 data <- gapminder %>% 
   filter(continent == "Europe") %>% 
   group_by(year) %>% 
@@ -75,7 +75,7 @@ tidskomponent, kan det være nyttigt at animere data.
 
 
 Vi skal bruge to pakker:
-```{r}
+```{r eval = F}
 library(ggplot2)
 library(gganimate)
 ```
@@ -84,7 +84,7 @@ library(gganimate)
 library(gapminder)
 ```
 
-```{r}
+```{r eval = F}
 data <- gapminder %>% 
   filter(continent == "Europe") %>% 
   group_by(year) %>% 
