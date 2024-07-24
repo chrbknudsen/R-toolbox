@@ -90,6 +90,7 @@ episodes:
 - barcharts.Rmd
 - advanced-ggplot-objects.Rmd
 - ggplot-animation.Rmd
+- parallel.Rmd
 
 # Information for Learners
 learners: 
