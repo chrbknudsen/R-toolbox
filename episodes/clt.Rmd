@@ -72,8 +72,9 @@ use the properties we know the normal distribution to have to
 work with them.
 
 The math required for proving this theorem is relatively 
-complicated, but can be found in the (extra material)[https://kubdatalab.github.io/R-toolbox/CLT.html] on
-this page. Note that the proof is in Danish.
+complicated, but can be found in the (extra material)[https://kubdatalab.github.io/R-toolbox/CLT-dk.html] on
+this page. Note that the proof is in Danish, we are working on an english
+version.
 
 
 
