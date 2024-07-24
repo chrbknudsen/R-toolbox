@@ -1,5 +1,5 @@
 ---
-title: 'packages'
+title: 'Handling packages in R'
 teaching: 10
 exercises: 2
 ---
@@ -53,7 +53,7 @@ p_load(tidyverse,stringr,httr,jsonlite,lubridate)
 
 pacman::p_update(update = F)
 
-```{r}
+```{r pacman-demo, eval = FALSE}
 library(pacman)
 pacman::p_update(update = F)
 p_load(tidyverse)
@@ -70,6 +70,8 @@ brug :: notationen.
 
 dplyr::lag(1:5)
 stats::lag(1:5)
+
+devtools og fænomenet kompilering
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
