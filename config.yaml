@@ -65,34 +65,13 @@ episodes:
 - descript-stat.Rmd
 - table1.Rmd
 - tidy-data.Rmd
-# - datamanipulation.Rmd
-# - datamanipulation-advanced.Rmd
-# - datatidying.Rmd
 - normal-distribution.Rmd
-# - hypothesis-testing.Rmd
 - is-it-normal.Rmd
 - which-distribution.Rmd
-# - notes.Rmd
-# - notes2.Rmd
 - regression.Rmd
-# - multiple-linear-regression.Rmd
-# - regression2.Rmd
-# - regression3.Rmd
-# - regression4.Rmd
-# - diagramtest.Rmd
 - clt.Rmd
-# - opgaver.Rmd
-# - powerberegninger.Rmd
-# - rstudio.Rmd
-# - packages.Rmd
-# - best-noter.Rmd
-# - hvad-vi-glemte.Rmd
 - barcharts.Rmd
-# - advanced-ggplot-objects.Rmd
-# - ggplot-animation.Rmd
-# - parallel.Rmd
-# - github-and-r.Rmd
-# - debugging.Rmd
+
 
 # Information for Learners
 learners: 
