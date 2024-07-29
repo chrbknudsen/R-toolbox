@@ -75,6 +75,18 @@ brug :: notationen.
 dplyr::lag(1:5)
 stats::lag(1:5)
 
+
+Man kan også i starten af sit script skrive:
+
+
+
+
+```{r eval = F}
+library(conflicted)
+conflict_prefer("filter", "dplyr") 
+```
+
+
 devtools og fænomenet kompilering
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
