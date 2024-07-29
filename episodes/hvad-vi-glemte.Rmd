@@ -92,6 +92,18 @@ baseret på trin 3 figure out wether or not the results will be erronious.
 
 globale vs lokale assignments. Og environments.
 
+## Factor variable trap
+
+Når du konverterer faktorer/kategoriske variable - til numeric, så konverter
+faktoren til character først:
+
+fin$profit <- as.numeric(as.character(x))
+hvor x er en faktor.
+
+Konverterer du en faktor direkte til en numeric, får du faktor levels (1,2,3 etc)
+i stedet for de numeriske værdier der egenligt ligger i faktoren.
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
