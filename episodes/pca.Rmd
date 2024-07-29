@@ -1,0 +1,160 @@
+---
+title: 'PCA'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+```{r, include = FALSE}
+
+
+library(tidyverse)
+library(palmerpenguins)
+library(GGally)
+library(ggExtra)
+library(patchwork)
+```
+
+# Principal Component Analyse
+
+En dimensionsreducerende maskinlæringsalgoritme.
+
+Vi har noget data i en tabel:
+```{r}
+penguins %>% na.omit() %>% select(bill_length_mm, bill_depth_mm) %>% head()
+```
+Det er data om pingviners næb. Der er to dimensioner, og vi kan plotte dem:
+```{r to-dim-pingvin-plot, echo = F}
+penguins %>% na.omit() %>% select(bill_length_mm, bill_depth_mm) %>% head() %>% 
+  ggplot(aes(bill_length_mm, bill_depth_mm)) + geom_point()
+```
+Faktisk er der mere end to dimensioner:
+```{r pingvin-head, echo = F}
+penguins %>% na.omit() %>% head()
+```
+
+Vi ved også hvor meget de vejer, hvor lange deres ? vinger? er, deres køn,
+hvornår de er blevet målt, hvilken ø de var på, og deres art.
+
+Hvis vi nøjes med de talværdier der er andet end et årstal, har vi fire dimensioner.
+
+Det kan vi ikke plotte. Vi er nødt til at reducere antallet af dimensioner for 
+at få noget visuelt. 
+
+Det snedige er at vi kan ændre på dimensionerne, så længe vi overholder visse
+matematiske spilleregler. I stedet for en dimension der 
+er defineret som "længden af næbbet", kan vi eksempelvis definere en dimension 
+der er "0.7 gange længden af næbbet, plus 0.047 ganget med vægten af pingvinen". 
+
+Det der er det *rigtig* snedige er, at hvis vi vælger den rigtige måde at lave de
+her nye dimensioner, så kan vi få vist strukturer i data, som vi ellers ikke 
+kan se.
+
+Det er kernen i Principal Componen Analysen. Den konstruerer nye dimensioner.
+Som udgangspunkt laver den lige så mange som der var før. Men de nye dimensioner
+er konstrueret, så den første forklarer mest muligt af variationen i data.
+Den anden nye dimension forklarer mest muligt af den variation der er tilbage i
+data efter den første har været der. Og så videre. 
+
+Vi rydder lidt op først:
+
+```{r clean-pingvin, echo  =F}
+clean_penguins <- penguins %>% 
+  na.omit() %>% 
+  select(-c(island, sex, year))
+clean_penguins %>% head()
+```
+
+så trækker vi oplysninger om pingvin arten ud til senere brug:
+```{r species-pingvin, echo  =F}
+species_penguins <- clean_penguins %>% pull(species)
+species_penguins %>% head()
+```
+
+Og kører PCA på den. Det sker med funktionen `prcomp`:
+```{r run-pca, echo  =F}
+data_penguins <- clean_penguins %>% select(-species)
+pca_penguins <- prcomp(data_penguins, scale. = T)
+```
+
+Og så kan vi plotte det. Vi får en del med i modellen, men lad os starte
+med at se på de principiale komponenter. De ligger i pca_penguins$x.
+Vi tilføjer oplysninger om pingvin-arten, og farvelægger efter netop den:
+```{r pca-plot}
+pca_penguins$x %>% 
+  as_tibble() %>% 
+  mutate(species = species_penguins) %>% 
+  ggplot(aes(PC1, PC2, color = species)) + 
+  geom_point()
+
+```
+Vi kan sammenligne med et plot af dimensionerne på deres næb:
+```{r}
+penguins %>% 
+  ggplot(aes(bill_length_mm, bill_depth_mm, color = species)) +
+  geom_point()
+```
+
+Når vi sammenligner, kan vi se at Æselpingvinerne (Gentoo) er pænt
+adskilt fra de to andre pingvinarter i plottet.
+
+Det kan vi så bruge. Vej pingvinerne, mål deres næb og deres vinger. Og du
+kan afgøre om de er en æselpingvin. 
+
+Ja, det er nok lettere at kigge på pingvinen, og se om den ligner en 
+æselpingvin eller ej.
+
+## Hvad ligger der ellers i modellen?
+
+PCA-modellen for pingvinerne hedder pca_penguins. 
+
+Den indeholder flere ting. I x ligger de nye værdier for alle 
+pingvinerne i de nye dimensioner, kaldet Principiale Komponenter:
+```{r}
+pca_penguins$x %>% head()
+```
+
+
+Hvad havde den første pingvin af data?
+```{r}
+data_penguins %>% slice(1)
+```
+
+Og hvor blev den placeret i de nye koordinater?
+```{r}
+pca_penguins$x[1,]
+```
+Hvordan fandt vi dem?
+```{r}
+pca_penguins$rotation
+```
+
+```{r}
+(43.99279-39.1)* 0.4537532 - (17.16486-18.7)*0.3990472 + (200.96697-181)*0.5768250+ (4207.05706-3750)*0.5496747
+```
+```{r}
+pca_penguins$
+```
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
