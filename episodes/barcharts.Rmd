@@ -220,111 +220,128 @@ to the speciel plot element `element_blank()`
 
 ## Add raw numbers to the plot
 
+Especially for barcharts, it can make sense to add the raw values to the columns,
+rather than relying on reading the values from the x-axis. 
 
-Vi behøver ikke. Men - det kan være rart at have de rå tal direkte på 
-søjlerne. Det er bibliotekets ledelse særligt glade for...
+That _can_ be done, but a more general, and easier to understand, approach is
+to construct a dataframe with the data:
 
-```{r}
+```{r count_penguins}
 penguin_count <- count(penguin_example, species)
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
-ggplot(aes(y = species)) + 
-geom_bar(fill = "darkorchid3") +
-labs(
-  y = element_blank(),
-  x = element_blank(),
-  title = "Number of penguins at Palmer Station, Antarctica") +
-  theme(plot.title = element_text(size = rel(1.1))) +
-  theme_minimal(base_size = 14) +
-  theme(
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank()  ) +
-geom_text(data = penguin_count, mapping = aes(x = n, y = species, label = n),
-hjust = 1,
-nudge_x = -0.25,
-color = "white") +
+  ggplot(aes(y = species)) + 
+  geom_bar(fill = "darkorchid3") +
+  labs(
+    y = element_blank(),
+    x = element_blank(),
+    title = "Number of penguins at Palmer Station, Antarctica") +
+    theme(plot.title = element_text(size = rel(1.1))) +
+    theme_minimal(base_size = 14) +
+    theme(
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank()  ) +
+  geom_text(data = penguin_count, mapping = aes(x = n, y = species, label = n),
+    hjust = 1,
+    nudge_x = -0.25,
+    color = "white") +
   geom_vline(xintercept = 0) +
   scale_x_continuous(breaks = NULL, expand = expansion(mult = c(0, 0.01))) 
 ```
 
-Vi kan lave ca. samme trick med labels hvis vi har lyst.
+
+In general it is a good idea to remove all extraneous pixels in the graph. And 
+when we add the counts directly to the plot, we can get rid of the x-axis entirely.
+
+On the other hand, it can be a good idea in this specific example, to add a 
+vertical indication of where the x=0 intercept is: `geom_vline(xintercept = 0)`.
+
+And: Always remember to think about the contrast between the color of the 
+bars and the text!
+
+## Add labels to the plot
+
+
+We can do the same with labels if we want:
 
 ```{r}
 penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
-ggplot(aes(y = species)) + 
-geom_bar(fill = "darkorchid3") +
-labs(
-  y = element_blank(),
-  x = "Number of penguins",
-  title = "Number of penguins at Palmer Station, Antarctica") +
-  theme_grey(base_size = 14) +
-  theme(plot.title = element_text(size = rel(1.1))) +
-  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  mutate(species = fct_infreq(species)) %>%
+  ggplot(aes(y = species)) + 
+  geom_bar(fill = "darkorchid3") +
+  labs(
+    y = NULL,
+    x = "Number of penguins",
+    title = "Number of penguins at Palmer Station, Antarctica"  ) +
   theme_minimal(base_size = 14) +
   theme(
+    plot.title = element_text(size = rel(1.1)),
     panel.grid.major.y = element_blank(),
     panel.grid.minor.y = element_blank(),
-  ) +
-geom_text(data = penguin_count,
-mapping = aes(x = n, y = species, label = n),
-hjust = 1,
-nudge_x = -0.25,
-color = "white" ) +
-geom_text(
-  data  = penguin_count,
-  mapping = aes(x=0,y=species, label = species),
-  hjust = 0, nudge_x = 0.25, color = "white", fontface = "bold", size = 4.5) +
-geom_vline(xintercept = 0) +
-scale_x_continuous(breaks = NULL, expand = expansion(mult = c(0, 0.01))) +
-scale_y_discrete(breaks = NULL) +
-  labs(x = element_blank()) +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()  ) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01)), breaks = NULL) +
+  scale_y_discrete(breaks = NULL) +
+  geom_text(
+    data = penguin_count,
+    mapping = aes(x = n, y = species, label = n),
+    hjust = 1,
+    nudge_x = -0.25,
+    color = "white"  ) +
+  geom_text(
+    data = penguin_count,
+    mapping = aes(x = 0, y = species, label = species),
+    hjust = 0,
+    nudge_x = 0.25,
+    color = "white",
+    fontface = "bold",
+    size = 4.5  ) +
+  geom_vline(xintercept = 0)
 ```
 
-Det er en smagssag - men det kan se pænere ud med smallere bars.
+
+## Slimmer bars
+
+Depending on aspect ratio of the final plot, number of categories etc, we
+might want to adjust the width of the bars:
 
 ```{r}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
-ggplot(aes(y = species)) + 
-geom_bar(fill = "darkorchid3",
-just = 1, 
-width = 0.4) +
-labs(
-  y = element_blank(),
-  x = "Number of penguins",
-  title = "Number of penguins at Palmer Station, Antarctica") +
-  theme_grey(base_size = 14) +
-  theme(plot.title = element_text(size = rel(1.1))) +
-  scale_x_continuous(expand = expansion(mult = c(0, 0.01))) +
+  ggplot(aes(y = species)) + 
+  geom_bar(
+    fill = "darkorchid3",
+    width = 0.4  ) +
+  labs(
+    y = NULL,
+    x = "Number of penguins",
+    title = "Number of penguins at Palmer Station, Antarctica"  ) +
   theme_minimal(base_size = 14) +
   theme(
+    plot.title = element_text(size = rel(1.1)),
     panel.grid.major.y = element_blank(),
     panel.grid.minor.y = element_blank(),
-  ) +
-geom_text(data = penguin_count,
-  mapping = aes(x = n, y = species, label = n),
-  hjust = 1,
-  vjust = 0,
-  nudge_y = 0.1,
-  color = "black",
-  size = 5.5) +
-geom_text(
-  data  = penguin_count,
-  mapping = aes(x=0,y=species, label = species),
-  hjust = 0, 
-  vjust = 0,
-  nudge_x = 0.5, 
-  nudge_y = 0.1,
-  color = "black", 
-  fontface = "bold", 
-  size = 4.5) +
-geom_vline(xintercept = 0) +
-scale_x_continuous(breaks = NULL, expand = expansion(mult = c(0, 0.01))) +
-scale_y_discrete(breaks = NULL) +
-  labs(x = element_blank()) +
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor.x = element_blank())
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()  ) +
+  scale_x_continuous(expand = expansion(mult = c(0, 0.01)), breaks = NULL) +
+  scale_y_discrete(breaks = NULL) +
+  geom_text(
+    data = penguin_count,
+    mapping = aes(x = n, y = species, label = n),
+    hjust = 1,
+    nudge_y = 0.1,
+    color = "white",
+    size = 5.5  ) +
+  geom_text(
+    data = penguin_count,
+    mapping = aes(x = 0, y = species, label = species),
+    hjust = 0, 
+    nudge_x = 0.5, 
+    nudge_y = 0.1,
+    color = "white", 
+    fontface = "bold", 
+    size = 4.5  ) +
+  geom_vline(xintercept = 0)
 ```
 
 
@@ -333,9 +350,6 @@ scale_y_discrete(breaks = NULL) +
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
