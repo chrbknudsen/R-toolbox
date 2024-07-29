@@ -71,7 +71,10 @@ episodes:
 - regression.Rmd
 - clt.Rmd
 - barcharts.Rmd
-
+- wikidata.Rmd
+- chi-i-anden.Rmd
+- cohens-kappa.Rmd
+- pca.Rmd
 
 # Information for Learners
 learners: 
