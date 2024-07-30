@@ -77,13 +77,13 @@ for at svaret er 1 i virkeligheden er 49%
 # fit modellen
 
 Alt det er udemærket. Måden vi i praksis gør det på er ved:
-```{r eval = FALSE}
+```{r model-fit, eval = FALSE}
 model <- glm(y~x1+x2, family = "binomial", data = data)
 ```
 
 # koefficienter og p-værdier
 
-```{r eval = FALSE}
+```{r model-summary, eval = FALSE}
 summary(model)
 ```
 
