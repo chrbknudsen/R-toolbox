@@ -1,0 +1,192 @@
+---
+title: "Bayes teorem"
+teaching: 42
+exercises: 47
+questions: 
+- "Hvad er Bayes teorem"
+objectives:
+- "Forstå det her nok til at vi kan hjælpe studerende"
+
+keypoints:
+- "FIXME"
+source: Rmd
+math: yes
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("01-")
+
+```
+
+### Hvad er det?
+
+Bayes teorem fortæller os hvordan vi opdaterer vores overbevisning om 
+noget - baseret på ny viden. 
+
+Vores udgangspunkt er at sandsynligheden for noget er X procent.
+
+Så observerer vi et eller andet. Og ud fra det, opdaterer vi hvor sandsynligt
+det nu er at "noget" passer.
+
+Eksempelvis mener vi at sandsynligheden for at toget er forsinket er 10%. Nu
+observerer vi at der er rim på sporet. Og opdaterer vores gæt på sandsynligheden
+for togforsinkelse til 75%. 
+
+### Lidt mere teknisk
+
+Vi arbejder med sandsynlighedsregning her. Så der er noget nomenklatur vi 
+skal have styr på:
+
+P(A) er sandsynligheden for hændelsen A
+
+P(B) er sandsynligheden for hændelsen B.
+
+P(A|B) er sandsynligheden for hændelsen A, *givet* hændelsen B.
+
+P(A, B) er sandsynligheden for både hændelserne A *og* B.
+
+Der er også nogle regneregler det kan være værd at have styr på:
+
+$$P(A, B) = P(A|B)P(B)$$
+
+$$P(A, B) = P(B, A)$$
+
+$$P(A|B) = \frac{P(A, B)}{P(B)}$$
+
+$$P(A|B) \neq P(B|A)$$
+
+Ud fra de regneregler kan vi beregne andre sandsynligheder. Kender vi eksemplvis 
+P(A|B), P(A) og P(B), kan vi finde ud af at:
+
+$$P(B|A) = \frac{P(A|B)P(B)}{P(A)}$$
+
+Vi kan også finde ud af at:
+
+$$P(!A) = 1 - P(A)$$
+
+Hvor P(!A) er sandsynligheden for at A ikke sker.
+
+Og at 
+
+$$P(B|!A) = 1 - P(!B|!A)$$
+
+Altså at sandsynligheden for at B sker, hvis A *ikke* sker, er 1 minus
+sandsynligheden for at B ikke sker, når A heller ikke sker.
+
+Og endelig kan vi beregne P(B), hvis vi kender P(B|A) og P(A):
+
+$$P(B) = P(B|A)*P(A) + P(B|!A)*P(!A)$$
+
+
+Nu kender vi de enkelte dele af Bayes teorem. Det ser sådan ud:
+
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B)}$$
+
+Og hvad er det så at vi bruger det til? Jo:
+
+Og hvad bruger vi så det til? Jo. Før vi ser B, har vi et bud på hvad 
+sandsynligheden er for A. Det er P(A).
+
+*Når* B er sket, har vi en opdateret sandsynlighed. Det er P(A|B). Det er 
+sandsynligheden for A, *hvis* B er sket. 
+
+P(A) er vores *prior*, det vi mener *før* B sker. 
+P(A|B) er vores *posterior*, det vi mener om A, *efter* B er sket.
+
+#### Et eksempel:
+Der går sjældent røg af en brand, uden at der er ild i den.
+
+Hvad er sandsynligheden for at der er brand, hvis der er røg?
+
+Vi mener at sandsynligheden for at der er ild er 2% (P(A)). 
+
+Sandsynligheden for at der er røg i det hele taget er 5% (P(B)). 
+Og sandsynligheden for at der er røg, hvis der er ild er 80% (P(B|A)).
+
+
+Nu ser vi at der er røg. Før vi så det, var sandsynligheden for ild 2%. Hvad 
+er den nu?
+
+
+$$P(ild|røg) = \frac{P(røg|ild)P(ild)}{P(røg)} = \frac{0.8*0.02}{0.05} = 0.32  = 32\%$$
+
+Før vi observerede røg, mente vi sandsynligheden for at der var ild var 2%. 
+Nu ser vi røg. Så nu opdaterer vi vores bud på sandsynligheden for ild til at være 32%
+
+### Hvor er det ellers nyttigt?
+
+Folk har en tilbøjelighed til at vurdere sandsynligheder forkert. 
+
+Lad os sige sandsynligheden for at jeg lige her og nu har COVID-19, er 1%. Det 
+er vores bedste bud, uden at jeg er blevet testet, baseret på hvad jeg har af
+symptomer, hvem jeg har været i nærheden af, hvor længe og hvor.
+
+Jeg bliver nu testet med en test der er 97% sikker, som i - hvis testen er positiv,
+så er der 97% sandsynlighed for at jeg faktisk har COVID-19.
+
+Så før jeg får stukket vatpinden i næsen, er gættet på om jeg har COVID-19 1%. 
+Hvis resultatet kommer positivt tilbage, hvad er så bedste gæt på om jeg har COVID-19?
+
+
+Min posterior, sandsynligheden for at jeg har COVID, P(A) = 0.01. 
+
+Sandsynligheden for en positiv test, *hvis* jeg *har* COVID er: P(B|A) 0.97
+
+Det sætter vi ind i formlen:
+
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B)} = \frac{0.95 * 0.01}{P(B)}$$
+
+Vi mangler noget. P(B). Det er sandsynligheden for at testen er positiv uanset
+om jeg har COVID eller ej. Den kender vi ikke. Men vi kan bruge regneregler
+fra før, til at beregne det:
+
+$$P(B) = P(B|A)*P(A) + P(B|!A)*P(!A)$$
+
+Det er egentlig ikke så kompliceret. Når vi tager testen, så er der nogen der
+har COVID: P(A). Og der er nogen der ikke har: P(!A).
+
+Der er en sandsynlighed for at testen viser positiv hvis man har COVID: P(B|A).
+
+Og der er en sandsynlighed for at testen viser positiv selvom man ikke har COVID:
+P(B|!A).
+
+Den samlede sandsynlighed for at testen er positiv er sandsynligheden for at 
+den er positiv når patienten er positiv ganget med sayndsyligheden for at patienten
+er positiv.
+
+Plus
+
+Sandsynligheden for at testen er positiv selvom patienten er negativ, ganget med
+sandsynligheden for at patienten er negativ.
+
+Lad os sætte det ind vi ved allerede:
+
+
+$$P(B) = 0.97*0.01 + P(B|!A)*P(!A)$$
+
+Vi ved at:
+
+$$P(!A) = 1 - P(A) = 1- 0.01 = 0.99$$
+
+Det sætter vi også ind, og får:
+
+$$P(B) = 0.97*0.01 + P(B|!A)*0.99$$
+
+P(B|!A) kender vi ikke. Det er de falsk positive. Der hvor testen er positiv, 
+selvom patienten er negativ. Lad os sætte den til 5%. Hvordan ved vi den er 5%?
+Det ved vi fra samme sted som vi ved at den er 97% sikker - det står i 
+brugsanvisningen til testen. Eller måske i fabrikantens ansøgning om godkendelse
+af testen.
+
+Lad os sætte det ind:
+
+$$P(B) = 0.97*0.01 + 0.05*0.99 = 0.0592$$
+
+Det sætter vi også ind i vores oprindelige formel:
+
+$$P(A|B) = \frac{P(B|A)P(A)}{P(B)} = \frac{0.97 * 0.01}{P(B)} = \frac{0.97 * 0.01}{0.0592} = 0.164 = 16.4\%$$
+
+Efter den positive test, opdaterer jeg derfor min vurdering af om jeg har COVID 
+fra 1% til 16%. 
+

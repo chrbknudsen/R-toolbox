@@ -1,0 +1,46 @@
+---
+title: "Hm. noget."
+teaching: 0
+exercises: 0
+questions: 
+- "Gad vide hvad der egentlig forsøges forklaret her?"
+objectives:
+- "FIXME"
+keypoints:
+- "FIXME"
+source: Rmd
+math: yes
+---
+
+```{r SETUP, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("08-")
+```
+
+vi observerer at noget sker 14 gange på 400 tidsenheder.
+
+Det betyder at vi har en incidens på 14/400. 
+
+Hvad er konfidensintervallet på det?
+
+Spørgsmålet er om det overhovedet giver mening at regne det ud.
+
+Hvis vi antager at hændelserne er poission-fordelte, er poisson estimatet af raten
+incidencen, eller rate estimatet: 
+14/400 = 0.035
+
+
+Wald konfidensintervallet, der antager normalfordeling ved tilstækkeligt store
+sample-størrelser kan så findes ved:
+
+```{r}
+14/400 + sqrt(14/400^2)*1.96*c(-1,1)
+```
+1.96 fordi vi regner med et 95% interval.
+
+mere eksakt:
+
+```{r}
+poisson.test(14,400)
+```
+

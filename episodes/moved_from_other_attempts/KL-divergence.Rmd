@@ -1,0 +1,262 @@
+---
+title: "KL-divergence"
+author: "Christian Knudsen"
+date: "5/1/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# TL;DR
+
+
+KL-divergence
+
+Også kendt som Kullback-Leibler divergence, eller "relativ entropi".
+
+Et mål for statistisk afstand, hvor meget en sandsynlighedsfordeling Q er fra en
+anden fordeling P. 
+
+Vi kan også tænke på den som hvor godt to fordelinger matcher.
+
+Tallene i eksemplerne er fra: 
+https://towardsdatascience.com/light-on-math-machine-learning-intuitive-guide-to-understanding-kl-divergence-2b382ca2b2a8
+
+
+https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence
+
+Vi har en observeret fordeling. Thushan er tydeligvis fan af Dune, og 
+har dette eksempeldatasæt:
+
+```{r}
+space_worm_teeth <- c(rep(0 ,2 ),
+rep(1 ,3 ),
+rep(2 ,5 ),
+rep(3 ,14),
+rep(4 ,16),
+rep(5 ,15),
+rep(6 ,12),
+rep(7 ,8 ),
+rep(8 ,10),
+rep(9 ,8 ),
+rep(10, 7))
+space_worm_teeth <- space_worm_teeth %>% 
+  as_tibble_col(column_name = "space_worm_teeth")   %>% 
+  count(space_worm_teeth) %>% 
+  mutate(prob = n/sum(n))
+
+```
+
+Han forklarer det med at vi har 100 rumorme. de to af dem har 0 tænder, de tre 
+af dem 1 tand, de fem af dem 2 tænder og så fremdeles.
+
+Det ser således ud når vi plotter det:
+```{r}
+ggplot(space_worm_teeth, aes(space_worm_teeth, n)) +
+  geom_col()
+```
+
+Det er vores "sande" fordeling, det vi har observeret. Der er 100 rumorme ialt,
+så når der er 2 orme med 0 tænder, er sandsynligheden for at observere 0 tænder 
+0.02
+
+Så når vi plotter det som en sandsynlighedsfordeling, får vi:
+
+```{r}
+ggplot(space_worm_teeth, aes(space_worm_teeth, prob)) +
+    geom_col()
+```
+
+Det er fint. Vi er interesserede i at vide hvilken fordeling antallet af tænder
+hos vores rumorme har. 
+
+Vi kunne antage at der er en uniform fordeling. Altså at sandsynligheden for at 
+en given orm har 0 tænder, er den samme som at den har 1 tand. Eller 2. Eller 3. 
+You get the point.
+
+Det ville se således ud:
+
+```{r}
+space_worm_teeth %>% 
+  mutate(uniform = 1/11) %>% 
+  pivot_longer(prob:uniform,
+               names_to = "fordeling",
+               values_to = "value") %>% 
+  ggplot(aes(space_worm_teeth, value, fill=fordeling)) +
+  geom_col(position="dodge")
+```
+
+Det er tydeligvis en fordeling der ikke matcher virkeligheden særligt godt.
+
+Hvad hvis vi prøver med en binomial fordeling. Det er den fordeling vi får, når vi
+regner på sandsynligheder for hvor mange plat og hvor mange krone vi får når vi 
+kaster med mønter.
+
+Udseendet af den afhænger af hvilken sandsynlighed der er for at vi får succes, eg 
+plat. Hvis den er 50%, ser det således ud:
+
+
+
+```{r}
+data.frame(x=0:10) %>% 
+  mutate(bino = dbinom(x,10,0.5)) %>% 
+  ggplot(aes(x,bino)) +
+  geom_col()
+```
+
+Plottet viser hvad sandsynligheden er for at vi får x "plat" når vi slår plat og krone.
+
+For 5 platter, er sandsynligheden lige under 25%, sandsynligheden for at få 3 er 
+lidt under 5%.
+
+Men i samme øjeblik vi ændrer på den sandsynlighed, skifter plottet udseende:
+
+```{r}
+data.frame(x=0:10) %>% 
+  mutate(bino = dbinom(x,10,0.6)) %>% 
+  ggplot(aes(x,bino)) +
+  geom_col()
+```
+
+Her har jeg ændret sandsynligheden for at få plat til at være 60% - en ret unfair
+mønt, og nu ser det noget anderledes ud. Fem plat optræder kun med 20% sandsynlighed.
+
+Og ændrer vi endnu mere på det, så går det helt galt:
+
+
+```{r}
+data.frame(x=0:10) %>% 
+  mutate(bino = dbinom(x,10,0.8)) %>% 
+  ggplot(aes(x,bino)) +
+  geom_col()
+```
+
+Her har vi gang i en meget unfair mønt, der giver plat 80% af gangene.
+
+Så hvis vi vil have et bud på hvordan binomialfordelingen for vores rumormes tænder,
+skal vi have en ide om hvad sandsynligheden for at der er en tand er.
+
+Vi starter med at finde ud af hvad det gennemsnitlige antal tænder er:
+
+```{r}
+c(rep(0 ,2 ),
+rep(1 ,3 ),
+rep(2 ,5 ),
+rep(3 ,14),
+rep(4 ,16),
+rep(5 ,15),
+rep(6 ,12),
+rep(7 ,8 ),
+rep(8 ,10),
+rep(9 ,8 ),
+rep(10, 7)) %>% mean()
+```
+Hvorfor er n = 10, og ikke 100? Det skal jeg lige vride hjernen omkring...
+
+Anyway, sandsynligheden er 0.544
+
+Nu kan vi beregne hvad sandsynligheden for at observere et bestemt antal tænder er:
+
+```{r}
+space_worm_teeth %>% 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544))
+```
+
+og vi kan plotte det, sammen med vores oprindelige fordeling af tænder:
+
+```{r}
+space_worm_teeth %>% 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) %>% 
+  select(space_worm_teeth, prob, binom) %>% 
+  pivot_longer(prob:binom,
+               names_to = "fordeling",
+               values_to = "value") %>% 
+  ggplot(aes(space_worm_teeth, value, fill = fordeling)) +
+  geom_col(position = "dodge")
+```
+
+Man kunne være fristet til at sige at det ligner mere. Men hvor meget mere?
+
+```{r}
+space_worm_teeth %>% 
+  mutate(uniform = 1/11) %>% 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) %>% 
+  pivot_longer(prob:binom, 
+               names_to = "fordeling",
+               values_to = "value") %>% 
+  ggplot(aes(space_worm_teeth, value, fill = fordeling)) +
+  geom_col(position = "dodge")
+```
+
+det er prob der er den "sande" fordeling. Hvor godt matcher de to andre den?
+
+Den er defineret som:
+
+$$D_{KL}(p||q) = \sum_{i=1}^N p(x_i)\log(\frac{p(x_i)}{q(x_i)})$$
+
+Og hvad katten betyder det? På venstre side af lighedstegnet har vi bare den fancy 
+måde at skrive "KL-divergensen mellem de to fordelinger p og q". Her er p den "sande"
+fordeling. Og q er den fordeling vi vil måle afstanden til. Men vi kan ligeså 
+godt måle afstanden mellem andre fordelinger.
+
+På højre side af lighedstegnet, har vi summationstegnet. Vi lader i gå fra i til N,
+og så lægger vi de værdier sammen der står efter tegnet.
+1 er den første observation, her 0 tænder. og så lader vi den tælle op til vi når
+de 10 tænder.
+
+Dernæst: $p(x_i)$. Det er sandsynligheden for at vi observerer $x_i$ tænder efter 
+fordelingen p. Den 
+første observation er hvor x er lig 0. Den sandsynlighed ganger vi med logaritmen
+til en brøk. Og den brøk er så sandsynligheden for at vi ser x tænder efter 
+fordelingen p, divideret med sandsynligheden for at vi ser x tænder efter 
+fordelingen q.
+
+Hvad sker der? Hvis de to sandsynligheder er ens, er brøken lig 1. Og logaritmen til
+1 er 0. Så hvis de to sandsynligheder er ens, er hele summen 0.
+
+Anyway, lad os beregne forskellen mellem den sande værdi, og de to fordelinger:
+
+```{r}
+space_worm_teeth %>% 
+  mutate(uniform = 1/11) %>% 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) %>% 
+  mutate(kl_uniform = prob*log(prob/uniform)) %>% 
+  mutate(kl_binom = prob*log(prob/binom)) %>% 
+  summarise(KL_uniform = sum(kl_uniform), 
+            KL_binom = sum(kl_binom))
+```
+
+Jo tættere værdien er på 0, jo bedre matcher fordelingen "sandheden". Og selvom 
+vi tidligere blev fristet til at mene at binomial-fordelingen så mere rigtig ud,
+så er den uniforme fordeling faktisk bedre.
+
+## Noter der bør indarbejdes
+KL-divergence, også kendt som Kullback-Leibler divergence eller relative entropy, er en måling af, hvor forskellige to probability distributions er. KL-divergence bruges ofte i maskinlæring og dataanalyse til at sammenligne to modeller eller til at måle præcisionen af en model.
+
+I R kan KL-divergence beregnes ved hjælp af funktionen kl.divergence() fra pakken entropy. Her er et eksempel på, hvordan du kan bruge denne funktion:
+
+Copy code
+# Load the entropy package
+
+```{r}
+library(entropy)
+```
+
+# Calculate KL-divergence
+
+
+
+??kl.divergence
+
+det er vist så ikke helt entropy...
+Eller - måske er det, der er kl funktioner i den.
+
+
+kl <- kl.divergence(p, q)
+I dette eksempel beregner vi KL-divergence for to probability distributions, p og q. Du kan angive probability distributionsne som vektorer med observationer eller som density functions.
+
+Det er vigtigt at huske, at KL-divergence kun er en måling af forskellen mellem to probability distributions, og den siger intet om, hvor god en model er i forhold til at forudsige fremtidige observationer. Derfor bør KL-divergence kun bruges som et supplement til andre metoder til at vurdere modelpræcision.
+

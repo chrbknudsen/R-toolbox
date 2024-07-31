@@ -1,0 +1,78 @@
+---
+title: "Poission fordelingen"
+author: "Christian Knudsen"
+date: "22/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Poisson fordelingen er en diskret sandsynlighedsfordeling.
+
+Hvis en diskret hændelse sker med en konstant sandsynlighed (?), og uafhængigt
+af hvor lang tid der er gået siden sidste hændelse.
+
+Hvad er så sandsynligheden for at et givent antal hændelser sker indenfor 
+et bestemt tidsrum (det er ækvivalent til et areal, område eller lignende)
+
+For biblioteksverdenen kunne det være:
+
+Der er en kendt sandsynlighed for at der kommer en studerende ind ad døren i 
+tidsrummet mellem 10 og 11. 
+
+Det at en studerende træder ind ad døren er uafhængigt af hvornår der sidst trådte
+en studerende ind ad døren.
+
+Hvad er sandsynligheden for at der træder 5 studerende ind ad døren i tidsrummet?
+
+Antagelser.
+
+k er antallet af gange en hændelse sker i et interval, og har værdieren 
+0, 1, 2 etc.
+
+Det at en hændelse indtræffer, påvirker ikke sandsynligheden for at en 
+hændelse nr. 2 indtræffer. (de er uafhængige)
+
+Den gennemsnitlige rate/hastighed med hvilken hændelserne indtræffer er uafhængig
+af andre hændelser.
+
+To hændelser kan ikke ske på præcist samme tidspunkt. I et arbitrært lille tidsrum
+er der enten 0 eller 1 hændelse.
+
+Hvis disse betingelser er opfyldt, er k en poisson tilfældig variabel, og fordelingen
+af k følger poisson fordelingen.
+
+Den er forbundet med binomial fordelingen.
+
+
+
+Hvis sandsynligheden er lambda (l), er sandsynligheden for k hændelser:
+
+l^k*e^-l / k!.
+
+
+Deskriptiv statistik.
+
+Den forventede værdi - og variansen, er begge lig lambda.
+
+
+Hvordan ser den ud?
+
+```{r}
+expand.grid(k = 0:20, l = 1:10) %>% 
+  mutate(P = (l^k)*exp(-l)/factorial(k)) %>% 
+  ggplot(aes(x=k, y=P, color=factor(l))) +
+  geom_line() +
+  geom_point()
+
+```
+
+Hvordan tester vi om en fordeling følger poission fordelinge?
+
+Det er vist ikke helt trivielt. Som nævnt er den i familie med binomialfordelingen, så den kan 
+hurtigt komme til at ligne. Og i grafen - der ligner l=10 en normalfordeling i 
+bekymrende grad.
+
+
