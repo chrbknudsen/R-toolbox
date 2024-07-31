@@ -1,0 +1,64 @@
+---
+title: "Rediger data som var du i Excel"
+teaching: 0
+exercises: 0
+questions:
+- "Key question (FIXME)"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("19-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Du kunne virkelig godt tænke dig at redigere indholdet i en dataframe. Uden
+at skulle have den over i Excel. Og uden at sidde og lave sådan noget:
+```{r eval = F}
+mtcars[6,4] <- 200
+```
+
+Det er der et værktøj til:
+```{r eval = F}
+library(DataEditR)
+```
+
+Det er baseret på Shiny, så vi kan ikke direkte vise hvordan det ser ud her.
+Men kør denne kode:
+```{r eval  =F}
+data_edit(mtcars)
+```
+
+Så åbnes et vindue, hvor du kan redigere i de enkelte celler, slette hele kolonner,
+klippe og klistre. 
+
+Når du klikker "done", returneres resultatet af din redigering. Så hvis du vil
+gemme resultatet og arbejede videre med det - og det vil du nok - skal du huske 
+at gøre det:
+
+```{r eval = F}
+ny_mtcars <- data_edit(mtcars)
+```
+
+Biblioteket har undertiden problemer med en dependency der ikke indlæses korrekt.
+Hvis du støder på en fejlbesked der fortæller at rhandsontable_html() ikke findes,
+så installer og indlæs pakken `rhandsontable`
+
+## Advarsel
+
+Det er generelt en dårlig ide at håndredigere data i R. Idealet er at vi producerer
+reproducerbar kode, der kan køres igen, uden at vi skal gøre praktiske ting selv.
+
+
+
+
+
+{% include links.md %}
+

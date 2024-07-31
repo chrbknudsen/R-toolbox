@@ -1,0 +1,123 @@
+---
+title: "Deling af store datamængder"
+teaching: 0
+exercises: 0
+questions:
+- "FIXME"
+objectives:
+- "FIXME"
+keypoints:
+- "FIXME"
+---
+
+
+
+
+```{r SETUP, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("25-")
+```
+
+## Hvad
+Du har noget data. Det er ret store mængder af data. Og du vil gerne gemme dem.
+
+Hvad der er endnu værre - du vil gerne dele de data med en kollega, der ikke 
+arbejder i R, men i Python.
+
+Hvordan gør man det?
+
+Man kan gemme det som en csv-fil, og sende den. Men husk at det var en stor mængde data.
+Vi har sikkert udfordringer med at kolonnerne har datatyper. De metadata vil 
+vi også gerne have med.
+
+Gode mennesker har skrevet en pakke der hedder `feather`. Og den udmærker sig
+ved også at være implementeret i Python. Så gemmer du dine data med feather i
+stedet for som en csv-fil, så kan din kollega også indlæse den i Python.
+
+Indlæs biblioteket
+
+```{r}
+library(feather)
+```
+
+Fortæl hvor feather-filen skal gemmes:
+
+```{r eval  =F}
+path <- "test.feather"
+```
+
+Byg din dataframe - du har sikkert en i forvejen:
+
+```{r eval = F}
+x <- runif(1e7)
+x[sample(1e7, 1e6)] <- NA # 10% NAs
+df <- as.data.frame(replicate(10, x))
+```
+
+Den er stor:
+
+800001904 bytes
+
+800 megabytes fylder den i hukommelse.
+
+
+Skriv data til feather-filen:
+```{r eval = F}
+write_feather(df, path)
+```
+Det tager lidt tid:
+
+
+  bruger   system forløbet 
+    0.29     0.30     1.22 
+
+Når vi så skal indlæse den igen:
+
+```{r}
+read_feather('test.feather')
+```
+
+Det tager også lidt tid:
+
+  bruger   system forløbet 
+    0.47     0.28     0.75 
+
+
+Hvor meget fylder det?
+
+```{r eval = F}
+file.size(path)
+```
+Og nej, det kører vi ikke, svaret er:
+812500872
+
+Hvad nu hvis vi havde brugt csv-filer i stedet?
+
+```{r eval = F}
+write_csv(df, "csv.test")
+```
+Det tager også tid:
+
+  bruger   system forløbet 
+   14.53     4.64     3.17 
+   
+   Betydeligt mere. Måske fordi filen også er større:
+   
+```{r eval  =F}
+file.size("csv.test")
+```
+   1764357131
+   Dobbelt så stor, sådan ca.
+
+Hvordan med indlæsning:
+
+```{r eval = F}
+system.time(read_csv("csv.test"))
+```
+
+Det tager også tid:
+
+   27.28     2.04     4.62 
+
+
+{% include links.md %}

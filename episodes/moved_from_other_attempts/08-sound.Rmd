@@ -1,0 +1,57 @@
+---
+title: "Audiolisering/sonification"
+teaching: 0
+exercises: 0
+questions:
+  - "Key question (FIXME)"
+objectives:
+  - "First learning objective. (FIXME)"
+keypoints:
+  - "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("08-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Eller hvad katten det nu hedder når man ikke visualiserer, men illustrer - 
+også et dårligt ord, data med lyd.
+
+Denne pakke gør det direkte i R. Den skal installeres fra github. Læg mærke 
+til forfatterens navn/tag, cool but useless. Det er den. Pakken er eksperimentel.
+Den kan kun mappe cirkler i plots til lyd. Og der er ingen mulighed for at gemme
+lyden. Derfor er det også ret begrænsede eksempler der er her.
+
+Hvis du virkelig har lyst til at lege med det, vil vi foreslå https://twotone.io/
+Den baserer sig ikke på R. Men der er langt flere muligheder for at mappe
+data til specifikke instrumenter, toner etc.
+
+```{r install-packages, eval = F}
+devtools::install_github("coolbutuseless/devout")
+devtools::install_github("coolbutuseless/devoutaudio")
+```
+```{r eval = F}
+library(devoutaudio)
+
+audio()
+plot(1:10)
+dev.off()
+```
+```{r eval = F}
+plot_df <- mtcars %>% arrange(mpg)
+
+audio()
+ggplot(plot_df) +
+  geom_point(aes(mpg, wt, size = cyl)) +
+  theme(legend.position = 'none')
+dev.off()
+```
+
+
+
+{% include links.md %}

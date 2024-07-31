@@ -1,0 +1,31 @@
+---
+title: "Serverless shiny apps"
+teaching: 0
+exercises: 0
+questions:
+- "Key question (FIXME)"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("18-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Så du har lavet en shiny app der viser cool ting?
+
+Og nu vil du gerne distribuere den uden at kunne køre en
+shiny server. 
+
+https://www.brodrigues.co/blog/2021-03-02-no_shiny_dashboard/ 
+
+
+{% include links.md %}
+

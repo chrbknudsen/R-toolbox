@@ -1,0 +1,178 @@
+---
+title: "Folketingets api"
+teaching: 0
+exercises: 0
+questions:
+  - "Key question (FIXME)"
+objectives:
+  - "First learning objective. (FIXME)"
+keypoints:
+  - "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("12-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+library(ODataQuery)
+```
+
+# Folketingets API
+Folketinget stiller store mængder data til rådighed for offentligheden.
+
+
+## Hvad ligger der i den?
+
+### Aktører
+
+Aktører ligger i tabellen "Aktør". 
+
+Det ser således ud:
+
+|                |                                   |
+|:---------------|:------- --------------------------|
+|id              |5                                  |
+|typeid          |5                                  |
+|gruppenavnkort  |NA                                 |
+|navn            |Frank Aaen                         |
+|fornavn         |Frank                              |
+|efternavn       |Aaen                               |
+|biografi        | Forholdsvis lang biografisk tekst |
+|periodeid       |NA                                 |
+|opdateringsdato |2022-10-03T10:25:38.193            |
+|startdato       |2018-10-01T00:00:00                |
+|slutdato        |NA                                 |
+
+For at få plads - har vi vendt tabellen.
+
+Vi har her vist en bestemt type (typeid) aktør; en person.
+
+Der er forskellige typer af aktører. De er beskrevet i tabellen
+Aktørtype:
+
+| id|type                      | 
+|--:|:-------------------------|
+|  1|Ministerområde            |
+|  2|Ministertitel             |
+|  3|Udvalg                    |
+|  4|Folketingsgruppe          |
+|  5|Person                    |
+|  6|Gruppe                    |
+|  7|Anden gruppe              |
+|  8|Ministerium               |
+|  9|Kommission                |
+| 10|Organisation              |
+| 11|Parlamentarisk forsamling |
+| 12|Privatperson              |
+| 13|Tværpolitisk netværk      |
+
+Ønsker vi derfor at finde alle aktører af en bestemt type, identificerer vi 
+først den type-id vi ønsker i tabellen "Aktørtype". Og dernæst trækker vi alle
+aktører med den typeid ud af tabellen "Aktør".
+
+Hvordan gør vi det?
+
+Det er super enkelt:
+
+Vi konstruerer en URL, som vi med et GET-request sender til Folketingets API.
+
+Ønsker vi eksempelvis alle Aktører af typen 10, "Organisation", skal URL'en
+se således ud:
+
+https://oda.ft.dk/api/Akt%F8r?$filter=(typeid%20eq%2010)
+
+Det er der ikke mange der ønsker at skrive selv. Så vi kan få hjælp fra pakken
+ODataQuery
+
+```{r}
+organisation <- ODataQuery$new("https://oda.ft.dk/api")
+organisation <- organisation$path("Sag")
+organisation <- organisation$filter(typeid.eq = 10)
+organisation$url
+```
+oDataQuery leverer et objekct, ODataQueary, der kan bruges til at skabe et 
+objekt (med metoden "new", der har tager en URL som argument).
+
+Den får en path til det specifikke endpoint vi skal bruge. Og så kan vi 
+lægge et filter på vores "søgning", hvor vi specificerer hvad vi mere konkret
+vil have, i dette tilfælde alle aktører, der har typeid lig med 10. 
+
+
+
+
+Hvad der kan være særligt interessant, er type 11, "parlamentarisk forsamling".
+Det er her vi finder Folketingssamlingerne:
+
+```{r eval = F}
+ %>% 
+  fromJSON() %>%
+  .$value %>% 
+  slice(1) %>% 
+  t() %>% 
+  knitr::kable() %>% 
+  writeClipboard()
+```
+Vær opmærksom på, at der har sneget sig en registrering af Europarådet ind 
+her. Det er meget passende, for det er også en parlamentarisk forsamling,
+men kan forvirre.
+
+Bemærk også, at "person" er personer der har en rolle i Folketinget. 
+Privatpersoner er noget andet.
+
+
+
+### Sager
+
+
+
+
+### Dokumenter
+
+### Møder
+
+
+
+## Relationer
+
+Data ligger i en relationel database. Det vil sige, at vi eksempelvis har
+en table med Aktører, og husk at Aktører både kan være en Folketingssamling,
+og et Folketingsmedlem.
+
+Når vi vi have forbindelsen mellem to aktører, eksempelvis hvem der sad i 
+folketinget på et bestemt tiddspunkt, så har vi en ekstra tabel, der 
+indeholder oplysninger om relationen mellem de to aktører:
+|  id| fraaktørid| tilaktørid|startdato           |slutdato            | rolleid|
+|---:|----------:|----------:|:-------------------|:-------------------|-------:|
+|   3|          1|        264|2013-10-02T00:00:00 |NA                  |      15|
+|   4|          1|        201|2014-06-16T00:00:00 |NA                  |      15|
+|   5|          1|          5|2014-06-19T00:00:00 |NA                  |      15|
+|   7|          1|        173|2013-10-02T00:00:00 |NA                  |      15|
+
+Der gemmer sig en opdateringsdato i tabellen, som vi har fjernet her.
+
+Metodikken er derfor, at hvis vi ønsker at finde ud af hvem der sad i Folketinget
+en bestemt dato, så finder vi det aktør-ID der matcher den pågældende folketingssamling
+for den dato. 
+
+Så trækker vi alle de relationer hvor folketingssamlingens aktør-id optræder
+i aktøraktør-tabellen. Det giver os alle de aktør-id der er knyttet til den
+pågældende samling.
+
+
+```{r}
+library(jsonlite)
+# fromJSON("https://oda.ft.dk/api/$metadata#Debat")
+fromJSON("https://oda.ft.dk/api/AktørAktør") %>% 
+  .$value %>% 
+  select(-opdateringsdato) %>% 
+  knitr::kable()
+```
+
+
+
+{% include links.md %}
