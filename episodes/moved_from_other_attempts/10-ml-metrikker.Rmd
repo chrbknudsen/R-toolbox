@@ -1,0 +1,179 @@
+---
+title: "Metrikker for evalueringer af ML"
+teaching: 0
+exercises: 0
+questions: 
+- "FIXME"
+
+objectives:
+- "FIXME"
+
+keypoints:
+- "FIXME"
+- "Accuracy"
+- "Precision"
+- "Recall"
+- "Sensitivitet"
+- "Specificitet"
+source: Rmd
+math: yes
+---
+
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("10-")
+library(tidyverse)
+library(knitr)
+library(caret)
+library(kableExtra)
+```
+
+## TL;DR
+
+Metrikker for algoritmer der klassificerer binært. 
+
+Givet: 
+SP = antallet af sandt positive klassifikationer
+
+SN = Antallet af sandt negative klassifikationer
+
+FP = Antallet af Falsk positive klassifikationer
+
+FN = Antallet af falsk negative klassifikationer
+
+
+Accuracy: Andelen af korrekte klassifikationer.
+
+$\frac{SP + SN}{Alle klassifikationer}$
+
+Precision: Andelen af positive klassifikationer der er korrekte.
+
+$\frac{SP}{SP + FP}$
+
+Recall - aka sensitivity: Andelen af positive observationer i data der detekteres.
+
+$\frac{SP}{SP + FN}$
+
+Specificitet: Andelen af negative observationer i data der detekteres.
+
+$\frac{SN}{SN + FP}$
+
+F1-score: Et harmonisk gennemsnit af precision og recall
+
+2 * (precision * recall)/(precision + recall)
+
+## Cave! 
+
+Læs det efterfølgende for blot et lille udsnit af hvad man skal overveje. 
+En høj F1 score betyder ikke at modellen er god.
+
+## Noget længere
+
+Når vi klassificerer data, hvor godt går det så?
+
+Vi starter med det binære tilfælde. Algoritmen forsøger at afgøre om der er en
+kat på et billede. Vi giver den 1000 billeder. 
+
+Af de 1000 billeder, er der en kat på 15 af dem. 
+
+Algoritmen fortæller os at der er en kat på 50 af billederne, og ikke på de
+resterende 950. 
+
+Af de 50 billeder algoritmen hævder der er en kat på, er der faktisk kun en
+kat på de 5. Det er de sandt positive.
+
+De resterende 45 billeder er der ikke en kat på. De er falsk positive. 
+
+Af de 950 billeder som algoritmen hævder der ikke er en kat på, er der faktisk
+katte på de 10. De 10 er de falsk negative.
+
+De 940 af billederne har algoritmen korrekt identificeret som værende kattefri. 
+Det er de sandt negative.
+
+Der er fire klassiske mål for hvor godt algoritmen har klaret det, defineret
+som ovenfor. 
+
+Tallene sætter vi som regel op i en "confusion" matrix:
+
+```{r}
+data.frame(x = c("SP", "FP"), y = c("FN", "SN")) %>% 
+  kable( align = "cc", col.names = c("", "")) %>% 
+  column_spec(2, border_left = T) %>% 
+  kable_styling(full_width = F)
+```
+
+Der er nogen ligheder her.
+
+Samtlige klassifikationer = SP + FN + FP + SN
+
+Samtlige katte, som faktisk er der = SP + FN
+
+De billeder hvor der ikke er katte = SN + FP
+
+Det antal gange vi siger der er en kat = SP + FP
+
+Det antal gange vi siger der ikke er en kat = FN + TN
+
+Med tallene ovenfor, vil det se således ud:
+
+
+```{r}
+data.frame(gæt =c("gæt ja", "gæt nej"),x = c(5, 45), y = c(10, 940)) %>% 
+  kable( align = "lcc", col.names = c("","Faktisk kat", "Ingen kat")) %>% 
+  column_spec(2:3, border_left = T) %>% 
+  kable_styling(full_width = F)
+```
+
+Accuracy er så (5 + 940) / 1000 = 0.945 eller 94.5% korrekt.
+
+Er det godt?
+
+Det kommer an på anvendelsen, derfor har vi de andre metrikker.
+
+Precision: 5/(5+10) = 0.33
+
+Recall 5/(5+45) = 0.1
+
+Specificitet 940/(940+10) = 0.989
+
+Er det godt? Hvis det nu ikke er katte, men brystkræft vi forsøger at opdage, så 
+er det ikke nødvendigvis særlig godt. Det er kun 10% af kræfttilfældene vi fanger,
+selvom vores sp
+
+Og når vi giver diagnosen kræft, har vi kun ret i en trediedel af tilfældene. 
+
+Det er altid nødvendigt at kigge på mere end accuracy. Og nødvendigt at overveje
+hvad modellen skal bruges til. Det er særligt vigtigt i tilfælde hvor der er 
+relativt få positive tilfælde i datasættet. Hvis vores algoritme konsekvent 
+siger at der ikke er en kat på billedet, uanset om der er en eller ej, vil
+den stadig have en accuracy på 94%
+
+Er der en lettere måde at få de tal? Hvis vi har to faktorer med de "sande" værdier,
+og de forudsagte, kan vi med funktionen `confusionMatrix` få hele møllen, og en del mere 
+ud. Brug `mode = "everything"` for at få alle metrikker:
+
+```{r}
+actual <- factor(rep(c(1,0), times=c(50,950)))
+predicted <- factor(c(rep(1,5),rep(0,45),rep(1,10),rep(0,940)))
+
+
+confusionMatrix(predicted, actual, mode = "everything", positive="1")
+```
+
+
+## Hvad hvis der er mere end to klasser?
+
+Det er samme koncept. Men bortset fra accuracy, får vi metrikkene for 
+hver klasse. Her har vi tre muligheder for hvad vi ser, C, F og H, og 
+algoriment forsøger at forudsige hvilken af de tre en given observation skal 
+klassificeres som:
+```{r}
+# True values
+y_true <- factor(c("C","C","C","C","C","C", "F","F","F","F","F","F","F","F","F","F", "H","H","H","H","H","H","H","H","H"))
+# Predicted values
+y_pred <- factor(c("C","C","C","C","H","F", "C","C","C","C","C","C","H","H","F","F", "C","C","C","H","H","H","H","H","H"))
+
+confusionMatrix(y_pred, y_true, mode="everything")
+```
+

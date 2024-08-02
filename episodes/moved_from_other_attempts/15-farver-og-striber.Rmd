@@ -1,0 +1,135 @@
+---
+title: "Farver og striber"
+teaching: 0
+exercises: 0
+questions:
+- "Hvordan laver jeg mine egne farveskalaer til ggplot?"
+- "Hvordan vælger jeg farver der tager hensyn til farveblinde?"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("15-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Hvordan vælger vi farver til vores plots? Hvordan laver vi vores 
+egne paletter.
+
+```{r}
+library(monochromeR)
+```
+Der er mange paletter at arbejde med i mange forskellige pakker.
+
+monochromeR gør det relativt let at lave vores egen:
+```{r}
+generate_palette("red", modification = "go_darker",
+                 n_colors = 8, view_palette = T)
+```
+
+Og hvis vi vil have blandinger af to farver, eksempelvis hvis vi vil 
+have en palette der giver os farver fra en farve til en anden:
+```{r}
+generate_palette("red", blend_color = "blue",
+                 n_colors = 7, view_palette = T)
+```
+
+Paletter kan komme fra andre steder. En populær pakke er "wesanderson", der 
+leverer paletter baseret på de paletter Wes Anderson bruger i hans film. 
+
+Pakken monochromeR kan også vise dem:
+
+```{r}
+library(wesanderson)
+```
+```{r}
+view_palette(wesanderson::wes_palettes$FantasticFox1)
+```
+
+## Farveblindhed
+
+Det er ofte en god ide at tjekke hvordan ens palette bliver opfattet af farveblinde.
+
+Pakken colorblindr giver et bud på det. Den skal installeres fra github:
+
+```{r colorblindr_install,  message =F}
+library(devtools)
+remotes::install_github("wilkelab/cowplot")
+install.packages("colorspace", repos = "http://R-Forge.R-project.org")
+install_github("clauswilke/colorblindr")
+```
+
+Hvorefter vi kan indlæse den.
+```{r}
+library(colorblindr)
+```
+
+cvd_grid vil vise os bruger som udgangspunkt det sidste plot vi lavede.
+```{r}
+view_palette(wesanderson::wes_palettes$FantasticFox1)
+cvd_grid()
+```
+
+Og det var ethvert plot:
+
+```{r}
+ggplot(mtcars, aes(cyl, mpg, color = gear)) + 
+  geom_point()
+
+cvd_grid()
+```
+
+Det en person med normalt farvesyn får her, er et estimat af hvordan et plot vil se ud ved forskellige typer af farveblindhed. Og det er nok blot et estimat, men bedre end ingenting.
+
+Der findes forskellige typer af farveblindhed, og derfor får vi fire forskellige plots, et for hver af fire typer:
+
+* Tritanomaly: blå-gul farveblindhed. under 0.01%. Rammer både mænd og kvinder.
+* Deutoanomaly: rød-grøn farveblindhed. ca. 6% af mænd
+* protanomaly: Rød-grøn farveblindhed- ca. 2% af mænd
+* Desaturated forsøger så vidt vi kan gennemskue af pakken, at simulere
+total farveblindhed (akromatopsi). Rammer 0.003% 
+
+### Er det noget man skal tage hensyn til? Nej og ja. 
+
+Der er ting det kan være næsten umulige at visualisere i
+paletter der tager hensyn til de forskellige former for
+farveblindhed. Og helt umulige hvis de skal tage hensyn til 
+alle varianterne heraf.
+
+Der er også plots der som deres primære formål har at være
+spektakulære. De kan være helt håbløse at lave i udgaver der gør alle glade.
+
+Men når plottets formål er at formidle data, snarere end at
+være kunst, bør man. Ikke kun for at tage hensyn til
+farveblinde, men også fordi farvevalg der tager det hensyn,
+typisk gør det lettere folk læsere med normalt farvesyn at se
+forskel på det man vil vise, og fordi farverne også bedre
+overlever et print i sort/hvid.
+
+## Hvordan bruger vi så en palette i et plot?
+
+Vi tilføjer en linie til vores plot `scale_fill_manual` eksempelvis:
+
+```{r}
+mtcars %>% 
+  ggplot(aes(hp, fill = factor(am))) +
+  geom_histogram(position = "dodge") +
+  scale_fill_manual(values=wesanderson::wes_palettes$FantasticFox1)
+  
+```
+```{r}
+scale_c
+```
+
+## rcolorbrewer
+Der bør også være noget om rcolorbrewer
+
+{% include links.md %}
+

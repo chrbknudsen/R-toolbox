@@ -1,0 +1,95 @@
+---
+title: "Folketingsreferater i XML"
+teaching: 0
+exercises: 0
+questions:
+  - "Key question (FIXME)"
+objectives:
+  - "First learning objective. (FIXME)"
+keypoints:
+  - "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("14-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Folketinget gør deres referater tilgængelige i XML-format. XML er ofte noget
+snask at arbejde med i R; mængden af nestede list-kolonner er stor!
+
+Vi skal bruge nogle biblioteker:
+```{r eval = F}
+library(dplyr)
+library(tidyr)
+library(xml2)
+```
+
+Her er et lille eksempel. Kun to megabyte.
+
+Det indlæser vi med read_xml:
+```{r indlæs_data, eval = F}
+data <- xml2::read_xml("data/14_ft_xml_sample_xml.xml")
+```
+
+Så konverterer vi. Først til en liste, og dernæst til en tibble:
+
+```{r konverter til tibble, eval = F}
+data <- data %>% 
+  as_list() %>% 
+  as_tibble()
+```
+
+Og så kan vi gå igang. Det komplette udtræk af alle data, næppe særligt elegant.
+Og nok også med en resultat af en dataframe hvor der trænger til at blive 
+ryddet lidt op. Men ikke desto mindre noget der giver et resultat:
+```{r, eval = F}
+ data %>% 
+    unnest_longer("EdixiData", "Møde") %>% 
+    hoist(Møde, "Samling", 
+          "MeetingId", 
+          "Location", 
+          "Mødenummer", 
+          "DateOfSitting", 
+          .transform = unlist) %>% 
+    select(-Møde_id) %>% 
+    unnest_longer("Møde") %>% 
+    hoist(Møde, "Punktnummer",
+          "Mødetitel",
+          "Dagsordenpunkt",
+          "Sagstype",
+          "Sagsnummer",
+          "Sagstrin",
+          .transform = unlist) %>% 
+    select(-Møde_id) %>% 
+    mutate(Mødetitel = map(Mødetitel, paste0, collapse = " ")) %>% 
+    unnest_longer(Møde) %>% 
+    unnest_wider(Møde, transform = unlist) %>% 
+    hoist(Tekst, "sup") %>% 
+    mutate(Tekst = map(Tekst, paste0, collapse = " ")) %>% 
+    unnest_longer(Tekst) %>% 
+    select(-Møde_id)
+```
+
+Vi får undervejs kolonner der indeholder nestede lister, altså lister der
+indeholder lister.
+
+Tricket er at bruge hoist() funktionen, der tillader os at trække bestemte,
+navngivne, elementer ud af listerne i de list-columns der opstår undervejs.
+
+Man kan med fordel foretage en transformation af dem med unlist() funktionen
+i samme omgang.
+
+Når list-kolonnen indeholder flere, eksempelvis dagsordenspunkter, bruger vi 
+unnest_longer(). Træk de enkeltstående felter ud først.
+
+Når vi når dertil at en listcolumn indeholder lister af samme længde, benyttes
+unnest_wider i stedet. Her kan vi ofte også bruge transform = unlist. Bemærk
+at syntaksen i unnest_ funktionerne er lidt forskellig fra hoist(). I sidstnævnte
+er det .transform = unlist, altså med et punktum foran.
+
+{% include links.md %}

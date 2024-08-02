@@ -1,0 +1,74 @@
+---
+title: "t-sne"
+teaching: 0
+exercises: 0
+questions: 
+- "FIXME"
+
+objectives:
+- "FIXME"
+
+keypoints:
+- "FIXME"
+source: Rmd
+math: yes
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("15-")
+library(tidyverse)
+library(palmerpenguins)
+library(GGally)
+library(ggExtra)
+library(patchwork)
+```
+
+T-SNE (t-distributed Stochastic Neighbor Embedding) er en maskinlæringsalgoritme, 
+der hjælper med at visualisere højdimensionale data i et lavere dimensionalt rum, 
+som oftest 2D eller 3D. Den gør det ved at finde mønstre og sammenhænge i de 
+komplekse data og gengive dem i en mere forståelig og håndterbar form. Det 
+hjælper os med at identificere og analysere strukturer, grupperinger og 
+tendenser i dataene, som kan være svære at se i det originale højdimensionale rum.
+
+Eller, kortere formuleret, vi har data i mange (som i flere end 2-3 stykker)
+dimensioner. Vi ser på iris datasættet:
+
+```{r iris_data_visning, echo = F}
+head(iris)
+```
+Dette datasæt har fire dimensioner. Det er vanskeligt at vise grafisk. 
+
+Disse mange dimensioner vil vi godt have kogt ned til 2, max 3, for vi kan 
+ikke vise 4 dimensioner på en skærm. Det går heller ikke så godt med 3.
+
+
+
+
+```{r}
+Rtsne()
+```
+
+
+
+hvad med blomsterne?
+
+```{r}
+library(Rtsne)
+library(plotly)
+iris_unik <- unique(iris)
+iris_art <- iris_unik %>% pull(Species)
+iris_matrix <- as.matrix(iris_unik[,1:4])
+
+iris_tsne <- Rtsne(iris_matrix, dims = 3)
+
+
+iris_data <- tibble(x = iris_tsne$Y[,1], y = iris_tsne$Y[,2], z = iris_tsne$Y[,3], art = iris_art)
+p <- plot_ly(iris_data, x = ~x, y = ~y, z = ~z, color = ~art)
+add_markers(p, color = ~art )
+p
+iris_data %>% ggplot(aes(x,y, color = art)) +
+  geom_point()
+
+```
+

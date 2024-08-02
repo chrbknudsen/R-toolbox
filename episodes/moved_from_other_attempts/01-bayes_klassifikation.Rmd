@@ -1,0 +1,121 @@
+---
+title: "Bayes klassifikation"
+teaching: 42
+exercises: 47
+questions: 
+- "Hvad er Bayes i relation til klassifikation"
+objectives:
+- "Forstå det her nok til at vi kan hjælpe studerende"
+
+keypoints:
+- "FIXME"
+source: Rmd
+math: yes
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("01-")
+
+```
+
+### Hvad er det?
+
+Klassifikation baseret på Bayes teorem. 
+
+Bayes teorem fortæller os hvordan vi opdaterer vores overbevisning om 
+noget - baseret på ny viden. Det kan du læse mere om andetsteds på disse sider.
+
+
+
+### Hvordan klassificerer vi så med Bayes?
+
+Naiv bayes antager at de prediktive variable er uafhængige af hinanden.
+
+Der er mange implementeringer af Naiv Bayes. En af dem finder vi i pakken e1071.
+
+Lad os kigge på pingviner. 
+
+```{r}
+library(palmerpenguins)
+library(tidymodels)
+library(caret)
+library(e1071)
+head(penguins)
+```
+Vi har nogen data på pingviner. Nu vil vi godt lave en model, der, baseret
+på dimensioner af næb, vægt, køn og vægt, forudsiger hvilken slags pingvin
+der er tale om.
+
+Vi starter med at lave et test og et træningssæt af data. Vi piller øen 
+pingvinerne er observeret på ud af datasættet:
+
+```{r}
+penguin_sample <- sample(c(TRUE, FALSE), nrow(penguins), replace=TRUE, prob=c(0.8,0.2))
+data <- penguins %>% select(-island)
+penguin_train  <- data[penguin_sample, ]
+penguin_test   <- data[!penguin_sample, ]
+
+```
+
+Så laver vi en simpel model:
+
+```{r}
+penguin_model <- naiveBayes(species~., penguin_train)
+```
+
+Og bruger den til at forudsige hvilken slags pingviner det er vi har i vores
+test-datasæt:
+
+```{r}
+penguin_predictions <- predict(penguin_model, newdata = penguin_test)
+```
+
+Hvordan gik det?
+
+```{r}
+confusionMatrix(penguin_predictions, penguin_test$species)
+```
+Det gik fint. Der er lidt forvirring i modellen - Et par chinstrap pingviner
+bliver forudsagt til at være Adelie. En enkelt Adelie pingvin bliver
+forudsagt til at være en Chinstrap. 
+
+De statistikker vi får ud når vi laver vores confusionmatrix er omtalt her
+på siden om maskinlæringsmetrikker.
+
+Hvordan ser modellen egentlig ud?
+```{r}
+penguin_model
+```
+Det bliver en del mere komplekst når der er flere parametre involveret.
+
+Men vores priors, de sandsynligheder vi starter med, og som vi opdaterer,
+er at der er 44% sandsynlighed for at det er en Adelie pingvin. Det er den andel 
+af dem der er i vores træningssæt. Kigger vi på kønnene, får vi at vide at 
+hvis du er en æselpingvin (gentoo), så er sandsynligheden for at du er en
+hanpingvin, 0.5102041. Så når nu vi observerer at det er en hanpingvin vi har, 
+så kan vi opdatere vores estimat af hvor sandsynligt det er at du er en æselpingvin.
+
+Det er mere kompliceret for vægten dimensionerne for næb og for vingerne. Det vi
+får er gennemsnit og standardafvigelse på en - antaget - normalfordeling. 
+Er pingvinen en chinstrap, har den en sandsynlighedsfordeling for dens vægt. 
+Hvis vi kender pingvinens vægt, kan vi udtale os om hvor sandsynlig den vægt er for
+de tre forskellige slags pingviner. Og så kan vi opdatere vores estimat på hvilken
+slags pingvin vi har foran os.
+
+I praksis kigger vi nok bare på pingvinen, og ser hvilken slags pingvin den ligner.
+
+
+
+### Hvornår bruger man Naiv Bayes i stedet for andre klassifikationer?
+
+Lærebøgerne fortæller at Bayes har en fordel ved at håndtere både kontinuert og 
+diskret data i et hug. Men er bedst til kategoriske data.  At den skalerer ret 
+godt til større datasæt. Og klarer sig ret godt med mindre træningsdata end andre metoder. 
+
+Forudsætningen er dog at de features der fittes på er uafhængige af hinanden.
+
+Det holder ikke helt. Hanpingviner er tilbøjelige til at være større end 
+hunpingviner, så køn og kropsvægt er ikke uafhængige. Længden af næbbet og dybden
+af næbbet er formentlig heller ikke uafhængige. Så forudsætningerne holder nok 
+ikke helt. Men det gør de sjældent.

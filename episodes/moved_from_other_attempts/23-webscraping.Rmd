@@ -1,0 +1,24 @@
+---
+title: "webscraping noter"
+teaching: 0
+exercises: 0
+questions:
+- "Key question (FIXME)"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("23-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+pakken polite er værd at kigge på
+{% include links.md %}
+

@@ -1,0 +1,31 @@
+---
+title: "Json fra websites og api'er"
+teaching: 0
+exercises: 0
+questions:
+- "(FIXME)"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+```{r, include = FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("16-")
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+json filer kan være lidt bøvlede at trække data ud af. Nedenstående side har
+tips og tricks. Læg særligt mærke til det med at vi kan få vist en komplex struktur
+i en viewer - og få koden til at subsette bestemte dele let!
+
+https://themockup.blog/posts/2020-12-13-extracting-json-from-websites-and-public-apis-with-r/
+
+
+{% include links.md %}
+
