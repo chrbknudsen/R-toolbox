@@ -15,8 +15,7 @@ math: yes
 ---
 
 ```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("05-")
+
 library(tidyverse)
 library(palmerpenguins)
 library(GGally)
@@ -150,5 +149,8 @@ best_model$beta
 
 ```{r}
 summary(best_model)
+```
+```{r}
+
 ```
 

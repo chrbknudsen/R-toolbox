@@ -1,0 +1,271 @@
+---
+title: 'k-means'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## What is k-means?
+
+k-means is a clustering algorithm. We have some data, and we
+would like to partition that data into a set of distinct, non-overlapping clusters.
+
+And we would like those clusters to be based on the similarity
+of the features of the data.
+
+When we talk about features, we talk about variables, or dimensions
+in the data.
+
+k-means is an unsupervised machine learning algorithm. We do
+not know the "true" groups, but simply want to group the results.
+
+Here we have some data on wine. Different parameters of wine from
+three different grapes (or cultivars) have been measured. 
+Most of them are chemical measurements.
+
+```{r}
+vin <- read_csv("episodes/data/win/wine.data", col_names = F)
+names(vin) <- c("cultivar",
+                "Alcohol",
+                "Malicacid",
+                "Ash",
+                "Alcalinityofash",
+                "Magnesium",
+                "Totalphenols",
+                "Flavanoids",
+                "Nonflavanoidphenols",
+                "Proanthocyanins",
+                "Colorintensity",
+                "Hue",
+                "OD280OD315ofdilutedwines",
+                "Proline")
+```
+
+Here we have chosen a data set where we know the "true" values
+in order to illustrate the process.
+
+## What does it do?
+
+K-means works by chosing K - the number of clusters we want. That is 
+a choice entirely up to us. 
+
+The algorithm then choses K random points, also called centroids.
+In this case these centroids
+are in 13 dimensions, because we have 13 features in the dataset.
+
+It then calculates the distance from each observation in the data,
+to each of the K centroids. After that each observation is assigned
+to the centroid it is closest to. We are going to set K = 3 
+because we know that there are three clusters in the data. Each
+point will therefore be assigned to a specific cluster, described
+by the relevant centroid. 
+
+The algorithm then calculates three new centroids. All the observations
+assigned to centroid A are averaged, and we get a new centroid.
+The same calculations are done for the other two centroids, and
+we now have three new centroids. They now actually have a relation
+to the data - before they we assigned randomly, now they are 
+based on the data.
+
+Now the algorithm repeats the calculation of distance. For each
+observation in the data, which centroid is it closest to. Since 
+we calculated new centroids, some of the observations will switch 
+and will be assigned to a new centroid. 
+
+Again the new assignments of observations are used to calculate
+new centroids for the three clusters, and all calculations repeated
+until no observations swithces between clusters, or we have repeated
+the algorithm a set number of times (by default 10 times).
+
+After that, we have clustered our data in three (or whatever K
+we chose) clusters, based on the features of the data.
+
+## How do we actually do that?
+
+The algorithm only works with numerical data, and we of course have
+to remove the variable containing the "true" clusters.
+
+```{r}
+cluster_data <- vin %>% 
+  select(-cultivar)
+```
+
+After that, we run the function `kmeans`, and specify that 
+we want three centers (K), and save the result to an object,
+that we can work with afterwards:
+```{r}
+clustering <- kmeans(cluster_data, centers = 3)
+clustering
+```
+We know the true values, so we extract the clusters the algorithm found, and
+match them with the true values, and count the matches:
+
+```{r}
+tibble(quess = clustering$cluster, true = vin$cultivar) %>% 
+table()
+```
+
+The algorithm have no idea about the numbering, the three groups are numbered 
+1 to 3 randomly. It appears that cluster 2 from the algorithm matches cluster 2
+from the data. The two other clusters are a bit more confusing.
+
+Does that mean the algorithm does a bad job?
+
+
+## Preprocessing is necessary!
+
+Looking at the data give a hint about the problems:
+
+```{r}
+head(vin)
+```
+Note the differences between the values of "Malicacid" and "Magnesium". One
+have values between `r min(vin$Malicacid)` and `r max(vin$Malicacid)` and the
+other bewtten `r min(vin$Magnesium)` and `r max(vin$Magnesium)`. The latter
+influences the means much more that the former. 
+
+It is therefore good practice to scale the features to have the same range and 
+standard deviation:
+
+```{r}
+scaled_data <- scale(cluster_data)
+```
+
+If we now do the same clustering as before, but now on the scaled data, we 
+get much better results:
+
+
+```{r}
+set.seed(42)
+clustering <- kmeans(scaled_data, centers = 3)
+tibble(quess = clustering$cluster, true = vin$cultivar) %>% 
+  table()
+
+```
+
+By chance, the numbering of the clusters now matches the "true" cluster numbers.
+
+The clustering is not perfect. 3 observations belonging to cluster 2, are assigned
+to cluster 1 by the algorithm (and 3 more to cluster 3).
+
+## What are those distances?
+
+It is easy to measure the distance between two observations when we only have
+two features/dimensions: Plot them on a piece of paper, and bring out the ruler.
+
+But what is the distance between this point:
+
+`r vin[1,]` and `r vin[2,]`?
+
+Rather than plotting and measuring, if we only have two observations with two 
+features, and we call the the observations $(x_1, y_1)$ and $(x_2,y_2)$ 
+we can get the distance using this formula:
+
+$$d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+ $$
+
+For an arbitrary number of dimensions we get this:
+$$d = \sqrt{\sum_{i=1}^{n} \left(x_2^{(i)} - x_1^{(i)}\right)^2}$$
+
+Where the weird symbol under the squareroot sign indicates that we add all the 
+squared differences between the pairs of observations.
+
+## Is the clustering reproducible?
+
+Not nessecarily. If there _are_ very clear clusters, in general it will be.
+
+But the algorithm is able to find clusters even if there are none:
+
+Here we have 1000 observations of two features:
+
+```{r}
+test_data <- data.frame(x = rnorm(1000), y = rnorm(1000))
+```
+
+They are as random as the random number generator can do it.
+
+Let us make one clustering, and then another:
+```{r}
+set.seed(47)
+kmeans_model1 <- kmeans(test_data, 5)
+kmeans_model2 <- kmeans(test_data, 5)
+```
+
+And then extract the clustering and match them like before:
+
+```{r}
+tibble(take_one = kmeans_model1$cluster,
+        take_two = kmeans_model2$cluster) %>% 
+table()
+```
+Two clusterings on the exact same data. And they are pretty different.
+
+Visualizing it makes it even more apparent:
+
+```{r}
+tibble(take_one = kmeans_model1$cluster,
+        take_two = kmeans_model2$cluster)  %>% 
+  cbind(test_data) %>% 
+ggplot(aes(x,y,color= factor(take_one))) +
+geom_point()
+```
+
+
+```{r}
+tibble(take_one = kmeans_model1$cluster,
+        take_two = kmeans_model2$cluster)  %>% 
+  cbind(test_data) %>% 
+ggplot(aes(x,y,color= factor(take_two))) +
+geom_point()
+```
+
+
+## Can it be use on any data?
+
+No. Even though there might actually be clusters in the data, the algorithm
+is not nessecarily able to find them. Consider this data:
+```{r}
+test_data <- rbind(
+  data.frame(x = rnorm(200, 0,1), y = rnorm(200,0,1), z = rep("A", 200)),
+  data.frame(x = runif(1400, -30,30), y = runif(1400,-30,30), z = rep("B", 1400)) %>% 
+    filter(abs(x)>10 | abs(y)>10)
+  )
+test_data %>% 
+  ggplot(aes(x,y, color = z)) +
+  geom_point()
+```
+There is obviously a cluster centered around (0,0). And another cluster more
+or lesss evenly spread around it.
+
+The algorithm _will_ find two clusters:
+
+```{r}
+kmeans_model3 <- kmeans(test_data[,-3], 2)
+cluster3 <- augment(kmeans_model3, test_data[,-3])
+ggplot(cluster3, aes(x,y,color=.cluster)) +
+  geom_point()
+```
+But not the ones we want.
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
