@@ -1,5 +1,5 @@
 ---
-title: 'PCA'
+title: 'Principal Component Analysis'
 teaching: 10
 exercises: 2
 ---
@@ -17,65 +17,70 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+CAVE! PINGVINERNE ER RET SEPAREREDE ALLEREDE...
+FIND ET ANDET DATASÆT
+
+Der er et vin-datasæt, hvor vi desværre ikke ved hvilke druesorter der er
+tale om. Men som er bedre.
+
+https://archive.ics.uci.edu/dataset/109/wine
+
 ```{r, include = FALSE}
-
-
 library(tidyverse)
 library(palmerpenguins)
 library(GGally)
 library(ggExtra)
 library(patchwork)
+penguins <- penguins %>% filter(complete.cases(.))
 ```
 
 # Principal Component Analyse
 
-En dimensionsreducerende maskinlæringsalgoritme.
+PCA is a method for reducing dimensions of a dataset. 
 
-Vi har noget data i en tabel:
+Let us observe some penguins:
+
+```{r looking-at-penguins}
+penguins %>% 
+  head()
+```
+
+There are 8 variables, or dimensions in this dataset. The dimension `year` is 
+not one we have any use for here.
+
+Looking just at the numerical variables, there is a lot of variation, just not
+variation that we nessecarily can use for predicting stuff:
 ```{r}
-penguins %>% na.omit() %>% select(bill_length_mm, bill_depth_mm) %>% head()
-```
-Det er data om pingviners næb. Der er to dimensioner, og vi kan plotte dem:
-```{r to-dim-pingvin-plot, echo = F}
-penguins %>% na.omit() %>% select(bill_length_mm, bill_depth_mm) %>% head() %>% 
-  ggplot(aes(bill_length_mm, bill_depth_mm)) + geom_point()
-```
-Faktisk er der mere end to dimensioner:
-```{r pingvin-head, echo = F}
-penguins %>% na.omit() %>% head()
+penguins %>% 
+  ggplot(aes(bill_length_mm, body_mass_g, color = sex)) +
+  geom_point() +
+  ggtitle("weight and bill length is not usefull for predicting sex")
+  
 ```
 
-Vi ved også hvor meget de vejer, hvor lange deres ? vinger? er, deres køn,
-hvornår de er blevet målt, hvilken ø de var på, og deres art.
+By applying PCA, we can reduce the four dimensions to fewer, that might be 
+better at finding patterns.
 
-Hvis vi nøjes med de talværdier der er andet end et årstal, har vi fire dimensioner.
+We do that by making new variables, or dimensions, that are combinations of the
+original dimensions. We might make one that is the sum of the four dimensions, 
+where we multiply them by 0.1, 4.2, 47 and 0.001 respectively. And another 
+where we multiply with some other values. If we choose those values correctly,
+we might get a plot that nicely separates the two sexes.
 
-Det kan vi ikke plotte. Vi er nødt til at reducere antallet af dimensioner for 
-at få noget visuelt. 
+The assumption is that the variation in the numeric data is dependent on the
+sex of the penguins. But rather than figuring out how the variation in weight
+describes that, we construct a set of dimensions, that describe the over all 
+variation in the numeric data.
 
-Det snedige er at vi kan ændre på dimensionerne, så længe vi overholder visse
-matematiske spilleregler. I stedet for en dimension der 
-er defineret som "længden af næbbet", kan vi eksempelvis definere en dimension 
-der er "0.7 gange længden af næbbet, plus 0.047 ganget med vægten af pingvinen". 
+And rather than doing it by hand, we can get R to do it for us.
 
-Det der er det *rigtig* snedige er, at hvis vi vælger den rigtige måde at lave de
-her nye dimensioner, så kan vi få vist strukturer i data, som vi ellers ikke 
-kan se.
 
-Det er kernen i Principal Componen Analysen. Den konstruerer nye dimensioner.
-Som udgangspunkt laver den lige så mange som der var før. Men de nye dimensioner
-er konstrueret, så den første forklarer mest muligt af variationen i data.
-Den anden nye dimension forklarer mest muligt af den variation der er tilbage i
-data efter den første har været der. Og så videre. 
 
-Vi rydder lidt op først:
 
-```{r clean-pingvin, echo  =F}
-clean_penguins <- penguins %>% 
-  na.omit() %>% 
-  select(-c(island, sex, year))
-clean_penguins %>% head()
-```
+
+
+
+
 
 så trækker vi oplysninger om pingvin arten ud til senere brug:
 ```{r species-pingvin, echo  =F}

@@ -1,0 +1,206 @@
+---
+title: 'Factor Analysis'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Minder en del om pca - også i matematikken. Antager at der er et mindre antal
+underliggende faktorer, som kan forklare observationerne. Det er de underliggende
+faktorer vi forsøger at belyse. 
+faktoranalysen forklarer kovariansen i data. pca forklarer variansen.
+
+en pca komponent er en lineær kombination af observerede variable. faktoranalysen
+leder til at de observerede variable er en linear kombination af uobserverede
+variable eller faktorer.
+
+PCA er dimensionsreducerende. FA finder latente variable.
+
+PCA er en type af faktoranalyse. Men er observationel, mens FA er en modelleringsteknik.
+
+fa kører i to trin. Eksplorativ faktoranalyse, hvor vi identificerer faktorerne.
+og confirmatory faktoranalyse, hvor vi bekræfter at vi faktisk fik identificeret
+faktorerne. 
+
+
+Den er vældig brugt i psykologien. 
+
+```{r setup-libraries}
+library(lavaan) 
+library(tidyverse)
+library(psych)
+```
+Let us look at some data:
+
+```{r}
+glimpse(HolzingerSwineford1939)
+```
+
+We have 301 observations. School children (with an id) of different sex (sex), age (ageyr, agemo)
+at different schools (school) and different grades (grade) have been tested on their ability
+to solve a battery of tasks:
+
+* x1 Visual Perception - A test measuring visual perception abilities.
+* x2 Cubes - A test assessing the ability to mentally rotate three-dimensional objects.
+* x3 Lozenges  - A test that evaluates the ability to identify shape changes.
+* x4 Paragraph Comprehension - A test of reading comprehension, measuring the ability to understand written paragraphs.
+* x5 Sentence Completion - A test that assesses the ability to complete sentences, typically reflecting verbal ability.
+* x6 Word Meaning - A test measuring the understanding of word meanings, often used as a gauge of vocabulary knowledge.
+* x7 Speeded Addition - A test of arithmetic skills, focusing on the ability to perform addition.
+* x8 speeded counting of dots - A test that evaluates counting skills using dot patterns.
+* x9 speeded discrimination straight and curved capitals - A test measuring the ability to recognize straight and curved capital letters in text.
+
+The thesis is, that there are some underlying factors. 
+
+Spatial ability - the ability to perceive and manipulate visual and spatial 
+information, x1, x2 og x3.
+verbal ability  x4,x5 og x6
+mathematical ability - x7 og x8
+speed of processing - x9
+
+The thinking is, that if the student is good at math, he or she will score high
+on x7 and x8. That is, a student scoring high on x7 will probably score high x8. Or low on both.
+
+This makes intuitive sense. But we would like to be able to actually identify these
+underlying factors.
+
+### Exploratory
+
+We do a factor analysis, and ask for 9 factors - that is the maximum 
+factors we can expect.
+
+```{r}
+library(psych)
+hs.efa <- fa(select(HolzingerSwineford1939, x1:x9), nfactors = 9, 
+             rotate = "none", fm = "ml")
+hs.efa
+```
+De enkelte elementer:
+SS loadings (Sum of Squared Loadings): Summen af kvadrerede faktorbelastninger for hver faktor. Dette viser, hvor meget varians hver faktor forklarer.
+
+For ML1 er det 2.63, hvilket betyder, at denne faktor forklarer det meste af variansen blandt de faktorer, der blev estimeret.
+ML4 til ML9 forklarer ingen varians (0.00), hvilket bekræfter din observation om, at kun de første få faktorer er betydningsfulde.
+Proportion Var (Proportion of Variance): Andelen af total varians forklaret af hver faktor.
+
+ML1 forklarer 29% af variansen, ML2 forklarer 13%, og ML3 forklarer 7%. De resterende faktorer forklarer ingen varians.
+Cumulative Var (Cumulative Variance): Den kumulative andel af total varians forklaret op til og med den pågældende faktor.
+
+ML1 alene forklarer 29% af variansen. De første tre faktorer tilsammen forklarer 49%.
+Proportion Explained: Procentdelen af den forklarede varians, der kan tilskrives hver faktor.
+
+ML1 står for 59% af den forklarede varians, ML2 står for 26%, og ML3 står for 15%.
+Cumulative Proportion: Den kumulative andel af den forklarede varians.
+
+De første tre faktorer forklarer 100% af variansen, hvilket indikerer, at resten af faktorerne ikke bidrager yderligere til at forklare variansen.
+
+Mean Item Complexity
+Dette tal repræsenterer gennemsnittet af antallet af faktorer, som hver variabel har betydelige belastninger på. En værdi på 1.9 indikerer, at de fleste variabler har betydelige belastninger på næsten 2 faktorer.
+
+Model Fit
+df null model: Antal frihedsgrader i nulmodellen (den model, der antager, at alle variabler er ukorrelerede).
+Chi Square: Chi-kvadrat statistikken for nulmodellen.
+df of the model: Antal frihedsgrader i den estimerede model. En negativ værdi indikerer en overparametriseret model (flere faktorer end dataene kan understøtte).
+Objective Function: Værdien af objektivfunktionen for den estimerede model.
+
+RMSR (Root Mean Square Residual)
+RMSR: Gennemsnittet af kvadratroden af residualerne (forskellen mellem de observerede og modelpredikterede værdier). En lav RMSR indikerer en god modeltilpasning.
+
+Chi Square and Fit Indices
+Harmonic n.obs: Det harmoniske gennemsnit af antallet af observationer.
+Empirical Chi Square: Den empiriske chi-kvadrat værdi.
+Likelihood Chi Square: Chi-kvadrat statistikken for modellen baseret på likelihood metoden.
+Tucker Lewis Index (TLI): En fit-indeks, hvor værdier over 0.9 typisk indikerer en god modeltilpasning. En værdi på 1.199 er meget høj.
+Fit based upon off diagonal values: Indikator for modeltilpasning baseret på off-diagonale værdier i residualkorrelationsmatricen. En værdi på 0.99 indikerer fremragende fit.
+
+Often a visual representation of the model is useful:
+```{r}
+plot(hs.efa$e.values)
+```
+The rule of thumb is that we reject factors with an eigenvalue lower than 1.0.
+
+Three factors are sufficient. We now do the factor analysis again:
+
+```{r}
+
+hs.efa <- fa(select(HolzingerSwineford1939, x1:x9), nfactors = 3, 
+             rotate = "none", fm = "ml")
+hs.efa
+```
+og hvilke er så med i hvilke?
+
+
+```{r}
+
+hs.efa <- fa(select(HolzingerSwineford1939, x1:x9), nfactors = 3, 
+             rotate = "varimax", fm = "ml")
+hs.efa
+print(hs.efa$loadings, cutoff = 0.4)
+```
+Bum. Så har vi identificeret hvilke manifeste variable der indgår i hvilke 
+latente faktorer.
+
+## Confirmatory factor analysis
+
+Nu bør vi hive fat i et nyt datasæt med manifeste variable, og se hvor godt 
+vores models latente variable beskriver variationen i det.
+
+I praksis er de studerende (og mange andre) dovne og springer over hvor 
+gærdet er lavest (og hvorfor pokker skulle man også vælge at springe over hvor det er højest.)
+
+så hvordan laver man den bekræftende analyse?
+
+Vi kal have stillet en model op. Den ser lidt speciel ud.
+```{r}
+HS.model <- 'visual  =~ x1 + x2 + x3
+             textual =~ x4 + x5 + x6
+             speed   =~ x7 + x8 + x9'
+```
+
+Så fitter vi:
+```{r}
+fit <- cfa(HS.model, data = HolzingerSwineford1939)
+```
+
+```{r}
+fit
+```
+Nej hvor er det fint. Selvfølgelig er det det. Vi har fittet vores oprindelige
+data på den model vi fik fra samme data. Det skal helst være ret godt.
+
+
+```{r}
+summary(fit, standardized=TRUE, fit.measures=TRUE, rsquare=TRUE)
+```
+```{r}
+fitted(fit)
+coef(fit)
+resid(fit, type = "normalized")
+```
+```{r}
+library(semPlot)
+semPaths(fit, "std", layout = "tree", intercepts = F, residuals = T, nDigits = 2, 
+         label.cex = 1, edge.label.cex=.95, fade = F)
+```
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

@@ -21,12 +21,19 @@ A selection of data sets
 |  Wk10lvl   |  Week 10 Level                                  |
 |  Wk12lvl   |  Week 12 Level                                  |
 
+Data from a study of bio availability of four different preparations of 
+betacarotene:
+
+1. Solaten (30 mg capsules)
+2. Roche (60 mg capsules)
+3. 
+
 Data fra et studie af biotilgængelighed af fire forskellige præparationer af 
 betacaroten:
 1. Solatene (30 mg kapsler)
 2. Roche (60 mg kapsler)
-3. Badische Anilin und Soda Fabrik (BASF) (30 mg kapsler)
-4. BASF (60 mg kapsler)
+3. Badische Anilin und Soda Fabrik (BASF) (30 mg capsules)
+4. BASF (60 mg capsules)
 
 23 forsøgspersoner får målt karoten niveauet i deres blod (fastende blodprøve) 
 på to på hinanden følgende dage. Derefter indtog de, randomiseret, en af de
@@ -1041,7 +1048,6 @@ NB: Filen er semikolon-separeret
 
 
 
-
 ### Generel reference for alle datasæt
 
 Bortset fra who-sættet, der er en modificeret udgave af datasættet who fra 
@@ -1060,6 +1066,14 @@ https://www.jstor.org/stable/2532505
 
 https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
 
+
+@misc{misc_wine_109,
+  author       = {Aeberhard,Stefan and Forina,M.},
+  title        = {{Wine}},
+  year         = {1991},
+  howpublished = {UCI Machine Learning Repository},
+  note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
+}
 
 @book{alma99122116675805763,
 year = {2011},

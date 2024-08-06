@@ -72,6 +72,8 @@ episodes:
 - clt.Rmd
 - barcharts.Rmd
 - powerberegninger.Rmd
+- kmeans.Rmd
+- factor-analysis.Rmd
 
 # Information for Learners
 learners: 
