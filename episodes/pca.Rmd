@@ -1,5 +1,5 @@
 ---
-title: 'PCA'
+title: 'Principal Component Analysis'
 teaching: 10
 exercises: 2
 ---

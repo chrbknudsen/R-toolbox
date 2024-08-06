@@ -15,11 +15,11 @@ math: yes
 ---
 
 ```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("15-")
+
 library(tidyverse)
 library(palmerpenguins)
 library(GGally)
+library(Rtsne)
 library(ggExtra)
 library(patchwork)
 ```
@@ -45,9 +45,7 @@ ikke vise 4 dimensioner på en skærm. Det går heller ikke så godt med 3.
 
 
 
-```{r}
-Rtsne()
-```
+
 
 
 
