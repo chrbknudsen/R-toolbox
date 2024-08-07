@@ -13,17 +13,3 @@ course,.
 The episodes are under construction, and will continue to be, as we will
 add new content until we have covered any subject that might arise working with
 data. That is: We will never be done.
-
-
-## Prerequisites 
-
-We expect you to have R and RStudio installed, or have an account on [posit.cloud](https://posit.cloud/).
-
-We also expect you to have a basic knowledge of R, and that you have a rudimentary
-grasp of the concepts of the Tidyverse. We recommend one of our [introductory
-courses](https://kubdatalab.github.io/R-intro/).
-
-
-
-
-
