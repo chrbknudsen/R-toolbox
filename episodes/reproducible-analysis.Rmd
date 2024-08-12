@@ -105,7 +105,8 @@ deleting irrelevant observations.
 
 ## The solution to all of this!
 
-![The Rmarkdown family](fig/horstmarkdown.png){"Artwork by [@allison_horst](https://twitter.com/allison_horst), CC-BY"}
+![The Rmarkdown family. Artwork by @allison_horst, https://twitter.com/allison_horst, CC-BY](fig/horstmarkdown.png)
+
 
 Working in RMarkdown allows us to collect the text describing our data, what and
 why we are doing what we do, the code actually doing it, and the results of that code -
