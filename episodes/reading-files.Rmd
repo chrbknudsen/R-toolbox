@@ -76,7 +76,8 @@ datatypes, handling of headers etc. For most use, the default options
 are enough, but if you need to adjust something, there are plenty of
 options for that.
 
-An especially useful argument is `guess_max`
+:::: discussion
+## guess_max
 
 `read_csv` and `read_csv2` tries to guess the datatypes in the file, and
 will convert the data accordingly. That will return a dataframe where
@@ -90,7 +91,9 @@ Adjust the argument `guess_max` to something larger to catch this
 problem.
 
 To include every row in the guess, add `guess_max = Inf` - but be
-carefull if you have a very large dataset.
+careful if you have a very large dataset.
+
+::::
 
 ## Excel-files
 
