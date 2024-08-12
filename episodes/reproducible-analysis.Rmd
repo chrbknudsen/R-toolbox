@@ -84,8 +84,7 @@ computer crashes.
 
 ## Documentation and Metadata:
 
-What did we actually do in the analysis? Why did we do it? Why are we coming to
-the conclusion we have got to?
+What did we actually do in the analysis? Why did we do it? Why are we reaching the conclusion we've arrived at?
 
 Three very good questions. Having good metadata, data that describes your data,
 often makes understanding your data easier. Documenting the individual steps of
