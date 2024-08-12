@@ -155,6 +155,24 @@ This, on the other hand, requires us to add code chunks loading libraries and
 data to our document.
 
 
+:::: challenge
+## Try it yourself
+
+Make a new RMarkdown document, add `library(tidyverse)` to the first chunk, add 
+your own text, and change the plot to plot the `distance` variable from the `cars`
+data set.
+
+:::: solution
+
+Make a new RMarkdown document - File -> New File -> R Markdown.
+
+Change the final code chunk to include `plot(cars$dist)` instead of plot(pressure)
+
+::::
+
+::::
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
