@@ -59,7 +59,6 @@ contact: 'kubdatalab@kb.dk'
 
 # Order of episodes in your lesson
 episodes: 
-- introduction.Rmd
 - reproducible-analysis.Rmd
 - reading-files.Rmd
 - descript-stat.Rmd
