@@ -84,8 +84,7 @@ computer crashes.
 
 ## Documentation and Metadata:
 
-What did we actually do in the analysis? Why did we do it? Why are we coming to
-the conclusion we have got to?
+What did we actually do in the analysis? Why did we do it? Why are we reaching the conclusion we've arrived at?
 
 Three very good questions. Having good metadata, data that describes your data,
 often makes understanding your data easier. Documenting the individual steps of
@@ -105,7 +104,8 @@ deleting irrelevant observations.
 
 ## The solution to all of this!
 
-![The Rmarkdown family](fig/horstmarkdown.png){"Artwork by [@allison_horst](https://twitter.com/allison_horst), CC-BY"}
+![The Rmarkdown family. Artwork by @allison_horst, https://twitter.com/allison_horst, CC-BY](fig/horstmarkdown.png)
+
 
 Working in RMarkdown allows us to collect the text describing our data, what and
 why we are doing what we do, the code actually doing it, and the results of that code -
@@ -153,6 +153,24 @@ that the analysis is done in the exact same way each and every time.
 
 This, on the other hand, requires us to add code chunks loading libraries and 
 data to our document.
+
+
+:::: challenge
+## Try it yourself
+
+Make a new RMarkdown document, add `library(tidyverse)` to the first chunk, add 
+your own text, and change the plot to plot the `distance` variable from the `cars`
+data set.
+
+:::: solution
+
+Make a new RMarkdown document - File -> New File -> R Markdown.
+
+Change the final code chunk to include `plot(cars$dist)` instead of plot(pressure)
+
+::::
+
+::::
 
 
 
