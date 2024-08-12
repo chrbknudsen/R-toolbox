@@ -75,7 +75,7 @@ a standarddeviation of 9.7 cm. How probably is it to find a man that is taller
 than 2 meters? 
 
 Directly:
-```{r}
+```{r pnorm-example}
 1 - pnorm(200,183,9.7)
 ```
 In this example, pnorm returns the probability of an observation smaller than
@@ -88,7 +88,7 @@ smaller than 200.
 Manually we could calculate the distance from 200 to 183 = 17. And divide that
 with the standard deviation 9.7: 17/9.7 = 1.752577. 
 
-```{r}
+```{r pnorm-example-2}
 1 - pnorm(1.752577)
 ```
 
@@ -141,7 +141,7 @@ De hyppigst forekommende fordelinger har hver deres sæt af funktioner.
 
 #### rnorm
 I samme familie finder vi runif, rbeta og en del andre:
-```{r}
+```{r rnorm-example}
 rnorm(5, mean = 0, sd = 1 )
 ```
 Den returnerer (her) fem tilfældige værdier fra en normalfordeling med (her) 
@@ -194,7 +194,7 @@ Hvis vi antager at serum-Molybdæn er normalfordelt i populationen, kan vi
 beregne hvor stor en andel af den normale raske befolkning i danmark, der har 
 en Molybdæn-koncentration under 0:
 
-```{r}
+```{r pnorm-negative}
 pnorm(0, mean = 1.55, sd = 0.74)
 
 ```
