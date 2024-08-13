@@ -188,11 +188,11 @@ fitted(fit)
 coef(fit)
 resid(fit, type = "normalized")
 ```
-```{r}
+CAVE! SEMPLOT FEJLER UNDER INSTALLATION PÅ GITHUB!
 library(semPlot)
 semPaths(fit, "std", layout = "tree", intercepts = F, residuals = T, nDigits = 2, 
          label.cex = 1, edge.label.cex=.95, fade = F)
-```
+
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

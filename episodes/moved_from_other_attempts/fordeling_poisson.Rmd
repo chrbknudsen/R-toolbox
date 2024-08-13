@@ -5,9 +5,7 @@ date: "22/2/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 Poisson fordelingen er en diskret sandsynlighedsfordeling.
 
@@ -60,14 +58,13 @@ Den forventede værdi - og variansen, er begge lig lambda.
 
 Hvordan ser den ud?
 
-```{r}
+
 expand.grid(k = 0:20, l = 1:10) %>% 
   mutate(P = (l^k)*exp(-l)/factorial(k)) %>% 
   ggplot(aes(x=k, y=P, color=factor(l))) +
   geom_line() +
   geom_point()
 
-```
 
 Hvordan tester vi om en fordeling følger poission fordelinge?
 
