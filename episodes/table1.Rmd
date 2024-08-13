@@ -13,6 +13,7 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain what a Table One is
+- Know how to make a Tabel One and adjust key parameters
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -46,7 +47,7 @@ units(dat$weight) <- "kg"
 ```
 
 It can look like this:
-```{r echo = FALSE}
+```{r basic-table1-demo echo = FALSE}
 table1(~sex+age+weight|treatment, data = dat)
 ```
 We have 40 participants in a study, split into equal control and treatment groups,
@@ -61,7 +62,7 @@ of their weight.
 
 But the table above was made in this way:
 
-```{r eval = FALSE}
+```{r basic-table1-how eval = FALSE}
 library(table1)
 table1(~sex + age + weight|treatment, data = dat)
 ```
@@ -70,7 +71,7 @@ We specify that we would like a table that is a function of `sex`, `age` and
 
 It might be instructive to take a look at how the data was prepared.
 First the data it self:
-```{r eval = FALSE}
+```{r data-prep eval = FALSE}
 dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treatment=c("Treated", "Placebo"))
 dat$age <- runif(nrow(dat), 10, 50)
 dat$age[3] <- NA  # Add a missing value
@@ -79,7 +80,7 @@ dat$weight <- exp(rnorm(nrow(dat), log(70), 0.2))
 
 The interesting part occurs here, where we add labels to the data. That
 allows us to control the headings in the table:
-```{r eval = FALSE}
+```{r labelling eval = FALSE}
 label(dat$sex) <- "Sex"
 label(dat$age) <- "Age"
 label(dat$treatment) <- "Treatment Group"
@@ -87,7 +88,7 @@ label(dat$weight) <- "Weight"
 ```
 
 It can be beneficial to add information about units of the data:
-```{r eval = FALSE}
+```{r adding-units eval = FALSE}
 units(dat$age) <- "years"
 units(dat$weight) <- "kg"
 ```
@@ -108,7 +109,7 @@ is shown in the table.
 The simple way of doing that is by using abbrevieated
 function names:
 
-```{r}
+```{r summary-statistics}
 table1(~sex + age + weight|treatment, data = dat,
         render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
                            "Geom. mean (Geo. SD%)"="GMEAN (GSD%)"))
@@ -135,7 +136,7 @@ If we want to specify the label, we can write `"Geom. mean (Geo. SD%)"="GMEAN (G
 If we want to specify the summary statistics very precisely, we have to 
 define a function ourself:
 
-```{r}
+```{r your-own-function}
 my_summary <- function(x){
   c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE))
