@@ -13,16 +13,11 @@ source: Rmd
 math: yes
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("16-")
-
-```
 
 Ikke så meget forestplots, men det der ligger bag.
 
 
-```{r}
+
 library(dplyr)
 library(forestplot)
 library(forestr)
@@ -54,5 +49,5 @@ base_data |>
                 OR = "0.53",
                 is.summary = TRUE) |> 
   fp_set_zebra_style("#EFEFEF")
-```
+
 

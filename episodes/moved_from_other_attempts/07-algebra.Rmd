@@ -10,22 +10,14 @@ keypoints:
   - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("07-")
-```
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 
-```{r setup12, echo = F}
+
 library(devtools)
 devtools::install_github("dirkschumacher/ompr.highs")
 install.packages("highs")
 install.packages("ompr.roi")
-```
+
 
 Hvordan løser vi algebraiske ligningssystemer?
 
@@ -52,32 +44,32 @@ Det er der en pakke der kan.
 
 
 
-```{r}
+
 library(highs)
 library(ompr)
 library(ompr.highs)
 library(dplyr)
-```
+
 
 Bemærk at ompr.highs skal installeres fra github:
 
-```{r eval = F}
+
 devtools::install_github("dirkschumacher/ompr.highs")
-```
+
 
 
 
 Så bygger vi modellen. Først initialiserer vi modellen:
-```{r}
+
 model <- MIPModel()
-```
+
 
 Så tilføjer vi variable:
-```{r}
+
 model <- model %>% 
       add_variable(x0, lb = 0, ub = 4, type = "continuous") %>%
       add_variable(x1, lb = 1, type = "continuous")
-```
+
 
 $x_0$ har lower bound (lb) lig 0, og upper bound (ub) lig 4. Og det er en 
 kontinuer variabel.
@@ -87,43 +79,43 @@ $x_1$ har lower bound 1, og er kontinuer.
 så tilføjer vi de øvrige begrænsninger:
 
 
-```{r}
+
 model <- model %>% 
       add_constraint(x1 <= 7) %>%
       add_constraint(x0 + 2*x1 <= 15) %>%
       add_constraint(x0 + 2*x1 >= 5) %>%
       add_constraint(3*x0 + 2*x1 >= 6)
-```
+
 
 Og endelig angiver vi hvad målet er. $x_0 + x_3 + 3$ skal minimeres:
-```{r}
+
 model <- model %>% 
   set_objective(x0+x1+3, sense = "min") 
-```
+
 
 Så er vi klar til at løse modellen:
   
-```{r}
+
 # solve model
 solution <- model %>% 
   solve_model(highs_optimizer())
-```
+
 
 Og når den er færdig, kan vi kigge på resultatet.
 
 Vi fandt en optimal løsning:
-```{r}
+
 solution$status
-```
+
 
 Værdien, minimum af vores mål, er:
-```{r}
+
 solution$objective_value
-```
+
 
 Og selve løsningen er givet ved:
-```{r}
+
 solution$solution
-```
+
 
 {% include links.md %}
