@@ -96,8 +96,6 @@ units(dat$weight) <- "kg"
 
 ## More advanced stuff
 
-FLYTTES TIL SEPARAT SIDE?
-
 We might want to be able to precisely control the summary
 statistics presented in the table. 
 
@@ -129,7 +127,37 @@ as the functions `mean()` and `sd()`, but also that the label shown should be
 
 If we want to specify the label, we can write `"Geom. mean (Geo. SD%)"="GMEAN (GSD%)"`
 
-ØVELSE - ÆNDRE PÅ LABEL ETC.
+
+:::: challenge
+## Change the labels 
+
+We have two unusual values in this table - geometric mean and geometric 
+standard deviation. Change the code to write out "Geom." and "geo." as 
+geometric.
+
+
+:::: solution
+```{r summary-statistics-solution, eval = FALSE}
+table1(~sex + age + weight|treatment, data = dat,
+        render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
+                           "Geometric mean (Geometric SD%)"="GMEAN (GSD%)"))
+```
+
+The geometric mean of two numbers is the squareroot of the product of the two
+numbers. If we have three numbers, we take the cube root of the product. In general:
+
+$$\left( \prod_{i=1}^{n} x_i \right)^{\frac{1}{n}}$$
+
+The geometric standard deviation is defined by:
+$$ \exp\left(\sqrt{\frac{1}{n} \sum_{i=1}^{n} \left( \log x_i - \frac{1}{n} \sum_{j=1}^{n} \log x_j \right)^2}\right)$$
+
+
+::::
+
+::::
+
+
+
 
 ## Very advanced stuff
 
@@ -139,24 +167,86 @@ define a function ourself:
 ```{r your-own-function}
 my_summary <- function(x){
   c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
-"Variance" = sprintf("%.1f", var(x, na.rm=TRUE))
-)
+"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
 }
 table1(~sex + age + weight|treatment, data = dat,
 render.continuous = my_summary)
 ```
 We do not _need_ to use the `sprintf()` function, but it is a very neat way of 
-combining text with numeric variables. 
-
-ØVELSE - HVAD MON .3f GØR?
-
-What we absolutely need to do is adding the empty string in the beginning.
-
-ØVELSE -  HVAD SKER DER HVIS MAN LADER VÆRE?
-
+combining text with numeric variables because it allows us to format 
+them directly.
 
 Summary statistics for categorical data can be adjusted similarly, by specifying
 `render.categorical`.
+
+:::: challenge
+## What does %.3f actually do?
+
+Can you guess what the formatting in ´sprintf´ does? 
+
+Try to change "%.3f" in the function to "%.2f".
+
+:::: solution
+
+```{r sprintf-solution}
+my_summary <- function(x){
+  c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
+"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
+}
+```
+
+`sprintf` uses a bit of an arcane way of specifying the way numbers should be
+formatted when we combine them with text. The "%"-sign specifies that "this is
+where we place the number in the function". ".3f" specifies that we are treating
+the number as a floating point number (which is just a fancy way of saying that
+it is a decimal number), and that we would like three digits after the decimal point.
+
+::::
+
+
+
+::::
+
+
+:::: challenge
+
+## Whats up with that blank line?
+
+Note that in the function, we define a vector as output, with three elements:
+```{r blank-line-challenge, eval=FALSE}
+my_summary <- function(x){
+  c("",
+"Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
+"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
+}
+```
+
+Calculating and formatting the median and the varianse is pretty straightforward.
+
+But the first element is an empty string. Whats up with that?
+
+:::: solution
+
+Try to remove the empty string from the function, and use it is a table one 
+as previously shown:
+
+```{r blank-line-solution eval=FALSE}
+my_summary <- function(x){
+  c("Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
+"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
+}
+table1(~sex + age + weight|treatment, data = dat,
+render.continuous = my_summary)
+```
+The line beginning with "Median" does not show up, but the median value is 
+shown next to the "Age" and "Weight" lines. 
+
+::::
+
+::::
+
+
+
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -168,7 +258,8 @@ Primarily of use if there are medical students on the course
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
+- A Table One provides a compact describtion of the data we are working with
+- With a little bit of work we can control the content of the table.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
