@@ -47,7 +47,7 @@ units(dat$weight) <- "kg"
 ```
 
 It can look like this:
-```{r basic-table1-demo echo = FALSE}
+```{r basic-table1-demo, echo = FALSE}
 table1(~sex+age+weight|treatment, data = dat)
 ```
 We have 40 participants in a study, split into equal control and treatment groups,
@@ -62,7 +62,7 @@ of their weight.
 
 But the table above was made in this way:
 
-```{r basic-table1-how eval = FALSE}
+```{r basic-table1-how, eval = FALSE}
 library(table1)
 table1(~sex + age + weight|treatment, data = dat)
 ```
@@ -71,7 +71,7 @@ We specify that we would like a table that is a function of `sex`, `age` and
 
 It might be instructive to take a look at how the data was prepared.
 First the data it self:
-```{r data-prep eval = FALSE}
+```{r data-prep, eval = FALSE}
 dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treatment=c("Treated", "Placebo"))
 dat$age <- runif(nrow(dat), 10, 50)
 dat$age[3] <- NA  # Add a missing value
@@ -80,7 +80,7 @@ dat$weight <- exp(rnorm(nrow(dat), log(70), 0.2))
 
 The interesting part occurs here, where we add labels to the data. That
 allows us to control the headings in the table:
-```{r labelling eval = FALSE}
+```{r labelling, eval = FALSE}
 label(dat$sex) <- "Sex"
 label(dat$age) <- "Age"
 label(dat$treatment) <- "Treatment Group"
@@ -88,7 +88,7 @@ label(dat$weight) <- "Weight"
 ```
 
 It can be beneficial to add information about units of the data:
-```{r adding-units eval = FALSE}
+```{r adding-units, eval = FALSE}
 units(dat$age) <- "years"
 units(dat$weight) <- "kg"
 ```
@@ -188,7 +188,7 @@ Try to change "%.3f" in the function to "%.2f".
 
 :::: solution
 
-```{r sprintf-solution}
+```{r sprintf-solution, eval = FALSE}
 my_summary <- function(x){
   c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
@@ -230,7 +230,7 @@ But the first element is an empty string. Whats up with that?
 Try to remove the empty string from the function, and use it is a table one 
 as previously shown:
 
-```{r blank-line-solution eval=FALSE}
+```{r blank-line-solution, eval=FALSE}
 my_summary <- function(x){
   c("Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
