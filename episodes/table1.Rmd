@@ -25,7 +25,7 @@ using data.
 
 It presents the baseline characteristics of the participants
 in a study, and provides a concise overview of the relevant
-demographic and clinical variables. 
+demographic and clinical variables.
 
 It typically compares different groups (male~female, treatment~control), to highlight similarities and differences.
 
