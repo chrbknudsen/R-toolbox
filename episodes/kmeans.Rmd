@@ -36,7 +36,8 @@ three different grapes (or cultivars) have been measured.
 Most of them are chemical measurements.
 
 ```{r}
-vin <- read_csv("episodes/data/win/wine.data", col_names = F)
+library(tidyverse)
+vin <- read_csv("data/win/wine.data", col_names = F)
 names(vin) <- c("cultivar",
                 "Alcohol",
                 "Malicacid",
@@ -129,7 +130,7 @@ Does that mean the algorithm does a bad job?
 Looking at the data give a hint about the problems:
 
 ```{r}
-head(vin)
+# head(vin)
 ```
 Note the differences between the values of "Malicacid" and "Magnesium". One
 have values between `r min(vin$Malicacid)` and `r max(vin$Malicacid)` and the

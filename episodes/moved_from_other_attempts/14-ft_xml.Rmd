@@ -10,44 +10,37 @@ keypoints:
   - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("14-")
-```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Folketinget gør deres referater tilgængelige i XML-format. XML er ofte noget
 snask at arbejde med i R; mængden af nestede list-kolonner er stor!
 
 Vi skal bruge nogle biblioteker:
-```{r eval = F}
+
 library(dplyr)
 library(tidyr)
 library(xml2)
-```
+
 
 Her er et lille eksempel. Kun to megabyte.
 
 Det indlæser vi med read_xml:
-```{r indlæs_data, eval = F}
+
 data <- xml2::read_xml("data/14_ft_xml_sample_xml.xml")
-```
+
 
 Så konverterer vi. Først til en liste, og dernæst til en tibble:
 
-```{r konverter til tibble, eval = F}
+
 data <- data %>% 
   as_list() %>% 
   as_tibble()
-```
+
 
 Og så kan vi gå igang. Det komplette udtræk af alle data, næppe særligt elegant.
 Og nok også med en resultat af en dataframe hvor der trænger til at blive 
 ryddet lidt op. Men ikke desto mindre noget der giver et resultat:
-```{r, eval = F}
+
  data %>% 
     unnest_longer("EdixiData", "Møde") %>% 
     hoist(Møde, "Samling", 
@@ -73,7 +66,7 @@ ryddet lidt op. Men ikke desto mindre noget der giver et resultat:
     mutate(Tekst = map(Tekst, paste0, collapse = " ")) %>% 
     unnest_longer(Tekst) %>% 
     select(-Møde_id)
-```
+
 
 Vi får undervejs kolonner der indeholder nestede lister, altså lister der
 indeholder lister.
@@ -92,4 +85,3 @@ unnest_wider i stedet. Her kan vi ofte også bruge transform = unlist. Bemærk
 at syntaksen i unnest_ funktionerne er lidt forskellig fra hoist(). I sidstnævnte
 er det .transform = unlist, altså med et punktum foran.
 
-{% include links.md %}
