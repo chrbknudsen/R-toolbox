@@ -10,76 +10,69 @@ keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("02-")
-```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 Den her ser pænt cool ud:
-```{r taiwan.jpg-visning, echo = F, out.width = "400px"}
+
 knitr::include_graphics("../fig/taiwan.jpg")
-```
+
 
 Det er et reliefkort af Taiwan. Lavet af https://mobile.twitter.com/researchremora
 
 #Hvordan?
 Vi skal bruge disse biblioteker:
-```{r libraries}
+
 library(rgdal)
 library(dplyr)
 library(rayshader)
 library(elevatr)
 library(raster)
-```
+
 
 Nu prøver vi så at gøre det for danmark. Indlæs en rds-fil, der indeholder 
 et `sf` objekt:
-```{r hent-sf-data, eval =F}
+
 denmark <- readRDS(url("https://geodata.ucdavis.edu/gadm/gadm4.0/Rsf/gadm40_DNK_0_sf.rds"))
-```
+
 Så skal vi have højdedata. Dem kan funktionen `get_elev_raster` trække fra 
 "Amazon Web Services Terrain Tiles and the Open Topography global datasets API":
 
-```{r hent-elevation, eval = F}
+
 dem <- get_elev_raster(denmark, z = 6)
-```
+
 
 Så laver vi et nyt `raster` objekt, hvor vi trækker de relevante dele ud af
 højdedata. Vi maskerer højdedata med sf-objektet for Danmark:
-```{r masker-sf-data, eval = F}
+
 denmark_dem <- raster::mask(dem, denmark)
-```
+
 
 Dernæst konverterer vi rasteren til en matrix som rayshaderpakken kan arbejde med:
-```{r konverter-til-matrix, eval = F}
+
 denmark_mat <- rayshader::raster_to_matrix(denmark_dem)
-```
+
 
 Og så laver vi 3D-plottet af Danmark. Det gør vi ikke her, for det kan GitHub 
 ikke gøre for os. Bemærk også at der er forældede funktioner i brug her - 
 der er kommet nye. Så denne kode skal nok opdateres:
-```{r 3d-plot, eval = F}
+
 denmark_mat %>% 
   sphere_shade(texture= "imhof3") %>% 
    plot_3d(denmark_mat, windowsize = c(1200,1200),
                      zscale = 20, zoom = 0.75, phi = 89, theta = 0, fov = 0, background = "black")
-```
+
 
 Endelig kan vi gemme filen
-```{r gem-billede-eksempel, eval = F}
+
 render_snapshot(filename = "../fig/denmark2.png", samples = 100, width = 6000, height = 6000)
-```
+
 
 Og det ser således ud:
-```{r vis-plot, echo = F, out.width = "400px"}
+
 knitr::include_graphics("../fig/denmark2.png")
-```
+
 
 Der er meget andet man kan lege med her.
 
-{% include links.md %}
+
 

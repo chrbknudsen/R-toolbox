@@ -5,10 +5,7 @@ date: "5/1/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-library(tidyverse)
-knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 # TL;DR
 
@@ -31,7 +28,7 @@ https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence
 Vi har en observeret fordeling. Thushan er tydeligvis fan af Dune, og 
 har dette eksempeldatasæt:
 
-```{r}
+
 space_worm_teeth <- c(rep(0 ,2 ),
 rep(1 ,3 ),
 rep(2 ,5 ),
@@ -48,16 +45,16 @@ space_worm_teeth <- space_worm_teeth %>%
   count(space_worm_teeth) %>% 
   mutate(prob = n/sum(n))
 
-```
+
 
 Han forklarer det med at vi har 100 rumorme. de to af dem har 0 tænder, de tre 
 af dem 1 tand, de fem af dem 2 tænder og så fremdeles.
 
 Det ser således ud når vi plotter det:
-```{r}
+
 ggplot(space_worm_teeth, aes(space_worm_teeth, n)) +
   geom_col()
-```
+
 
 Det er vores "sande" fordeling, det vi har observeret. Der er 100 rumorme ialt,
 så når der er 2 orme med 0 tænder, er sandsynligheden for at observere 0 tænder 
@@ -65,10 +62,9 @@ så når der er 2 orme med 0 tænder, er sandsynligheden for at observere 0 tæn
 
 Så når vi plotter det som en sandsynlighedsfordeling, får vi:
 
-```{r}
+
 ggplot(space_worm_teeth, aes(space_worm_teeth, prob)) +
     geom_col()
-```
 
 Det er fint. Vi er interesserede i at vide hvilken fordeling antallet af tænder
 hos vores rumorme har. 
@@ -79,7 +75,7 @@ You get the point.
 
 Det ville se således ud:
 
-```{r}
+
 space_worm_teeth %>% 
   mutate(uniform = 1/11) %>% 
   pivot_longer(prob:uniform,
@@ -87,7 +83,7 @@ space_worm_teeth %>%
                values_to = "value") %>% 
   ggplot(aes(space_worm_teeth, value, fill=fordeling)) +
   geom_col(position="dodge")
-```
+
 
 Det er tydeligvis en fordeling der ikke matcher virkeligheden særligt godt.
 
@@ -100,12 +96,12 @@ plat. Hvis den er 50%, ser det således ud:
 
 
 
-```{r}
+
 data.frame(x=0:10) %>% 
   mutate(bino = dbinom(x,10,0.5)) %>% 
   ggplot(aes(x,bino)) +
   geom_col()
-```
+
 
 Plottet viser hvad sandsynligheden er for at vi får x "plat" når vi slår plat og krone.
 
@@ -114,12 +110,12 @@ lidt under 5%.
 
 Men i samme øjeblik vi ændrer på den sandsynlighed, skifter plottet udseende:
 
-```{r}
+
 data.frame(x=0:10) %>% 
   mutate(bino = dbinom(x,10,0.6)) %>% 
   ggplot(aes(x,bino)) +
   geom_col()
-```
+
 
 Her har jeg ændret sandsynligheden for at få plat til at være 60% - en ret unfair
 mønt, og nu ser det noget anderledes ud. Fem plat optræder kun med 20% sandsynlighed.

@@ -26,21 +26,60 @@ associated with the lessons. They appear in the "Instructor View"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+## What is the normal distribution
+
+A probability distribution is a mathematical function, that describes
+the likelyhood of different outcomes in a random experiment. It gives us
+probabilities for all possible outcomes, and is normalised so that the sum
+of all the probabilities is 1. 
+
+Probability distribtutions can be discrete, or they can be continuous. The normal
+distribution is just one of several different continuous probability distributions. 
+
+The normal distribution is especially important, for a number of reasons:
+
+1. If we take a lot of samples from a population and calculate the averages of 
+a given variable in those samples, the averages, or means will be normally 
+distributed. This is know as the Central Limit Theorem [KAN VI SÆTTE ET LINK IND?]
+
+2. Many natural (and human made) processes follow a normal distribution.
+
+3. The normal distribution have useful mathematical properties. It might not 
+appear to be simple working with the normal distribution. But the alternative is
+worse.
+
+4. Many statistical methods and tests are based on assumptions of normality.
+
+## How does it look?
 The normal distribution follows this formula:
 
 $$
 f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 $$
 
-It returns the probability density for a given x, population mean and population
-standard deviation. We can see that it is the "true" mean and standard deviation for
-the entire population, basically for the _entire_ universe, because they are 
-written using greek letters.
+If a variable in our population is normally distributed, have a mean $\mu$ and a 
+standard deviation $\sigma$, we can find the probability of observing the value 
+$x$ of the varibel by plugging in the values, and calculate $f(x)$.
 
-We are often working with the standardized normal distribution,
-where mean is 0 and the standard deviation is 1. 
+Note that we are here working with the population mean and standard deviation. 
+Those are the "true" mean and standard deviation for the _entire_ universe. That 
+is signified by using the greek letters $\mu$ and $\sigma$. In practise
+we do not know what those true values are.
 
-If we plot that, it looks like this:
+### What does it mean that our data is normally distributed
+
+We have an entire section on that - but in short: The probabilities we get 
+from the formula above should match the frequencies we observe in our data.
+
+## How does it look?
+
+It is useful to be able to compare the distributions of different variables.
+That can be difficult if one have a mean of 1000, and the other have a mean
+of 2. Therefore we often work with standardized normal distributions, where
+we transform the data to have a mean of 0 and a standard deviation of 1. So
+let us look at the standardized normal distribution.
+
+If we plot it, it looks like this:
 
 ![The Normal Distribution. Source: https://en.m.wikipedia.org/wiki/File:The_Normal_Distribution.svg](fig/The_Normal_Distribution.svg){alt='The Normal Distribution.'}
 The area under the curve is 1, equivalent to 100%.

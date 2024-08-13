@@ -14,7 +14,7 @@ source: Rmd
 math: yes
 ---
 
-```{r, include = FALSE}
+
 
 library(tidyverse)
 library(palmerpenguins)
@@ -22,7 +22,7 @@ library(GGally)
 library(Rtsne)
 library(ggExtra)
 library(patchwork)
-```
+
 
 T-SNE (t-distributed Stochastic Neighbor Embedding) er en maskinlæringsalgoritme, 
 der hjælper med at visualisere højdimensionale data i et lavere dimensionalt rum, 
@@ -34,9 +34,9 @@ tendenser i dataene, som kan være svære at se i det originale højdimensionale
 Eller, kortere formuleret, vi har data i mange (som i flere end 2-3 stykker)
 dimensioner. Vi ser på iris datasættet:
 
-```{r iris_data_visning, echo = F}
+
 head(iris)
-```
+
 Dette datasæt har fire dimensioner. Det er vanskeligt at vise grafisk. 
 
 Disse mange dimensioner vil vi godt have kogt ned til 2, max 3, for vi kan 
@@ -51,7 +51,7 @@ ikke vise 4 dimensioner på en skærm. Det går heller ikke så godt med 3.
 
 hvad med blomsterne?
 
-```{r}
+
 library(Rtsne)
 library(plotly)
 iris_unik <- unique(iris)
@@ -68,5 +68,5 @@ p
 iris_data %>% ggplot(aes(x,y, color = art)) +
   geom_point()
 
-```
+
 

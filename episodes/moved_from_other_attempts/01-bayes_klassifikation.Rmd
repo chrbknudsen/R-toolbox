@@ -13,11 +13,6 @@ source: Rmd
 math: yes
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("01-")
-
-```
 
 ### Hvad er det?
 
@@ -36,13 +31,13 @@ Der er mange implementeringer af Naiv Bayes. En af dem finder vi i pakken e1071.
 
 Lad os kigge på pingviner. 
 
-```{r}
+
 library(palmerpenguins)
 library(tidymodels)
 library(caret)
 library(e1071)
 head(penguins)
-```
+
 Vi har nogen data på pingviner. Nu vil vi godt lave en model, der, baseret
 på dimensioner af næb, vægt, køn og vægt, forudsiger hvilken slags pingvin
 der er tale om.
@@ -50,32 +45,29 @@ der er tale om.
 Vi starter med at lave et test og et træningssæt af data. Vi piller øen 
 pingvinerne er observeret på ud af datasættet:
 
-```{r}
+
 penguin_sample <- sample(c(TRUE, FALSE), nrow(penguins), replace=TRUE, prob=c(0.8,0.2))
 data <- penguins %>% select(-island)
 penguin_train  <- data[penguin_sample, ]
 penguin_test   <- data[!penguin_sample, ]
 
-```
-
 Så laver vi en simpel model:
 
-```{r}
+
 penguin_model <- naiveBayes(species~., penguin_train)
-```
 
 Og bruger den til at forudsige hvilken slags pingviner det er vi har i vores
 test-datasæt:
 
-```{r}
+
 penguin_predictions <- predict(penguin_model, newdata = penguin_test)
-```
+
 
 Hvordan gik det?
 
-```{r}
+
 confusionMatrix(penguin_predictions, penguin_test$species)
-```
+
 Det gik fint. Der er lidt forvirring i modellen - Et par chinstrap pingviner
 bliver forudsagt til at være Adelie. En enkelt Adelie pingvin bliver
 forudsagt til at være en Chinstrap. 
@@ -84,9 +76,9 @@ De statistikker vi får ud når vi laver vores confusionmatrix er omtalt her
 på siden om maskinlæringsmetrikker.
 
 Hvordan ser modellen egentlig ud?
-```{r}
+
 penguin_model
-```
+
 Det bliver en del mere komplekst når der er flere parametre involveret.
 
 Men vores priors, de sandsynligheder vi starter med, og som vi opdaterer,

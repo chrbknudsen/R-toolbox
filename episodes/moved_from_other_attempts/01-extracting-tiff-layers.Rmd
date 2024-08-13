@@ -10,40 +10,37 @@ keypoints:
 - "FIXME"
 ---
 
-```{r SETUP, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("01-")
-```
 
 
-```{r proj4rgdal-install, include = FALSE}
+
+
 install.packages("proj4")
 library(proj4)
 install.packages("rgdal")
 library(rgdal)
-```
 
 
-```{r terra-install, include = FALSE}
+
+
 install.packages("terra")
 library(terra)
-```
 
 
-```{r sp-install, include = FALSE}
+
+
 install.packages("sp")
 library(sp)
-```
 
 
-```{r raster, include = FALSE}
+
+
 install.packages("raster")
 library(raster)
-```
 
-```{r setup, include=FALSE}
+
+
 knitr::opts_chunk$set(echo = TRUE)
-```
+
 
 Tiff-filer kan indeholde lag. Vi er stødt på dem i en situation hvor
 en studerende havde behov for at trække lagene ud af en 
@@ -54,43 +51,40 @@ Her er et eksempel på en tiff-fil med tre lag:
 ![Trelagstiff](../fig/stacked_tiff.tif)
 
 Vi skal bruge en række biblioteker:
-```{r library-kald, eval = F}
+
 library(raster)
 library(sp)
 library(terra)
 library(proj4)
 library(rgdal)
-```
+
 
 Så kan vi indlæse filen:
 
-```{r read-file}
+
 tif <- stack("../fig/stacked_tiff.tif")
-```
+
 Der er tre lag:
-```{r vis-lag}
+
 raster::nlayers(tif)
-```
+
 De har navne:
-```{r vis-lagnavne}
+
 names(tif)
-```
+
 Og vi kan plotte dem individuelt:
 
-```{r plot-lag1}
+
 plot(tif$layer.1)
-```
-```{r plot-lag2}
 plot(tif$layer.2)
-```
-```{r plot-lag3}
+
 plot(tif$layer.3)
-```
+
 
 Vi kan også gemme dem individuelt:
-```{r save-eksempel, eval = F}
+
 writeRaster(tif$layer.3, "filnavn.tif")
-```
+
 
 ## Noter
 
@@ -106,4 +100,3 @@ Det kan være en kanal med landskabet set i IR-spektret. Eller tre kanaler med
 hver af farverne rød, grøn og blå. Vælger man kun at kigge på det grønne lag, 
 kan det være lettere at identificere hvor vegetationen er.
 
-{% include links.md %}
