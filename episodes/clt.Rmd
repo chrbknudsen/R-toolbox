@@ -29,14 +29,14 @@ The uniform distribution is not normally distributed. Without any additional arg
 it will produce x random values between 0 and 1, with equal probability for all
 possible values. Here we get 100 random values, and plot a histogram of them:
 
-```{r}
+```{r random-histogram}
 random_numbers <- runif(100) 
 hist(random_numbers)
 ```
 This is definitely not normally distributed. 
 
 The mean of these random numbers is:
-```{r}
+```{r mean-random}
 mean(random_numbers)
 ```
 The important point of the Central Limit Theorem is, that if we take a large
@@ -45,17 +45,17 @@ the means will be normally distributed.
 
 We could also have found the mean of the 100 random numbers like this:
 
-```{r}
+```{r mean-runif}
 mean(runif(100))
 ```
 And we can use the `replicate()` function to repeat that calculation several times, in this case 1000 times:
 
-```{r}
+```{r repeated-means}
 repeated_means <- replicate(1000, mean(runif(100)))
 ```
 When we plot the histogram of these 1000 means of 100 random
 numbers, we get this result:
-```{r}
+```{r repeated-means-histogram}
 hist(repeated_means)
 ```
 

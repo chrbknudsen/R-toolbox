@@ -11,21 +11,18 @@ keypoints:
 ---
 
 ```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("13-")
+
 ```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(eval = TRUE)
 ```
 
-```{r}
+
 devtools::install_github("bergant/datamodelr")
 library(datamodelr)
 
-
-
-```
 
 Folketingets API kan nogen ting. 
 Desværre leverer de ikke et ER diagram.
@@ -37,7 +34,7 @@ Eller andet. Og vi har slet ikke læst korrektur på det.
 
 Så. Brug det på eget ansvar.
 
-```{r}
+```{r }
 library(dplyr)
 dm_read_yaml("../data/oda_er.yml") %>% 
 dm_create_graph(rankdir = "BT") %>% 
