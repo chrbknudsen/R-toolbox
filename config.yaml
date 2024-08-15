@@ -74,6 +74,7 @@ episodes:
 - kmeans.Rmd
 - factor-analysis.Rmd
 - structure-you-work.Rmd
+- fence-test.Rmd
 
 # Information for Learners
 learners: 
