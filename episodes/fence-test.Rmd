@@ -20,6 +20,8 @@ exercises: 2
 
 Fences
 
+glossary?
+
 objectives, questions og keypoints kender vi.
 challenge og solution gør vi også.
 
@@ -69,16 +71,43 @@ challenge og solution gør vi også.
 ::::
 
 
-:::: tab
-## dette er en tab fence
+## Fanegruppe Eksempel
 
-::::
+::: group-tab
 
+### Windows
 
-:::: group-tab
-## dette er en group-tab fence
+1
 
-::::
+### Mac
+
+2
+
+### Linux
+
+3
+
+:::
+
+::: group-tab
+
+### Windows
+
+4
+
+### Mac
+
+5
+
+### Linux
+
+6
+
+### raspbian
+
+7
+
+:::
 
 
 

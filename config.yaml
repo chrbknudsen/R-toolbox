@@ -75,6 +75,8 @@ episodes:
 - factor-analysis.Rmd
 - structure-you-work.Rmd
 - fence-test.Rmd
+- design-principles.Rmd
+- multiple-regression.Rmd
 
 # Information for Learners
 learners: 
