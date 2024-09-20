@@ -67,13 +67,17 @@ episodes:
 - normal-distribution.Rmd
 - is-it-normal.Rmd
 - which-distribution.Rmd
-- regression.Rmd
+- linear-regression.Rmd
+- multiple-linear-regression.Rmd
+- logistic-regression.Rmd
 - clt.Rmd
 - barcharts.Rmd
 - powerberegninger.Rmd
 - kmeans.Rmd
 - factor-analysis.Rmd
 - structure-you-work.Rmd
+- fence-test.Rmd
+- design-principles.Rmd
 
 # Information for Learners
 learners: 
