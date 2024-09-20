@@ -1,5 +1,5 @@
 ---
-title: 'multiple-linear-regression'
+title: 'Multiple Linear Regression'
 teaching: 10
 exercises: 2
 ---
@@ -18,6 +18,109 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
+
+A linear regression is relatively simple to understand and visualise. 
+We have a dependent variable that we try to predict - model - using an 
+independent variable. In principle we can change the independent variable, and 
+the model will predict the change in the dependent variable. We can visualise
+this using a relatively simple graph, plotting the two variables against each other,
+and adding the line representing the model.
+
+But what if we have reason to believe that the dependent variable depends on
+more than one independent variable?
+
+Let us find some data for illustrating this.
+
+Before anything else, we load the `tidyverse` package, and then load the
+data:
+
+```{r library-and-data}
+library(tidyverse)
+density <- read_csv("data/BONEDEN.csv")
+```
+
+The data records the bonedensity in different parts of the skeleton of 
+female monozygotic twins, as well as height, age, weight, smoking, alcohol, tea and 
+coffee-habits. We are going to observe the second twin, where all variables are
+suffixed with the digit "2":
+
+```{r data-selection}
+density <- density %>% select(age, contains("2"))
+head(density)
+```
+
+More specically we are trying to model the bone density in the femoral shaft (lårbensskaft). As an intial hypothesis, we are going to assume that the density
+depends on height (`ht2`), age (`age`), weight (`wt2`), tea (`tea2`) and coffee
+consumption (`cof2`).
+
+That is, we assume that there is a linear correlation between the bone density
+and each of the independent variables.
+
+The simple linear regresion between just the bone density and the height, can be
+done with:
+
+```{r}
+lm(fs2 ~ ht2, data = density) %>% 
+  summary()
+```
+Where we pipe the output of the regression to the summary function to take a 
+closer look. There is a strong correlation between bone density and height. If
+we increse the height of a woman by one centimeter, the density of the femoral
+shaft is expected to increase by 0.0177 $g/cm^3$. The correlation is significant,
+we are rather sure that the estimate of this coefficient is different from 0.
+
+Now we would like to add the other independent variables to the model.
+
+The model we are building can be described using math as:
+
+$$ \text{fs2} = w_0 + w_1\text{ht2} + w_2\text{wt2} + w_3\text{tea2} + w_4\text{cof2} + \epsilon  $$
+That is - we would like to figure out which coefficients $w_1$ to $w_4$, and 
+which intercept $w_0$ gives us estimates of fs2, that minimises the error $\epsilon$
+
+This is pretty straight forward. Instead of running `lm(fs2~ht2, data = density`,
+we add the additional independent variables using the `+` sign. And again we 
+pipe the result to the summary function to take a closer look:
+
+```{r}
+lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) %>% summary()
+```
+It is _that_ simple. Interpreting the results on the other hand is a little bit
+more complicated. 
+
+The bone density, for a newborn woman (0 years old), that is 0 centimeters high,
+weighing 0 kilogram, who does not drink either tea or coffee, is -0.28 $g/cm^3$ - 
+which is obviously either impossible, or a discovery that would get you an 
+invitation to Stockholm.
+
+For each centimeter the woman grows, _if all other variables are held constant!_
+the bone density is expected to increase by 0.0091 $g/cm^3$.
+
+For each year the woman grows older, _if all other variables are held constant!_
+the bone density is expected to decrease by 0.0068 $g/cm^3$.
+
+For each kilogram the woman puts on weight, _if all other variables are held constant!_
+the bone density is expected to increase by 0.0038 $g/cm^3$.
+
+The coefficient for the height variable is not significant (if we have decided
+on a 5% significanse level), and neither consumption of teo nor coffee has a 
+significant influence on bone density. According to this model.
+
+Is this a good model? No. The coefficients for Tea and coffee consumption 
+are not significant, and should not be in the model. Let us remove them.
+
+But let us remove them one by one. First coffee that has the worst p-value:
+
+```{r}
+lm(fs2 ~ ht2 + age + wt2 + tea2, data = density) %>% summary()
+```
+Note that not only is the coefficient for tea still not significant, it actually
+gets "worse". 
+
+
+```{r}
+lm(fs2 ~ ht2 + age + wt2 , data = density) %>% summary()
+```
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

@@ -67,7 +67,9 @@ episodes:
 - normal-distribution.Rmd
 - is-it-normal.Rmd
 - which-distribution.Rmd
-- regression.Rmd
+- linear-regression.Rmd
+- multiple-linear-regression.Rmd
+- logistic-regression.Rmd
 - clt.Rmd
 - barcharts.Rmd
 - powerberegninger.Rmd
@@ -76,7 +78,6 @@ episodes:
 - structure-you-work.Rmd
 - fence-test.Rmd
 - design-principles.Rmd
-- multiple-regression.Rmd
 
 # Information for Learners
 learners: 

@@ -102,6 +102,20 @@ ALDRIG dobbelte y-eller x-akser.
 https://x.com/ValdemarOsted/status/1829409948540772604/photo/3
 Og slet ikke hvis enhederne er forskellige.
 
+```{r}
+library(palmerpenguins)
+penguins %>% 
+filter(species == "Adelie") %>% 
+ggplot(aes(x=body_mass_g)) +
+geom_line(aes(y = bill_depth_mm)) +
+geom_line(aes(y = flipper_length_mm/5)) +
+scale_y_continuous(sec.axis = sec_axis(~.*5)) +
+theme_ipsum()
+
+
+```
+
+
 ## 3D pie charts
 
 There are only two situations where you should make a 3D pie chart.
