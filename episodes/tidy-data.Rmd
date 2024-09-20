@@ -19,14 +19,14 @@ structured in the right way.
 
 Working within the paradigm of `tidyverse` it is preferable if the data is *tidy*.
 
-![test](fig/tidy_why.jpg){"Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"}
+![](fig/tidy_why.jpg){alt=''}
 
 
 Tidy data is not the opposite of messy data. Data can be nice and well 
 structured, tidy as in non-messy, without being tidy in the way we understand 
 it in this context.
 
-![test2](fig/tidy_hadley_2.jpg){"Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"}
+![](fig/tidy_hadley_2.jpg){alt=''}
 
 
 Tidy data in the world of R, especially the dialect of R we call tidyverse, 
@@ -36,7 +36,7 @@ are characterized by:
 -   Each observation is a row; each row is an observation.
 -   Each value is a cell; each cell is a single value.
 
-![ter](fig/tidy_hadley.jpg){"Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst"}
+![](fig/tidy_hadley.jpg){alt=''}
 
 This way of structuring our data is useful not only in R, but also in other 
 software packages. 
@@ -70,6 +70,7 @@ on time-consuming and traumatic experiences wrangling data from Excel to R.
 * Use colors for information
 
 
+Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst
 
 ::: keypoints
 -   tidy data provides a consistent way of organizing data
