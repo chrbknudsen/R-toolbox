@@ -284,7 +284,7 @@ penguins %>%
 ```
 
 Since the standard deviation occurs in several statistical tests, it is
-more frequently used that the variance. It is also more intuitively
+more frequently used than the variance. It is also more intuitively
 relateable to the mean.
 
 ## A histogram
