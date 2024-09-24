@@ -41,7 +41,7 @@ Let us look at some data. The `faithful` data set contains 272 observations of
 the Old Faithful geyser in Yellowstone National Park in USA. We only look at 
 eruptions that lasts longer than 3 minutes:
 
-```{r, message = FALSE, warning = FALSE}
+```{r get-data, message = FALSE, warning = FALSE}
 library(tidyverse)
 eruption_example <- faithful %>% 
   filter(eruptions > 3) %>% 
@@ -77,7 +77,7 @@ in this case `realplus`, that only includes the 23 distributions that are define
 for positive, real numbers:
 
 
-```{r warning=FALSE, message=FALSE}
+```{r fitdist, warning=FALSE, message=FALSE}
 fit <- fitDist(eruptions, type = "realplus", data = eruption_example)
 ```
 
@@ -87,7 +87,7 @@ where the fit fails (enough), we will get an error message.
 
 The output from `fitDist()` will return the best fit:
 
-```{r}
+```{r show-fit}
 fit
 ```
 We are told that the statistical distribution that best fits the data is
@@ -110,13 +110,13 @@ quite a bit more.
 If we start by getting the errors out of the way, `fit$failed` returns the 
 two distributions that failed enough to cause errors:
 
-```{r}
+```{r show-failed}
 fit$failed
 ```
 As mentioned `fitDist()` fitted the data to 23 different distributions. We can
 inspect the rest, and their associated AIC-values like this:
 
-```{r}
+```{r show-fits}
 fit$fits
 ```
 Here we get `WEI2` first, with an AIC of 179.2449, but we can see that `WEI3` and
@@ -130,12 +130,12 @@ No. As a general rule of thumb, the difference between the AIC of two distributi
 have to be larger than 2 for us to see a significant difference.
 
 We can get more details using the `summary()` function:
-```{r}
+```{r summary-fit}
 summary(fit)
 ```
 And we can get at graphical description as well:
 
-```{r}
+```{r plot-fit}
 plot(fit)
 ```
 
@@ -196,7 +196,7 @@ and returns the best.
 
 Looking at the result of the fit we see this:
 
-```{r}
+```{r new-fit}
 fit
 ```
 
@@ -208,7 +208,7 @@ and from that we can deduces that if we want to fit the data to eg the log-norma
 distribution (in the documentation we find that the abbreviation for that is 
 "LOGNO"), we can do it like this:
 
-```{r}
+```{r logno-fit}
 log_norm_fit <- gamlss(eruptions ~ 1, family = LOGNO, data = eruption_example)
 summary(log_norm_fit)
 ```

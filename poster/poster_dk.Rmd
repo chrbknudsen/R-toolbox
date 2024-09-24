@@ -2,7 +2,7 @@
 main_topsize: 0.2 #percent coverage of the poster
 main_bottomsize: 0.1
 #ESSENTIALS
-title: ''
+title: 'Målsyede kurser'
 author:
   - name: '**Ene Rammer**'
     affil: 2
@@ -17,9 +17,9 @@ author:
   
 affiliation:
   - num: 1
-    address: Københavns Universitetsbibliotek, KUB Datalab, Nørre Allé 49, 2200 København N
+    address: Hvad stedet nu hedder for tiden.
   - num: 2
-    address: Roskilde
+    address: Roskilde Universitetsbibliotek
 
 main_findings:
   - "Made-to-Measure data kurser"
@@ -48,15 +48,17 @@ options(knitr.table.format = "html")
 knitr::opts_knit$set(clean = TRUE)
 ```
 
-# Introduction
+# Introduktion
+
 
 KUB Datalab får regelmæssigt forespørgsler fra studerende med ønske om kurser
 med _meget_ specifikt indhold. Det er for omkostningsfuldt at skulle udvikle
 enkeltstående kurser hvis egentlig indhold er en gentagelse af den undervisning
-de har fået i et kursus på universitetet, men som de ikke har forstået. 
+de har fået i et kursus på universitetet, men som har voldt dem problemer. 
 
 Vi har derfor udviklet et generelt "værktøjskassekursus", med elementer der hyppigt
-er efterspørgsel på.
+er efterspørgsel på. På baggrund af disse lego-klodser kan vi hurtigt sammensætte
+et tilrettet kursus der matcher de specifikke ønsker i en given situation.
 
 
 ```{r, include=FALSE}
@@ -144,6 +146,19 @@ knitr::kable(
 ```{r pingviner, echo=FALSE, fig.cap="palmer penguins hexsticker -Artwork by @allison_horst ", out.width = '20%'}
 knitr::include_graphics("../figure/palmerpenguins.png")
 ```
+
+## Et praktisk eksemepel
+
+Panum UngdomsForsker Forening, PUFF, er en studenterforening drevet af frivillige
+medicinstuderende på Københavns Universitet, der arbejder for at forbedre vilkårene
+for medicinsk studenterforskning. 
+
+PUFF har gennem flere år tilbudt et kursus i statistisk metode & det statistiske
+programmeringssprog R. Kurset blev gennemført over 5 eftermiddage/aftener á 3 timer,
+og med en professor i biomedicinsk statistik som underviser. Efter COVID-19 
+pandemien oplevede de vanskeligheder med at tiltrække deltagere til det relativt
+dyre kursus.
+at tiltrække 
 
 ## Hvor finder du den?
 https://github.com/kubdatalab/R-toolbox
