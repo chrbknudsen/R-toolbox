@@ -7,12 +7,13 @@ author:
   - name: '**Ene Rammer**'
     affil: 2
     main: true
-    orcid: ''
+    orcid: '0000-0001-6220-3709'
     twitter: 
     email: 'enrn@kb.dk'
   - name: '**Christian Knudsen**'
     affil: 1
     main: true
+    orcid: '0000-0002-9816-768X'
     email: 'cbk@kb.dk'
   
 affiliation:
