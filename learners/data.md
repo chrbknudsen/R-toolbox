@@ -44,17 +44,17 @@ fire præparationer hver dag i 12 uger, og karoten blev målt i deres blod i uge
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
 
-|Variable  |  Description        |  Code                  |
-|----------|---------------------|------------------------|
-|Id        |  ID                 |                        |
-|matchid   |  Matched ID         |                        |
-|case      |  Case/control       |  1=case/ 0=control     |
-|curpmh    |  Current PMH use    |  1=yes / 0=no          |
-|ageblood  |  Age at blood draw  |                        |
-|estradol  |  Estradiol          |                        |
-|estrone   |  Estrone            |  missing=999           |
-|testost   |  Testosterone       |  missing=999           |
-|prolactn  |  Prolactin          |  xx.xx  missing=99.99  |
+|Variable  |  Description        |  Code                  | Unit  | 
+|----------|---------------------|------------------------|-------|
+|Id        |  ID                 |                        |       |
+|matchid   |  Matched ID         |                        |       |
+|case      |  Case/control       |  1=case/ 0=control     |       |
+|curpmh    |  Current PMH use    |  1=yes / 0=no          |       |
+|ageblood  |  Age at blood draw  |                        | years |
+|estradol  |  Estradiol          |                        |       |
+|estrone   |  Estrone            |  missing=999           |       |
+|testost   |  Testosterone       |  missing=999           |       |
+|prolactn  |  Prolactin          |  xx.xx  missing=99.99  |       |
 
 Stammer fra et case-kontrol studie af risikofaktorer (i blodet) for brystcancer,
 hvor personerne er matchede på alder og curphm ("Postmenopausal hormone use" eller 
