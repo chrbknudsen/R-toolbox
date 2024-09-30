@@ -30,28 +30,41 @@ demographic and clinical variables.
 It typically compares different groups (male~female, treatment~control), to highlight similarities and differences.
 
 
-```{r prep_table1_data, echo = FALSE}
+```{r prep_table1_data, echo = FALSE, warning = FALSE, message =FALSE}
+library(formatR)
+library(tidyverse)
 library(table1)
-dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treatment=c("Treated", "Placebo"))
-dat$age <- runif(nrow(dat), 10, 50)
-dat$age[3] <- NA  # Add a missing value
-dat$weight <- exp(rnorm(nrow(dat), log(70), 0.2))
+dat <- read_csv("data/BLOOD.csv") %>% 
+  mutate(estrone = na_if(estrone, 999.0)) %>% 
+  mutate(testost = na_if(testost, 999.0)) %>% 
+  mutate(prolactn = na_if(prolactn, 99.99)) 
 
-label(dat$sex) <- "Sex"
-label(dat$age) <- "Age"
-label(dat$treatment) <- "Treatment Group"
-label(dat$weight) <- "Weight"
+dat$case <- factor(dat$case)
+label(dat$case) <- "case_control"
+levels(dat$case) <- c("control", "case")
+dat$curpmh <- factor(dat$curpmh)
 
-units(dat$age) <- "years"
-units(dat$weight) <- "kg"
+label(dat$curpmh) <- "current_pmh"
+levels(dat$curpmh) <- c("no", "yes")
+label(dat$ageblood) <- "Age"
+units(dat$ageblood) <- "years"
+units(dat$estradol) <- "pg/mL"
+units(dat$estrone) <- "pg/mL"
+
 ```
 
 It can look like this:
-```{r basic-table1-demo, echo = FALSE}
-table1(~sex+age+weight|treatment, data = dat)
+
+```{r basic-table1-demo, echo = FALSE, results='asis'}
+table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = dat)
 ```
-We have 40 participants in a study, split into equal control and treatment groups,
-and describe the distribution of Sex, Age and Weight in both the two groups, and overall.
+Please note that the automatic styling of this site results in a table-one
+that is not very nice looking.
+
+We have 510 participants in a study, split into control and case groups, and
+further subdivided into two groups based on Postmenopausal hormone use.
+It describes the distribution of sex and concentration of estradiol, estrone,
+testosterone and prolactin in a blood sample.
 
 A number of packages making it easy to make a Table One exists. Here we look
 at the package `table1`.
@@ -60,38 +73,60 @@ The specific way of doing it depends on the data available. If we do not have
 data on the weight of the participants, we are not able to describe the distribution
 of their weight.
 
-But the table above was made in this way:
+Let us begin by looking at the data. We begin by loading the two packages `tidyverse`
+and `table1`. We then read in the data from the csv-file "BLOOD.csv", which
+we have [downloaded from this link](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv).
 
-```{r basic-table1-how, eval = FALSE}
+```{r load-data-1, tidy = TRUE}
+library(tidyverse)
 library(table1)
-table1(~sex + age + weight|treatment, data = dat)
-```
-We specify that we would like a table that is a function of `sex`, `age` and
-`wt`, and we would like it split into groups based on the values in the `treatment`
-
-It might be instructive to take a look at how the data was prepared.
-First the data it self:
-```{r data-prep, eval = FALSE}
-dat <- expand.grid(id=1:10, sex=c("Male", "Female"), treatment=c("Treated", "Placebo"))
-dat$age <- runif(nrow(dat), 10, 50)
-dat$age[3] <- NA  # Add a missing value
-dat$weight <- exp(rnorm(nrow(dat), log(70), 0.2))
+dat <- read_csv("data/BLOOD.csv")
 ```
 
-The interesting part occurs here, where we add labels to the data. That
-allows us to control the headings in the table:
-```{r labelling, eval = FALSE}
-label(dat$sex) <- "Sex"
-label(dat$age) <- "Age"
-label(dat$treatment) <- "Treatment Group"
-label(dat$weight) <- "Weight"
+The data contains missing values, coded as "999.0" for estrone and testost, and
+99.99 for prolactin:
+```{r load-data-2, tidy = TRUE}
+dat <- dat %>% 
+  mutate(estrone = na_if(estrone, 999.0)) %>% 
+  mutate(testost = na_if(testost, 999.0)) %>% 
+  mutate(prolactn = na_if(prolactn, 99.99)) 
 ```
 
-It can be beneficial to add information about units of the data:
-```{r adding-units, eval = FALSE}
-units(dat$age) <- "years"
-units(dat$weight) <- "kg"
+
+We then ensure that categorical values are stored as categorical values, and
+adjust the labels of those categorical values:
+
+```{r load-data-3, tidy = TRUE}
+dat <- dat %>% 
+  mutate(case = factor(case, labels = c("control", "case"))) %>% 
+  mutate(curpmh = factor(curpmh, labels = c("no", "yes")))
 ```
+
+And now we can make our table one like this:
+
+```{r table-one-live}
+table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = dat)
+```
+
+It is a good idea, and increases readability, to add labels and units to
+the variables. The `table1` package provides functions for that:
+
+```{r load-data-4, tidy = TRUE}
+label(dat$curpmh) <- "current_pmh"
+label(dat$case) <- "case_control"
+label(dat$ageblood) <- "Age"
+units(dat$ageblood) <- "years"
+units(dat$estradol) <- "pg/mL"
+units(dat$estrone) <- "pg/mL"
+```
+
+Which looks a bit nicer:
+
+
+```{r table-one-live-2}
+table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = dat)
+```
+
 
 
 ## More advanced stuff

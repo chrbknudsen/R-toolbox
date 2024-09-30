@@ -8,7 +8,7 @@ editor_options:
 ---
 
 ::: questions
--   How do you write a lesson using R Markdown and `{sandpaper}`?
+-   How do you run a logistic regression?
 :::
 
 ::: objectives
