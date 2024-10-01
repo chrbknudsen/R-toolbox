@@ -115,7 +115,7 @@ Open a new file, choose RMarkdown, and give your document a name:
 
 ![An RMarkdown document](fig/rmarkdown.png)
 
-In the code chunks, marked here with a light grey background, contains code, 
+The code chunks, marked here with a light grey background, contains code, 
 in this case not very advanced code. You can run the entire code chunk by 
 clicking the green arrow on the right. Or by placing your cursor in the line
 of code you want to run, and pressing ctrl+enter (or command+enter on a Mac).
