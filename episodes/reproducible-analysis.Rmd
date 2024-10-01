@@ -12,8 +12,8 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Explain how to use markdown
+- Demonstrate how to include pieces of code
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
