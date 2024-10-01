@@ -344,9 +344,6 @@ penguin_example %>%
   geom_vline(xintercept = 0)
 ```
 
-
-
-
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Relatively small changes to a bar chart can make it look much more professional 
