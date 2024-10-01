@@ -63,6 +63,7 @@ episodes:
 - reading-files.Rmd
 - descript-stat.Rmd
 - tidy-data.Rmd
+- table1.Rmd
 - normal-distribution.Rmd
 - is-it-normal.Rmd
 - which-distribution.Rmd
