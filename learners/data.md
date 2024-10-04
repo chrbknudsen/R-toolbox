@@ -1,48 +1,74 @@
 ---
 title: "Data sets"
+bibliography: poster_refs.bib
+citeproc: true  
 ---
 
-A selection of data sets
+
+<!-- Referencer er lidt bøvlet... Vi laver dem ved at indsætte interne links.
+TJEK at nummereringen er som den skal være hvis du ændrer noget. -->
 
 ### BETACAR
-
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
-
-
-
-|  Variable  |  Description/Code                               |
-|------------|-------------------------------------------------|
-|  Prepar    |  Preparation 1=SOL/2=ROCHE/3=BASF-30/4=BASF-60  |
-|  Id        |  Subject #                                      |
-|  Base1lvl  |  1st Baseline Level                             | 
-|  Base2lvl  |  2nd Baseline Level                             | 
-|  Wk6lvl    |  Week 6 Level                                   |
-|  Wk8lvl    |  Week 8 Level                                   | 
-|  Wk10lvl   |  Week 10 Level                                  |
-|  Wk12lvl   |  Week 12 Level                                  |
 
 Data from a study of bio availability of four different preparations of 
 betacarotene:
 
 1. Solaten (30 mg capsules)
 2. Roche (60 mg capsules)
-3. 
-
-Data fra et studie af biotilgængelighed af fire forskellige præparationer af 
-betacaroten:
-1. Solatene (30 mg kapsler)
-2. Roche (60 mg kapsler)
 3. Badische Anilin und Soda Fabrik (BASF) (30 mg capsules)
 4. BASF (60 mg capsules)
 
-23 forsøgspersoner får målt karoten niveauet i deres blod (fastende blodprøve) 
-på to på hinanden følgende dage. Derefter indtog de, randomiseret, en af de
-fire præparationer hver dag i 12 uger, og karoten blev målt i deres blod i uge
-6, 8, 10 og 12 efter forsøgets start.
+23 volunteers had their beta-carotene levels measured in two consecutive-day
+fasting blood samples. They were then randomized to one of the four preparations,
+and took 1 pill every other day for 12 weeks. Blood samples were drawn after 
+6, 8, 10 and 12 weeks.
+
+[source](#rosner_1)^1^
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
+
+:::: spoiler
+### Metadata
+
+|  Variable  |  Description/Code                               | Unit   |   
+|------------|-------------------------------------------------|--------|
+|  Prepar    |  Preparation 1=SOL/2=ROCHE/3=BASF-30/4=BASF-60  | NULL   |
+|  Id        |  Subject #                                      | NULL   |
+|  Base1lvl  |  1st Baseline Level                             | µmol/L |
+|  Base2lvl  |  2nd Baseline Level                             | µmol/L |
+|  Wk6lvl    |  Week 6 Level                                   | µmol/L |
+|  Wk8lvl    |  Week 8 Level                                   | µmol/L |
+|  Wk10lvl   |  Week 10 Level                                  | µmol/L |
+|  Wk12lvl   |  Week 12 Level                                  | µmol/L |
+
+::::
+
+
+
 
 ### BLOOD
 
+A case-control study of riskfactors (hormone levels in blood samples) for 
+breast cancer. Individuals are matched on age and current postmenopausal homone
+use (PMH). 
+
+Each row contains unique ID, representing both cases (have breast cancer) and
+control (does not have breast cancer). The column matchid matches the controls
+with their respective cases. Cases have identical ID and matchid.
+
+Note the different ways of coding missing values.
+
+Useful for logistic regression to asscess the association between testosterone
+and breast cancer, controlling for age and current PMH use. Either with testosterone
+as a continuous variable or as a categorical variabel in quartiles, with the first
+quartile as the reference group.
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
+
+:::: spoiler
+### Metadata
 
 |Variable  |  Description        |  Code                  | Unit  | 
 |----------|---------------------|------------------------|-------|
@@ -51,20 +77,12 @@ fire præparationer hver dag i 12 uger, og karoten blev målt i deres blod i uge
 |case      |  Case/control       |  1=case/ 0=control     |       |
 |curpmh    |  Current PMH use    |  1=yes / 0=no          |       |
 |ageblood  |  Age at blood draw  |                        | years |
-|estradol  |  Estradiol          |                        |       |
-|estrone   |  Estrone            |  missing=999           |       |
-|testost   |  Testosterone       |  missing=999           |       |
-|prolactn  |  Prolactin          |  xx.xx  missing=99.99  |       |
+|estradol  |  Estradiol          |                        | pg/mL |
+|estrone   |  Estrone            |  missing=999           | pg/mL |
+|testost   |  Testosterone       |  missing=999           | ng/dL |
+|prolactn  |  Prolactin          |  xx.xx  missing=99.99  | ng/L  |
 
-Stammer fra et case-kontrol studie af risikofaktorer (i blodet) for brystcancer,
-hvor personerne er matchede på alder og curphm ("Postmenopausal hormone use" eller 
-"hormonbehandling efter overgangsalderen.)
-
-I hvert match er der en case, og en eller to kontroller. Som i:
-man har identificeret alder og curpmh for en brystcancerpatient, og matchet 
-med to kontroller, der ikke har brystcancer. Ideen er at se om der er forskelle
-på eksempelvis testosteron indholdet i deres blod.
-
+::::
 
 
 
@@ -72,74 +90,102 @@ på eksempelvis testosteron indholdet i deres blod.
 
 ### BONEDEN
 
+Data from a twin study on the relationship between bone density and cigarette
+consumption [source](#hopper_2)^2^. 41 pairs of middle-aged australian female 
+twins with different smoking histories had their bone density measured at a hospital
+in Victoria, as well
+as other factors, details in metadata below. 
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BONEDEN.csv)
 
+:::: spoiler
+### Metadata
 
-|  Variable  |  Code       |
-|------------|-------------|
-|  ID        |             |
-|  Age       |  Age (yrs)  |
-|  zyg       |  1=mz 2=dz  |
+The data set is rather wide, and the columns are split up in this describtion.
 
-mz - monozygot - enæggede tvillinger
+|  Variable  |  Code       | Unit  | 
+|------------|-------------|-------|
+|  ID        |             |       |
+|  Age       |  Age (yrs)  | years |
+|  zyg       |  1=mz 2=dz  |       |
 
-dz - dizygot - tveæggede tvillinger
+mz - monozygotic twins
 
-Twin 1  Lighter Smoking Twin
+dz - dizygotic twins
 
-|  Variable  |  Code                                                    |
-|------------|----------------------------------------------------------|
-|  ht1       |  Height (cm)                                             |
-|  wt1       |  Weight (kg)                                             |
-|  tea1      |  Tea  (cups/week)                                        |
-|  cof1      |  Coffee  (cups/week)                                     |
-|  alc1      |  Alcohol  (drinks/week)                                  |
-|  cur1      |  Current Smoking (cigarettes/day)                        |
-|  men1      |  Menopause Status (0=pre/1=post/2=unknown hysterectomy)  |
-|  pyr1      |  Pack-years smoking                                      |
-|  ls1       |  Lumbar spine (g/cm**2)                                  |
-|  fn1       |  Femoral neck (g/cm**2)                                  |
-|  fs1       |  Femoral shaft (g/cm**2)                                 |
+The following variables are dublicated, in the form of 
 
-Twin 2  Heavier Smoking Twin
+xx1 for the lighter smoking twin and 
 
-|  Variable  |  Code                                                    |
-|------------|----------------------------------------------------------|
-|  ht2       |  Height (cm)                                             |
-|  wt2       |  Weight (kg)                                             |
-|  tea2      |  Tea  (cups/week)                                        |
-|  cof2      |  Coffee  (cups/week)                                     |
-|  alc2      |  Alcohol  (drinks/week)                                  |
-|  cur2      |  Current Smoking (cigarettes/day)                        |
-|  men2      |  Menopause Status (0=pre/1=post/2=unknown hysterectomy)  |
-|  pyr2      |  Pack-years smoking                                      |
-|  ls2       |  Lumbar spine (g/cm**2)                                  |
-|  fn2       |  Femoral neck (g/cm**2)                                  |
-|  fs2       |  Femoral shaft (g/cm**2)                                 |
+xx2 for the heavier smoking twin
 
-Tvillingestudie af sammenhængen mellem knogletæthed og cigaretrygning. 41 midaldrende
-kvindelige tvillinger, der havde forskelligt ryge-historik. Data fra et australsk 
-studie, foretaget på et hospital i Victoria.
+|  Variable  |  Code                       | unit             |
+|------------|-----------------------------|------------------|
+|  ht        |  Height                     | cm               |
+|  wt        |  Weight                     | kg               |
+|  tea       |  Tea                        | cups/week        |
+|  cof       |  Coffee                     | cups/week        |
+|  alc       |  Alcohol                    | drinks/week      |
+|  cur       |  Current Smoking            | (cigarettes/day) |
+|  men       |  Menopause Status           |                  |
+|            |  0: Premenopausal           |                  |
+|            |  1: Postmenopausal          |                  |
+|            |  2: unknown or hysterectomy |                  |
+|  pyr       |  Pack-years smoking         | year             |
+|  ls        |  Lumbar spine               | g/cm^2^          |
+|  fn        |  Femoral neck               | g/cm^2^          |
+|  fs        |  Femoral shaft              | g/cm^2^          |
 
-Pack-years er pakkeår, defineret som hvor mange år der er røget en pakke 
-cigaretter om dagen, normalt ca 20 cigaretter pr pakke. Yderligere variable
-ret selvforklarende - der er ikke definitioner på hvad en kop te eller
-kaffe dækker over. Dog:
+Pack-years are defined as how many years the woman have smoked a pack of 
+cigarettes pr day, normally ca. 20 cigarettes pr pack.
 
-* Lumbar spine: L1-L5. 
-* Femoral neck: Collum femoris
-* Femoral shaft: Corpus femoris
+Lumbar spine: L1-L5. 
 
+Femoral neck: Collum femoris
+
+Femoral shaft: Corpus femoris
+
+::::
 
 ### BOTOX
 
+69 patients with piriformis syndrome participated in a randomized double-blind 
+clinical trial. 
+
+Piriformis syndrom is a condition involving malfunction of the
+piriformis muscle - a deep buttock muscle, which often causes buttock and lumbar 
+pain with sciatica. 
+
+Patients were injected with one of three substances directly in the piriformis muscle:
+
+1. a combination of triamcinolone and lidocaine (TL)
+2. a placebo
+3. Botox
+
+The randomization was set up with approximately ½ assigned to group 1, 1/6 to 
+group 2 and 1/3 to group 3. 
+
+Patients were asked to return 2 weeks (0.5), and monthly post injection. At each
+visit patients rated their percentage of improvement of pain comparied to baseline,
+on a visual analog scale, with a range of -100 to 100%, negative numbers indicating
+worsening. One patient had the condition in both legs leading to 70 observations
+in the dataset. 
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BOTOX.csv)
 
+:::: spoiler
+## Metadata
 
 |  Variable  |  Code                               |
 |------------|-------------------------------------|
 |  ID        |                                     |
-|  group     |  1=TL/2=Placebo/3=Botox             |
+|  group     |  1 = TL                             |
+|            |  2 = Placebo                        |
+|            |  3 = Botox                          |
 |  pain0     |  pain score month 0  missing=999    |
 |  pain05    |  pain score month 0.5  missing=999  |
 |  pain1     |  pain score month 1  missing=999    |
@@ -160,41 +206,42 @@ kaffe dækker over. Dog:
 |  pain16    |  pain score month 16  missing=999   |
 |  pain17    |  pain score month 17  missing=999   |
 
-s 807 i bogen.
+::::
 
-Undersøgelse af patienter med "piriformis syndrome". Noget der
-ofte giver "lumbar" smerter og i piriformis musklen (ligger dybt i bagdelen). 
-sciatica også. Dobbeltblindt randomiseret studei, hvor tre grupper af patienter
-fik forskellig behandling. Gruppe 1 - injektion af en blanding af triamcinolone og
-lidokain (TL), gruppe 2 der som kodningen antyder fik en placebo. Og gruppe
-tre, der fik en injektion af botox
+
 
 ### BREAST
+
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BREAST.csv)
 
 
-|variable |  Description                                            |
-|---------|---------------------------------------------------------|
-|Id       |  ID                                                     |
-|case     |  case   1=case, 0=control                               |
-|age      |  age                                                    |
-|agemenar |  age at menarche                                        |
-|agemenop |  age at menopause                                       |
-|afb      |  age at first birth  98=nullip                          |
-|parity   |  parity                                                 |
-|bbd      |  Benign Breast disease  1=yes/0=no                      |
-|famhx    |  family history breast cancer  1=yes/0=no               |
-|bmi      |  BMI (kg/m**2)                                          |
-|hgt      |  Height (inches)                                        |
-|alcohol  |  Alcohol use (grams/day)                                |
-|pmh      |  PMH status  2=never user/3=current user                |
-|dur3     |  Duration of Estrogen use  (months)                     |
-|dur4     |  Duration of Estrogen + progesterone use  (months)      |
-|csmk     |  Current Smoker 1=yes/0=no                              |
-|psmk     |  Past smoker  1=yes/0=no                                |
-|foluptm  |  Months of follow up Note: Some subjects provided no    |
-|         |  follow up after the 1990 questionnaire: foluptm=0 for  |
-|         |  these people                                           |
+|variable |  Description                                            | unit  |
+|---------|---------------------------------------------------------|-------|
+|Id       |  ID                                                     |       |
+|case     |  case                                                   |       |
+|case     |  1 = case                                               |       |
+|case     |  0 = control                                            |       |
+|age      |  age                                                    | years |
+|agemenar |  age at menarche                                        | years |
+|agemenop |  age at menopause                                       | years |
+|afb      |  age at first birth  98=nullip                          | years |
+|parity   |  parity                                                 ||
+|bbd      |  Benign Breast disease  1=yes/0=no                      ||
+|famhx    |  family history breast cancer  1=yes/0=no               ||
+|bmi      |  BMI (kg/m**2)                                          ||
+|hgt      |  Height (inches)                                        | inches |
+|alcohol  |  Alcohol use (grams/day)                                | g/day |
+|pmh      |  PMH status  2=never user/3=current user                | |
+|dur3     |  Duration of Estrogen use  (months)                     | months |
+|dur4     |  Duration of Estrogen + progesterone use  (months)      | months |
+|csmk     |  Current Smoker 1=yes/0=no                              | |
+|psmk     |  Past smoker  1=yes/0=no                                || 
+|foluptm  |  Months of follow up Note: Some subjects provided no    |  months |
+|         |  follow up after the 1990 questionnaire: foluptm=0 for  | |
+|         |  these people                                           ||
 
 
 
@@ -630,6 +677,12 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### NEPHRO
 
+Data^1^ from a litterature search, comparing nephrotoxicity 
+of several different aminoclycosides[^17]. Each row co
+
+ [@sandpaper]
+
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
 |  Variable  |  Description/Code                                  |
@@ -1047,8 +1100,8 @@ NB: Filen er semikolon-separeret
 * relapse
 
 
+## References
 
-### Generel reference for alle datasæt
 
 Bortset fra who-sættet, der er en modificeret udgave af datasættet who fra 
 tidyr-pakken.
@@ -1075,20 +1128,15 @@ https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isb
   note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
 }
 
-@book{alma99122116675805763,
-year = {2011},
-booktitle = {Fundamentals of biostatistics},
-abstract = {"Fundamentals of Biostatistics, 7/e, International Edition" leads you through the methods, techniques, and computations necessary for success in the medical field. Every new concept is developed systematically through completely worked out examples from current medical research problems.},
-author = {Rosner, Bernard A.},
-address = {Boston},
-keywords = {Biometry},
-language = {eng},
-lccn = {2010922638},
-publisher = {Brooks/Cole, Cengage Learning},
-title = {Fundamentals of biostatistics },
-edition = {7. ed.},
-isbn = {9780538735896},
-}
 
-{% include links.md %}
+
+
+
+<a id="rosner_1">1</a>: Rosner, Bernard A. Fundamentals of Biostatistics, 7/e, International Edition, 2011 ISBN: 9780538735896
+
+<a id="hopper_2">2</a>: Hopper, J.H. & Seeman, E (1994). The bone density
+of female twins discordant for tobacco use. New England Journal of Medicine, 330, 387-392.
+
+[^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
+
 
