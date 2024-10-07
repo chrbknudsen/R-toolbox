@@ -212,110 +212,190 @@ in the dataset.
 
 ### BREAST
 
+A dataset describing 1200 women in the NHS. In 1990 it was confirmed that they
+were postmenopausal and free of any cancer. The selection was done so that
+200 of the women were using postmenopausal hormones (PMH) in 1990, and 1000 had 
+never used PMH. 
+The objective was to identify a possible relation between incidence of breast 
+cancer between 1990 to 2000 with PMH use in 1990.
+
+The objective was to relate breast cancer incidence from 1990 to 2000 
+with PMH use in 1990. Data on PMH use are found in three variables, `pmh` registers
+PMH use in 1990, where `dur3` and `dur4` registers length of use of two different 
+PMH. In the variable `foluptm` the time between the first questionnaire (in 1990),
+and a follow up date is recorded in months. If a control that follow up date was
+the date of the last questionnaire in 2000, if a case, the date of diagnosis of breast 
+cancer.
+Other cancer risk factors are recorded.
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BREAST.csv)
 
+:::: spoiler
+## Metadata
 
-|variable |  Description                                            | unit  |
-|---------|---------------------------------------------------------|-------|
-|Id       |  ID                                                     |       |
-|case     |  case                                                   |       |
-|case     |  1 = case                                               |       |
-|case     |  0 = control                                            |       |
-|age      |  age                                                    | years |
-|agemenar |  age at menarche                                        | years |
-|agemenop |  age at menopause                                       | years |
-|afb      |  age at first birth  98=nullip                          | years |
-|parity   |  parity                                                 ||
-|bbd      |  Benign Breast disease  1=yes/0=no                      ||
-|famhx    |  family history breast cancer  1=yes/0=no               ||
-|bmi      |  BMI (kg/m**2)                                          ||
-|hgt      |  Height (inches)                                        | inches |
-|alcohol  |  Alcohol use (grams/day)                                | g/day |
-|pmh      |  PMH status  2=never user/3=current user                | |
-|dur3     |  Duration of Estrogen use  (months)                     | months |
-|dur4     |  Duration of Estrogen + progesterone use  (months)      | months |
-|csmk     |  Current Smoker 1=yes/0=no                              | |
-|psmk     |  Past smoker  1=yes/0=no                                || 
+|variable |  Description                                            | unit    |
+|---------|---------------------------------------------------------|---------|
+|Id       |  ID                                                     |         |
+|case     |  case                                                   |         |
+|         |  1 = case                                               |         |
+|         |  0 = control                                            |         |
+|age      |  age                                                    | years   |
+|agemenar |  age at menarche                                        | years   |
+|agemenop |  age at menopause                                       | years   |
+|afb      |  age at first birth  98=nullip                          | years   |
+|parity   |  parity                                                 |         |
+|bbd      |  Benign Breast disease                                  |         |
+|         |  1 = yes                                                |         |
+|         |  0 = no                                                 |         |   
+|famhx    |  family history breast cancer                           |         |
+|         |  1 = yes                                                |         |
+|         |  0 = no                                                 |         | 
+|bmi      |  BMI                                                    | kg/m^2^ |
+|hgt      |  Height                                                 | inches  |
+|alcohol  |  Alcohol use (grams/day)                                | g/day   |
+|pmh      |  PMH status                                             |         |
+|         |  2 = never user                                         |         |
+|         |  3 = current user                                       |         | 
+|dur3     |  Duration of Estrogen use  (months)                     | months  |
+|dur4     |  Duration of Estrogen + progesterone use  (months)      | months  |
+|csmk     |  Current Smoker                                         |         |
+|         |  1 = yes                                                |         |
+|         |  0 = no                                                 |         | 
+|psmk     |  Past smoker                                            |         |
+|         |    1 = yes                                              |         |
+|         |    0 = no                                               |         | 
 |foluptm  |  Months of follow up Note: Some subjects provided no    |  months |
-|         |  follow up after the 1990 questionnaire: foluptm=0 for  | |
-|         |  these people                                           ||
+|         |  follow up after the 1990 questionnaire: foluptm=0 for  |         |
+|         |  these people                                           |         |
 
-
+::::
 
 ###  CORNEAL
+
+Data from a randomized trial of two different active drugs of the fluoroquinolone-group,
+M and G along with a placebo, P.
+93 subjects placed in one of three groups:
+
+| Group | Eye 1 | Eye 2|
+|-------|-------|------|
+|   A   |  G    |  P   |
+|   B   |  M    |  P   |
+|   C   |  G    |  M   |
+
+Each subject was asked to administer the two assigned preparations four times 
+per day for 10 days. The response was measured at baseline (without treatment),
+on visit 1, and again at visit 2 after 7 days, and at visit 3, on day 14. Note
+that at day 14, the subjects had stopped administering the preparations. The
+response was meased as corneal sensitivity in five regions of the eyes, central,
+superior, inferior, temporal and nasal. Sensititivy was measured in mm, with
+a range for 40-60 mm. High values indicate greater, normal, sensitivity, low values
+lower, abnormal, sensitivity.
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
 
 
-|Variable  |  Variable label                       |
-|----------|---------------------------------------|
-|  id      |  ID                                   |
-|  tr      |  Treatment   1=M   2=G  3=P           |
-|  c1      |  Central  visit 1                     |
-|  s1      |  Superior visit 1                     |
-|  i1      |  Inferior Visit 1                     |
-|  t1      |  Temporal visit 1                     |
-|  n1      |  Nasal Visit 1                        |
-|  c2      |  Central Visit 2(day 7)               |
-|  s2      |  Superior Visit 2                     |
-|  i2      |  Inferior Visit 2                     |
-|  t2      |  Temporal Visit 2                     |
-|  n2      |  Nasal Visit 2                        |
-|  c3      |  Central Visit 3(day 14)  missing=99  |
-|  s3      |  Superior Visit 3         missing=99  |
-|  i3      |  Inferior Visit 3         missing=99  |
-|  t3      |  Temporal Visit 3         missing=99  |
-|  n3      |  Nasal Visit 3            missing=99  |
+:::: spoiler
+## Metadata
 
+
+|Variable  |  Variable label                       | unit |
+|----------|---------------------------------------|------|
+|  id      |  ID                                   |      |
+|  tr      |  Treatment                            |      |
+|          |  1=M                                  |      |
+|          |  2=G                                  |      |
+|          |  3=P                                  |      |
+|  c1      |  Central  visit 1                     | mm |
+|  s1      |  Superior visit 1                     | mm |
+|  i1      |  Inferior Visit 1                     | mm |
+|  t1      |  Temporal visit 1                     | mm |
+|  n1      |  Nasal Visit 1                        | mm |
+|  c2      |  Central Visit 2(day 7)               | mm |
+|  s2      |  Superior Visit 2                     | mm |
+|  i2      |  Inferior Visit 2                     | mm |
+|  t2      |  Temporal Visit 2                     | mm |
+|  n2      |  Nasal Visit 2                        | mm |
+|  c3      |  Central Visit 3(day 14)  missing=99  | mm |
+|  s3      |  Superior Visit 3         missing=99  | mm |
+|  i3      |  Inferior Visit 3         missing=99  | mm |
+|  t3      |  Temporal Visit 3         missing=99  | mm |
+|  n3      |  Nasal Visit 3            missing=99  | mm |
+
+::::
 
 ### DIABETES
 
+A study on whether maintaining diabetes control in type I diabetes affects growth
+and development in childhood. 94 boys aged 9-15 where examined approx. every 
+3 months, leading to 910 visits. At each visit the degree of diabetes control 
+where assessed by measuring HgbA1c (glycosylated hemoglobin). The exact dates 
+of the visits are registered in the mon, day and yr_a1c variables, the age, 
+height and weight where registered as well ad the HgbA1c measurement.
+
+The HgbA1c measurement is the percentage of hemoglobin that is glycosylated.
+The normal range is between 4.0 and 5.6%, with values larger than 6.5% being
+indicative of diabetes. The normal range does not appear to change by pubertal stage.
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
 
+:::: spoiler
+### Metadata
 
-|Variable  |  Code                          |
-|----------|--------------------------------|
-|ID        |                                |
-|mon_a1c   |  Month                         |
-|day_a1c   |  Day A1c                       |
-|yr_a1c    |  Yr                            |
-|age_yrs   |  Age in years                  |
-|gly_a1c   |  Hemoglobin A1c                |
-|ht_cm     |  Height in cm    missing=999.9 | 
-|wt_kg     |  Weight in                     |
+|Variable  |  Code                          | unit |
+|----------|--------------------------------|------|
+|ID        |                                |      |
+|mon_a1c   |  Month                         |      |
+|day_a1c   |  Day A1c                       |      |
+|yr_a1c    |  Yr                            |      |
+|age_yrs   |  Age in years                  | year |
+|gly_a1c   |  Hemoglobin A1c                |  %  |
+|ht_cm     |  Height in  missing=999.9      | cm   |
+|wt_kg     |  Weight in                     | kg   |
 
+::::
 
 ### EAR
 
+Data on 214 children with acute otitis media in one or both
+ears. They were randomly assigned 14 days of antibiotic treatment with either 
+CEF (cefaclor) or AMO (amoxicillin). Status of their ear infection at a 
+follow up visit after 14 days were recorded. 
+
+
+[source](#rosner_1)^1^
+
+Additional [reference](#mandel_3)
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EAR.csv)
 
+:::: spoiler
 
-| Variable  |         Description    |  Format or Code       |
-|-----------|------------------------|-----------------------|
-| Id        |  ID                    |                       |
-| Clear     |  Clearance by 14 days  |  1=yes/0=no           |
-| Antibo    |  Antibiotic            |  1=CEF/2=AMO          |
-| Age       |  Age                   |  1=<2 yrs/2=2-5 yrs/  |
-|           |                        |  3=6+ yrs             |
-| Ear       |  Ear                   |  1=1st ear/2=2nd ear  |
+### Metadata
 
-Data på 214 børn med akut otitis media (OME) der deltog i et randomiseret
-klinisk forsøg. De blev tilfældigt tildelt en 14 dages antibiotikabehandling med
-enten CEF (cefaclor) eller amoxicillin (AMO). I datasættet optræder de 203 
-børn hvor status for deres mellemørebetændelse blev afgjort ved en opfølgende 
-undersøgelse.
+| Variable  |         Description    |
+|-----------|------------------------|
+| Id        |  ID                    |  
+| Clear     |  Clearance by 14 days  |  
+|           |   1 = yes              |  
+|           |   0 = no               |
+| Antibo    |  Antibiotic            |  
+|           |  1 = CEF               |  
+|           |  2 = AMO               |  
+| Age       |  Age                   |  
+|           |  1=<2 yrs              |  
+|           | 2=2-5 yrs              |
+|           | 3=6+ yrs               |
+| Ear       |  Ear                   |
+|           |  1=1st ear             |
+|           |  2=2nd ear             |
 
-Hvis Id optræder mere end en gang, havde de ørebetændelse i begge ører.
-
-Yderligere reference:
-
-Mandel, E., Bluestone, C.D., Rockette, H.E., Blatter, M.M., Reisinger, K.S.,
-Wucher, E.P. & Harper, J. 1982, Duration of effusion after antibiotic 
-treatment for acute otitis media: Comparison of cefaclor and amoxicillin.
-Pediatric Infections Diseases, 1, 310-316.
+::::
 
 ### EFF
 
@@ -1136,6 +1216,15 @@ https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isb
 
 <a id="hopper_2">2</a>: Hopper, J.H. & Seeman, E (1994). The bone density
 of female twins discordant for tobacco use. New England Journal of Medicine, 330, 387-392.
+
+<a id="mandel_3">3</a>: Mandel, E., Bluestone, C.D., Rockette, H.E., Blatter, M.M., Reisinger, K.S.,
+Wucher, E.P. & Harper, J. 1982, Duration of effusion after antibiotic 
+treatment for acute otitis media: Comparison of cefaclor and amoxicillin.
+Pediatric Infections Diseases, 1, 310-316.
+
+
+
+
 
 [^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
