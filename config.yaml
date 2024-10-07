@@ -62,12 +62,14 @@ episodes:
 - reproducible-analysis.Rmd
 - reading-files.Rmd
 - descript-stat.Rmd
+- table1.Rmd
 - tidy-data.Rmd
 - normal-distribution.Rmd
 - is-it-normal.Rmd
 - which-distribution.Rmd
 - linear-regression.Rmd
 - multiple-linear-regression.Rmd
+- logistic-regression.Rmd
 - clt.Rmd
 - barcharts.Rmd
 - powerberegninger.Rmd
