@@ -212,38 +212,65 @@ in the dataset.
 
 ### BREAST
 
+A dataset describing 1200 women in the NHS. In 1990 it was confirmed that they
+were postmenopausal and free of any cancer. The selection was done so that
+200 of the women were using postmenopausal hormones (PMH) in 1990, and 1000 had 
+never used PMH. 
+The objective was to identify a possible relation between incidence of breast 
+cancer between 1990 to 2000 with PMH use in 1990.
+
+The objective was to relate breast cancer incidence from 1990 to 2000 
+with PMH use in 1990. Data on PMH use are found in three variables, `pmh` registers
+PMH use in 1990, where `dur3` and `dur4` registers length of use of two different 
+PMH. In the variable `foluptm` the time between the first questionnaire (in 1990),
+and a follow up date is recorded in months. If a control that follow up date was
+the date of the last questionnaire in 2000, if a case, the date of diagnosis of breast 
+cancer.
+Other cancer risk factors are recorded.
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BREAST.csv)
 
+:::: spoiler
+## Metadata
 
-|variable |  Description                                            | unit  |
-|---------|---------------------------------------------------------|-------|
-|Id       |  ID                                                     |       |
-|case     |  case                                                   |       |
-|case     |  1 = case                                               |       |
-|case     |  0 = control                                            |       |
-|age      |  age                                                    | years |
-|agemenar |  age at menarche                                        | years |
-|agemenop |  age at menopause                                       | years |
-|afb      |  age at first birth  98=nullip                          | years |
-|parity   |  parity                                                 ||
-|bbd      |  Benign Breast disease  1=yes/0=no                      ||
-|famhx    |  family history breast cancer  1=yes/0=no               ||
-|bmi      |  BMI (kg/m**2)                                          ||
-|hgt      |  Height (inches)                                        | inches |
-|alcohol  |  Alcohol use (grams/day)                                | g/day |
-|pmh      |  PMH status  2=never user/3=current user                | |
-|dur3     |  Duration of Estrogen use  (months)                     | months |
-|dur4     |  Duration of Estrogen + progesterone use  (months)      | months |
-|csmk     |  Current Smoker 1=yes/0=no                              | |
-|psmk     |  Past smoker  1=yes/0=no                                || 
+|variable |  Description                                            | unit    |
+|---------|---------------------------------------------------------|---------|
+|Id       |  ID                                                     |         |
+|case     |  case                                                   |         |
+|         |  1 = case                                               |         |
+|         |  0 = control                                            |         |
+|age      |  age                                                    | years   |
+|agemenar |  age at menarche                                        | years   |
+|agemenop |  age at menopause                                       | years   |
+|afb      |  age at first birth  98=nullip                          | years   |
+|parity   |  parity                                                 |         |
+|bbd      |  Benign Breast disease                                  |         |
+|         |  1 = yes                                                |         |
+|         |  0 = no                                                 |         |   
+|famhx    |  family history breast cancer                           |         |
+|         |  1 = yes                                                |         |
+|         |  0 = no                                                 |         | 
+|bmi      |  BMI                                                    | kg/m^2^ |
+|hgt      |  Height                                                 | inches  |
+|alcohol  |  Alcohol use (grams/day)                                | g/day   |
+|pmh      |  PMH status                                             |         |
+|         |  2 = never user                                         |         |
+|         |  3 = current user                                       |         | 
+|dur3     |  Duration of Estrogen use  (months)                     | months  |
+|dur4     |  Duration of Estrogen + progesterone use  (months)      | months  |
+|csmk     |  Current Smoker                                         |         |
+|         |  1 = yes                                                |         |
+|         |  0 = no                                                 |         | 
+|psmk     |  Past smoker                                            |         |
+|         |    1 = yes                                              |         |
+|         |    0 = no                                               |         | 
 |foluptm  |  Months of follow up Note: Some subjects provided no    |  months |
-|         |  follow up after the 1990 questionnaire: foluptm=0 for  | |
-|         |  these people                                           ||
+|         |  follow up after the 1990 questionnaire: foluptm=0 for  |         |
+|         |  these people                                           |         |
 
-
+::::
 
 ###  CORNEAL
 
