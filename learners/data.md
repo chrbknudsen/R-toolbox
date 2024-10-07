@@ -274,29 +274,58 @@ Other cancer risk factors are recorded.
 
 ###  CORNEAL
 
+Data from a randomized trial of two different active drugs of the fluoroquinolone-group,
+M and G along with a placebo, P.
+93 subjects placed in one of three groups:
+
+| Group | Eye 1 | Eye 2|
+|-------|-------|------|
+|   A   |  G    |  P   |
+|   B   |  M    |  P   |
+|   C   |  G    |  M   |
+
+Each subject was asked to administer the two assigned preparations four times 
+per day for 10 days. The response was measured at baseline (without treatment),
+on visit 1, and again at visit 2 after 7 days, and at visit 3, on day 14. Note
+that at day 14, the subjects had stopped administering the preparations. The
+response was meased as corneal sensitivity in five regions of the eyes, central,
+superior, inferior, temporal and nasal. Sensititivy was measured in mm, with
+a range for 40-60 mm. High values indicate greater, normal, sensitivity, low values
+lower, abnormal, sensitivity.
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
 
 
-|Variable  |  Variable label                       |
-|----------|---------------------------------------|
-|  id      |  ID                                   |
-|  tr      |  Treatment   1=M   2=G  3=P           |
-|  c1      |  Central  visit 1                     |
-|  s1      |  Superior visit 1                     |
-|  i1      |  Inferior Visit 1                     |
-|  t1      |  Temporal visit 1                     |
-|  n1      |  Nasal Visit 1                        |
-|  c2      |  Central Visit 2(day 7)               |
-|  s2      |  Superior Visit 2                     |
-|  i2      |  Inferior Visit 2                     |
-|  t2      |  Temporal Visit 2                     |
-|  n2      |  Nasal Visit 2                        |
-|  c3      |  Central Visit 3(day 14)  missing=99  |
-|  s3      |  Superior Visit 3         missing=99  |
-|  i3      |  Inferior Visit 3         missing=99  |
-|  t3      |  Temporal Visit 3         missing=99  |
-|  n3      |  Nasal Visit 3            missing=99  |
+:::: spoiler
+## Metadata
 
+
+|Variable  |  Variable label                       | unit |
+|----------|---------------------------------------|------|
+|  id      |  ID                                   |      |
+|  tr      |  Treatment                            |      |
+|          |  1=M                                  |      |
+|          |  2=G                                  |      |
+|          |  3=P                                  |      |
+|  c1      |  Central  visit 1                     | mm |
+|  s1      |  Superior visit 1                     | mm |
+|  i1      |  Inferior Visit 1                     | mm |
+|  t1      |  Temporal visit 1                     | mm |
+|  n1      |  Nasal Visit 1                        | mm |
+|  c2      |  Central Visit 2(day 7)               | mm |
+|  s2      |  Superior Visit 2                     | mm |
+|  i2      |  Inferior Visit 2                     | mm |
+|  t2      |  Temporal Visit 2                     | mm |
+|  n2      |  Nasal Visit 2                        | mm |
+|  c3      |  Central Visit 3(day 14)  missing=99  | mm |
+|  s3      |  Superior Visit 3         missing=99  | mm |
+|  i3      |  Inferior Visit 3         missing=99  | mm |
+|  t3      |  Temporal Visit 3         missing=99  | mm |
+|  n3      |  Nasal Visit 3            missing=99  | mm |
+
+::::
 
 ### DIABETES
 
