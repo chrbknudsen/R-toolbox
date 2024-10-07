@@ -329,20 +329,36 @@ lower, abnormal, sensitivity.
 
 ### DIABETES
 
+A study on whether maintaining diabetes control in type I diabetes affects growth
+and development in childhood. 94 boys aged 9-15 where examined approx. every 
+3 months, leading to 910 visits. At each visit the degree of diabetes control 
+where assessed by measuring HgbA1c (glycosylated hemoglobin). The exact dates 
+of the visits are registered in the mon, day and yr_a1c variables, the age, 
+height and weight where registered as well ad the HgbA1c measurement.
+
+The HgbA1c measurement is the percentage of hemoglobin that is glycosylated.
+The normal range is between 4.0 and 5.6%, with values larger than 6.5% being
+indicative of diabetes. The normal range does not appear to change by pubertal stage.
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
 
+:::: spoiler
+### Metadata
 
-|Variable  |  Code                          |
-|----------|--------------------------------|
-|ID        |                                |
-|mon_a1c   |  Month                         |
-|day_a1c   |  Day A1c                       |
-|yr_a1c    |  Yr                            |
-|age_yrs   |  Age in years                  |
-|gly_a1c   |  Hemoglobin A1c                |
-|ht_cm     |  Height in cm    missing=999.9 | 
-|wt_kg     |  Weight in                     |
+|Variable  |  Code                          | unit |
+|----------|--------------------------------|------|
+|ID        |                                |      |
+|mon_a1c   |  Month                         |      |
+|day_a1c   |  Day A1c                       |      |
+|yr_a1c    |  Yr                            |      |
+|age_yrs   |  Age in years                  | year |
+|gly_a1c   |  Hemoglobin A1c                |  %  |
+|ht_cm     |  Height in  missing=999.9      | cm   |
+|wt_kg     |  Weight in                     | kg   |
 
+::::
 
 ### EAR
 
