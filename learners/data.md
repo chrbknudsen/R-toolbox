@@ -362,32 +362,40 @@ indicative of diabetes. The normal range does not appear to change by pubertal s
 
 ### EAR
 
+Data on 214 children with acute otitis media in one or both
+ears. They were randomly assigned 14 days of antibiotic treatment with either 
+CEF (cefaclor) or AMO (amoxicillin). Status of their ear infection at a 
+follow up visit after 14 days were recorded. 
+
+
+[source](#rosner_1)^1^
+
+Additional [reference](#mandel_3)
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EAR.csv)
 
+:::: spoiler
 
-| Variable  |         Description    |  Format or Code       |
-|-----------|------------------------|-----------------------|
-| Id        |  ID                    |                       |
-| Clear     |  Clearance by 14 days  |  1=yes/0=no           |
-| Antibo    |  Antibiotic            |  1=CEF/2=AMO          |
-| Age       |  Age                   |  1=<2 yrs/2=2-5 yrs/  |
-|           |                        |  3=6+ yrs             |
-| Ear       |  Ear                   |  1=1st ear/2=2nd ear  |
+### Metadata
 
-Data på 214 børn med akut otitis media (OME) der deltog i et randomiseret
-klinisk forsøg. De blev tilfældigt tildelt en 14 dages antibiotikabehandling med
-enten CEF (cefaclor) eller amoxicillin (AMO). I datasættet optræder de 203 
-børn hvor status for deres mellemørebetændelse blev afgjort ved en opfølgende 
-undersøgelse.
+| Variable  |         Description    |
+|-----------|------------------------|
+| Id        |  ID                    |  
+| Clear     |  Clearance by 14 days  |  
+|           |   1 = yes              |  
+|           |   0 = no               |
+| Antibo    |  Antibiotic            |  
+|           |  1 = CEF               |  
+|           |  2 = AMO               |  
+| Age       |  Age                   |  
+|           |  1=<2 yrs              |  
+|           | 2=2-5 yrs              |
+|           | 3=6+ yrs               |
+| Ear       |  Ear                   |
+|           |  1=1st ear             |
+|           |  2=2nd ear             |
 
-Hvis Id optræder mere end en gang, havde de ørebetændelse i begge ører.
-
-Yderligere reference:
-
-Mandel, E., Bluestone, C.D., Rockette, H.E., Blatter, M.M., Reisinger, K.S.,
-Wucher, E.P. & Harper, J. 1982, Duration of effusion after antibiotic 
-treatment for acute otitis media: Comparison of cefaclor and amoxicillin.
-Pediatric Infections Diseases, 1, 310-316.
+::::
 
 ### EFF
 
@@ -1208,6 +1216,15 @@ https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isb
 
 <a id="hopper_2">2</a>: Hopper, J.H. & Seeman, E (1994). The bone density
 of female twins discordant for tobacco use. New England Journal of Medicine, 330, 387-392.
+
+<a id="mandel_3">3</a>: Mandel, E., Bluestone, C.D., Rockette, H.E., Blatter, M.M., Reisinger, K.S.,
+Wucher, E.P. & Harper, J. 1982, Duration of effusion after antibiotic 
+treatment for acute otitis media: Comparison of cefaclor and amoxicillin.
+Pediatric Infections Diseases, 1, 310-316.
+
+
+
+
 
 [^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
