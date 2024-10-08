@@ -804,6 +804,10 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
 
+:::: spoiler
+
+## Metadata
+
 |  Variable  |  Description           |
 |------------|------------------------|
 |  Id        |  ID                    |
@@ -816,6 +820,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 |  B_amp     |  B AMP  9999=missing   |
 |  A_amp     |  A AMP  9999=missing   |
 
+::::
 
 ### NEPHRO
 
@@ -828,6 +833,10 @@ of several different aminoclycosides[^17]. Each row co
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
+:::: spoiler
+
+## Metadata
+
 |  Variable  |  Description/Code                                  |
 |------------|----------------------------------------------------|
 |  name      |  Study name                                        |
@@ -838,13 +847,17 @@ of several different aminoclycosides[^17]. Each row co
 |  Samp_sz   |  Sample size                                       |
 |  Side_eff  |  Number with side effects                          |
 
-
+::::
 
 ### NIFED
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description            |  Code                    |
 |------------|-------------------------|--------------------------|
@@ -859,6 +872,7 @@ of several different aminoclycosides[^17]. Each row co
 |  lv2sys    |  Level 2 systolic bp    |  mm Hg                   |
 |  lv3sys    |  Level 3 systolic bp    |  mm Hg                   |
 
+::::
 
 * Immediately prior to randomization.
 
@@ -880,16 +894,28 @@ Values of 999 indicates that either
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
-|  Variable  |  Description/Code                                    |
-|------------|------------------------------------------------------|
-|  Name      |  Study Name                                          |
-|  Id        |  Study Number                                        |
-|  Endpnt    |  Endpoint 1=efficacy/2=nephrotoxicity/3=ototoxicity  |
-|  Antibio   |  Antibiotic 1=Amikacin/2=Gentamicin/3=Netilmicin/    |
-|            |  4=Sisomycin/5=Tobramycin                            |
-|  Samp_sz   |  Sample Size                                         |
-|  Side_eff  |  Number with side effect                             |
+:::: spoiler
 
+## Metadata
+
+|  Variable  |  Description/Code        |
+|------------|--------------------------|
+|  Name      |  Study Name              |
+|  Id        |  Study Number            |
+|  Endpnt    |  Endpoint                |
+|            |  1 = efficacy            |
+|            |  2 = nephrotoxicity      |
+|            |  3 = ototoxicity         |
+|  Antibio   |  Antibiotic              |
+|            |  1 = Amikacin            |
+|            |  2 = Gentamicin          |
+|            |  3 = Netilmicin          |
+|            |  4 = Sisomycin           |
+|            |  5 = Tobramycin          |
+|  Samp_sz   |  Sample Size             |
+|  Side_eff  |  Number with side effect |
+
+::::
 
 ### PIRIFORM
 
@@ -897,14 +923,23 @@ Values of 999 indicates that either
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
-|  Variable  |  Code                                         |
-|------------|-----------------------------------------------|
-|  ID        |                                               |
-|  piriform  |  Piriformis Syndrome 1=Negative,  2=Positive  |
-|  sex       |  Sex  1=Male,  2=Female                       |
-|  age       |  Age                                          |
-|  maxchg    |  Max change between tibia and peroneal        |
+:::: spoiler
 
+## Metadata
+
+|  Variable  |  Code                                  |
+|------------|----------------------------------------|
+|  ID        |                                        |
+|  piriform  |  Piriformis Syndrome                   |
+|            |  1 = Negative                          |
+|            |  2 = Positive                          |
+|  sex       |  Sex                                   |
+|            |  1 = Male                              |
+|            |  2 = Female                            |
+|            |  Age                                   |
+|  maxchg    |  Max change between tibia and peroneal |
+
+::::
 
 ### SEXRAT
 
