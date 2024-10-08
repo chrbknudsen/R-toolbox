@@ -912,6 +912,11 @@ Values of 999 indicates that either
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
 
+:::: spoiler
+
+## Metadata
+
+
 |  Variable   |  code                 |
 |-------------|-----------------------|
 |  nm_chld+   |  Number of children   |
@@ -922,6 +927,8 @@ Values of 999 indicates that either
 |  sx_5       |  Sex of 5th born      |
 |  sexchldn*  |  Sex of all children  |
 |  num_fam**  |  Number of families   |
+
+::::
 
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
