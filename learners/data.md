@@ -939,18 +939,25 @@ such families.
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
-|  Variable  |  Code                                               |
-|------------|-----------------------------------------------------|
-|  ID        |  ID number                                          |
-|  Age       |  age                                                |
-|  Gender    |  Gender        1=male/2=female                      |
-|  Cig_day   |  Cigarettes/day                                     |
-|  CO        |  Carbon monoxide (CO) (X 10) missing=999            |
-|  Min_last  |  Minutes elapsed since last cigarette missing=9999  |
-|  LogCOadj  |  Log CO Adj * (X 1000)  missing=9999                |
-|  Day_abs   |  Days abstinent  Those abstinent less than 1 day    |
-|            |  were given a value of zero.                        |
+:::: spoiler
 
+## Metadata
+
+|  Variable  |  Code                                               | unit |
+|------------|-----------------------------------------------------|------|
+|  ID        |  ID number                                          |      |
+|  Age       |  age                                                |      |
+|  Gender    |  Gender                                             |      |
+|            |  1 = male                                           |      |
+|            |  2 = female                                         |      |
+|  Cig_day   |  Cigarettes/day                                     |      |
+|  CO        |  Carbon monoxide (CO) (X 10) missing=999            |      |
+|  Min_last  |  Minutes elapsed since last cigarette missing=9999  |      |
+|  LogCOadj  |  Log CO Adj * (X 1000)  missing=9999                |      |
+|  Day_abs   |  Days abstinent  Those abstinent less than 1 day    |      |
+|            |  were given a value of zero.                        |      |
+
+::::
 
 * This variable represents adjusted carbon monoxide (CO) values. CO values
 were adjusted for minutes elapsed since last cigarette smoked using the formula
