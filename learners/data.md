@@ -399,8 +399,13 @@ Additional [reference](#mandel_3)
 
 ### EFF
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
 
+:::: spoiler
+
+## Metadata
 
 |Variable  |  Description/Code|
 |----------|----------------------------------------|
@@ -408,103 +413,147 @@ Additional [reference](#mandel_3)
 |Id        |  Study Number                          |
 |Endpnt    |  Endpoint  1=efficacy                  |
 |Antibio   |  Antibiotic                            |
-|          |  1=Amikacin/2=Gentamicin/3=Netilmicin/ |
-|          |  4=Sisomycin/5=Tobramycin              |
+|          |  1 = Amikacin                          |
+|          |  2 = Gentamicin                        |
+|          |  3 = Netilmicin/                       |
+|          |  4 = Sisomycin                         |
+|          |  5 = Tobramycin                        |
 |Samp_sz   |  Sample Size                           |
 |Cured     |  Number Cured                          |
 
-
+::::
 
 ###  ENDOCRIN
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ENDOCRIN.csv)
 
+:::: spoiler
 
-| Variable   |  LABEL           |
-|------------|------------------|
-|  Subject   |  SUBJECT #       |
-|  Replicat  |  REPLICATE #     |
-|  Estrone   |  ESTRONE         |
-|  Estradol  |  ESTRADIOL       |
-|  Androste  |  ANDROSTENEDIONE |
-|  Testost   |  TESTOSTERONE    |
+## Metadata
 
+| Variable   |  LABEL           | unit |
+|------------|------------------|------|
+|  Subject   |  SUBJECT #       |      |
+|  Replicat  |  REPLICATE #     |      |
+|  Estrone   |  ESTRONE         |      |
+|  Estradol  |  ESTRADIOL       |      |
+|  Androste  |  ANDROSTENEDIONE |      |
+|  Testost   |  TESTOSTERONE    |      |
+
+::::
 
 ### ESTRADL
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTRADL.csv)
 
+:::: spoiler
 
-|Variable |  Code	                                           |
-|---------|--------------------------------------------------|
-|Id       |  Identification number                           |
-|Estradl  |  Estradiol                                       |
-|Ethnic   |  Ethnicity 0=African-American;  1=Caucasian      |
-|Entage   |  Age                                             |
-|Numchild |  Parity, number of children  9=missing           |
-|Agefbo   |  Age at 1st birth (=0 if numchild=0)  99=missing |
-|Anykids	|  any children  1=yes;  0=no   9=missing          |
-|Agemenar |  age at menarche   99=missing                    |
-|BMI      |  Body Mass Index                                 |
-|WHR      |  waist-hip ratio                                 |
+## Metadata
 
+|Variable |  Code	                                           | unit  |
+|---------|--------------------------------------------------|-------|
+|Id       |  Identification number                           |       |
+|Estradl  |  Estradiol                                       |       |
+|Ethnic   |  Ethnicity                                       |       |
+|         |  0 = African-American                            |       |
+|         |  1 = Caucasian                                   |       |
+|Entage   |  Age                                             |       |
+|Numchild |  Parity, number of children  9=missing           |       |
+|Agefbo   |  Age at 1st birth (=0 if numchild=0)  99=missing |       |
+|Anykids	|  any children                                    |       |
+|        	|  1 = yes                                         |       |
+|        	|  0 = no                                          |       |
+|        	|  9 = missing                                     |       |
+|Agemenar |  age at menarche   99=missing                    | years |
+|BMI      |  Body Mass Index                                 |       |
+|WHR      |  waist-hip ratio                                 |       |
+
+::::
 
 ### ESTROGEN
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTROGEN.csv)
 
+:::: spoiler
 
-|Variable  |  LABEL                        |
-|----------|-------------------------------|
-|Id        |  ID                           |
-|std_typ   |  STUDY TYPE                   |
-|          |  1=0.625MG VS PLACEBO         |
-|          |  2=1.25MG VS PLACEBO          |
-|          |  3=1.25MG VS 0.625MG          |
-|period    |  PERIOD                       |
-|trtgrp    |  TREATMENT                    |
-|          |  1=PLACEBO                    |
-|          |  2=0.625MG                    |
-|          |  3=1.25MG                     |
-|sysd1r1   |  SYSTOLIC BP DAY 1 READING 1  |
-|          |  MISSING=999                  |
-|diasd1r1  |  DIASTOLIC BP DAY 1 READING 1 |
-|          |  MISSING=999                  |
-|sysd1r2   |  SYSTOLIC BP DAY 1 READING 2  |
-|          |  MISSING=999                  |
-|diasd1r2  |  DIASTOLIC BP DAY 1 READING 2 |
-|          |  MISSING=999                  |
-|sysd1r3   |  SYSTOLIC BP  DAY 1 READING 3 |
-|          |  MISSING=999                  |
-|diasd1r3  |  DIASTOLIC BP DAY 1 READING 3 |
-|          |  MISSING=999                  |
-|sysd2r1   |  SYSTOLIC BP DAY 2 READING 1  |
-|          |  MISSING=999                  |
-|diasd2r1  |  DIASTOLIC BP DAY 2 READING 1 |
-|sysd2r2   |  SYSTOLIC BP DAY 2 READING 2  |
-|diasd2r2  |  DIASTOLIC BP DAY 2 READING 2 |
-|sysd2r3   |  SYSTOLIC BP DAY 2 READING 3  |
-|diasd2r3  |  DIASTOLIC BP DAY 2 READING 3 |
-|sysd3r1   |  SYSTOLIC BP DAY 3 READING 1  |
-|diasd3r1  |  DIASTOLIC BP DAY 3 READING 1 |
-|sysd3r2   |  SYSTOLIC BP DAY 3 READING 2  |
-|diasd3r2  |  DIASTOLIC BP DAY 3 READING 2 |
-|sysd3r3   |  SYSTOLIC BP DAY 3 READING 3  |
-|diasd3r3  |  DIASTOLIC BP DAY 3 READING 3 |
+## Metadata
 
+|Variable  |  LABEL                        | unit |
+|----------|-------------------------------|------|
+|Id        |  ID                           |      |
+|std_typ   |  STUDY TYPE                   |      |
+|          |  1 = 0.625MG VS PLACEBO       |      |
+|          |  2 = 1.25MG VS PLACEBO        |      |
+|          |  3 = 1.25MG VS 0.625MG        |      |
+|period    |  PERIOD                       |      |
+|trtgrp    |  TREATMENT                    |      |
+|          |  1 = PLACEBO                  |      |
+|          |  2 = 0.625MG                  |      |
+|          |  3 = 1.25MG                   |      |
+|sysd1r1   |  SYSTOLIC BP DAY 1 READING 1  |      |
+|          |  MISSING=999                  |      |
+|diasd1r1  |  DIASTOLIC BP DAY 1 READING 1 |      |
+|          |  MISSING=999                  |      |
+|sysd1r2   |  SYSTOLIC BP DAY 1 READING 2  |      |
+|          |  MISSING=999                  |      |
+|diasd1r2  |  DIASTOLIC BP DAY 1 READING 2 |      |
+|          |  MISSING=999                  |      |
+|sysd1r3   |  SYSTOLIC BP  DAY 1 READING 3 |      |
+|          |  MISSING=999                  |      |
+|diasd1r3  |  DIASTOLIC BP DAY 1 READING 3 |      |
+|          |  MISSING=999                  |      |
+|sysd2r1   |  SYSTOLIC BP DAY 2 READING 1  |      |
+|          |  MISSING=999                  |      |
+|diasd2r1  |  DIASTOLIC BP DAY 2 READING 1 |      |
+|sysd2r2   |  SYSTOLIC BP DAY 2 READING 2  |      |
+|diasd2r2  |  DIASTOLIC BP DAY 2 READING 2 |      |
+|sysd2r3   |  SYSTOLIC BP DAY 2 READING 3  |      |
+|diasd2r3  |  DIASTOLIC BP DAY 2 READING 3 |      |
+|sysd3r1   |  SYSTOLIC BP DAY 3 READING 1  |      |
+|diasd3r1  |  DIASTOLIC BP DAY 3 READING 1 |      |
+|sysd3r2   |  SYSTOLIC BP DAY 3 READING 2  |      |
+|diasd3r2  |  DIASTOLIC BP DAY 3 READING 2 |      |
+|sysd3r3   |  SYSTOLIC BP DAY 3 READING 3  |      |
+|diasd3r3  |  DIASTOLIC BP DAY 3 READING 3 |      |
+
+::::
 
 ### FEV
 
+[source](#rosner_1)^1^
+
+Yderligere reference:
+Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
+Effect of parental cigarette smoking on pulmonary function in children.
+American Journal of Epidemiology, 110, 15-26.
+
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FEV.csv)
 
-|Variable |  Description      |  Format or Code                         |
-|---------|-------------------|-----------------------------------------|
-| Id      |  ID number        |                                         |
-| Age     |  Age (yrs)        |                                         |
-| FEV     |  FEV (liters)     |  X.XXXX                                 |
-| Hgt     |  Height (inches)  |  XX.X                                   |
-| Sex     |  Sex              |  0=female/1=male                        |
-| Smoke   |  Smoking Status   |  0=non-current smoker/1=current smoker  |
+:::: spoiler
+
+## Metadata
+
+|Variable |  Description          |  Unit | 
+|---------|-----------------------|-------|
+| Id      |  ID number            |       |
+| Age     |  Age (yrs)            | years |
+| FEV     |  FEV (liters)         | l     |
+| Hgt     |  Height (inches)      | in    |
+| Sex     |  Sex                  |       |
+|         |  0 = female           |       |
+|         |  1 = male             |       |
+| Smoke   |  Smoking Status       |       |
+|         |  0=non-current smoker |       |
+|         |  1=current smoker     |       |
+
+::::
 
 FEV - Forced Expiratory Volume er et index for lungefunktion, der måler
 det volumen luft (i liter) der kan udstødes af lungerne på et sekund. 
@@ -512,12 +561,11 @@ det volumen luft (i liter) der kan udstødes af lungerne på et sekund.
 Data indeholder data på 654 børn i alderen fra 3 til 19 år i "Childhood
 Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 
-Kilde er den generelle reference i bunden af denne side. Yderligere reference:
-Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
-Effect of parental cigarette smoking on pulmonary function in children.
-American Journal of Epidemiology, 110, 15-26.
 
 ### FIELD
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
 
 |  Variable  |  Description                                                   |
@@ -532,6 +580,9 @@ American Journal of Epidemiology, 110, 15-26.
 |  totfldos  |  total field area left eye (OS) in degrees²                    |
 
 ### HEART
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
 
 |Variable    |  code                                                                          |
@@ -554,6 +605,9 @@ American Journal of Epidemiology, 110, 15-26.
 
 
 ### HORMONE
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HORMONE.csv)
 
 |  Variable  |  Description/Code                      |
@@ -572,6 +626,8 @@ American Journal of Epidemiology, 110, 15-26.
 
 
 ### HOSPITAL
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -603,6 +659,8 @@ Infectious Diseases, 139(6) 688-697.
 
 
 ### INFANTBP
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
@@ -639,6 +697,8 @@ Sugar Taste Variables
 
 
 ### LEAD
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
@@ -740,6 +800,8 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### MICE
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
 
 |  Variable  |  Description           |
@@ -757,10 +819,11 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### NEPHRO
 
-Data^1^ from a litterature search, comparing nephrotoxicity 
+[source](#rosner_1)^1^
+
+Data from a litterature search, comparing nephrotoxicity 
 of several different aminoclycosides[^17]. Each row co
 
- [@sandpaper]
 
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
@@ -778,6 +841,8 @@ of several different aminoclycosides[^17]. Each row co
 
 
 ### NIFED
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
 
@@ -811,6 +876,8 @@ Values of 999 indicates that either
 
 ### OTO
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
 |  Variable  |  Description/Code                                    |
@@ -826,6 +893,8 @@ Values of 999 indicates that either
 
 ### PIRIFORM
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
 |  Variable  |  Code                                         |
@@ -838,6 +907,8 @@ Values of 999 indicates that either
 
 
 ### SEXRAT
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
 
@@ -864,6 +935,8 @@ such families.
 
 ### SMOKE
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
 |  Variable  |  Code                                               |
@@ -887,6 +960,8 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### SWISS
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
 |  Variable   |  Codes                                            |
@@ -905,6 +980,8 @@ number of minutes elapsed since the last cigarette smoked.
 
 
 ### TEAR
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
 
@@ -974,6 +1051,8 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### TEMPERAT
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
 |  Variable  |    LABEL                                 |
@@ -992,6 +1071,8 @@ number of minutes elapsed since the last cigarette smoked.
 |            |           9=MISSING                      |
 
 ### TENNIS1
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
@@ -1054,6 +1135,8 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### TENNIS2
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
 
 |  VARIABLE  |  PERIOD*  |  VARIABLE NAME                                                             |
@@ -1108,6 +1191,8 @@ number of minutes elapsed since the last cigarette smoked.
 
 
 ### VALID
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
