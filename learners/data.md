@@ -1211,15 +1211,9 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### spermatozoa
 
-[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
+[source](#jorgensen_4)^4^
 
-|  Variable          |  Description                                      |  Format  |
-|--------------------|---------------------------------------------------|----------|
-|  dreng             |  ID                                               |          |
-|  foerste_positive  |  Alder ved første spermatozoa-positive urinprøve  |          |
-|  indgang           |  Alder ved start af studie                        |          |
-|  udgang            |  Alder ved slut af studie (evt deltagelse i)      |          |
-|  observationer     |  Spermatozoa-positive urinprøver                  | +/-      |
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
 
 Et 7-års longitudinalt studie startet foråret 1975 i Edinburgh. To klasser på
 en grundskole blev bedt om at deltage, og informeret samtykke blev indhentet 
@@ -1228,15 +1222,25 @@ indsamlet fra hver dreng, og disse prøver blev analyseret for tilstedeværelse
 af spermatozoer. I observationer er registreret resultatet for hver urinprøve.
 + indikerer tilstedeværelse af spermatozoer, - fravær.
 
-Særligt egnet til øvelse i rensning af data
+Weird format suitable for cleaning exercises.
 
-Estimation of Spermarche from Longitudinal Spermaturia Data
-Merete Jorgensen, Niels Keiding, Niels Erik Skakkebaek
-Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 (17 pages)
-https://doi.org/10.2307/2532505
-•
+:::: spoiler
 
-https://www.jstor.org/stable/2532505
+## Metadata
+
+|  Variable       |  Description                                      | unit  |
+|-----------------|---------------------------------------------------|-------|
+| boy             |  ID                                               |       |
+| first_positive  |  Age at first spermatozoa-positive urine sample   | years |
+| entry           |  Age at start of study                            | years |
+| exit            |  Age at end of study (eg. exit from study)        | years |
+| observations    |  Spermatozoa-positive urine samples               |       |
+|                 |  + = positive                                     |       |
+|                 |  - = negative                                     |       |
+
+::::
+
+
 
 ### who
 
@@ -1273,14 +1277,9 @@ tidyr-pakken.
 
 Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tuberculosis-programme/data
 
-spermatozoa datasættet er fra 
-Estimation of Spermarche from Longitudinal Spermaturia Data
-Merete Jorgensen, Niels Keiding, Niels Erik Skakkebaek
-Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 (17 pages)
-https://doi.org/10.2307/2532505
 
 
-https://www.jstor.org/stable/2532505
+
 
 https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
 
@@ -1313,4 +1312,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 [^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
-
+<a id="jorgensen_4">4</a>: Jorgensen, Merete; Keiding, Niels; Skakkebaek, Niels Erik. Estimation of Spermarche from Longitudinal Spermaturia Data
+Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 
+https://doi.org/10.2307/2532505
+https://www.jstor.org/stable/2532505
