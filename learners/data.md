@@ -964,26 +964,37 @@ number of minutes elapsed since the last cigarette smoked.
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
-|  Variable   |  Codes                                            |
-|-------------|---------------------------------------------------|
-|  ID         |  ID                                               |
-|  age (yrs)  |  age (yrs)                                        |
-|  group      |  Group    1=High NAPAP, 2=Low NAPAP, 3 = control  |
-|  creat_68   |  x.xx Serum Creatinine 1968 (mg/dL) 9.99=missing  |
-|  creat_69   |  x.xx Serum Creatinine 1969 (mg/dL) 9.99=missing  |
-|  creat_70   |  x.xx Serum Creatinine 1970 (mg/dL) 9.99=missing  |
-|  creat_71   |  x.xx Serum Creatinine 1971 (mg/dL) 9.99=missing  |
-|  creat_72   |  x.xx Serum Creatinine 1972 (mg/dL) 9.99=missing  |
-|  creat_75   |  x.xx Serum Creatinine 1975 (mg/dL) 9.99=missing  |
-|  creat_78   |  x.xx Serum Creatinine 1978 (mg/dL) 9.99=missing  |
+:::: spoiler
 
+## Metadata
 
+|  Variable   |  Codes                                            | unit    |
+|-------------|---------------------------------------------------|---------|
+|  ID         |  ID                                               |         | 
+|  age        |  age                                              | years   |
+|  group      |  Group                                            |         |
+|             |  1 = High NAPAP                                   |         |
+|             |  2 = Low NAPAP                                    |         |
+|             |  3 = control                                      |         |
+|  creat_68   |  Serum Creatinine 1968  9.99=missing              | (mg/dL) |
+|  creat_69   |  Serum Creatinine 1969  9.99=missing              | (mg/dL) |
+|  creat_70   |  Serum Creatinine 1970  9.99=missing              | (mg/dL) |
+|  creat_71   |  Serum Creatinine 1971  9.99=missing              | (mg/dL) |
+|  creat_72   |  Serum Creatinine 1972  9.99=missing              | (mg/dL) |
+|  creat_75   |  Serum Creatinine 1975  9.99=missing              | (mg/dL) |
+|  creat_78   |  Serum Creatinine 1978  9.99=missing              | (mg/dL) |
+
+::::
 
 ### TEAR
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Code                          |
 |------------|--------------------------------|
@@ -1049,26 +1060,34 @@ number of minutes elapsed since the last cigarette smoked.
 |  os10p151  |  OS 10 sec 15min post 1        |
 |  os10p152  |  OS 10 sec 15min post 2        | 
 
+::::
+
 ### TEMPERAT
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
-|  Variable  |    LABEL                                 |
-|------------|------------------------------------------|
-|  Date      |  DATE (MDY)                              |
-|  Out_temp  |  OUTSIDE TEMERATURE  Degrees Fahrenheit  |
-|  Room      |  ROOM LOCATION                           |
-|  In_temp   |  INSIDE TEMPERATURE  Degrees Fahrenheit  |
-|  Cor_fac   |  CORRECTION FACTOR ADDED (1=YES 0=NO)    |
-|  Typ_wea   |  TYPE OF WEATHER                         |
-|            |           1=SUNNY                        |
-|            |           2=PARTLY CLOUDY                |
-|            |           3=CLOUDY                       |
-|            |           4=RAINY                        |
-|            |           5=FOGGY                        |
-|            |           9=MISSING                      |
+:::: spoiler
+
+## Metadata
+
+|  Variable  |    LABEL                                 | unit |
+|------------|------------------------------------------|------|
+|  Date      |  DATE (MDY)                              |      |
+|  Out_temp  |  OUTSIDE TEMERATURE  Degrees Fahrenheit  |      |
+|  Room      |  ROOM LOCATION                           |      |
+|  In_temp   |  INSIDE TEMPERATURE  Degrees Fahrenheit  |      |
+|  Cor_fac   |  CORRECTION FACTOR ADDED (1=YES 0=NO)    |      |
+|  Typ_wea   |  TYPE OF WEATHER                         |      |
+|            |  1 = SUNNY                        |      |
+|            |  2 = PARTLY CLOUDY                |      |
+|            |  3 = CLOUDY                       |      |
+|            |  4 = RAINY                        |      |
+|            |  5 = FOGGY                        |      |
+|            |  9 = MISSING                      |      |
+
+::::
 
 ### TENNIS1
 
@@ -1076,62 +1095,70 @@ number of minutes elapsed since the last cigarette smoked.
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
-|  VARIABLE  |  VARIABLE NAME                                    |
-|------------|---------------------------------------------------|
-|  Id        |  ID                                               |
-|  Age       |  AGE    99=MISSING                                |
-|  Sex       |  SEX   1=MALE / 2=FEMALE                          |
-|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     |
-|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         |
-|            |          1=CONVENTIONAL SIZE                      |
-|            |          2=MID-SIZE                               |
-|            |          3=OVER-SIZE                              |
-|            |          9=MISSING                                |
-|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       |
-|            |          1=HEAVY                                  |
-|            |          2=MEDIUM                                 |
-|            |          3=LIGHT                                  |
-|            |          4=DON'T KNOW                             |
-|            |          9=MISSING                                |
-|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     |
-|            |          1=WOOD                                   |
-|            |          2=ALUMINUM                               |
-|            |          3=FIBERGLASS AND COMPOSITE               |
-|            |          4=GRAPHITE                               |
-|            |          5=STEEL                                  |
-|            |          6=COMPOSITE                              |
-|            |          7=OTHER                                  |
-|            |          9=MISSING                                |
-|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  |
-|            |          1=NYLON                                  |
-|            |          2=GUT                                    |
-|            |          3=DON'T KNOW                             |
-|            |          9=MISSING                                |
-|  Typ_curr  |  TYPE OF RACQUET USED CURRENTLY                   |
-|            |          1=CONVENTIONAL SIZE                      |
-|            |          2=MID-SIZE                               |
-|            |          3=OVER-SIZE                              |
-|            |          9=MISSING                                |
-|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 |
-|            |          1=HEAVY                                  |
-|            |          2=MEDIUM                                 |
-|            |          3=LIGHT                                  |
-|            |          4=DON'T KNOW                             |
-|            |          9=MISSING                                |
-|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               |
-|            |          1=WOOD                                   |
-|            |          2=ALUMINUM                               |
-|            |          3=FIBERGLASS AND COMPOSITE               |
-|            |          4=GRAPHITE                               |
-|            |          5=STEEL                                  |
-|            |          6=COMPOSITE                              |
-|            |          7=OTHER                                  |
-|            |          9=MISSING                                |
-|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            |
-|            |          1=NYLON                                  |
-|            |          2=GUT                                    |
-|            |          3=DON'T KNOW                             |
-|            |          9=MISSING                                | 
+:::: spoiler
+
+## Metadata
+
+|  VARIABLE  |  VARIABLE NAME                                    | unit |
+|------------|---------------------------------------------------|------|
+|  Id        |  ID                                               | |
+|  Age       |  AGE    99=MISSING                                || 
+|  Sex       |  SEX                             | |
+|            |  1 = MALE                          | |
+|            |  2 = FEMALE                          | |
+|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     | |
+|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         | |
+|            |  1 = CONVENTIONAL SIZE                      | |
+|            |  2 = MID-SIZE                               | |
+|            |  3 = OVER-SIZE                              | |
+|            |  9 = MISSING                                | |
+|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       | |
+|            |          1=HEAVY                                  | |
+|            |          2=MEDIUM                                 | |
+|            |          3=LIGHT                                  | |
+|            |          4=DON'T KNOW                             | |
+|            |          9=MISSING                                | |
+|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     | |
+|            |          1=WOOD                                   | |
+|            |          2=ALUMINUM                               | |
+|            |          3=FIBERGLASS AND COMPOSITE               | |
+|            |          4=GRAPHITE                               | |
+|            |          5=STEEL                                  | |
+|            |          6=COMPOSITE                              | |
+|            |          7=OTHER                                  | |
+|            |          9=MISSING                                | |
+|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  | |
+|            |          1=NYLON                                  | |
+|            |          2=GUT                                    | |
+|            |          3=DON'T KNOW                             | |
+|            |          9=MISSING                                | |
+|  Typ_curr  |  TYPE OF RACQUET USED CURRENTLY                   | |
+|            |  1 = CONVENTIONAL SIZE                      | |
+|            |  2 = MID-SIZE                               | |
+|            |  3 = OVER-SIZE                              | |
+|            |  9 = MISSING                                | |
+|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 | |
+|            |  1 = HEAVY                                  | |
+|            |  2 = MEDIUM                                 | |
+|            |  3 = LIGHT                                  | |
+|            |  4 = DON'T KNOW                             | |
+|            |  9 = MISSING                                | |
+|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               | |
+|            |  1 = WOOD                                   | |
+|            |  2 = ALUMINUM                               | |
+|            |  3 = FIBERGLASS AND COMPOSITE               | |
+|            |  4 = GRAPHITE                               | |
+|            |  5 = STEEL                                  | |
+|            |  6 = COMPOSITE                              | |
+|            |  7 = OTHER                                  | |
+|            |  9 = MISSING                                | |
+|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            | |
+|            |  1 = NYLON                                  | |
+|            |  2 = GUT                                    | |
+|            |  3 = DON'T KNOW                             | |
+|            |  9 = MISSING                                |  |
+
+::::
 
 ### TENNIS2
 
@@ -1196,18 +1223,23 @@ number of minutes elapsed since the last cigarette smoked.
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
-|  Variable  |  Description              |Format or Code  |
+:::: spoiler
+
+## Metadata
+
+|  Variable  |  Description              | unit  |
 |------------|---------------------------|----------------|
 |  Id        |  ID number                |                |
-|  sfat_dr   |  Saturated fat-DR         |   XXXXX.XX     |
-|  sfat_ffq  |  Saturated fat-FFQ        |   XXXXX.XX     |
-|  tfat_dr   |  Total fat-DR             |   XXXXX.XX     |
-|  tfat_ffq  |  Total fat-FFQ            |   XXXXX.XX     |
-|  alco_dr   |  Alcohol consumption-DR   |   XXXXX.XX     |
-|  alco_ffq  |  Alcohol consumption-FFQ  |   XXXXX.XX     |
-|  cal_dr    |  Total calories-DR        |  XXXXXX.XX     |
-|  cal_ffq   |  Total calories-FFQ       |  XXXXXX.XX     |
+|  sfat_dr   |  Saturated fat-DR         |        |
+|  sfat_ffq  |  Saturated fat-FFQ        |        |
+|  tfat_dr   |  Total fat-DR             |        |
+|  tfat_ffq  |  Total fat-FFQ            |        |
+|  alco_dr   |  Alcohol consumption-DR   |        |
+|  alco_ffq  |  Alcohol consumption-FFQ  |        |
+|  cal_dr    |  Total calories-DR        |       |
+|  cal_ffq   |  Total calories-FFQ       |       |
 
+::::
 
 ### spermatozoa
 
