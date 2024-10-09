@@ -399,8 +399,13 @@ Additional [reference](#mandel_3)
 
 ### EFF
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
 
+:::: spoiler
+
+## Metadata
 
 |Variable  |  Description/Code|
 |----------|----------------------------------------|
@@ -408,103 +413,147 @@ Additional [reference](#mandel_3)
 |Id        |  Study Number                          |
 |Endpnt    |  Endpoint  1=efficacy                  |
 |Antibio   |  Antibiotic                            |
-|          |  1=Amikacin/2=Gentamicin/3=Netilmicin/ |
-|          |  4=Sisomycin/5=Tobramycin              |
+|          |  1 = Amikacin                          |
+|          |  2 = Gentamicin                        |
+|          |  3 = Netilmicin/                       |
+|          |  4 = Sisomycin                         |
+|          |  5 = Tobramycin                        |
 |Samp_sz   |  Sample Size                           |
 |Cured     |  Number Cured                          |
 
-
+::::
 
 ###  ENDOCRIN
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ENDOCRIN.csv)
 
+:::: spoiler
 
-| Variable   |  LABEL           |
-|------------|------------------|
-|  Subject   |  SUBJECT #       |
-|  Replicat  |  REPLICATE #     |
-|  Estrone   |  ESTRONE         |
-|  Estradol  |  ESTRADIOL       |
-|  Androste  |  ANDROSTENEDIONE |
-|  Testost   |  TESTOSTERONE    |
+## Metadata
 
+| Variable   |  LABEL           | unit |
+|------------|------------------|------|
+|  Subject   |  SUBJECT #       |      |
+|  Replicat  |  REPLICATE #     |      |
+|  Estrone   |  ESTRONE         |      |
+|  Estradol  |  ESTRADIOL       |      |
+|  Androste  |  ANDROSTENEDIONE |      |
+|  Testost   |  TESTOSTERONE    |      |
+
+::::
 
 ### ESTRADL
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTRADL.csv)
 
+:::: spoiler
 
-|Variable |  Code	                                           |
-|---------|--------------------------------------------------|
-|Id       |  Identification number                           |
-|Estradl  |  Estradiol                                       |
-|Ethnic   |  Ethnicity 0=African-American;  1=Caucasian      |
-|Entage   |  Age                                             |
-|Numchild |  Parity, number of children  9=missing           |
-|Agefbo   |  Age at 1st birth (=0 if numchild=0)  99=missing |
-|Anykids	|  any children  1=yes;  0=no   9=missing          |
-|Agemenar |  age at menarche   99=missing                    |
-|BMI      |  Body Mass Index                                 |
-|WHR      |  waist-hip ratio                                 |
+## Metadata
 
+|Variable |  Code	                                           | unit  |
+|---------|--------------------------------------------------|-------|
+|Id       |  Identification number                           |       |
+|Estradl  |  Estradiol                                       |       |
+|Ethnic   |  Ethnicity                                       |       |
+|         |  0 = African-American                            |       |
+|         |  1 = Caucasian                                   |       |
+|Entage   |  Age                                             |       |
+|Numchild |  Parity, number of children  9=missing           |       |
+|Agefbo   |  Age at 1st birth (=0 if numchild=0)  99=missing |       |
+|Anykids	|  any children                                    |       |
+|        	|  1 = yes                                         |       |
+|        	|  0 = no                                          |       |
+|        	|  9 = missing                                     |       |
+|Agemenar |  age at menarche   99=missing                    | years |
+|BMI      |  Body Mass Index                                 |       |
+|WHR      |  waist-hip ratio                                 |       |
+
+::::
 
 ### ESTROGEN
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTROGEN.csv)
 
+:::: spoiler
 
-|Variable  |  LABEL                        |
-|----------|-------------------------------|
-|Id        |  ID                           |
-|std_typ   |  STUDY TYPE                   |
-|          |  1=0.625MG VS PLACEBO         |
-|          |  2=1.25MG VS PLACEBO          |
-|          |  3=1.25MG VS 0.625MG          |
-|period    |  PERIOD                       |
-|trtgrp    |  TREATMENT                    |
-|          |  1=PLACEBO                    |
-|          |  2=0.625MG                    |
-|          |  3=1.25MG                     |
-|sysd1r1   |  SYSTOLIC BP DAY 1 READING 1  |
-|          |  MISSING=999                  |
-|diasd1r1  |  DIASTOLIC BP DAY 1 READING 1 |
-|          |  MISSING=999                  |
-|sysd1r2   |  SYSTOLIC BP DAY 1 READING 2  |
-|          |  MISSING=999                  |
-|diasd1r2  |  DIASTOLIC BP DAY 1 READING 2 |
-|          |  MISSING=999                  |
-|sysd1r3   |  SYSTOLIC BP  DAY 1 READING 3 |
-|          |  MISSING=999                  |
-|diasd1r3  |  DIASTOLIC BP DAY 1 READING 3 |
-|          |  MISSING=999                  |
-|sysd2r1   |  SYSTOLIC BP DAY 2 READING 1  |
-|          |  MISSING=999                  |
-|diasd2r1  |  DIASTOLIC BP DAY 2 READING 1 |
-|sysd2r2   |  SYSTOLIC BP DAY 2 READING 2  |
-|diasd2r2  |  DIASTOLIC BP DAY 2 READING 2 |
-|sysd2r3   |  SYSTOLIC BP DAY 2 READING 3  |
-|diasd2r3  |  DIASTOLIC BP DAY 2 READING 3 |
-|sysd3r1   |  SYSTOLIC BP DAY 3 READING 1  |
-|diasd3r1  |  DIASTOLIC BP DAY 3 READING 1 |
-|sysd3r2   |  SYSTOLIC BP DAY 3 READING 2  |
-|diasd3r2  |  DIASTOLIC BP DAY 3 READING 2 |
-|sysd3r3   |  SYSTOLIC BP DAY 3 READING 3  |
-|diasd3r3  |  DIASTOLIC BP DAY 3 READING 3 |
+## Metadata
 
+|Variable  |  LABEL                        | unit |
+|----------|-------------------------------|------|
+|Id        |  ID                           |      |
+|std_typ   |  STUDY TYPE                   |      |
+|          |  1 = 0.625MG VS PLACEBO       |      |
+|          |  2 = 1.25MG VS PLACEBO        |      |
+|          |  3 = 1.25MG VS 0.625MG        |      |
+|period    |  PERIOD                       |      |
+|trtgrp    |  TREATMENT                    |      |
+|          |  1 = PLACEBO                  |      |
+|          |  2 = 0.625MG                  |      |
+|          |  3 = 1.25MG                   |      |
+|sysd1r1   |  SYSTOLIC BP DAY 1 READING 1  |      |
+|          |  MISSING=999                  |      |
+|diasd1r1  |  DIASTOLIC BP DAY 1 READING 1 |      |
+|          |  MISSING=999                  |      |
+|sysd1r2   |  SYSTOLIC BP DAY 1 READING 2  |      |
+|          |  MISSING=999                  |      |
+|diasd1r2  |  DIASTOLIC BP DAY 1 READING 2 |      |
+|          |  MISSING=999                  |      |
+|sysd1r3   |  SYSTOLIC BP  DAY 1 READING 3 |      |
+|          |  MISSING=999                  |      |
+|diasd1r3  |  DIASTOLIC BP DAY 1 READING 3 |      |
+|          |  MISSING=999                  |      |
+|sysd2r1   |  SYSTOLIC BP DAY 2 READING 1  |      |
+|          |  MISSING=999                  |      |
+|diasd2r1  |  DIASTOLIC BP DAY 2 READING 1 |      |
+|sysd2r2   |  SYSTOLIC BP DAY 2 READING 2  |      |
+|diasd2r2  |  DIASTOLIC BP DAY 2 READING 2 |      |
+|sysd2r3   |  SYSTOLIC BP DAY 2 READING 3  |      |
+|diasd2r3  |  DIASTOLIC BP DAY 2 READING 3 |      |
+|sysd3r1   |  SYSTOLIC BP DAY 3 READING 1  |      |
+|diasd3r1  |  DIASTOLIC BP DAY 3 READING 1 |      |
+|sysd3r2   |  SYSTOLIC BP DAY 3 READING 2  |      |
+|diasd3r2  |  DIASTOLIC BP DAY 3 READING 2 |      |
+|sysd3r3   |  SYSTOLIC BP DAY 3 READING 3  |      |
+|diasd3r3  |  DIASTOLIC BP DAY 3 READING 3 |      |
+
+::::
 
 ### FEV
 
+[source](#rosner_1)^1^
+
+Yderligere reference:
+Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
+Effect of parental cigarette smoking on pulmonary function in children.
+American Journal of Epidemiology, 110, 15-26.
+
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FEV.csv)
 
-|Variable |  Description      |  Format or Code                         |
-|---------|-------------------|-----------------------------------------|
-| Id      |  ID number        |                                         |
-| Age     |  Age (yrs)        |                                         |
-| FEV     |  FEV (liters)     |  X.XXXX                                 |
-| Hgt     |  Height (inches)  |  XX.X                                   |
-| Sex     |  Sex              |  0=female/1=male                        |
-| Smoke   |  Smoking Status   |  0=non-current smoker/1=current smoker  |
+:::: spoiler
+
+## Metadata
+
+|Variable |  Description          |  Unit | 
+|---------|-----------------------|-------|
+| Id      |  ID number            |       |
+| Age     |  Age (yrs)            | years |
+| FEV     |  FEV (liters)         | l     |
+| Hgt     |  Height (inches)      | in    |
+| Sex     |  Sex                  |       |
+|         |  0 = female           |       |
+|         |  1 = male             |       |
+| Smoke   |  Smoking Status       |       |
+|         |  0=non-current smoker |       |
+|         |  1=current smoker     |       |
+
+::::
 
 FEV - Forced Expiratory Volume er et index for lungefunktion, der måler
 det volumen luft (i liter) der kan udstødes af lungerne på et sekund. 
@@ -512,12 +561,11 @@ det volumen luft (i liter) der kan udstødes af lungerne på et sekund.
 Data indeholder data på 654 børn i alderen fra 3 til 19 år i "Childhood
 Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 
-Kilde er den generelle reference i bunden af denne side. Yderligere reference:
-Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
-Effect of parental cigarette smoking on pulmonary function in children.
-American Journal of Epidemiology, 110, 15-26.
 
 ### FIELD
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
 
 |  Variable  |  Description                                                   |
@@ -532,6 +580,9 @@ American Journal of Epidemiology, 110, 15-26.
 |  totfldos  |  total field area left eye (OS) in degrees²                    |
 
 ### HEART
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
 
 |Variable    |  code                                                                          |
@@ -554,6 +605,9 @@ American Journal of Epidemiology, 110, 15-26.
 
 
 ### HORMONE
+
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HORMONE.csv)
 
 |  Variable  |  Description/Code                      |
@@ -572,6 +626,8 @@ American Journal of Epidemiology, 110, 15-26.
 
 
 ### HOSPITAL
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -603,6 +659,8 @@ Infectious Diseases, 139(6) 688-697.
 
 
 ### INFANTBP
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
@@ -639,6 +697,8 @@ Sugar Taste Variables
 
 
 ### LEAD
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
@@ -740,7 +800,13 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### MICE
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description           |
 |------------|------------------------|
@@ -754,16 +820,22 @@ CONTAIN NEUROLOGICAL TEST DATA
 |  B_amp     |  B AMP  9999=missing   |
 |  A_amp     |  A AMP  9999=missing   |
 
+::::
 
 ### NEPHRO
 
-Data^1^ from a litterature search, comparing nephrotoxicity 
+[source](#rosner_1)^1^
+
+Data from a litterature search, comparing nephrotoxicity 
 of several different aminoclycosides[^17]. Each row co
 
- [@sandpaper]
 
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description/Code                                  |
 |------------|----------------------------------------------------|
@@ -775,11 +847,17 @@ of several different aminoclycosides[^17]. Each row co
 |  Samp_sz   |  Sample size                                       |
 |  Side_eff  |  Number with side effects                          |
 
-
+::::
 
 ### NIFED
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description            |  Code                    |
 |------------|-------------------------|--------------------------|
@@ -794,6 +872,7 @@ of several different aminoclycosides[^17]. Each row co
 |  lv2sys    |  Level 2 systolic bp    |  mm Hg                   |
 |  lv3sys    |  Level 3 systolic bp    |  mm Hg                   |
 
+::::
 
 * Immediately prior to randomization.
 
@@ -811,35 +890,67 @@ Values of 999 indicates that either
 
 ### OTO
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
-|  Variable  |  Description/Code                                    |
-|------------|------------------------------------------------------|
-|  Name      |  Study Name                                          |
-|  Id        |  Study Number                                        |
-|  Endpnt    |  Endpoint 1=efficacy/2=nephrotoxicity/3=ototoxicity  |
-|  Antibio   |  Antibiotic 1=Amikacin/2=Gentamicin/3=Netilmicin/    |
-|            |  4=Sisomycin/5=Tobramycin                            |
-|  Samp_sz   |  Sample Size                                         |
-|  Side_eff  |  Number with side effect                             |
+:::: spoiler
 
+## Metadata
+
+|  Variable  |  Description/Code        |
+|------------|--------------------------|
+|  Name      |  Study Name              |
+|  Id        |  Study Number            |
+|  Endpnt    |  Endpoint                |
+|            |  1 = efficacy            |
+|            |  2 = nephrotoxicity      |
+|            |  3 = ototoxicity         |
+|  Antibio   |  Antibiotic              |
+|            |  1 = Amikacin            |
+|            |  2 = Gentamicin          |
+|            |  3 = Netilmicin          |
+|            |  4 = Sisomycin           |
+|            |  5 = Tobramycin          |
+|  Samp_sz   |  Sample Size             |
+|  Side_eff  |  Number with side effect |
+
+::::
 
 ### PIRIFORM
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
-|  Variable  |  Code                                         |
-|------------|-----------------------------------------------|
-|  ID        |                                               |
-|  piriform  |  Piriformis Syndrome 1=Negative,  2=Positive  |
-|  sex       |  Sex  1=Male,  2=Female                       |
-|  age       |  Age                                          |
-|  maxchg    |  Max change between tibia and peroneal        |
+:::: spoiler
 
+## Metadata
+
+|  Variable  |  Code                                  |
+|------------|----------------------------------------|
+|  ID        |                                        |
+|  piriform  |  Piriformis Syndrome                   |
+|            |  1 = Negative                          |
+|            |  2 = Positive                          |
+|  sex       |  Sex                                   |
+|            |  1 = Male                              |
+|            |  2 = Female                            |
+|            |  Age                                   |
+|  maxchg    |  Max change between tibia and peroneal |
+
+::::
 
 ### SEXRAT
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
+
+:::: spoiler
+
+## Metadata
+
 
 |  Variable   |  code                 |
 |-------------|-----------------------|
@@ -851,6 +962,8 @@ Values of 999 indicates that either
 |  sx_5       |  Sex of 5th born      |
 |  sexchldn*  |  Sex of all children  |
 |  num_fam**  |  Number of families   |
+
+::::
 
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
@@ -864,20 +977,29 @@ such families.
 
 ### SMOKE
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
-|  Variable  |  Code                                               |
-|------------|-----------------------------------------------------|
-|  ID        |  ID number                                          |
-|  Age       |  age                                                |
-|  Gender    |  Gender        1=male/2=female                      |
-|  Cig_day   |  Cigarettes/day                                     |
-|  CO        |  Carbon monoxide (CO) (X 10) missing=999            |
-|  Min_last  |  Minutes elapsed since last cigarette missing=9999  |
-|  LogCOadj  |  Log CO Adj * (X 1000)  missing=9999                |
-|  Day_abs   |  Days abstinent  Those abstinent less than 1 day    |
-|            |  were given a value of zero.                        |
+:::: spoiler
 
+## Metadata
+
+|  Variable  |  Code                                               | unit |
+|------------|-----------------------------------------------------|------|
+|  ID        |  ID number                                          |      |
+|  Age       |  age                                                |      |
+|  Gender    |  Gender                                             |      |
+|            |  1 = male                                           |      |
+|            |  2 = female                                         |      |
+|  Cig_day   |  Cigarettes/day                                     |      |
+|  CO        |  Carbon monoxide (CO) (X 10) missing=999            |      |
+|  Min_last  |  Minutes elapsed since last cigarette missing=9999  |      |
+|  LogCOadj  |  Log CO Adj * (X 1000)  missing=9999                |      |
+|  Day_abs   |  Days abstinent  Those abstinent less than 1 day    |      |
+|            |  were given a value of zero.                        |      |
+
+::::
 
 * This variable represents adjusted carbon monoxide (CO) values. CO values
 were adjusted for minutes elapsed since last cigarette smoked using the formula
@@ -887,26 +1009,41 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### SWISS
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
-|  Variable   |  Codes                                            |
-|-------------|---------------------------------------------------|
-|  ID         |  ID                                               |
-|  age (yrs)  |  age (yrs)                                        |
-|  group      |  Group    1=High NAPAP, 2=Low NAPAP, 3 = control  |
-|  creat_68   |  x.xx Serum Creatinine 1968 (mg/dL) 9.99=missing  |
-|  creat_69   |  x.xx Serum Creatinine 1969 (mg/dL) 9.99=missing  |
-|  creat_70   |  x.xx Serum Creatinine 1970 (mg/dL) 9.99=missing  |
-|  creat_71   |  x.xx Serum Creatinine 1971 (mg/dL) 9.99=missing  |
-|  creat_72   |  x.xx Serum Creatinine 1972 (mg/dL) 9.99=missing  |
-|  creat_75   |  x.xx Serum Creatinine 1975 (mg/dL) 9.99=missing  |
-|  creat_78   |  x.xx Serum Creatinine 1978 (mg/dL) 9.99=missing  |
+:::: spoiler
 
+## Metadata
 
+|  Variable   |  Codes                                            | unit    |
+|-------------|---------------------------------------------------|---------|
+|  ID         |  ID                                               |         | 
+|  age        |  age                                              | years   |
+|  group      |  Group                                            |         |
+|             |  1 = High NAPAP                                   |         |
+|             |  2 = Low NAPAP                                    |         |
+|             |  3 = control                                      |         |
+|  creat_68   |  Serum Creatinine 1968  9.99=missing              | (mg/dL) |
+|  creat_69   |  Serum Creatinine 1969  9.99=missing              | (mg/dL) |
+|  creat_70   |  Serum Creatinine 1970  9.99=missing              | (mg/dL) |
+|  creat_71   |  Serum Creatinine 1971  9.99=missing              | (mg/dL) |
+|  creat_72   |  Serum Creatinine 1972  9.99=missing              | (mg/dL) |
+|  creat_75   |  Serum Creatinine 1975  9.99=missing              | (mg/dL) |
+|  creat_78   |  Serum Creatinine 1978  9.99=missing              | (mg/dL) |
+
+::::
 
 ### TEAR
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Code                          |
 |------------|--------------------------------|
@@ -972,87 +1109,109 @@ number of minutes elapsed since the last cigarette smoked.
 |  os10p151  |  OS 10 sec 15min post 1        |
 |  os10p152  |  OS 10 sec 15min post 2        | 
 
+::::
+
 ### TEMPERAT
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
-|  Variable  |    LABEL                                 |
-|------------|------------------------------------------|
-|  Date      |  DATE (MDY)                              |
-|  Out_temp  |  OUTSIDE TEMERATURE  Degrees Fahrenheit  |
-|  Room      |  ROOM LOCATION                           |
-|  In_temp   |  INSIDE TEMPERATURE  Degrees Fahrenheit  |
-|  Cor_fac   |  CORRECTION FACTOR ADDED (1=YES 0=NO)    |
-|  Typ_wea   |  TYPE OF WEATHER                         |
-|            |           1=SUNNY                        |
-|            |           2=PARTLY CLOUDY                |
-|            |           3=CLOUDY                       |
-|            |           4=RAINY                        |
-|            |           5=FOGGY                        |
-|            |           9=MISSING                      |
+:::: spoiler
+
+## Metadata
+
+|  Variable  |    LABEL                                 | unit |
+|------------|------------------------------------------|------|
+|  Date      |  DATE (MDY)                              |      |
+|  Out_temp  |  OUTSIDE TEMERATURE  Degrees Fahrenheit  |      |
+|  Room      |  ROOM LOCATION                           |      |
+|  In_temp   |  INSIDE TEMPERATURE  Degrees Fahrenheit  |      |
+|  Cor_fac   |  CORRECTION FACTOR ADDED (1=YES 0=NO)    |      |
+|  Typ_wea   |  TYPE OF WEATHER                         |      |
+|            |  1 = SUNNY                        |      |
+|            |  2 = PARTLY CLOUDY                |      |
+|            |  3 = CLOUDY                       |      |
+|            |  4 = RAINY                        |      |
+|            |  5 = FOGGY                        |      |
+|            |  9 = MISSING                      |      |
+
+::::
 
 ### TENNIS1
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
-|  VARIABLE  |  VARIABLE NAME                                    |
-|------------|---------------------------------------------------|
-|  Id        |  ID                                               |
-|  Age       |  AGE    99=MISSING                                |
-|  Sex       |  SEX   1=MALE / 2=FEMALE                          |
-|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     |
-|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         |
-|            |          1=CONVENTIONAL SIZE                      |
-|            |          2=MID-SIZE                               |
-|            |          3=OVER-SIZE                              |
-|            |          9=MISSING                                |
-|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       |
-|            |          1=HEAVY                                  |
-|            |          2=MEDIUM                                 |
-|            |          3=LIGHT                                  |
-|            |          4=DON'T KNOW                             |
-|            |          9=MISSING                                |
-|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     |
-|            |          1=WOOD                                   |
-|            |          2=ALUMINUM                               |
-|            |          3=FIBERGLASS AND COMPOSITE               |
-|            |          4=GRAPHITE                               |
-|            |          5=STEEL                                  |
-|            |          6=COMPOSITE                              |
-|            |          7=OTHER                                  |
-|            |          9=MISSING                                |
-|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  |
-|            |          1=NYLON                                  |
-|            |          2=GUT                                    |
-|            |          3=DON'T KNOW                             |
-|            |          9=MISSING                                |
-|  Typ_curr  |  TYPE OF RACQUET USED CURRENTLY                   |
-|            |          1=CONVENTIONAL SIZE                      |
-|            |          2=MID-SIZE                               |
-|            |          3=OVER-SIZE                              |
-|            |          9=MISSING                                |
-|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 |
-|            |          1=HEAVY                                  |
-|            |          2=MEDIUM                                 |
-|            |          3=LIGHT                                  |
-|            |          4=DON'T KNOW                             |
-|            |          9=MISSING                                |
-|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               |
-|            |          1=WOOD                                   |
-|            |          2=ALUMINUM                               |
-|            |          3=FIBERGLASS AND COMPOSITE               |
-|            |          4=GRAPHITE                               |
-|            |          5=STEEL                                  |
-|            |          6=COMPOSITE                              |
-|            |          7=OTHER                                  |
-|            |          9=MISSING                                |
-|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            |
-|            |          1=NYLON                                  |
-|            |          2=GUT                                    |
-|            |          3=DON'T KNOW                             |
-|            |          9=MISSING                                | 
+:::: spoiler
+
+## Metadata
+
+|  VARIABLE  |  VARIABLE NAME                                    | unit |
+|------------|---------------------------------------------------|------|
+|  Id        |  ID                                               | |
+|  Age       |  AGE    99=MISSING                                || 
+|  Sex       |  SEX                             | |
+|            |  1 = MALE                          | |
+|            |  2 = FEMALE                          | |
+|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     | |
+|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         | |
+|            |  1 = CONVENTIONAL SIZE                      | |
+|            |  2 = MID-SIZE                               | |
+|            |  3 = OVER-SIZE                              | |
+|            |  9 = MISSING                                | |
+|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       | |
+|            |          1=HEAVY                                  | |
+|            |          2=MEDIUM                                 | |
+|            |          3=LIGHT                                  | |
+|            |          4=DON'T KNOW                             | |
+|            |          9=MISSING                                | |
+|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     | |
+|            |          1=WOOD                                   | |
+|            |          2=ALUMINUM                               | |
+|            |          3=FIBERGLASS AND COMPOSITE               | |
+|            |          4=GRAPHITE                               | |
+|            |          5=STEEL                                  | |
+|            |          6=COMPOSITE                              | |
+|            |          7=OTHER                                  | |
+|            |          9=MISSING                                | |
+|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  | |
+|            |          1=NYLON                                  | |
+|            |          2=GUT                                    | |
+|            |          3=DON'T KNOW                             | |
+|            |          9=MISSING                                | |
+|  Typ_curr  |  TYPE OF RACQUET USED CURRENTLY                   | |
+|            |  1 = CONVENTIONAL SIZE                      | |
+|            |  2 = MID-SIZE                               | |
+|            |  3 = OVER-SIZE                              | |
+|            |  9 = MISSING                                | |
+|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 | |
+|            |  1 = HEAVY                                  | |
+|            |  2 = MEDIUM                                 | |
+|            |  3 = LIGHT                                  | |
+|            |  4 = DON'T KNOW                             | |
+|            |  9 = MISSING                                | |
+|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               | |
+|            |  1 = WOOD                                   | |
+|            |  2 = ALUMINUM                               | |
+|            |  3 = FIBERGLASS AND COMPOSITE               | |
+|            |  4 = GRAPHITE                               | |
+|            |  5 = STEEL                                  | |
+|            |  6 = COMPOSITE                              | |
+|            |  7 = OTHER                                  | |
+|            |  9 = MISSING                                | |
+|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            | |
+|            |  1 = NYLON                                  | |
+|            |  2 = GUT                                    | |
+|            |  3 = DON'T KNOW                             | |
+|            |  9 = MISSING                                |  |
+
+::::
 
 ### TENNIS2
+
+[source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
 
@@ -1109,49 +1268,63 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### VALID
 
+[source](#rosner_1)^1^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
-|  Variable  |  Description              |Format or Code  |
+:::: spoiler
+
+## Metadata
+
+|  Variable  |  Description              | unit  |
 |------------|---------------------------|----------------|
 |  Id        |  ID number                |                |
-|  sfat_dr   |  Saturated fat-DR         |   XXXXX.XX     |
-|  sfat_ffq  |  Saturated fat-FFQ        |   XXXXX.XX     |
-|  tfat_dr   |  Total fat-DR             |   XXXXX.XX     |
-|  tfat_ffq  |  Total fat-FFQ            |   XXXXX.XX     |
-|  alco_dr   |  Alcohol consumption-DR   |   XXXXX.XX     |
-|  alco_ffq  |  Alcohol consumption-FFQ  |   XXXXX.XX     |
-|  cal_dr    |  Total calories-DR        |  XXXXXX.XX     |
-|  cal_ffq   |  Total calories-FFQ       |  XXXXXX.XX     |
+|  sfat_dr   |  Saturated fat-DR         |        |
+|  sfat_ffq  |  Saturated fat-FFQ        |        |
+|  tfat_dr   |  Total fat-DR             |        |
+|  tfat_ffq  |  Total fat-FFQ            |        |
+|  alco_dr   |  Alcohol consumption-DR   |        |
+|  alco_ffq  |  Alcohol consumption-FFQ  |        |
+|  cal_dr    |  Total calories-DR        |       |
+|  cal_ffq   |  Total calories-FFQ       |       |
 
+::::
 
 ### spermatozoa
 
+Data from a 7 year longitudinal study started in spring 1975 in Edinburgh.
+Two classes at an elementary school participated and informed consent were
+collected from 40 of the 42 boys in the classes. Every 3 months a 24 hour
+urine sample were collected from each boy. These samples were analyzed for the
+precense of spermatozoa. In the variable observations are registered the result
+of each urine sample.
+
+The purpose of the study was to determine age of spermache.
+
+The format of observations is unusual and suitable for cleaning exercises.
+
+
+[source](#jorgensen_4)^4^
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
 
-|  Variable          |  Description                                      |  Format  |
-|--------------------|---------------------------------------------------|----------|
-|  dreng             |  ID                                               |          |
-|  foerste_positive  |  Alder ved første spermatozoa-positive urinprøve  |          |
-|  indgang           |  Alder ved start af studie                        |          |
-|  udgang            |  Alder ved slut af studie (evt deltagelse i)      |          |
-|  observationer     |  Spermatozoa-positive urinprøver                  | +/-      |
+:::: spoiler
 
-Et 7-års longitudinalt studie startet foråret 1975 i Edinburgh. To klasser på
-en grundskole blev bedt om at deltage, og informeret samtykke blev indhentet 
-hos 40 af de 42 drenge i klasserne. Hver tredie måned blev en 24 timers urinprøve 
-indsamlet fra hver dreng, og disse prøver blev analyseret for tilstedeværelse
-af spermatozoer. I observationer er registreret resultatet for hver urinprøve.
-+ indikerer tilstedeværelse af spermatozoer, - fravær.
+## Metadata
 
-Særligt egnet til øvelse i rensning af data
+|  Variable       |  Description                                      | unit  |
+|-----------------|---------------------------------------------------|-------|
+| boy             |  ID                                               |       |
+| first_positive  |  Age at first spermatozoa-positive urine sample   | years |
+| entry           |  Age at start of study                            | years |
+| exit            |  Age at end of study (eg. exit from study)        | years |
+| observations    |  Spermatozoa-positive urine samples               |       |
+|                 |  + = positive                                     |       |
+|                 |  - = negative                                     |       |
 
-Estimation of Spermarche from Longitudinal Spermaturia Data
-Merete Jorgensen, Niels Keiding, Niels Erik Skakkebaek
-Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 (17 pages)
-https://doi.org/10.2307/2532505
-•
+::::
 
-https://www.jstor.org/stable/2532505
+
 
 ### who
 
@@ -1188,14 +1361,9 @@ tidyr-pakken.
 
 Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tuberculosis-programme/data
 
-spermatozoa datasættet er fra 
-Estimation of Spermarche from Longitudinal Spermaturia Data
-Merete Jorgensen, Niels Keiding, Niels Erik Skakkebaek
-Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 (17 pages)
-https://doi.org/10.2307/2532505
 
 
-https://www.jstor.org/stable/2532505
+
 
 https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
 
@@ -1228,4 +1396,7 @@ Pediatric Infections Diseases, 1, 310-316.
 
 [^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
-
+<a id="jorgensen_4">4</a>: Jorgensen, Merete; Keiding, Niels; Skakkebaek, Niels Erik. Estimation of Spermarche from Longitudinal Spermaturia Data
+Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 
+https://doi.org/10.2307/2532505
+https://www.jstor.org/stable/2532505
