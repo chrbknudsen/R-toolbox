@@ -6,7 +6,13 @@ citeproc: true
 
 
 <!-- Referencer er lidt bøvlet... Vi laver dem ved at indsætte interne links.
-TJEK at nummereringen er som den skal være hvis du ændrer noget. -->
+TJEK at nummereringen er som den skal være hvis du ændrer noget.
+
+Vi vil gerne have de der "1 er dette præparat, 2 det andet" i
+en celle, snarere end i nye linier - stribningen er forvirrende.
+
+Og vi kunne også godt tænke os dimensionerne angivet i beskrivelsen.
+-->
 
 ### BETACAR
 
@@ -32,8 +38,8 @@ and took 1 pill every other day for 12 weeks. Blood samples were drawn after
 
 |  Variable  |  Description/Code                               | Unit   |   
 |------------|-------------------------------------------------|--------|
-|  Prepar    |  Preparation 1=SOL/2=ROCHE/3=BASF-30/4=BASF-60  | NULL   |
-|  Id        |  Subject #                                      | NULL   |
+|  Prepar    |  Preparation<br>21=SOL<br>2=ROCHE<br>23=BASF-30<br>24=BASF-60  |        |
+|  Id        |  Subject #                                      |        |
 |  Base1lvl  |  1st Baseline Level                             | µmol/L |
 |  Base2lvl  |  2nd Baseline Level                             | µmol/L |
 |  Wk6lvl    |  Week 6 Level                                   | µmol/L |
@@ -58,7 +64,7 @@ with their respective cases. Cases have identical ID and matchid.
 
 Note the different ways of coding missing values.
 
-Useful for logistic regression to asscess the association between testosterone
+Useful for logistic regression to assess the association between testosterone
 and breast cancer, controlling for age and current PMH use. Either with testosterone
 as a continuous variable or as a categorical variabel in quartiles, with the first
 quartile as the reference group.
@@ -808,17 +814,19 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ## Metadata
 
-|  Variable  |  Description           |
-|------------|------------------------|
-|  Id        |  ID                    |
-|  Group     |  GROUP 1=RP  2=NORMAL  |
-|  Trtgrp    |  TREATMENT GROUP       |
-|            |  A=LIGHT               |
-|            |  B=DIM                 |
-|            |  C=DARK                |
-|  Age       |  AGE (days)            |
-|  B_amp     |  B AMP  9999=missing   |
-|  A_amp     |  A AMP  9999=missing   |
+|  Variable  |  Description           | unit |
+|------------|------------------------|------|
+|  Id        |  ID                    |      |
+|  Group     |                        |      |
+|            |  1 = RP                |      |
+|            |  2 = NORMAL            |      |
+|  Trtgrp    |  TREATMENT GROUP       |      |
+|            |  A = LIGHT             |      |
+|            |  B = DIM               |      |
+|            |  C = DARK              |      |
+|  Age       |  AGE                   | days |
+|  B_amp     |  B AMP  9999=missing   |      |
+|  A_amp     |  A AMP  9999=missing   |      |
 
 ::::
 
@@ -1303,6 +1311,12 @@ The purpose of the study was to determine age of spermache.
 
 The format of observations is unusual and suitable for cleaning exercises.
 
+Det kan godt være vi lige skal kigge på:For further details about the study see Nielsen et al. (1986a, 1986b).
+mere præcist:
+Nielsen, C. T., Skakkebxk, N. E., Darling, J. A. B., Hunter, W. M., Richardson, D. W., Jorgensen, M., and Keiding, N. (1986a).
+Longitudinal study of testosterone and luteinizing hormone (LH) in relation to spermarche, pubic hair, height and sitting height in normal boys. Acta Endocrinologica 113, Supplementum 279, 98-106.
+
+Nielsen, C. T., Skakkebxk, N. E., Richardson, D. W., Darling, J. A. B., Hunter, W. M., J0rgensen, M., Nielsen, A., Ingerslev, O., Keiding, N., and Muller, J. (1986b). Onset of the release of spermatozoa (spermarche) in boys in relation to age, testicular growth, pubic hair and height. Journal of Clinical Endocrinology and Metabolism 62, 532--535.
 
 [source](#jorgensen_4)^4^
 
