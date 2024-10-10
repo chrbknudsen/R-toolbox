@@ -304,7 +304,7 @@ group_by(buckets) %>%
 summarise(antal = n())
 ```
 
-Typically, rather that counting ourself, we leave the work to R, and
+Typically, rather than counting ourself, we leave the work to R, and
 make a histogram directly:
 
 ```{r}
