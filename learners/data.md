@@ -1531,3 +1531,41 @@ https://www.jstor.org/stable/2532505
 
 <a id="buring_5">5</a>: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
+
+## listen over datasæt. 
+Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
+
+* betacar
+* blood
+* boneden
+* botox
+* breast
+* corneal
+* diabetes
+* ear
+* eff
+* endocrin
+* estradl
+* estrogen
+* FEV
+* field
+* heart
+* hormone
+* hospital
+* infantbp
+* lead
+* mice
+* nephro
+* nifed
+* oto
+* piriform
+* sexrat
+* smoke
+* swiss
+* tear
+* temperat
+* tennis1
+* tennis2
+* valid
+* spermatozoa
+* who
