@@ -1048,17 +1048,16 @@ number of minutes elapsed since the last cigarette smoked.
 |-------------|---------------------------------------------------|---------|
 |  ID         |  ID                                               |         | 
 |  age        |  age                                              | years   |
-|  group      |  Group                                            |         |
-|             |  1 = High NAPAP                                   |         |
-|             |  2 = Low NAPAP                                    |         |
-|             |  3 = control                                      |         |
-|  creat_68   |  Serum Creatinine 1968  9.99=missing              | (mg/dL) |
-|  creat_69   |  Serum Creatinine 1969  9.99=missing              | (mg/dL) |
-|  creat_70   |  Serum Creatinine 1970  9.99=missing              | (mg/dL) |
-|  creat_71   |  Serum Creatinine 1971  9.99=missing              | (mg/dL) |
-|  creat_72   |  Serum Creatinine 1972  9.99=missing              | (mg/dL) |
-|  creat_75   |  Serum Creatinine 1975  9.99=missing              | (mg/dL) |
-|  creat_78   |  Serum Creatinine 1978  9.99=missing              | (mg/dL) |
+|  group      |  Group <br> 1 = High NAPAP <br> 2 = Low NAPAP <br> 3 = control |         |
+|  creat_68   |  Serum Creatinine 1968                | (mg/dL) |
+|  creat_69   |  Serum Creatinine 1969                | (mg/dL) |
+|  creat_70   |  Serum Creatinine 1970                | (mg/dL) |
+|  creat_71   |  Serum Creatinine 1971                | (mg/dL) |
+|  creat_72   |  Serum Creatinine 1972                | (mg/dL) |
+|  creat_75   |  Serum Creatinine 1975                | (mg/dL) |
+|  creat_78   |  Serum Creatinine 1978                | (mg/dL) |
+
+For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 ::::
 
