@@ -6,7 +6,13 @@ citeproc: true
 
 
 <!-- Referencer er lidt bøvlet... Vi laver dem ved at indsætte interne links.
-TJEK at nummereringen er som den skal være hvis du ændrer noget. -->
+TJEK at nummereringen er som den skal være hvis du ændrer noget.
+
+Vi vil gerne have de der "1 er dette præparat, 2 det andet" i
+en celle, snarere end i nye linier - stribningen er forvirrende.
+
+Og vi kunne også godt tænke os dimensionerne angivet i beskrivelsen.
+-->
 
 ### BETACAR
 
@@ -23,6 +29,8 @@ fasting blood samples. They were then randomized to one of the four preparations
 and took 1 pill every other day for 12 weeks. Blood samples were drawn after 
 6, 8, 10 and 12 weeks.
 
+_Dimensions_: Rows: 23 Columns: 8
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
@@ -32,8 +40,8 @@ and took 1 pill every other day for 12 weeks. Blood samples were drawn after
 
 |  Variable  |  Description/Code                               | Unit   |   
 |------------|-------------------------------------------------|--------|
-|  Prepar    |  Preparation 1=SOL/2=ROCHE/3=BASF-30/4=BASF-60  | NULL   |
-|  Id        |  Subject #                                      | NULL   |
+|  Prepar    |  Preparation<br>1=SOL<br>2=ROCHE<br>3=BASF-30<br>4=BASF-60  |        |
+|  Id        |  Subject #                                      |        |
 |  Base1lvl  |  1st Baseline Level                             | µmol/L |
 |  Base2lvl  |  2nd Baseline Level                             | µmol/L |
 |  Wk6lvl    |  Week 6 Level                                   | µmol/L |
@@ -58,10 +66,12 @@ with their respective cases. Cases have identical ID and matchid.
 
 Note the different ways of coding missing values.
 
-Useful for logistic regression to asscess the association between testosterone
+Useful for logistic regression to assess the association between testosterone
 and breast cancer, controlling for age and current PMH use. Either with testosterone
 as a continuous variable or as a categorical variabel in quartiles, with the first
 quartile as the reference group.
+
+_Dimensions_: Rows: 510 Columns: 9   
 
 [source](#rosner_1)^1^
 
@@ -74,13 +84,13 @@ quartile as the reference group.
 |----------|---------------------|------------------------|-------|
 |Id        |  ID                 |                        |       |
 |matchid   |  Matched ID         |                        |       |
-|case      |  Case/control       |  1=case/ 0=control     |       |
-|curpmh    |  Current PMH use    |  1=yes / 0=no          |       |
+|case      |  1 = case <br> 0 = control |     |       |
+|curpmh    |  Current PMH use <br> 1 = yes <br> 0 = no   |            |       |
 |ageblood  |  Age at blood draw  |                        | years |
 |estradol  |  Estradiol          |                        | pg/mL |
-|estrone   |  Estrone            |  missing=999           | pg/mL |
-|testost   |  Testosterone       |  missing=999           | ng/dL |
-|prolactn  |  Prolactin          |  xx.xx  missing=99.99  | ng/L  |
+|estrone   |  Estrone <br> missing = 999             |             | pg/mL |
+|testost   |  Testosterone <br> missing = 999       |             | ng/dL |
+|prolactn  |  Prolactin <br> missing = 99.99          |      | ng/L  |
 
 ::::
 
@@ -399,6 +409,17 @@ Additional [reference](#mandel_3)
 
 ### EFF
 
+Data from a litterature search on the efficacy (that is - is it working?) of
+a number of aminoglycosides for the treatment of infectious diseases. 
+
+Note that this dataset is basically the same as the dataset NEPHRO, where the
+nephrotoxicity of the preparations described in the same papers is reported.
+
+We get the sample size of patients in different studies, and the number of 
+patients that were cured for their infection. Which antibiotic is best?
+
+_Dimensions:_ Rows: 64 Columns: 6  
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
@@ -413,11 +434,7 @@ Additional [reference](#mandel_3)
 |Id        |  Study Number                          |
 |Endpnt    |  Endpoint  1=efficacy                  |
 |Antibio   |  Antibiotic                            |
-|          |  1 = Amikacin                          |
-|          |  2 = Gentamicin                        |
-|          |  3 = Netilmicin/                       |
-|          |  4 = Sisomycin                         |
-|          |  5 = Tobramycin                        |
+|          |  1 = Amikacin <br> 2 = Gentamicin <br> 3 = Netilmicin <br> 4 = Sisomycin <br> 5 = Tobramycin|
 |Samp_sz   |  Sample Size                           |
 |Cured     |  Number Cured                          |
 
@@ -808,28 +825,38 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ## Metadata
 
-|  Variable  |  Description           |
-|------------|------------------------|
-|  Id        |  ID                    |
-|  Group     |  GROUP 1=RP  2=NORMAL  |
-|  Trtgrp    |  TREATMENT GROUP       |
-|            |  A=LIGHT               |
-|            |  B=DIM                 |
-|            |  C=DARK                |
-|  Age       |  AGE (days)            |
-|  B_amp     |  B AMP  9999=missing   |
-|  A_amp     |  A AMP  9999=missing   |
+|  Variable  |  Description           | unit |
+|------------|------------------------|------|
+|  Id        |  ID                    |      |
+|  Group     |                        |      |
+|            |  1 = RP                |      |
+|            |  2 = NORMAL            |      |
+|  Trtgrp    |  TREATMENT GROUP       |      |
+|            |  A = LIGHT             |      |
+|            |  B = DIM               |      |
+|            |  C = DARK              |      |
+|  Age       |  AGE                   | days |
+|  B_amp     |  B AMP  9999=missing   |      |
+|  A_amp     |  A AMP  9999=missing   |      |
 
 ::::
 
 ### NEPHRO
 
+Data from a litterature [study](#buring_5)^5^ on nephrotoxicity of
+of several different aminoclycosides.
+
+Note that this dataset is closely related to the datasets EFF and OTO, where
+EFF reports efficacy of the preparations, and OTO reports a combination of 
+efficacy and side effects. 
+
+We get the sample size of patients in different studies, and the number of 
+patients that experienced nephrotoxicity. Which antibiotic is best?
+
+_Dimensions:_ Rows: 72 Columns: 6  
+
+
 [source](#rosner_1)^1^
-
-Data from a litterature search, comparing nephrotoxicity 
-of several different aminoclycosides[^17]. Each row co
-
-
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
@@ -842,8 +869,7 @@ of several different aminoclycosides[^17]. Each row co
 |  name      |  Study name                                        |
 |  id        |  Study number                                      |
 |  Endpnt    |  Endpoint  2=nephrotoxicity                        |
-|  Antibio   |  Antibiotic 1=Amikacin/2=Gentamicin/3=Netilmicin/  |
-|            |  4=Sisomycin/5=Tobramycin                          |
+|  Antibio   |  Antibiotic <br>1=Amikacin<br>2=Gentamicin<br>3=Netilmicin<br>4=Sisomycin<br>5=Tobramycin  |
 |  Samp_sz   |  Sample size                                       |
 |  Side_eff  |  Number with side effects                          |
 
@@ -890,6 +916,15 @@ Values of 999 indicates that either
 
 ### OTO
 
+Data from a litterature [study](#buring_5)^5^ on nephro- and ototoxicity and efficacy of
+of several different aminoclycosides.
+
+Note that this dataset is closely related to the datasets EFF and NEPHRO, where
+EFF reports efficacy of the preparations, and NEPHRO reports on nephrotoxicity.
+
+We get the sample size of patients in different studies, and the number of 
+patients that experienced sideeffects. Which antibiotic is best?
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
@@ -902,16 +937,8 @@ Values of 999 indicates that either
 |------------|--------------------------|
 |  Name      |  Study Name              |
 |  Id        |  Study Number            |
-|  Endpnt    |  Endpoint                |
-|            |  1 = efficacy            |
-|            |  2 = nephrotoxicity      |
-|            |  3 = ototoxicity         |
-|  Antibio   |  Antibiotic              |
-|            |  1 = Amikacin            |
-|            |  2 = Gentamicin          |
-|            |  3 = Netilmicin          |
-|            |  4 = Sisomycin           |
-|            |  5 = Tobramycin          |
+|  Endpnt    |  Endpoint <br> 1 = efficacy <br> 2 = nephrotoxicity <br> 3 = ototoxicity|
+|  Antibio   |  Antibiotic <br> 1 = Amikacin <br> 2 = Gentamicin <br> 3 = Netilmicin <br> 4 = Sisomycin <br> 5 = Tobramycin|
 |  Samp_sz   |  Sample Size             |
 |  Side_eff  |  Number with side effect |
 
@@ -1021,17 +1048,16 @@ number of minutes elapsed since the last cigarette smoked.
 |-------------|---------------------------------------------------|---------|
 |  ID         |  ID                                               |         | 
 |  age        |  age                                              | years   |
-|  group      |  Group                                            |         |
-|             |  1 = High NAPAP                                   |         |
-|             |  2 = Low NAPAP                                    |         |
-|             |  3 = control                                      |         |
-|  creat_68   |  Serum Creatinine 1968  9.99=missing              | (mg/dL) |
-|  creat_69   |  Serum Creatinine 1969  9.99=missing              | (mg/dL) |
-|  creat_70   |  Serum Creatinine 1970  9.99=missing              | (mg/dL) |
-|  creat_71   |  Serum Creatinine 1971  9.99=missing              | (mg/dL) |
-|  creat_72   |  Serum Creatinine 1972  9.99=missing              | (mg/dL) |
-|  creat_75   |  Serum Creatinine 1975  9.99=missing              | (mg/dL) |
-|  creat_78   |  Serum Creatinine 1978  9.99=missing              | (mg/dL) |
+|  group      |  Group <br> 1 = High NAPAP <br> 2 = Low NAPAP <br> 3 = control |         |
+|  creat_68   |  Serum Creatinine 1968                | (mg/dL) |
+|  creat_69   |  Serum Creatinine 1969                | (mg/dL) |
+|  creat_70   |  Serum Creatinine 1970                | (mg/dL) |
+|  creat_71   |  Serum Creatinine 1971                | (mg/dL) |
+|  creat_72   |  Serum Creatinine 1972                | (mg/dL) |
+|  creat_75   |  Serum Creatinine 1975                | (mg/dL) |
+|  creat_78   |  Serum Creatinine 1978                | (mg/dL) |
+
+For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 ::::
 
@@ -1303,6 +1329,12 @@ The purpose of the study was to determine age of spermache.
 
 The format of observations is unusual and suitable for cleaning exercises.
 
+Det kan godt være vi lige skal kigge på:For further details about the study see Nielsen et al. (1986a, 1986b).
+mere præcist:
+Nielsen, C. T., Skakkebxk, N. E., Darling, J. A. B., Hunter, W. M., Richardson, D. W., Jorgensen, M., and Keiding, N. (1986a).
+Longitudinal study of testosterone and luteinizing hormone (LH) in relation to spermarche, pubic hair, height and sitting height in normal boys. Acta Endocrinologica 113, Supplementum 279, 98-106.
+
+Nielsen, C. T., Skakkebxk, N. E., Richardson, D. W., Darling, J. A. B., Hunter, W. M., J0rgensen, M., Nielsen, A., Ingerslev, O., Keiding, N., and Muller, J. (1986b). Onset of the release of spermatozoa (spermarche) in boys in relation to age, testicular growth, pubic hair and height. Journal of Clinical Endocrinology and Metabolism 62, 532--535.
 
 [source](#jorgensen_4)^4^
 
@@ -1394,9 +1426,11 @@ Pediatric Infections Diseases, 1, 310-316.
 
 
 
-[^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
-
 <a id="jorgensen_4">4</a>: Jorgensen, Merete; Keiding, Niels; Skakkebaek, Niels Erik. Estimation of Spermarche from Longitudinal Spermaturia Data
 Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 
 https://doi.org/10.2307/2532505
 https://www.jstor.org/stable/2532505
+
+
+<a id="buring_5">5</a>: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
+
