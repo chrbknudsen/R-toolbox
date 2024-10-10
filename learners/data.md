@@ -843,24 +843,20 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### NEPHRO
 
-
 Data from a litterature [study](#buring_5)^5^ on nephrotoxicity of
 of several different aminoclycosides.
 
-
-Note that this dataset is basically the same as the dataset EFF, where the
-efficacy of the preparations described in the same papers is reported.
+Note that this dataset is closely related to the datasets EFF and OTO, where
+EFF reports efficacy of the preparations, and OTO reports a combination of 
+efficacy and side effects. 
 
 We get the sample size of patients in different studies, and the number of 
 patients that experienced nephrotoxicity. Which antibiotic is best?
 
-_Dimensions:_ Rows: 64 Columns: 6  
+_Dimensions:_ Rows: 72 Columns: 6  
 
 
 [source](#rosner_1)^1^
-
-
-
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
@@ -920,6 +916,15 @@ Values of 999 indicates that either
 
 ### OTO
 
+Data from a litterature [study](#buring_5)^5^ on nephro- and ototoxicity and efficacy of
+of several different aminoclycosides.
+
+Note that this dataset is closely related to the datasets EFF and NEPHRO, where
+EFF reports efficacy of the preparations, and NEPHRO reports on nephrotoxicity.
+
+We get the sample size of patients in different studies, and the number of 
+patients that experienced sideeffects. Which antibiotic is best?
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
@@ -932,16 +937,8 @@ Values of 999 indicates that either
 |------------|--------------------------|
 |  Name      |  Study Name              |
 |  Id        |  Study Number            |
-|  Endpnt    |  Endpoint                |
-|            |  1 = efficacy            |
-|            |  2 = nephrotoxicity      |
-|            |  3 = ototoxicity         |
-|  Antibio   |  Antibiotic              |
-|            |  1 = Amikacin            |
-|            |  2 = Gentamicin          |
-|            |  3 = Netilmicin          |
-|            |  4 = Sisomycin           |
-|            |  5 = Tobramycin          |
+|  Endpnt    |  Endpoint <br> 1 = efficacy <br> 2 = nephrotoxicity <br> 3 = ototoxicity|
+|  Antibio   |  Antibiotic <br> 1 = Amikacin <br> 2 = Gentamicin <br> 3 = Netilmicin <br> 4 = Sisomycin <br> 5 = Tobramycin|
 |  Samp_sz   |  Sample Size             |
 |  Side_eff  |  Number with side effect |
 
