@@ -29,6 +29,8 @@ fasting blood samples. They were then randomized to one of the four preparations
 and took 1 pill every other day for 12 weeks. Blood samples were drawn after 
 6, 8, 10 and 12 weeks.
 
+_Dimensions_: Rows: 23 Columns: 8
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
@@ -38,7 +40,7 @@ and took 1 pill every other day for 12 weeks. Blood samples were drawn after
 
 |  Variable  |  Description/Code                               | Unit   |   
 |------------|-------------------------------------------------|--------|
-|  Prepar    |  Preparation<br>21=SOL<br>2=ROCHE<br>23=BASF-30<br>24=BASF-60  |        |
+|  Prepar    |  Preparation<br>1=SOL<br>2=ROCHE<br>3=BASF-30<br>4=BASF-60  |        |
 |  Id        |  Subject #                                      |        |
 |  Base1lvl  |  1st Baseline Level                             | µmol/L |
 |  Base2lvl  |  2nd Baseline Level                             | µmol/L |
@@ -69,6 +71,8 @@ and breast cancer, controlling for age and current PMH use. Either with testoste
 as a continuous variable or as a categorical variabel in quartiles, with the first
 quartile as the reference group.
 
+_Dimensions_: Rows: 510 Columns: 9   
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
@@ -80,13 +84,13 @@ quartile as the reference group.
 |----------|---------------------|------------------------|-------|
 |Id        |  ID                 |                        |       |
 |matchid   |  Matched ID         |                        |       |
-|case      |  Case/control       |  1=case/ 0=control     |       |
-|curpmh    |  Current PMH use    |  1=yes / 0=no          |       |
+|case      |  1 = case <br> 0 = control |     |       |
+|curpmh    |  Current PMH use <br> 1 = yes <br> 0 = no   |            |       |
 |ageblood  |  Age at blood draw  |                        | years |
 |estradol  |  Estradiol          |                        | pg/mL |
-|estrone   |  Estrone            |  missing=999           | pg/mL |
-|testost   |  Testosterone       |  missing=999           | ng/dL |
-|prolactn  |  Prolactin          |  xx.xx  missing=99.99  | ng/L  |
+|estrone   |  Estrone <br> missing = 999             |             | pg/mL |
+|testost   |  Testosterone <br> missing = 999       |             | ng/dL |
+|prolactn  |  Prolactin <br> missing = 99.99          |      | ng/L  |
 
 ::::
 
@@ -405,6 +409,17 @@ Additional [reference](#mandel_3)
 
 ### EFF
 
+Data from a litterature search on the efficacy (that is - is it working?) of
+a number of aminoglycosides for the treatment of infectious diseases. 
+
+Note that this dataset is basically the same as the dataset NEPHRO, where the
+nephrotoxicity of the preparations described in the same papers is reported.
+
+We get the sample size of patients in different studies, and the number of 
+patients that were cured for their infection. Which antibiotic is best?
+
+_Dimensions:_ Rows: 64 Columns: 6  
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
@@ -419,11 +434,7 @@ Additional [reference](#mandel_3)
 |Id        |  Study Number                          |
 |Endpnt    |  Endpoint  1=efficacy                  |
 |Antibio   |  Antibiotic                            |
-|          |  1 = Amikacin                          |
-|          |  2 = Gentamicin                        |
-|          |  3 = Netilmicin/                       |
-|          |  4 = Sisomycin                         |
-|          |  5 = Tobramycin                        |
+|          |  1 = Amikacin <br> 2 = Gentamicin <br> 3 = Netilmicin <br> 4 = Sisomycin <br> 5 = Tobramycin|
 |Samp_sz   |  Sample Size                           |
 |Cured     |  Number Cured                          |
 
