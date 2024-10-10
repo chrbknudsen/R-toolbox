@@ -106,6 +106,8 @@ twins with different smoking histories had their bone density measured at a hosp
 in Victoria, as well
 as other factors, details in metadata below. 
 
+_Dimensions:_ Rows: 41 Columns: 25   
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BONEDEN.csv)
@@ -183,6 +185,8 @@ on a visual analog scale, with a range of -100 to 100%, negative numbers indicat
 worsening. One patient had the condition in both legs leading to 70 observations
 in the dataset. 
 
+_Dimensions:_ Rows: 70 Columns: 24 
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BOTOX.csv)
@@ -237,6 +241,8 @@ and a follow up date is recorded in months. If a control that follow up date was
 the date of the last questionnaire in 2000, if a case, the date of diagnosis of breast 
 cancer.
 Other cancer risk factors are recorded.
+
+_Dimensions:_ Rows: 1200 Columns: 18
 
 [source](#rosner_1)^1^
 
@@ -303,6 +309,8 @@ superior, inferior, temporal and nasal. Sensititivy was measured in mm, with
 a range for 40-60 mm. High values indicate greater, normal, sensitivity, low values
 lower, abnormal, sensitivity.
 
+_Dimensions:_ Rows: 186 Columns: 17   
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
@@ -350,6 +358,8 @@ The HgbA1c measurement is the percentage of hemoglobin that is glycosylated.
 The normal range is between 4.0 and 5.6%, with values larger than 6.5% being
 indicative of diabetes. The normal range does not appear to change by pubertal stage.
 
+_Dimensions:_ Rows: 910 Columns: 8     
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
@@ -364,9 +374,9 @@ indicative of diabetes. The normal range does not appear to change by pubertal s
 |day_a1c   |  Day A1c                       |      |
 |yr_a1c    |  Yr                            |      |
 |age_yrs   |  Age in years                  | year |
-|gly_a1c   |  Hemoglobin A1c                |  %  |
-|ht_cm     |  Height in  missing=999.9      | cm   |
-|wt_kg     |  Weight in                     | kg   |
+|gly_a1c   |  Hemoglobin A1c                |  %   |
+|ht_cm     |  Height   missing=999.9        | cm   |
+|wt_kg     |  Weight                        | kg   |
 
 ::::
 
@@ -377,6 +387,7 @@ ears. They were randomly assigned 14 days of antibiotic treatment with either
 CEF (cefaclor) or AMO (amoxicillin). Status of their ear infection at a 
 follow up visit after 14 days were recorded. 
 
+_Dimensions:_ Rows: 278 Columns: 5 
 
 [source](#rosner_1)^1^
 
@@ -442,6 +453,8 @@ _Dimensions:_ Rows: 64 Columns: 6
 
 ###  ENDOCRIN
 
+_Dimensions:_ Rows: 10 Columns: 6 
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ENDOCRIN.csv)
@@ -462,6 +475,8 @@ _Dimensions:_ Rows: 64 Columns: 6
 ::::
 
 ### ESTRADL
+
+_Dimensions:_ Rows: 211 Columns: 10  
 
 [source](#rosner_1)^1^
 
@@ -492,6 +507,8 @@ _Dimensions:_ Rows: 64 Columns: 6
 ::::
 
 ### ESTROGEN
+
+_Dimensions:_ Rows: 62 Columns: 22
 
 [source](#rosner_1)^1^
 
@@ -543,6 +560,8 @@ _Dimensions:_ Rows: 64 Columns: 6
 
 ### FEV
 
+_Dimensions:_ Rows: 654 Columns: 6 
+
 [source](#rosner_1)^1^
 
 Yderligere reference:
@@ -581,9 +600,15 @@ Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 
 ### FIELD
 
+_Dimensions:_ Rows: 1326 Columns: 8  
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description                                                   |
 |------------|----------------------------------------------------------------|
@@ -596,11 +621,19 @@ Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 |  totfldod  |  total field area right eye (OD) in degrees²                   |
 |  totfldos  |  total field area left eye (OS) in degrees²                    |
 
+::::
+
 ### HEART
+
+_Dimensions:_ Rows: 7 Columns: 9  
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
+
+:::: spoiler
+
+## Metadata
 
 |Variable    |  code                                                                          |
 |------------|--------------------------------------------------------------------------------|
@@ -620,12 +653,19 @@ Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 |X6          |  repeated respiratory infections                                               |
 |X7          |  EKG axis more than 110                                                        |
 
+::::
 
 ### HORMONE
+
+_Dimensions:_ Rows: 398 Columns: 11
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HORMONE.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description/Code                      |
 |------------|----------------------------------------|
@@ -641,13 +681,19 @@ Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 |  Panphpt   |  Pancreatic pH-post                    |
 |  Hormone   |  Hormone 1=SAL/2=APP/3=CCK/4=SEC/5=VIP |
 
+::::
 
 ### HOSPITAL
+
+_Dimensions:_ Rows: 25 Columns: 9  
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Label                                  |
 |------------|-----------------------------------------|
@@ -660,6 +706,8 @@ Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 |  Antibio   |  Received antibiotic 1=yes/2=no         |
 |  Bact_cul  |  Received bacterial culture 1=yes/2=no  |
 |  Service   |  Service 1=med/2=surg.                  |
+
+::::
 
 Fra studie af antibiotikabrug på et hospital i Pennsylvania. Baseret på 
 journaler fra patienter der er udskrevet. WBC er "White Bloodcell Count".
@@ -677,11 +725,17 @@ Infectious Diseases, 139(6) 688-697.
 
 ### INFANTBP
 
+_Dimensions:_ Rows: 100 Columns: 18  
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
 Salt Taste Variables
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Format |  Description                         |
 |------------|---------|--------------------------------------|
@@ -712,12 +766,19 @@ Sugar Taste Variables
 
 * for MSB data 999.99 is a missing value; 0 indicates the baby did not suck.
 
+::::
 
 ### LEAD
+
+_Dimensions:_ Rows: 124 Columns: 40  
 
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  VARIABLE  |  DESCRIPTION                 |
 |------------|------------------------------|
@@ -813,9 +874,11 @@ CONTAIN NEUROLOGICAL TEST DATA
 |            |  (AS REPORTED BY PARENTS) MISSING=99                             |
 |  maxfwt    |  Finger-wrist tapping test in dominant hand(max of fwt_r,fwt_l)  |
 
-
+::::
 
 ### MICE
+
+_Dimensions:_ Rows: 240 Columns: 6
 
 [source](#rosner_1)^1^
 
@@ -855,7 +918,6 @@ patients that experienced nephrotoxicity. Which antibiotic is best?
 
 _Dimensions:_ Rows: 72 Columns: 6  
 
-
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
@@ -876,6 +938,8 @@ _Dimensions:_ Rows: 72 Columns: 6
 ::::
 
 ### NIFED
+
+_Dimensions:_ Rows: 34 Columns: 10 
 
 [source](#rosner_1)^1^
 
@@ -925,6 +989,8 @@ EFF reports efficacy of the preparations, and NEPHRO reports on nephrotoxicity.
 We get the sample size of patients in different studies, and the number of 
 patients that experienced sideeffects. Which antibiotic is best?
 
+_Dimensions:_ Rows: 50 Columns: 6   
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
@@ -945,6 +1011,8 @@ patients that experienced sideeffects. Which antibiotic is best?
 ::::
 
 ### PIRIFORM
+
+_Dimensions:_ Rows: 631 Columns: 5 
 
 [source](#rosner_1)^1^
 
@@ -969,6 +1037,8 @@ patients that experienced sideeffects. Which antibiotic is best?
 ::::
 
 ### SEXRAT
+
+_Dimensions:_ Rows: 60 Columns: 8   
 
 [source](#rosner_1)^1^
 
@@ -1004,6 +1074,8 @@ such families.
 
 ### SMOKE
 
+_Dimensions:_ Rows: 234 Columns: 8
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
@@ -1036,6 +1108,8 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### SWISS
 
+_Dimensions:_ Rows: 300 Columns: 10 
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
@@ -1062,6 +1136,8 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 ::::
 
 ### TEAR
+
+_Dimensions:_ Rows: 14 Columns: 61     
 
 [source](#rosner_1)^1^
 
@@ -1139,6 +1215,8 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 ### TEMPERAT
 
+_Dimensions:_ Rows: 630 Columns: 6 
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
@@ -1165,6 +1243,8 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 ::::
 
 ### TENNIS1
+
+_Dimensions:_ Rows: 444 Columns: 12 
 
 [source](#rosner_1)^1^
 
@@ -1237,9 +1317,15 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 ### TENNIS2
 
+_Dimensions:_ Rows: 88 Columns: 16 
+
 [source](#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
+
+:::: spoiler
+
+## Metadata
 
 |  VARIABLE  |  PERIOD*  |  VARIABLE NAME                                                             |
 |------------|-----------|----------------------------------------------------------------------------|
@@ -1290,9 +1376,11 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
   PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
 
-
+::::
 
 ### VALID
+
+_Dimensions:_ Rows: 173 Columns: 9   
 
 [source](#rosner_1)^1^
 
@@ -1336,6 +1424,8 @@ Longitudinal study of testosterone and luteinizing hormone (LH) in relation to s
 
 Nielsen, C. T., Skakkebxk, N. E., Richardson, D. W., Darling, J. A. B., Hunter, W. M., J0rgensen, M., Nielsen, A., Ingerslev, O., Keiding, N., and Muller, J. (1986b). Onset of the release of spermatozoa (spermarche) in boys in relation to age, testicular growth, pubic hair and height. Journal of Clinical Endocrinology and Metabolism 62, 532--535.
 
+_Dimensions:_ Rows: 40 Columns: 5 
+
 [source](#jorgensen_4)^4^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
@@ -1360,9 +1450,15 @@ Nielsen, C. T., Skakkebxk, N. E., Richardson, D. W., Darling, J. A. B., Hunter, 
 
 ### who
 
+_Dimensions:_ Rows: 405440 Columns: 10 
+
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/who.csv)
 
 NB: Filen er semikolon-separeret
+
+:::: spoiler
+
+## Metadata
 
 |  Variable  |  Description                      |  Format or Code            |
 |------------|-----------------------------------|----------------------------|
@@ -1384,6 +1480,7 @@ NB: Filen er semikolon-separeret
 * ep extrapulmonary
 * relapse
 
+::::
 
 ## References
 
