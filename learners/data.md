@@ -843,10 +843,22 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 ### NEPHRO
 
+
+Data from a litterature [study](#buring_5)^5^ on nephrotoxicity of
+of several different aminoclycosides.
+
+
+Note that this dataset is basically the same as the dataset EFF, where the
+efficacy of the preparations described in the same papers is reported.
+
+We get the sample size of patients in different studies, and the number of 
+patients that experienced nephrotoxicity. Which antibiotic is best?
+
+_Dimensions:_ Rows: 64 Columns: 6  
+
+
 [source](#rosner_1)^1^
 
-Data from a litterature search, comparing nephrotoxicity 
-of several different aminoclycosides[^17]. Each row co
 
 
 
@@ -861,8 +873,7 @@ of several different aminoclycosides[^17]. Each row co
 |  name      |  Study name                                        |
 |  id        |  Study number                                      |
 |  Endpnt    |  Endpoint  2=nephrotoxicity                        |
-|  Antibio   |  Antibiotic 1=Amikacin/2=Gentamicin/3=Netilmicin/  |
-|            |  4=Sisomycin/5=Tobramycin                          |
+|  Antibio   |  Antibiotic <br>1=Amikacin<br>2=Gentamicin<br>3=Netilmicin<br>4=Sisomycin<br>5=Tobramycin  |
 |  Samp_sz   |  Sample size                                       |
 |  Side_eff  |  Number with side effects                          |
 
@@ -1419,9 +1430,11 @@ Pediatric Infections Diseases, 1, 310-316.
 
 
 
-[^17]: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
-
 <a id="jorgensen_4">4</a>: Jorgensen, Merete; Keiding, Niels; Skakkebaek, Niels Erik. Estimation of Spermarche from Longitudinal Spermaturia Data
 Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 
 https://doi.org/10.2307/2532505
 https://www.jstor.org/stable/2532505
+
+
+<a id="buring_5">5</a>: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
+
