@@ -423,9 +423,12 @@ _Dimensions:_ Rows: 64 Columns: 6
 
 ###  ENDOCRIN
 
+Data for comparison of measurements of four hormones in five subjects. Measurements
+were done twice on blood samples from each subject. Are the measurements reproducable?
+
 _Dimensions:_ Rows: 10 Columns: 6 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ENDOCRIN.csv)
 
@@ -433,14 +436,14 @@ _Dimensions:_ Rows: 10 Columns: 6
 
 ## Metadata
 
-| Variable   |  LABEL           | unit |
-|------------|------------------|------|
-|  Subject   |  SUBJECT #       |      |
-|  Replicat  |  REPLICATE #     |      |
-|  Estrone   |  ESTRONE         |      |
-|  Estradol  |  ESTRADIOL       |      |
-|  Androste  |  ANDROSTENEDIONE |      |
-|  Testost   |  TESTOSTERONE    |      |
+| Variable   |  LABEL           | unit  |
+|------------|------------------|-------|
+|  Subject   |  SUBJECT #       |       |
+|  Replicat  |  REPLICATE #     |       |
+|  Estrone   |  ESTRONE         | pg/mL |
+|  Estradol  |  ESTRADIOL       | pg/ml |
+|  Androste  |  ANDROSTENEDIONE | ng/dL |
+|  Testost   |  TESTOSTERONE    | ng/dL |
 
 ::::
 
@@ -1495,7 +1498,7 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-* endocrin
+
 * estradl
 * estrogen
 * FEV
