@@ -54,7 +54,7 @@ _Dimensions:_ Rows: 23 Columns: 8
 
 
 
-### BLOOD
+### BLOOD 
 
 A case-control study of riskfactors (hormone levels in blood samples) for 
 breast cancer. Individuals are matched on age and current postmenopausal homone
@@ -188,31 +188,31 @@ _Dimensions:_ Rows: 70 Columns: 24
 :::: spoiler
 ## Metadata
 
-|  Variable  |  Code                               |
-|------------|-------------------------------------|
-|  ID        |                                     |
-|  group     |  1 = TL                             |
-|            |  2 = Placebo                        |
-|            |  3 = Botox                          |
-|  pain0     |  pain score month 0  missing=999    |
-|  pain05    |  pain score month 0.5  missing=999  |
-|  pain1     |  pain score month 1  missing=999    |
-|  pain2     |  pain score month 2  mising=999     |
-|  pain3     |  pain score month 3  missing=999    |
-|  pain4     |  pain score month 4  missing=999    |
-|  pain5     |  pain score month 5  missing=999    |
-|  pain6     |  pain score month 6  missing=999    |
-|  pain7     |  pain score month 7  missing=999    |
-|  pain8     |  pain score month 8  missing=999    |
-|  pain9     |  pain score month 9  missing=999    |
-|  pain10    |  pain score month 10  missing=999   |
-|  pain11    |  pain score month 11  missing=999   |
-|  pain12    |  pain score month 12  missing=999   |
-|  pain13    |  pain score month 13  missing=999   |
-|  pain14    |  pain score month 14  missing=999   |
-|  pain15    |  pain score month 15  missing=999   |
-|  pain16    |  pain score month 16  missing=999   |
-|  pain17    |  pain score month 17  missing=999   |
+|  Variable  |  Code                                   | unit |
+|------------|-----------------------------------------|------|
+|  ID        |                                         |      |
+|  group     |  1 = TL <br> 2 = Placebo <br> 3 = Botox |      |
+|  pain0     |  pain score month 0                     |  %   |
+|  pain05    |  pain score month 0.5                   |  %   |
+|  pain1     |  pain score month 1                     |  %   |
+|  pain2     |  pain score month 2                     |  %   |
+|  pain3     |  pain score month 3                     |  %   |
+|  pain4     |  pain score month 4                     |  %   |
+|  pain5     |  pain score month 5                     |  %   |
+|  pain6     |  pain score month 6                     |  %   |
+|  pain7     |  pain score month 7                     |  %   |
+|  pain8     |  pain score month 8                     |  %   |
+|  pain9     |  pain score month 9                     |  %   |
+|  pain10    |  pain score month 10                    |  %   |
+|  pain11    |  pain score month 11                    |  %   |
+|  pain12    |  pain score month 12                    |  %   |
+|  pain13    |  pain score month 13                    |  %   |
+|  pain14    |  pain score month 14                    |  %   |
+|  pain15    |  pain score month 15                    |  %   |
+|  pain16    |  pain score month 16                    |  %   |
+|  pain17    |  pain score month 17                    |  %   |
+
+For all pain scores 999 indicates missing value.
 
 ::::
 
@@ -1520,8 +1520,6 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-
-* botox
 * breast
 * corneal
 * diabetes
