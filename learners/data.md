@@ -483,7 +483,7 @@ CAVE: Note the coding of Agefbo
 
 _Dimensions:_ Rows: 62 Columns: 22
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTROGEN.csv)
 
@@ -494,40 +494,29 @@ _Dimensions:_ Rows: 62 Columns: 22
 |Variable  |  LABEL                        | unit |
 |----------|-------------------------------|------|
 |Id        |  ID                           |      |
-|std_typ   |  STUDY TYPE                   |      |
-|          |  1 = 0.625MG VS PLACEBO       |      |
-|          |  2 = 1.25MG VS PLACEBO        |      |
-|          |  3 = 1.25MG VS 0.625MG        |      |
+|std_typ   |  STUDY TYPE <br> 1 = 0.625MG VS PLACEBO <br> 2 = 1.25MG VS PLACEBO <br> 3 = 1.25MG VS 0.625MG        |      |
 |period    |  PERIOD                       |      |
-|trtgrp    |  TREATMENT                    |      |
-|          |  1 = PLACEBO                  |      |
-|          |  2 = 0.625MG                  |      |
-|          |  3 = 1.25MG                   |      |
-|sysd1r1   |  SYSTOLIC BP DAY 1 READING 1  |      |
-|          |  MISSING=999                  |      |
-|diasd1r1  |  DIASTOLIC BP DAY 1 READING 1 |      |
-|          |  MISSING=999                  |      |
-|sysd1r2   |  SYSTOLIC BP DAY 1 READING 2  |      |
-|          |  MISSING=999                  |      |
-|diasd1r2  |  DIASTOLIC BP DAY 1 READING 2 |      |
-|          |  MISSING=999                  |      |
-|sysd1r3   |  SYSTOLIC BP  DAY 1 READING 3 |      |
-|          |  MISSING=999                  |      |
-|diasd1r3  |  DIASTOLIC BP DAY 1 READING 3 |      |
-|          |  MISSING=999                  |      |
-|sysd2r1   |  SYSTOLIC BP DAY 2 READING 1  |      |
-|          |  MISSING=999                  |      |
-|diasd2r1  |  DIASTOLIC BP DAY 2 READING 1 |      |
-|sysd2r2   |  SYSTOLIC BP DAY 2 READING 2  |      |
-|diasd2r2  |  DIASTOLIC BP DAY 2 READING 2 |      |
-|sysd2r3   |  SYSTOLIC BP DAY 2 READING 3  |      |
-|diasd2r3  |  DIASTOLIC BP DAY 2 READING 3 |      |
-|sysd3r1   |  SYSTOLIC BP DAY 3 READING 1  |      |
-|diasd3r1  |  DIASTOLIC BP DAY 3 READING 1 |      |
-|sysd3r2   |  SYSTOLIC BP DAY 3 READING 2  |      |
-|diasd3r2  |  DIASTOLIC BP DAY 3 READING 2 |      |
-|sysd3r3   |  SYSTOLIC BP DAY 3 READING 3  |      |
-|diasd3r3  |  DIASTOLIC BP DAY 3 READING 3 |      |
+|trtgrp    |  TREATMENT <br> 1 = PLACEBO <br>   2 = 0.625MG <br> 3 = 1.25MG |      |
+|sysd1r1   |  SYSTOLIC BP DAY 1 READING 1  |  mmHg    |
+|diasd1r1  |  DIASTOLIC BP DAY 1 READING 1 |  mmHg    |
+|sysd1r2   |  SYSTOLIC BP DAY 1 READING 2  |  mmHg    |
+|diasd1r2  |  DIASTOLIC BP DAY 1 READING 2 |  mmHg    |
+|sysd1r3   |  SYSTOLIC BP  DAY 1 READING 3 |  mmHg    |
+|diasd1r3  |  DIASTOLIC BP DAY 1 READING 3 |  mmHg    |
+|sysd2r1   |  SYSTOLIC BP DAY 2 READING 1  |  mmHg    |
+|diasd2r1  |  DIASTOLIC BP DAY 2 READING 1 |  mmHg    |
+|sysd2r2   |  SYSTOLIC BP DAY 2 READING 2  |  mmHg    |
+|diasd2r2  |  DIASTOLIC BP DAY 2 READING 2 |  mmHg    |
+|sysd2r3   |  SYSTOLIC BP DAY 2 READING 3  |  mmHg    |
+|diasd2r3  |  DIASTOLIC BP DAY 2 READING 3 |  mmHg    |
+|sysd3r1   |  SYSTOLIC BP DAY 3 READING 1  |  mmHg    |
+|diasd3r1  |  DIASTOLIC BP DAY 3 READING 1 |  mmHg    |
+|sysd3r2   |  SYSTOLIC BP DAY 3 READING 2  |  mmHg    |
+|diasd3r2  |  DIASTOLIC BP DAY 3 READING 2 |  mmHg    |
+|sysd3r3   |  SYSTOLIC BP DAY 3 READING 3  |  mmHg    |
+|diasd3r3  |  DIASTOLIC BP DAY 3 READING 3 |  mmHg    |
+
+999: Missing bloodpressure data.
 
 ::::
 
