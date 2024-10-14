@@ -29,9 +29,9 @@ fasting blood samples. They were then randomized to one of the four preparations
 and took 1 pill every other day for 12 weeks. Blood samples were drawn after 
 6, 8, 10 and 12 weeks.
 
-_Dimensions_: Rows: 23 Columns: 8
+_Dimensions:_ Rows: 23 Columns: 8
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
 
@@ -73,7 +73,7 @@ quartile as the reference group.
 
 _Dimensions_: Rows: 510 Columns: 9   
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
 
@@ -101,14 +101,14 @@ _Dimensions_: Rows: 510 Columns: 9
 ### BONEDEN
 
 Data from a twin study on the relationship between bone density and cigarette
-consumption [source](#hopper_2)^2^. 41 pairs of middle-aged australian female 
+consumption [source](data.md#hopper_2)^2^. 41 pairs of middle-aged australian female 
 twins with different smoking histories had their bone density measured at a hospital
 in Victoria, as well
 as other factors, details in metadata below. 
 
 _Dimensions:_ Rows: 41 Columns: 25   
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BONEDEN.csv)
 
@@ -120,12 +120,9 @@ The data set is rather wide, and the columns are split up in this describtion.
 |  Variable  |  Code       | Unit  | 
 |------------|-------------|-------|
 |  ID        |             |       |
-|  Age       |  Age (yrs)  | years |
-|  zyg       |  1=mz 2=dz  |       |
+|  Age       |  Age        | years |
+|  zyg       |  Mono- or dizygotic twins<br>1 = mz<br> 2 = dz  |       |
 
-mz - monozygotic twins
-
-dz - dizygotic twins
 
 The following variables are dublicated, in the form of 
 
@@ -141,10 +138,7 @@ xx2 for the heavier smoking twin
 |  cof       |  Coffee                     | cups/week        |
 |  alc       |  Alcohol                    | drinks/week      |
 |  cur       |  Current Smoking            | (cigarettes/day) |
-|  men       |  Menopause Status           |                  |
-|            |  0: Premenopausal           |                  |
-|            |  1: Postmenopausal          |                  |
-|            |  2: unknown or hysterectomy |                  |
+|  men       |  Menopause Status<br>0: Premenopausal<br> 1: Postmenopausal<br>2: unknown or hysterectomy |                  |
 |  pyr       |  Pack-years smoking         | year             |
 |  ls        |  Lumbar spine               | g/cm^2^          |
 |  fn        |  Femoral neck               | g/cm^2^          |
@@ -187,7 +181,7 @@ in the dataset.
 
 _Dimensions:_ Rows: 70 Columns: 24 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BOTOX.csv)
 
@@ -244,7 +238,7 @@ Other cancer risk factors are recorded.
 
 _Dimensions:_ Rows: 1200 Columns: 18
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BREAST.csv)
 
@@ -311,7 +305,7 @@ lower, abnormal, sensitivity.
 
 _Dimensions:_ Rows: 186 Columns: 17   
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
 
@@ -360,7 +354,7 @@ indicative of diabetes. The normal range does not appear to change by pubertal s
 
 _Dimensions:_ Rows: 910 Columns: 8     
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
 
@@ -389,9 +383,9 @@ follow up visit after 14 days were recorded.
 
 _Dimensions:_ Rows: 278 Columns: 5 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
-Additional [reference](#mandel_3)
+Additional [reference](data.md#mandel_3)
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EAR.csv)
 
@@ -431,7 +425,7 @@ patients that were cured for their infection. Which antibiotic is best?
 
 _Dimensions:_ Rows: 64 Columns: 6  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
 
@@ -455,7 +449,7 @@ _Dimensions:_ Rows: 64 Columns: 6
 
 _Dimensions:_ Rows: 10 Columns: 6 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ENDOCRIN.csv)
 
@@ -478,7 +472,7 @@ _Dimensions:_ Rows: 10 Columns: 6
 
 _Dimensions:_ Rows: 211 Columns: 10  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTRADL.csv)
 
@@ -510,7 +504,7 @@ _Dimensions:_ Rows: 211 Columns: 10
 
 _Dimensions:_ Rows: 62 Columns: 22
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTROGEN.csv)
 
@@ -562,7 +556,7 @@ _Dimensions:_ Rows: 62 Columns: 22
 
 _Dimensions:_ Rows: 654 Columns: 6 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 Yderligere reference:
 Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
@@ -602,7 +596,7 @@ Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 
 _Dimensions:_ Rows: 1326 Columns: 8  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
 
@@ -627,7 +621,7 @@ _Dimensions:_ Rows: 1326 Columns: 8
 
 _Dimensions:_ Rows: 7 Columns: 9  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
 
@@ -659,7 +653,7 @@ _Dimensions:_ Rows: 7 Columns: 9
 
 _Dimensions:_ Rows: 398 Columns: 11
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HORMONE.csv)
 
@@ -687,7 +681,7 @@ _Dimensions:_ Rows: 398 Columns: 11
 
 _Dimensions:_ Rows: 25 Columns: 9  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -727,7 +721,7 @@ Infectious Diseases, 139(6) 688-697.
 
 _Dimensions:_ Rows: 100 Columns: 18  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
@@ -772,7 +766,7 @@ Sugar Taste Variables
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
@@ -880,7 +874,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 _Dimensions:_ Rows: 240 Columns: 6
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
 
@@ -906,7 +900,7 @@ _Dimensions:_ Rows: 240 Columns: 6
 
 ### NEPHRO
 
-Data from a litterature [study](#buring_5)^5^ on nephrotoxicity of
+Data from a litterature [study](data.md#buring_5)^5^ on nephrotoxicity of
 of several different aminoclycosides.
 
 Note that this dataset is closely related to the datasets EFF and OTO, where
@@ -918,7 +912,7 @@ patients that experienced nephrotoxicity. Which antibiotic is best?
 
 _Dimensions:_ Rows: 72 Columns: 6  
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
@@ -941,7 +935,7 @@ _Dimensions:_ Rows: 72 Columns: 6
 
 _Dimensions:_ Rows: 34 Columns: 10 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
 
@@ -980,7 +974,7 @@ Values of 999 indicates that either
 
 ### OTO
 
-Data from a litterature [study](#buring_5)^5^ on nephro- and ototoxicity and efficacy of
+Data from a litterature [study](data.md#buring_5)^5^ on nephro- and ototoxicity and efficacy of
 of several different aminoclycosides.
 
 Note that this dataset is closely related to the datasets EFF and NEPHRO, where
@@ -991,7 +985,7 @@ patients that experienced sideeffects. Which antibiotic is best?
 
 _Dimensions:_ Rows: 50 Columns: 6   
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
@@ -1014,7 +1008,7 @@ _Dimensions:_ Rows: 50 Columns: 6
 
 _Dimensions:_ Rows: 631 Columns: 5 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
@@ -1040,7 +1034,7 @@ _Dimensions:_ Rows: 631 Columns: 5
 
 _Dimensions:_ Rows: 60 Columns: 8   
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
 
@@ -1076,7 +1070,7 @@ such families.
 
 _Dimensions:_ Rows: 234 Columns: 8
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
@@ -1110,7 +1104,7 @@ number of minutes elapsed since the last cigarette smoked.
 
 _Dimensions:_ Rows: 300 Columns: 10 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
@@ -1139,7 +1133,7 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 _Dimensions:_ Rows: 14 Columns: 61     
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
 
@@ -1217,7 +1211,7 @@ _Dimensions:_ Rows: 14 Columns: 61
 
 _Dimensions:_ Rows: 630 Columns: 6 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
@@ -1225,20 +1219,15 @@ _Dimensions:_ Rows: 630 Columns: 6
 
 ## Metadata
 
-|  Variable  |    LABEL                                 | unit |
-|------------|------------------------------------------|------|
-|  Date      |  DATE (MDY)                              |      |
-|  Out_temp  |  OUTSIDE TEMERATURE  Degrees Fahrenheit  |      |
-|  Room      |  ROOM LOCATION                           |      |
-|  In_temp   |  INSIDE TEMPERATURE  Degrees Fahrenheit  |      |
-|  Cor_fac   |  CORRECTION FACTOR ADDED (1=YES 0=NO)    |      |
-|  Typ_wea   |  TYPE OF WEATHER                         |      |
-|            |  1 = SUNNY                        |      |
-|            |  2 = PARTLY CLOUDY                |      |
-|            |  3 = CLOUDY                       |      |
-|            |  4 = RAINY                        |      |
-|            |  5 = FOGGY                        |      |
-|            |  9 = MISSING                      |      |
+|  Variable  |    LABEL                                       | unit |
+|------------|------------------------------------------------|------|
+|  Date      |  DATE (MDY)                                    |      |
+|  Out_temp  |  OUTSIDE TEMERATURE                            | °F   |
+|  Room      |  ROOM LOCATION                                 |      |
+|  In_temp   |  INSIDE TEMPERATURE                            | °F   |
+|  Cor_fac   |  CORRECTION FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
+|  Typ_wea   |  TYPE OF WEATHER<br>1 = SUNNY<br>2 = PARTLY CLOUDY<br>3 = CLOUDY<br>4 = RAINY<br>5 = FOGGY <br>9 = MISSING|      |
+
 
 ::::
 
@@ -1246,7 +1235,7 @@ _Dimensions:_ Rows: 630 Columns: 6
 
 _Dimensions:_ Rows: 444 Columns: 12 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
@@ -1319,7 +1308,7 @@ _Dimensions:_ Rows: 444 Columns: 12
 
 _Dimensions:_ Rows: 88 Columns: 16 
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
 
@@ -1382,7 +1371,7 @@ _Dimensions:_ Rows: 88 Columns: 16
 
 _Dimensions:_ Rows: 173 Columns: 9   
 
-[source](#rosner_1)^1^
+[source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
@@ -1426,7 +1415,7 @@ Nielsen, C. T., Skakkebxk, N. E., Richardson, D. W., Darling, J. A. B., Hunter, 
 
 _Dimensions:_ Rows: 40 Columns: 5 
 
-[source](#jorgensen_4)^4^
+[source](learners/data.md#jorgensen_4)^4^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
 
@@ -1460,17 +1449,17 @@ NB: Filen er semikolon-separeret
 
 ## Metadata
 
-|  Variable  |  Description                      |  Format or Code            |
+|  Variable  |  Description                      |  Unit            |
 |------------|-----------------------------------|----------------------------|
 |country     |  Landenavn                        |                            | 
-|iso2        |  ISO2 landekode                   |                            | 
-|iso3        |  ISO3 landekode                   |                            | 
-|year        |  År                               | XXXX                       |         
+|iso2        |  ISO2 countrycode                   |                            | 
+|iso3        |  ISO3 countrycode                   |                            | 
+|year        |  year                               | XXXX                       |         
 |new         |  Artefakt fra databehandling      | Alle felter er "new"       |
 |diag        |  Diagnostisk metode               |  *                         |
-|sex         |  Køn                              |  m for male, f for female  |
-|age_low     |  Nedre aldersinterval             |  XX                        |
-|age_high    |  Øvre aldersinterval              |  XX                        |
+|sex         |  Sex <br> m = male <br> f = female                               |    |
+|age_low     |  Nedre aldersinterval             |  year                        |
+|age_high    |  Øvre aldersinterval              |  year                        |
 |value       |  Antal observerede tilfælde af TB |                            |
 
 
@@ -1494,7 +1483,7 @@ Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tubercu
 
 
 
-https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
+
 
 
 @misc{misc_wine_109,
@@ -1509,7 +1498,7 @@ https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isb
 
 
 
-<a id="rosner_1">1</a>: Rosner, Bernard A. Fundamentals of Biostatistics, 7/e, International Edition, 2011 ISBN: 9780538735896
+<a id="rosner_1">1</a>: Rosner, Bernard A. Fundamentals of Biostatistics, 7/e, International Edition, 2011 ISBN: 9780538735896. https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
 
 <a id="hopper_2">2</a>: Hopper, J.H. & Seeman, E (1994). The bone density
 of female twins discordant for tobacco use. New England Journal of Medicine, 330, 387-392.
@@ -1519,15 +1508,10 @@ Wucher, E.P. & Harper, J. 1982, Duration of effusion after antibiotic
 treatment for acute otitis media: Comparison of cefaclor and amoxicillin.
 Pediatric Infections Diseases, 1, 310-316.
 
-
-
-
-
 <a id="jorgensen_4">4</a>: Jorgensen, Merete; Keiding, Niels; Skakkebaek, Niels Erik. Estimation of Spermarche from Longitudinal Spermaturia Data
 Biometrics, Vol. 47, No. 1 (Mar., 1991), pp. 177-193 
 https://doi.org/10.2307/2532505
 https://www.jstor.org/stable/2532505
-
 
 <a id="buring_5">5</a>: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
@@ -1535,9 +1519,8 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-* betacar
-* blood
-* boneden
+
+
 * botox
 * breast
 * corneal
