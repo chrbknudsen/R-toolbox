@@ -707,13 +707,13 @@ Salt Taste Variables
 
 Sugar Taste Variables
 
-|  Variable  |  Format  |  Description                        |
-|------------|----------|-------------------------------------|
-|  MSB1sug   |  xxx.xx  |  MSB-trial 1 non-nutritive sucking  |
-|  MSB2sug   |  xxx.xx  |  MSB-trial 2 water                  |
-|  MSB3sug   |  xxx.xx  |  MSB-trial 3 5% sucrose + water     |
-|  MSB4sug   |  xxx.xx  |  MSB-trial 4 15% sucrose + water    |
-|  MSB5sug   |  xxx.xx  |  MSB-trial 5 non-nutritive sucking  |
+|  Variable  |   Description                       |
+|------------|-------------------------------------|
+|  MSB1sug   |  MSB-trial 1 non-nutritive sucking  |
+|  MSB2sug   |  MSB-trial 2 water                  |
+|  MSB3sug   |  MSB-trial 3 5% sucrose + water     |
+|  MSB4sug   |  MSB-trial 4 15% sucrose + water    |
+|  MSB5sug   |  MSB-trial 5 non-nutritive sucking  |
 
 
 * for MSB data 999.99 is a missing value; 0 indicates the baby did not suck.
@@ -735,12 +735,9 @@ _Dimensions:_ Rows: 124 Columns: 40
 |  VARIABLE  |  DESCRIPTION                 |
 |------------|------------------------------|
 |  id        |  IDENTIFICATION NUMBER       |
-|  area      |  AREA - RESIDENCE ON AUG'72  |
-|            |  1=0-1 MILES FROM SMELTER    |
-|            |  2=1-2.5 MILES               |
-|            |  3=2.5-4.1 MILES             |
-|  ageyrs    |  AGE in years xx.xx          |
-|  sex       |  SEX  1=MALE  2=FEMALE       |
+|  area      |  AREA - RESIDENCE ON AUG'72 <br> 1 = 0-1 MILES FROM SMELTER <br> 2 = 1-2.5 MILES <br> 3 = 2.5-4.1 MILES             |
+|  ageyrs    |  AGE in years           |
+|  sex       |  SEX <br> 1 = MALE <br> 2 = FEMALE       |
 
 
 IQ TEST RESULTS
@@ -761,9 +758,7 @@ IQ TEST RESULTS
 |  iqv       |  IQV - VERBAL IQ                                                       |
 |  iqp       |  IQP - PERFORMANCE IQ                                                  |
 |  iqf       |  IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)                 |
-|  iq_type   |  TYPE OF IQ TEST   1=WISC  2=WPPSI                                     |
-|            |  (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE               |
-|            |  WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE)                       |
+|  iq_type   |  TYPE OF IQ TEST <br> 1 = WISC <br> 2 = WPPSI <br> (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE <br> WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE)                       |
 |  lead_grp  |  GROUP - BLOOD LEAD LEVEL GROUP                                        |
 |            |  1=BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN                      |
 |            |  BOTH 1972 & 1973 (control group)                                      |
@@ -791,11 +786,11 @@ SYMPTOM DATA (AS REPORTED BY PARENTS)
 
 |  VARIABLE  |  DESCRIPTION                |
 |------------|-----------------------------|
-|  pica      |  PICA   1=YES  2=NO         |
-|  colic     |  COLIC  1=YES  2=NO         |
-|  clumsi    |  CLUMSINESS  1=YES  2=NO    |
-|  irrit     |  IRRITABILITY  1=YES  2=NO  |
-|  convul    |  CONVULSIONS  1=YES  2=NO   |
+|  pica      |  PICA <br> 1 = YES <br> 2 = NO         |
+|  colic     |  COLIC <br> 1 = YES <br> 2 = NO         |
+|  clumsi    |  CLUMSINESS <br> 1 = YES <br> 2 = NO    |
+|  irrit     |  IRRITABILITY <br> 1 = YES <br> 2 = NO  |
+|  convul    |  CONVULSIONS  <br> 1 = YES <br> 2 = NO   |
 
 CONTAIN NEUROLOGICAL TEST DATA
 
@@ -843,16 +838,13 @@ _Dimensions:_ Rows: 240 Columns: 6
 |  Variable  |  Description           | unit |
 |------------|------------------------|------|
 |  Id        |  ID                    |      |
-|  Group     |                        |      |
-|            |  1 = RP                |      |
-|            |  2 = NORMAL            |      |
-|  Trtgrp    |  TREATMENT GROUP       |      |
-|            |  A = LIGHT             |      |
-|            |  B = DIM               |      |
-|            |  C = DARK              |      |
+|  Group     | <br> 1 = RP <br> 2 = NORMAL |      |
+|  Trtgrp    |  TREATMENT GROUP <br> A = LIGHT <br> B = DIM <br> C = DARK |      |
 |  Age       |  AGE                   | days |
-|  B_amp     |  B AMP  9999=missing   |      |
-|  A_amp     |  A AMP  9999=missing   |      |
+|  B_amp     |  B AMP     |      |
+|  A_amp     |  A AMP     |      |
+
+9999 = missing.
 
 ::::
 
@@ -977,12 +969,8 @@ _Dimensions:_ Rows: 631 Columns: 5
 |  Variable  |  Code                                  |
 |------------|----------------------------------------|
 |  ID        |                                        |
-|  piriform  |  Piriformis Syndrome                   |
-|            |  1 = Negative                          |
-|            |  2 = Positive                          |
-|  sex       |  Sex                                   |
-|            |  1 = Male                              |
-|            |  2 = Female                            |
+|  piriform  |  Piriformis Syndrome <br> 1 = Negative <br> 2 = Positive |
+|  sex       |  Sex <br> 1 = Male <br> 2 = Female                            |
 |            |  Age                                   |
 |  maxchg    |  Max change between tibia and peroneal |
 
@@ -1040,15 +1028,14 @@ _Dimensions:_ Rows: 234 Columns: 8
 |------------|-----------------------------------------------------|------|
 |  ID        |  ID number                                          |      |
 |  Age       |  age                                                |      |
-|  Gender    |  Gender                                             |      |
-|            |  1 = male                                           |      |
-|            |  2 = female                                         |      |
+|  Gender    |  Gender <br> <br> 1 = male <br> 2 = female          |      |
 |  Cig_day   |  Cigarettes/day                                     |      |
-|  CO        |  Carbon monoxide (CO) (X 10) missing=999            |      |
-|  Min_last  |  Minutes elapsed since last cigarette missing=9999  |      |
-|  LogCOadj  |  Log CO Adj * (X 1000)  missing=9999                |      |
-|  Day_abs   |  Days abstinent  Those abstinent less than 1 day    |      |
-|            |  were given a value of zero.                        |      |
+|  CO        |  Carbon monoxide (CO) (X 10)             |      |
+|  Min_last  |  Minutes elapsed since last cigarette   |      |
+|  LogCOadj  |  Log CO Adj * (X 1000)                  |      |
+|  Day_abs   |  Days abstinent  Those abstinent less than 1 day <br> were given a value of zero.|      |
+
+999 and 9999 = missing values
 
 ::::
 
