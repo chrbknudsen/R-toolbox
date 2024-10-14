@@ -368,7 +368,7 @@ follow up visit after 14 days were recorded.
 
 _Dimensions:_ Rows: 278 Columns: 5 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 Additional [reference](data.md#mandel_3)
 
@@ -378,22 +378,13 @@ Additional [reference](data.md#mandel_3)
 
 ### Metadata
 
-| Variable  |         Description    |
-|-----------|------------------------|
-| Id        |  ID                    |  
-| Clear     |  Clearance by 14 days  |  
-|           |   1 = yes              |  
-|           |   0 = no               |
-| Antibo    |  Antibiotic            |  
-|           |  1 = CEF               |  
-|           |  2 = AMO               |  
-| Age       |  Age                   |  
-|           |  1=<2 yrs              |  
-|           | 2=2-5 yrs              |
-|           | 3=6+ yrs               |
-| Ear       |  Ear                   |
-|           |  1=1st ear             |
-|           |  2=2nd ear             |
+| Variable  |         Description                                   |
+|-----------|-------------------------------------------------------|
+| Id        |  ID                                                   |  
+| Clear     |  Clearance by 14 days <br> 1 = yes <br> 0 = no        |
+| Antibo    |  Antibiotic <br>1 = CEF <br> 2 = AMO                  |  
+| Age       |  Age <br> 1 = <2 yrs <br> 2 = 2-5 yrs <br> 3 = 6+ yrs |
+| Ear       |  Ear <br> 1 = 1st ear <br> 2 = 2nd ear                |
 
 ::::
 
@@ -1504,8 +1495,6 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-
-* ear
 * eff
 * endocrin
 * estradl
