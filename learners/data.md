@@ -401,7 +401,7 @@ patients that were cured for their infection. Which antibiotic is best?
 
 _Dimensions:_ Rows: 64 Columns: 6  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/EFF.csv)
 
@@ -1495,7 +1495,6 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-* eff
 * endocrin
 * estradl
 * estrogen
