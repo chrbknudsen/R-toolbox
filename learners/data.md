@@ -1500,8 +1500,6 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-
-
 * estrogen
 * FEV
 * field
