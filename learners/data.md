@@ -238,7 +238,7 @@ Other cancer risk factors are recorded.
 
 _Dimensions:_ Rows: 1200 Columns: 18
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BREAST.csv)
 
@@ -248,37 +248,23 @@ _Dimensions:_ Rows: 1200 Columns: 18
 |variable |  Description                                            | unit    |
 |---------|---------------------------------------------------------|---------|
 |Id       |  ID                                                     |         |
-|case     |  case                                                   |         |
-|         |  1 = case                                               |         |
-|         |  0 = control                                            |         |
+|case     |  case <br> 1 = case <br> 0 = control                    |         |
 |age      |  age                                                    | years   |
 |agemenar |  age at menarche                                        | years   |
 |agemenop |  age at menopause                                       | years   |
 |afb      |  age at first birth  98=nullip                          | years   |
 |parity   |  parity                                                 |         |
-|bbd      |  Benign Breast disease                                  |         |
-|         |  1 = yes                                                |         |
-|         |  0 = no                                                 |         |   
-|famhx    |  family history breast cancer                           |         |
-|         |  1 = yes                                                |         |
-|         |  0 = no                                                 |         | 
+|bbd      |  Benign Breast disease <br> 1 = yes <br> 0 = no         |         |
+|famhx    |  family history breast cancer <br> 1 = yes <br> 0 = no   |         | 
 |bmi      |  BMI                                                    | kg/m^2^ |
 |hgt      |  Height                                                 | inches  |
-|alcohol  |  Alcohol use (grams/day)                                | g/day   |
-|pmh      |  PMH status                                             |         |
-|         |  2 = never user                                         |         |
-|         |  3 = current user                                       |         | 
+|alcohol  |  Alcohol use                                            | g/day   |
+|pmh      |  PMH status <br> 2 = never user <br> 3 = current user   |         | 
 |dur3     |  Duration of Estrogen use  (months)                     | months  |
 |dur4     |  Duration of Estrogen + progesterone use  (months)      | months  |
-|csmk     |  Current Smoker                                         |         |
-|         |  1 = yes                                                |         |
-|         |  0 = no                                                 |         | 
-|psmk     |  Past smoker                                            |         |
-|         |    1 = yes                                              |         |
-|         |    0 = no                                               |         | 
-|foluptm  |  Months of follow up Note: Some subjects provided no    |  months |
-|         |  follow up after the 1990 questionnaire: foluptm=0 for  |         |
-|         |  these people                                           |         |
+|csmk     |  Current Smoker <br> 1 = yes <br> 0 = no                |         | 
+|psmk     |  Past smoker <br> 1 = yes <br> 0 = no                   |         | 
+|foluptm  |  Months of follow up Note: Some subjects provided no <br> follow up after the 1990 questionnaire: foluptm=0 for <br> these people     |  months |
 
 ::::
 
@@ -1520,7 +1506,7 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* breast
+
 * corneal
 * diabetes
 * ear
