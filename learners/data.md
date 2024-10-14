@@ -354,7 +354,7 @@ _Dimensions:_ Rows: 910 Columns: 8
 |yr_a1c    |  Yr                            |      |
 |age_yrs   |  Age in years                  | year |
 |gly_a1c   |  Hemoglobin A1c                |  %   |
-|ht_cm     |  Height   missing=999.9        | cm   |
+|ht_cm     |  Height <br>  missing=999.9    | cm   |
 |wt_kg     |  Weight                        | kg   |
 
 ::::
@@ -1505,7 +1505,6 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* diabetes
 * ear
 * eff
 * endocrin
