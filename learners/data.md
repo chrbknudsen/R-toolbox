@@ -449,9 +449,12 @@ _Dimensions:_ Rows: 10 Columns: 6
 
 ### ESTRADL
 
+Data on 211 women. Measurement of estradiol, ethnicity, number of children, 
+BMI and Waist/hip ratio.
+
 _Dimensions:_ Rows: 211 Columns: 10  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/ESTRADL.csv)
 
@@ -459,23 +462,20 @@ _Dimensions:_ Rows: 211 Columns: 10
 
 ## Metadata
 
-|Variable |  Code	                                           | unit  |
-|---------|--------------------------------------------------|-------|
-|Id       |  Identification number                           |       |
-|Estradl  |  Estradiol                                       |       |
-|Ethnic   |  Ethnicity                                       |       |
-|         |  0 = African-American                            |       |
-|         |  1 = Caucasian                                   |       |
-|Entage   |  Age                                             |       |
-|Numchild |  Parity, number of children  9=missing           |       |
-|Agefbo   |  Age at 1st birth (=0 if numchild=0)  99=missing |       |
-|Anykids	|  any children                                    |       |
-|        	|  1 = yes                                         |       |
-|        	|  0 = no                                          |       |
-|        	|  9 = missing                                     |       |
-|Agemenar |  age at menarche   99=missing                    | years |
-|BMI      |  Body Mass Index                                 |       |
-|WHR      |  waist-hip ratio                                 |       |
+|Variable |  Code	                                                  | unit    |
+|---------|---------------------------------------------------------|---------|
+|Id       |  Identification number                                  |         |
+|Estradl  |  Estradiol                                              | pg/ml   |
+|Ethnic   |  Ethnicity <br> 0 = African-American <br> 1 = Caucasian |         |
+|Entage   |  Age                                                    | year    |
+|Numchild |  Parity, number of children  9=missing                  |         |
+|Agefbo   |  Age at 1st birth (= 0 if numchild = 0)  99 = missing   | year    |
+|Anykids	|  Any children <br> 1 = yes <br> 0 = no <br> 9 = missing |         |
+|Agemenar |  Age at menarche <br> 99=missing                        | years   |
+|BMI      |  Body Mass Index                                        | kg/^m^^ |
+|WHR      |  waist-hip ratio                                        |         |
+
+CAVE: Note the coding of Agefbo
 
 ::::
 
@@ -1394,6 +1394,8 @@ Nielsen, C. T., Skakkebxk, N. E., Richardson, D. W., Darling, J. A. B., Hunter, 
 
 _Dimensions:_ Rows: 40 Columns: 5 
 
+Også Rosner...
+
 [source](learners/data.md#jorgensen_4)^4^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
@@ -1499,7 +1501,7 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* estradl
+
 * estrogen
 * FEV
 * field
