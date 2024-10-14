@@ -538,18 +538,14 @@ American Journal of Epidemiology, 110, 15-26.
 
 ## Metadata
 
-|Variable |  Description          |  Unit | 
-|---------|-----------------------|-------|
-| Id      |  ID number            |       |
-| Age     |  Age (yrs)            | years |
-| FEV     |  FEV (liters)         | l     |
-| Hgt     |  Height (inches)      | in    |
-| Sex     |  Sex                  |       |
-|         |  0 = female           |       |
-|         |  1 = male             |       |
-| Smoke   |  Smoking Status       |       |
-|         |  0=non-current smoker |       |
-|         |  1=current smoker     |       |
+|Variable |  Description                                                        |  Unit | 
+|---------|---------------------------------------------------------------------|-------|
+| Id      |  ID number                                                          |       |
+| Age     |  Age                                                                | years |
+| FEV     |  FEV                                                                | l     |
+| Hgt     |  Height                                                             | in    |
+| Sex     |  Sex <br> 0 = female <br> 1 = male                                  |       |
+| Smoke   |  Smoking Status <br> 0 = non-current smoker <br> 1 = current smoker |       |
 
 ::::
 
