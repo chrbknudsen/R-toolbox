@@ -272,7 +272,7 @@ _Dimensions:_ Rows: 1200 Columns: 18
 
 Data from a randomized trial of two different active drugs of the fluoroquinolone-group,
 M and G along with a placebo, P.
-93 subjects placed in one of three groups:
+93 subjects were placed in one of three groups:
 
 | Group | Eye 1 | Eye 2|
 |-------|-------|------|
@@ -303,10 +303,7 @@ _Dimensions:_ Rows: 186 Columns: 17
 |Variable  |  Variable label                       | unit |
 |----------|---------------------------------------|------|
 |  id      |  ID                                   |      |
-|  tr      |  Treatment                            |      |
-|          |  1=M                                  |      |
-|          |  2=G                                  |      |
-|          |  3=P                                  |      |
+|  tr      |  Treatment <br> 1 = M <br> 2 = G <br> 3 = P  |      |
 |  c1      |  Central  visit 1                     | mm |
 |  s1      |  Superior visit 1                     | mm |
 |  i1      |  Inferior Visit 1                     | mm |
@@ -317,11 +314,13 @@ _Dimensions:_ Rows: 186 Columns: 17
 |  i2      |  Inferior Visit 2                     | mm |
 |  t2      |  Temporal Visit 2                     | mm |
 |  n2      |  Nasal Visit 2                        | mm |
-|  c3      |  Central Visit 3(day 14)  missing=99  | mm |
-|  s3      |  Superior Visit 3         missing=99  | mm |
-|  i3      |  Inferior Visit 3         missing=99  | mm |
-|  t3      |  Temporal Visit 3         missing=99  | mm |
-|  n3      |  Nasal Visit 3            missing=99  | mm |
+|  c3      |  Central Visit 3(day 14)              | mm |
+|  s3      |  Superior Visit 3                     | mm |
+|  i3      |  Inferior Visit 3                     | mm |
+|  t3      |  Temporal Visit 3                     | mm |
+|  n3      |  Nasal Visit 3                        | mm |
+
+99: Missing values
 
 ::::
 
@@ -1506,8 +1505,6 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-
-* corneal
 * diabetes
 * ear
 * eff
