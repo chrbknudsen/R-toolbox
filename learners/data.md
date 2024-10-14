@@ -568,16 +568,16 @@ _Dimensions:_ Rows: 1326 Columns: 8
 
 ## Metadata
 
-|  Variable  |  Description                                                   |
-|------------|----------------------------------------------------------------|
-|  id        |  ID                                                            |
-|  group     |  group (1=RHO/2=RPGR)                                          |
-|  age       |  age at visit  (XX.X in years)                                 |
-|  gender    |  gender (1=m/2=f)  Note: all RPGR individuals have to be male  |
-|  dtvisit   |  date of visit (month/day/year)                                |
-|  folowup   |  time from 1st visit in years                                  |
-|  totfldod  |  total field area right eye (OD) in degrees²                   |
-|  totfldos  |  total field area left eye (OS) in degrees²                    |
+|  Variable  |  Description                                                   | unit | 
+|------------|----------------------------------------------------------------|------|
+|  id        |  ID                                                            |      |
+|  group     |  group <br> 1 = RHO <br> 2 = RPGR                              |      |
+|  age       |  age at visit  (XX.X in years)                                 |      |
+|  gender    |  gender <br> 1 = m <br> 2 = f <br> Note: all RPGR individuals have to be male  |      |
+|  dtvisit   |  date of visit (month/day/year)                                |      |
+|  folowup   |  time from 1st visit in years                                  |      |
+|  totfldod  |  total field area right eye (OD) in degrees²                   |      |
+|  totfldos  |  total field area left eye (OS) in degrees²                    |      |
 
 ::::
 
@@ -595,13 +595,7 @@ _Dimensions:_ Rows: 7 Columns: 9
 
 |Variable    |  code                                                                          |
 |------------|--------------------------------------------------------------------------------|
-|Diagnosis   |  Y1=normal                                                                     |
-|            |  Y2=atrial septal defect without pulmonary stenosis or pulmonary hypertension  |
-|            |  Y3=ventricular septal defect with valvular pulmonary stenosis                 |
-|            |  Y4=isolated pulmonary hypertension                                            |
-|            |  Y5=transposed great vessels                                                   |
-|            |  Y6=ventricular septal defect without pulmonary hypertension                   |
-|            |  Y7=ventricular septal defect with pulmonary hypertension                      |
+|Diagnosis   |  Y1 = normal <br> Y2 = atrial septal defect without pulmonary stenosis or pulmonary hypertension <br>  Y3 = ventricular septal defect with valvular pulmonary stenosis <br> Y4 = isolated pulmonary hypertension <br> Y5 = transposed great vessels <br> Y6 = ventricular septal defect without pulmonary hypertension <br>  Y7 = ventricular septal defect with pulmonary hypertension       |
 |Prevalence  |  Prevalence                                                                    |
 |X1          |  age 1-20 years old                                                            |
 |X2          |  age>20 years old                                                              |
@@ -617,7 +611,7 @@ _Dimensions:_ Rows: 7 Columns: 9
 
 _Dimensions:_ Rows: 398 Columns: 11
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HORMONE.csv)
 
@@ -637,7 +631,7 @@ _Dimensions:_ Rows: 398 Columns: 11
 |  Bilphpt   |  Biliary pH-post                       |
 |  Pansecpt  |  Pancreatic secretion-post             |
 |  Panphpt   |  Pancreatic pH-post                    |
-|  Hormone   |  Hormone 1=SAL/2=APP/3=CCK/4=SEC/5=VIP |
+|  Hormone   |  Hormone <br> 1 = SAL <br> 2 = APP <br> 3 = CCK <br> 4=SEC <br> 5=VIP |
 
 ::::
 
@@ -653,17 +647,17 @@ _Dimensions:_ Rows: 25 Columns: 9
 
 ## Metadata
 
-|  Variable  |  Label                                  |
-|------------|-----------------------------------------|
-|  Id        |  id no.                                 |
-|  Dur_stay  |  Duration of hospital stay              |
-|  Age       |  Age                                    |
-|  Sex       |  Sex  1=male/2=female                   |
-|  Temp      |  First temperature following admission  |
-|  WBC       |  First WBC(x1000) following admission   |
-|  Antibio   |  Received antibiotic 1=yes/2=no         |
-|  Bact_cul  |  Received bacterial culture 1=yes/2=no  |
-|  Service   |  Service 1=med/2=surg.                  |
+|  Variable  |  Label                                               | unit |
+|------------|------------------------------------------------------|------|
+|  Id        |  id no.                                              |      |
+|  Dur_stay  |  Duration of hospital stay                           |      |
+|  Age       |  Age                                                 |      |
+|  Sex       |  Sex <br> 1 = male <br> 2 = female                   |      |
+|  Temp      |  First temperature following admission               |      |
+|  WBC       |  First WBC(x1000) following admission                |      |
+|  Antibio   |  Received antibiotic <br> 1 = yes <br> 2 = no        |      |
+|  Bact_cul  |  Received bacterial culture <br> 1 = yes <br> 2 = no |      |
+|  Service   |  Service <br> 1 = med <br> 2 = surg.                 |      |
 
 ::::
 
@@ -695,21 +689,21 @@ Salt Taste Variables
 
 ## Metadata
 
-|  Variable  |  Format |  Description                         |
-|------------|---------|--------------------------------------|
-|  ID        |         |                                      |
-|  Mn_sbp    |  xx.xx  |  Mean SBP 99.99=missing              |
-|  Mn_dbp    |  xx.xx  |  Mean DBP 99.99=missing              |
-|  MSB1slt   |  xxx.xx |  MSB-trial 1* water                  |
-|  MSB2slt   |  xxx.xx |  MSB-trial 2 water                   |
-|  MSB3slt   |  xxx.xx |  MSB-trial 3 0.1 molar salt + water  |
-|  MSB4slt   |  xxx.xx |  MSB-trial 4 0.1 molar salt + water  |
-|  MSB5slt   |  xxx.xx |  MSB-trial 5 water                   |
-|  MSB6slt   |  xxx.xx |  MSB-trial 6 water                   |
-|  MSB7slt   |  xxx.xx |  MSB-trial 7 0.3 molar salt + water  |
-|  MSB8slt   |  xxx.xx |  MSB-trial 8 0.3 molar salt + water  |
-|  MSB9slt   |  xxx.xx |  MSB-trial 9 water                   |
-|  MSB10slt  |  xxx.xx |  MSB-trial 10 water                  |
+|  Variable  |    Description                       | unit |
+|------------|--------------------------------------|------|
+|  ID        |                                      |      |
+|  Mn_sbp    |  Mean SBP 99.99=missing              |      |
+|  Mn_dbp    |  Mean DBP 99.99=missing              |      |
+|  MSB1slt   |  MSB-trial 1* water                  |      |
+|  MSB2slt   |  MSB-trial 2 water                   |      |
+|  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |      |
+|  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |      |
+|  MSB5slt   |  MSB-trial 5 water                   |      |
+|  MSB6slt   |  MSB-trial 6 water                   |      |
+|  MSB7slt   |  MSB-trial 7 0.3 molar salt + water  |      |
+|  MSB8slt   |  MSB-trial 8 0.3 molar salt + water  |      |
+|  MSB9slt   |  MSB-trial 9 water                   |      |
+|  MSB10slt  |  MSB-trial 10 water                  |      |
 
 Sugar Taste Variables
 
