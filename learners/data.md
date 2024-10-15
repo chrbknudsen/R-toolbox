@@ -563,9 +563,19 @@ _Dimensions:_ Rows: 654 Columns: 6
 ::::
 
 
-
-
 ### FIELD
+
+Data from a study of the ocular disease Retinitis pigmentosoa (RP). 
+The condition can result in substantial loss of vision, in some cases complete
+blindness. It has been discovered that this disease is linked to two genes.
+Mutations in the rhodosin gene RHO account for many cases that are predominantly
+inherited, whereas mutations in the RPGR gene account for many sex-linked
+cases; only males can have the RPGR mutation.
+The study measures the visual field of approx. 100 patients in each group (RHO and
+RPGR). The field of vision is measured in °^2^. 
+
+Are there differences in the baseline level of visual field between the two
+groups? Does the rate of decline differ between the two groups?
 
 _Dimensions:_ Rows: 1326 Columns: 8  
 
@@ -577,16 +587,18 @@ _Dimensions:_ Rows: 1326 Columns: 8
 
 ## Metadata
 
-|  Variable  |  Description                                                   | unit | 
-|------------|----------------------------------------------------------------|------|
-|  id        |  ID                                                            |      |
-|  group     |  group <br> 1 = RHO <br> 2 = RPGR                              |      |
-|  age       |  age at visit  (XX.X in years)                                 |      |
-|  gender    |  gender <br> 1 = m <br> 2 = f <br> Note: all RPGR individuals have to be male  |      |
-|  dtvisit   |  date of visit (month/day/year)                                |      |
-|  folowup   |  time from 1st visit in years                                  |      |
-|  totfldod  |  total field area right eye (OD) in degrees²                   |      |
-|  totfldos  |  total field area left eye (OS) in degrees²                    |      |
+|  Variable  |  Description                       | unit  | 
+|------------|------------------------------------|-------|
+|  id        |  ID                                |       |
+|  group     |  group <br> 1 = RHO <br> 2 = RPGR  |       |
+|  age       |  age at visit                      | years |
+|  gender    |  gender <br> 1 = m <br> 2 = f      |       |
+|  dtvisit   |  date of visit (month/day/year)    |       |
+|  folowup   |  time from 1st visit               | years |
+|  totfldod  |  total field area right eye (OD)   | °^2^  |
+|  totfldos  |  total field area left eye (OS)    | °^2^  |
+
+Note: all RPGR individuals have to be male
 
 ::::
 
@@ -1479,8 +1491,6 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-
-* field
 * heart
 * hormone
 * hospital
