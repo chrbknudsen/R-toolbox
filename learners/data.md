@@ -532,12 +532,10 @@ _Dimensions:_ Rows: 62 Columns: 22
 
 _Dimensions:_ Rows: 654 Columns: 6 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
-Yderligere reference:
-Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
-Effect of parental cigarette smoking on pulmonary function in children.
-American Journal of Epidemiology, 110, 15-26.
+Additional [reference](#tage_6)^6^
+
 
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FEV.csv)
@@ -1469,6 +1467,10 @@ https://doi.org/10.2307/2532505
 https://www.jstor.org/stable/2532505
 
 <a id="buring_5">5</a>: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
+
+<a id ="tage_6">6</a>: Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979), Effect of parental cigarette smoking on pulmonary function in children. American Journal of Epidemiology, 110, 15-26.
+
+
 
 
 ## listen over datasæt. 
