@@ -530,13 +530,20 @@ _Dimensions:_ Rows: 62 Columns: 22
 
 ### FEV
 
+Data on 654 children seen in the [Childhood Respiratory Disease Study](#tage_6)^6^ in East Boston 
+Massachusetts in 1980. Forced Expiratory Volumne (FEF), an index of pulmonary
+function was measured, along with, age, height, sex and smoking status. 
+
+FEV is the volume of air (in liters) that can be expelled from the lungs in 
+one second.
+
+Usefull for demonstrating linear regressions, also multiple linear regression
+with categorical interactions, and change in FEV as a function of height and sex.
+
+
 _Dimensions:_ Rows: 654 Columns: 6 
 
 [Source](data.md#rosner_1)^1^
-
-Additional [reference](#tage_6)^6^
-
-
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FEV.csv)
 
@@ -555,11 +562,7 @@ Additional [reference](#tage_6)^6^
 
 ::::
 
-FEV - Forced Expiratory Volume er et index for lungefunktion, der måler
-det volumen luft (i liter) der kan udstødes af lungerne på et sekund. 
 
-Data indeholder data på 654 børn i alderen fra 3 til 19 år i "Childhood
-Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
 
 
 ### FIELD
@@ -1477,7 +1480,6 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* FEV
 * field
 * heart
 * hormone
