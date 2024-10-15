@@ -481,6 +481,14 @@ CAVE: Note the coding of Agefbo
 
 ### ESTROGEN
 
+The influence on different doses of estrogen on systolic and diastolic blood pressure
+is investigated. 31 subjects are placed into 1 of three study types, and recives
+treatment two times for four weeks, with a two week washout period between.
+
+Are there any significant differences between the different treatments - or carry over
+effects on blood pressure in the different groups.
+
+
 _Dimensions:_ Rows: 62 Columns: 22
 
 [Source](data.md#rosner_1)^1^
@@ -1466,7 +1474,7 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-* estrogen
+
 * FEV
 * field
 * heart
