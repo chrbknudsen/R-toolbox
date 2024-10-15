@@ -604,9 +604,12 @@ Note: all RPGR individuals have to be male
 
 ### HEART
 
+A dataset showing the prevalence of different heart conditions, in different
+populations, and of different symptoms.
+
 _Dimensions:_ Rows: 7 Columns: 9  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
 
@@ -1491,7 +1494,7 @@ https://www.jstor.org/stable/2532505
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-* heart
+
 * hormone
 * hospital
 * infantbp
