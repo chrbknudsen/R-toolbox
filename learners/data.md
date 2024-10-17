@@ -633,6 +633,15 @@ _Dimensions:_ Rows: 7 Columns: 9
 
 ### HORMONE
 
+Data on the influence of four hormones, compared with a saline solution on
+the pancreatic and biliary secretions in laying hens. [White leghorn hens](https://en.wikipedia.org/wiki/Leghorn_chicken), aged 14-29 weeks, were
+fitted with cannulas for collection of pancreatic and biliary secretions, and 
+a jugular cannula for infusion of the hormones. One trial pr day was performed,
+until the jugular cannula stopped working - therefore there are a different 
+number of observations pr. hen. 
+
+Each trial 
+
 _Dimensions:_ Rows: 398 Columns: 11
 
 [Source](data.md#rosner_1)^1^
@@ -643,19 +652,27 @@ _Dimensions:_ Rows: 398 Columns: 11
 
 ## Metadata
 
-|  Variable  |  Description/Code                      |
-|------------|----------------------------------------|
-|  ID        |  ID                                    |
-|  Bilsecpr  |  Biliary secretion-pre                 |
-|  Bilphpr   |  Biliary pH-pre                        |
-|  Pansecpr  |  Pancreatic secretion-pre              |
-|  Panphpr   |  Pancreatic pH-pre                     |
-|  Dose      |  Dose                                  |
-|  Bilsecpt  |  Biliary secretion-post                |
-|  Bilphpt   |  Biliary pH-post                       |
-|  Pansecpt  |  Pancreatic secretion-post             |
-|  Panphpt   |  Pancreatic pH-post                    |
-|  Hormone   |  Hormone <br> 1 = SAL <br> 2 = APP <br> 3 = CCK <br> 4=SEC <br> 5=VIP |
+|  Variable  |  Description/Code | unit |
+|------------|--------|----------------|
+|  ID        |  ID |      |
+|  Bilsecpr  |  Biliary secretion-pre | µl/min       |
+|  Bilphpr   |  Biliary pH-pre | pH     |
+|  Pansecpr  |  Pancreatic secretion-pre |µl/min |
+|  Panphpr   |  Pancreatic pH-pre                     | pH     |
+|  Dose      |  Dose | APP: ng/mL plasma <br> CKK, VIP, SEC: µg/kg/h       |
+|  Bilsecpt  |  Biliary secretion-post | µl/min |
+|  Bilphpt   |  Biliary pH-post | pH     |
+|  Pansecpt  |  Pancreatic secretion-post | µl/min |
+|  Panphpt   |  Pancreatic pH-post | pH     |
+|  Hormone   |  Hormone <br> 1 = SAL <br> 2 = APP <br> 3 = CCK <br> 4=SEC <br> 5=VIP |      |
+
+A value of 0 for pH indicate missing values.
+
+* SAL: Saline
+* APP: Avian pancreatic polypeptide
+* CCK: Cholecystokinin
+* SEC: Secretine
+* VIP: Vasoactive intestinal peptide
 
 ::::
 
