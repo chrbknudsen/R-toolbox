@@ -76,16 +76,16 @@ Let us begin by looking at the data. We begin by loading the two packages `tidyv
 and `table1`. We then read in the data from the csv-file "BLOOD.csv", which
 we have [downloaded from this link](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv).
 
-```{r load-data-1}
+```{r load-data-1, message=FALSE}
 library(tidyverse)
 library(table1)
-dat <- read_csv("data/BLOOD.csv")
+blood <- read_csv("data/BLOOD.csv")
 ```
 
 The data contains missing values, coded as "999.0" for estrone and testost, and
 99.99 for prolactin:
 ```{r load-data-2}
-dat <- dat %>% 
+blood <- blood %>% 
   mutate(estrone = na_if(estrone, 999.0)) %>% 
   mutate(testost = na_if(testost, 999.0)) %>% 
   mutate(prolactn = na_if(prolactn, 99.99)) 
@@ -96,7 +96,7 @@ We then ensure that categorical values are stored as categorical values, and
 adjust the labels of those categorical values:
 
 ```{r load-data-3}
-dat <- dat %>% 
+blood <- blood %>% 
   mutate(case = factor(case, labels = c("control", "case"))) %>% 
   mutate(curpmh = factor(curpmh, labels = c("no", "yes")))
 ```
@@ -104,7 +104,7 @@ dat <- dat %>%
 And now we can make our table one like this:
 
 ```{r table-one-live}
-table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = dat)
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood)
 ```
 
 It is a good idea, and increases readability, to add labels and units to
@@ -123,7 +123,7 @@ Which looks a bit nicer:
 
 
 ```{r table-one-live-2}
-table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = dat)
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood)
 ```
 
 
@@ -135,17 +135,20 @@ statistics presented in the table.
 
 We can do that by specifying input to the arguments
 `render.continuous` and `render.categorical` that
-control how continuous and categorical data respecetively,
+control how continuous and categorical data respectively,
 is shown in the table.
 
 The simple way of doing that is by using abbrevieated
 function names:
 
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood)
+
 ```{r summary-statistics}
-table1(~sex + age + weight|treatment, data = dat,
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood,
         render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
                            "Geom. mean (Geo. SD%)"="GMEAN (GSD%)"))
 ```
+
 `table1` recognizes the following summary statisticis:
 N, NMISS, MEAN, SD, CV, GMEAN, GCV, MEDIAN, MIN, MAX, IQR, 
 Q1, Q2, Q3, T1, T2, FREQ, PCT
@@ -172,7 +175,7 @@ geometric.
 
 :::: solution
 ```{r summary-statistics-solution, eval = FALSE}
-table1(~sex + age + weight|treatment, data = dat,
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood,
         render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
                            "Geometric mean (Geometric SD%)"="GMEAN (GSD%)"))
 ```
@@ -203,7 +206,7 @@ my_summary <- function(x){
   c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
 }
-table1(~sex + age + weight|treatment, data = dat,
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood,
 render.continuous = my_summary)
 ```
 We do not _need_ to use the `sprintf()` function, but it is a very neat way of 
@@ -269,7 +272,7 @@ my_summary <- function(x){
   c("Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
 }
-table1(~sex + age + weight|treatment, data = dat,
+table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood,
 render.continuous = my_summary)
 ```
 The line beginning with "Median" does not show up, but the median value is 
