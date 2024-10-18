@@ -481,6 +481,14 @@ CAVE: Note the coding of Agefbo
 
 ### ESTROGEN
 
+The influence on different doses of estrogen on systolic and diastolic blood pressure
+is investigated. 31 subjects are placed into 1 of three study types, and recives
+treatment two times for four weeks, with a two week washout period between.
+
+Are there any significant differences between the different treatments - or carry over
+effects on blood pressure in the different groups.
+
+
 _Dimensions:_ Rows: 62 Columns: 22
 
 [Source](data.md#rosner_1)^1^
@@ -522,15 +530,20 @@ _Dimensions:_ Rows: 62 Columns: 22
 
 ### FEV
 
+Data on 654 children seen in the [Childhood Respiratory Disease Study](#tage_6)^6^ in East Boston 
+Massachusetts in 1980. Forced Expiratory Volumne (FEF), an index of pulmonary
+function was measured, along with, age, height, sex and smoking status. 
+
+FEV is the volume of air (in liters) that can be expelled from the lungs in 
+one second.
+
+Usefull for demonstrating linear regressions, also multiple linear regression
+with categorical interactions, and change in FEV as a function of height and sex.
+
+
 _Dimensions:_ Rows: 654 Columns: 6 
 
-[source](data.md#rosner_1)^1^
-
-Yderligere reference:
-Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979),
-Effect of parental cigarette smoking on pulmonary function in children.
-American Journal of Epidemiology, 110, 15-26.
-
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FEV.csv)
 
@@ -549,14 +562,20 @@ American Journal of Epidemiology, 110, 15-26.
 
 ::::
 
-FEV - Forced Expiratory Volume er et index for lungefunktion, der måler
-det volumen luft (i liter) der kan udstødes af lungerne på et sekund. 
-
-Data indeholder data på 654 børn i alderen fra 3 til 19 år i "Childhood
-Respiratory Disease (CRD) Study", fra 1980 i Øst Boston, Massachusetts, USA.
-
 
 ### FIELD
+
+Data from a study of the ocular disease Retinitis pigmentosoa (RP). 
+The condition can result in substantial loss of vision, in some cases complete
+blindness. It has been discovered that this disease is linked to two genes.
+Mutations in the rhodosin gene RHO account for many cases that are predominantly
+inherited, whereas mutations in the RPGR gene account for many sex-linked
+cases; only males can have the RPGR mutation.
+The study measures the visual field of approx. 100 patients in each group (RHO and
+RPGR). The field of vision is measured in °^2^. 
+
+Are there differences in the baseline level of visual field between the two
+groups? Does the rate of decline differ between the two groups?
 
 _Dimensions:_ Rows: 1326 Columns: 8  
 
@@ -568,24 +587,29 @@ _Dimensions:_ Rows: 1326 Columns: 8
 
 ## Metadata
 
-|  Variable  |  Description                                                   | unit | 
-|------------|----------------------------------------------------------------|------|
-|  id        |  ID                                                            |      |
-|  group     |  group <br> 1 = RHO <br> 2 = RPGR                              |      |
-|  age       |  age at visit  (XX.X in years)                                 |      |
-|  gender    |  gender <br> 1 = m <br> 2 = f <br> Note: all RPGR individuals have to be male  |      |
-|  dtvisit   |  date of visit (month/day/year)                                |      |
-|  folowup   |  time from 1st visit in years                                  |      |
-|  totfldod  |  total field area right eye (OD) in degrees²                   |      |
-|  totfldos  |  total field area left eye (OS) in degrees²                    |      |
+|  Variable  |  Description                       | unit  | 
+|------------|------------------------------------|-------|
+|  id        |  ID                                |       |
+|  group     |  group <br> 1 = RHO <br> 2 = RPGR  |       |
+|  age       |  age at visit                      | years |
+|  gender    |  gender <br> 1 = m <br> 2 = f      |       |
+|  dtvisit   |  date of visit (month/day/year)    |       |
+|  folowup   |  time from 1st visit               | years |
+|  totfldod  |  total field area right eye (OD)   | °^2^  |
+|  totfldos  |  total field area left eye (OS)    | °^2^  |
+
+Note: all RPGR individuals have to be male
 
 ::::
 
 ### HEART
 
+A dataset showing the prevalence of different heart conditions, in different
+populations, and of different symptoms.
+
 _Dimensions:_ Rows: 7 Columns: 9  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HEART.csv)
 
@@ -609,6 +633,15 @@ _Dimensions:_ Rows: 7 Columns: 9
 
 ### HORMONE
 
+Data on the influence of four hormones, compared with a saline solution on
+the pancreatic and biliary secretions in laying hens. [White leghorn hens](https://en.wikipedia.org/wiki/Leghorn_chicken), aged 14-29 weeks, were
+fitted with cannulas for collection of pancreatic and biliary secretions, and 
+a jugular cannula for infusion of the hormones. One trial pr day was performed,
+until the jugular cannula stopped working - therefore there are a different 
+number of observations pr. hen. 
+
+Each trial 
+
 _Dimensions:_ Rows: 398 Columns: 11
 
 [Source](data.md#rosner_1)^1^
@@ -619,19 +652,27 @@ _Dimensions:_ Rows: 398 Columns: 11
 
 ## Metadata
 
-|  Variable  |  Description/Code                      |
-|------------|----------------------------------------|
-|  ID        |  ID                                    |
-|  Bilsecpr  |  Biliary secretion-pre                 |
-|  Bilphpr   |  Biliary pH-pre                        |
-|  Pansecpr  |  Pancreatic secretion-pre              |
-|  Panphpr   |  Pancreatic pH-pre                     |
-|  Dose      |  Dose                                  |
-|  Bilsecpt  |  Biliary secretion-post                |
-|  Bilphpt   |  Biliary pH-post                       |
-|  Pansecpt  |  Pancreatic secretion-post             |
-|  Panphpt   |  Pancreatic pH-post                    |
-|  Hormone   |  Hormone <br> 1 = SAL <br> 2 = APP <br> 3 = CCK <br> 4=SEC <br> 5=VIP |
+|  Variable  |  Description/Code | unit |
+|------------|--------|----------------|
+|  ID        |  ID |      |
+|  Bilsecpr  |  Biliary secretion-pre | µl/min       |
+|  Bilphpr   |  Biliary pH-pre | pH     |
+|  Pansecpr  |  Pancreatic secretion-pre |µl/min |
+|  Panphpr   |  Pancreatic pH-pre                     | pH     |
+|  Dose      |  Dose | APP: ng/mL plasma <br> CKK, VIP, SEC: µg/kg/h       |
+|  Bilsecpt  |  Biliary secretion-post | µl/min |
+|  Bilphpt   |  Biliary pH-post | pH     |
+|  Pansecpt  |  Pancreatic secretion-post | µl/min |
+|  Panphpt   |  Pancreatic pH-post | pH     |
+|  Hormone   |  Hormone <br> 1 = SAL <br> 2 = APP <br> 3 = CCK <br> 4=SEC <br> 5=VIP |      |
+
+A value of 0 for pH indicate missing values.
+
+* SAL: Saline
+* APP: Avian pancreatic polypeptide
+* CCK: Cholecystokinin
+* SEC: Secretine
+* VIP: Vasoactive intestinal peptide
 
 ::::
 
@@ -1462,14 +1503,15 @@ https://www.jstor.org/stable/2532505
 
 <a id="buring_5">5</a>: Buring, J.E, Evans, D.A., Mayrent, S.L. Rosner, B. Colton, T & Hennekens, C.H. (1988). Randomized trials of aminoglycoside antibiotics. Reviews of Infectious Disease, 10(5) 951-957.
 
+<a id ="tage_6">6</a>: Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979), Effect of parental cigarette smoking on pulmonary function in children. American Journal of Epidemiology, 110, 15-26.
+
+
+
 
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
-* estrogen
-* FEV
-* field
-* heart
+
 * hormone
 * hospital
 * infantbp

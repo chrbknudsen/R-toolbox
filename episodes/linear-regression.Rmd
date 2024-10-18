@@ -271,7 +271,9 @@ the stopping distance.
 :::: challenge
 Make a model, where you describe the length of the flipper of a penguin, as a 
 function of its weigth. You find data on penguins in the library `palmerpenguins`.
+
 :::: solution
+
 ```{r}
 library(palmerpenguins)
 penguin_model <- lm(flipper_length_mm~body_mass_g, data = penguins)
@@ -279,6 +281,7 @@ summary(penguin_model)
 ```
 
 ::::
+
 ::::
 
 
