@@ -80,10 +80,18 @@ we have [downloaded from this link](https://raw.githubusercontent.com/KUBDatalab
 library(tidyverse)
 library(table1)
 blood <- read_csv("data/BLOOD.csv")
+head(blood)
 ```
+510 rows. Its a case-control study, where the ID represents one individual, and 
+matchid gives us the link between cases and controls. Ageblood is the age of the
+individual at the time when the blood sample was drawn, and we then have levels 
+of four different hormones.
 
 The data contains missing values, coded as "999.0" for estrone and testost, and
-99.99 for prolactin:
+99.99 for prolactin.
+
+Let us fix that:
+
 ```{r load-data-2}
 blood <- blood %>% 
   mutate(estrone = na_if(estrone, 999.0)) %>% 
@@ -111,12 +119,12 @@ It is a good idea, and increases readability, to add labels and units to
 the variables. The `table1` package provides functions for that:
 
 ```{r load-data-4}
-label(dat$curpmh) <- "current_pmh"
-label(dat$case) <- "case_control"
-label(dat$ageblood) <- "Age"
-units(dat$ageblood) <- "years"
-units(dat$estradol) <- "pg/mL"
-units(dat$estrone) <- "pg/mL"
+label(blood$curpmh) <- "current_pmh"
+label(blood$case) <- "case_control"
+label(blood$ageblood) <- "Age"
+units(blood$ageblood) <- "years"
+units(blood$estradol) <- "pg/mL"
+units(blood$estrone) <- "pg/mL"
 ```
 
 Which looks a bit nicer:
