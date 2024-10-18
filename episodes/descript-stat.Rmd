@@ -51,13 +51,21 @@ The easiest way to get summary statistics on data is to use the
 library(tidyverse)
 ```
 
-In the following we are working with the `palmerpenguins` dataset:
+In the following we are working with the `palmerpenguins` dataset. Note that
+the actual data is called `penguins` and is part of the package `palmerpenguins`:
 
 ```{r}
 library(palmerpenguins)
+head(penguins)
 ```
+344 penguins have been recorded at three different islands over three years. 
+Three different penguin species are in the dataset, and we have data on their 
+weight, sex, length of their flippers and two measurements of their bill (beak).
 
-Specifically the weight of the penguins, stored in the variable
+![What is lenght and depth of penguin bills?](../episodes/fig/culmen_depth.png){Copyright Allison Horst}
+
+
+Specifically we are going to work with the weight of the penguins, stored in the variable
 `body_mass_g`:
 
 ```{r}
