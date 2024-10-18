@@ -33,29 +33,29 @@ It typically compares different groups (male~female, treatment~control), to high
 ```{r prep_table1_data, echo = FALSE, warning = FALSE, message =FALSE}
 library(tidyverse)
 library(table1)
-dat <- read_csv("data/BLOOD.csv") %>% 
+blood <- read_csv("data/BLOOD.csv") %>% 
   mutate(estrone = na_if(estrone, 999.0)) %>% 
   mutate(testost = na_if(testost, 999.0)) %>% 
   mutate(prolactn = na_if(prolactn, 99.99)) 
 
-dat$case <- factor(dat$case)
-label(dat$case) <- "case_control"
-levels(dat$case) <- c("control", "case")
-dat$curpmh <- factor(dat$curpmh)
+blood$case <- factor(blood$case)
+label(blood$case) <- "case_control"
+levels(blood$case) <- c("control", "case")
+blood$curpmh <- factor(blood$curpmh)
 
-label(dat$curpmh) <- "current_pmh"
-levels(dat$curpmh) <- c("no", "yes")
-label(dat$ageblood) <- "Age"
-units(dat$ageblood) <- "years"
-units(dat$estradol) <- "pg/mL"
-units(dat$estrone) <- "pg/mL"
+label(blood$curpmh) <- "current_pmh"
+levels(blood$curpmh) <- c("no", "yes")
+label(blood$ageblood) <- "Age"
+units(blood$ageblood) <- "years"
+units(blood$estradol) <- "pg/mL"
+units(blood$estrone) <- "pg/mL"
 
 ```
 
 It can look like this:
 
 ```{r basic-table1-demo, echo = FALSE, results='asis'}
-table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = dat)
+table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = blood)
 ```
 Please note that the automatic styling of this site results in a table-one
 that is not very nice looking.
