@@ -126,6 +126,24 @@ Which looks a bit nicer:
 table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood)
 ```
 
+## Structuring the data
+
+Most things in R are simple to do (but rarely simple to understand) when the 
+data has the correct structure.
+
+If we follow the general rules of thumb for tidy data, we are off to a good 
+start. This is the structure of the data set we are working with here - after 
+we have made some modifications as described above.
+
+```{r data_structure_example}
+head(blood)
+```
+
+The important thing to note is that when we stratify the summary statistics by
+some variable, this variable have to be a categorical variable. The variables 
+we want to do summary statistics _on_ also have to have the correct type.
+Are the values categorical, the column in the dataframe have to actually be
+categorical. Are they numeric, the data type have to be numeric.
 
 
 ## More advanced stuff
