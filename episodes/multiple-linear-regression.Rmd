@@ -13,7 +13,8 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
+- Learn how to build and trim a model with multiple independent variabels
+- Learn how to build a model with interaction terms
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -35,22 +36,32 @@ Let us find some data for illustrating this.
 Before anything else, we load the `tidyverse` package, and then load the
 data:
 
-```{r library-and-data}
+```{r library-and-data, warning=FALSE, message = FALSE}
 library(tidyverse)
-density <- read_csv("data/BONEDEN.csv")
+boneden <- read_csv("data/BONEDEN.csv")
 ```
 
 The data records the bonedensity in different parts of the skeleton of 
 female monozygotic twins, as well as height, age, weight, smoking, alcohol, tea and 
-coffee-habits. We are going to observe the second twin, where all variables are
+coffee-habits. We are going to study the second twins, where all variables are
 suffixed with the digit "2":
 
 ```{r data-selection}
-density <- density %>% select(age, contains("2"))
+density <- boneden %>% select(age, contains("2"))
 head(density)
 ```
 
-More specically we are trying to model the bone density in the femoral shaft (lårbensskaft). As an intial hypothesis, we are going to assume that the density
+:::: callout
+
+The package `tidyselect` is a part of the `tidyverse`. It contains functions that
+allow us to choose variables/columns based on patterns in their names rather than
+specifying the names directly. `contains("2")` here return all columns with a name
+containing the string "2".
+
+::::
+
+More specically we are trying to model the bone density in the femoral shaft 
+(lårbensskaft). As an intial hypothesis, we are going to assume that the density
 depends on height (`ht2`), age (`age`), weight (`wt2`), tea (`tea2`) and coffee
 consumption (`cof2`).
 
@@ -65,10 +76,10 @@ lm(fs2 ~ ht2, data = density) %>%
   summary()
 ```
 Where we pipe the output of the regression to the summary function to take a 
-closer look. There is a strong correlation between bone density and height. If
-we increse the height of a woman by one centimeter, the density of the femoral
+closer look. There is a significant correlation between bone density and height. If
+we increase the height of a woman by one centimeter, the density of her femoral
 shaft is expected to increase by 0.0177 $g/cm^3$. The correlation is significant,
-we are rather sure that the estimate of this coefficient is different from 0.
+that is, we are rather sure that the estimate of this coefficient is different from 0.
 
 Now we would like to add the other independent variables to the model.
 
@@ -76,16 +87,18 @@ The model we are building can be described using math as:
 
 $$ \text{fs2} = w_0 + w_1\text{ht2} + w_2\text{wt2} + w_3\text{tea2} + w_4\text{cof2} + \epsilon  $$
 That is - we would like to figure out which coefficients $w_1$ to $w_4$, and 
-which intercept $w_0$ gives us estimates of fs2, that minimises the error $\epsilon$
+which intercept $w_0$ will give us estimates of fs2, that minimizes the error 
+$\epsilon$
 
 This is pretty straight forward. Instead of running `lm(fs2~ht2, data = density`,
 we add the additional independent variables using the `+` sign. And again we 
 pipe the result to the summary function to take a closer look:
 
 ```{r}
-lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) %>% summary()
+lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) %>% 
+summary()
 ```
-It is _that_ simple. Interpreting the results on the other hand is a little bit
+It is _that_ simple. Interpreting the results on the other hand is a bit
 more complicated. 
 
 The bone density, for a newborn woman (0 years old), that is 0 centimeters high,
@@ -94,13 +107,13 @@ which is obviously either impossible, or a discovery that would get you an
 invitation to Stockholm.
 
 For each centimeter the woman grows, _if all other variables are held constant!_
-the bone density is expected to increase by 0.0091 $g/cm^3$.
+the bone density is expected to _increase_ by 0.0091 $g/cm^3$.
 
 For each year the woman grows older, _if all other variables are held constant!_
-the bone density is expected to decrease by 0.0068 $g/cm^3$.
+the bone density is expected to _decrease_ by 0.0068 $g/cm^3$.
 
 For each kilogram the woman puts on weight, _if all other variables are held constant!_
-the bone density is expected to increase by 0.0038 $g/cm^3$.
+the bone density is expected to _increase_ by 0.0038 $g/cm^3$.
 
 The coefficient for the height variable is not significant (if we have decided
 on a 5% significanse level), and neither consumption of teo nor coffee has a 
@@ -115,20 +128,209 @@ But let us remove them one by one. First coffee that has the worst p-value:
 lm(fs2 ~ ht2 + age + wt2 + tea2, data = density) %>% summary()
 ```
 Note that not only is the coefficient for tea still not significant, it actually
-gets "worse". 
+gets "worse". On the other hand, the coefficient for weight now is larger, 
+ie explains more of the variation.
+
+
+:::: callout
+
+Why does this happen? 
+
+What the model does is "trying" to explain the variation in `fs2`, using the 
+independent variables. We have an underlying assumption that we can change
+those variables independently. However, they are often correlated. In this case
+there is a relatively large correlation between `cof2` and  `wt2`. When we remove
+`cof2` from the model, some of the variation explained by `cof2` can now be 
+captured by `wt2`.
+
+::::
+
+We do not actually explain that much of the variation in `fs2`. The R^2^ value
+tells us how much of the variation is explained by the model, and 0.5941 is 
+not _that_ impressive. We will be able to explain everything, including random
+noise in the data. We just need to add enough independent variables to our model.
+Some of the random noise will be explained by even a random varible.
+
+This is called `overfitting`, and one of ways we try to identify that, is by looking
+at the `Adjusted R-squared` instead. This adjusts the R^2^ for the number of 
+variables we have in the model. This is the measure of how good the model is, that
+we prefer.
+
+
+We continue our "leave-one-out" approach. `tea2` is the "worst" performing 
+variable measured by the p-value, and that is the next one we will remove:
+
 
 
 ```{r}
 lm(fs2 ~ ht2 + age + wt2 , data = density) %>% summary()
 ```
+Now we have a model where all coefficients are significant.
+
+:::: callout
+What about the intercept? 
+
+The estimate of the intercept is not significant. Is that a problem?
+
+No, not in this case. The intercept is the estimate of what `fs2`  would be
+if all the independent variables are 0. That might be meaningful for age, but
+definitely not for height or weight. 
+
+Also the thing we are interested in is not actually making predictions, in that
+case we would like a better estimate of the intercept, but in studying the 
+effect of height, age and weight on bonedensity.
+
+::::
+
+:::: challenge
+
+The dataset contains more variables than we have examined here. Alcohol consumption
+`alc`, and how many years the individual women have been smoking `pyr`. 
+
+We also only studied half of the dataset, the variables ending in "2". Data on
+the other twins have variables ending in "1". 
+
+Build a model predicting the bonedensity of the femoral shaft `fs1` using a selection
+of the variables `age`, ht1`, `wt1`, `tea1`, `cof1`, `alc1` and `pyr1`. 
+
+Make sure that only significant (p<0.05) variables are included. 
+
+What is the adjusted R squared value?
+
+:::: hint
+svaret er 42
+::::
+
+
+:::: solution
+
+```{r}
+dens_exercise <- boneden %>% 
+  select(age, contains("1"), -c(cur1, ls1, fn1, men1 ))
+
+model_1 <- lm(fs1~., data = dens_exercise)
+model_2 <- lm(fs1 ~ age + ht1 + wt1+ cof1 + alc1 +pyr1, data = dens_exercise)
+model_3 <- lm(fs1 ~ age + ht1 + wt1 + alc1 +pyr1, data = dens_exercise)
+model_4 <- lm(fs1 ~ age + ht1 + wt1 + pyr1, data = dens_exercise)
+model_5 <- lm(fs1 ~ age + ht1 + pyr1, data = dens_exercise)
+model_6 <- lm(fs1 ~ age + ht1, data = dens_exercise)
+
+summary(model_6)$adj.r.squared
+
+```
+
+
+::::
+
+::::
+
+
+## Categorical data
+
+We also have categorical variables in the data. Can we use them?
+
+Yes!
+
+### First way - categorical values as independent variables
+
+Let us add information about menopausal status, `men2`:
+
+```{r}
+
+density <- density %>% 
+  mutate(men2 = factor(men2))
+
+cat_model <- lm(fs2 ~ ht2 + age + wt2 + men2, data = density)
+summary(cat_model)
+
+```
+
+There are three different categorical values in `men2`. 0: premenopausal,
+1: Postmenopausal and 2: Unknown or hysterectomy.
+
+If we want to add categorical data to the model, we need to make sure they are
+encoded as categorical, otherwise the model will treat them as continous values. 
+We do that by running `factor()` on the relevant variable.
+
+Again this is relatively simple, the interpretation on the other hand is a bit
+more complex. The coefficients for `ht2`, `age` and `wt2` now tells us how the value
+of `fs2` changes for the base case 0, premenopausal. The coefficient of `factor(men2)1`
+tells us that there is an added "bonus" to the bonedensity to become postmenopausal.
+And `factor(men2)2` that there is a "penalty" of -0.026286 to have the "unknown" 
+status. The coefficients are not significant, so this might be a bad example.
+
+### The second way - interaction
+
+Maybe the influence of menopause status is not direct, but rather in the form that
+the coefficient for `wt2` depends on menopausal status. Ie increasing weight 
+might lead to increasing bonedensity. But to different degrees depending on menopausal status.
+
+We can add this interaction term to the model by multiplying the categorical variable
+to the variabel where we suspect that there might be an interaction:
+
+```{r}
+interact_model <- lm(fs2 ~ ht2 + age + wt2*men2, data = density)
+summary(interact_model)
+
+```
+Once again it is "simple" to do, more complicated to interpret.
+
+The (estimated) coefficients for `ht2`and `age` should be understood as before.
+
+But now we have a good deal more coefficients. `factor(men2)1` and `factor(men2)2` should also 
+be understood as before.
+
+`wt2` is also still the same as before. But we have two new. If the specific woman
+is postmenopausal, there is an additional term, wt2:men21 that needs to be
+added to the prediction.
+
+
+
+:::: challenge
+
+What is the prediction for `fs2` for a 52 year old, 164 centimeter high, postmenopausal
+woman weighing 62 kg?
+
+:::: solution
+
+We find it by adding all the terms:
+
+* intercept: -0.355334
+* 52 × age: 52 × -0.007966 = -0.414232
+* 164 × ht2: 164 × 0.009842 = 1.613488
+* 62 × wt2: 62 × 0.003272 = 0.202864
+* factor(men2)1 = -0.166698 (because men2 is = 1)
+* 65 × wt2:men21 = 62 × 0.003455 = 0.21421
+
+The result is: 1.094298
+
+An alternative way would be to construct a dataframe containing the values 
+for which we want to make the prediction, and use the `predict` function:
+
+```{r}
+new_data <- data.frame(
+  ht2 = 164,
+  age = 52,
+  wt2 = 62,
+  men2 = factor(1, levels = levels(density$men2))
+)
+
+predict(interact_model, newdata = new_data)
+```
+
+
+::::
+
+::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- We can do linear regression on multiple independent variables
+- Be careful not to overfit - only retain variables that are significant (and sensible)
+- We can fit just as well on categorical variables - but make sure they _are_ categorical
+- Interpreting linear models with multiple variables are not trivial
+_ Interpreting linear models with interaction terms are even less trivial
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
