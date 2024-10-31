@@ -1,5 +1,5 @@
 ---
-title: 'Logistisk regression'
+title: 'Logistic regression'
 teaching: 10
 exercises: 2
 editor_options: 
@@ -15,7 +15,30 @@ editor_options:
 -   Explain how to use markdown with the new lesson template
 :::
 
-## Logistisk Regression
+## Logistic Regression
+
+Using linear regression, or even non-linear regression techniques, we can
+predict the expected value of a dependent continuous variable given values
+of one or more independent variables. 
+
+But what if the dependent variable we want to predict is not continous, but
+categorical? 
+
+Eg, if we try to predict an outcome like "Healthy/Sick" based on a number of
+independent variables?
+
+We do that using the logistic regression. 
+
+## A new way of thinking about probability.
+
+We often talk about there being a "67%" probability or chance of something. 
+Reading p-values, we do that all the time. A p-value of 0.05, equivalent to 
+5%, tells us that if we run the test often enough, there is a 5% chance of
+seeing a result as extreme as the test value purely by chance, if the null-hypothesis
+is true.
+
+5% is equivalent to 5 instances out of 100 possibilities. In logistic regression
+we do not work with probabilities, but with odds.
 
 Hvad nu hvis den afhængige variabel ikke er kontinuært, men kategorisk?
 Altså at vi forsøger at forudsige eksempelvis "syg/rask", baseret på en

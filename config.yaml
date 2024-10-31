@@ -78,6 +78,7 @@ episodes:
 - structure-you-work.Rmd
 - fence-test.Rmd
 - design-principles.Rmd
+- large-data.Rmd
 
 # Information for Learners
 learners: 
