@@ -61,6 +61,9 @@ object.size(all_conv)
 Eller, i dette specifikke tilfælde kan vi reducere størrelsen med 1/3
 duckdb.
 
+det er da ikke så ringe endda.
+
+
 data.table
 
 
