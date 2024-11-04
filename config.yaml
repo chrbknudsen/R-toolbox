@@ -79,6 +79,7 @@ episodes:
 - fence-test.Rmd
 - design-principles.Rmd
 - large-data.Rmd
+- making-a-new-course.Rmd
 
 # Information for Learners
 learners: 
