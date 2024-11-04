@@ -9,11 +9,19 @@ editor_options:
 
 ::: questions
 -   How do you run a logistic regression?
+-   What is the connection between odds and probabilities?
+
 :::
 
 ::: objectives
 -   Learn how to run a logistic regression
 :::
+
+
+```{r setup, echo = FALSE}
+library(tidyverse)
+```
+
 
 ## Logistic Regression
 
@@ -120,9 +128,8 @@ line, where we in the logistic regression fits the data to a sigmoid curve:
 ```{r logit_func_plot, echo = FALSE}
 library(ggplot2)
 
-logistic_function <- function(x) {
-  1 / (1 + exp(-x))
-}
+logistic_function <- function(x){  1 / (1 + exp(-x)) }
+
 
 
 x_values <- seq(-10, 10, by = 0.1)
@@ -254,68 +261,129 @@ using this expression:
 1/(1+exp(-coef(log_model)))
 ```
 
-Why does that work? 
 
-```{r}
-odds <- exp(coef(log_model))
-odds/(1+odds)
-```
+## And interpreting the probabilities?
 
-(Intercept) 
-≈
-8.24
-×
-1
-0
-−
-9
-≈8.24×10 
-−9
- :
+A probability of 0.606 means that for each unit increase in Age, the probabililty
+of the the outcome "smoking" increases by 60.6%
 
-Interceptet giver log-oddsene, når alle variabler er 0, hvilket sjældent er meningsfuldt i praksis. Denne meget lave sandsynlighed viser blot, at sandsynligheden for udfaldet er meget lav, når alle variabler sættes til 0 (hvilket i nogle tilfælde kan være udenfor det realistiske område).
-Age (0.606):
+A probablity of 0.367 means that for each unit increase in FEV, the probability
+of that outcome decreases by 36.7%
 
-En sandsynlighed på ca. 0.606 betyder, at for hver stigning i Age (alder) med én enhed, øger sandsynligheden for udfaldet sig med 60.6%, når de andre variabler holdes konstante.
-Dette svarer til en positiv effekt på sandsynligheden for udfaldet, hvilket tyder på, at ældre alder øger sandsynligheden for udfaldet (f.eks. rygning, hvis det er det, vi modellerer).
-FEV (0.367):
 
-En sandsynlighed på ca. 0.367 indikerer, at for hver enhedsstigning i FEV (lungekapacitet), falder sandsynligheden for udfaldet til 36.7%, når de andre variabler holdes konstante.
-Dette viser, at højere FEV sandsynligvis reducerer sandsynligheden for udfaldet.
-Hgt (0.553):
-
-Sandsynligheden på 0.553 betyder, at højere højde (Hgt) har en svag positiv effekt på sandsynligheden for udfaldet, med en sandsynlighed på 55.3% for udfaldet pr. enhedsstigning i højde, når andre variabler holdes konstante.
-Sex1 (0.238):
-
-En sandsynlighed på 0.238 indikerer, at det at tilhøre kategori 1 i Sex reducerer sandsynligheden for udfaldet til 23.8% sammenlignet med referencen (Sex = 0), når alle andre variabler holdes konstante.
 
 
 
 ## What about the p-values?
 
-Samme surdej som ved andre p-værdier.
+p-values in logistic regression models are interpreted in the same way as 
+p-values in other statistical tests:
 
-## Hvordan med forudsigelser? hvordan gør vi det?
+Given the NULL-hypothesis that the true value for the coefficient for FEV in
+our model predicting the odds for smoking/non-smoking, is 0. 
 
-predicted_probabilities <- predict(log_model, type = "response")
+What is the probability
+of getting a value for the coefficient that is as extreme as -0.54516?    
+
+If we run the experiment, or take the sample, often enough, we will see a coefficient
+this large, or larger (in absolute values), 8.5% of the times. If we decide that
+the criterium for significanse is 5%, this coefficient is not significant.
 
 
 
-### Probit?
+## Predictions
 
-det er link funktionen der styrer det. Vi har jo en sandsynlighed - og
-den går ffra 0 til 1. Hvis vi skal fitte det til en model, skal skalaen
-være uendelig. Den tranformation foretages af linkfunktionen.
+We generally experience that students are not really interested in 
+predicting an outcome. However part of the rationale behind building these models
+is to be able to predict - outcomes. 
 
-Normalt bruger vi logitfunktionen.
+Given a certain age, height, FEV and sex of a child, what is the log-odds of 
+that child smoking?
 
-Probit er når vi bruger den kumulative fordelingsfunktion for
-normalfordelingen. Den er populær når man antager at der ligger en
-underliggende normalitet i respons. Eksempelvis i reaktion på dosis i
-toxikologi.
 
-Der er andre.
+
+The easiest and most general way of predicting outcomes based on a model, is to
+use the `predict()` function in R.
+
+It takes a model, and some new data, and returns a result.
+
+We begin by building a dataframe containing the new data:
+
+```{r}
+new_child <- data.frame(Age = 13, Hgt = 55, FEV = 1.8, Sex = factor(1, levels = c(0,1)))
+```
+
+Here we are predicting on a boy (Sex = 1), aged 13, with a lungvolume of 1.8l
+and a height of 55 inches.
+
+It is important that we use the same units as the model. That is, we need to 
+use inches for the height, liters for the lung volume, and the correct categorical
+value for Sex.
+
+
+Now we plug that into the predict function, along with the model: 
+```{r}
+predict(log_model, newdata = new_child)
+```
+
+This will return the predicted log-odds, and we can either calculate the probability
+from that. Or we can add a parameter to the predict model, to the the probability
+directly:_
+
+```{r}
+predict(log_model, newdata = new_child, type = "response")
+```
+:::: challenge
+# Do the conversion yourself
+
+Convert the predicted log-odds to a probability
+
+:::: solution
+
+We run the prediction:
+```{r}
+predicted_odds <- predict(log_model, newdata = new_child)
+```
+
+And then:
+
+```{r}
+1/(1+exp(-predicted_odds))
+```
+
+
+::::
+::::
+
+
+:::: challenge
+
+## What about another child?
+
+What is the probability for smoking for a 10 year old 110 cm tall girl, with a lung volume 
+of 1.1 liter?
+
+:::: solution
+
+
+Begin by making a dataframe describing the girl:
+
+```{r}
+new_girl <- data.frame(Age = 10, Hgt = 110/2.54, FEV = 1.1, Sex = factor(0, levels = c(0,1)))
+```
+
+And use `predict()` with the correct `type` argument to get the result directly:
+
+```{r}
+predict(log_model, newdata = new_girl, type = "response")
+```
+
+
+::::
+::::
+
+
 
 ::: keypoints
--   Use `.md` files for episodes when you want static content
+-   Using the predict-function to predict results is the easier way
 :::
