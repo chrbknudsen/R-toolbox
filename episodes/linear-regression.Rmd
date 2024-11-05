@@ -224,7 +224,7 @@ it is in fact zero?
 
 We are testing the hypothesis that we have gotten a value for speed of 3.9 by 
 random chance, but that the true value is zero. If it is zero, the value of
-3.9 is 9.5 standard errors away from 0: $3.9324/0.4155 = 9.46426 $. And, using the
+3.9 is 9.5 standard errors away from 0: 3.9324/0.4155 = 9.46426. And, using the
 t-distribution which describes these sorts of things pretty well, that will happen
 very rarely. The Pr, or p-value, is 1.49e-12. That is the chance, or probability,
 that we will get a value for the slope in our model that is 9.464 standard errors
@@ -336,7 +336,7 @@ They are relatively close to normal.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-
+- Linear regression show the (linear) relationship between variables.
+- The assumption of normalcy is on the residuals, not the data!
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
