@@ -451,7 +451,7 @@ for at den vejer mindre end 3000 gram? Eller for at den vejer mere end 5000 gram
 
 ## Measures of shape
 
-## Skewness
+### Skewness
 
 We previously saw a histogram of the data, and noted that the
 observations were skewed to the left, and that the "tail" on the right
@@ -478,7 +478,7 @@ konventionen er som den er.
 
 ::::
 
-## Kurtosis
+### Kurtosis
 
 Another parameter describing the shape of the data is kurtosis. We can think
 of that as either "are there too many observations in the tails?" leading to 
