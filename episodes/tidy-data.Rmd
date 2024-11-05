@@ -5,7 +5,7 @@ exercises: 2
 ---
 
 ::: questions
--   How do you write a lesson using R Markdown and `{sandpaper}`?
+-   How do we structure our data best?
 :::
 
 ::: objectives
