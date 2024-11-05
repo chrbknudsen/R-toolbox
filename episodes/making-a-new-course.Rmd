@@ -37,7 +37,8 @@ created - ændre dato.
 
 episodes - tag kun dem med du vil have med. Juster evt. rækkefølge
 
-
+Husk også at evt. opdateringer ikke følger med. Rettelser i originalmaterialet
+slår ikke igennem på den nye side.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
