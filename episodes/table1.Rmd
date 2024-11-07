@@ -34,9 +34,9 @@ It typically compares different groups (male~female, treatment~control), to high
 library(tidyverse)
 library(table1)
 blood <- read_csv("data/BLOOD.csv") %>% 
-  mutate(estrone = na_if(estrone, 999.0)) %>% 
   mutate(testost = na_if(testost, 999.0)) %>% 
-  mutate(prolactn = na_if(prolactn, 99.99)) 
+  mutate(prolactn = na_if(prolactn, 99.99)) %>% 
+  select(-estrone)
 
 blood$case <- factor(blood$case)
 label(blood$case) <- "case_control"
@@ -47,22 +47,20 @@ label(blood$curpmh) <- "current_pmh"
 levels(blood$curpmh) <- c("no", "yes")
 label(blood$ageblood) <- "Age"
 units(blood$ageblood) <- "years"
-units(blood$estradol) <- "pg/mL"
-units(blood$estrone) <- "pg/mL"
 
 ```
 
 It can look like this:
 
 ```{r basic-table1-demo, echo = FALSE, results='asis'}
-table1(~ageblood+estradol+estrone+testost+prolactn|case+curpmh, data = blood)
+table1(~ageblood+testost+prolactn|case+curpmh, data = blood)
 ```
 Please note that the automatic styling of this site results in a table-one
 that is not very nice looking.
 
 We have 510 participants in a study, split into control and case groups, and
-further subdivided into two groups based on Postmenopausal hormone use.
-It describes the distribution of sex and concentration of estradiol, estrone,
+further subdivided into two groups based on PostMenopausal Hormone use.
+It describes the distribution of sex and concentration of 
 testosterone and prolactin in a blood sample.
 
 ## How do we make that?
@@ -110,7 +108,7 @@ head(blood)
 510 rows. Its a case-control study, where the ID represents one individual, and 
 matchid gives us the link between cases and controls. Ageblood is the age of the
 individual at the time when the blood sample was drawn, and we then have levels 
-of four different hormones.
+of four different hormones. 
 
 The data contains missing values, coded as "999.0" for estrone and testost, and
 99.99 for prolactin.
@@ -134,10 +132,12 @@ blood <- blood %>%
   mutate(curpmh = factor(curpmh, labels = c("no", "yes")))
 ```
 
-And now we can make our table one like this:
+And now we can make our table one like this. Note that we only include testosterone
+and prolactin, in order to get a more manageble table 1:
+
 
 ```{r table-one-live}
-table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood)
+table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 ```
 
 It is a good idea, and increases readability, to add labels and units to
@@ -148,15 +148,13 @@ label(blood$curpmh) <- "current_pmh"
 label(blood$case) <- "case_control"
 label(blood$ageblood) <- "Age"
 units(blood$ageblood) <- "years"
-units(blood$estradol) <- "pg/mL"
-units(blood$estrone) <- "pg/mL"
 ```
 
 Which looks a bit nicer:
 
 
 ```{r table-one-live-2}
-table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood)
+table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 ```
 
 
@@ -171,12 +169,12 @@ control how continuous and categorical data respectively,
 is shown in the table.
 
 The simple way of doing that is by using abbrevieated
-function names. We only include estradiol and estrone in the the table
+function names. We only include testosterone and prolactin in the the table
 to save space:
 
 
 ```{r summary-statistics}
-table1(~ageblood + estradol + estrone|case + curpmh, data = blood,
+table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
         render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
                            "Geom. mean (Geo. SD%)"="GMEAN (GSD%)"))
 ```
@@ -207,7 +205,7 @@ geometric.
 
 :::: solution
 ```{r summary-statistics-solution, eval = FALSE}
-table1(~ageblood + estradol + estrone |case + curpmh, data = blood,
+table1(~ageblood + testost + prolactn |case + curpmh, data = blood,
         render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
                            "Geometric mean (Geometric SD%)"="GMEAN (GSD%)"))
 ```
@@ -239,7 +237,7 @@ my_summary <- function(x){
   c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
 }
-table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood,
+table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
 render.continuous = my_summary)
 ```
 We do not _need_ to use the `sprintf()` function, but it is a very neat way of 
@@ -305,7 +303,7 @@ my_summary <- function(x){
   c("Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
 "Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
 }
-table1(~ageblood + estradol + estrone + testost + prolactn|case + curpmh, data = blood,
+table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
 render.continuous = my_summary)
 ```
 The line beginning with "Median" does not show up, but the median value is 
