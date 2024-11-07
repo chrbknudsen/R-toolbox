@@ -62,7 +62,7 @@ et barchart til at se pænere ud.
 
 The us make the first barchart:
 
-```{r}
+```{r first-example}
 penguin_example %>% 
 ggplot(aes(x = species)) + 
 geom_bar() 
@@ -75,7 +75,7 @@ This barchart is _boring_. Grey in grey.
 The first step would be to do something about the colors, and add labels and
 a title to the plot:
 
-```{r}
+```{r colors-labels}
 penguin_example %>% 
 ggplot(aes(x = species)) + 
 geom_bar(fill = "darkorchid3") +
@@ -100,7 +100,7 @@ The `forcats` library makes that relatively easy, using the function `fct_infreq
 which converts the character vector that is `species` to a factor with levels
 ordered by frequency:
 
-```{r}
+```{r order}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
 ggplot(aes(x = species)) + 
@@ -124,7 +124,7 @@ We only have three here, but if we have a lot of categories, it is often
 preferable to have the columns as bars on the y-axis. We do that by changing 
 the `x` in the `aes()` function to `y`:
 
-```{r}
+```{r rotation}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
 ggplot(aes(y = species)) + 
@@ -143,7 +143,7 @@ of ggplot to 14. You might need to play around with the value, depending on
 the number of categories. 
 
 
-```{r}
+```{r text-size}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
 ggplot(aes(y = species)) + 
@@ -160,13 +160,13 @@ We also changed the scaling of the title of the plot. The size of that is now
 here we have done it using the `rel()` function which changes the size relative to
 the base font size in the plot.
 
-## Step xxx removing unnessecary space
+## Removing unnecessary space
 
 There is a bit of empty space between the columns and the labels on the y-axis.
 
 Let us get rid of that:
 
-```{r}
+```{r unnecessary-space}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
 ggplot(aes(y = species)) + 
@@ -196,7 +196,7 @@ and 1% ~ 0.01 to the righthand side of the scale.
 There ar horizontal lines in the plot background that are unnessecary. And the 
 grey background we get by default is not very nice. Remove them:
 
-```{r}
+```{r decluttering}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
 ggplot(aes(y = species)) + 
@@ -264,7 +264,7 @@ bars and the text!
 
 We can do the same with labels if we want:
 
-```{r}
+```{r labelling}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>%
   ggplot(aes(y = species)) + 
@@ -305,7 +305,7 @@ penguin_example %>%
 Depending on aspect ratio of the final plot, number of categories etc, we
 might want to adjust the width of the bars:
 
-```{r}
+```{r slimmer-bars}
 penguin_example %>% 
   mutate(species = fct_infreq(species)) %>% 
   ggplot(aes(y = species)) + 
