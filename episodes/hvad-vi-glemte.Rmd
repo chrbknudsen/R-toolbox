@@ -1,39 +1,56 @@
 ---
-title: 'hvad-vi-glemte'
+title: 'What we forgot to tell you'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- What are some things we typically do not mention?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Get an overview of some of the rabbit holes.
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
 
-Hvad vi glemte at fortælle dig om.
+What we forgot to tell you about R.
 
-1. Det kan godt se ud som om vi får et bestemt resultat. Men hver gang
-vi har numeriske operationer der involverer decimaler - alt numeric - kan vi
-forvente at der er numeriske fejl. Det er ikke det samme som fejl - det er 
-det vi ser når 1/3 bliver repræsenteret som 33%
+## Math in R is imprecise!
+
+It might appear that we get a correct result when we ask R to do math.
+
+But we do not. Every time we do math on numbers with decimals, we can expect 
+numerical errors. 
+
+This:
 
 ```{r}
 7/13 - 3/31
 ```
 
-er forskelligt fra 
+is different from: 
 ```{r}
 print(7/13 - 3/31, digits = 16)
 ```
+Actually $\frac{7}{13} - \frac{3}{31}$ is equal to $\frac{178}{403}$. If we subtract
+one from the other, we should get 0. We do not...
+
+```{r}
+(7/13 - 3/31) - (178/403) 
+```
+
+Pretty close but not 0.
+
+R, in the best case, uses 64 bits for storing numerics, and that means the best
+we can expect to be correct is 15-16 significant digits after the decimal separator.
+
+This means that we have to expect errors, and that they might accumulate.
 
 
 ```{r}
@@ -43,14 +60,53 @@ integrate(integrand, lower = 0, upper = Inf)
 ```
 
 
-Uwes maxim
+## When should the warning be ignored?
+
+Never. In introductory courses we tend to tell learners that they should not
+worry too much about warnings. 
+
+That is because they generally _can_ be ignored, and they tend to get in the
+way of learning the ropes.
+
+However. The moment you have learned (a bit of) R, you should stop ignoring 
+errors. What you should do is:
+
+1. figure out what the warning is saying
+2. figure out why the warning is triggered
+3. Figure out the effect on the results of the computation
+4. Determine based on step 3, if your results will be erronious
+
+After that, you might decide that the warning can be safely ignored.
+
+
+
+## Do not spend too much time optimizing
+
+Uwes maxim:
+
 Computers are cheap and thinking hurts
 
-Optimering af kode:
-Your first duty is to create clear correct code.
-Only optimize when the code is debugged and stable
-and when optimization is likely to make a significant difference. Spending
-an our to save a millisecond is not useful.
+Uwe Ligges, member of R Core Team
+
+Your first task is to write clear, understandable and correct code.
+
+When you have debugged your code, when it is stable and correct, and easy for
+other people to understand, you might consider optimizing it.
+
+But only if that optimization is likely to make a significant difference. 
+Spending an hour to save a millisecond is not useful. Unless that function runs
+at least 4 million times, in which case you might actually save time.
+
+## Naming stuff is difficult
+
+how to name stuff af jenny bc
+
+## Think global, act local
+
+Or something like that. The scope you are working in matters.
+
+
+## Write functions
 
 R is a good thing because it is a language.
 The power of language is abstraction.
@@ -76,21 +132,12 @@ https://rstudio.github.io/renv/
 
 xkcd.com/1179
 
-og how to name stuff af jenny bc
 
-Læs advarsler...
 
-Det største problem med warnings er at folk ikke læser dem.
-Mange af de warnings vores nybegyndere får, behøver de ikke bekymre sig om.
-Mange af dem behøver man heller ikke bekymre sig om.
 
-Men. Det du bør gøre når du ser en warning er:
-figure out what the warning is saying.
-figure out why the warning is triggerede.
-Figure out the effect on the results of the computation
-baseret på trin 3 figure out wether or not the results will be erronious.
 
-globale vs lokale assignments. Og environments.
+
+ environments.
 
 ## Factor variable trap
 
@@ -107,9 +154,7 @@ i stedet for de numeriske værdier der egenligt ligger i faktoren.
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
