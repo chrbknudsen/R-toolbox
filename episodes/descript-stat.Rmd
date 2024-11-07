@@ -426,17 +426,22 @@ That was not very informative. Lets plot it:
 
 
 
-```{r warning=FALSE}
-quantiler <- quantile(penguins$body_mass_g, probs = c(0.25, 0.75), na.rm = TRUE)
+```{r cdf-plot, warning=FALSE, echo  =F}
+quantiler <- quantile(penguins$body_mass_g, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+h_data <- tibble(x=rep(2500,3), y = c(0.25, 0.5, 0.75), xend=quantiler, yend =c(0.25, 0.5, 0.75)) 
+v_data <- tibble(x=quantiler, xend = quantiler, y = rep(0,3), yend = c(0.25, 0.5, 0.75))
 ggplot(penguins, aes(body_mass_g)) + 
   stat_ecdf(geom = "step") +
-  geom_hline(yintercept = c(0.25,0.5,0.75)) +
-geom_vline(xintercept = quantiler)
+  geom_segment(data = v_data, aes(x=x, y = y, xend = xend, yend = yend)) +
+
+  geom_segment(data = h_data, aes(x=x, y = y, xend = xend, yend = yend)) +
+coord_cartesian(xlim = c(2500,6500), expand = FALSE) +
+theme_classic()
 ```
 
 :::: instructor
 
-[NOT QUITE DONE!]
+
 den skal vi nok have beskrevet lidt mere.
 
 Men pointen er, at vi for enhver værdi kan aflæse ting. Hvor stor en andel
