@@ -123,7 +123,7 @@ penguins %>%
   summarise(median = median(body_mass_g, na.rm = T))
 ```
 
-We can note that the mean is larger that the median. This indicates that
+We can note that the mean is larger than the median. This indicates that
 the data is skewed, in this case toward the larger penguins.
 
 We can get both `median` and `mean` in one go:
