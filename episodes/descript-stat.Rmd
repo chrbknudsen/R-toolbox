@@ -206,7 +206,7 @@ vi taler ikke længere om hvad det egentlig er vi er ude efter i operationen.
 
 ### Variance
 
-The observations varies. They are no all located at the mean (or
+The observations varies. They are not all located at the mean (or
 median), but are spread out on both sides of the mean. Can we get a
 numerical value describing that?
 
