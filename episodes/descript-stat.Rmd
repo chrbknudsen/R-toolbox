@@ -37,7 +37,7 @@ our data, and includes:
 |------------------|----------------------|------------------|
 | Mean             | Range                | Skewness         |
 | Median           | Quartiles            | Kurtosis         |
-| mode             | Inter Quartile Range |                  |
+| Mode             | Inter Quartile Range |                  |
 |                  | Variance             |                  |
 |                  | Standard deviation   |                  |
 |                  | Percentiles          |                  |
