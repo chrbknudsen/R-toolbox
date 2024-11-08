@@ -166,7 +166,9 @@ data set.
 
 Make a new RMarkdown document - File -> New File -> R Markdown.
 
-Change the final code chunk to include `plot(cars$dist)` instead of plot(pressure)
+Change the final code chunk to include `plot(cars$dist)` instead of plot(pressure),
+and add `library(tidyverse)`.
+
 
 ::::
 
