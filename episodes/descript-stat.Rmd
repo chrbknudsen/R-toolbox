@@ -28,7 +28,7 @@ normalfordelingens sammenhæng med statistiske tests.
 
 Descriptive statistic involves summarising or describing a set of data.
 It usually presents quantitative descriptions in a short form, and helps
-to simplify large datasaets.
+to simplify large datasets.
 
 Most descriptive statistical parameters applies to just one variable in
 our data, and includes:
@@ -37,7 +37,7 @@ our data, and includes:
 |------------------|----------------------|------------------|
 | Mean             | Range                | Skewness         |
 | Median           | Quartiles            | Kurtosis         |
-| mode             | Inter Quartile Range |                  |
+| Mode             | Inter Quartile Range |                  |
 |                  | Variance             |                  |
 |                  | Standard deviation   |                  |
 |                  | Percentiles          |                  |
@@ -123,7 +123,7 @@ penguins %>%
   summarise(median = median(body_mass_g, na.rm = T))
 ```
 
-We can note that the mean is larger that the median. This indicates that
+We can note that the mean is larger than the median. This indicates that
 the data is skewed, in this case toward the larger penguins.
 
 We can get both `median` and `mean` in one go:
@@ -206,7 +206,7 @@ vi taler ikke længere om hvad det egentlig er vi er ude efter i operationen.
 
 ### Variance
 
-The observations varies. They are no all located at the mean (or
+The observations varies. They are not all located at the mean (or
 median), but are spread out on both sides of the mean. Can we get a
 numerical value describing that?
 
