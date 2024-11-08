@@ -82,7 +82,7 @@ computer crashes.
 
 
 
-## Documentation and Metadata:
+## Documentation and Metadata
 
 What did we actually do in the analysis? Why did we do it? Why are we reaching the conclusion we've arrived at?
 
