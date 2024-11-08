@@ -47,7 +47,7 @@ our data, and includes:
 The easiest way to get summary statistics on data is to use the
 `summarise` function from the `tidyverse` package.
 
-```{r message=FALSE}
+```{r message=FALSE, warning = FALSE}
 library(tidyverse)
 ```
 
@@ -241,18 +241,23 @@ by the variance as defined here, and we would really like to get a
 connection between what we observe here, and the normal distribution.
 :::
 
-The mathematical notation would be:
+For the population variance, the mathematical notation would be:
 
 $$
 \sigma^2 = \frac{\sum_{i=1}^N(x_i - \mu)^2}{N}
 $$
 
+:::: callout
+
+## Population or sample?
+
 Why are we suddenly using $\mu$ instead of $\overline{x}$? Because this
 definition uses the population mean. The mean, or average, in the entire
 population of all penguins everywhere in the universe. But we have not
 weighed all those penguins. 
+::::
 
-Instead we will normally look at the sample variance:
+And the sample variance:
 
 $$
 s^2 = \frac{\sum_{i=1}^N(x_i - \overline{x})^2}{N-1}
