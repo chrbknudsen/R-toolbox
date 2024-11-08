@@ -166,7 +166,7 @@ formats.
 SAS is a proprietary statistical software suite developed by SAS
 Institute.
 
-As mentioned above the package `haven` can read SAS-files:
+The package `haven` can read SAS-files:
 
 ```{r eval = F}
 library(haven)
