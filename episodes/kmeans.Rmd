@@ -6,7 +6,7 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- What is k-means?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -264,9 +264,6 @@ But not the ones we want.
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

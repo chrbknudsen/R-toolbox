@@ -1,23 +1,47 @@
 ---
-title: 'github-and-R'
+title: 'GitHub and R'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- What actually is github? 
+- How is that even relevant for me?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Learn how to setup git and GitHub in RStudio
+- Learn how to use GitHub for backup, sharing, versioning and collaboration
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
+## What is GitHub?
+
+You might have seen GitHub before. An integral part of writing code is googling
+(and chatgpting) for a solution that kinda matches your problem, copying it, and
+adjusting the code so it hopefully does what you need it to do.
+
+A lot of the search results you get will go to StackOverflow, but many will end
+up on GitHub. And when the chatbot can help you, it is partially because it has 
+been trained on GitHub.
+
+Git is a system for keeping track of different versions of code. 
+And because code is just text, it works nicely with text as well, as long as it
+is formatted in plain text.
+
+You have a file on your computer. You save it, and use git to store _that_ version
+in a `git-repo` on your computer. When you make changes, you add (commit) those
+changes to the repo, and Git keeps track of all the changes for you. That is 
+pretty neat.
+
+What is even better is that you can push _all_ the changes you made to a centralised
+online repository, where your local changes will be stored as well. If something
+bad happens to your computer, you have a backup, that you can pull down to a 
+new computer.
+
 
 # Interaktion med github i R-sammenhænge.
 
@@ -49,14 +73,13 @@ Det token får vi heromkring fra:
 
 [https://github.com/settings/tokens](https://github.com/settings/tokens)
 
-Hvilket selvfølgelig forudsætter at du er logget på GitHub.
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- GitHub is the standard way for writing code collaboratively
+- Be careful about data - not everything belongs on GitHub
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
