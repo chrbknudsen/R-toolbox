@@ -39,7 +39,7 @@ is not working. Doing the same analysis tomorrow, we should reach the same resul
 And that can be surprisingly difficult!
 
 There are a lot of pitfalls, ranging from accessibility to incentive structures
-in academia. But the two areas where R can help us are:
+in academia. But the three areas where R can help us are:
 
 * Software Environment
 * Documentation and Metadata
@@ -82,7 +82,7 @@ computer crashes.
 
 
 
-## Documentation and Metadata:
+## Documentation and Metadata
 
 What did we actually do in the analysis? Why did we do it? Why are we reaching the conclusion we've arrived at?
 
@@ -166,7 +166,9 @@ data set.
 
 Make a new RMarkdown document - File -> New File -> R Markdown.
 
-Change the final code chunk to include `plot(cars$dist)` instead of plot(pressure)
+Change the final code chunk to include `plot(cars$dist)` instead of plot(pressure),
+and add `library(tidyverse)`.
+
 
 ::::
 

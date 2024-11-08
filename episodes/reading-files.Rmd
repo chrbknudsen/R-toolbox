@@ -8,7 +8,7 @@ editor_options:
 ---
 
 ::: questions
--   How do you read in data from files??
+-   How do you read in data from files?
 :::
 
 ::: objectives
