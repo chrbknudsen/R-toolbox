@@ -39,7 +39,7 @@ is not working. Doing the same analysis tomorrow, we should reach the same resul
 And that can be surprisingly difficult!
 
 There are a lot of pitfalls, ranging from accessibility to incentive structures
-in academia. But the two areas where R can help us are:
+in academia. But the three areas where R can help us are:
 
 * Software Environment
 * Documentation and Metadata
