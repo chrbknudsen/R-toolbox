@@ -34,9 +34,14 @@ data format.
 
 ## Use code!
 
-RStudio makes it simple to load most common data formats. Right-click on
-the file in RStudio, and choose import. RStudio will then provide an
-interface for loading the data.
+RStudio makes it simple to load most common data formats: Click on
+the file in the "Files" tab in RStudio, and choose "Import Dataset":
+
+![](fig/import-file.png)
+
+
+
+RStudio will then provide an interface for loading the data:
 
 ![](fig/data_import.png)
 
