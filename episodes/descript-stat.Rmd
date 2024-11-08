@@ -28,7 +28,7 @@ normalfordelingens sammenhæng med statistiske tests.
 
 Descriptive statistic involves summarising or describing a set of data.
 It usually presents quantitative descriptions in a short form, and helps
-to simplify large datasaets.
+to simplify large datasets.
 
 Most descriptive statistical parameters applies to just one variable in
 our data, and includes:
