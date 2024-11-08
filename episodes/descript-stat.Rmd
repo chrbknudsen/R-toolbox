@@ -119,18 +119,17 @@ This is the value that half of the observations is smaller than. And
 half the observations is larger.
 
 ```{r}
-penguins %>% 
-  summarise(median = median(body_mass_g, na.rm = T))
+median(penguins$body_mass_g, na.rm = TRUE)
 ```
 
 We can note that the mean is larger than the median. This indicates that
 the data is skewed, in this case toward the larger penguins.
 
-We can get both `median` and `mean` in one go:
+We can get both `median` and `mean` in one go using the `summarise()` function:
 
 ```{r}
 penguins %>% 
-  summarise(median = median(body_mass_g, na.rm = T),
+  summarise(median = median(body_mass_g, na.rm = TRUE),
             mean   = mean(body_mass_g, na.rm = TRUE))
 ```
 
