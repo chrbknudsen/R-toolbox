@@ -129,7 +129,7 @@ The package `haven` supports reading SPSS (Stata and SAS) files
 
 Use the package to read in spss files:
 
-```{r eval = F}
+```{r spss-files, eval = F}
 library(haven)
 read_spss("filename")
 ```
@@ -149,7 +149,7 @@ economics.
 As mentioned above, the `haven` package provides functions for reading
 Stata files:
 
-```{r eval = F}
+```{r stata-files, eval = F}
 library(haven)
 read_stata("filename")
 ```
@@ -168,7 +168,7 @@ Institute.
 
 The package `haven` can read SAS-files:
 
-```{r eval = F}
+```{r sas-files, eval = F}
 library(haven)
 read_sas("filename")
 ```
@@ -205,7 +205,7 @@ row (etc), are called nested, and are typically stored or distributed in the
 JSON-format.
 
 JSON can be read using `fromJSON()` from the `jsonlite` library.
-```{r eval= FALSE}
+```{r json-files, eval= FALSE}
 library(jsonlite)
 fromJSON("filename")
 ```
