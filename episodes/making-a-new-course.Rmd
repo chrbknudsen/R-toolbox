@@ -40,12 +40,29 @@ need to edit the "config.yaml" file.
 * source - change it to the url of the new github-repo. This makes it easier to edit the page in the future.
 * episodes - remove all episodes not to be included in your new course. Change the order if necessary.
 
+Either do this directly on GitHub, or follow the usual process of forking to
+your own GitHub account, and cloning the repo to your computer.
 
+:::: callout
+## Consider deleting stuff
 
-Når du har committet dine ændringer i config.yaml, går actions igang med at lave 
-siden. Hav tålmodighed! Sidst jeg gjorde det tog det 54 minutter fra
-initial commit, til actions var færdige.
+When the page is generated, the scripts identifies all libraries used in all
+episodes. Even if these episodes will not be shown on the page. 
 
+This requires the scripts to download and install all these libraries. And that
+takes time! 
+
+If you delete all unused episodes, you will speed up the following step considerably.
+
+::::
+
+After you have committed your changes to config.yaml, actions begins building 
+the site. Have patience! The first build of the R-PUFF site took 54 minutes.
+
+Don't worry, future changes are a lot faster. An update of the page you are 
+currently reading, took 6 minutes. The scripts only rebuild 
+Hvis du fremadrettet laver tilretninger i kurset, går det noget hurtigere. Systemet
+genbygger kun de sider hvor der sker ændringer.
 
 Gå herefter til "Settings" og "Pages". Under "Build and deployment", står der 
 under "Source", at siden der skal vises skal tages fra en bestemt "branch".
