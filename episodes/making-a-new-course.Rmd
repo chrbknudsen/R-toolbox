@@ -60,38 +60,32 @@ After you have committed your changes to config.yaml, actions begins building
 the site. Have patience! The first build of the R-PUFF site took 54 minutes.
 
 Don't worry, future changes are a lot faster. An update of the page you are 
-currently reading, took 6 minutes. The scripts only rebuild 
-Hvis du fremadrettet laver tilretninger i kurset, går det noget hurtigere. Systemet
-genbygger kun de sider hvor der sker ændringer.
+currently reading, took 6 minutes. The scripts only rebuild the pages that are
+changed.
 
-Gå herefter til "Settings" og "Pages". Under "Build and deployment", står der 
-under "Source", at siden der skal vises skal tages fra en bestemt "branch".
+You can follow the process under "Actions" on the repo.
 
-lige under, kan du vælge hvilken. Når Actions er færdige, vælger du her "gh-pages",
-og klikker på save.
+When all actions have run - look for the green checkmarks, go to "Settings",
+choose "Pages".
 
-Nu går GitHub actions igang igen. Dont worry - this step is quite fast!
+Under "Build and deployment", we are told that the page is "deployed from a branch",
+and below that, you can choose which branch. Chose "gh-pages".
+
+Click "Save". GitHub actions begins again, but do not worry, this step is very 
+fast (depending on a lot of things, we are not paying GitHub, so we depend on
+shared ressources).
+
 
 :::: callout
 
-## Med fordel!
+## Changes are local
 
-Kan du slette de dokumenter under episodes som du ikke bruger. De indeholder
-store mængder kode der trækker på alskens biblioteker. Alle disse biblioteker
-skal installeres i GitHub processen for at siden kan genereres. Og det 
-tager tid.
+You have made a new repo based on the master-version of the toolbox. Any changes
+made to R-toolbox, will _not_ affect your new page. 
+
+Changes made on your new page are similarly not affecting R-toolbox.
 
 ::::
-
-Når GitHub actions er færdig, har du siden, og repoet kan forkes, og hentes ned
-på din computer, så du kan lave evt. rettelser og tilpasninger.
-
-Husk! Sker der rettelser i master-udgaven, altså R-toolbox, så slår de ikke 
-igennem på den nye side. Og omvendt. 
-
-Vi kunne formentlig godt lave et eller andet der automatisk opdaterede stavefejl.
-Men så ville dine tilpasninger af det nye kursus også forsvinde.
-
 
 
 
