@@ -31,7 +31,7 @@ and took 1 pill every other day for 12 weeks. Blood samples were drawn after
 
 _Dimensions:_ Rows: 23 Columns: 8
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
 
@@ -73,7 +73,7 @@ quartile as the reference group.
 
 _Dimensions_: Rows: 510 Columns: 9   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
 
@@ -108,7 +108,7 @@ as other factors, details in metadata below.
 
 _Dimensions:_ Rows: 41 Columns: 25   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BONEDEN.csv)
 
@@ -181,7 +181,7 @@ in the dataset.
 
 _Dimensions:_ Rows: 70 Columns: 24 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BOTOX.csv)
 
@@ -291,7 +291,7 @@ lower, abnormal, sensitivity.
 
 _Dimensions:_ Rows: 186 Columns: 17   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
 
@@ -339,7 +339,7 @@ indicative of diabetes. The normal range does not appear to change by pubertal s
 
 _Dimensions:_ Rows: 910 Columns: 8     
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
 
@@ -581,7 +581,7 @@ groups? Does the rate of decline differ between the two groups?
 
 _Dimensions:_ Rows: 1326 Columns: 8  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
 
@@ -682,7 +682,7 @@ A value of 0 for pH indicate missing values.
 
 _Dimensions:_ Rows: 25 Columns: 9  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -722,7 +722,7 @@ Infectious Diseases, 139(6) 688-697.
 
 _Dimensions:_ Rows: 100 Columns: 18  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
@@ -767,7 +767,7 @@ Sugar Taste Variables
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
@@ -870,7 +870,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 _Dimensions:_ Rows: 240 Columns: 6
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
 
@@ -905,7 +905,7 @@ patients that experienced nephrotoxicity. Which antibiotic is best?
 
 _Dimensions:_ Rows: 72 Columns: 6  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
@@ -928,7 +928,7 @@ _Dimensions:_ Rows: 72 Columns: 6
 
 _Dimensions:_ Rows: 34 Columns: 10 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
 
@@ -978,7 +978,7 @@ patients that experienced sideeffects. Which antibiotic is best?
 
 _Dimensions:_ Rows: 50 Columns: 6   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
@@ -1001,7 +1001,7 @@ _Dimensions:_ Rows: 50 Columns: 6
 
 _Dimensions:_ Rows: 631 Columns: 5 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
@@ -1031,7 +1031,7 @@ sex of the first born child, affect the probability of the second child?
 
 _Dimensions:_ Rows: 60 Columns: 8   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
 
@@ -1137,7 +1137,7 @@ pF1M2 + c(-1,1)*1.96*SEM_F1M2
 
 _Dimensions:_ Rows: 234 Columns: 8
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
@@ -1187,7 +1187,7 @@ were done in 1969-1978.
 
 _Dimensions:_ Rows: 300 Columns: 10 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
@@ -1216,7 +1216,7 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 _Dimensions:_ Rows: 14 Columns: 61     
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
 
@@ -1294,7 +1294,7 @@ _Dimensions:_ Rows: 14 Columns: 61
 
 _Dimensions:_ Rows: 630 Columns: 6 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
@@ -1318,7 +1318,7 @@ _Dimensions:_ Rows: 630 Columns: 6
 
 _Dimensions:_ Rows: 444 Columns: 12 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
@@ -1391,7 +1391,7 @@ _Dimensions:_ Rows: 444 Columns: 12
 
 _Dimensions:_ Rows: 88 Columns: 16 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
 
@@ -1454,7 +1454,7 @@ _Dimensions:_ Rows: 88 Columns: 16
 
 _Dimensions:_ Rows: 173 Columns: 9   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
@@ -1500,7 +1500,7 @@ _Dimensions:_ Rows: 40 Columns: 5
 
 Også Rosner...
 
-[source](learners/data.md#jorgensen_4)^4^
+[Source](learners/data.md#jorgensen_4)^4^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
 
@@ -1525,6 +1525,8 @@ Også Rosner...
 ### who
 
 _Dimensions:_ Rows: 405440 Columns: 10 
+
+[Source](learners/data.md#jorgensen_4)^4^ and [Source](learners/data.md#who_7)^7^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/who.csv)
 
@@ -1559,10 +1561,7 @@ NB: Filen er semikolon-separeret
 ## References
 
 
-Bortset fra who-sættet, der er en modificeret udgave af datasættet who fra 
-tidyr-pakken.
 
-Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tuberculosis-programme/data
 
 
 
@@ -1606,7 +1605,7 @@ https://www.jstor.org/stable/2532505
 
 <a id ="tage_6">6</a>: Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979), Effect of parental cigarette smoking on pulmonary function in children. American Journal of Epidemiology, 110, 15-26.
 
-
+<a id = "who_7">7</a>: https://www.who.int/teams/global-tuberculosis-programme/data
 
 
 ## listen over datasæt. 
@@ -1622,7 +1621,6 @@ Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 * nifed
 * oto
 * piriform
-* sexrat
 * smoke
 * tear
 * temperat
