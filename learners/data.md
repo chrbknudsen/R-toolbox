@@ -1021,6 +1021,14 @@ _Dimensions:_ Rows: 631 Columns: 5
 
 ### SEXRAT
 
+Frequencies of different sex orders of the first 5 children born in families.
+
+Does the probability of a male birth differ from 50%?
+
+Are the sex distribution of successive offspring independent? Ie, does the 
+sex of the first born child, affect the probability of the second child?
+
+
 _Dimensions:_ Rows: 60 Columns: 8   
 
 [source](data.md#rosner_1)^1^
@@ -1043,8 +1051,6 @@ _Dimensions:_ Rows: 60 Columns: 8
 |  sexchldn*  |  Sex of all children  |
 |  num_fam**  |  Number of families   |
 
-::::
-
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
 
@@ -1053,6 +1059,78 @@ three children were males and the fourth child was a female. There were 484
 such families.
 
 ** Number of families with specific gender contribution of children
+
+Example; there are:
+
+* 4400 families with 2 children where both children are male, 
+* 4270 families with 2 children where the first child is male, and the second female and,
+* 4633 families with 2 children where the first child is female and the second male.
+
+::::
+
+
+:::: spoiler
+
+## Example
+
+Compare P(child 2 is male | child 1 is female) with P(child 2 is male | child 1 is male)
+
+That is, the probability child 2 is male given that child 1 is female.
+
+```r
+sexrat <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv")
+  
+# Number of families with female first child:
+  
+sexrat %>% 
+  filter(sx_1 == "F") %>% 
+  summarise(nF1 = sum(num_fam))
+
+# A tibble: 1 x 1
+nF1
+<dbl>
+  1 25719
+
+# Number of those families with a male second child:
+
+sexrat %>% 
+  filter(sx_1 == "F",
+         sx_2 == "M") %>% 
+  summarise(nF1M2 = sum(num_fam))
+
+# A tibble: 1 x 1
+nF1M2
+<dbl>
+  1 12882
+
+# Point estimate for probability of child 2 being male, given child 1 is female:
+
+pF1M2 <- 12882/25719
+pF1M2
+
+[1] 0.5008748
+
+# Standard error of mean for proportions:
+
+SEM_F1M2 <- sqrt(pF1M2*(1-pF1M2)/25719)
+SEM_F1M2
+[1] 0.003117757
+
+# That gives us a 95% confidence interval for P(Child 2 is male | Child 1 is female):
+
+pF1M2 + c(-1,1)*1.96*SEM_F1M2
+
+[1] 0.4947640 0.5069856
+# Doing the same calculations for P(Child 2 is male |  Child 1 is male)
+# gives us an interval of (rounded):
+
+[1] 0.512 0.524
+
+# Which would indicate the having a male child first, increases the probability
+# of having a second male child.
+```
+
+::::
 
 
 ### SMOKE
@@ -1506,6 +1584,10 @@ Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tubercu
 
 
 <a id="rosner_1">1</a>: Rosner, Bernard A. Fundamentals of Biostatistics, 7/e, International Edition, 2011 ISBN: 9780538735896. https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
+
+der er også guf her https://www.doc88.com/p-5925003681540.html
+
+https://statanaly.com/wp-content/uploads/2023/04/Fundamentals-of-Biostatistics-7th-Edition.pdf
 
 <a id="hopper_2">2</a>: Hopper, J.H. & Seeman, E (1994). The bone density
 of female twins discordant for tobacco use. New England Journal of Medicine, 330, 387-392.
