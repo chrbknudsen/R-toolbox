@@ -1088,6 +1088,23 @@ number of minutes elapsed since the last cigarette smoked.
 
 ### SWISS
 
+Data from the Swiss Analgesic Study, done to assess the effect on renal function
+and other health parameters, taking different phenacity based analgesics.
+
+In this part of the dataset, we get measurements of serum creatinine for different 
+years.
+
+624 women from workplaces near Basel with a high intake of phenacitin-based
+analgesics. This was the study-group. 626 women from the same workplaces, with 
+a low, or non-existent intake of these analgecis, was studied as the control-group.
+
+The study group was, based on the level of NAPAP (N-acetyl-P-aminophenyl) in their 
+blood samples, divided into high and low level sub-groups. Both subgroups had 
+higher NAPAP levels than the control
+
+A base-line measurement of serum creatinine was taken in 1967-68, and followups
+were done in 1969-1978. 
+
 _Dimensions:_ Rows: 300 Columns: 10 
 
 [source](data.md#rosner_1)^1^
@@ -1523,7 +1540,6 @@ Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 * piriform
 * sexrat
 * smoke
-* swiss
 * tear
 * temperat
 * tennis1
