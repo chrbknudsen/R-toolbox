@@ -486,7 +486,9 @@ is investigated. 31 subjects are placed into 1 of three study types, and recives
 treatment two times for four weeks, with a two week washout period between.
 
 Are there any significant differences between the different treatments - or carry over
-effects on blood pressure in the different groups.
+effects on blood pressure in the different groups?
+
+Also an example of untidy data with values in column names.
 
 
 _Dimensions:_ Rows: 62 Columns: 22
