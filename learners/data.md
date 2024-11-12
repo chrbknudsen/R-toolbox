@@ -486,7 +486,9 @@ is investigated. 31 subjects are placed into 1 of three study types, and recives
 treatment two times for four weeks, with a two week washout period between.
 
 Are there any significant differences between the different treatments - or carry over
-effects on blood pressure in the different groups.
+effects on blood pressure in the different groups?
+
+Also an example of untidy data with values in column names.
 
 
 _Dimensions:_ Rows: 62 Columns: 22
@@ -531,7 +533,7 @@ _Dimensions:_ Rows: 62 Columns: 22
 ### FEV
 
 Data on 654 children seen in the [Childhood Respiratory Disease Study](#tage_6)^6^ in East Boston 
-Massachusetts in 1980. Forced Expiratory Volumne (FEF), an index of pulmonary
+Massachusetts in 1980. Forced Expiratory Volume (FEV), an index of pulmonary
 function was measured, along with, age, height, sex and smoking status. 
 
 FEV is the volume of air (in liters) that can be expelled from the lungs in 
