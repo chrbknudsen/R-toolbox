@@ -531,7 +531,7 @@ _Dimensions:_ Rows: 62 Columns: 22
 ### FEV
 
 Data on 654 children seen in the [Childhood Respiratory Disease Study](#tage_6)^6^ in East Boston 
-Massachusetts in 1980. Forced Expiratory Volumne (FEF), an index of pulmonary
+Massachusetts in 1980. Forced Expiratory Volume (FEV), an index of pulmonary
 function was measured, along with, age, height, sex and smoking status. 
 
 FEV is the volume of air (in liters) that can be expelled from the lungs in 
