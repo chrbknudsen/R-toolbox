@@ -23,8 +23,8 @@ keywords: 'software, data, lesson'
 # possible values: pre-alpha, alpha, beta, stable
 life_cycle: 'pre-alpha'
 
-# License of the lesson materials (recommended CC-BY 4.0)
-license: 'CC-BY 4.0'
+# License of the lesson materials (recommended: CC BY-NC-SA 4.0)
+license: 'CC0'
 
 # Link to the source repository for this lesson
 source: 'https://github.com/KUBDatalab/R-toolbox'

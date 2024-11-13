@@ -31,7 +31,7 @@ and took 1 pill every other day for 12 weeks. Blood samples were drawn after
 
 _Dimensions:_ Rows: 23 Columns: 8
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BETACAR.csv)
 
@@ -73,7 +73,7 @@ quartile as the reference group.
 
 _Dimensions_: Rows: 510 Columns: 9   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv)
 
@@ -108,7 +108,7 @@ as other factors, details in metadata below.
 
 _Dimensions:_ Rows: 41 Columns: 25   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BONEDEN.csv)
 
@@ -181,7 +181,7 @@ in the dataset.
 
 _Dimensions:_ Rows: 70 Columns: 24 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BOTOX.csv)
 
@@ -291,7 +291,7 @@ lower, abnormal, sensitivity.
 
 _Dimensions:_ Rows: 186 Columns: 17   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/CORNEAL.csv)
 
@@ -339,7 +339,7 @@ indicative of diabetes. The normal range does not appear to change by pubertal s
 
 _Dimensions:_ Rows: 910 Columns: 8     
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/DIABETES.csv)
 
@@ -581,7 +581,7 @@ groups? Does the rate of decline differ between the two groups?
 
 _Dimensions:_ Rows: 1326 Columns: 8  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/FIELD.csv)
 
@@ -682,7 +682,7 @@ A value of 0 for pH indicate missing values.
 
 _Dimensions:_ Rows: 25 Columns: 9  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -722,7 +722,7 @@ Infectious Diseases, 139(6) 688-697.
 
 _Dimensions:_ Rows: 100 Columns: 18  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
@@ -767,7 +767,7 @@ Sugar Taste Variables
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
@@ -870,7 +870,7 @@ CONTAIN NEUROLOGICAL TEST DATA
 
 _Dimensions:_ Rows: 240 Columns: 6
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/MICE.csv)
 
@@ -905,7 +905,7 @@ patients that experienced nephrotoxicity. Which antibiotic is best?
 
 _Dimensions:_ Rows: 72 Columns: 6  
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NEPHRO.csv)
 
@@ -928,7 +928,7 @@ _Dimensions:_ Rows: 72 Columns: 6
 
 _Dimensions:_ Rows: 34 Columns: 10 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/NIFED.csv)
 
@@ -978,7 +978,7 @@ patients that experienced sideeffects. Which antibiotic is best?
 
 _Dimensions:_ Rows: 50 Columns: 6   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/OTO.csv)
 
@@ -1001,7 +1001,7 @@ _Dimensions:_ Rows: 50 Columns: 6
 
 _Dimensions:_ Rows: 631 Columns: 5 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/PIRIFORM.csv)
 
@@ -1021,9 +1021,17 @@ _Dimensions:_ Rows: 631 Columns: 5
 
 ### SEXRAT
 
+Frequencies of different sex orders of the first 5 children born in families.
+
+Does the probability of a male birth differ from 50%?
+
+Are the sex distribution of successive offspring independent? Ie, does the 
+sex of the first born child, affect the probability of the second child?
+
+
 _Dimensions:_ Rows: 60 Columns: 8   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv)
 
@@ -1043,8 +1051,6 @@ _Dimensions:_ Rows: 60 Columns: 8
 |  sexchldn*  |  Sex of all children  |
 |  num_fam**  |  Number of families   |
 
-::::
-
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
 
@@ -1054,12 +1060,84 @@ such families.
 
 ** Number of families with specific gender contribution of children
 
+Example; there are:
+
+* 4400 families with 2 children where both children are male, 
+* 4270 families with 2 children where the first child is male, and the second female and,
+* 4633 families with 2 children where the first child is female and the second male.
+
+::::
+
+
+:::: spoiler
+
+## Example
+
+Compare P(child 2 is male | child 1 is female) with P(child 2 is male | child 1 is male)
+
+That is, the probability child 2 is male given that child 1 is female.
+
+```r
+sexrat <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SEXRAT.csv")
+  
+# Number of families with female first child:
+  
+sexrat %>% 
+  filter(sx_1 == "F") %>% 
+  summarise(nF1 = sum(num_fam))
+
+# A tibble: 1 x 1
+nF1
+<dbl>
+  1 25719
+
+# Number of those families with a male second child:
+
+sexrat %>% 
+  filter(sx_1 == "F",
+         sx_2 == "M") %>% 
+  summarise(nF1M2 = sum(num_fam))
+
+# A tibble: 1 x 1
+nF1M2
+<dbl>
+  1 12882
+
+# Point estimate for probability of child 2 being male, given child 1 is female:
+
+pF1M2 <- 12882/25719
+pF1M2
+
+[1] 0.5008748
+
+# Standard error of mean for proportions:
+
+SEM_F1M2 <- sqrt(pF1M2*(1-pF1M2)/25719)
+SEM_F1M2
+[1] 0.003117757
+
+# That gives us a 95% confidence interval for P(Child 2 is male | Child 1 is female):
+
+pF1M2 + c(-1,1)*1.96*SEM_F1M2
+
+[1] 0.4947640 0.5069856
+# Doing the same calculations for P(Child 2 is male |  Child 1 is male)
+# gives us an interval of (rounded):
+
+[1] 0.512 0.524
+
+# Which would indicate the having a male child first, increases the probability
+# of having a second male child.
+```
+
+::::
+
 
 ### SMOKE
 
 _Dimensions:_ Rows: 234 Columns: 8
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SMOKE.csv)
 
@@ -1109,7 +1187,7 @@ were done in 1969-1978.
 
 _Dimensions:_ Rows: 300 Columns: 10 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/SWISS.csv)
 
@@ -1138,7 +1216,7 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 _Dimensions:_ Rows: 14 Columns: 61     
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEAR.csv)
 
@@ -1216,7 +1294,7 @@ _Dimensions:_ Rows: 14 Columns: 61
 
 _Dimensions:_ Rows: 630 Columns: 6 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TEMPERAT.csv)
 
@@ -1240,7 +1318,7 @@ _Dimensions:_ Rows: 630 Columns: 6
 
 _Dimensions:_ Rows: 444 Columns: 12 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS1.csv)
 
@@ -1313,7 +1391,7 @@ _Dimensions:_ Rows: 444 Columns: 12
 
 _Dimensions:_ Rows: 88 Columns: 16 
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/TENNIS2.csv)
 
@@ -1376,7 +1454,7 @@ _Dimensions:_ Rows: 88 Columns: 16
 
 _Dimensions:_ Rows: 173 Columns: 9   
 
-[source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/VALID.csv)
 
@@ -1422,7 +1500,7 @@ _Dimensions:_ Rows: 40 Columns: 5
 
 Også Rosner...
 
-[source](learners/data.md#jorgensen_4)^4^
+[Source](learners/data.md#jorgensen_4)^4^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/spermatozoa.csv)
 
@@ -1447,6 +1525,8 @@ Også Rosner...
 ### who
 
 _Dimensions:_ Rows: 405440 Columns: 10 
+
+[Source](learners/data.md#jorgensen_4)^4^ and [Source](learners/data.md#who_7)^7^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/who.csv)
 
@@ -1481,10 +1561,7 @@ NB: Filen er semikolon-separeret
 ## References
 
 
-Bortset fra who-sættet, der er en modificeret udgave af datasættet who fra 
-tidyr-pakken.
 
-Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tuberculosis-programme/data
 
 
 
@@ -1507,6 +1584,10 @@ Den oprindelige kilde til det datasæt: https://www.who.int/teams/global-tubercu
 
 <a id="rosner_1">1</a>: Rosner, Bernard A. Fundamentals of Biostatistics, 7/e, International Edition, 2011 ISBN: 9780538735896. https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
 
+der er også guf her https://www.doc88.com/p-5925003681540.html
+
+https://statanaly.com/wp-content/uploads/2023/04/Fundamentals-of-Biostatistics-7th-Edition.pdf
+
 <a id="hopper_2">2</a>: Hopper, J.H. & Seeman, E (1994). The bone density
 of female twins discordant for tobacco use. New England Journal of Medicine, 330, 387-392.
 
@@ -1524,7 +1605,7 @@ https://www.jstor.org/stable/2532505
 
 <a id ="tage_6">6</a>: Tage, I.B., Weiss, S.T., Rosner, B. & Speizer, F.E. (1979), Effect of parental cigarette smoking on pulmonary function in children. American Journal of Epidemiology, 110, 15-26.
 
-
+<a id = "who_7">7</a>: https://www.who.int/teams/global-tuberculosis-programme/data
 
 
 ## listen over datasæt. 
@@ -1540,7 +1621,6 @@ Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 * nifed
 * oto
 * piriform
-* sexrat
 * smoke
 * tear
 * temperat
