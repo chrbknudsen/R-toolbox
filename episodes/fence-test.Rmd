@@ -64,9 +64,24 @@ challenge og solution gør vi også.
 
 ::::
 
+:::: caution
+## Dette er en caution fence
+
+::::
 
 :::: spoiler
 ## dette er en spoiler fence
+
+::::
+
+
+:::: challenge
+## dette er en challenge fence
+
+:::: solution
+## Den optræder som regel med denne solution fence
+::::
+
 
 ::::
 
@@ -108,7 +123,6 @@ challenge og solution gør vi også.
 7
 
 :::
-
 
 
 
