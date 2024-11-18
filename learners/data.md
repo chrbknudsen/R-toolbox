@@ -1594,7 +1594,7 @@ _Dimensions:_ Rows: 178 Columns: 14
 
 Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm (blue, green and red light respectively, measuring the yellow, red, and blue colors of the wine.)
 
-Hue is measured as  absorbance at 420 nm divided by absorbance at 520 nm.
+Hue is measured as absorbance at 420 nm divided by absorbance at 520 nm.
 
 OD280/OD315 is measured as absorbance at 280 nm divided by absorbance at 315 nm.
 
@@ -1603,18 +1603,6 @@ OD280/OD315 is measured as absorbance at 280 nm divided by absorbance at 315 nm.
 
 
 ## References
-
-
-
-
-
-
-
-
-
-
-
-
 
 <a id="rosner_1">1</a>: Rosner, Bernard A. Fundamentals of Biostatistics, 7/e, International Edition, 2011 ISBN: 9780538735896. https://www.cengage.com/cgi-wadsworth/course_products_wp.pl?fid=M20b&product_isbn_issn=9780538733496&token
 
