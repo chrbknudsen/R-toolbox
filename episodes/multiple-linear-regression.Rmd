@@ -197,10 +197,6 @@ Make sure that only significant (p<0.05) variables are included.
 
 What is the adjusted R squared value?
 
-:::: hint
-svaret er 42
-::::
-
 
 :::: solution
 
