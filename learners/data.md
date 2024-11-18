@@ -1555,6 +1555,61 @@ NB: Filen er semikolon-separeret
 
 ::::
 
+
+### Wine
+
+A data set containing the results of a chemical analysis of three different
+cultivars (variety of grape), from the same region in Italy.
+We are provided with 13 different quantities.
+
+Usable for PCA and RDA. Note that this data set does not have column-names.
+
+
+_Dimensions:_ Rows: 178 Columns: 14 
+
+[Source](learners/data.md#wine_9)^9^
+
+@misc{misc_wine_109,
+  author       = {Aeberhard,Stefan and Forina,M.},
+  title        = {{Wine}},
+  year         = {1991},
+  howpublished = {UCI Machine Learning Repository},
+  note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
+}
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/wine.data)
+
+:::: spoiler
+
+## Metadata
+
+|  Variable  |  Description                      |  Unit            |
+|------------|-----------------------------------|----------------------------|
+|1      |  Cultivar                        |                            | 
+|2        | Alcohol                    |                %            | 
+|3        | Malic acid                    |         g/L                   | 
+|4        | Ash                                 |   g/L                     |         
+|5        | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
+|6        | Magnesium                |        mg/L                   |
+|7         | Total phenols                    g/L             |    |
+|8        | Flavanoids               |        g/L                  |
+|9    | Nonflavanoid phenols  |              g/L            |
+|10       | Proanthocyanins  |               g/L             |
+|11       | Color intensity  |   Absorbance                         |
+|12       | Hue  |  Absorbance-ratio             |
+|13       | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
+|14       | Proline  |  mg/L                          |
+
+Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm (blue, green and red light respectively, measuring the yellow, red, and blue colors of the wine.)
+
+Hue is measured as  absorbance at 420 nm divided by absorbance at 520 nm.
+
+OD280/OD315 is measured as absorbance at 280 nm divided by absorbance at 315 nm.
+
+::::
+
+
+
 ## References
 
 
@@ -1564,16 +1619,6 @@ NB: Filen er semikolon-separeret
 
 
 
-
-
-
-@misc{misc_wine_109,
-  author       = {Aeberhard,Stefan and Forina,M.},
-  title        = {{Wine}},
-  year         = {1991},
-  howpublished = {UCI Machine Learning Repository},
-  note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
-}
 
 
 
@@ -1607,6 +1652,12 @@ https://www.jstor.org/stable/2532505
 <a id = "townsend_8">8</a>: Townsend, T.R., Shapiro, M. Rosner, B. & Kass, E.H. (1979)
 Use of antimicrobial drugs in general hospitals. I. Description for population and definition of
 methods. Journal of Infetious Diseases, 139(6), 688-697.
+
+
+< id = "wine_9">9</a>: Aeberhard, S. & Forina, M. 1991, UCI Machine Learning Repository, https://doi.org/10.24432/C5PC7J
+
+
+
 
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
