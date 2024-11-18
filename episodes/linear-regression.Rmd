@@ -300,8 +300,8 @@ another measurement, we are not allowed to use a linear model.
 
 3. Normality of residuals. The residuals must be normally distributed.
 
-There exist specific tests for the first two assumptions, but in general we know
-our data well enough to determine if they are fulfilled. The third assumptions 
+In general we know
+our data well enough to determine if the first two are fulfilled. The third assumptions 
 can be tested using a `qqplot`. We begin by extracting the residuals from our
 model:
 ```{r}

@@ -642,8 +642,6 @@ a jugular cannula for infusion of the hormones. One trial pr day was performed,
 until the jugular cannula stopped working - therefore there are a different 
 number of observations pr. hen. 
 
-Each trial 
-
 _Dimensions:_ Rows: 398 Columns: 11
 
 [Source](data.md#rosner_1)^1^
@@ -680,9 +678,17 @@ A value of 0 for pH indicate missing values.
 
 ### HOSPITAL
 
+The dataset is part of a larger set, collected on patients discharged from
+a hospital in Pennsylvania, as part of a study on use of antibiotic in hospitals.
+
+Is the length of hospitalization affected on whether a patient received
+antibiotics? 
+
+
 _Dimensions:_ Rows: 25 Columns: 9  
 
-[Source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^ & [reference](data.md#townsend_8)^8^.
+
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -702,19 +708,10 @@ _Dimensions:_ Rows: 25 Columns: 9
 |  Bact_cul  |  Received bacterial culture <br> 1 = yes <br> 2 = no |      |
 |  Service   |  Service <br> 1 = med <br> 2 = surg.                 |      |
 
+WBC: White Bloodcell Count, an indicator of infection.
+
+
 ::::
-
-Fra studie af antibiotikabrug på et hospital i Pennsylvania. Baseret på 
-journaler fra patienter der er udskrevet. WBC er "White Bloodcell Count".
-
-Det kan have klinisk interesse om længden af indlæggelse er afhængig af 
-om patienterne modtager antibiotika behandling.
-
-Yderligere reference: 
-
-Townsend, T.R., Shapiro, M., Rosner, B. & Kass, E.H. (1979) Journal of
-Infectious Diseases, 139(6) 688-697.
-
 
 
 
@@ -1558,6 +1555,61 @@ NB: Filen er semikolon-separeret
 
 ::::
 
+
+### Wine
+
+A data set containing the results of a chemical analysis of three different
+cultivars (variety of grape), from the same region in Italy.
+We are provided with 13 different quantities.
+
+Usable for PCA and RDA. Note that this data set does not have column-names.
+
+
+_Dimensions:_ Rows: 178 Columns: 14 
+
+[Source](learners/data.md#wine_9)^9^
+
+@misc{misc_wine_109,
+  author       = {Aeberhard,Stefan and Forina,M.},
+  title        = {{Wine}},
+  year         = {1991},
+  howpublished = {UCI Machine Learning Repository},
+  note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
+}
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/wine.data)
+
+:::: spoiler
+
+## Metadata
+
+|  Variable  |  Description                      |  Unit            |
+|------------|-----------------------------------|----------------------------|
+|1      |  Cultivar                        |                            | 
+|2        | Alcohol                    |                %            | 
+|3        | Malic acid                    |         g/L                   | 
+|4        | Ash                                 |   g/L                     |         
+|5        | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
+|6        | Magnesium                |        mg/L                   |
+|7         | Total phenols                    g/L             |    |
+|8        | Flavanoids               |        g/L                  |
+|9    | Nonflavanoid phenols  |              g/L            |
+|10       | Proanthocyanins  |               g/L             |
+|11       | Color intensity  |   Absorbance                         |
+|12       | Hue  |  Absorbance-ratio             |
+|13       | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
+|14       | Proline  |  mg/L                          |
+
+Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm (blue, green and red light respectively, measuring the yellow, red, and blue colors of the wine.)
+
+Hue is measured as  absorbance at 420 nm divided by absorbance at 520 nm.
+
+OD280/OD315 is measured as absorbance at 280 nm divided by absorbance at 315 nm.
+
+::::
+
+
+
 ## References
 
 
@@ -1567,16 +1619,6 @@ NB: Filen er semikolon-separeret
 
 
 
-
-
-
-@misc{misc_wine_109,
-  author       = {Aeberhard,Stefan and Forina,M.},
-  title        = {{Wine}},
-  year         = {1991},
-  howpublished = {UCI Machine Learning Repository},
-  note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
-}
 
 
 
@@ -1607,13 +1649,20 @@ https://www.jstor.org/stable/2532505
 
 <a id = "who_7">7</a>: https://www.who.int/teams/global-tuberculosis-programme/data
 
+<a id = "townsend_8">8</a>: Townsend, T.R., Shapiro, M. Rosner, B. & Kass, E.H. (1979)
+Use of antimicrobial drugs in general hospitals. I. Description for population and definition of
+methods. Journal of Infetious Diseases, 139(6), 688-697.
+
+
+< id = "wine_9">9</a>: Aeberhard, S. & Forina, M. 1991, UCI Machine Learning Repository, https://doi.org/10.24432/C5PC7J
+
+
+
 
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* hormone
-* hospital
 * infantbp
 * lead
 * mice
