@@ -574,6 +574,79 @@ maximum. Any observations, more than 1.5 times the IQR from either the
 individual points in the plot.
 
 
+## Counting
+
+Most of the descriptive functions above are focused on continuous variables, 
+maybe grouped by one or more categorical variables.
+
+What about the categorical themselves?
+
+The one thing we can do looking only at categorical variables, is counting.
+
+Counting the different values in a single categorical variable in base-R is done
+using the `table(()` function 
+
+```{r}
+table(penguins$sex)
+```
+
+Often we are interested in cross tables, tables where we count the different
+combinations of the values in more than one categorical variable, eg the 
+distribution of the two different penguin sexes on the three different islands:
+
+```{r}
+table(penguins$island, penguins$sex)
+```
+
+We can event group on three (or more) categorical variables, but the output 
+becomes increasingly difficult to read the mote variables we add:
+
+```{r}
+table(penguins$island, penguins$sex, penguins$species)
+```
+
+## Aggregate
+
+A different way of doing that in base-R is using the `aggregate()` function:
+
+```{r}
+aggregate(sex ~ island, data = penguins, FUN = length)
+```
+
+Here we construct the crosstable using the formula notation, and specify 
+which function we want to apply on the results. This can be used to calculate
+summary statistics on groups, by adjusting the `FUN` argument.
+
+## Counting in tidyverse
+
+In tidyverse we will typically group the data by the variables we want to count,
+and then tallying them:
+
+```{r}
+penguins %>% 
+  group_by(sex) %>% 
+  tally()
+```
+
+`group_by` works equally well with more than one group:
+
+```{r}
+penguins %>% 
+  group_by(sex, species) %>% 
+  tally()
+```
+
+But the output is in a long format, and often requires some manipulation to get
+into a wider tabular format.
+
+A shortcut exists in tidyverse, `count`, which combines group_by and tally:
+
+```{r}
+penguins %>% 
+  count(sex, species) 
+```
+
+
 ::: keypoints
 -   We have access to a lot of summarising descriptive indicators the the location, spread and shape of our data.
 :::
