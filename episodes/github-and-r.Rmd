@@ -37,7 +37,7 @@ in a `git-repo` on your computer. When you make changes, you add (commit) those
 changes to the repo, and Git keeps track of all the changes for you. That is 
 pretty neat.
 
-What is even better is that you can push _all_ the changes you made to a centralised
+What is even better is that you can push _all_ the changes you made to an
 online repository, where your local changes will be stored as well. If something
 bad happens to your computer, you have a backup, that you can pull down to a 
 new computer.
@@ -73,6 +73,57 @@ Det token får vi heromkring fra:
 
 [https://github.com/settings/tokens](https://github.com/settings/tokens)
 
+
+
+Vi har styr på hvordan vi går fra at have oprettet ting på github og til det
+når til vores egen computer.
+
+Hvad hvis vi starter på vores egen computer, og gerne vil have det op på github?
+
+
+Initialiser projektet lokalt:
+
+Sørg for, at du har en mappe på din computer, hvor projektet ligger. Navigér til mappen i terminalen, og kør:
+bash
+Kopier kode
+git init
+Tilføj alle filer:
+bash
+Kopier kode
+git add .
+Lav din første commit:
+bash
+Kopier kode
+git commit -m "Initial commit"
+Opret et nyt repository på din organisations-GitHub-side:
+
+Gå til din organisations-GitHub-side, opret et nyt repository, og kopier URL’en til det.
+Link det lokale projekt til din organisations-GitHub-side:
+
+I terminalen, kør:
+bash
+Kopier kode
+git remote add origin <URL_til_organisations_repo>
+Skub derefter ændringerne til organisations-repoet:
+bash
+Kopier kode
+git push -u origin main
+Fork repoet fra organisations-GitHub til din personlige GitHub-side:
+
+Gå til organisations-repoet på GitHub og vælg "Fork" for at oprette en kopi i din personlige GitHub-konto.
+Opsæt et remote til dit personlige GitHub-repo på din computer:
+
+Nu skal du have både origin og et nyt remote (for eksempel kaldet personal) for at holde styr på, hvor du skubber ændringer hen. Tilføj din personlige GitHub som en ekstra remote:
+bash
+Kopier kode
+git remote add personal <URL_til_personlige_repo>
+Push til din personlige GitHub-konto, hvis nødvendigt:
+
+Hvis du ønsker, kan du skubbe til din personlige konto:
+bash
+Kopier kode
+git push -u personal main
+Nu er dit projekt sat op lokalt og findes på både din organisations- og din personlige GitHub-side
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

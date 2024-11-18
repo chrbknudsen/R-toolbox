@@ -83,6 +83,7 @@ episodes:
 - r-intro-markdown-version-1.Rmd
 - r-intro-markdown-version-2.Rmd
 - github-and-you.Rmd
+- plot-with-tidyplot.Rmd
 
 # Information for Learners
 learners: 
