@@ -642,8 +642,6 @@ a jugular cannula for infusion of the hormones. One trial pr day was performed,
 until the jugular cannula stopped working - therefore there are a different 
 number of observations pr. hen. 
 
-Each trial 
-
 _Dimensions:_ Rows: 398 Columns: 11
 
 [Source](data.md#rosner_1)^1^
@@ -1612,7 +1610,6 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* hormone
 * hospital
 * infantbp
 * lead
