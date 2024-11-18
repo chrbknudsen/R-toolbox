@@ -1569,14 +1569,6 @@ _Dimensions:_ Rows: 178 Columns: 14
 
 [Source](learners/data.md#wine_9)^9^
 
-@misc{misc_wine_109,
-  author       = {Aeberhard,Stefan and Forina,M.},
-  title        = {{Wine}},
-  year         = {1991},
-  howpublished = {UCI Machine Learning Repository},
-  note         = {{DOI}: https://doi.org/10.24432/C5PC7J}
-}
-
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/wine.data)
 
 :::: spoiler
