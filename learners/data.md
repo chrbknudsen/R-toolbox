@@ -678,9 +678,17 @@ A value of 0 for pH indicate missing values.
 
 ### HOSPITAL
 
+The dataset is part of a larger set, collected on patients discharged from
+a hospital in Pennsylvania, as part of a study on use of antibiotic in hospitals.
+
+Is the length of hospitalization affected on whether a patient received
+antibiotics? 
+
+
 _Dimensions:_ Rows: 25 Columns: 9  
 
-[Source](data.md#rosner_1)^1^
+[Source](data.md#rosner_1)^1^ & [reference](data.md#townsend_8)^8^.
+
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/HOSPITAL.csv)
 
@@ -700,19 +708,10 @@ _Dimensions:_ Rows: 25 Columns: 9
 |  Bact_cul  |  Received bacterial culture <br> 1 = yes <br> 2 = no |      |
 |  Service   |  Service <br> 1 = med <br> 2 = surg.                 |      |
 
+WBC: White Bloodcell Count, an indicator of infection.
+
+
 ::::
-
-Fra studie af antibiotikabrug på et hospital i Pennsylvania. Baseret på 
-journaler fra patienter der er udskrevet. WBC er "White Bloodcell Count".
-
-Det kan have klinisk interesse om længden af indlæggelse er afhængig af 
-om patienterne modtager antibiotika behandling.
-
-Yderligere reference: 
-
-Townsend, T.R., Shapiro, M., Rosner, B. & Kass, E.H. (1979) Journal of
-Infectious Diseases, 139(6) 688-697.
-
 
 
 
@@ -1605,12 +1604,14 @@ https://www.jstor.org/stable/2532505
 
 <a id = "who_7">7</a>: https://www.who.int/teams/global-tuberculosis-programme/data
 
+<a id = "townsend_8">8</a>: Townsend, T.R., Shapiro, M. Rosner, B. & Kass, E.H. (1979)
+Use of antimicrobial drugs in general hospitals. I. Description for population and definition of
+methods. Journal of Infetious Diseases, 139(6), 688-697.
 
 ## listen over datasæt. 
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* hospital
 * infantbp
 * lead
 * mice
