@@ -1,0 +1,194 @@
+---
+title: 'math'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How can R be used to solve math problems
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- 
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+R can be used to solve basic math problem. In the following we will look at 
+different math problems, and how to solve them using R and RStudio
+
+## Indeksopgave
+
+You have three indicators x1, x2 and x3 all with numbers between 1 and 10. 
+
+Assume the  value are x1 = 4; x2 = 5; x3 = 9. 
+
+Calculate 
+Udregningerne for min max normaliseringen er
+x1n =
+4 􀀀 1
+10 􀀀 1
+x2n =
+5 􀀀 1
+10 􀀀 1
+x3n =
+9 􀀀 1
+10 􀀀 1
+hvor n bare symboliserer vi har normeret.
+Denerer x1n, x2n; x3n som variable, sa vi kan arbejde videre med dem.
+Hvis I ikke bryder jer om subscripts, er det ok bare at kalde dem a; b; c.
+Det additive ikke vejede indeks kan nu udregnes ved
+Indeks =
+x1n + x2n + x3n
+3
+hvor vi saledes har brugt de 3 variable x1n; x2n; x3n i en videre udregning.
+Fa R til at udregne det indeks.
+```{r}
+# R som lommeregner og brug af variable -----------------------------------
+
+x1 <- 4
+x2 <- 5
+x3 <- 9
+
+x1n <- (x1 - 1) / (10 - 1) 
+x2n <- (x2 - 1) / (10 - 1) 
+x3n <- (x3 - 1) / (10 - 1) 
+
+indeks <- (x1n + x2n + x3n) / 3
+```
+
+
+```{r}
+# install.packages("Ryacas")
+# install.packages("Deriv")
+library(Ryacas)
+library(Deriv)
+
+
+
+# Løsning af første og andengrads ligninger -------------------------------
+# 8x = 24
+# 2x + 4 = 4x - 10
+# x^2 - 3x + 2 = 0
+
+yac('Solve(8 * x == 24, x)')
+yac('Solve(2 *x +4 == 4 * x - 10, x)')
+yac('Solve(x^2 - 3 * x + 2 ==0, x)')
+
+
+# Funktioner og grafer ----------------------------------------------------
+
+# f(x) = x^2
+# g(x) = 2x
+
+f = function(x){x*x}
+curve(f, from=-5, to=5, xlab="x", ylab="y")
+text(4, 22, "f", cex = .8)
+
+g = function(x){2*x}
+curve(g, from=-5, to=5, xlab="x", ylab="y", add = TRUE)
+text(4, 5, "g", cex = .8)
+
+#f(2), g(2), f(5), g(5)
+f(2)
+g(2)
+f(5)
+g(5)
+
+
+# Differentialregning -----------------------------------------------------
+
+
+#funktion
+#f(x) = x^2 + 10 * x - 5
+#g(x) = e^(2*x)
+
+f = function(x){x^2 + 10 * x - 5}
+g = function(x){exp(2*x)}
+
+#f-mærke
+f_mark <- Deriv(f, "x")
+#f-dobbelt mærke
+f_dob_mark <- Deriv(f_mark, "x")
+
+#g-mærke
+g_mark <- Deriv(g, "x")
+#g-dobbelt mærke
+g_dob_mark <- Deriv(g_mark, "x")
+
+#f-mærke og 0
+f_mark(0)
+f_dob_mark(0)
+
+g_mark(3)
+g_dob_mark(3)
+
+
+# Matrixregning -----------------------------------------------------------
+A <- matrix(c(-7, -6, 15, 12), byrow = T, nrow = 2)
+x <- matrix(c(4, 2), byrow = T, nrow = 2)
+B <- matrix(c(3, -1, 5, 1, 2, 7, -4, 0, 3), byrow = T, nrow = 3)
+y <- matrix(c(5, 2, 9), byrow = T, nrow = 3)
+
+#Ax og By
+A %*% x
+B %*% y
+
+#åbneøkonomi
+# x = (I - A)^-1 * y
+
+#bruger vektor i stedet for matrix ved matrix i en dimension
+A <- matrix(c(0.3, 0.4, 0.1, 0.2, 0.2, 0.3, 0.1, 0.2, 0.4), byrow = T, nrow = 3)
+y <- c(70, 60, 100)
+
+#enhendsmatricen - kan ikke hedde I pga. funktion der hedder I
+enhedsmatrice <- diag(3)
+
+#inverteret matrice
+solve(enhedsmatrice - A)
+
+#eventuelt gøre, men giver afrundingsfejl senere
+round(solve(enhedsmatrice - A), digits = 1)
+
+solve(enhedsmatrice - A) %*% y
+
+#afrundet
+round(solve(enhedsmatrice - A) %*% y)
+
+
+# Integralregning ---------------------------------------------------------
+
+f = function(x){(x^2)}
+
+stats::integrate(f, upper = 1, lower = 0)
+
+g = function(x){x^2 + 2 * x + 4}
+stats::integrate(g, upper = 2, lower = 1)
+
+h = function(x){x^3 - 10}
+stats::integrate(h, upper = 5, lower = 3)
+#integrate - funktion
+
+
+
+
+
+
+
+
+```
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- 
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
