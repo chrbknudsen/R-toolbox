@@ -20,26 +20,153 @@ exercises: 2
 
 ## Introduction
 
-forudsætninger/betingelser.
+Studying the length of penguin flippers, we notice that
+there is a difference between the average length between
+three different species of penguins:
 
 ```{r}
 library(tidyverse)
 library(palmerpenguins)
+penguins %>% 
+  group_by(species) %>% 
+  summarise(mean_flipper_length = mean(flipper_length_mm, na.rm = TRUE))
 ```
 
+If we only had two groups, we would use a t-test to determine
+if there is a significant difference between the two groups. But
+here we have three. And when we have three, or more, we use
+the ANOVA-method, or rather the `aov()` function: 
 
-Vi har længden af deres vinger. Og vi har tre arter pingviner.
+```{r}
+aov(flipper_length_mm ~ species, data = penguins) %>% 
+  summary() 
+```
+We are testing if there is a difference in flipper_length_mm 
+when we explain it as a function of species. Or, in other words,
+we analyse how much of the variation in flipper length is
+caused by variation between the groups, and how much is caused
+by variation within the groups. If the difference between those
+to parts of the variation large enough, we conclude that there is
+a significant difference between the groups.
 
-Er der forskel på længden af pingvin vinger mellem de tre arter?
+In this case, the p-value is very small, and we reject the
+NULL-hypothesis that there is no difference in the variance 
+between the groups, and conversely that we accept the 
+alternative hypothesis that there is a difference.
 
+
+## Are we allowed to run an ANOVA?
+
+There are some conditions that needs to be fullfilled. 
+
+1. The observations must be independent.
+
+In this example that we can safely assume that the length of the
+flipper of a penguin is not influenced by the length of another
+penguin.
+
+2. The residuals have to be normally distributed
+
+Typically we also test if the data is normally distributed. Let us
+look at both:
+
+Is the data normally distributed?
+
+```{r}
+penguins %>% 
+  ggplot(aes(x=flipper_length_mm)) +
+  geom_histogram() +
+  facet_wrap(~species)
+```
+That looks reasonable.
+
+And the residuals?
+
+```{r}
+aov(flipper_length_mm ~ species, data = penguins)$residuals %>% 
+  hist(.)
+```
+That looks fine - if we want a more specific test, those exists,
+but will not be covered here.
+
+3. Homoskedacity 
+
+A weird name, it simply means that the variance in the different
+groups are more or less the same. We can calculate the variance
+and compare:
 
 ```{r}
 penguins %>% 
   group_by(species) %>% 
-  summarise(mean = mean(flipper_length_mm, na.rm = TRUE))
+  summarise(variance = var(flipper_length_mm, na.rm = TRUE))
 ```
 
-Det kunne se sådan ud, men det kunne jo være et tilfælde.
+Are the variances too different? As a rule of thumb, we have a 
+problem if the largest variance is more than 4-5 times larger
+than the smallest variance. This is OK for this example.
+
+If there is too large difference in the size of the three groups,
+smaller differences in variance can be problematic.
+
+:::: solution
+
+## More specific methods exist.
+
+There are probably more than than three tests for homoskedacity, here 
+are three:
+
+Fligner-Killeen test:
+
+```{r}
+fligner.test(flipper_length_mm ~ species, data = penguins)
+```
+
+Bartlett's test:
+
+```{r}
+bartlett.test(flipper_length_mm ~ species, data = penguins)
+```
+Levene test:
+```{r}
+library(car)
+leveneTest(flipper_length_mm ~ species, data = penguins)
+```
+For all three tests - if the p-value is >0.05, there is a significant
+difference in the variance - and we are not allowed to use the 
+ANOVA-method. In this case we are on the safe side.
+
+::::
+
+### But where is the difference?
+
+Yes, there is a difference between the average flipper length
+of the three species. But that might arise from one of the species
+having extremely long flippers, and there not being much 
+difference between the two other species. 
+
+So we do a posthoc analysis to confirm where the diffrences 
+are.
+
+The most common is the tukeyHSD test, HSD standing for
+"Honest Significant Differences":
+
+```{r}
+aov_model <- aov(flipper_length_mm ~ species, data = penguins)
+TukeyHSD(aov_model)
+```
+We get the estimate of the pair-wise differences and 
+lower and upper 95% confidence intervals for those differences.
+
+
+Alternativer:
+Normalfordelte data og homogene variansforhold:
+Tukey's HSD (generelt bedste valg).
+Bonferroni (hvis meget konservativ tilgang ønskes).
+Ikke-homogene variansforhold:
+Games-Howell (mest robust).
+Wilcoxon (ikke-parametrisk).
+Fokuseret på en kontrolgruppe:
+Dunnett's test.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
