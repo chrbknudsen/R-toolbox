@@ -1,0 +1,49 @@
+---
+title: 'anova'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you perform an ANOVA?
+- What even is ANOVA?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to run an analysis of variance on models
+- Explain the requisites for runnin an ANOVA
+- Explain what an ANOVA is
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+forudsætninger/betingelser.
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+
+Vi har længden af deres vinger. Og vi har tre arter pingviner.
+
+Er der forskel på længden af pingvin vinger mellem de tre arter?
+
+
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarise(mean = mean(flipper_length_mm, na.rm = TRUE))
+```
+
+Det kunne se sådan ud, men det kunne jo være et tilfælde.
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
