@@ -71,10 +71,13 @@ Those are the "true" mean and standard deviation for the _entire_ universe. That
 is signified by using the greek letters $\mu$ and $\sigma$. In practise
 we do not know what those true values are.
 
+:::: callout
 ### What does it mean that our data is normally distributed
 
 We have an entire section on that - but in short: The probabilities we get 
 from the formula above should match the frequencies we observe in our data.
+
+::::
 
 ## How does it look- graphically?
 
