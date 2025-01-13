@@ -79,7 +79,7 @@ The normal distribution is especially important, for a number of reasons:
 
 1. If we take a lot of samples from a population and calculate the averages of 
 a given variable in those samples, the averages, or means will be normally 
-distributed. This is know as the Central Limit Theorem [KAN VI SÆTTE ET LINK IND?]
+distributed. This is know as the [Central Limit Theorem](CLT-en.md). 
 
 2. Many natural (and human made) processes follow a normal distribution.
 
