@@ -22,8 +22,6 @@ library(tidyverse)
 ```
 
 
-## The Normal Distribution
-
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
 Inline instructor notes can help inform instructors of timing challenges
@@ -34,11 +32,47 @@ associated with the lessons. They appear in the "Instructor View"
 ## What is the normal distribution
 
 A probability distribution is a mathematical function, that describes
-the likelyhood of different outcomes in a random experiment. It gives us
+the likelihood of different outcomes in a random experiment. It gives us
 probabilities for all possible outcomes, and is normalised so that the sum
 of all the probabilities is 1. 
 
-Probability distribtutions can be discrete, or they can be continuous. The normal
+```{r 4-distibutions, echo  =F, fig.width=5, fig.height=5 }
+# Generer data
+x <- seq(-4, 4, length.out = 100)
+
+# Normal fordeling
+normal <- dnorm(x, mean = 0, sd = 1)
+
+# Student's t-fordeling med 3 frihedsgrader
+student_t <- dt(x, df = 3)
+
+# Chi-squared fordeling (forskudt til at passe bedre i plottet)
+chi_sq <- dchisq(x + 2, df = 3)
+
+# F-fordeling (også forskudt)
+f_dist <- df(x + 2, df1 = 3, df2 = 10)
+
+# Kombiner data
+plot_data <- data.frame(x = x,
+                        Normal = normal,
+                        Student_t = student_t,
+                        Chi_squared = chi_sq,
+                        F_distribution = f_dist) %>%
+  pivot_longer(-x, names_to = "Distribution", values_to = "Density")
+
+# Lav plot med facetter
+ggplot(plot_data, aes(x = x, y = Density)) +
+  geom_line(linewidth = 1, color = "steelblue") +
+  facet_wrap(~Distribution, ncol = 2, scales = "free_y") +
+  theme_minimal() +
+  labs(title = "Four different probability distributions",
+       x = "x",
+       y = "Density") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+
+Probability distributions can be discrete, or they can be continuous. The normal
 distribution is just one of several different continuous probability distributions. 
 
 The normal distribution is especially important, for a number of reasons:
@@ -71,10 +105,13 @@ Those are the "true" mean and standard deviation for the _entire_ universe. That
 is signified by using the greek letters $\mu$ and $\sigma$. In practise
 we do not know what those true values are.
 
+:::: callout
 ### What does it mean that our data is normally distributed
 
 We have an entire section on that - but in short: The probabilities we get 
 from the formula above should match the frequencies we observe in our data.
+
+::::
 
 ## How does it look- graphically?
 
