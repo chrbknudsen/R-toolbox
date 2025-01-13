@@ -85,6 +85,9 @@ episodes:
 - github-and-you.Rmd
 - plot-with-tidyplot.Rmd
 - anova.Rmd
+- missing-data.Rmd
+- adv-dataviz.Rmd
+- digitizing-graphs.Rmd
 
 # Information for Learners
 learners: 
