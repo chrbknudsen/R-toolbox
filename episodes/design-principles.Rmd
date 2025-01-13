@@ -17,6 +17,7 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+se også: https://ikashnitsky.phd/2024/rotate-damn-plot/
 
 ```{r setup}
 library(tidyverse)
@@ -143,6 +144,11 @@ the area of the slices.
 ## The axes should always start at 0
 
 Except when they shouldn't.
+
+A common rule of thumb is that axes should always start at 0.
+
+However. If the axis does not have a natural 0 - do not.
+ 
 
 Langt, langt de fleste gange skal aksen starte med 0. 
 Men ikke hvis aksen ikke har et naturligt 0 punkt. Den klassiske om gennemsnitlig
