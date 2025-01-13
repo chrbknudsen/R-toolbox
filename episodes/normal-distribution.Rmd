@@ -17,6 +17,11 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r setup, echo = FALSE, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+
 ## The Normal Distribution
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -50,7 +55,7 @@ worse.
 
 4. Many statistical methods and tests are based on assumptions of normality.
 
-## How does it look?
+## How does it look - mathematically?
 The normal distribution follows this formula:
 
 $$
@@ -71,7 +76,7 @@ we do not know what those true values are.
 We have an entire section on that - but in short: The probabilities we get 
 from the formula above should match the frequencies we observe in our data.
 
-## How does it look?
+## How does it look- graphically?
 
 It is useful to be able to compare the distributions of different variables.
 That can be difficult if one have a mean of 1000, and the other have a mean
@@ -87,56 +92,192 @@ The area under the curve is 1, equivalent to 100%.
 The normal distribution have a lot of nice mathematical properties, some of which
 are indicated on the graph. 
 
-CDF-plottet - så vi har forbindelsen til den deskriptive 
-statistik.
+## So - what _is_ the probability?
 
-Konceptet med - hvad er sandsynligheden for at se en observation der ligger
-x standardafvigelser fra middelværdien.
+The normal distribution curve tell what the probability density for a given observation
+is. But in general we are interested in the probability that something is larger,
+or smaller, than something. Or between certain values. 
 
-This allows us to calculate the probability of finding a certain value in the data,
-if the data is normally distributed, if we know the mean and the standard deviation.
+Rather that plotting the probability density, we can plot the cumulative density.
+
+```{r cdf-plot, echo = FALSE}
+
+# Definer normalfordelingens parametre
+mean <- 0     # Middelværdi
+sd <- 1       # Standardafvigelse
+
+# Beregn kvantiler for normalfordelingen
+quantiler <- qnorm(c(0.25, 0.5, 0.75), mean = mean, sd = sd)
+
+# Opret data til CDF og segmenter
+x_values <- seq(-4, 4, length.out = 1000)
+cdf_values <- pnorm(x_values, mean = mean, sd = sd)
+cdf_data <- tibble(x = x_values, cdf = cdf_values)
+
+h_data <- tibble(
+  x = rep(-4, 3),  # Horisontale linjer starter ved y-aksen (-4 på x-aksen)
+  y = c(0.25, 0.5, 0.75),
+  xend = quantiler,
+  yend = c(0.25, 0.5, 0.75)
+)
+
+v_data <- tibble(
+  x = quantiler,
+  xend = quantiler,
+  y = rep(0, 3),
+  yend = c(0.25, 0.5, 0.75)
+)
+
+# Plot CDF med linjer for kvantiler
+ggplot(cdf_data, aes(x = x, y = cdf)) +
+  geom_line(color = "blue", linewidth = 1) +  # CDF-kurven
+  geom_segment(data = v_data, aes(x = x, y = y, xend = xend, yend = yend),
+               color = "red", linewidth = 1) +  # Vertikale linjer
+  geom_segment(data = h_data, aes(x = x, y = y, xend = xend, yend = yend),
+               color = "red", linewidth = 1) +  # Horisontale linjer
+  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +  # Y-akse fra 0 til 1
+  scale_x_continuous(limits = c(-4, 4), expand = c(0, 0)) +  # X-akse fra -4 til 4
+  labs(
+    title = "CDF of Normal distribution",
+    x = "x",
+    y = "Cumulative Probability"
+  ) +
+  theme_classic()
+
+```
+
+Note that we also find the cumulitive probability in the original plot of 
+the normal distribution - now it is a bit more direct.
+
+This allow us to see that the probability of observing a value that is 2 standard
+deviations smaller than the mean is rather small. 
+
+We can also, more indirectly, note that the probability of observing a value that
+is 2 standard deviations larger than the mean is rather small. Note that the
+probability of an observation that is smaller than 2 standard deviations larger
+than the mean is 97.7% (hard to read on the graph, but we will get to that). 
+Since the total probability is 100%, the probability of an observation being larger
+than 2 standard deviations is 100 - 97.7 = 2.3%
+
+
+## Do not read the graph - do the calculation
+
+Instead of trying to measure the values on the graph, we can do the calculations
+directly. 
 
 R provides us with a set of functions:
 
-pnorm the probability of having a smaller value than. 
-qnorm the value corresponding to a given probability
-dnorm the probability density of the norma distribution at a given x.
 
-Og det er for den standardiserede normalfordeling N(0,1)
 
-De har mulighed for at returnere værdier for en hvilken som helst normalfordeling
-med arbitrære middelværdi og standardafvigelse.
+* *pnorm* returns the probability of having a smaller value than x
+* *qnorm* the value x corresponding to a given probability
+* *dnorm* returns the probability density of the normal distribution at a given x.
 
-An example:
+We have an additional *rnorm* that returns a random value, drawn from a normal
+distribution.
 
-If the height of men are normally distributed, with a mean (mu) = 183 cm, and 
-a standarddeviation of 9.7 cm. How probably is it to find a man that is taller
-than 2 meters? 
+:::: challenge
+## Try it your self!
 
-Directly:
-```{r pnorm-example}
-1 - pnorm(200,183,9.7)
-```
-In this example, pnorm returns the probability of an observation smaller than
-200, if data is normally distributed with mean 183, and standard deviation 9.7.
+Assuming that our observations are normally distributed with a mean of 0 and
+a standard deviation of 1.
 
-The probability of finding any observation is 1. So the probability of finding
-an observation larger than 200, is 1 minus the probability of finding an observation 
-smaller than 200.
+What is the probability of an observation x < 2?
 
-Manually we could calculate the distance from 200 to 183 = 17. And divide that
-with the standard deviation 9.7: 17/9.7 = 1.752577. 
-
-```{r pnorm-example-2}
-1 - pnorm(1.752577)
+:::: solution
+```{r}
+pnorm(2)
 ```
 
+About 98% of the observations are smaller than 2
+
+::::
+
+::::
+:::: challenge
+Making the same assumptions, what is the value of the observation, for which
+42% of the observations is smaller?
+
+:::: solution
+```{r}
+qnorm(0.42)
+```
+
+42% of the observations are smaller than -0.2
+
+::::
+::::
 
 
-How many men are between 170 and 190 cm tall?
-Lidt før dette punkt skal vi videre til næste lesson.
+## What about other means and standard deviations?
 
-Og efter clt videre til hypotesetests
+Being able to find out what the probablity of some observation being smaller when
+the mean is 0 and the standard deviation is 1, is nice. But this is not a common
+problem.
+
+Rather we might know that adult men in a given country have an average height
+of 183 cm, and that the standard deviation of their height is 9.7 cm. 
+
+What is the probability to encounter a man that is taller than 2 meters?
+
+The R-functions handle this easily, we "simply" specify the mean and standard 
+deviation in the function:
+
+```{r}
+1 - pnorm(200, mean = 183, sd = 9.7)
+```
+The function calculate the probability of a man being shorter than 200 cm,
+if the distribution is normal and the mean and standard devation is 183 and
+9.7 respectively. The probability of the man having a height is 1 (equivalent to 100%).
+So if the probability of the man being shorter than 200 cm is 96%, the probability
+of him being taller than 200 cm is 4%
+
+
+:::: spoiler
+## How does that work?
+
+We have a lot of men with an average height of 183. They all have an individual
+heigth. If we subtract 183 from their height, and use that as a measurement of 
+their height, that will have a mean of 0. 
+
+We are not going into the details, but if we divide all the heights with the
+original standard deviation, and do all the math, we will discover that 
+the standard deviation of the new heights will be 1.
+
+Therefore, if we subtract 183 from all the individual heights, and divide them
+by 9.7, the resulting measurements of the heights have a mean of 0 and a standard 
+deviation of 1. Bringing all that together, we get:
+
+```{r}
+1 - pnorm((200-183)/9.7)
+```
+
+::::
+
+:::: challenge
+## How many men are in an interval?
+
+How many men have a height between 170 and 190 cm?
+
+Assume mean = 183 cm and sd = 9.7
+
+:::: spoiler
+## Hint
+What proportion of men are shorter than 190 cm? And what proportion of men
+are shorter than 170 cm?
+::::
+
+:::: solution
+
+```{r}
+pnorm(190, mean =183, sd = 9.7 )  - pnorm(170, mean = 183, sd = 9.7)
+```
+
+
+::::
+
+::::
+
 
 ## CLT
 
