@@ -60,6 +60,7 @@ recommend if you have any problems installing R and RStudio on your personal com
   whether a more recent version is available. If so, please download and install
   it. You can [check here](https://cran.r-project.org/bin/windows/base/rw-FAQ.html#How-do-I-UNinstall-R_003f) for
   more information on how to remove old versions from your system if you wish to do so.
+* In any case, make sure you have at least R 4.4.
 
 #### If you don't have R and RStudio installed
 
@@ -87,7 +88,8 @@ recommend if you have any problems installing R and RStudio on your personal com
   that appears on the terminal indicates the version of R you are running. Alternatively, you can type `sessionInfo()`, which will also display which version of R you are running. Go on
   the [CRAN website](https://cran.r-project.org/bin/macosx/) and check
   whether a more recent version is available. If so, please download and install
-  it. In any case, make sure you have at least R 3.2.
+  it. 
+* In any case, make sure you have at least R 4.4.
 
 #### If you don't have R and RStudio installed
 
@@ -117,7 +119,8 @@ recommend if you have any problems installing R and RStudio on your personal com
   distributions, you could use your package manager (e.g., for Debian/Ubuntu run
   `sudo apt-get install r-base`, and for Fedora `sudo yum install R`), but we
   don't recommend this approach as the versions provided by this approach are
-  usually out of date. In any case, make sure you have at least R 3.2.
+  usually out of date. 
+* In any case, make sure you have at least R 4.4.
 * Go to the
   [RStudio download page](https://www.rstudio.com/products/rstudio/download/#download).
 * Under *Installers* select the version that matches your distribution, and
