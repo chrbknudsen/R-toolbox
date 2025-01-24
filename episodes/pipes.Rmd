@@ -30,14 +30,23 @@ genvejene kan findes i Tools → Keyboard Shortcuts Help. alt-shift-k (Option+Sh
 
 Tools → Modify Keyboard Shortcuts.
 
+`hm`
+
+	`code`
+	
+==test==
+
+
 Vil man ændre den så er det Tools → Global Options (eller Project Options) → Code og hak af i "Use native pipe operator, \|\>"
+
 
 | Topic          | Magrittr 2.0.3                     | Base 4.3.0 |
 |----------------|------------------------------------|------------|
-| Operator       | `%>%` \``%<>%` `%$%` `%!>%` `%T>%` | `|>`       |
-| Function calls | `1:2 %>% sum()`                           |  `1:2 |> sum()`          |
-|                |       `1:2 %>% sum`                              | Needs the parentheses           |
+| Operator       | %>%    &nbsp;&nbsp;&nbsp;&nbsp;%<>%   %$%       %!>%  %T>% | `|>`       |
+| Function calls | 1:2 %>% sum()                           |  `1:2 |> sum()`          |
+|                |       **`1:2 %>% sum`  **                            | Needs the parentheses           |
 ||`1:3 %>% `+` 4`| Not every function is supported|
+
 
 
 ::: keypoints

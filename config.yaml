@@ -85,7 +85,6 @@ episodes:
 - fence-test.Rmd
 - design-principles.Rmd
 - large-data.Rmd
-- making-a-new-course.Rmd
 - r-intro-markdown-version-1.Rmd
 - r-intro-markdown-version-2.Rmd
 - github-and-you.Rmd
@@ -97,6 +96,7 @@ episodes:
 - ucloud.Rmd
 - model-control.Rmd
 - pipes.Rmd
+- making-a-new-course.Rmd
 
 # Information for Learners
 learners: 
