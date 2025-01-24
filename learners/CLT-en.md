@@ -1,8 +1,18 @@
 ---
-title: CLT - på dansk
+title: CLT - in english
 ---
 
-# Et bevis for Central Limit Teoremet.
+# A proof of the Central Limit Theorem
+
+In general: CLT explains why many distributions of data, approximates a normal
+distribution (bell curve), as samplesize increases, independent of the shape
+of the underlying distrubution.
+
+The theorem states, at the distribution of the standardized average of a 
+sample approaches the standard normal distribution.
+
+Or, less precise, that for large samples their average is more or less normally
+distributed around the true average of the population.
 
 Overordnet: CLT forklarer hvorfor mange fordelinger af data, tenderer en 
 normalfordeling (klokkekurven), når stikprøvestørrelsen bliver stor, uanset den 
