@@ -1,0 +1,100 @@
+---
+title: 'p-hacking'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Stopping Rules
+P-hackers might stop collecting data once they achieve a significant result, ignoring the need for a predetermined sample size.
+
+Optional stopping, or as some call it, ‘data peeking,’ is when a researcher keeps testing their hypothesis as they gather data. The moment they hit a significant result, they stop collecting data. It’s like prematurely declaring victory in a game before it’s officially over.
+
+
+What is P Hacking: Methods & Best Practices
+By Jim Frost 2 Comments
+
+P-Hacking Definition
+P hacking is a set of statistical decisions and methodology choices during research that artificially produces statistically significant results. These decisions increase the probability of false positives—where the study indicates an effect exists when it actually does not. P-hacking is also known as data dredging, data fishing, and data snooping.
+
+Golden letter P to represent p hacking.P hacking is the manipulation of data analysis until it produces statistically significant results, compromising the truthfulness of the findings. This problematic practice undermines the integrity of scientific research.
+
+It occurs because high-impact journals strongly favor statistically significant results in today’s scientific landscape. For researchers, publishing in these prestigious outlets is a career-boosting achievement. However, this prestige comes with pressure that can tempt researchers towards the perilous path of p-hacking.
+
+P Hacking History
+The term p-hacking was born during a crisis within the scientific community. Scientists were struggling as some of their landmark findings were failing to replicate. A large-scale research project that repeated 100 previously significant studies found that a shocking 64% were not significant the second time. The colossal failure to replicate two-thirds of the significant results suggests that most of the original studies were false positives. Read my look at the Reproducibility Study.
+
+Advertisement
+With growing unease, investigators tried to find the causes of the false positives. The suspect? Some deeply ingrained research practices. As the plot thickened, it became clear that p-hacking was a major player in this unfolding replication crisis.
+
+All studies have a false positive rate. That’s the probability of concluding an effect or relationship exists (i.e., significant results) when it does not. Statisticians refer to that as the Type I error rate in hypothesis testing. When you do everything correctly, the error rate equals your significance level (e.g., 0.05 or 5%).
+
+P-hacking jacks up that false positive rate, sometimes drastically! False positive studies tend not to reproduce significant results when scientists repeat them—explaining the replication crisis. Clearly, the 64% reproducibility failure in the aforementioned study is much greater than expected!
+
+Advertisement
+The takeaway is that p-hacking’s detrimental effects are real and not theoretical. Scientists have already noticed its impact in the literature with the replication crisis. Additionally, studies have found an overabundance of p-values just below 0.05 (see the p-curve article in the references). These results suggest that researchers have tweaked their studies until they get their p-values just below the standard significance threshold of 0.05.
+
+Learn more about Type I and Type II Error in Hypothesis Testing.
+
+Origin and Debate around the Term P-Hacking
+Simonsohn, Nelson, and Simmons are authors of landmark studies in p-hacking and introduced the term at a psychology conference in 2012. They wanted to create a memorable name for the set of practices. While catchy, the term has sparked a debate among statisticians. Critics argue that the word “hacking” implies it refers only to intentionally deceptive manipulation. In actuality, the word applies to both unintentional and intentional cases.
+
+Advertisement
+Unintentional P-Hacking: Many researchers don’t fully realize they’re p-hacking. With so many ways to analyze data (imagine wandering through a maze of paths), it’s easy to veer toward biased decisions unknowingly. It’s like convincing ourselves that the shorter, easier route is the ‘right’ one, even when it’s not.
+
+Intentional P-Hacking: P-hacking can be willful manipulation using an iterative trial and error method that homes in on significant results. Here, researchers knowingly twist their analysis to create outcomes they desire. It’s akin to deliberately changing the evidence at a crime scene to create a misleading narrative.
+
+Whether done knowingly or not, p-hacking clouds the truth and jeopardizes the pursuit of knowledge. Let’s look at how p hacking occurs and the best practices for avoiding it.
+
+Advertisement
+P Hacking Methods
+P-hacking covers a wide range of methods. The difficulty is that all studies require researchers to make numerous decisions about data collection, variable manipulation, analysis techniques, and reporting the results. Making the correct choices is crucial to producing valid results.
+
+Some of the following methods can be legitimate decisions when done correctly. P hacking refers to cases where the researchers make poor choices that produce unwarranted statistically significant results.
+
+Research has identified the following most common p hacking methods. However, there are numerous others.
+
+Advertisement
+Learn more about Statistical Significance: Definition & Meaning.
+
+Stopping Rules
+P-hackers might stop collecting data once they achieve a significant result, ignoring the need for a predetermined sample size.
+
+Optional stopping, or as some call it, ‘data peeking,’ is when a researcher keeps testing their hypothesis as they gather data. The moment they hit a significant result, they stop collecting data. It’s like prematurely declaring victory in a game before it’s officially over.
+
+Advertisement
+This premature termination of data collection is a p-hacking technique that can inflate Type I errors.
+
+Outliers
+Outliers can significantly impact your data. P-hackers might choose to remove outliers based on whether it helps them achieve significance. The decision about outliers ideally should be based on theoretical grounds about the variable and measurement issues relating to specific observations. The outliers’ impact on the p-value should not be a factor at all.
+
+‘Data trimming’ is a common form of p-hacking where researchers selectively exclude outliers. There’s room for bending the rules with so many ways to identify outliers (39 common methods!). Plus, reporting on how researchers handle outliers is often sketchy, making it easier to hide data trimming. Some studies even fail to mention it, leading to unexplained differences in sample sizes and degrees of freedom. So, watch out for the elusive outliers!
+
+Removing outliers reduces the data’s variability, thereby increasing statistical power. However, you’re potentially removing legitimate data points and basing your analysis on an unnatural dataset.
+
+https://statisticsbyjim.com/basics/outliers/
+https://statisticsbyjim.com/basics/remove-outliers/
+
+https://statisticsbyjim.com/hypothesis-testing/p-hacking/
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
