@@ -18,6 +18,14 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+- making sure that folders are available in the RStudio job 
+- setting a subdirectory of "work" as the working directory in RStudio 
+- what to do when an Rstudio job seems to freeze (e.g. cannot save file): close the interface window and open it again
+- how to download an entire folder, so they can download their work at the end of the semester (without having to learn how to sync folders, which I imagine will be too much to ask from this workshop)
+archiver...
+
+
+
 All students at UCPH have access to a High Performance Computing (HPC) facility;
 ucloud. It can be acessed at cloud.sdu.dk using the normal UCPH login and 
 password.
@@ -50,24 +58,119 @@ _lot_ of cores.
 
 ## This is not a computer as such
 
-What we can start is not a computer. It is a virtual machine. If we need to
+What we can start is not a computer. It is a virtual machine. A virtual machine 
+is not a real computer, it is a simulation of a computer, that runs on a bigger
+computer. Rather than installing an operating system on a real computer, and
+install software on it, we ask a larger computer to start a simulation of a 
+computer. Since we interact with it through the web, we might not discover the
+difference. But it is there!
+
+This allow us to draw on a lot of resources, primarily "cores" and "RAM".
+
+Cores are the physical unit that runs your code. When we ask R to calculate `1+1`,
+it is done at the core. And the core can do only one thing at a time. It does it
+incredibly fast, but still only one calculation at a time.
+Working with a virtual computer, makes it easy to 
+get access to more than one core. Having access to more than one core, allow us
+to run parallel processes. If we have two set calculations that are independent
+of each others, we could send them both to the same core. It would do the first
+set of calculations. And when it is done with those, it will do the second set 
+of calculations. 
+If we have two cores, we could instead send the first set of calculations to 
+the first core, and the second set to the second core. And they would do the
+calculations independently - we do not have to wait for the first calculation to
+finish before we can begin on the second.
+
+Some calculations cannot be done in parallel. And some calculations can be done
+in parallel, but will not be done faster. When we choose a machine when we 
+start RStudio, we will choose a certain size of machine, and get access to a 
+lot of cores.
+
+What we also get access to is more RAM. RAM is the short term memory of the 
+computer. If we want to manipulate 10 Gb data, we need to be able to have
+10 Gb of data in the memory of the computer. And we probably need to have
+access to much more than 10 Gb, because R likes to use a lot of memory, and 
+tends to make a copy of the data it manipulates.
+
+We might therefore have to chose a certain size of virtual machine, not because
+we actually need 64 cores, but because we need the memory.
+
+Note that the more cores we chose, the more expensive it will get. Ucloud charges
+1 core-hour for running 1 core for 1 hour. Running 64 cores for 1 hour will cost
+us 64 core-hours.
+
+Do not request more cores than you actually need.
+
+On the other hand, do not request less cores than you need. If you have chosen
+too few, you will have to shut down the virtual machine, and start a larger.
+
+And because we are not running on a real computer, everything will be lost.
+
+If you have requested a machine, and have forgotten how much you actually
+requested - go to "runs", double click the job running (indicated by a green
+symbol to the right), and you will get to a screen telling you that you
+"requested 1x u1-standard-2 from DeiC". Go to the place where you ETC TIL MACHINE TYPES
+HVOR DU KAN SE AT STANDARD-2 HAR TO CPU'ER OG GIVER DIG 12 GB RAM.
+
+This is also the place where you can stop the virtual machine. By default the 
+virtual machine will run for one hour. But if you are finished after 45 minutes,
+there is no reason to let it keep running. You are charged by how much time
+you actually use. 
+
+It is also here you can extend the runtime. Again - do not extend by 8 hours if
+you only need 2. 
+
+
+
+
+
+
+If we need to
 save our results, we need to save them to files, on our user drive.
 
 If we do not save the results, or for that matter the scripts we write,
 all is lost when the virtual machine closes. Either because we close it,
 or because the time ran out.
 
-Another issue brought up by this, is that whenever we install a library,
-we install it in the virtual machine. Those installed libraries also
-dissappear when the machine closes.
+## Setup issues
 
-One way to get around that is to run the virtual machine indefinitely. That is
-expensive. Another is to have a prepared script we can every time we
-start a new session.
+We can save our work, and as long as we do not delete it again, we have
+access to it. And keeping stuff in a project in R makes everything easy(ish) to
+locate.
 
-Below you will find one such, rather complex, script setting up the 
-machine for running Keras (a module for advanced machine learning), using
-tensorflow. It can be downloaded here INDSÆT LINK.
+But. Installed libraries in R, are not stored in the project. And when we 
+turn off the virtual computer, they disappear. Also for specific uses, we need
+to have access to additional software. This is a very common thing to need when
+working with machine learning. A lot of the algorithms and models are implemented
+in Python, and instead of rewriting all the code to work in R - we can use R
+to access the Python solution instead. This is smart. When it works, and
+that can be a bit of a problem.
+
+What complicates everything is that we might need a packages called "keras".
+But that needs another packaged called "tensorflow". Which requires a package
+called "pandas". Which requires a packages called "numpy". And one of them
+might only run on a version of Python that is newer than 3.9. And another
+one of them might only run on Python older than 3.11.
+
+These complex combinations also needs to be set up for us to be able to do our
+work. And they will _also_ disappear when we restart the virtual machine.
+
+Therefore we might need to run a setup script every time we start up the virtual
+machine.
+
+Below we present two approaches to this. "The Sledgehammer Solution", which we
+have tested, and works, but takes a lot of time to run every single time 
+you start a virtual machine. And "The Simpler Solution" which is less complex,
+should be faster, usually works, but still have some bugs. 
+
+We hope to add a third approach which we will call "The Good Solution", which
+should make it unnessecary to run it every time you start a virtual machine.
+
+### The sledgehammer solution
+
+When you have started the virtual machine, and opened a project, make a new R-script
+in the project, copy the following code (or download it from here), and run it
+line by line.
 
 ```{r eval = F}
 # Run shell commands from R
@@ -101,10 +204,84 @@ library(keras3)
 install_keras(envname = '~/r-tensorflow')
 ```
 
+
+One way to check that everything worked, is to run the following script:
+
+```{r eval = FALSE}
+library(keras3)
+model <- keras_model_sequential() %>%
+  layer_dense(units = 32, input_shape = c(784)) %>%
+  layer_activation("relu") %>%
+  layer_dense(units = 10) %>%
+  layer_activation("softmax")
+summary(model)
+```
+
+This should return a model summary. Do not try to find any meaning in it, this is
+a simple toy example without any meaning.
+
 One downside to this, is that this takes quite some time, and will have to
 be repeated _every_ single time we start the virtual machine.
 
-## Another approach
+## The Simpler Solution
+
+
+Again, make sure that you have made a new project in R-Studio, then make a new
+script, and add this code to it. This also need to be run line by line, especially
+because we need to restart R a couple of times. 
+
+```{r eval =F}
+writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
+# restart R in order to set the environment variable
+.rs.restartR()
+renv::init()
+library(renv)
+renv::install("here", prompt= FALSE)
+library(here)
+
+renv::install("reticulate", prompt = FALSE)
+renv::install('rstudio/tensorflow', prompt = FALSE)
+renv::install("rstudio/keras", prompt = FALSE)
+
+reticulate::install_miniconda(path = "python_env")
+.rs.restartR()
+reticulate::conda_create(envname = "my_project_env", python_version = "3.10")
+reticulate::conda_install(envname = "my_project_env", packages = c("numpy>=1.24"))
+
+
+reticulate::conda_install(envname = "my_project_env", packages = c("pandas>=2.1"))
+reticulate::conda_install(envname = "my_project_env", packages = c("tensorflow>=2.13"))
+reticulate::conda_install(envname = "my_project_env", packages = c("keras>=2.13"))
+.rs.restartR()
+reticulate::use_condaenv("my_project_env", required = TRUE)
+
+renv::snapshot()
+
+# Hent værdierne af miljøvariablerne
+python_env_path <- Sys.getenv("RETICULATE_MINICONDA_PYTHON_ENVPATH")
+python_fallback <- Sys.getenv("RETICULATE_PYTHON_FALLBACK")
+renv_cache <- 'RENV_PATHS_CACHE = renv/cache'
+
+
+# Opret indhold til filen
+content <- paste0(
+  "RETICULATE_MINICONDA_PYTHON_ENVPATH = ", python_env_path, "\n",
+  "RETICULATE_PYTHON_FALLBACK = ", python_fallback, "\n",
+  renv_cache
+)
+
+# Skriv til fil
+writeLines(content, ".Renviron")
+Sys.getenv()
+
+```
+
+Note that this will need to be done for every project you initialize. 
+Also note - this takes a looong time...
+
+
+
+## notes on this:
 
 Data analysis is not worth much, if we are not able to reproduce our results.
 A significant amount of work have therefore gone into providing infrastructure
@@ -116,11 +293,6 @@ libraries in a specific location in an R-project, making it self contained and
 easy to distribute. Normally we would distribute a "lock file" that describes 
 exactly which versions of which packages are used in a project. 
 
-And project is an important word here. This works best if we are working in an
-R-project. So begin by making a project.
-
-Give it a name, make sure it is saved somewhere easy to find in your files.
-And tick the box about renv!
 
 You will see a lot of stuff in the "files" tab. A folder called "renv", a file
 "renv.lock", and probably a file ".Rprofile".
@@ -153,30 +325,17 @@ of usefull pacakges can be found below. Note that this takes a very long time.
 The alternative to this taking a very long time once, is for it to take a very
 long time every time we open our project. 
 
-```{r eval =F}
-# write environment variable to file
-writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
-# restart R in order to set the environment variable
-.rs.restart()
-library(renv)
-# install useful packages
-# install.packages() works just as well as install() which comes from
-# the renv package. But it is slightly shorter to type.
-install("tidyverse")
-install("reticulate")
-install("devtools")
-```
+## An even better solution
 
-Note that this will need to be done for every project you initialize. 
-Also note - this takes a looong time...
+Will hopefully show up here...
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Ucloud provide access to a multitude of advanced software that we are not able to run locally
+- Running RStudio on Ucloud give us access to more compute and memory than we have on our own computer
+- More advanced work might require a quite complicated setup
+- Restarting a virtual machine means all our work and setup might be lost, unless we take certain precautions.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
