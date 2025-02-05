@@ -80,22 +80,10 @@ episodes:
 - barcharts.Rmd
 - powerberegninger.Rmd
 - kmeans.Rmd
-- factor-analysis.Rmd
-- structure-you-work.Rmd
-- fence-test.Rmd
-- design-principles.Rmd
-- large-data.Rmd
-- r-intro-markdown-version-1.Rmd
-- r-intro-markdown-version-2.Rmd
-- github-and-you.Rmd
-- plot-with-tidyplot.Rmd
 - anova.Rmd
-- missing-data.Rmd
-- adv-dataviz.Rmd
-- digitizing-graphs.Rmd
 - ucloud.Rmd
-- model-control.Rmd
 - pipes.Rmd
+- fence-test.Rmd
 - making-a-new-course.Rmd
 
 # Information for Learners
