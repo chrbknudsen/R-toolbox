@@ -174,6 +174,16 @@ It is recommended to create a folder for your work. Choose "Create folder" and
 give it a name. For this example we will call it "ml-course".
 
 
+:::: caution
+
+Do not use white spaces in your folder or file names. Most programming languages 
+are able to handle them, but will almost always require special steps to be taken. 
+Having white spaces in file names introduces a potential for problems that can
+be difficult to identify and fix.
+
+::::
+
+
 ## Lets get started!
 
 Go to the app-store as shown above, and chose RStudio.
