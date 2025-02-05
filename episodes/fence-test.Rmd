@@ -1,37 +1,40 @@
 ---
-title: 'fence-test'
+title: 'Fences på vores undervisningssider'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- Hvilke fences har vi til rådighed i det her setup?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Lever en oversigt over fences vi kan bruge i undervisningsmaterialet.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-Fences
+Fences. Det vi bruger til at indsætte de små (eller ikke så små) farvede blokke
+på siderne. De starter alle med mindst fire ":" og derefter ordet; eksempelvis
+"callout". Og når man er færdig med indholdet, skal der være mindst fire ":" igen.
 
-glossary?
+Hvad er ordet så? Ordet er altid det der står på position X i:
+"dette er en X fence".
 
-objectives, questions og keypoints kender vi.
-challenge og solution gør vi også.
+
 
 :::: callout
 ## dette er en callout fence
+
 
 ::::
 
 :::: prereq
 ## dette er en prereq fence
+
 
 ::::
 
@@ -79,8 +82,9 @@ challenge og solution gør vi også.
 ## dette er en challenge fence
 
 :::: solution
-## Den optræder som regel med denne solution fence
+## Den optræder som regel med en solution fence
 
+Og den er "inde i" challenge fencen.
 
 
 ::::
@@ -90,6 +94,11 @@ challenge og solution gør vi også.
 
 
 ## Fanegruppe Eksempel
+
+Vi starter med en group-tab fence, og så har vi nogen overskrifter til de
+forskellige tabs, og deres inhold. Vær opmærksom på at når man skifter til 
+eksempelvis "Mac" i en group-tab, så skifter de andre group-tabs også til
+"Mac".
 
 ::: group-tab
 
@@ -131,10 +140,7 @@ challenge og solution gør vi også.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- Brug fences til at fremhæve eller skjule indhold på siderne.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
