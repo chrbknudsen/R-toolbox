@@ -45,6 +45,8 @@ Hvad er ordet så? Ordet er altid det der står på position X i:
 ::::
 
 
+Bemærk at hint-fencen mangler en ikon til venstre.
+
 :::: hint
 ## dette er en hint fence
 
