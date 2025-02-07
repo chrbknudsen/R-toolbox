@@ -111,6 +111,13 @@ Reading the documentation reveals that it is not that simple:
 
 "Where virtual machines are in use, one would hope that the result for logical = TRUE represents the number of CPUs available (or potentially available) to that particular VM."
 
+Or use this:
+
+```{r eval = FALSE}
+future::availableCores()
+```
+
+
 ### Memory
 
 Looking at the interface, we see that we also get access to more memory, or RAM.
@@ -285,6 +292,8 @@ note that there is an "Upload" button in the Files pane in RStudio. Use that.
 
 ### What types of machines did I have access to?
 
+UCloud offers the possibility of "projects" where you choices might be different.
+If you're not in a "project" these will be the default options:
 
 | name | vcpu |  memory (GB) |
 |------|------|-------------|
@@ -378,6 +387,8 @@ reticulate::conda_create(envname = "my_project_env", python_version = "3.10")
 
 # Install Python packages in the environment
 reticulate::conda_install(envname = "my_project_env", packages = c("numpy>=1.24", "pandas>=2.1", "tensorflow>=2.13", "keras>=2.13"))
+reticulate::conda_install(envname = "my_project_env", packages = c("transformers>=4.30"))
+reticulate::conda_install(envname = "my_project_env", packages = c("torch"), pip =TRUE)
 
 # Restart R - this might not be necessary - we do it anyway
 .rs.restartR()
@@ -435,6 +446,10 @@ reticulate::use_condaenv("my_project_env", required = TRUE)
 
 Before actually doing anything.
 
+
+
+
+
 #### Other issues
 
 Renv is a bit finicky. You might get messages about packages being in "an inconsistent
@@ -452,6 +467,15 @@ renv::snapshot()
 renv::restore()
 ```
 
+Sometimes renv forgets that a library is installed...
+
+Fortunately the libraries are easily available, so an 
+```{r eval = FALSE}
+renv::install("rstudio/keras3")
+```
+
+is fast. The example shows keras3 - exchange the package name
+for what is actually missing.
 
 ### The sledgehammer solution
 

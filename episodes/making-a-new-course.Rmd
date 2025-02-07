@@ -17,10 +17,18 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## How to make a new course-page based on this toolbox
-
 This page is defined as a template-repo at GitHub. That means, that you
 can easily initialize a new repository based on this page.
+
+:::: spoiler
+### How do you make a template-repo?
+
+Go to the main page of the repo you want to make a template.
+
+Click "settings", and, just under the box where you can change the 
+repository name, you will find a tick-box called "Template repository". Tick it.
+
+::::
 
 Go to the [github-repo](https://github.com/KUBDatalab/R-toolbox), and click on 
 the green button "Use this template". Choose "Create a new repository".
@@ -91,8 +99,8 @@ Changes made on your new page are similarly not affecting R-toolbox.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Det er ret let at lave en ny side
-- Men det kræver tålmodighed!
+- It is fairly easy to make a new course page
+- Have patience!
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
