@@ -392,7 +392,7 @@ reticulate::conda_create(
 # Install Python packages in the environment
 reticulate::conda_install(envname = "my_project_env", packages = c("numpy>=1.24", "pandas>=2.1", "tensorflow>=2.13", "keras>=2.13"))
 reticulate::conda_install(envname = "my_project_env", packages = c("transformers>=4.30"))
-reticulate::conda_install(envname = "my_project_env", packages = c("torch"), pip =TRUE)
+reticulate::conda_install(envname = "my_project_env", packages = c("pytorch"))
 
 # Restart R - this might not be necessary - we do it anyway
 .rs.restartR()
