@@ -415,6 +415,15 @@ model <- keras_model_sequential() %>%
   layer_dense(units = 10) %>%
   layer_activation("softmax")
 summary(model)
+
+#importing the transformers python module
+transformers <- reticulate::import("transformers") 
+autotoken <- transformers$AutoTokenizer
+autoModelClass <- transformers$AutoModelForSequenceClassification
+
+modelname <- "distilbert-base-uncased-finetuned-sst-2-english"
+model <- autoModelClass$from_pretrained(modelname)
+
 ```
 
 If you get a nice summary, everything worked. You might get messages about
