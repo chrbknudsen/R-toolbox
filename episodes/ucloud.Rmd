@@ -456,7 +456,19 @@ reticulate::use_condaenv("my_project_env", required = TRUE)
 Before actually doing anything.
 
 
+#### What about other packages?
 
+When you have run the setup above, and opened the project, `renv` is
+running and keeping track of stuff. 
+
+That also means that if you need another package - `tidyverse` comes
+to mind as a frequently used set of packages, you simply install
+tidyverse running `install.packages("tidyverse")` just as you would
+normally do. These new packages are now installed in your project and
+will be available without having to install them repeatedly. 
+
+But remember to run `revn::snapshot()` afterwards to update the 
+registration `renv` keeps of installed packages.
 
 
 #### Other issues
