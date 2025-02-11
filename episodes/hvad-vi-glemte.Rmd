@@ -134,7 +134,7 @@ xkcd.com/1179
 
 
 
-
+Tools → Keyboard Shortcuts Help. alt-shift-k (Option+Shift+K på mac)
 
 
  environments.
