@@ -409,7 +409,14 @@ reticulate::use_condaenv("my_project_env", required = TRUE)
 renv::snapshot()
 ```
 
+:::: instructor
+Det svære her er at få korrekte versioner. Og at få openssl installeret
+med den samme version som der kører på systemet. 
 
+Det betyder også, at hvis systemets python-version ændres - kan vi
+få fejlbeskeder om at ssl ikke kan findes.
+
+::::
 
 One way to check that everything worked, is to run the following script:
 
@@ -475,7 +482,7 @@ tidyverse running `install.packages("tidyverse")` just as you would
 normally do. These new packages are now installed in your project and
 will be available without having to install them repeatedly. 
 
-But remember to run `revn::snapshot()` afterwards to update the 
+But remember to run `renv::snapshot()` afterwards to update the 
 registration `renv` keeps of installed packages.
 
 
