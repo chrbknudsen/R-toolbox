@@ -482,7 +482,7 @@ tidyverse running `install.packages("tidyverse")` just as you would
 normally do. These new packages are now installed in your project and
 will be available without having to install them repeatedly. 
 
-But remember to run `revn::snapshot()` afterwards to update the 
+But remember to run `renv::snapshot()` afterwards to update the 
 registration `renv` keeps of installed packages.
 
 
