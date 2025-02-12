@@ -76,38 +76,53 @@ As indicated in the comparative table, the `magrittr` pipe have a number of sibl
 
 ### The tee-pipe %T\>%
 
-```{r diagram-profit, fig.align='center', fig.cap="A diagram showing a programmer's daydream.", fig.dim=c(3, 6), out.width="100%"}
-DiagrammeR::grViz("digraph {
-  graph [layout = dot, rankdir = TB]
-  
-  node [shape = rectangle]        
-  rec1 [label = 'Step 1. Wake up']
-  rec2 [label = 'Step 2. Write code']
-  rec3 [label =  'Step 3. ???']
-  rec4 [label = 'Step 4. PROFIT']
-  
-  # edge definitions with the node IDs
-  rec1 -> rec2 -> rec3 -> rec4
-  }",
-  height = 500)
-```
+This pipe allow us to inject a function into a longer set of 
+pipes, without affecting the rest of the flow.
 
-
-
-The tee-pipe allow us to inject a function into a longer set of pipes, without affecting the rest of the flow.
-
-```{r echo = FALSE, html = TRUE}
+```{r echo = FALSE, EVAL = FALSE}
 library(DiagrammeR)
 DiagrammeR("
-  graph TB
+  graph LR
     A[Input data] --> B[%T>%]
-    B --> C[Run for side-effect <br> e.g. print, plot or log]
-    B --> D[Return original data]
+    B --> C[Function run for side-effect <br> e.g. print, plot or log]
+    B --> E
+    C --> D[ %>% ]
+    D --> E[Next function in the flow]
 ")
-
 ```
 
-%\<\>% %\$% %!\>% %T\>%
+![](fig/tee-pipe.png)
+The tee-pipe sends data to two functions. The immediate next, which
+we want to run for plotting, logging or printing data, and to the 
+next function over, which get the original input data, rather than
+what is returned by the intermediate function.
+
+We are here using an intermediate function, not for what it does to
+the data, but for its side effects.
+
+:::: challenge
+## Try it yourself
+
+Use the tee-pipe to send the dataset `mtcars` to a view function,
+and then filter to only show rows where `am` is equal to 1.
+
+:::: solution
+
+```{r eval  = FALSE}
+mtcars %T>%
+  view() %>% 
+  filter(am == !)
+```
+
+::::
+
+::::
+
+%\<\>% %\$% %!\>% 
+
+
+
+
 
 The fifth note deserves a bit more explanation.
 
