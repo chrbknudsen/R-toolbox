@@ -1,0 +1,27 @@
+---
+title: "GIS"
+teaching: 42
+exercises: 42
+---
+
+::: questions
+-   Skulle vi aldrig igang med noget GIS?
+:::
+
+::: objectives
+-   Komme igang med noget GIS
+:::
+
+
+
+
+
+
+### Hvad er det?
+
+
+
+::: keypoints
+-   geografi!
+
+:::
