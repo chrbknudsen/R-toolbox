@@ -18,6 +18,89 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+We know how to run a kmeans clustering on our data.
+
+But one question remains. What k should we chose?
+
+```{r}
+# Simulerer noget data
+set.seed(123)
+data <- matrix(rnorm(300), ncol = 3)
+
+# Beregn WSS for k = 1 til 10
+wss <- sapply(1:10, function(k){
+  kmeans(data, centers = k, nstart = 20)$tot.withinss
+})
+
+# Plot WSS vs. antal klynger
+plot(1:10, wss, type = "b", pch = 19, frame = FALSE,
+     xlab = "Antal klynger (k)",
+     ylab = "Total within-cluster sum of squares (WSS)")
+
+```
+
+
+```{r}
+# Installer og load nødvendige pakker
+# install.packages("cluster")
+library(cluster)
+
+set.seed(123)
+# Simulerer et datasæt med 100 observationer og 3 variable
+data <- matrix(rnorm(300), ncol = 3)
+
+# Vælg et interval for antal klynger (k)
+k_values <- 2:10  # Silhouette kræver mindst 2 klynger
+
+# Initialiser en vektor til at gemme gennemsnitlig silhuet-bredde
+avg_silhouette <- numeric(length(k_values))
+
+# Beregn k-means clustering og silhuet for hvert k
+for(i in seq_along(k_values)) {
+  k <- k_values[i]
+  km_res <- kmeans(data, centers = k, nstart = 25)
+  # Beregn afstanden mellem observationerne
+  diss <- dist(data)
+  # Beregn silhuet-værdierne for den opnåede clustering
+  sil <- silhouette(km_res$cluster, diss)
+  # Gem den gennemsnitlige silhuet-bredde
+  avg_silhouette[i] <- mean(sil[, 3])
+}
+
+# Plot den gennemsnitlige silhuet-bredde for hvert k
+plot(k_values, avg_silhouette, type = "b", pch = 19, frame = FALSE,
+     xlab = "Antal klynger (k)",
+     ylab = "Gennemsnitlig silhuet-bredde",
+     main = "Silhouette-metoden til valg af k")
+
+# Find det optimale k (hvor gennemsnitlig silhuet er størst)
+optimal_k <- k_values[which.max(avg_silhouette)]
+cat("Optimalt antal klynger ifølge silhouette-metoden er:", optimal_k, "\n")
+
+```
+```{r}
+# Installer og load nødvendige pakker
+# install.packages("cluster")
+library(cluster)
+
+set.seed(123)
+# Simuler et datasæt med 100 observationer og 3 variable
+data <- matrix(rnorm(300), ncol = 3)
+
+# Beregn gap-statistikken for klynger fra 1 til 10
+gap_stat <- clusGap(data,
+                    FUN = kmeans,
+                    nstart = 25,
+                    K.max = 10,
+                    B = 50)  # B er antallet af bootstrap-replikationer
+
+# Vis gap-statistikken
+print(gap_stat, method = "firstmax")
+
+# Plot gap-statistikken
+plot(gap_stat, main = "Gap-statistik til valg af antal klynger")
+
+```
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
