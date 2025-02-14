@@ -73,7 +73,7 @@ look at both:
 
 Is the data normally distributed?
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 penguins %>% 
   ggplot(aes(x=flipper_length_mm)) +
   geom_histogram() +
@@ -166,10 +166,37 @@ lower and upper 95% confidence intervals for those differences.
 
 :::: challenge
 
-## Try on your own
+## Try it on your own
+
+The `iris` dataset, build into R, contains measurements of
+three different species of the iris-family of flowers. 
+
+Is there a significant difference between the `Sepal.Width` 
+of the three species?
+
+
+
+
+:::: solution
+```{r}
+aov(Sepal.Width ~Species, data = iris) %>% 
+  summary()
+```
+
+::::
+
+The result only reveal that there is a difference. Or rather
+that we can reject the hypothesis that there is no difference.
+
+Which species differ?
 
 :::: solution
 
+```{r}
+aov(Sepal.Width ~Species, data = iris) %>% 
+  TukeyHSD()
+
+```
 
 ::::
 
