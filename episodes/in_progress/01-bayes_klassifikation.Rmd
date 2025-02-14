@@ -1,17 +1,20 @@
 ---
 title: "Bayes klassifikation"
 teaching: 42
-exercises: 47
-questions: 
-- "Hvad er Bayes i relation til klassifikation"
-objectives:
-- "Forstå det her nok til at vi kan hjælpe studerende"
-
-keypoints:
-- "FIXME"
-source: Rmd
-math: yes
+exercises: 42
 ---
+
+::: questions
+-   Hvad er Bayes i relation til klassifikation
+:::
+
+::: objectives
+-   Forstå det her nok til at vi kan hjælpe studerende
+:::
+
+
+
+
 
 
 ### Hvad er det?
@@ -111,3 +114,9 @@ Det holder ikke helt. Hanpingviner er tilbøjelige til at være større end
 hunpingviner, så køn og kropsvægt er ikke uafhængige. Længden af næbbet og dybden
 af næbbet er formentlig heller ikke uafhængige. Så forudsætningerne holder nok 
 ikke helt. Men det gør de sjældent.
+
+
+::: keypoints
+-   FIXME
+
+:::

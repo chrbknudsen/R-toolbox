@@ -85,6 +85,7 @@ episodes:
 - pipes.Rmd
 - fence-test.Rmd
 - making-a-new-course.Rmd
+- tuning-kmeans.Rmd
 
 # Information for Learners
 learners: 

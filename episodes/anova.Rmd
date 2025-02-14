@@ -1,5 +1,5 @@
 ---
-title: 'anova'
+title: 'ANOVA'
 teaching: 10
 exercises: 2
 ---
@@ -24,7 +24,7 @@ Studying the length of penguin flippers, we notice that
 there is a difference between the average length between
 three different species of penguins:
 
-```{r}
+```{r, message = FALSE}
 library(tidyverse)
 library(palmerpenguins)
 penguins %>% 
@@ -41,12 +41,13 @@ the ANOVA-method, or rather the `aov()` function:
 aov(flipper_length_mm ~ species, data = penguins) %>% 
   summary() 
 ```
+
 We are testing if there is a difference in flipper_length_mm 
 when we explain it as a function of species. Or, in other words,
 we analyse how much of the variation in flipper length is
 caused by variation between the groups, and how much is caused
 by variation within the groups. If the difference between those
-to parts of the variation large enough, we conclude that there is
+two parts of the variation is large enough, we conclude that there is
 a significant difference between the groups.
 
 In this case, the p-value is very small, and we reject the
@@ -72,7 +73,7 @@ look at both:
 
 Is the data normally distributed?
 
-```{r}
+```{r, message = FALSE, warning = FALSE}
 penguins %>% 
   ggplot(aes(x=flipper_length_mm)) +
   geom_histogram() +
@@ -86,6 +87,7 @@ And the residuals?
 aov(flipper_length_mm ~ species, data = penguins)$residuals %>% 
   hist(.)
 ```
+
 That looks fine - if we want a more specific test, those exists,
 but will not be covered here.
 
@@ -108,7 +110,7 @@ than the smallest variance. This is OK for this example.
 If there is too large difference in the size of the three groups,
 smaller differences in variance can be problematic.
 
-:::: solution
+:::: spoiler
 
 ## More specific methods exist.
 
@@ -131,6 +133,7 @@ Levene test:
 library(car)
 leveneTest(flipper_length_mm ~ species, data = penguins)
 ```
+
 For all three tests - if the p-value is >0.05, there is a significant
 difference in the variance - and we are not allowed to use the 
 ANOVA-method. In this case we are on the safe side.
@@ -144,29 +147,60 @@ of the three species. But that might arise from one of the species
 having extremely long flippers, and there not being much 
 difference between the two other species. 
 
-So we do a posthoc analysis to confirm where the diffrences 
+So we do a posthoc analysis to confirm where the differences 
 are.
 
 The most common is the tukeyHSD test, HSD standing for
-"Honest Significant Differences":
+"Honest Significant Differences". We do that by saving the
+result of our ANOVa-analysis and run the `TukeyHSD()` function
+on the result:
 
 ```{r}
 aov_model <- aov(flipper_length_mm ~ species, data = penguins)
+
 TukeyHSD(aov_model)
 ```
 We get the estimate of the pair-wise differences and 
 lower and upper 95% confidence intervals for those differences.
 
 
-Alternativer:
-Normalfordelte data og homogene variansforhold:
-Tukey's HSD (generelt bedste valg).
-Bonferroni (hvis meget konservativ tilgang ønskes).
-Ikke-homogene variansforhold:
-Games-Howell (mest robust).
-Wilcoxon (ikke-parametrisk).
-Fokuseret på en kontrolgruppe:
-Dunnett's test.
+:::: challenge
+
+## Try it on your own
+
+The `iris` dataset, build into R, contains measurements of
+three different species of the iris-family of flowers. 
+
+Is there a significant difference between the `Sepal.Width` 
+of the three species?
+
+
+
+
+:::: solution
+```{r}
+aov(Sepal.Width ~Species, data = iris) %>% 
+  summary()
+```
+
+::::
+
+The result only reveal that there is a difference. Or rather
+that we can reject the hypothesis that there is no difference.
+
+Which species differ?
+
+:::: solution
+
+```{r}
+aov(Sepal.Width ~Species, data = iris) %>% 
+  TukeyHSD()
+
+```
+
+::::
+
+::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
