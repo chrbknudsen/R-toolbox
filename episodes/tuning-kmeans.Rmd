@@ -20,7 +20,21 @@ exercises: 2
 
 We know how to run a kmeans clustering on our data.
 
-But one question remains. What k should we chose?
+But one question remains. What k should we chose? 
+
+det kalder vi også at tune hyperparameteren. 
+
+hvorfor hyper? 
+
+Det kræver at vi har et mål for om resultatet er godt.
+
+Hvor kommer det fra når vi ikke kender de sande værdier?
+
+Undervurder i øvrigt ikke fænomenet domæne viden. Jeg kan
+clustre dine data til perfektion. men hvis du ved at der skal
+være 5 clustre, er der ikke nødvendigvis meget gode grunde til
+at vælge 7 (men prøv lige alligevel, det kunne være at der
+var noget du ikke vidste.)
 
 ```{r}
 # Simulerer noget data
