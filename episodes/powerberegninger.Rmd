@@ -1,5 +1,5 @@
 ---
-title: 'powerberegninger'
+title: 'Power Calculations'
 teaching: 10
 exercises: 2
 ---
