@@ -98,7 +98,7 @@ Og den er "inde i" challenge fencen.
 ## Fanegruppe Eksempel
 
 Vi starter med en group-tab fence, og så har vi nogen overskrifter til de
-forskellige tabs, og deres inhold. Vær opmærksom på at når man skifter til 
+forskellige tabs, og deres indhold. Vær opmærksom på at når man skifter til 
 eksempelvis "Mac" i en group-tab, så skifter de andre group-tabs også til
 "Mac".
 
