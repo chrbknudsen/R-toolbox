@@ -80,14 +80,14 @@ episodes:
 - barcharts.Rmd
 - powerberegninger.Rmd
 - kmeans.Rmd
+- tuning-kmeans.Rmd
 - anova.Rmd
 - ucloud.Rmd
 - pipes.Rmd
-- tuning-kmeans.Rmd
 - gis_setup.Rmd
 - fence-test.Rmd
 - making-a-new-course.Rmd
-
+- shinylive.Rmd
 
 # Information for Learners
 learners: 

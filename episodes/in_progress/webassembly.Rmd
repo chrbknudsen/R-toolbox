@@ -5,12 +5,11 @@ exercises: 42
 ---
 
 ::: questions
--   Why is geography important for statistics
+-   Skulle vi aldrig igang med noget GIS?
 :::
 
 ::: objectives
--   How to use geography correctly
--   Understanding geograpic data
+-   Komme igang med noget GIS
 :::
 
 
@@ -19,13 +18,8 @@ Skal vi ikke tage udgangspunkt i dette
 
 https://onsgeo.github.io/geospatial-training/docs/awareness_of_geog_and_stats
 
-eller snarere https://datacarpentry.github.io/organization-geospatial/
 
-
-## Why is geography important
-
-Not all data contains 
-
+### Hvad er det?
 
 
 
