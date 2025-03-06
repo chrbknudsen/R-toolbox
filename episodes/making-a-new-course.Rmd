@@ -76,6 +76,21 @@ You can follow the process under "Actions" on the repo.
 When all actions have run - look for the green checkmarks, go to "Settings",
 choose "Pages".
 
+:::: caution
+## renv messes things up!
+
+Sandpaper uses the renv environment manager to handle dependencies in the
+packages you use. But that handling appears to be different on a windows
+machine and on the virtual Linux machine that GitHub actions uses. 
+
+So: DO NOT COMMIT AND PUSH ANY renv TO GITHUB. IT WILL BREAK THE GENERATION
+OF THE PAGES.
+
+If you do - delete the renv directory.
+
+::::
+
+
 Under "Build and deployment", we are told that the page is "deployed from a branch",
 and below that, you can choose which branch. Chose "gh-pages".
 
