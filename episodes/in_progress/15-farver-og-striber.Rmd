@@ -28,13 +28,13 @@ Der er mange paletter at arbejde med i mange forskellige pakker.
 monochromeR gør det relativt let at lave vores egen:
 
 generate_palette("red", modification = "go_darker",
-                 n_colors = 8, view_palette = T)
+                 n_colours = 8, view_palette = T)
 
 Og hvis vi vil have blandinger af to farver, eksempelvis hvis vi vil 
 have en palette der giver os farver fra en farve til en anden:
 
-generate_palette("red", blend_color = "blue",
-                 n_colors = 7, view_palette = T)
+generate_palette("red", blend_colour = "blue",
+                 n_colours = 7, view_palette = T)
 
 
 Paletter kan komme fra andre steder. En populær pakke er "wesanderson", der 
@@ -72,7 +72,7 @@ cvd_grid()
 Og det var ethvert plot:
 
 
-ggplot(mtcars, aes(cyl, mpg, color = gear)) + 
+ggplot(mtcars, aes(cyl, mpg, colour = gear)) + 
   geom_point()
 
 cvd_grid()

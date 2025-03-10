@@ -90,7 +90,7 @@ aes(!!!my_mapping)
 Det gør det muligt at sætte flere sammen:
 
 ```{r}
-my_other_mapping <- aes(color = am)
+my_other_mapping <- aes(colour = am)
 ```
 
 ```{r}

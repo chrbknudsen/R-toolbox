@@ -62,7 +62,7 @@ plot_data <- data.frame(x = x,
 
 # Lav plot med facetter
 ggplot(plot_data, aes(x = x, y = Density)) +
-  geom_line(linewidth = 1, color = "steelblue") +
+  geom_line(linewidth = 1, colour = "steelblue") +
   facet_wrap(~Distribution, ncol = 2, scales = "free_y") +
   theme_minimal() +
   labs(title = "Four different probability distributions",
@@ -167,11 +167,11 @@ v_data <- tibble(
 
 # Plot CDF med linjer for kvantiler
 ggplot(cdf_data, aes(x = x, y = cdf)) +
-  geom_line(color = "blue", linewidth = 1) +  # CDF-kurven
+  geom_line(colour = "blue", linewidth = 1) +  # CDF-kurven
   geom_segment(data = v_data, aes(x = x, y = y, xend = xend, yend = yend),
-               color = "red", linewidth = 1) +  # Vertikale linjer
+               colour = "red", linewidth = 1) +  # Vertikale linjer
   geom_segment(data = h_data, aes(x = x, y = y, xend = xend, yend = yend),
-               color = "red", linewidth = 1) +  # Horisontale linjer
+               colour = "red", linewidth = 1) +  # Horisontale linjer
   scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +  # Y-akse fra 0 til 1
   scale_x_continuous(limits = c(-4, 4), expand = c(0, 0)) +  # X-akse fra -4 til 4
   labs(
@@ -397,8 +397,8 @@ c(1:5, 5)
 
 5 is the normal observation - because it is the most frequent, even if it
 only represents 20% of the observations. In a
-statistical sense normal is not normative. The normal color eye among humans
-is brown. Not because there is anything wrong with other colors, but simply 
+statistical sense normal is not normative. The normal colour eye among humans
+is brown. Not because there is anything wrong with other colours, but simply 
 because brown is the most frequent. 
 
 The most frequent, ie normal, distribution found, was named the normal distribution.

@@ -27,13 +27,13 @@ Vi tager et fjollet eksempel:
 library(tidyverse)
 p <- ggplot(mtcars, aes(mpg, wt )) +
   geom_point(aes(shape = factor(am))) +
-  geom_smooth(method = lm, color = "red")
+  geom_smooth(method = lm, colour = "red")
 p
 ```
 
 
 Nu vil vi godt have regressionslinien til at være blå, i stedet for rød. 
-Det er et fjollet eksempel, for det er jo blot at ændre i color argumentet i
+Det er et fjollet eksempel, for det er jo blot at ændre i colour argumentet i
 geom_smooth. Men lad os nu prøve.
 
 Objektet p optræder i environment:
@@ -91,7 +91,7 @@ which_layers(p, "GeomSmooth")
 ## og programmering af ggplot
 
 Eller hvad det nu hedder. Vi vil godt kunne lade et script styre om 
-punkter i et plot skal plottes med color i stedet for shape:
+punkter i et plot skal plottes med colour i stedet for shape:
 
 ```{r}
 library(tidyverse)
@@ -103,7 +103,7 @@ mtcars %>%
 Det gør vi ved at bruge tidy evaluation idiomer. 
 ```{r}
 noget <- "am"
-andet <- "color"
+andet <- "colour"
 mtcars %>% 
   ggplot(aes(mpg, wt, !!andet := factor(!!as.symbol(noget)))) +
   geom_point()

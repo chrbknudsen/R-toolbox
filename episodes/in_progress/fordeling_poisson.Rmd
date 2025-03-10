@@ -61,7 +61,7 @@ Hvordan ser den ud?
 
 expand.grid(k = 0:20, l = 1:10) %>% 
   mutate(P = (l^k)*exp(-l)/factorial(k)) %>% 
-  ggplot(aes(x=k, y=P, color=factor(l))) +
+  ggplot(aes(x=k, y=P, colour=factor(l))) +
   geom_line() +
   geom_point()
 
