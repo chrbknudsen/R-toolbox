@@ -12,13 +12,11 @@ editor_options:
 :::
 
 ::: objectives
--   Explain how to use markdown with the new lesson template
+- Explain how to visually estimate normality
+- Explain how to get numerical indications of normality
 :::
 
-```{r setup, warning=F, message=F}
-library(tidyverse)
-library(palmerpenguins)
-```
+
 
 ## How to test if our data is normally distributed?
 
@@ -29,6 +27,11 @@ distribution of our data has the same properties as the normal
 distribution.
 
 Let us get some data that we can test:
+
+```{r setup, warning=F, message=F}
+library(tidyverse)
+library(palmerpenguins)
+```
 
 ```{r making_test_data}
 normal_test_data <- penguins %>% 
