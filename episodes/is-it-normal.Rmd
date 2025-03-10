@@ -132,7 +132,7 @@ wrong with the data - in regards to how it deviates from normalcy.
 | Above     | Above      | Right skewed | A tail that stretches to the higher values - the extreme values are larger. |
 | Below     | Below      | Left skewed  | A tail that stretches to the lower values - the extreme values are smaller. |
 
-```{r echo = FALSE, message=FALSE}
+```{r different_kurtoses, echo = FALSE, message=FALSE}
 library(ggplot2)
 library(gridExtra)
 
@@ -201,17 +201,17 @@ Kurtosis and skewness.
 Base-R do not have functions for this, but the package `e1071` does.
 
 
-```{r}
+```{r library_e1071}
 library(e1071)
 ```
 
-```{r}
+```{r skewness}
 skewness(normal_test_data$bill_depth_mm, na.rm = TRUE)
 ```
 
 kurtosis
 
-```{r}
+```{r kurtosis}
 kurtosis(normal_test_data$bill_depth_mm, na.rm = TRUE)
 ```
 As a rule of thumb, skewness should be within +/-0.5 if the data is normally distributed. Values between +/-0.5 and +/- 1 
@@ -259,7 +259,7 @@ The null-hypothesis is that data is normally distributed, and
 the Shapiro-Wilk test returns a p-value reporting the risk
 of being wrong if we reject the null-hypothesis. 
 
-```{r}
+```{r shapiro_wilk}
 shapiro.test(normal_test_data$bill_depth_mm) 
 ```
 The p-value in this case is 0.1418 - and we do not have 
@@ -277,7 +277,7 @@ standard deviation.
 
 Therefore we need to calculate those:
 
-```{r}
+```{r KS}
 mean <- mean(normal_test_data$bill_depth_mm, na.rm = TRUE)
 sd <- sd(normal_test_data$bill_depth_mm, na.rm = TRUE)
 ks.test(normal_test_data$bill_depth_mm, "pnorm", mean = mean, sd = sd)
@@ -304,7 +304,7 @@ true mean and standard deviation for the population.
 This test is also not available in base-R, but can be found in
 the `nortest` package:
 
-```{r}
+```{r lillie_fors}
 library(nortest)
 lillie.test(normal_test_data$bill_depth_mm)
 ```
@@ -317,7 +317,7 @@ This test is more sensitive for deviations in the tails.
 It is not available in base-R, but can be found in the 
 `nortest` package. 
 
-```{r}
+```{r Anderson_Darling}
 ad.test(normal_test_data$bill_depth_mm)
 ```
 In this case the null-hypothesis is also that data is normally
