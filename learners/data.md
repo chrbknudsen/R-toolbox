@@ -51,7 +51,54 @@ _Dimensions:_ Rows: 23 Columns: 8
 
 ::::
 
+### BIGI
 
+Basic Index of Gender Inequality (BIGI) introduced by Stoet and Geary in 2019
+provides a symmetric index of gender inequality. It calculates the ratio
+between three different equality indicators for men and women, and returns 
+the average of them.
+
+The ratio is calculated, and centered. Eg. if women in a given country have
+an expected healthy life span of 71 years, and men have an expected healthy 
+life span of 68 years, the ratio is 71/68 = 1.044118. A value of 1 will indicate
+total equality.
+
+This is done for life satisfaction (base on data from Gallup), healthy life span
+and education (data for the latter two from Global Gender Gap). Education is 
+calculated as the worst ratio of values for litteracy, enrollment in primary and
+secondary education.
+
+The three ratios are normalised to set parity equal to 0. A negative score will
+indicate that women are worse off, a positive score that men are worse of. The
+overall BIGI score is calculated as the average of the three indicators. A final
+indicator, AADP, calculates the average of the absolute values, i.e. give an indication
+of inequality (0 is still parity) regardless of which sex is disadvantaged. 
+
+All data is averaged over the period 2012 to 2016
+
+_Dimensions:_ Rows: 134 Columns: 9
+
+[Source](data.md#stoet_10)^10^
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BIGI.csv)
+
+:::: spoiler
+### Metadata
+|  Variable              |  Description/Code                                 | Unit   |   
+|------------------------|---------------------------------------------------|--------|
+|  rank                  | Ranking by AADP                                   |        |
+|overall_rank            | Ranking by absolute value of BIGI                 |        |
+|country                 |                                                   |        |
+|BIGI                    | BIGI score as described                           |        |
+|AADP                    | AADP score as described                           |        |
+|basic_education         | Worst ratio of educational indicators, normalised |        |
+|healthy_life_span       | Ratio of healthy life span, normalised            |        |
+|life_satisfaction       | Ratio of life satisfaction, normalised            |        |
+|human_development_index | HDI for country                                   |        |
+
+
+
+::::
 
 
 ### BLOOD 
@@ -1629,17 +1676,16 @@ https://www.jstor.org/stable/2532505
 
 <a id = "who_7">7</a>: https://www.who.int/teams/global-tuberculosis-programme/data
 
-<a id = "townsend_8">8</a>: Townsend, T.R., Shapiro, M. Rosner, B. & Kass, E.H. (1979)
-Use of antimicrobial drugs in general hospitals. I. Description for population and definition of
-methods. Journal of Infetious Diseases, 139(6), 688-697.
+<a id = "townsend_8">8</a>: Townsend, T.R., Shapiro, M. Rosner, B. & Kass, E.H. (1979) Use of antimicrobial drugs in general hospitals. I. Description for population and definition of methods. Journal of Infetious Diseases, 139(6), 688-697.
+
+<a id = "wine_9">9</a>: Aeberhard, S. & Forina, M. 1991, UCI Machine Learning Repository, https://doi.org/10.24432/C5PC7J
+
+<a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
 
 
-< id = "wine_9">9</a>: Aeberhard, S. & Forina, M. 1991, UCI Machine Learning Repository, https://doi.org/10.24432/C5PC7J
 
 
-
-
-## listen over datasæt. 
+## List of datasets not sufficiently documented yet
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 

@@ -118,7 +118,18 @@ Denne beskriver i detaljer hvordan
 https://hbctraining.github.io/Training-modules/RShiny/lessons/shinylive.html
 
 
+## More than one app
 
+The assets needed for running this takes up space.
+
+How do we serve more than one app 
+```{r eval = FALSE}
+shinylive::export("myapp1", "site", subdir = "app1")
+shinylive::export("myapp2", "site", subdir = "app2")
+```
+
+shinylive::export("myapp1", "site", subdir = "app1")
+shinylive::export("myapp2", "site", subdir = "app2")
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

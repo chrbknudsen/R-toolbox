@@ -1,0 +1,72 @@
+mærkelige datatransformationer - in no particular order
+
+```{r}
+library(tidyverse)
+```
+
+Vi har et sært dataformat. 
+
+```{r}
+df <- tibble(id = c(35286, 35287),
+       tpo = c(T,F),
+       opu = c(8,7),
+       ivf  = c(4,3),
+       icsi = c(4,4),
+       icsi_b5 = c(1,2),
+       icsi_b6 = c(0,1),
+       ivf_b5 = c(0,0),
+       ivf_b6 = c(1,0),
+       icsi_p = c(3,2),
+       ivf_p = c(1,0))
+df
+```
+Det skal vi have transformeret, så det får denne form:
+
+
+```{r echo = FALSE}
+df <- df %>% 
+  pivot_longer(
+    cols = c(ivf, icsi, icsi_b5, icsi_b6, ivf_b5, ivf_b6, icsi_p, ivf_p),
+    names_to = c("fert", "var"),
+    names_sep = "_"
+  ) %>% 
+  pivot_wider(
+    names_from = var,
+    values_from = value
+  ) %>% 
+  group_by(fert) %>% 
+  uncount(`NA`) %>%
+  group_by(id,fert) %>%
+  mutate(
+    p  = if_else(row_number() <= first(p), 1, 0),
+    b5 = if_else(row_number() <= first(b5), 1, 0),
+    b6 = if_else(row_number() <= first(b6), 1, 0)
+  ) %>%
+  ungroup()
+```
+
+Altså hvor der for et givet id og fert står 3 1-taller i p-kolonnen. Fordi der
+var 1 3-tal i p-kolonnen.
+
+Det gør vi med denne: 
+```{r eval = FALSE}
+df <- df %>% 
+  pivot_longer(
+    cols = c(ivf, icsi, icsi_b5, icsi_b6, ivf_b5, ivf_b6, icsi_p, ivf_p),
+    names_to = c("fert", "var"),
+    names_sep = "_"
+  ) %>% 
+  pivot_wider(
+    names_from = var,
+    values_from = value
+  ) %>% 
+  group_by(fert) %>% 
+  uncount(`NA`) %>%
+  group_by(id,fert) %>%
+  mutate(
+    p  = if_else(row_number() <= first(p), 1, 0),
+    b5 = if_else(row_number() <= first(b5), 1, 0),
+    b6 = if_else(row_number() <= first(b6), 1, 0)
+  ) %>%
+  ungroup()
+```
