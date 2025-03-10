@@ -62,10 +62,10 @@ iris_tsne <- Rtsne(iris_matrix, dims = 3)
 
 
 iris_data <- tibble(x = iris_tsne$Y[,1], y = iris_tsne$Y[,2], z = iris_tsne$Y[,3], art = iris_art)
-p <- plot_ly(iris_data, x = ~x, y = ~y, z = ~z, color = ~art)
-add_markers(p, color = ~art )
+p <- plot_ly(iris_data, x = ~x, y = ~y, z = ~z, colour = ~art)
+add_markers(p, colour = ~art )
 p
-iris_data %>% ggplot(aes(x,y, color = art)) +
+iris_data %>% ggplot(aes(x,y, colour = art)) +
   geom_point()
 
 

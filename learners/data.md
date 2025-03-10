@@ -1634,12 +1634,13 @@ _Dimensions:_ Rows: 178 Columns: 14
 |8        | Flavanoids               |        g/L                  |
 |9    | Nonflavanoid phenols  |              g/L            |
 |10       | Proanthocyanins  |               g/L             |
-|11       | Color intensity  |   Absorbance                         |
+|11       | Colour intensity  |   Absorbance                         |
 |12       | Hue  |  Absorbance-ratio             |
 |13       | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
 |14       | Proline  |  mg/L                          |
 
-Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm (blue, green and red light respectively, measuring the yellow, red, and blue colors of the wine.)
+Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm 
+(blue, green and red light respectively, measuring the yellow, red, and blue colours of the wine.)
 
 Hue is measured as absorbance at 420 nm divided by absorbance at 520 nm.
 

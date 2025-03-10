@@ -52,7 +52,7 @@ Looking just at the numerical variables, there is a lot of variation, just not
 variation that we nessecarily can use for predicting stuff:
 ```{r}
 penguins %>% 
-  ggplot(aes(bill_length_mm, body_mass_g, color = sex)) +
+  ggplot(aes(bill_length_mm, body_mass_g, colour = sex)) +
   geom_point() +
   ggtitle("weight and bill length is not usefull for predicting sex")
   
@@ -101,14 +101,14 @@ Vi tilføjer oplysninger om pingvin-arten, og farvelægger efter netop den:
 pca_penguins$x %>% 
   as_tibble() %>% 
   mutate(species = species_penguins) %>% 
-  ggplot(aes(PC1, PC2, color = species)) + 
+  ggplot(aes(PC1, PC2, colour = species)) + 
   geom_point()
 
 ```
 Vi kan sammenligne med et plot af dimensionerne på deres næb:
 ```{r}
 penguins %>% 
-  ggplot(aes(bill_length_mm, bill_depth_mm, color = species)) +
+  ggplot(aes(bill_length_mm, bill_depth_mm, colour = species)) +
   geom_point()
 ```
 

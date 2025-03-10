@@ -137,11 +137,11 @@ If there is a pattern in the residuals it is an indication that there is more si
 
 Maybe that dispersion at the end is due to Sex?
 
-We can make the previous plot, just colored by Sex (Sex is recorded as
+We can make the previous plot, just coloured by Sex (Sex is recorded as
 0's and 1's). We need to coeerce Sex to a categorical variable using `factor()`:
 
 ```{r eval = F}
-fev %>% ggplot(aes(x=Hgt, y = FEV, color = factor(Sex))) +
+fev %>% ggplot(aes(x=Hgt, y = FEV, colour = factor(Sex))) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -237,7 +237,7 @@ library(corrplot)
 
 corrplot(cor(fev), bg = "black")
 ```
-We may need to play around with background color to even be able to see the
+We may need to play around with background colour to even be able to see the
 small values.
 
 We think this function gives a nicer plot:

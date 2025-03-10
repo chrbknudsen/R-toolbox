@@ -293,7 +293,7 @@ Visualizing it makes it even more apparent:
 tibble(take_one = kmeans_model1$cluster,
         take_two = kmeans_model2$cluster)  %>% 
   cbind(test_data) %>% 
-ggplot(aes(x,y,color= factor(take_one))) +
+ggplot(aes(x,y,colour= factor(take_one))) +
 geom_point()
 ```
 
@@ -302,7 +302,7 @@ geom_point()
 tibble(take_one = kmeans_model1$cluster,
         take_two = kmeans_model2$cluster)  %>% 
   cbind(test_data) %>% 
-ggplot(aes(x,y,color= factor(take_two))) +
+ggplot(aes(x,y,colour= factor(take_two))) +
 geom_point()
 ```
 
@@ -321,7 +321,7 @@ test_data <- rbind(
     filter(abs(x)>10 | abs(y)>10)
   )
 test_data %>% 
-  ggplot(aes(x,y, color = z)) +
+  ggplot(aes(x,y, colour = z)) +
   geom_point()
 ```
 There is obviously a cluster centered around (0,0). And another cluster more
@@ -333,7 +333,7 @@ The algorithm _will_ find two clusters:
 library(tidymodels)
 kmeans_model3 <- kmeans(test_data[,-3], 2)
 cluster3 <- augment(kmeans_model3, test_data[,-3])
-ggplot(cluster3, aes(x,y,color=.cluster)) +
+ggplot(cluster3, aes(x,y,colour=.cluster)) +
   geom_point()
 ```
 But not the ones we want.

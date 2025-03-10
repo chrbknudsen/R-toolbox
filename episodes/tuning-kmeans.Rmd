@@ -104,6 +104,7 @@ wss_df
 And now we can plot the result:
 
 ```{r}
+library(tidyverse)
 wss_df %>%
   ggplot(aes(x = k, y = wss)) +
   geom_point() +
@@ -141,7 +142,7 @@ names(vin) <- c("cultivar",
                 "Flavanoids",
                 "Nonflavanoidphenols",
                 "Proanthocyanins",
-                "Colorintensity",
+                "Colourintensity",
                 "Hue",
                 "OD280OD315ofdilutedwines",
                 "Proline")

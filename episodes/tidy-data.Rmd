@@ -113,7 +113,7 @@ on time-consuming and traumatic experiences wrangling data from Excel to R.
 
 * Modify your raw data - always make a copy before making any change
 * Merge cells
-* Use colors for information
+* Use colours for information
 
 
 Illustrations from the Openscapes blog Tidy Data for reproducibility, efficiency, and collaboration by Julia Lowndes and Allison Horst
