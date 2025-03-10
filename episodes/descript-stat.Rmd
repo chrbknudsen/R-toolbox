@@ -47,14 +47,14 @@ our data, and includes:
 The easiest way to get summary statistics on data is to use the
 `summarise` function from the `tidyverse` package.
 
-```{r message=FALSE, warning = FALSE}
+```{r tidyverse, message=FALSE, warning = FALSE}
 library(tidyverse)
 ```
 
 In the following we are working with the `palmerpenguins` dataset. Note that
 the actual data is called `penguins` and is part of the package `palmerpenguins`:
 
-```{r}
+```{r pingviner}
 library(palmerpenguins)
 head(penguins)
 ```
@@ -68,7 +68,7 @@ weight, sex, length of their flippers and two measurements of their bill (beak).
 Specifically we are going to work with the weight of the penguins, stored in the variable
 `body_mass_g`:
 
-```{r}
+```{r pingvin_masse}
 penguins$body_mass_g
 ```
 
@@ -86,14 +86,14 @@ $x$.
 
 The easiest way of getting the mean is using the `mean()` function:
 
-```{r}
+```{r middel_pingvin_masse}
 mean(penguins$body_mass_g, na.rm = TRUE)
 ```
 
 A slightly more cumbersome way is using the `summarise()` function from
 `tidyverse`:
 
-```{r}
+```{r tidy_middel_pingvin_masse}
 penguins %>% 
   summarise(avg_mass = mean(body_mass_g, na.rm = T))
 ```
@@ -119,7 +119,7 @@ the largest value, and locate the middle observation, we get the median.
 This is the value that half of the observations is smaller than. And
 half the observations is larger.
 
-```{r}
+```{r median_pingvin_masse}
 median(penguins$body_mass_g, na.rm = TRUE)
 ```
 
@@ -128,7 +128,7 @@ the data is skewed, in this case toward the larger penguins.
 
 We can get both `median` and `mean` in one go using the `summarise()` function:
 
-```{r}
+```{r both_median_og_middel_pingvin_masse}
 penguins %>% 
   summarise(median = median(body_mass_g, na.rm = TRUE),
             mean   = mean(body_mass_g, na.rm = TRUE))
@@ -148,7 +148,7 @@ by counting the different observations,and locating the most common one.
 We typically do not use this for continous variables. The mode of the
 `sex` variable in this dataset can be found like this:
 
-```{r}
+```{r mode}
 penguins %>% 
   count(sex) %>% 
   arrange(desc(n))
@@ -177,7 +177,7 @@ smallest and what is the largest value? Or, what is the spread?
 We can get that by using the `min()` and `max()` functions in a `summarise()` 
 function:
 
-```{r}
+```{r tidy_minmax}
 penguins %>% 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T))
@@ -190,7 +190,7 @@ expects to get _one_ value.
 If we would like to use the `range()` function, we can add it using the 
 `reframe()` function instead of `summarise()`: 
 
-```{r}
+```{r reframe_minmax}
 penguins %>% 
   reframe(range = range(body_mass_g, na.rm = T))
 ```
@@ -268,7 +268,7 @@ Note that we also change the $\sigma$ to an $s$.
 And again we are not going to do that by hand, but will ask R to do it
 for us:
 
-```{r}
+```{r variance}
 penguins %>% 
   summarise(
             variance = var(body_mass_g, na.rm = T)
@@ -299,7 +299,7 @@ $g^2$.
 A measurement of the variation of the data would be the standard
 deviation, simply defined as the square root of the variance:
 
-```{r}
+```{r standarddeviation}
 penguins %>% 
   summarise(
             s = sd(body_mass_g, na.rm = T)
@@ -318,7 +318,7 @@ A histogram is a plot or graph where we split the range of observations
 in a number of "buckets", and count the number of observations in each
 bucket:
 
-```{r}
+```{r histogram_data}
 penguins %>% 
   select(body_mass_g) %>% 
   filter(!is.na(body_mass_g)) %>% 
@@ -330,7 +330,7 @@ summarise(antal = n())
 Typically, rather than counting ourself, we leave the work to R, and
 make a histogram directly:
 
-```{r}
+```{r histogram}
 penguins %>% 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram()
@@ -339,7 +339,7 @@ geom_histogram()
 By default ggplot chooses 30 bins, typically we should chose a different
 number:
 
-```{r}
+```{r change_bin_n}
 penguins %>% 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(bins = 25)
@@ -347,7 +347,7 @@ geom_histogram(bins = 25)
 
 Or, ideally, set the widths of them, manually:
 
-```{r}
+```{r change_bin_width}
 penguins %>% 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(binwidth = 250) +
@@ -356,7 +356,7 @@ ggtitle("Histogram with binwidth = 250 g")
 Or even specify the exact intervals we want, here intervals from 0 to 6500 gram
 in intervals of 250 gram:
 
-```{r}
+```{r bin_breaks}
 penguins %>% 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(breaks = seq(0,6500,250)) +
@@ -381,13 +381,13 @@ third or 75% quartile.
 
 We can calcultate those using the quantile function:
 
-```{r}
+```{r quartiles}
 quantile(penguins$body_mass_g, probs = .25, na.rm = T)
 ```
 
 and
 
-```{r}
+```{r quartile3}
 quantile(penguins$body_mass_g, probs = .75, na.rm = T)
 ```
 
@@ -402,7 +402,7 @@ observations fall.
 
 That is used often enough that we have a dedicated function for it:
 
-```{r}
+```{r iqr}
 penguins %>% 
   summarise(iqr = IQR(body_mass_g, na.rm = T))
 ```
@@ -411,7 +411,7 @@ The name of the quantile function implies that we might have other
 quantiles than quartiles. Actually we can calculate any quantile, eg the
 2.5% quantile:
 
-```{r}
+```{r quantile}
 quantile(penguins$body_mass_g, probs = .025, na.rm = T)
 ```
 
@@ -422,7 +422,7 @@ and plot them.
 Instead of doing that by hand, we can use a concept called *CDF* or
 cumulative density function:
 
-```{r}
+```{r CDF}
 CDF <- ecdf(penguins$body_mass_g)
 CDF
 ```
@@ -470,7 +470,7 @@ was longer than on the left. That skewness can be quantised.
 There is no function for skewness build into R, but we can get it from
 the library `e1071`
 
-```{r}
+```{r skewness}
 library(e1071)
 skewness(penguins$body_mass_g, na.rm = T)
 ```
@@ -497,7 +497,7 @@ of observations are centered in the peak, rather than appearing in the tails.
 
 We use the `e1071` package again:
 
-```{r}
+```{r kurtosis}
 kurtosis(penguins$body_mass_g, na.rm = T)
 ```
 Kurtosis is defined weirdly, and here we get "excess" kurtosis,
@@ -509,7 +509,7 @@ the actual kurtosis minus 3. We have negative kurtosis, indicating that the peak
 A lot of these descriptive values can be gotten for every variable in
 the dataset using the `summary` function:
 
-```{r}
+```{r summary}
 summary(penguins)
 ```
 
@@ -520,7 +520,7 @@ values in each variable.
 We can also get all the descriptive values in one table, by adding more
 than one summarizing function to the summarise function:
 
-```{r}
+```{r everything}
 penguins %>% 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
@@ -542,7 +542,7 @@ As noted, we have three different species of penguins in the dataset.
 Their weight varies a lot. If we want to do the summarising on each for
 the species, we can group the data by species, before summarising:
 
-```{r}
+```{r grouped_summarise}
 penguins %>% 
   group_by(species) %>% 
   summarise(min = min(body_mass_g, na.rm = T),
@@ -560,7 +560,7 @@ We have removed some summary statistics in order to get a smaller table.
 Finally boxplots offers a way of visualising some of the summary
 statistics:
 
-```{r}
+```{r boxplots}
 penguins %>% 
   ggplot(aes(x=body_mass_g, y = sex)) +
   geom_boxplot()
@@ -586,7 +586,7 @@ The one thing we can do looking only at categorical variables, is counting.
 Counting the different values in a single categorical variable in base-R is done
 using the `table(()` function 
 
-```{r}
+```{r table}
 table(penguins$sex)
 ```
 
@@ -594,14 +594,14 @@ Often we are interested in cross tables, tables where we count the different
 combinations of the values in more than one categorical variable, eg the 
 distribution of the two different penguin sexes on the three different islands:
 
-```{r}
+```{r crosstable}
 table(penguins$island, penguins$sex)
 ```
 
 We can event group on three (or more) categorical variables, but the output 
 becomes increasingly difficult to read the mote variables we add:
 
-```{r}
+```{r threetable}
 table(penguins$island, penguins$sex, penguins$species)
 ```
 
@@ -609,7 +609,7 @@ table(penguins$island, penguins$sex, penguins$species)
 
 A different way of doing that in base-R is using the `aggregate()` function:
 
-```{r}
+```{r aggregate}
 aggregate(sex ~ island, data = penguins, FUN = length)
 ```
 
@@ -622,7 +622,7 @@ summary statistics on groups, by adjusting the `FUN` argument.
 In tidyverse we will typically group the data by the variables we want to count,
 and then tallying them:
 
-```{r}
+```{r tally}
 penguins %>% 
   group_by(sex) %>% 
   tally()
@@ -630,7 +630,7 @@ penguins %>%
 
 `group_by` works equally well with more than one group:
 
-```{r}
+```{r grouped_tally}
 penguins %>% 
   group_by(sex, species) %>% 
   tally()
@@ -641,7 +641,7 @@ into a wider tabular format.
 
 A shortcut exists in tidyverse, `count`, which combines group_by and tally:
 
-```{r}
+```{r count}
 penguins %>% 
   count(sex, species) 
 ```
