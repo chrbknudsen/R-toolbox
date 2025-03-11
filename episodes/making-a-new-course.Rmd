@@ -116,7 +116,9 @@ Changes made on your new page are similarly not affecting R-toolbox.
 
 ::::
 
+## Editing
 
+There are a lot of useful information on https://carpentries.github.io/sandpaper-docs
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
