@@ -25,7 +25,7 @@ You can download all of the data used in this workshop by clicking [this downloa
 
 Clicking the download link will automatically download all of the files to your default download directory as a single compressed (`.zip`) file. To expand this file, double click the folder icon in your file navigator application (for Macs, this is the Finder application).
 
-For a full description of the data used in this workshop see the [data page](instructors/data.md).
+For a full description of the data used in this workshop see the [data page](learners/data.md).
 
 ## Local Installation
 
@@ -147,11 +147,12 @@ already.
 -   [`sf`](https://cran.r-project.org/package=sf)
 -   [`terra`](https://cran.r-project.org/package=terra)
 -   [`tidyr`](https://CRAN.R-project.org/package=tidyr)
+-   [`maps`](https://CRAN.R-project.org/package=maps)
 
 To install these packages in RStudio, copy the following into the console and hit enter.
 
 ``` r
-install.packages(c("dplyr", "ggplot2", "raster", "rasterVis", "RColorBrewer", "remotes", "reshape", "scales", "sf", "terra", "tidyr"))
+install.packages(c("dplyr", "ggplot2", "raster", "rasterVis", "RColorBrewer", "remotes", "reshape", "scales", "sf", "terra", "tidyr", "maps"))
 ```
 
 You should see a status message starting with:
