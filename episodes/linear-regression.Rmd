@@ -300,6 +300,19 @@ another measurement, we are not allowed to use a linear model.
 
 3. Normality of residuals. The residuals must be normally distributed.
 
+
+:::: spoiler
+## The assumptions - differently defined
+
+The three assumptions can be formulated in different ways, and it can be 
+useful to read more than one in order to understand them. This is a different way:
+
+1. For any given value of x, the corresponding value of y has an average value of $\alpha + \beta x$
+2. For any two data points, the error terms are independent of each other.
+3. For any given value of x, the corresponding value of y is normally distributed about $\alpha + \beta x$ with the same variance $\sigma^2$ for any x
+
+::::
+
 In general we know
 our data well enough to determine if the first two are fulfilled. The third assumptions 
 can be tested using a `qqplot`. We begin by extracting the residuals from our
