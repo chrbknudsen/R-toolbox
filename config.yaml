@@ -88,6 +88,7 @@ episodes:
 - fence-test.Rmd
 - making-a-new-course.Rmd
 - shinylive.Rmd
+- choropleths.Rmd
 
 # Information for Learners
 learners: 
