@@ -1,5 +1,5 @@
 ---
-title: "GIS"
+title: "GIS intro"
 teaching: 42
 exercises: 42
 ---
@@ -24,7 +24,12 @@ eller snarere https://datacarpentry.github.io/organization-geospatial/
 
 ## Why is geography important
 
-Not all data contains 
+Not all data contains geographic information. But when it does - we would like
+to be able to analyse them. We would like to be able to find connections and patterns.
+
+rasterfiles
+
+og den anden type filer
 
 
 
