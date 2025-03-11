@@ -1,0 +1,24 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: R-toolbox
+message: ' Please cite this lesson using the information in this file   when you refer to it in publications, and/or if you   re-use, adapt, or expand on the content in your own   training material.'
+type: dataset
+authors:
+  - given-names: Christian Boldsen
+    family-names: Knudsen
+    email: cbk@kb.dk
+    orcid: 'https://orcid.org/0000-0002-9816-768X'
+    affiliation: Copenhagen University Library
+  - given-names: Ene Rammer
+    family-names: Nielsen
+    email: enrn@kb.dk
+repository-code: 'https://github.com/KUBDatalab/R-toolbox'
+url: 'https://kubdatalab.github.io/R-toolbox/'
+abstract: >-
+  Collection of Carpentries formatted lessons for teaching R
+  at KUB Datalab.
+keywords:
+  - R
+license: CC-BY-NC-SA-4.0
