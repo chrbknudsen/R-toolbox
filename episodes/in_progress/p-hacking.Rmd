@@ -52,7 +52,7 @@ Origin and Debate around the Term P-Hacking
 Simonsohn, Nelson, and Simmons are authors of landmark studies in p-hacking and introduced the term at a psychology conference in 2012. They wanted to create a memorable name for the set of practices. While catchy, the term has sparked a debate among statisticians. Critics argue that the word “hacking” implies it refers only to intentionally deceptive manipulation. In actuality, the word applies to both unintentional and intentional cases.
 
 Advertisement
-Unintentional P-Hacking: Many researchers don’t fully realize they’re p-hacking. With so many ways to analyze data (imagine wandering through a maze of paths), it’s easy to veer toward biased decisions unknowingly. It’s like convincing ourselves that the shorter, easier route is the ‘right’ one, even when it’s not.
+Unintentional P-Hacking: Many researchers don’t fully realise they’re p-hacking. With so many ways to analyse data (imagine wandering through a maze of paths), it’s easy to veer toward biased decisions unknowingly. It’s like convincing ourselves that the shorter, easier route is the ‘right’ one, even when it’s not.
 
 Intentional P-Hacking: P-hacking can be willful manipulation using an iterative trial and error method that homes in on significant results. Here, researchers knowingly twist their analysis to create outcomes they desire. It’s akin to deliberately changing the evidence at a crime scene to create a misleading narrative.
 

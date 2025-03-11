@@ -1527,7 +1527,7 @@ _Dimensions:_ Rows: 173 Columns: 9
 Data from a 7 year longitudinal study started in spring 1975 in Edinburgh.
 Two classes at an elementary school participated and informed consent were
 collected from 40 of the 42 boys in the classes. Every 3 months a 24 hour
-urine sample were collected from each boy. These samples were analyzed for the
+urine sample were collected from each boy. These samples were analysed for the
 precense of spermatozoa. In the variable observations are registered the result
 of each urine sample.
 

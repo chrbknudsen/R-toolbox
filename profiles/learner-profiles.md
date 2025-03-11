@@ -16,7 +16,7 @@ different ways:
 * __Background:__ 
     * Learners with no previous experience in R, coming from a wet lab setup and moving towards data analysis in R.
 * __Motivation:__
-    * These learners are motivated to enhance their research by incorporating data analysis skills. They need to analyze experimental data, interpret results, and present findings in a reproducible manner.
+    * These learners are motivated to enhance their research by incorporating data analysis skills. They need to analyse experimental data, interpret results, and present findings in a reproducible manner.
 * __Challenges:__
     * Lack of familiarity with programming concepts.
     * Need for a gentle introduction to coding and data analysis.
