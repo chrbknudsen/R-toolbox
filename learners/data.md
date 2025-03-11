@@ -581,7 +581,7 @@ _Dimensions:_ Rows: 62 Columns: 22
 
 ### FEV
 
-Data on 654 children seen in the [Childhood Respiratory Disease Study](#tage_6)^6^ in East Boston 
+Data on 654 children seen in the [Childhood Respiratory Disease Study](learners/data.md#tage_6)^6^ in East Boston 
 Massachusetts in 1980. Forced Expiratory Volume (FEV), an index of pulmonary
 function was measured, along with, age, height, sex and smoking status. 
 
