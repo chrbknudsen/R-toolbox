@@ -369,7 +369,7 @@ the "true" mean of some value should be something. We take a sample, and calcula
 the mean. And using the normal distribution, we can look at the CDF-plot above,
 and determine the probability of seeing the value we get.
 
-In practice we are usually not using the normal distribution, buth rather the
+In practice we are usually not using the normal distribution, but rather the
 t-distribution, to correct for the fact that we do not actually know the true mean
 and varians/standard deviation of the population. It gives us a more conservative
 estimate taht is more likely to be "true".
