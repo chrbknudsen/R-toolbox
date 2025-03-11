@@ -772,7 +772,7 @@ _Dimensions:_ Rows: 100 Columns: 18
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
-Salt Taste Variables
+Salt Taste Variables den er på side 202 i bogen
 
 :::: spoiler
 
@@ -816,6 +816,8 @@ _Dimensions:_ Rows: 124 Columns: 40
 [Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
+
+siden er nr. 29 i bogen
 
 :::: spoiler
 
@@ -1692,9 +1694,9 @@ https://www.jstor.org/stable/2532505
 Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
 
 
-* infantbp
-* lead
-* mice
+* infantbp siden identificeret 202
+* lead siden identificeret 29
+* mice 
 * nephro
 * nifed
 * oto
