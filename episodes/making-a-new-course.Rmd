@@ -51,6 +51,9 @@ need to edit the "config.yaml" file.
 Either do this directly on GitHub, or follow the usual process of forking to
 your own GitHub account, and cloning the repo to your computer.
 
+You will also need to update the CITATION.cff file, otherwise the citation will
+point to this site, rather than your own.
+
 :::: callout
 ## Consider deleting stuff
 
