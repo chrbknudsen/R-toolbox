@@ -68,10 +68,12 @@ and education (data for the latter two from Global Gender Gap). Education is
 calculated as the worst ratio of values for litteracy, enrollment in primary and
 secondary education.
 
-The three ratios are normalised to set parity equal to 0. A negative score will
-indicate that women are worse off, a positive score that men are worse of. The
-overall BIGI score is calculated as the average of the three indicators. A final
-indicator, AADP, calculates the average of the absolute values, i.e. give an indication
+The three ratios are normalised to set parity equal to 0 and 
+the overall BIGI score is calculated as the average of the three indicators.
+As a result, values below 0 represent a disadvantage for boys and men, 
+while values above 0 a disadvantage for girls and women.
+
+A final indicator, AADP, calculates the average of the absolute values, i.e. give an indication
 of inequality (0 is still parity) regardless of which sex is disadvantaged. 
 
 All data is averaged over the period 2012 to 2016
