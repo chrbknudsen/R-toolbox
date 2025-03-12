@@ -79,19 +79,8 @@ As indicated in the comparative table, the `magrittr` pipe have a number of sibl
 This pipe allow us to inject a function into a longer set of 
 pipes, without affecting the rest of the flow.
 
-```{r echo = FALSE, EVAL = FALSE}
-library(DiagrammeR)
-DiagrammeR("
-  graph LR
-    A[Input data] --> B[%T>%]
-    B --> C[Function run for side-effect <br> e.g. print, plot or log]
-    B --> E
-    C --> D[ %>% ]
-    D --> E[Next function in the flow]
-")
-```
-
 ![](fig/tee-pipe.png)
+
 The tee-pipe sends data to two functions. The immediate next, which
 we want to run for plotting, logging or printing data, and to the 
 next function over, which get the original input data, rather than

@@ -72,6 +72,10 @@ Bemærk at hint-fencen mangler en ikon til venstre.
 :::: caution
 ## Dette er en caution fence
 
+Bemærk at sandpaper vil insistere på ikke at kende til denne fence. Men
+den fungerer altså fint alligevel, så det er fejl under bygningen af siden
+man roligt kan ignorere.
+
 ::::
 
 :::: spoiler

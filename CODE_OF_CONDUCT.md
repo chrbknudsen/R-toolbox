@@ -2,12 +2,8 @@
 title: "Contributor Code of Conduct"
 ---
 
-As contributors and maintainers of this project,
-we pledge to follow the [The Carpentries Code of Conduct][coc].
+Noli turbare circulos meos. Or anyones. 
 
-Instances of abusive, harassing, or otherwise unacceptable behavior
-may be reported by following our [reporting guidelines][coc-reporting].
-
-
-[coc-reporting]: https://docs.carpentries.org/topic_folders/policies/incident-reporting.html
-[coc]: https://docs.carpentries.org/topic_folders/policies/code-of-conduct.html
+If you do, we will nuke, delete, lock, close, ban, or whatever else is 
+necessary, in order to have undisturbed circles.
+ 

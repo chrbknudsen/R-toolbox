@@ -13,19 +13,16 @@ exercises: 42
 :::
 
 
-This workshop is designed to be run on your local machine. First, you will need to download the data we use in the workshop. Then, you need to set up your machine to analyze and process geospatial data. We provide instructions below to install all components manually.
+This workshop is designed to be run on your local machine. First, you will need 
+to download the data we use in the workshop. Then, you need to set up your 
+machine to analyse and process geospatial data. We provide instructions below 
+to install all components manually.
 
 ## Data
 
-NOTE! THIS IS A WORK IN PROGRESS - THESE ARE NOT THE DATAFILES YOU ARE LOOKING FOR
+For a full description of the data used in this workshop see the [data page](learners/data.md).
 
-We havent quite found them yet.
-
-You can download all of the data used in this workshop by clicking [this download link](https://ndownloader.figshare.com/articles/2009586/versions/10). The file is 218.2 MB.
-
-Clicking the download link will automatically download all of the files to your default download directory as a single compressed (`.zip`) file. To expand this file, double click the folder icon in your file navigator application (for Macs, this is the Finder application).
-
-For a full description of the data used in this workshop see the [data page](instructors/data.md).
+Note that the page includes a lot of other datasets, not just GIS-related.
 
 ## Local Installation
 
@@ -147,11 +144,12 @@ already.
 -   [`sf`](https://cran.r-project.org/package=sf)
 -   [`terra`](https://cran.r-project.org/package=terra)
 -   [`tidyr`](https://CRAN.R-project.org/package=tidyr)
+-   [`maps`](https://CRAN.R-project.org/package=maps)
 
 To install these packages in RStudio, copy the following into the console and hit enter.
 
 ``` r
-install.packages(c("dplyr", "ggplot2", "raster", "rasterVis", "RColorBrewer", "remotes", "reshape", "scales", "sf", "terra", "tidyr"))
+install.packages(c("dplyr", "ggplot2", "raster", "rasterVis", "RColorBrewer", "remotes", "reshape", "scales", "sf", "terra", "tidyr", "maps"))
 ```
 
 You should see a status message starting with:

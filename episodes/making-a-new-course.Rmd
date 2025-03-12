@@ -54,6 +54,9 @@ your own GitHub account, and cloning the repo to your computer.
 You will also need to update the CITATION.cff file, otherwise the citation will
 point to this site, rather than your own.
 
+You can use https://citation-file-format.github.io/cff-initializer-javascript/#/ to
+edit the existing, or make a new one.
+
 :::: callout
 ## Consider deleting stuff
 
@@ -113,7 +116,9 @@ Changes made on your new page are similarly not affecting R-toolbox.
 
 ::::
 
+## Editing
 
+There are a lot of useful information on https://carpentries.github.io/sandpaper-docs
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
