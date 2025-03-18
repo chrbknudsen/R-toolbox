@@ -1,18 +1,22 @@
 ---
-title: "lasso"
-teaching: 0
-exercises: 0
-questions: 
-- "FIXME"
-
-objectives:
-- "FIXME"
-
-keypoints:
-- "FIXME"
-source: Rmd
-math: yes
+title: 'lasso-regularisation'
+teaching: 10
+exercises: 2
 ---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ```{r, include = FALSE}
 
@@ -24,31 +28,36 @@ library(patchwork)
 ```
 
 
-Least Absolute Shrinkage and Selection Operator.
+## Least Absolute Shrinkage and Selection Operator.
 
-En regressions metode der gør to ting. Vælger variable, og foretager
-regularisering.
+Når vi laver en lineær model, forsøger vi at finde koefficienterne i udtrykket:
 
-Vi bruger den til at fitte regressionsmodeller når der er multicollinearitet i 
-data.
+$$\hat{y}= \beta_0 + \beta_1*x_1 + \beta_2*x_2 + \beta_3*x_3 +....$$
 
-Og hvad er det - jo, der er når der er to (eller flere) variable i data, der er 
-stærkt korrellerede - og derfor ikke tilfører unik eller uafhængig information 
-til modellen. 
+Og vi er specifikt ude efter dem der minimerer forskellen på de "sande" værdier
+af y vi kender, og modellens forudsigelse $\hat{y}$
 
-Det kan gøre det vanskeligt at fitte og fortolke modellen.
-
-Når vi fitter modeller, forsøger vi at finde koefficienter til modellen 
-
-$$y = a_1*x_1 + a_2*x_2 + a_3*x_3 +....$$
-
-Altså a_1, a_2, a_3 etc.
-
-der minimerer forskellen på hvad vores model forudsiger og de "rigtige" data.
-
+Det vi typisk gør, er at vi forsøger at minimere dette udtryk:
 Det er typisk RSS (kvadrerede residualer).
 
-\\(RSS = SUM(yi - ^y_i)^2\\)
+$$RSS = \sum(y_i - \hat{y_i})^2$$
+Jo mindre det tal er, jo bedre er modellen.
+
+Et problem er at vi skal tage stilling til, er hvor mange og hvilke variable
+vi skal have med i modellen. Hvis vi medtager tilstrækkeligt mange parametre,
+skal det nok lykkes at forklare alt.
+
+En teknik der kan udvælge er lasso. I stedet for at optimere på RSS, optimverer vi på:
+
+$$\sum_{i=1}^{n}(y_i - \sum_{j} x_{ij}\beta_j)^2 + \lambda\sum_{j=1}^p |\beta_j|$$
+
+
+$$\mathcal{L}(\mathbf{w}) = \frac{1}{2N} \sum_{i=1}^{N} (y_i - \mathbf{x}_i^T \mathbf{w})^2 + \alpha \sum_{j=1}^{p} |w_j|
+$$
+Eller, lidt kortere:
+
+$$RSS + \lambda\sum_{j=1}^$$
+
 
 I lasso, forsøger vi at minimere:
 
@@ -150,7 +159,24 @@ best_model$beta
 ```{r}
 summary(best_model)
 ```
-```{r}
 
-```
+
+
+::::callout
+## regularisation
+
+Vi gør modellen mere regulær - eller ordnet, ved at tilføje elementer til problemet,
+der gør det lettere at løse. Det er vist ikke en helt perfekt forklaring. Men den
+nærmer sig.
+
+::::
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 

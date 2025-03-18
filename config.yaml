@@ -90,6 +90,8 @@ episodes:
 - shinylive.Rmd
 - choropleths.Rmd
 - un-normal-data.Rmd
+- building-models.Rmd
+- lasso-regularisation.Rmd
 
 # Information for Learners
 learners: 
