@@ -560,7 +560,7 @@ You can check that it is working similarly to the better solution above.
 
 
 
-
+::::spoiler
 ## Notes on the good solution
 
 Data analysis is not worth much, if we are not able to reproduce our results.
@@ -600,12 +600,7 @@ We can do that manually. Or, and this is the preffered solution, make a file
 we need to restart R, and now we can install packages to our hearts delight,
 and renv will place both the libraries and the cache in our local project.
 
-An example of a script that sets the environemt file, and installs a selection
-of usefull pacakges can be found below. Note that this takes a very long time.
-The alternative to this taking a very long time once, is for it to take a very
-long time every time we open our project. 
-
-
+::::
 
 
 
