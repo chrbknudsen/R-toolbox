@@ -32,6 +32,9 @@ blandet:
   https://carpentries-incubator.github.io/R-ecology-lesson-intermediate/
   https://carpentries-incubator.github.io/data-organisation-for-better-analysis/
   https://carpentries-incubator.github.io/R-help-reprexes/
+  https://milospopovic.net/blog
+  https://www.cedricscherer.com/
+    https://www.cedricscherer.com/top/links/
   
 esoterica:
   https://carpentries-incubator.github.io/lc-litsearchr/
@@ -40,3 +43,4 @@ esoterica:
 vis:
   https://carpentries-incubator.github.io/intro-data-viz/
   https://carpentries-incubator.github.io/hermes_stat_inf_data_vis/
+  https://friendly.github.io/6135/index.html
