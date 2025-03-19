@@ -191,6 +191,16 @@ best_model <- glmnet(x,y,alpha = 1, lambda = best_l)
 coef(best_model)
 ```
 
+CAVE. Det kan godt være det er værd at skalere værdierne. 
+
+```{r}
+range(mtcars$mpg)
+```
+```{r}
+range(mtcars$wt)
+```
+
+
 
 ::::callout
 ## regularisation
