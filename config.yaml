@@ -92,6 +92,8 @@ episodes:
 - un-normal-data.Rmd
 - building-models.Rmd
 - lasso-regularisation.Rmd
+- ridge-regularisation.Rmd
+- elastic-net-regularisation.Rmd
 
 # Information for Learners
 learners: 
