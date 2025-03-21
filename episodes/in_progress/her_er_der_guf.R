@@ -35,7 +35,7 @@ blandet:
   https://milospopovic.net/blog
   https://www.cedricscherer.com/
   https://www.cedricscherer.com/top/links/
-  https://heads.ku.dk/course/
+  https://heads.ku.dk/course/ - se også https://github.com/Center-for-Health-Data-Science
   
 esoterica:
   https://carpentries-incubator.github.io/lc-litsearchr/
