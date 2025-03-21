@@ -34,7 +34,8 @@ blandet:
   https://carpentries-incubator.github.io/R-help-reprexes/
   https://milospopovic.net/blog
   https://www.cedricscherer.com/
-    https://www.cedricscherer.com/top/links/
+  https://www.cedricscherer.com/top/links/
+  https://heads.ku.dk/course/
   
 esoterica:
   https://carpentries-incubator.github.io/lc-litsearchr/
