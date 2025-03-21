@@ -94,6 +94,7 @@ episodes:
 - lasso-regularisation.Rmd
 - ridge-regularisation.Rmd
 - elastic-net-regularisation.Rmd
+- snow-plot.Rmd
 
 # Information for Learners
 learners: 
