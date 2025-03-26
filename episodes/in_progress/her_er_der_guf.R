@@ -45,3 +45,7 @@ vis:
   https://carpentries-incubator.github.io/intro-data-viz/
   https://carpentries-incubator.github.io/hermes_stat_inf_data_vis/
   https://friendly.github.io/6135/index.html
+
+
+Note. Bias er her et teknisk begreb. 
+It's remarkable how often "bias" means "differs from my bias."
