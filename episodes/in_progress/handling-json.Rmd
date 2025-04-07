@@ -1,14 +1,18 @@
 ---
-title: "Json fra websites og api'er"
+title: "Handling JSON"
 teaching: 0
 exercises: 0
-questions:
-- "(FIXME)"
-objectives:
-- "First learning objective. (FIXME)"
-keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
 ---
+
+::::questions
+- "(FIXME)"
+::::
+
+::::objectives
+- "First learning objective. (FIXME)"
+::::
+
+
 
 
 
@@ -19,5 +23,7 @@ i en viewer - og få koden til at subsette bestemte dele let!
 https://themockup.blog/posts/2020-12-13-extracting-json-from-websites-and-public-apis-with-r/
 
 
-
+::::keypoints
+- "First key point. Brief Answer to questions. (FIXME)"
+::::
 
