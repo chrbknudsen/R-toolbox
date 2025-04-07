@@ -34,7 +34,8 @@ blandet:
   https://carpentries-incubator.github.io/R-help-reprexes/
   https://milospopovic.net/blog
   https://www.cedricscherer.com/
-    https://www.cedricscherer.com/top/links/
+  https://www.cedricscherer.com/top/links/
+  https://heads.ku.dk/course/ - se også https://github.com/Center-for-Health-Data-Science
   
 esoterica:
   https://carpentries-incubator.github.io/lc-litsearchr/
@@ -44,3 +45,7 @@ vis:
   https://carpentries-incubator.github.io/intro-data-viz/
   https://carpentries-incubator.github.io/hermes_stat_inf_data_vis/
   https://friendly.github.io/6135/index.html
+
+
+Note. Bias er her et teknisk begreb. 
+It's remarkable how often "bias" means "differs from my bias."

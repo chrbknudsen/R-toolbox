@@ -66,7 +66,7 @@ Et problem er at vi skal tage stilling til, er hvor mange og hvilke variable
 vi skal have med i modellen. Hvis vi medtager tilstrækkeligt mange parametre,
 skal det nok lykkes at forklare alt.
 
-En teknik der kan udvælge er lasso. I stedet for at optimere på RSS, optimverer vi på:
+En teknik der kan udvælge er lasso. I stedet for at optimere på RSS, optimerer vi på:
 
 
 $$\sum_{i=1}^{n}(y_i - \sum_{j} x_{ij}\beta_j)^2 + \lambda\sum_{j=1}^p |\beta_j|$$
@@ -74,14 +74,12 @@ $$\sum_{i=1}^{n}(y_i - \sum_{j} x_{ij}\beta_j)^2 + \lambda\sum_{j=1}^p |\beta_j|
 
 
 
+
 Eller, lidt kortere:
 d
-$$RSS + \lambda\sum_{j=1}^$$
+$$RSS + \lambda\sum_{j=1}^p |\beta_j|$$
 
 
-I lasso, forsøger vi at minimere:
-
-\(RSS + lambda * summen af beta_j\)
 
 Så det udtryk vi nu forsøger at minimere - algoritmen gør det for os - 
 er nu tilføjet summen af alle vores koefficienter - i absolutte værdier, så de
