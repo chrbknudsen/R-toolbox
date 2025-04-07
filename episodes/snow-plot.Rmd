@@ -17,13 +17,13 @@ exercises: 2
 
 ![](fig/cholera_is_coming.jpg)
 
-```{r}
-library(SnowData)
-```
+der skal køres en library SnowData
 
-```{r}
+
+
+
 SnowData::cholera_cases
-```
+
 
 
 
