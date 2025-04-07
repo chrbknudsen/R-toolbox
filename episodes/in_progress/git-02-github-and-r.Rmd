@@ -18,6 +18,13 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+git og github i Rstudio
+
+
+Dette skal ikke nødvendigvis være en guide til git. Det skal være en guide til
+hvordan man arbejder med git i Rstudio.
+
 ## What is GitHub?
 
 You might have seen GitHub before. An integral part of writing code is googling

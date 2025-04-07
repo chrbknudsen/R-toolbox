@@ -1,5 +1,5 @@
 ---
-title: 'github-and-you'
+title: 'Git'
 teaching: 10
 exercises: 2
 ---
@@ -16,6 +16,9 @@ exercises: 2
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+Git overordnet. Hovedprincipperne.
+
 
 ## Introduction
 
