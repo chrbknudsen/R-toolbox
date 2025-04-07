@@ -17,6 +17,8 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+Lidt videregående git
+
 ## Introduction
 
 Lidt videregående github.

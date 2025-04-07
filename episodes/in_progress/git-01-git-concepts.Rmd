@@ -1,138 +1,27 @@
 ---
-title: 'GitHub and R'
+title: 'Git'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What actually is github? 
-- How is that even relevant for me?
+- What is git?
+- Why do we use it?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Learn how to setup git and GitHub in RStudio
-- Learn how to use GitHub for backup, sharing, versioning and collaboration
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## What is GitHub?
-
-You might have seen GitHub before. An integral part of writing code is googling
-(and chatgpting) for a solution that kinda matches your problem, copying it, and
-adjusting the code so it hopefully does what you need it to do.
-
-A lot of the search results you get will go to StackOverflow, but many will end
-up on GitHub. And when the chatbot can help you, it is partially because it has 
-been trained on GitHub.
-
-Git is a system for keeping track of different versions of code. 
-And because code is just text, it works nicely with text as well, as long as it
-is formatted in plain text.
-
-You have a file on your computer. You save it, and use git to store _that_ version
-in a `git-repo` on your computer. When you make changes, you add (commit) those
-changes to the repo, and Git keeps track of all the changes for you. That is 
-pretty neat.
-
-What is even better is that you can push _all_ the changes you made to an
-online repository, where your local changes will be stored as well. If something
-bad happens to your computer, you have a backup, that you can pull down to a 
-new computer.
+Git overordnet. Hovedprincipperne.
 
 
-# Interaktion med github i R-sammenhænge.
-
-Der er mange detaljer. Dette er noten om hvordan man får sat sit Personal
-Access Token (PAT) i RStudio.
-
-## Update personal access token:
-
-Det gøres lettest ved at bruge pakken `gitcreds`
-```{r gitcreds-eksempel, eval = F}
-install.packages("gitcreds")
-library(gitcreds)
-gitcreds_set()
-```
-
-Funktionen returnerer:
-```{r setcreds-output, eval  =F }
-1: Keep these credentials
-2: Replace these credentials
-3: See the password / token
-```
-
-Vælg "2" og paste dit PAT ind på prompten.
-
-Hvor får du så et PAT? Det sker heromkring fra:
-
-
-Det token får vi heromkring fra:
-
-[https://github.com/settings/tokens](https://github.com/settings/tokens)
-
-
-
-Vi har styr på hvordan vi går fra at have oprettet ting på github og til det
-når til vores egen computer.
-
-Hvad hvis vi starter på vores egen computer, og gerne vil have det op på github?
-
-
-Initialiser projektet lokalt:
-
-Sørg for, at du har en mappe på din computer, hvor projektet ligger. Navigér til mappen i terminalen, og kør:
-bash
-Kopier kode
-git init
-Tilføj alle filer:
-bash
-Kopier kode
-git add .
-Lav din første commit:
-bash
-Kopier kode
-git commit -m "Initial commit"
-Opret et nyt repository på din organisations-GitHub-side:
-
-Gå til din organisations-GitHub-side, opret et nyt repository, og kopier URL’en til det.
-Link det lokale projekt til din organisations-GitHub-side:
-
-I terminalen, kør:
-bash
-Kopier kode
-git remote add origin <URL_til_organisations_repo>
-Skub derefter ændringerne til organisations-repoet:
-bash
-Kopier kode
-git push -u origin main
-Fork repoet fra organisations-GitHub til din personlige GitHub-side:
-
-Gå til organisations-repoet på GitHub og vælg "Fork" for at oprette en kopi i din personlige GitHub-konto.
-Opsæt et remote til dit personlige GitHub-repo på din computer:
-
-Nu skal du have både origin og et nyt remote (for eksempel kaldet personal) for at holde styr på, hvor du skubber ændringer hen. Tilføj din personlige GitHub som en ekstra remote:
-bash
-Kopier kode
-git remote add personal <URL_til_personlige_repo>
-Push til din personlige GitHub-konto, hvis nødvendigt:
-
-Hvis du ønsker, kan du skubbe til din personlige konto:
-bash
-Kopier kode
-git push -u personal main
-Nu er dit projekt sat op lokalt og findes på både din organisations- og din personlige GitHub-side
-
-
-
-
-Some instructors will demo RStudio’s git integration at some point during the workshop. This often goes over very well, but there can be a few snags with the setup. First, RStudio may not know where to find git. You can specify where git is located in Tools > Global Options > Git/SVN; on Mac/Linux git is often in /usr/bin/git or /usr/local/bin/git and on Windows it is often in C:/Program Files (x86)/Git/bin/git.exe. If you don’t know where git is installed on someone’s computer, open a terminal and try which git on Mac/Linux, or where git or whereis git.exe on Windows. See Jenny Bryan’s instructions for more detail.
-
-If Windows users select the option “Run Git from the Windows command prompt” while setting up Git Bash, RStudio will automatically find the git executable. If you plan to demo git in RStudio during your workshop, you should edit the workshop setup instructions to have the Windows users choose this option during setup.
-
-Another common gotcha is that the push/pull buttons in RStudio are grayed out, even after you have added a remote and pushed to it from the command line. You need to add an upstream tracking reference before you can push and pull directly from RStudio; have your learners do git push -u origin master from the command line and this should resolve the issue.
+## Introduction
 
 
 I et repo har vi en primær linie af udvikling. Den kaldes i dag ofte for "main",
@@ -340,12 +229,12 @@ git pull <remote_name> <branch_name>
 git fetch <remote_name>
 
 
-
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- GitHub is the standard way for writing code collaboratively
-- Be careful about data - not everything belongs on GitHub
-
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
