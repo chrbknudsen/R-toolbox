@@ -149,11 +149,11 @@ already.
 To install these packages in RStudio, copy the following into the console and hit enter.
 
 ``` r
-install.packages(c("dplyr", "ggplot2", "raster", "rasterVis", "RColorBrewer", "remotes", "reshape", "scales", "sf", "terra", "tidyr", "maps"))
+install.packages(c("dplyr", "ggplot2", "raster", "rasterVis", "RColorBrewer", "remotes", "reshape", "scales", "sf", , "tidyr", "maps"))
 ```
 
 You should see a status message starting with:
-
+terra skal nok også være der et sted. men det fejler i git-actions.
 ``` output
 trying URL 'https://cran.rstudio.com/bin/macosx/el-capitan/contrib/3.5/dplyr_0.7.6.tgz'
 Content type 'application/x-gzip' length 5686536 bytes (5.4 MB)
