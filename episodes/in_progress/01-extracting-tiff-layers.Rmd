@@ -2,13 +2,19 @@
 title: "Extracting tiff-layers"
 teaching: 0
 exercises: 0
-questions:
-- "Hvordan ekstraherer jeg lag fra en geotiff fil?"
-objectives:
-- "FIXME"
-keypoints:
-- "FIXME"
 ---
+
+
+::::questions
+- "Hvordan ekstraherer jeg lag fra en geotiff fil?"
+::::
+
+
+::::objectives
+- "FIXME"
+::::
+
+
 
 
 
@@ -22,8 +28,6 @@ library(rgdal)
 
 
 
-install.packages("terra")
-library(terra)
 
 
 
@@ -100,3 +104,6 @@ Det kan være en kanal med landskabet set i IR-spektret. Eller tre kanaler med
 hver af farverne rød, grøn og blå. Vælger man kun at kigge på det grønne lag, 
 kan det være lettere at identificere hvor vegetationen er.
 
+::::keypoints
+- "FIXME"
+::::
