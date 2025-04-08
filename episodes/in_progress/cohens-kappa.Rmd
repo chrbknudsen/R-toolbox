@@ -1,5 +1,5 @@
 ---
-title: 'cohens-kappa'
+title: 'Cohens Kappa'
 teaching: 10
 exercises: 2
 ---
@@ -17,7 +17,55 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## TL;DR
+## What do we use it for?
+
+We use Cohens Kappa (or $\kappa$), to compare if two sets of categorisations
+is done reliably.
+
+Imagine a set of images. We ask two persons to answer a simple question - is there
+a cat on the images. To what degree do the two persons agree on the presence 
+or absence of cats?
+
+That seems simple enough. However if they agree that there is a cat, this might
+indicate that they are both good at identifying cats, and of course agrees. 
+But they might just as well be very bad at recognizing cats - but agree by
+random chance. 
+
+
+## Where is it used?
+
+Inter-Rater Reliability. That is our example. To what degree do two "raters" agree
+on their rating or classification of something. This is useful in subjects and
+research where subjective assessments are important, such as psychology, medicine
+and languages.
+
+Intra-Rater Reliability. Here we test how consistent a single rater is. Are my
+ratings from a week ago, consistent with the ratings I make today?
+
+Comparison of diagnostic tests. It can be used to compare the results of two
+different diagnostic tests for some medical condition. Does the cheaper, less
+invasive test, give the same results as the more expensive invasive test?
+
+Natural language processing (NLP). When we categorise textual data, eg, evaluating
+the sentiment of a text, or identify named entities - how well does two methods 
+or persons agree?
+
+Educational research. Will two teachers give the same grade to the same papers
+turned in by students.
+
+In humanities we are concerned with intersubjectively transferability - based
+on available data, are the subjective evaluation of two different persons 
+in agreement.
+
+## Limitations
+
+Cohens $\kappa$ 
+
+Cohens Kappa kan bruges direkte for to kategoriske variable. Enten to nominale 
+eller to ordinale variable. Men kun for præcist to raters.
+
+To get an i
+
 Cohens Kappa bruges til at måle om kategorisering af ting sker pålideligt.
 
 To eller flere "raters" kategoriserer et eller andet. 
@@ -273,6 +321,17 @@ mere rutinerede læger.
 Men den kan bruges også til meget andet. Markedsundersøgeres bedømmelse af 
 svar fra respondenter. Eller hvis vi bygger en algoritme der kan se forskel
 på hunde og katte på billeder - er den enig med et menneske?
+
+
+
+Cohen's Kappa er en statistisk måde at måle overensstemmelse mellem to ratere, der klassificerer de samme objekter. Det bruges ofte til at vurdere pålideligheden af klassifikationer eller kategoriseringer, især i kontekster, hvor der er behov for at måle inter-rater reliability (overensstemmelse mellem forskellige ratere) eller intra-rater reliability (overensstemmelse for den samme rater over tid).
+
+Her er nogle af de primære anvendelser af Cohen's Kappa:
+
+
+
+Cohen's Kappa tager højde for tilfældig overensstemmelse, hvilket gør det til et mere robust mål end blot procentdelen af overensstemmelse. Det giver en værdi mellem -1 og 1, hvor 1 indikerer perfekt overensstemmelse, 0 indikerer ingen overensstemmelse ud over tilfældighed, og negative værdier indikerer mindre overensstemmelse end forventet ved tilfældighed.
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

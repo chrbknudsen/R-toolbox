@@ -2,17 +2,17 @@
 title: "t-sne"
 teaching: 0
 exercises: 0
-questions: 
-- "FIXME"
-
-objectives:
-- "FIXME"
-
-keypoints:
-- "FIXME"
-source: Rmd
-math: yes
 ---
+
+::::questions 
+- "FIXME"
+
+::::
+
+::::objectives
+- "FIXME"
+::::
+
 
 
 
@@ -34,6 +34,7 @@ tendenser i dataene, som kan være svære at se i det originale højdimensionale
 Eller, kortere formuleret, vi har data i mange (som i flere end 2-3 stykker)
 dimensioner. Vi ser på iris datasættet:
 
+Se også pca.
 
 head(iris)
 
@@ -70,3 +71,6 @@ iris_data %>% ggplot(aes(x,y, colour = art)) +
 
 
 
+::::keypoints
+- "FIXME"
+::::

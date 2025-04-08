@@ -2,16 +2,19 @@
 title: "Confirmatory Factor Analysis"
 teaching: 0
 exercises: 0
-questions: 
-- "FIXME"
-
-objectives:
-- "FIXME"
-
-keypoints:
-- "FIXME"
-source: Rmd
 ---
+
+
+::::questions 
+- "FIXME"
+::::
+
+::::objectives
+- "FIXME"
+::::
+
+
+
 
 ```{r, include = FALSE}
 
@@ -247,3 +250,8 @@ om det er god praksis, og vi bør fortælle de studerende at de snyder.
 Det gør alle andre også, så vi skal nok ikke fortælle dem at de ikke må, men at 
 når de gør det som alle andre også burde lade være med, så skal de beskrive 
 at de "snyder".
+
+
+::::keypoints
+- "FIXME"
+::::

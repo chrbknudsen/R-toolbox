@@ -45,6 +45,10 @@ Multiple imputation - lader til at være god.
 maximum likelihood imputation
 
 
+Og hvordan gør man det i praksis?
+
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
