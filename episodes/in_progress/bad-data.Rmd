@@ -1,0 +1,94 @@
+---
+title: 'Bad data'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+A collection of problems with data
+
+Real world data is usually messy. Some of these problems have to be fixed by
+the source of the data. Some can be fixed by you. Others you might need help
+for.
+
+This is a collection of some, perhaps most, of the problems we might encounter
+in the real world.
+
+Vi skal nok have det delt op i to eller tre
+
+## Problems that should be solved at the source
+
+### Missing values
+### Zeroes replace missing values 
+### Data is missing - but should be there
+### Duplicated rows or values
+### Inconsistent spelling
+### Inconsistent name order
+### Inconsistent date formats
+### Unspecified units
+### Bad choice for categories
+### Ambiguous field names
+### Uncertain provenance
+### Presence of suspicious values
+### To coarse data
+### Aggregates or totals are inconsistent
+### 65536 or 1048576 rows in the spreadsheet
+### Spreadsheet dates in 1900, 1904, 1969 or 1970
+### Text has been converted to numbers
+
+## Problems that you should solve
+
+### Garbled text
+### Garbled line endings
+### Data are in a PDF
+### Too granular data
+### Data entered by humans
+### Data is intermingled with formatting and annotations
+### Aggregations computed on missing values
+### Non-random sample
+### Too large margin of error
+### Unknown margin of error
+### Biased sample
+### Manually edited data
+### Data skewed by inflation
+### Data skewd by season or natural variation
+### Manipulated timeframe
+### Manipulated frame of reference
+
+## Someone else should probably help you
+### Untrustworthy author
+### Opaque collection process
+### Data asserts unrealistic precision
+### Inexplicable outliers
+### Index masking underlying variation
+### Suspected p-hacking
+### Benford's law fails
+### It's too good to be true
+### data are aggregated to the wrong categories or geographies
+### data are in scanned documents
+
+
+can be fixed by
+you. Others have to be fixed by the source of the data. 
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
