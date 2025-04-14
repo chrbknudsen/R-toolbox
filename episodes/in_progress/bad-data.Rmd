@@ -72,6 +72,14 @@ correct number.
 
 
 ### Duplicated rows or values
+
+If the same row appears more than once in your data, you should figure out why.
+Sometimes a value in a column might be duplicated. Often this is perfectly fine;
+if we have more than two rows in a dataset collecting the sex of respondents, we
+should expect duplicated values. And in a tidy dataset we expect an ID-column to
+contain repeated values. But if something that you expect to be unique, isn't,
+you should find out why.
+
 ### Inconsistent spelling
 ### Inconsistent name order
 ### Inconsistent date formats
