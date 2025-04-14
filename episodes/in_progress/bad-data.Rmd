@@ -196,7 +196,17 @@ getting your data truncated by Excel are lower, but if that is the number of row
 in your data, you should be suspicious.
 
 
-### Spreadsheet dates in 1900, 1904, 1969 or 1970
+### Spreadsheet dates in 1900, 1904 or 1970
+
+Computers often represent a date, by counting the number of days, hours, minutes
+or seconds from a specified start date, often called epoch. 
+
+The default epoch used by Excel is january 1st, 1900. _On Windows_.
+For reasons unknown to mortal man, Excel counts from january 1st _1904_ on Mac.
+Many other databases or applications will instead use the Unix epoch for
+timestamps, which is 1970-01-01T00:00:00Z.
+If one these dates show up, there probably is an issue with dates in your data.
+They represent the systems attempt at displaying an empty value, or 0 as a date.
 
 ### Values that could be interpreted as dates
 
