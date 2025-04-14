@@ -89,6 +89,16 @@ And if data has been entered by humans, the probability of other errors is high.
 
 
 ### Inconsistent name order
+
+If your data contains Middle Eastern or East Asian names, there might be 
+problems with the identification of surnames. In many cultures the family name
+precedes the given name. In a western setting some people from these cultures
+might chose to reverse the order of their name, in order to adhere to the western
+standard of given names first, family name last. Others might not. Be careful
+not to assume that you can create `first_name` and `last_name` columns based
+simply on position. To complicate the issue further, the use of mononyms, 
+having a name composed of only one word, exists in certain countries.
+
 ### Inconsistent date formats
 ### Unspecified units
 ### Bad choice for categories
