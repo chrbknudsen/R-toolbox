@@ -100,6 +100,14 @@ simply on position. To complicate the issue further, the use of mononyms,
 having a name composed of only one word, exists in certain countries.
 
 ### Inconsistent date formats
+
+There exists a correct way of writing dates. But very few people actually use
+it. An example is "11/10/15". In the US this would denote the date November
+10th, 2015, but in most of the rest of the world it would denote October 11th
+2015. To further complicate matters, other calendars than the gregorian exists, 
+and in an islamic setting you might have to know exactly _where_ the date was 
+registered in order to take into account local astronomical observations of the moon. 
+
 ### Unspecified units
 ### Bad choice for categories
 ### Ambiguous field names
