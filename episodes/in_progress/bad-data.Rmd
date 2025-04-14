@@ -159,6 +159,18 @@ in your data, you should be suspicious.
 
 ### Spreadsheet dates in 1900, 1904, 1969 or 1970
 
+### Values that could be interpreted as dates
+
+If you have data that Excel can interpret as data, be careful. If that data
+has passed through Excel, it might have been corrupted. This has been a major
+problem with names for genes. The "Membrane Associated Ring-CH-Type Finger 1" gene
+(which plays a role in the human immune system) used to be called, for short,
+MARCH1. Excel looked at this, recognised it as march 1st, and stored it as 
+a date. The problem have, sort off, been solved by renaming the gene MARCHF1,
+fooling Excel. And Microsoft in 2023, added a setting in Excel turning off automatic
+data conversion. A [study in 2016](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1044-7) found that approximately 20% of studied published
+papers had been affected by Excel errors.
+
 ### Text has been converted to numbers
 
 ## Problems that you should solve
