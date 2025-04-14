@@ -81,6 +81,13 @@ contain repeated values. But if something that you expect to be unique, isn't,
 you should find out why.
 
 ### Inconsistent spelling
+
+Working with text, the phenomenon of spelling mistakes shows up. "København",
+"Koebenhavn", "Kobenhavn" and "Copenhagen" represent the same city.
+This most  frequently occurs when the data has been entered manually by humans. 
+And if data has been entered by humans, the probability of other errors is high.
+
+
 ### Inconsistent name order
 ### Inconsistent date formats
 ### Unspecified units
