@@ -138,47 +138,86 @@ place a person pay taxes. Make sure that you know exactly what a field name
 that can cover more than one meaning actually mean.
 
 ### Uncertain provenance
+
+
 ### Presence of suspicious values
+
 ### To coarse data
+
 ### Aggregates or totals are inconsistent
+
 ### 65536 or 1048576 rows in the spreadsheet
+
+Data that has passed through an Excel spreadsheet can be corrupted in several
+ways. Older versions of Excel allowed a maximum of 65536 rows. If your dataset
+have that number of rows (including headers), chances are that it has passed
+through Excel, and been truncated. In that case you are probably missing data.
+Newer versions of Excel have a maximum of 1048576 rows. The chances of 
+getting your data truncated by Excel are lower, but if that is the number of rows
+in your data, you should be suspicious.
+
+
 ### Spreadsheet dates in 1900, 1904, 1969 or 1970
+
 ### Text has been converted to numbers
 
 ## Problems that you should solve
 
 ### Garbled text
+
 ### Garbled line endings
+
 ### Data are in a PDF
+
 ### Too granular data
+
 ### Data entered by humans
+
 ### Data is intermingled with formatting and annotations
+
 ### Aggregations computed on missing values
+
 ### Non-random sample
+
 ### Too large margin of error
+
 ### Unknown margin of error
+
 ### Biased sample
+
 ### Manually edited data
+
 ### Data skewed by inflation
+
 ### Data skewd by season or natural variation
+
 ### Manipulated timeframe
+
 ### Manipulated frame of reference
 
 ## Someone else should probably help you
+
 ### Untrustworthy author
+
 ### Opaque collection process
+
 ### Data asserts unrealistic precision
+
 ### Inexplicable outliers
+
 ### Index masking underlying variation
+
 ### Suspected p-hacking
+
 ### Benford's law fails
+
 ### It's too good to be true
+
 ### data are aggregated to the wrong categories or geographies
+
 ### data are in scanned documents
 
 
-can be fixed by
-you. Others have to be fixed by the source of the data. 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
