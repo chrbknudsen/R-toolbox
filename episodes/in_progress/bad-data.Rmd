@@ -1,0 +1,385 @@
+---
+title: 'Bad data'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+A collection of problems with data
+
+Real world data is usually messy. Some of these problems have to be fixed by
+the source of the data. Some can be fixed by you. Others you might need help
+for.
+
+This is a collection of some, perhaps most, of the problems we might encounter
+in the real world.
+
+Vi skal nok have det delt op i to eller tre
+
+## Problems that should be solved at the source
+
+### Missing values
+
+If a value is missing, ask youself: "Do I know why that value is missing?".
+Did a respondent refuse to answer a 
+question? Is it because it was never collected? If it was never collected, why?
+
+### Zeroes replace missing values 
+
+If a value is missing, at least we know that it _is_ missing. A worse situation
+is if an arbitrary value is used to indicate, or even replace, a missing value.
+It can happen because a human did not think about the implications, or because
+automated datacollection did not know how to handle missing values. If you see
+zeroes in your data, ask yourself if the value is truly 0. Or if someone or 
+something added 0 to indicate a missing value. 
+
+Other weird numbers might be used as well. The author of this text tended to 
+use "999" to indicate that a measurement, that could only take values between
+0 and 1, was missing. 
+
+Remember that 0 might not present as "0". A false 0-value in a date-time format
+will often appear as 1970-01-01T00:00:00Z or 1969-12-31T23:59:59Z because dates 
+and times are regularly represented as a number of seconds since a specific
+timestamp. For geographical data it might show up as 0degre00'00.0"N+0degree00'oo.o"E
+or 0degreeN0degreeE. Automated systems might recognize a missing value, but 
+impute it based on knowledge of the country by assigning it to a predetermined 
+value for that country.
+[This has caused real-life problems for people](https://www.youtube.com/watch?v=vh6zanS_epw).
+
+
+
+### Data is missing - but should be there
+
+If you know what the data is about - you should do sanity checks on the data. If 
+the data is about Danish municipalities, there should be 98 municipalities in
+the data. That is, if it is current; reforms were made in 2003 and 2007, affecting 
+the true number. If you have data on the US, there should be 50 states. But check
+if US territories occur in the data. If Puerto Rico is included, 50 is not the 
+correct number.
+
+
+
+### Duplicated rows or values
+
+If the same row appears more than once in your data, you should figure out why.
+Sometimes a value in a column might be duplicated. Often this is perfectly fine;
+if we have more than two rows in a dataset collecting the sex of respondents, we
+should expect duplicated values. And in a tidy dataset we expect an ID-column to
+contain repeated values. But if something that you expect to be unique, isn't,
+you should find out why.
+
+### Inconsistent spelling
+
+Working with text, the phenomenon of spelling mistakes shows up. "København",
+"Koebenhavn", "Kobenhavn" and "Copenhagen" represent the same city.
+This most  frequently occurs when the data has been entered manually by humans. 
+And if data has been entered by humans, the probability of other errors is high.
+
+
+### Inconsistent name order
+
+If your data contains Middle Eastern or East Asian names, there might be 
+problems with the identification of surnames. In many cultures the family name
+precedes the given name. In a western setting some people from these cultures
+might chose to reverse the order of their name, in order to adhere to the western
+standard of given names first, family name last. Others might not. Be careful
+not to assume that you can create `first_name` and `last_name` columns based
+simply on position. To complicate the issue further, the use of mononyms, 
+having a name composed of only one word, exists in certain countries.
+
+### Inconsistent date formats
+
+There exists a correct way of writing dates. But very few people actually use
+it. An example is "11/10/15". In the US this would denote the date November
+10th, 2015, but in most of the rest of the world it would denote October 11th
+2015. To further complicate matters, other calendars than the gregorian exists, 
+and in an islamic setting you might have to know exactly _where_ the date was 
+registered in order to take into account local astronomical observations of the moon. 
+
+
+### Unspecified units
+
+If your data comes from a serious source, you might expect the column "weight"
+to contain metric units. But is it kg or g? And are you absolutely sure that
+it is actually in metric, and not imperial? If the values are metric you will
+still have to consider the unit. The metric SI-unit for concentration should
+be mol/m3. But the convention might be ng/ml. Be very aware of values indicating
+monetary value. Is it in USD or EUR? And remember the concept of inflation. An
+US dollar in 2025 did not have the same value as it did in 2024. Always figure
+out what the units of your data is.
+
+### Bad choices for categories
+
+Be careful with data that is registered as only TRUE or FALSE, but really is not.
+For survey data, "refused" or "no answer" might be valid responses. The "other"
+category is also a source of problems. Does other mean that the person collecting
+data did not know the answer, or is it simply not covered by other possibilities
+for answers? And be extremely careful if the definitions tend to be arbitrary,
+like race or ethnicity.
+
+### Ambiguous field names
+
+That variable name `date`. What date does that actually refer to? Is it date of
+birth or the date the data was recorded? 
+A variable name ´residence´ might refer to the place a person lives. Or the 
+place a person pay taxes. Make sure that you know exactly what a field name
+that can cover more than one meaning actually mean.
+
+### Uncertain provenance
+
+Do you know the origin of your data? Has it been collected using sensors? 
+If so, what precision do they have? Sattelite data? What resolution has it
+been captured with? Data from warzones typically are only collected up to the
+frontline. Who collected it? When was it collected? All of these issues can 
+affect the quality, reliability and bias in your data.
+
+### Presence of suspicious values
+
+Any of these values is an indication that something is wrong:
+
+65535 - this is the maximum number of rows in older versions of Excel
+2147483647 - the largest positive integer represented as a signed 32 bit value. Someone 
+probably forgot to prepare the datacollection to handle larger numbers.
+4294967295 - the largest positive integer represented as an unsigned 32 bit value.
+555-3485 - american phonenumbers beginning with 555 are reserved for use in movies and tv-series.
+99999 - or 999, or 9999 - typically someone has entered this to indicate a missing value.
+
+1970-01-01T00:00:00Z and 1969-12-31T23:59:59Z A 0 value has been interpreted as a date
+
+January 1st 1900 and January 1st 1904 - a 0 value has been interpreted as a date
+
+0dgree00'00"N+0degree00'00"E or 0degreeN 0degreeE - a 0 value has been interpreted as 
+a geographic coordinate
+
+### Too coarse data
+
+Data that has been aggregated, cannot be disaggregated. If we have data on
+individual municipalities, we can calculate data for the regions they are 
+located in. But if we have regional data, we are not able to infer the data for
+the municipalities. Average grades for schools in a municipality cannot be used
+to say anything meaningful about grades at individual schools. This is data that
+might be too coarse for your purpose. It might be tempting to divide the annual
+data by 12 and call it the "average pr month". This will *always* be wrong.
+If you need more granular data, you will have to acquire it somehow.
+
+### Aggregates or totals are inconsistent
+
+If you encounter discrepancies between a reported total, and the total you
+can calculate yourself, something is wrong. If a reported average is different
+from the average you can calculate. Something is wrong. Ask yourself if the 
+time periods covered are different. Or you get a total for the entire country,
+but only have granular data for a selection of regions. Sometimes this happens
+because people are misrepresenting or misreporting data. Often it is an indication
+that you are not working on the complete data set. Investigate why there is an
+inconsistency.
+
+### 65536 or 1048576 rows in the spreadsheet
+
+Data that has passed through an Excel spreadsheet can be corrupted in several
+ways. Older versions of Excel allowed a maximum of 65536 rows. If your dataset
+have that number of rows (including headers), chances are that it has passed
+through Excel, and been truncated. In that case you are probably missing data.
+Newer versions of Excel have a maximum of 1048576 rows. The chances of 
+getting your data truncated by Excel are lower, but if that is the number of rows
+in your data, you should be suspicious.
+
+
+### Spreadsheet dates in 1900, 1904 or 1970
+
+Computers often represent a date, by counting the number of days, hours, minutes
+or seconds from a specified start date, often called epoch. 
+
+The default epoch used by Excel is january 1st, 1900. _On Windows_.
+For reasons unknown to mortal man, Excel counts from january 1st _1904_ on Mac.
+Many other databases or applications will instead use the Unix epoch for
+timestamps, which is 1970-01-01T00:00:00Z.
+If one these dates show up, there probably is an issue with dates in your data.
+They represent the systems attempt at displaying an empty value, or 0 as a date.
+
+### Values that could be interpreted as dates
+
+If you have data that Excel can interpret as data, be careful. If that data
+has passed through Excel, it might have been corrupted. This has been a major
+problem with names for genes. The "Membrane Associated Ring-CH-Type Finger 1" gene
+(which plays a role in the human immune system) used to be called, for short,
+MARCH1. Excel looked at this, recognised it as march 1st, and stored it as 
+a date. The problem have, sort off, been solved by renaming the gene MARCHF1,
+fooling Excel. And Microsoft in 2023, added a setting in Excel turning off automatic
+data conversion. A [study in 2016](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1044-7) found that approximately 20% of studied published
+papers had been affected by Excel errors.
+
+### Text has been converted to numbers
+
+Not everything that looks like numbers are numbers. The US Census Bureau use "FIPS codes"
+to identify locations in the US. "037" is the FIPS code for Los Angeles County.
+"37" is the FIPS code for North Carolina. 
+If your software decides to interpret "037" as a number, it will strip the 
+leading 0, and return 37. And now you have no way of distinguishing between
+a county in California, and the state of North Carolina.
+A local Danish example are postcodes. We tend to think of them as numbers, and 
+for most purposes we can.
+However, the post code for Danmarks Radio, the national danish broadcaster,
+is 0999. The leading 0 actually have meaning. Watch out for data where 
+leading 0's have disappeared.
+
+::::spoiler
+## The postcode for Santa
+
+Santa Claus lives in Greenland, every moderately intelligent child knows this 
+fact. And Greenland is part of the Kingdom of Denmark. Santa tends to get a lot
+of mail, and he has his own postcode: 2412. If this postcode shows up in your 
+data you should wonder if you have been bad or good.
+
+::::
+
+
+
+## Problems that you should solve
+
+### Garbled text
+
+### Garbled line endings
+
+### Data are in a PDF
+
+### Too granular data
+
+### Data entered by humans
+
+
+### Data is intermingled with formatting and annotations
+
+### Aggregations computed on missing values
+
+### Non-random sample
+
+### Too large margin of error
+
+### Unknown margin of error
+
+### Biased sample
+
+### Manually edited data
+
+### Data skewed by inflation
+
+### Data skewd by season or natural variation
+
+### Manipulated timeframe
+
+### Manipulated frame of reference
+
+## Someone else should probably help you
+
+### Untrustworthy author
+
+### Opaque collection process
+
+### Data asserts unrealistic precision
+
+### Inexplicable outliers
+
+Outliers are values that are very far from the rest of the data. 
+
+### Index masking underlying variation
+
+### Suspected p-hacking
+
+
+
+### Benford's law fails
+
+Benford's law states, that small digits (1,2, 3) appear much more 
+frequently in the beginning of numbers, than larger digits. This, along with 
+the similar Zipf's law can, and is, used to detect election tampering. Be aware
+that there might be good reasons for a variable not to follow Benford's law. 
+And that an even slightly sofisticated fraudster will be aware of this law, and
+might tamper with the numbers in order to make sure the pass Benford's law: Values
+adhering too exactly with Benford's law, might actually also indicate tampering.
+
+::::spoiler
+## What is the probability according to Benford?
+
+The first digit, d, of large collection of numbers, occurs with the
+probability:
+
+$$
+P(d) = \log_{10}(d+1) - \log_{10}(d) = \log_{10}(\frac{d+1}{d} = \log_{10}(1 + \frac{1}{d}))
+$$
+Giving us these probabilities:
+
+|d|P(d)|
+|-|-|
+|1 | 30.1% |
+|2 | 17.6% |
+|3 | 12.5% |
+|4 | 9.7% |
+|5 | 7.9% |
+|6 | 6.7% |
+|7 | 5.8% |
+|8 | 5.1% |
+|9 | 4.6% |
+::::
+
+::::spoiler
+### Zipf's law
+
+Zipf's law can be used more generally. A common example is the words in a novel.
+If we count the frequency of the individual words, and sort them in decreasing
+order, the value, in this case the count, of the nth word, is often inversely
+proportional the n. That is, the count of the 10th word is some value multiplied
+by 1/10. And the count of the 20th word is the same value multiplied by 1/20.
+
+This has been used to reveal fake, or automatically generated texts, although 
+the emergence of generative textmodels have made this a less reliable indication
+of this sort of data tampering. 
+
+It has also been used to detect suspiciuous patterns in financial transactions and
+fiddling with demographic data for city sizes. Again you should remember that
+a sofisticated tamperer will know Zipf's law, and may adjust the tampering 
+accordingly.
+
+The law hold for most, if not all, natural languages. And a more
+curious example, is that the sounds whales produce, appear to closely conform
+with Zipf's law, indicating that whale communication might be a natural language.
+
+
+::::
+### It's too good to be true
+
+Be careful about data that claims to represent something that you could not
+know. Governments are not normally in the practice of reporting exactly how much
+fissile uranium they have stockpiled. Cross-border crime statistics are rarely
+directly comparable. No global dataset of public opinions exist. 
+It would be nice if we had data that proved that eating large amounts of fried
+bacon, while drinking copious amounts of red wine. But that would be too good to
+be true.
+
+
+### data are aggregated to the wrong categories or geographies
+
+### data are in scanned documents
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
