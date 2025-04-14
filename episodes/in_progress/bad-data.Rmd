@@ -257,6 +257,15 @@ Giving us these probabilities:
 
 ### It's too good to be true
 
+Be careful about data that claims to represent something that you could not
+know. Governments are not normally in the practice of reporting exactly how much
+fissile uranium they have stockpiled. Cross-border crime statistics are rarely
+directly comparable. No global dataset of public opinions exist. 
+It would be nice if we had data that proved that eating large amounts of fried
+bacon, while drinking copious amounts of red wine. But that would be too good to
+be true.
+
+
 ### data are aggregated to the wrong categories or geographies
 
 ### data are in scanned documents
