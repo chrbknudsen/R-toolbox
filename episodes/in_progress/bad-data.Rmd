@@ -130,6 +130,13 @@ for answers? And be extremely careful if the definitions tend to be arbitrary,
 like race or ethnicity.
 
 ### Ambiguous field names
+
+That variable name `date`. What date does that actually refer to? Is it date of
+birth or the date the data was recorded? 
+A variable name ´residence´ might refer to the place a person lives. Or the 
+place a person pay taxes. Make sure that you know exactly what a field name
+that can cover more than one meaning actually mean.
+
 ### Uncertain provenance
 ### Presence of suspicious values
 ### To coarse data
