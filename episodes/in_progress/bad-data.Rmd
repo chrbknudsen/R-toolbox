@@ -120,7 +120,15 @@ monetary value. Is it in USD or EUR? And remember the concept of inflation. An
 US dollar in 2025 did not have the same value as it did in 2024. Always figure
 out what the units of your data is.
 
-### Bad choice for categories
+### Bad choices for categories
+
+Be careful with data that is registered as only TRUE or FALSE, but really is not.
+For survey data, "refused" or "no answer" might be valid responses. The "other"
+category is also a source of problems. Does other mean that the person collecting
+data did not know the answer, or is it simply not covered by other possibilities
+for answers? And be extremely careful if the definitions tend to be arbitrary,
+like race or ethnicity.
+
 ### Ambiguous field names
 ### Uncertain provenance
 ### Presence of suspicious values
