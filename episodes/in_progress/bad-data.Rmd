@@ -139,6 +139,11 @@ that can cover more than one meaning actually mean.
 
 ### Uncertain provenance
 
+Do you know the origin of your data? Has it been collected using sensors? 
+If so, what precision do they have? Sattelite data? What resolution has it
+been captured with? Data from warzones typically are only collected up to the
+frontline. Who collected it? When was it collected? All of these issues can 
+affect the quality, reliability and bias in your data.
 
 ### Presence of suspicious values
 
@@ -159,6 +164,15 @@ January 1st 1900 and January 1st 1904 - a 0 value has been interpreted as a date
 a geographic coordinate
 
 ### Too coarse data
+
+Data that has been aggregated, cannot be disaggregated. If we have data on
+individual municipalities, we can calculate data for the regions they are 
+located in. But if we have regional data, we are not able to infer the data for
+the municipalities. Average grades for schools in a municipality cannot be used
+to say anything meaningful about grades at individual schools. This is data that
+might be too coarse for your purpose. It might be tempting to divide the annual
+data by 12 and call it the "average pr month". This will *always* be wrong.
+If you need more granular data, you will have to acquire it somehow.
 
 ### Aggregates or totals are inconsistent
 
