@@ -142,6 +142,22 @@ that can cover more than one meaning actually mean.
 
 ### Presence of suspicious values
 
+Any of these values is an indication that something is wrong:
+
+65535 - this is the maximum number of rows in older versions of Excel
+2147483647 - the largest positive integer represented as a signed 32 bit value. Someone 
+probably forgot to prepare the datacollection to handle larger numbers.
+4294967295 - the largest positive integer represented as an unsigned 32 bit value.
+555-3485 - american phonenumbers beginning with 555 are reserved for use in movies and tv-series.
+99999 - or 999, or 9999 - typically someone has entered this to indicate a missing value.
+
+1970-01-01T00:00:00Z and 1969-12-31T23:59:59Z A 0 value has been interpreted as a date
+
+January 1st 1900 and January 1st 1904 - a 0 value has been interpreted as a date
+
+0dgree00'00"N+0degree00'00"E or 0degreeN 0degreeE - a 0 value has been interpreted as 
+a geographic coordinate
+
 ### To coarse data
 
 ### Aggregates or totals are inconsistent
@@ -184,6 +200,7 @@ papers had been affected by Excel errors.
 ### Too granular data
 
 ### Data entered by humans
+
 
 ### Data is intermingled with formatting and annotations
 
