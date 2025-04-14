@@ -108,7 +108,18 @@ it. An example is "11/10/15". In the US this would denote the date November
 and in an islamic setting you might have to know exactly _where_ the date was 
 registered in order to take into account local astronomical observations of the moon. 
 
+
 ### Unspecified units
+
+If your data comes from a serious source, you might expect the column "weight"
+to contain metric units. But is it kg or g? And are you absolutely sure that
+it is actually in metric, and not imperial? If the values are metric you will
+still have to consider the unit. The metric SI-unit for concentration should
+be mol/m3. But the convention might be ng/ml. Be very aware of values indicating
+monetary value. Is it in USD or EUR? And remember the concept of inflation. An
+US dollar in 2025 did not have the same value as it did in 2024. Always figure
+out what the units of your data is.
+
 ### Bad choice for categories
 ### Ambiguous field names
 ### Uncertain provenance
