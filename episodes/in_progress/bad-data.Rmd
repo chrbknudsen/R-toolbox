@@ -222,6 +222,30 @@ papers had been affected by Excel errors.
 
 ### Text has been converted to numbers
 
+Not everything that looks like numbers are numbers. The US Census Bureau use "FIPS codes"
+to identify locations in the US. "037" is the FIPS code for Los Angeles County.
+"37" is the FIPS code for North Carolina. 
+If your software decides to interpret "037" as a number, it will strip the 
+leading 0, and return 37. And now you have no way of distinguishing between
+a county in California, and the state of North Carolina.
+A local Danish example are postcodes. We tend to think of them as numbers, and 
+for most purposes we can.
+However, the post code for Danmarks Radio, the national danish broadcaster,
+is 0999. The leading 0 actually have meaning. Watch out for data where 
+leading 0's have disappeared.
+
+::::spoiler
+## The postcode for Santa
+
+Santa Claus lives in Greenland, every moderately intelligent child knows this 
+fact. And Greenland is part of the Kingdom of Denmark. Santa tends to get a lot
+of mail, and he has his own postcode: 2412. If this postcode shows up in your 
+data you should wonder if you have been bad or good.
+
+::::
+
+
+
 ## Problems that you should solve
 
 ### Garbled text
