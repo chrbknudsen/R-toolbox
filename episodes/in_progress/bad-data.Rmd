@@ -217,9 +217,13 @@ papers had been affected by Excel errors.
 
 ### Inexplicable outliers
 
+Outliers are values that are very far from the rest of the data. 
+
 ### Index masking underlying variation
 
 ### Suspected p-hacking
+
+
 
 ### Benford's law fails
 
@@ -255,6 +259,30 @@ Giving us these probabilities:
 |9 | 4.6% |
 ::::
 
+::::spoiler
+### Zipf's law
+
+Zipf's law can be used more generally. A common example is the words in a novel.
+If we count the frequency of the individual words, and sort them in decreasing
+order, the value, in this case the count, of the nth word, is often inversely
+proportional the n. That is, the count of the 10th word is some value multiplied
+by 1/10. And the count of the 20th word is the same value multiplied by 1/20.
+
+This has been used to reveal fake, or automatically generated texts, although 
+the emergence of generative textmodels have made this a less reliable indication
+of this sort of data tampering. 
+
+It has also been used to detect suspiciuous patterns in financial transactions and
+fiddling with demographic data for city sizes. Again you should remember that
+a sofisticated tamperer will know Zipf's law, and may adjust the tampering 
+accordingly.
+
+The law hold for most, if not all, natural languages. And a more
+curious example, is that the sounds whales produce, appear to closely conform
+with Zipf's law, indicating that whale communication might be a natural language.
+
+
+::::
 ### It's too good to be true
 
 Be careful about data that claims to represent something that you could not
