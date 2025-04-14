@@ -158,7 +158,7 @@ January 1st 1900 and January 1st 1904 - a 0 value has been interpreted as a date
 0dgree00'00"N+0degree00'00"E or 0degreeN 0degreeE - a 0 value has been interpreted as 
 a geographic coordinate
 
-### To coarse data
+### Too coarse data
 
 ### Aggregates or totals are inconsistent
 
