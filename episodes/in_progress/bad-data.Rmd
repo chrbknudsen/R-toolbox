@@ -31,8 +31,46 @@ Vi skal nok have det delt op i to eller tre
 ## Problems that should be solved at the source
 
 ### Missing values
+
+If a value is missing, ask youself: "Do I know why that value is missing?".
+Did a respondent refuse to answer a 
+question? Is it because it was never collected? If it was never collected, why?
+
 ### Zeroes replace missing values 
+
+If a value is missing, at least we know that it _is_ missing. A worse situation
+is if an arbitrary value is used to indicate, or even replace, a missing value.
+It can happen because a human did not think about the implications, or because
+automated datacollection did not know how to handle missing values. If you see
+zeroes in your data, ask yourself if the value is truly 0. Or if someone or 
+something added 0 to indicate a missing value. 
+
+Other weird numbers might be used as well. The author of this text tended to 
+use "999" to indicate that a measurement, that could only take values between
+0 and 1, was missing. 
+
+Remember that 0 might not present as "0". A false 0-value in a date-time format
+will often appear as 1970-01-01T00:00:00Z or 1969-12-31T23:59:59Z because dates 
+and times are regularly represented as a number of seconds since a specific
+timestamp. For geographical data it might show up as 0degre00'00.0"N+0degree00'oo.o"E
+or 0degreeN0degreeE. Automated systems might recognize a missing value, but 
+impute it based on knowledge of the country by assigning it to a predetermined 
+value for that country.
+[This has caused real-life problems for people](https://www.youtube.com/watch?v=vh6zanS_epw).
+
+
+
 ### Data is missing - but should be there
+
+If you know what the data is about - you should do sanity checks on the data. If 
+the data is about Danish municipalities, there should be 98 municipalities in
+the data. That is, if it is current; reforms were made in 2003 and 2007, affecting 
+the true number. If you have data on the US, there should be 50 states. But check
+if US territories occur in the data. If Puerto Rico is included, 50 is not the 
+correct number.
+
+
+
 ### Duplicated rows or values
 ### Inconsistent spelling
 ### Inconsistent name order
