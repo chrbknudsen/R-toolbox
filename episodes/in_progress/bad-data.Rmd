@@ -176,6 +176,15 @@ If you need more granular data, you will have to acquire it somehow.
 
 ### Aggregates or totals are inconsistent
 
+If you encounter discrepancies between a reported total, and the total you
+can calculate yourself, something is wrong. If a reported average is different
+from the average you can calculate. Something is wrong. Ask yourself if the 
+time periods covered are different. Or you get a total for the entire country,
+but only have granular data for a selection of regions. Sometimes this happens
+because people are misrepresenting or misreporting data. Often it is an indication
+that you are not working on the complete data set. Investigate why there is an
+inconsistency.
+
 ### 65536 or 1048576 rows in the spreadsheet
 
 Data that has passed through an Excel spreadsheet can be corrupted in several
