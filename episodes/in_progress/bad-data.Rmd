@@ -275,16 +275,49 @@ OCR, to recognize text and numbers and extract them.
 
 ### Too granular data
 
-
+You want data for regions. But get it for municipalities. This is not really
+a problem. As long as we have some indication in the data how the high resolution
+data should be aggregated til the lower resolution data, we can do that.
+Problems arise if we dont have this information. 
 
 ### Data entered by humans
 
+This is the most common source of error. Humans are not very consistent when
+entering data, and if there is no way to avoid it, you should implement 
+validation rules in the entry process, eg by only making specific options 
+possible to enter.
 
 ### Data is intermingled with formatting and annotations
 
+This is par for the course when working with webscraped data. Some of the formatting
+might be important, like headers. Other only confuses the issue, like 
+coloring and different fonts. Automated procedures for removing it is recommended.
+
+More incidiuous are the use of formatting in spreadsheet. Spreadsheets using 
+formatting, including colors to indicate values in the data, is a difficult 
+problem to tackle, and should be avoided.
+
 ### Aggregations computed on missing values
 
+When we aggregate data, we calculate sums, means, variances or other descriptive
+statistical parameters on a variable. If there are missing data in the variable,
+you will have to consider how to handle them. Most R-functions have options to
+remove missing values before doing the calculation. This however requires that 
+they are encoded in a consistent manner. 
+
+Be extremely careful when comparing values for different strata or variables
+if you dismiss missing data.
+
 ### Non-random sample
+
+We (almost) never work on data covering the entire world - we study a sample
+which we hope represent the real world. Most techniques we apply to such samples,
+assumes that the sample is random. That is, that there are no systematic 
+patterns in the way we gather the data. If the sample for some reason does not
+cover the entire population, it is dangerous to infer conclusions from the sample.
+Sometimes this is obvious, sometimes not so much. An example would be working
+on a sample of a dataset that is assumed to cover the entire population, even
+if it does not.
 
 ### Too large margin of error
 
