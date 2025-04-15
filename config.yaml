@@ -80,21 +80,15 @@ episodes:
 - barcharts.Rmd
 - powerberegninger.Rmd
 - kmeans.Rmd
-- tuning-kmeans.Rmd
 - anova.Rmd
 - ucloud.Rmd
 - pipes.Rmd
 - gis_setup.Rmd
 - fence-test.Rmd
 - making-a-new-course.Rmd
-- shinylive.Rmd
-- choropleths.Rmd
-- un-normal-data.Rmd
-- building-models.Rmd
-- lasso-regularisation.Rmd
-- ridge-regularisation.Rmd
-- elastic-net-regularisation.Rmd
-- snow-plot.Rmd
+
+
+
 
 # Information for Learners
 learners: 
