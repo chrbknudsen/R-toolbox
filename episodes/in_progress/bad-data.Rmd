@@ -250,6 +250,7 @@ data you should wonder if you have been bad or good.
 
 ### Garbled text
 
+
 ### Garbled line endings
 
 ### Data are in a PDF
