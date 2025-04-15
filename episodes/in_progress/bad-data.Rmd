@@ -321,6 +321,13 @@ if it does not.
 
 ### Too large margin of error
 
+When reporting results of data analysis, we should present an indication of 
+the margin of error. This indicates how certain we are of the result.
+
+If your margin of error is more than about 10% - forget about reporting the
+result - it is too uncertain.
+
+
 ### Unknown margin of error
 
 ### Biased sample
@@ -329,7 +336,7 @@ if it does not.
 
 ### Data skewed by inflation
 
-### Data skewd by season or natural variation
+### Data skewed by season or natural variation
 
 ### Manipulated timeframe
 
