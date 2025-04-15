@@ -275,7 +275,10 @@ OCR, to recognize text and numbers and extract them.
 
 ### Too granular data
 
-
+You want data for regions. But get it for municipalities. This is not really
+a problem. As long as we have some indication in the data how the high resolution
+data should be aggregated til the lower resolution data, we can do that.
+Problems arise if we dont have this information. 
 
 ### Data entered by humans
 
