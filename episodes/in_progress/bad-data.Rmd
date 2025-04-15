@@ -249,12 +249,33 @@ data you should wonder if you have been bad or good.
 ## Problems that you should solve
 
 ### Garbled text
+Everything in a computer is represented by numbers. Including text. Encoding
+tables informs the computer how those numbers should be translated to 
+symbols on your screen. If the encoding in a file, differs from what the your
+computer thinks it is, this can lead to weird looking text, often including 
+this character: �.
+This needs to be fixed. 
 
 ### Garbled line endings
 
+All text files, including "text data" files like CSV, needs some way of 
+indicating that we have reached the end of a line.
+This is simply done with an invisible character. Unfortunately Windows, Mac and
+Linux does not agree on what character to use. 
+Because of this, a file that has been saved on one operating system, can cause
+problems when opened on another operating system. 
+
 ### Data are in a PDF
 
+This is a quite common problem. Tools exist to extract the content of 
+pdf-files (the pdftools package eg). Adding to the problem not all pdfs are
+created equal. In some cases the data is not actually stored in a machinereadable
+way in the pdf, but rather as an image. In these cases you will have to attempt
+OCR, to recognize text and numbers and extract them.
+
 ### Too granular data
+
+
 
 ### Data entered by humans
 
