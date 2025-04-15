@@ -330,6 +330,9 @@ result - it is too uncertain.
 
 ### Unknown margin of error
 
+Whenever you encounter a statistical figure that does not report a margin of 
+error - engage your skepticism. You have no idea about the accuracy of the result.
+
 ### Biased sample
 
 ### Manually edited data
