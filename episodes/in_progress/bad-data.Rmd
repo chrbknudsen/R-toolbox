@@ -328,7 +328,7 @@ If your margin of error is more than about 10% - forget about reporting the
 result - it is too uncertain.
 
 
-### Unknown margin of error
+### Unknown margin of error 
 
 Whenever you encounter a statistical figure that does not report a margin of 
 error - engage your skepticism. You have no idea about the accuracy of the result.
@@ -433,6 +433,8 @@ be true.
 
 
 ### data are aggregated to the wrong categories or geographies
+
+
 
 ### data are in scanned documents
 
