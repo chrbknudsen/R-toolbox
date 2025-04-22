@@ -6,15 +6,16 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How can agrement on classification be quantised?
+- How is Cohens $\Kappa$ calculated?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
-
+- Learn to calculate Cohens $\Kappa$
+- Become familiar with the usecases for Cohens $\Kappa$
+- Know the limitations of Cohens $\Kappa$
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## What do we use it for?
@@ -233,28 +234,16 @@ Cohens $\Kappa$ have the following requirements:
 
 We define $\Kappa$ as:
 
-Null hypotesen, kappa = 0, hvis der er enighed, er det tilfældigt.
-Den alternative hypotese, kappa != 0, Enigheden er forskellig fra tilfældigheder.
+$$\Kappa =  \frac{P_0 - P_e}{1-P_e}$$
+Where 
+$P_0$ is the degree of agreement we observe, and $P_e$ is the degree of agreement
+that is random. 
 
-Kappa er defineret som:
+The null hypothesis declares that any agreement is random, and $\Kappa$ is 0.
+If $\Kappa$ is different from 0, the agreement is not random.
 
-$$\Kappa = P_0 - \frac{P_e}{1-P_e}$$
-
-
-$P_0$ er andelen af observeret enighed, $P_e$ er andelen af tilfældig enighed.
-
-Når man ser hvordan den beregnes, lugter det af $\chi^2$-testen. 
-Det er ikke et tilfælde:
-Feingold, Marcia (1992). "The Equivalence of Cohen's Kappa and Pearson's Chi-Square Statistics in the 2 × 2 Table." Educational and Psychological Measurement 52(1): 57-61. <http://hdl.handle.net/2027.42/67443>
-
-Hvis der er to raters og to udfald, er test statistikken for Kappa den samme
-som for Pearsons chi i anden. Så de er i familie.
-
-Anyway, definitionen betyder at værdierne kan gå fra -1 til 1. Hvis den er 0,
-er enigheden ikke bedre end hvad vi ville få tilfældigt. Ved negative værdier
-er den mindre end hvad vi ville få tilfældigt. Hvis positiv er enigheden større
-end ved tilfældighed.
-
+If we are looking at two raters, in this example doctors, determining if
+a patient is sick, a simple yes/no question in this case we will get these results:
 
 ```{r}
 ##        Doctor2
@@ -264,53 +253,47 @@ end ved tilfældighed.
 ##   Total C1  C2 N
 ```
 
-a, b, c og d er de observerede, talte, værdier
-$R_1 = a + b$ 
-$R_2 = c + d$
-$C_1 = a + c$
-$C_2 = b + d$
-og
+$P_0$, the observed percentage of agreement is now easy to calculate. It is the sum
+of "a" and "d", divided by the number of patients:
 
-ad $N = a + b + c + d$ adf 
+$$P_0 = \frac{a + d}{N}$$
+
+The random agreement $P_e$ takes a bit more math:
+
+Doctor 1 answers "yes" in $\frac{R_1}{N}$ cases.
+Doctor 2 answers "yes" in $\frac{C_1}{N}$ cases.
+
+Based on this, the probability that they both, randomly and by chance, answers
+"yes" is:
+
+$$\frac{R1}{N}  \frac{C1}{N}$$
+Doctor1 answers "no" in ${R2}{N}$ cases
+Doctor2 answers "no" in $\frac{C2}{N}$ cases
+
+And the probability that they both, again randomly and by chance, answers
+"no" is:
+
+$$\frac{R2}{N} \frac{C2}{N}$$
+
+Now that we have both $P_0$ and $P_e$, we can calculate $\Kappa$, 
+and confidence intervals: $\Kappa \pm Z_{\alpha/2} SE_\Kappa$ based on the 
+Z-distribution (if normality is assured, otherwise the t-distribution).
 
 
+::::spoiler
+## This looks like something I have seen before?
 
-$$P_0 = \frac{a + c}{N}$$
+If you have ever looked at how the math in a $\chi^2$ test works, this might
+look familiar. Thats because it actually is.
 
-Det var den lette.
+With two raters and two categories, that $\Kappa$ statistic is the same. And
+if you want to delve deeper into that, you can look up this paper:
 
-$P_e$ finder vi ved at finde sandsynligheden for at begge raters tilfældigt siger ja.
-
-Doctor1 siger Ja til $\frac{R_1}{N}$ tilfælde.
-Doctor2 siger Ja til $\frac{C_1}{N}$ tilfælde
-Sandsynligheden for at de tilfældigt begge siger ja er 
-$R1/N * C1/N$
+Feingold, Marcia (1992). "The Equivalence of Cohen's Kappa and Pearson's Chi-Square Statistics in the 2 × 2 Table." Educational and Psychological Measurement 52(1): 57-61. <http://hdl.handle.net/2027.42/67443>
 
 
-Så finder vi sandsynligheden for at de begge tilfældigt siger nej
-Doctor1 siger nej til $R_2/N$
-Doctor2 siger nej til $\frac{C_2}{N}$
-Sandysnligheden for at de begge tilfældigt siger nej er:
-$R_2/N * C_2/N$
+::::
 
-Sandsynligheden for at de er enige er derfor:
-$R_1/N * C_1/N + R_2/N * C_2/N$
-
-Så har vi Pe. Og kan beregne Kappa som:
-$\kappa = ((a+d)/N - (R_1/N * C_1/N + R_2/N * C_2/N))   / 1 - (R_1/N * C_1/N + R_2/N * C_2/N)$
-
-Det bliver noget mere langt, men ikke nødvendigvis langhåret, hvis der er 
-mere end en kategori.
-
-Der er en formel for SE. 
-
-$SE_\kappa = \frac{P_e + P_2^2 - \sum_i P_{i+}P_{+i}(P_{i+} + P_{+i})}{N(1+ P_e)^2}$
-
-Og så kan der beregnes konfidensintervaller på sædvanligvis efter normalfordelingen:
-
-$\kappa +- Z_{\alpha/2} SE_\kappa$
-
-i+ og +i er række og kolonne summerne.
 
 
 
@@ -329,10 +312,7 @@ require the same raters for each subject.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
-
+- With two raters Cohens $\Kappa$ can be used as a measure of interrater agreement on categorical, nominal classes.
+- Other methods exists for ordinal classes, and more than two raters. 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
