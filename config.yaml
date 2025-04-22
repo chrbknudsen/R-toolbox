@@ -81,6 +81,7 @@ episodes:
 - powerberegninger.Rmd
 - kmeans.Rmd
 - anova.Rmd
+- cohens-kappa.Rmd
 - ucloud.Rmd
 - pipes.Rmd
 - gis_setup.Rmd

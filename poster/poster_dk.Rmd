@@ -53,7 +53,8 @@ knitr::opts_knit$set(clean = TRUE)
 
 KUB Datalab er Københavns Universitetsbiblioteks tilbud til studerende om 
 vejledning og undervisning i arbejde med data. Vi tilbyder kurser i grundlæggende
-programmering, dataanalyse og -visulisering, blandt meget andet. 
+programmering, dataanalyse og -visulisering. Undervisningen sker både "indlejret"
+hvor vi indgår i et egentligt kursusforløb på universitetet, og som åbne kurser.
 
 Studerende henvender sig regelmæssigt med ønsker om kurser med _meget_ specifikt
 indhold. Dette behov vil vi gerne imødekomme, men det er for ressourcekrævende
@@ -87,10 +88,13 @@ men så afhængige som nødvendigt.
 # Metoder
 
 Kursets didaktiske tilgang er baseret på Teaching Tech Together [@teachingtech]
-og Carpentries [@TheCarpentries] filosofien. Der er fokus på "code-along" hvor
-de studerende forventes og opfordres til at "taste med". Målet er ikke at 
+og Carpentries [@TheCarpentries] filosofien. 
+
+Der er fokus på "code-along" hvor de studerende forventes og opfordres til at "taste med". Målet er ikke at 
 dække mest mulig teori, men at efterlade de studerende med praktiske færdigheder.
-etc.
+
+<div style="break-after: column;"></div>
+# Teknik
 
 ```{r kursusside, echo=FALSE, fig.cap="Kursussiden", out.width = '100%'}
 knitr::include_graphics("kursussiden.png")
@@ -102,57 +106,48 @@ setup-fil, så kun de ønskede episoder indgår. Redigeringen tager under fem
 minutter, mens det tager GitHub op til en halv time at "bygge" siden. 
 
 
-To get a better understanding of how to include features like these please refer to the {posterdown} [wiki](https://github.com/posterdown/wiki).
-
-**_Now on to the results!_**
 
 # Indhold
 
-Tematiseret episodeliste
 
-Reproducible Data Analysis
-Tidy Data
+### Datahåndtering og Workflow
 
-Reading data from file
-Descriptive Statistics
-Table One
+• Reproducible Data Analysis
+• Reading data from file
+• Tidy Data
+• A deeper dive into pipes
+• R on Ucloud
+• Setup for GIS
 
+### Udforskende Dataanalyse og Visualisering
+• Descriptive Statistics
+• Table One
+• Nicer barcharts
+• How is the data distributed?
+• The normal distribution
+• Testing for normality
 
+### Statistiske Grundbegreber og Teori
+• Central Limit Theorem
+• Power Calculations
 
-The normal distribution
-Testing for normality
-How is the data distributed?
+### Regressionsanalyse
+• Linear regression
+• Multiple Linear Regression
+• Logistic regression
 
-Linear regression
-Multiple Linear Regression
-Logistic regression
-
-Central Limit Theorem
-
-Nicer barcharts
-
-Power Calculations
-k-means
-Tuning kmeans
-ANOVA
-R on Ucloud
-A deeper dive into pipes
-Setup for GIS
-
-Shiny without the server
-Choropleths
-What to do with data that is not normal
-building-models
-lasso-regularisation
-ridge-regularisation
-elastic-net-regularisation
+### Avancerede Analyseteknikker
+• k-means
+• ANOVA
 
 ```{r materiale, echo=FALSE, fig.cap="Det kan være svært at overvinde trangen til at tilføje mere. [@horst]", out.width = '100%'}
 knitr::include_graphics("horst_new_mat.png")
 ```
 
 
-# Et praktisk eksempel
+# Praktiske eksempler
+
+## R for studenterforskere
 
 Panum UngdomsForsker Forening, PUFF, er en studenterforening drevet af frivillige
 medicinstuderende på Københavns Universitet, der arbejder for at forbedre vilkårene
@@ -166,6 +161,10 @@ dyre kursus.
 
 KUB Datalab har siden 2023 overtaget R-delen af kurset, baseret på materiale
 trukket fra vores toolbox.
+
+## Introduktion til statistik
+
+Noget om noget med Roskilde og statistik
 
 # Bonus
 
