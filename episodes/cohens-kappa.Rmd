@@ -279,7 +279,7 @@ And the probability that they both, again randomly and by chance, answers
 $$\frac{R2}{N} \frac{C2}{N}$$
 
 We then calculate the total probability that the two raters agree by chance 
-by adding the two ways the can that:
+by adding the two ways they can do that:
 
 $$P_e = \frac{R1}{N}  \frac{C1}{N}+ \frac{R2}{N} \frac{C2}{N}$$
 
