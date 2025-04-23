@@ -1,5 +1,5 @@
 ---
-title: "Confirmatory Factor Analysis"
+title: "Exploratory/Confirmatory Factor Analysis"
 teaching: 0
 exercises: 0
 ---
@@ -26,55 +26,37 @@ library(patchwork)
 ```
 
 
-## Hvad er Confirmatory Factor Analysis?
+## What is factor analysis?
 
-Vi har nogen observationer af ting. Hvor god er en skoleelev til at løse 
-rumlige opgaver, forstå tekster og ord. Hvor hurtigt kan samme elev lægge tal 
-sammen, tælle prikker på et stykke pair, og se forskel på forskellige bogstaver.
+Imagine a set of observations. How good is a pupil at solving spatial
+tasks? And in reading comprehension? At doing addition of numbers,
+counting dots on a piece of paper, and differentiating between
+different letters. 
 
-Vores tese er, at evnen til at forstå en sætning, gøre en sætning færdig, og 
-vide hvad ord betyder, grundlæggende ikke er udtryk for tre forskellige 
-færdigheder, men har en underliggende faktor, der beskriver en tekstuel
-forståelse - måske intelligens i mangel af bedre ord.
+We might theorise, that the ability to understand a sentence, finish
+it, and understand vocabulary, fundamentally is not three different 
+skills, but represent some underlying factor, describing some subset
+of language abilities. Similarly with addition of numbers and counting -
+those might not be inidividual skills, but an underlying factor
+representing math-skills.
 
-Og at hastigheden hvormed der kan tælles prikker, lægges tal sammen og 
-kendes forskel på bogstaver, heller ikke er udtryk for tre forskellige færdigheder,
-men for en *anden* underliggende faktor, der beskriver hurtighed.
+If a given pupil score high on a set of variables, this is indicative
+of scoring high on an underlying, more general factor. And we will
+notice that this set of variables will vary in a similar way.
 
-Tesen er, at hvis eleven scorer højt på den underliggende faktor, så scorer
-eleven også højt på de tre variable, der er knyttet til denne underliggende 
-faktor.
+What we are actually measuring are manifest variables. But we
+are trying to identify latent variables, underlying factors.
 
-Vi vil med andre ord se, at de tre variable varierer sammen, og uafhængigt af
-de andre variable.
+The method is widely used in psychology - which influences the examples.
 
-I Confirmatory factor analysis, har vi opstillet en tese om hvor mange 
-underliggende faktorer der er, og hvilke variable der forklares af disse 
-faktorer. 
+## The data
 
-Ordene vi bruger, er at vi har manifeste variable - det er dem vi måler. 
-Og latente variable, det er dem vi forsøger at identificere.
+We need some data. A classic data set used for factor analysis is 
+Holzinger-Swineford, which is included in the package `lavaan`
+under the name `HolzingerSwineford1939`.
 
-Metoden er meget brugt i psykologien, hvorfra eksemplerne også stammer.
-
-
-## Hvordan gør vi så?
-Vi bruger biblioteket lavaan, latent variable analysis.
-
-
-```{r}
-library(lavaan) 
-library(tidyverse)
-library(psych)
-```
-
-## hvordan gør vi?
-
-Vi skal bruge et datasæt. Et klassisk et af slagsen er Holzinger-Swineford. 
-Det er fra kognitive tests af 
-7. og 8. klasses elever fra to forskellige skoler. Som navnet antyder,
-foretaget i 1939.
-
+It contains cognitive tests of pupils in 7th and 8th grade from two
+different schools, collected in 1939, as the name might indicate. 
 
 ```{r}
 glimpse(HolzingerSwineford1939)
@@ -102,67 +84,12 @@ Og en hurtighedsfaktor/latent variabel: x7, x8 og x9
 
 vi opstiller en model, der ser lidt usædvanlig ud:
 
-```{r}
-HS.model <- 'visual  =~ x1 + x2 + x3
-             textual =~ x4 + x5 + x6
-             speed   =~ x7 + x8 + x9'
-```
 
-Så fitter vi modellen på vores data:
+### Eksplorative Factor Analysis
 
-```{r}
-fit <- cfa(HS.model, data = HolzingerSwineford1939)
-```
+Given a set of manifest variables, how can we identify the latent
+variables or factors?
 
-Og ser hvordan fittet ser ud:
-```{r}
-fit
-```
-
-Vupti, p-værdi på 0,000, alt er godt, vores model ser fin ud.
-
-Hvis vi godt vil kigge nærmere på resultatet:
-```{r}
-summary(fit, standardized=TRUE, fit.measures=TRUE, rsquare=TRUE)
-```
-
-Vi kan se nærmere på covarianser
-```{r}
-fitted(fit)
-```
-
-Koefficienter:
-```{r}
-coef(fit)
-```
-
-Og residualerne:
-```{r}
-resid(fit, type = "normalized")
-```
-
-Vi kan også få et fint plot med vores fit. Der kan vi bruge pakken *semPlot*:
-
-```{r}
-library(semPlot)
-semPaths(fit, "std", layout = "tree", intercepts = F, residuals = T, nDigits = 2, 
-         label.cex = 1, edge.label.cex=.95, fade = F)
-```
-
-
-## Men det er ikke første skridt.
-
-Er vi stringente, bruger vi CFA til at bekræfte resultatet af en EFA (exploratory 
-factor analysis) hvor ideen er at identificere de latente variable.
-
-Vi kan godt komme med et kvalificeret bud i dette tilfælde. Især hvis vi på
-forhånd ved at der skal være tre latente variable.
-
-### Eksplorativ Faktor Analyse
-
-Det er teknikken når vi skal identificere de latente faktorer.
-
-Hvordan gør vi?
 
 Funktionen hedder fa, for faktor analyse. Den kommer fra biblioteket *psych*:
 
@@ -237,6 +164,79 @@ Og de manifeste variable x7, x8 og x9 har høj loading for den latente faktor ML
 Det passer, ikke ganske tilfældigt, med den model vi opstillede under 
 Confirmatory Factor Analysis afsnittet.
 
+
+
+
+## Hvordan gør vi så?
+Vi bruger biblioteket lavaan, latent variable analysis.
+
+
+```{r}
+library(lavaan) 
+library(tidyverse)
+library(psych)
+```
+
+## hvordan gør vi?
+
+
+```{r}
+HS.model <- 'visual  =~ x1 + x2 + x3
+             textual =~ x4 + x5 + x6
+             speed   =~ x7 + x8 + x9'
+```
+
+Så fitter vi modellen på vores data:
+
+```{r}
+fit <- cfa(HS.model, data = HolzingerSwineford1939)
+```
+
+Og ser hvordan fittet ser ud:
+```{r}
+fit
+```
+
+Vupti, p-værdi på 0,000, alt er godt, vores model ser fin ud.
+
+Hvis vi godt vil kigge nærmere på resultatet:
+```{r}
+summary(fit, standardized=TRUE, fit.measures=TRUE, rsquare=TRUE)
+```
+
+Vi kan se nærmere på covarianser
+```{r}
+fitted(fit)
+```
+
+Koefficienter:
+```{r}
+coef(fit)
+```
+
+Og residualerne:
+```{r}
+resid(fit, type = "normalized")
+```
+
+Vi kan også få et fint plot med vores fit. Der kan vi bruge pakken *semPlot*:
+
+```{r}
+library(semPlot)
+semPaths(fit, "std", layout = "tree", intercepts = F, residuals = T, nDigits = 2, 
+         label.cex = 1, edge.label.cex=.95, fade = F)
+```
+
+
+## Men det er ikke første skridt.
+
+Er vi stringente, bruger vi CFA til at bekræfte resultatet af en EFA (exploratory 
+factor analysis) hvor ideen er at identificere de latente variable.
+
+Vi kan godt komme med et kvalificeret bud i dette tilfælde. Især hvis vi på
+forhånd ved at der skal være tre latente variable.
+
+
 ## Skal vi være stringente?
 
 Det er folk sjældent. Men det bør vi. Det vi bør gøre, er at indsamle data,
@@ -250,6 +250,19 @@ om det er god praksis, og vi bør fortælle de studerende at de snyder.
 Det gør alle andre også, så vi skal nok ikke fortælle dem at de ikke må, men at 
 når de gør det som alle andre også burde lade være med, så skal de beskrive 
 at de "snyder".
+
+
+
+
+I Confirmatory factor analysis, har vi opstillet en tese om hvor mange 
+underliggende faktorer der er, og hvilke variable der forklares af disse 
+faktorer. 
+
+Ordene vi bruger, er at vi har manifeste variable - det er dem vi måler. 
+Og latente variable, det er dem vi forsøger at identificere.
+
+Metoden er meget brugt i psykologien, hvorfra eksemplerne også stammer.
+
 
 
 ::::keypoints
