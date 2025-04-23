@@ -7,15 +7,15 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How can agrement on classification be quantised?
-- How is Cohens $\Kappa$ calculated?
+- How is Cohens $\kappa$ calculated?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Learn to calculate Cohens $\Kappa$
-- Become familiar with the usecases for Cohens $\Kappa$
-- Know the limitations of Cohens $\Kappa$
+- Learn to calculate Cohens $\kappa$
+- Become familiar with the usecases for Cohens $\kappa$
+- Know the limitations of Cohens $\kappa$
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## What do we use it for?
@@ -146,16 +146,16 @@ the two raters have. They of course should agree, but the disagreement of
 classifying a Golden Retriver as a Labrador Retriver, is not as serious as 
 mistaking it for a Chihuahua. 
 
-The Unweighted $\Kappa$ is calculated with the
+The Unweighted $\kappa$ is calculated with the
 assumption that the different disagreements are of equal seriousness. 
 
-The Weighted $\Kappa$ assumes that some disagreements are worse than others.
+The Weighted $\kappa$ assumes that some disagreements are worse than others.
 
 ::::
 
-## How confident are we in $\Kappa$?
+## How confident are we in $\kappa$?
 
-The function `confint()` will give us the 95% confidence interval of the $\Kappa$
+The function `confint()` will give us the 95% confidence interval of the $\kappa$
 calculated:
 
 ```{r confidence_interval}
@@ -163,13 +163,13 @@ confint(res.k)
 ```
 ## Interpretation
 
-Cohens $\Kappa$ takes into account the possibility that the two raters agree
+Cohens $\kappa$ takes into account the possibility that the two raters agree
 by chance. This makes it a more robust measure of agreement than simply looking
 at the precent agreement. It returns a value between -1 and 1, 1 indicating
 perfect agreement, 0 no agreement besides random chance, and negative values
 less agreement than we would expect by chance.
 
-So. Is an unweighted $\Kappa$ of 0.6507 good or bad?
+So. Is an unweighted $\kappa$ of 0.6507 good or bad?
 
 That depends on what we are actually classifying. Classifying psychiatric disorders
 is obviously more important than classifying dog breeds. 
@@ -211,7 +211,7 @@ salt.
 
 ## Assumptions
 
-Cohens $\Kappa$ have the following requirements:
+Cohens $\kappa$ have the following requirements:
 
 * Two raters (or coders). No more, no less.
 
@@ -232,15 +232,15 @@ Cohens $\Kappa$ have the following requirements:
 
 ## The math
 
-We define $\Kappa$ as:
+We define $\kappa$ as:
 
-$$\Kappa =  \frac{P_0 - P_e}{1-P_e}$$
+$$\kappa =  \frac{P_0 - P_e}{1-P_e}$$
 Where 
 $P_0$ is the degree of agreement we observe, and $P_e$ is the degree of agreement
 that is random. 
 
-The null hypothesis declares that any agreement is random, and $\Kappa$ is 0.
-If $\Kappa$ is different from 0, the agreement is not random.
+The null hypothesis declares that any agreement is random, and $\kappa$ is 0.
+If $\kappa$ is different from 0, the agreement is not random.
 
 If we are looking at two raters, in this example doctors, determining if
 a patient is sick, a simple yes/no question in this case we will get these results:
@@ -260,23 +260,31 @@ $$P_0 = \frac{a + d}{N}$$
 
 The random agreement $P_e$ takes a bit more math:
 
-Doctor 1 answers "yes" in $\frac{R_1}{N}$ cases.
-Doctor 2 answers "yes" in $\frac{C_1}{N}$ cases.
+* Doctor 1 answers "yes" in $\frac{R_1}{N}$ cases.
+* Doctor 2 answers "yes" in $\frac{C_1}{N}$ cases.
 
 Based on this, the probability that they both, randomly and by chance, answers
 "yes" is:
 
 $$\frac{R1}{N}  \frac{C1}{N}$$
-Doctor1 answers "no" in ${R2}{N}$ cases
-Doctor2 answers "no" in $\frac{C2}{N}$ cases
+
+And for the random agreement of "no":
+
+*Doctor1 answers "no" in $\frac{R2}{N}$ cases
+* Doctor2 answers "no" in $\frac{C2}{N}$ cases
 
 And the probability that they both, again randomly and by chance, answers
 "no" is:
 
 $$\frac{R2}{N} \frac{C2}{N}$$
 
-Now that we have both $P_0$ and $P_e$, we can calculate $\Kappa$, 
-and confidence intervals: $\Kappa \pm Z_{\alpha/2} SE_\Kappa$ based on the 
+We then calculate the total probability that the two raters agree by chance 
+by adding the two ways they can do that:
+
+$$P_e = \frac{R1}{N}  \frac{C1}{N}+ \frac{R2}{N} \frac{C2}{N}$$
+
+Now that we have both $P_0$ and $P_e$, we can calculate $\kappa$, 
+and confidence intervals: $\kappa \pm Z_{\alpha/2} SE_\kappa$ based on the 
 Z-distribution (if normality is assured, otherwise the t-distribution).
 
 
@@ -286,7 +294,7 @@ Z-distribution (if normality is assured, otherwise the t-distribution).
 If you have ever looked at how the math in a $\chi^2$ test works, this might
 look familiar. Thats because it actually is.
 
-With two raters and two categories, that $\Kappa$ statistic is the same. And
+With two raters and two categories, that $\kappa$ statistic is the same. And
 if you want to delve deeper into that, you can look up this paper:
 
 Feingold, Marcia (1992). "The Equivalence of Cohen's Kappa and Pearson's Chi-Square Statistics in the 2 × 2 Table." Educational and Psychological Measurement 52(1): 57-61. <http://hdl.handle.net/2027.42/67443>
@@ -299,20 +307,20 @@ Feingold, Marcia (1992). "The Equivalence of Cohen's Kappa and Pearson's Chi-Squ
 
 ## Alternatives
 
-Cohens $\Kappa$ only works (directly) for nominal values, and two raters.
+Cohens $\kappa$ only works (directly) for nominal values, and two raters.
 The option of weighting the data give us some options for using it on ordinal
 values, but more direct options exist.
 
-* Weighted $\Kappa$ is used for ordinal values. We use the function `kappa2()` from the `irr` package.
-* Light's $\Kappa$ is used for studying interrater agreement between more than 2 raters. We use the function `kappamlight()` from the `irr` package.
-* Fleiss $\Kappa$ is also used when having more than 2 raters. *But* does _not_
+* Weighted $\kappa$ is used for ordinal values. We use the function `kappa2()` from the `irr` package.
+* Light's $\kappa$ is used for studying interrater agreement between more than 2 raters. We use the function `kappamlight()` from the `irr` package.
+* Fleiss $\kappa$ is also used when having more than 2 raters. *But* does _not_
 require the same raters for each subject.
 
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- With two raters Cohens $\Kappa$ can be used as a measure of interrater agreement on categorical, nominal classes.
+- With two raters Cohens $\kappa$ can be used as a measure of interrater agreement on categorical, nominal classes.
 - Other methods exists for ordinal classes, and more than two raters. 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

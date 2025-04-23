@@ -99,7 +99,7 @@ data.
 Vi indlæser noget data for ligestilling mellem kønnene.
 
 ```{r}
-ligestilling <- read_csv("data/BIGI.csv")
+ligestilling <- read_csv("../data/BIGI.csv")
 head(ligestilling)
 ```
 Det joiner vi på samme måde som før, og farvelægger efter bigi-scoren. Negative værdier
