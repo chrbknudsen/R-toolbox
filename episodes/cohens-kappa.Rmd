@@ -260,22 +260,28 @@ $$P_0 = \frac{a + d}{N}$$
 
 The random agreement $P_e$ takes a bit more math:
 
-Doctor 1 answers "yes" in $\frac{R_1}{N}$ cases.
-Doctor 2 answers "yes" in $\frac{C_1}{N}$ cases.
+* Doctor 1 answers "yes" in $\frac{R_1}{N}$ cases.
+* Doctor 2 answers "yes" in $\frac{C_1}{N}$ cases.
 
 Based on this, the probability that they both, randomly and by chance, answers
 "yes" is:
 
 $$\frac{R1}{N}  \frac{C1}{N}$$
-Doctor1 answers "no" in ${R2}{N}$ cases
-Doctor2 answers "no" in $\frac{C2}{N}$ cases
+
+And for the random agreement of "no":
+
+*Doctor1 answers "no" in $\frac{R2}{N}$ cases
+* Doctor2 answers "no" in $\frac{C2}{N}$ cases
 
 And the probability that they both, again randomly and by chance, answers
 "no" is:
 
 $$\frac{R2}{N} \frac{C2}{N}$$
 
+We then calculate the total probability that the two raters agree by chance 
+by adding the two ways the can that:
 
+$$P_e = \frac{R1}{N}  \frac{C1}{N}+ \frac{R2}{N} \frac{C2}{N}$$
 
 Now that we have both $P_0$ and $P_e$, we can calculate $\kappa$, 
 and confidence intervals: $\kappa \pm Z_{\alpha/2} SE_\kappa$ based on the 
