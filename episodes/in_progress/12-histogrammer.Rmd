@@ -1,20 +1,20 @@
 ---
-title: "Histogrammer"
+title: "Histograms"
 teaching: 0
 exercises: 0
-questions: 
-  - "FIXME"
-objectives:
-  - "FIXME"
-keypoints:
-  - "FIXME"
-source: Rmd
-math: yes
 ---
-  
+::::questions
+  - "FIXME"
+::::
+
+::::objectives
+  - "FIXME"
+::::  
+
+
+
 ```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("12-")
+
 library(tidyverse)
 library(palmerpenguins)
 ```
@@ -283,4 +283,6 @@ finder man den tommelfingerregel af de ovenstående, der giver tallet
 11, og forklarer at antallet af bins er valgt efter den regel.
 
 
-
+::::keypoints
+  - "FIXME"
+::::
