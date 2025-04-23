@@ -13,115 +13,125 @@ exercises: 0
 
 
 
-```{r, include = FALSE}
 
+
+## What even is a histogram?
+
+We use histograms to describe the distribution of some continous variable. 
+It have values between a minimum and maximum value (range), but are these values
+equally probable? Probably not. 
+
+In a histogram we divide the range in a number of bins, count the number
+of observations in each bin, and make a plot with a bar for each bin, where
+the height is equivalent to the number of observations in each bin. 
+
+## How do we do that?
+
+Let us look at some data - penguin data:
+```{r data-and-library, message = FALSE}
 library(tidyverse)
 library(palmerpenguins)
 ```
-## Hvad er et histogram?
 
-Vi har nogen bins, tænk på dem som spande, der skal indeholde de
-observationer i vores datasæt der ligger inden for et bestemt interval.
 
-De er valgt sådan at alle vores data vil passe i en og kun en af disse bins. 
+R has a build in histogram function, `hist()`, which will make a basic histogram,
+of the data we provide it with:
 
-Nu fordeler vi så vores data i disse bins. Så tæller vi hvor mange 
-observationer der er i hver af de her bins. Og plotter dem på denne måde:
+```{r}
+hist(penguins$bill_length_mm)
+```
+
+This is not a very nice looking histogram, and `ggplot2` provides us with a 
+more easily customisable histogram function:
 
 ```{r}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram()
 ```
 
-Der er her 30 bins. Vores data, næblængden på nogle pingviner, 
-falder i intervallet 32.1 til 59.6 millimeter. Hver bin er derfor
-0.9167 millimeter bred. 
+This is the distibution of the length, in millimeter, of the bill (or beak) of
+a selection of penguins. 
 
-Hvad fortæller det os? Det fortæller os noget om hvordan fordelingen
-af næblængder ser ud. Der er oftest sådan at der er flest i midten, 
-færre der er kortere eller længere, og enkelte der er meget kortere eller
-meget længere. Her ser det ud til at der er to af den slags fordelinger, som overlapper. Det er ikke så overraskende, dels er der forskellige 
-pingvinarter i datasættet, dels er hanpingviners næb i gennemsnit længere end hunpingviners.
+By default the `geom_histogram` divides the range of the data (min = 32.1, max = 59.6 mm) 
+into 30 bins. Each bin therefore have a width of 0.9167 mm. The first bin contains
+a single penguin, that has a beak that is between 32.1 and 32.1 + 0.9187 mm long.
 
-## Hvor mange bins?
-Når vi plotter histogrammer - især med ggplot, får vi en advarsel.
+From this plot we get information about the distribution of bill-lengths of penguins.
 
-Som default fordeler `geom_histogram()` nemlig data i 30 bins. Det gør
-den fordi 30 bins næsten aldrig er det rigtige antal, og forfatterne af
-funktion har bevidst valgt noget der næsten aldrig vil være rigtigt, for
-at tvinge os til at vælge noget der er bedre.
+There appears to be several different "peaks" in the plot. This is to be expected
+as we have three different species of penguins in the data, in addition to
+having penguins of both sexes. 
 
-Så man bør forholde sig til hvor mange bins der skal være. 
-Hvordan gør man det?
-
-## En funktion der gør det for os
-
-Pakken `healthyR` er skrevet til at arbejde med hospitalsdata. Men
-har også funktionen `opt_bin` der kan bruges til at finde de optimale
-cuts i data til brug for et histogram - for en passende værdi af
-optimal:
+If we want to split the histogram into these different groups, we can use the
+possibilities available in `ggplot2`:
 
 ```{r}
-library(healthyR)
-
-penguins %>% 
-  filter(!is.na(bill_length_mm)) %>% 
-opt_bin( bill_length_mm)
+ggplot(penguins, aes(x=bill_length_mm)) +
+  geom_histogram() +
+  facet_grid(sex~species)
 ```
-Som det fremgår er man nødt til at fjerne NA-værdier selv, funktionen
-har ikke et na.rm argument. Og det vi får ud, er ikke antallet af bins,
-men de breaks der skal være i data for at vi får de 18 bins som 
-funktionen siger at vi skal have.
 
-## Det er fint, hvordan gør man det generelt?
+The data now looks a bit more normally distributed. And we can observe that
+male penguins tend to have longer beaks than female penguins. We can also
+see that the different species of penguins have different bill lengths. 
 
-Der er to måder. 
+## How many bins? 
 
-1. Man bruger en heuristik til at gøre det. Det er det vi gjorde med funktionen ovenfor.
+Note the warning we get. 
 
-2. Man prøver forskellige antal bins, indtil man finder det antal, der bedst illustrerer 
-det fænomen i data man ønsker at afdække.
+"using `bins = 30`. Pick better value with `binwidth`"
 
-> ## Heurestik
->
-> Vi kalder det en heuristik, fordi det lyder fancy og som om
-> vi er meget kloge, og ved hvad vi taler om.
-> På almindeligt dansk er det bare en tommelfingerregel.
->
-{: .testimonial}
+The choice of number of bins have a big influence on how the data looks. We
+can hide variation by chosing fewer bins. We do that by providing the 
+`geom_histogram()` function with an argument, `bins = xx` where `xx` is the number
+of bins we want:
 
-### Shimazaki og Shinomoto
+::::challenge
+## Try it yourself
 
-Den tommelfingerregel ovenstående funktion bruger er beskrevet 
-her: https://www.neuralengine.org/res/histogram.html og stammer fra
-Shimazaki and Shinomoto. Neural Comput, 2007, 19(6), 1503-1527
+Try to plot the bill_length_mm variable in the penguins dataset with different
+numbers of bins.
 
-Man gør følgende, og bemærk at vi her bruger samme notation som i 
-Shimazaki og Shinomotos beskrivelse.
+::::solution
+```{r}
+ggplot(penguins, aes(x=bill_length_mm)) +
+  geom_histogram(bins = 20)
+```
 
-Del datarange op i N bins med bredden $\Delta$. Tæl antallet af observationer
-i hver bin. Det kalder vi $k_i$, hvor i angiver hvilken bin det er.
+::::
 
-Beregn gennemsnittet k og variansen v af observationer i hver bin:
+::::
 
-$k = 1/n \sum_{i=1}^{N} k_i$
+By default `geom_histogram` choses 30 bins. This default value has been chosen
+because it is almost never the correct choice. `ggplot2` is an opinionated
+package, that tries to force us to make better plots. 
 
-$v = 1/N \sum_{i=1}^N(k_i - k)^2$
+## How many bins should we chose?
 
-Beregn nu $C(\Delta)$
-$C(\Delta) = 2k - v/\Delta^2$
+We should chose the number of bins that best tells the story we want to tell 
+about our data. But also the number of bins that does not hide information
+about our data. 
 
-Juster på $\Delta$ til $C(\Delta)$ er minimeret.
+The obvious way to do this is to fiddle with the number of bins, and find the
+number that best do that. 
 
-Eller udnyt at $\Delta$ er defineret som `range` af data (altså afstanden fra største til mindste datapunkt), divideret med antallet
-af bins, N. Så kan vi nemlig justere på N i stedet, og det er en
-del hurtigere. I praksis bruger vi bare funktionen `opt_bin` 
+But that can feel a bit cheaty. How do we rationalise the number of bins in a 
+way that makes sure that this number is not just the one that show what we 
+_want_ the data to show, but the number that actually show the data as it is.
 
-Det er fristende at beregne variansen af observationer i stedet for
-v som ovenfor, men det mener Shimazaki og Shinomoto at man 
-skal lave være med.
+A number of heuristics for chosing the "correct" number of bins exist.
 
-## Andre måder
+::::spoiler
+## Why do we call it a heuristic?
+
+A heuristic is a fancy way of saying "rule of thumb". "Heuristic" sounds like 
+we know what we are talking about. 
+
+::::
+
+
+
+## tommelfingerregler
 
 Der er andre tommelfingerregler at følge.
 
@@ -192,63 +202,58 @@ $h = 3.49 \frac{\sigma}{n^{-1/3}}$,
 hvor sigma er standardafvigelsen af stikprøven.
 
 
-## Hvordan i praksis?
+## That is difficult
 
-Vi kan nærlæse hjælpen til `hist()` funktionen indbygget i R. Den fortæller
-at hist som default beregner breaks efter "Sturges" algoritmen. Men også at den kan ændres til noget andet.
+Rather than doing these calculations on our own, we can read the help file for
+the `hist()` function. The argument `breaks` allow us to specify where the
+breaks in the histogram - the splits in bins - should occur. 
 
-Det kan vi udnytte til at få breaks, her efter Freedman-Diaconis
-reglen:
-
-```{r}
-k <- hist(penguins$bill_length_mm, breaks = "FD", plot = FALSE)
-k$breaks
-```
-
-Med default, som altså er "Sturges":
+We can see that the default value is "Sturges". And under details we can 
+see the other options that `hist()` can work with, "Scott" and "FD" for 
+Freedman-Diaconis. We also get a hint of the functions that can return 
+the number of bins:
 
 ```{r}
-k <- hist(penguins$bill_length_mm, plot = FALSE)
+nclass.Sturges(penguins$bill_length_mm)
 ```
+`nclass.FD` and `nclass.scott` works similarly, but note that it is necessary
+to remove missing values.
 
-eller efter Scott algoritmen:
-```{r}
-k <- hist(penguins$bill_length_mm, breaks = "scott", plot = FALSE)
-```
 
-Hjælpeteksten antyder også at der er funktioner til at beregne
-antallet af klasser, bins, direkte. 
+::::spoiler
+### Shimazaki and Shinomoto - a very fancy way of doing it
 
-Scott:
+This heuristic is described in Shimazaki and Shinomoto. Neural Comput, 2007, 19(6), 1503-1527. 
 
-```{r}
-penguins %>% 
-  filter(!is.na(bill_length_mm)) %>% 
-  pull(bill_length_mm) %>% 
-  nclass.scott()
-```
+Divide the range in N bins with a width of $\Delta$. Count the number of observations
+in each bin. Call that $k_i$ where the "i" denotes which bin we are looking at.
 
-Freedman-Diaconis:
+Calculate the mean k, and variance v of observations in each bin:
 
-```{r}
-penguins %>% 
-  filter(!is.na(bill_length_mm)) %>% 
-  pull(bill_length_mm) %>% 
-  nclass.FD()
-```
+$k = 1/n \sum_{i=1}^{N} k_i$
 
-Sturges:
+$v = 1/N \sum_{i=1}^N(k_i - k)^2$
 
-```{r}
-penguins %>% 
-  filter(!is.na(bill_length_mm)) %>% 
-  pull(bill_length_mm) %>% 
-  nclass.Sturges()
-```
+Now calculate a new value $C(\Delta)$:
 
-Ellers må man beregne det selv.
+$$C(\Delta) = 2k - v/\Delta^2$$
 
-## Hvad med ggplot?
+Adjust $\Delta$ to minimize $C(\Delta)$.
+
+::::
+
+## Another way
+
+We are able to define the bins in two ways. We can specify the number of bins
+and we can specify the width of the bins. With a given range of data, those are
+equivalent. A better way of specifying them will often be to specify the 
+breaks. Remember that the default 30 bins leads to a width of the bins of
+0.9noget mm. Which means that the first bin counts bill lenghts in the 
+range NOGET TIL NOGET.
+
+Instead of that, it is often a good idea to chose more meaningful breaks
+
+MED HELE TAL OG SÅDAN NOGET.
 
 `geom_histogram` i ggplot2 understøtter ikke at man kan angive hvilken
 metode man ønsker at bruge til at beregne breaks i ens data. Så
@@ -281,6 +286,26 @@ viser hvad man gerne vil have frem i sit histogram.
 Når man så har fundet ud af at 11 bins er det bedste antal, så 
 finder man den tommelfingerregel af de ovenstående, der giver tallet
 11, og forklarer at antallet af bins er valgt efter den regel.
+
+
+We can use a function to make the choice. The package `healthyR` has been 
+written to work with medical data, and includes the function `opt_bin`,
+that claims to find the optimal number of bins:
+
+
+```{r, warnings = FALSE, message=FALSE}
+library(healthyR)
+healthyR::opt
+penguins %>% 
+  filter(!is.na(bill_length_mm)) %>% 
+  opt_bin( bill_length_mm)
+```
+Som det fremgår er man nødt til at fjerne NA-værdier selv, funktionen
+har ikke et na.rm argument. Og det vi får ud, er ikke antallet af bins,
+men de breaks der skal være i data for at vi får de 18 bins som 
+funktionen siger at vi skal have.
+
+
 
 
 ::::keypoints
