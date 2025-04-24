@@ -481,7 +481,26 @@ penguins %>%
   geom_histogram(breaks = seq(from = 30, to = 65, by = 5))
 ```
 
+## Do not abuse the option of specifying breaks!
+
+Instead of using the `seq()` function we could construct the breaks by hand:
+```{r eval = FALSE}
+c(30, 35, 40, 45, 50, 55, 60, 65)
+```
+
+And it might be tempting enter breaks that would lead to uneven binwidths:
+
+```{r eval = FALSE}
+c(30, 40, 42, 45, 50, 55, 60, 65)
+```
+
+Do not do this. This will, except in very rare cases, rightfully be considered
+misleading. Always use a consistent binwidth!
 
 ::::keypoints
-  - A lo
+  - A lot of different rules for chosing number of bins exists
+  - Binwidth and number of bins are equivalent
+  - Chose the number of bins that best supports your data story. Without hiding inconvenient truths about your data.
+  - Never use unequal binwidths
+  - Consider using natural breaks as an alternative
 ::::
