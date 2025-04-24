@@ -375,8 +375,51 @@ ceiling(k)
 Here we get the bin-width $h$ using this expression:
 
 
-$$h = 3.49 \frac{\sigma}{n^{-1/3}}$$ 
-Where $\sigma$ is the standard deviation of the data.
+$$h = 3.49 \frac{\sigma}{n^{1/3}}$$ 
+Where $\sigma$ is the standard deviation of the data. This rule implicitly assumes
+that the data is normally distributed.
+
+::::challenge
+
+According to Scott's rule, how many bins should we use for a histogram
+of the length of penguin bills?
+::::solution
+
+Get all the lengths of the penguin bills, excluding missing values:
+```{r}
+bill_lengths <- penguins$bill_length_mm %>% 
+  na.omit()
+```
+
+Find $n$:
+```{r}
+n <- length(bill_lengths)
+```
+
+Find $\sigma$:
+
+```{r}
+sigma <- sd(bill_lengths)
+```
+
+Now we can find the bin-width $h$:
+```{r}
+h <- 3.49*sigma*(n^(-1/3))
+```
+And from that, the number of bins $k$:
+
+```{r}
+k <- (max(bill_lengths) - min(bill_lengths))/h
+```
+Remember to round up $k$:
+
+```{r}
+ceiling(k)
+```
+
+::::
+::::
+
 
 ## That is difficult
 
@@ -393,32 +436,21 @@ the number of bins:
 nclass.Sturges(penguins$bill_length_mm)
 ```
 `nclass.FD` and `nclass.scott` works similarly, but note that it is necessary
-to remove missing values.
-
-
-::::spoiler
-### Shimazaki and Shinomoto - a very fancy way of doing it
-
-This heuristic is described in Shimazaki and Shinomoto. Neural Comput, 2007, 19(6), 1503-1527. 
-
-Divide the range in N bins with a width of $\Delta$. Count the number of observations
-in each bin. Call that $k_i$ where the "i" denotes which bin we are looking at.
-
-Calculate the mean k, and variance v of observations in each bin:
-
-$k = 1/n \sum_{i=1}^{N} k_i$
-
-$v = 1/N \sum_{i=1}^N(k_i - k)^2$
-
-Now calculate a new value $C(\Delta)$:
-
-$$C(\Delta) = 2k - v/\Delta^2$$
-
-Adjust $\Delta$ to minimize $C(\Delta)$.
-
-::::
+to remove missing values. If one of the other heuristics is needed, we either
+need to do the calculations ourself - or try to identify a package that contains
+functions to do it.
 
 ## Another way
+
+With these heuristics, we can calculate the recommended number of bins for
+making a histogram. And with that number, knowing the range of the data,
+we can calculate the binwidth. 
+
+Either of those can be used as an argument in `geom_histogram()`, `bins=` and
+`binwidth=` respectively.
+
+
+
 
 We are able to define the bins in two ways. We can specify the number of bins
 and we can specify the width of the bins. With a given range of data, those are
