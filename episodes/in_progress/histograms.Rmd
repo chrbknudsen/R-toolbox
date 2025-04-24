@@ -17,7 +17,7 @@ exercises: 0
 
 ## What even is a histogram?
 
-We use histograms to describe the distribution of some continous variable. 
+We use histograms to visualise the distribution of some continuous variable. 
 It have values between a minimum and maximum value (range), but are these values
 equally probable? Probably not. 
 
