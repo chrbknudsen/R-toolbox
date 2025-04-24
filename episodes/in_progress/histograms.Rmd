@@ -4,11 +4,15 @@ teaching: 0
 exercises: 0
 ---
 ::::questions
-  - "FIXME"
+  - What is a histogram?
+  - What do we use histograms for?
+  - What is the connection between number of bins, binwidths and breaks?
+  - How do we chose a suitable number of bins?
 ::::
 
 ::::objectives
-  - "FIXME"
+  - Understand what a histogram is, and what it is used for
+  - Introduce a number of heuristics for chosing the "correct" number of bins
 ::::  
 
 
@@ -498,6 +502,7 @@ Do not do this. This will, except in very rare cases, rightfully be considered
 misleading. Always use a consistent binwidth!
 
 ::::keypoints
+  - Histograms are used for visualising the distribution of data
   - A lot of different rules for chosing number of bins exists
   - Binwidth and number of bins are equivalent
   - Chose the number of bins that best supports your data story. Without hiding inconvenient truths about your data.
