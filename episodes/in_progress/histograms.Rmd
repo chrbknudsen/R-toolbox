@@ -449,73 +449,39 @@ we can calculate the binwidth.
 Either of those can be used as an argument in `geom_histogram()`, `bins=` and
 `binwidth=` respectively.
 
+However, for effective communication, we might consider a third way. The
+bill length of the penguins ranges from 32.1 to 59.6 mm. With 9 bins we will
+get a bin width of 3.055556 mm. The first bin will therefore start at 
+32.1 and end at 35.15556 mm, and the second will start at 35.15556 mm
+and end at 38.21112. These are the breaks, and they are not very intuitive.
 
+Instead we might consider choosing the breaks ourself. Having a first bin
+that starts at 32 mm and ends at 35, and the a second bin that starts at 
+35 mm and ends at 38 might be beneficial for understanding the histogram.
 
+Those breaks can also be provide to the `geom_histogram()` function - we
+just need to calculate them our self.
 
-We are able to define the bins in two ways. We can specify the number of bins
-and we can specify the width of the bins. With a given range of data, those are
-equivalent. A better way of specifying them will often be to specify the 
-breaks. Remember that the default 30 bins leads to a width of the bins of
-0.9noget mm. Which means that the first bin counts bill lenghts in the 
-range NOGET TIL NOGET.
+The `seq()` function is useful for this. 
 
-Instead of that, it is often a good idea to chose more meaningful breaks
-
-MED HELE TAL OG SÅDAN NOGET.
-
-`geom_histogram` i ggplot2 understøtter ikke at man kan angive hvilken
-metode man ønsker at bruge til at beregne breaks i ens data. Så
-der må man gøre det selv, eksempelvis med Sturges:
-
-```{r}
-bins <- ceiling(log2(length(penguins$bill_length_mm))) + 1
-penguins %>% 
-  ggplot(aes(x = bill_length_mm)) +
-  geom_histogram(bins = bins)
-```
-
-
-Bruger man i stedet en metode der giver os bredden af bins, 
-binwidth, gøres det på denne måde:
+This function returns a sequence of numbers from a start value, to and end
+value, in steps that we can chose:
 
 ```{r}
-binwidth <- 2*IQR(penguins$bill_length_mm, na.rm = T)*length(penguins$bill_length_mm)^(-1/3)
-
-penguins %>% 
-  ggplot(aes(x = bill_length_mm)) +
-  geom_histogram(binwidth = binwidth)
+seq(from = 30, to = 65, by = 5)
 ```
 
-## Hvilken skal man så vælge?
+You will have to think about the `from` and the `to` arguments, to not exclude
+any observations, but this method give us much more natural breaks in the
+histogram:
 
-Man skal vælge det antal bins, eller den bredde af bins, der 
-viser hvad man gerne vil have frem i sit histogram. 
-
-Når man så har fundet ud af at 11 bins er det bedste antal, så 
-finder man den tommelfingerregel af de ovenstående, der giver tallet
-11, og forklarer at antallet af bins er valgt efter den regel.
-
-
-We can use a function to make the choice. The package `healthyR` has been 
-written to work with medical data, and includes the function `opt_bin`,
-that claims to find the optimal number of bins:
-
-
-```{r, warnings = FALSE, message=FALSE}
-library(healthyR)
-healthyR::opt
+```{r}
 penguins %>% 
-  filter(!is.na(bill_length_mm)) %>% 
-  opt_bin( bill_length_mm)
+  ggplot(aes(x=bill_length_mm)) +
+  geom_histogram(breaks = seq(from = 30, to = 65, by = 5))
 ```
-Som det fremgår er man nødt til at fjerne NA-værdier selv, funktionen
-har ikke et na.rm argument. Og det vi får ud, er ikke antallet af bins,
-men de breaks der skal være i data for at vi får de 18 bins som 
-funktionen siger at vi skal have.
-
-
 
 
 ::::keypoints
-  - "FIXME"
+  - A lo
 ::::
