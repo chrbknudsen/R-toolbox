@@ -68,6 +68,7 @@ episodes:
 - reproducible-analysis.Rmd
 - reading-files.Rmd
 - descript-stat.Rmd
+- histograms.Rmd
 - table1.Rmd
 - tidy-data.Rmd
 - normal-distribution.Rmd
