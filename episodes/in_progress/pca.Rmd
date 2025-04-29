@@ -6,120 +6,138 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- What is PCA?
+- What is dimension reduction
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- FIXME
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-CAVE! PINGVINERNE ER RET SEPAREREDE ALLEREDE...
-FIND ET ANDET DATASÆT
+## Dimension reduction
 
-Der er et vin-datasæt, hvor vi desværre ikke ved hvilke druesorter der er
-tale om. Men som er bedre.
+We call the concept of taking a dataset with many variables ("dimensions"), and
+reducing it to fewer variables while keeping important information: "Dimension reduction".
 
-https://archive.ics.uci.edu/dataset/109/wine
+Imagine a table with 100 columns (variables or features). A lot of them might
+be correlated, noisy or redundant. Instead of working with all 100 features, we
+might be able to identify or summarise the imparton structure or information
+of the data, using only 5 or 6 features (or variables)
+
+We could pick out the most important variables and use only those to describe the
+data. This is more or less what we do when we make a multiple linear regression:
+We try to explain the variability in the data, using a selection of a few variables.
+But we might need a lot of variables to explain variability enough. Any two variables
+might not be able to explain more than 10% of the variability.
+
+An alternative approach could be to construct new variables by combining the 
+original ones. Done right, it might be possible to construct 5 or 6 new
+features that describe a lot of the variance.
+
+This is what Principal Component Analysis does. It constructs, algorithmically
+(or automatically) a set of new variables. It is not able to explain more
+of the variance than the original 100 variables. But it migh be able to 
+construct one new variable that explains 60% of the variability, and another,
+second one, that explain 25%. Those two new features alone would then
+explain a total of 85% of the variability of the data. 
+
 
 ```{r, include = FALSE}
 library(tidyverse)
-library(palmerpenguins)
 library(GGally)
 library(ggExtra)
 library(patchwork)
-penguins <- penguins %>% filter(complete.cases(.))
 ```
 
-# Principal Component Analyse
+# Principal Component Analysis
+
+There exist quite a few different methods for doing dimension reduction. One
+of the more popular is Principal Component Analysis - or PCA.
 
 PCA is a method for reducing dimensions of a dataset. 
 
-Let us observe some penguins:
 
-```{r looking-at-penguins}
-penguins %>% 
-  head()
-```
+Let us look at some data, in this case wine. 
 
-There are 8 variables, or dimensions in this dataset. The dimension `year` is 
-not one we have any use for here.
+VI SKAL NOK HAVE ET DOWNLOAD EKSEMPEL
 
-Looking just at the numerical variables, there is a lot of variation, just not
-variation that we nessecarily can use for predicting stuff:
 ```{r}
-penguins %>% 
-  ggplot(aes(bill_length_mm, body_mass_g, colour = sex)) +
-  geom_point() +
-  ggtitle("weight and bill length is not usefull for predicting sex")
-  
+wine <- read_csv("../data/wine.data", col_names = FALSE)
 ```
 
-By applying PCA, we can reduce the four dimensions to fewer, that might be 
-better at finding patterns.
-
-We do that by making new variables, or dimensions, that are combinations of the
-original dimensions. We might make one that is the sum of the four dimensions, 
-where we multiply them by 0.1, 4.2, 47 and 0.001 respectively. And another 
-where we multiply with some other values. If we choose those values correctly,
-we might get a plot that nicely separates the two sexes.
-
-The assumption is that the variation in the numeric data is dependent on the
-sex of the penguins. But rather than figuring out how the variation in weight
-describes that, we construct a set of dimensions, that describe the over all 
-variation in the numeric data.
-
-And rather than doing it by hand, we can get R to do it for us.
-
-
-
-
-
-
-
-
-
-så trækker vi oplysninger om pingvin arten ud til senere brug:
-```{r species-pingvin, echo  =F}
-species_penguins <- clean_penguins %>% pull(species)
-species_penguins %>% head()
+```{r}
+wine %>% group_by(X1) %>% 
+  summarise(across(X2:X14, mean))
 ```
 
-Og kører PCA på den. Det sker med funktionen `prcomp`:
+
+
+
+In the description we can read about what the individual values are. But the 
+thesis is, that really matters is note the concentration of one chemical component.
+But rather the "cultivar", the type of grape used for making the wine.
+
+
+Vi laver density plots på dem alle. Så. Hvor hyppige er en given 
+observation i hver af de tre cultivarer? Der er da variable, hvor
+vi kan se at lave værdier hyppigt optræder for en bestemt cultivar,
+og høje for en anden. Men overlappet er ret stort for alle 
+variable.
+```{r}
+wine %>% 
+  pivot_longer(cols = X2:X14) %>% 
+  mutate(X1 = factor(X1)) %>% 
+  ggplot(aes(x=value, color = X1, group = X1)) +
+  geom_density() +
+  facet_wrap(~name, scales = "free")
+```
+
+
+ideen er at vi prøver at konstruere nye variable som kombinationer 
+af de oprindelige. Og ser om vi kan skille cultivarerne baseret på 
+dem i stedet.
+
+
+
+Lad os prøve at gøre det. Og lad os pille cultivarerne ud først
+
+```{r}
+cultivars <- wine %>% select(X1)
+```
+
+
+```{r}
+wine_to_pca <- wine %>% select(-X1)
+```
+
+Vi har nu data uden facit. Og vi har facitlisten. Vi antager at den 
+variation der er i data kan forklare cultivarerne.
+
+PCA'en køres med funktionen promp.
+
+
+
 ```{r run-pca, echo  =F}
-data_penguins <- clean_penguins %>% select(-species)
-pca_penguins <- prcomp(data_penguins, scale. = T)
+pca_wine <- prcomp(wine_to_pca, scale. = TRUE)
 ```
 
 Og så kan vi plotte det. Vi får en del med i modellen, men lad os starte
 med at se på de principiale komponenter. De ligger i pca_penguins$x.
 Vi tilføjer oplysninger om pingvin-arten, og farvelægger efter netop den:
 ```{r pca-plot}
-pca_penguins$x %>% 
+pca_wine$x %>% 
   as_tibble() %>% 
-  mutate(species = species_penguins) %>% 
-  ggplot(aes(PC1, PC2, colour = species)) + 
+  mutate(cultivar = cultivars$X1) %>% 
+  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
   geom_point()
 
 ```
-Vi kan sammenligne med et plot af dimensionerne på deres næb:
-```{r}
-penguins %>% 
-  ggplot(aes(bill_length_mm, bill_depth_mm, colour = species)) +
-  geom_point()
-```
 
-Når vi sammenligner, kan vi se at Æselpingvinerne (Gentoo) er pænt
-adskilt fra de to andre pingvinarter i plottet.
+vupti - ret klar adskillelse af de tre cultivarer.
 
-Det kan vi så bruge. Vej pingvinerne, mål deres næb og deres vinger. Og du
-kan afgøre om de er en æselpingvin. 
-
-Ja, det er nok lettere at kigge på pingvinen, og se om den ligner en 
-æselpingvin eller ej.
 
 ## Hvad ligger der ellers i modellen?
 
