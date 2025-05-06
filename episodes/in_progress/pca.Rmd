@@ -371,7 +371,7 @@ plot(eigen_values/sum(eigen_values), type = "b",
      ylab = "Percentage of Variance Explained")
 abline(v = 2, col = "red")
 ```
-Og hvordan finder man så den optimale elbow.
+Og hvordan finder man så den optimale elbow. det er der metoder til.
 
 ggbiplot - og hvad den viser
 
@@ -401,6 +401,37 @@ recommended.
 Linear discriminant analysis
 random forest
 t-sne
+
+
+
+rotationen er hvad den er. De enkelte værdier kalder vi loadings.
+
+Hvis du bruger eigen(cov(data)) eller eigen(cor(data)), så får du:
+
+values = egenværdier
+
+vectors = loadings
+
+prcomp() beregner PCA via SVD, men resultatet er identisk mht. sdev² = eigenvalues.
+
+
+Givet en matrix X (n observationer × p variable), så er dens SVD:
+
+𝑋
+=
+𝑈
+𝐷
+𝑉
+⊤
+X=UDV 
+⊤
+ 
+Hvor:
+
+Symbol	Dimension	Forklaring
+U	n × n	Venstre-singulære vektorer (scores-retning)
+D	n × p (diagonal)	Singularværdier (√egenværdier)
+V	p × p	Højre-singulære vektorer (loadings-retning)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
