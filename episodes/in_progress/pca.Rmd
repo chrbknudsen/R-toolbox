@@ -138,6 +138,107 @@ pca_wine$x %>%
 
 vupti - ret klar adskillelse af de tre cultivarer.
 
+Hvad har modellen gjort? 
+
+algoritmen beregner et nyt koordinatsystem for vinene. Og nye koordinater for
+vinene i dette nye koordinatsystem.
+
+Lad os kigge på den: 
+
+```{r}
+pca_wine %>% names()
+```
+
+Scale og center. 
+
+```{r}
+pca_wine$scale
+```
+
+```{r}
+pca_wine$center
+```
+
+
+dette beskriver hvordan samtlige observationer i datasættet er blevet centreret
+og skaleret. Vi bringer basalt set alle vores variable på en form hvor deres
+middelværdi er 0, og deres standardafvigelse er 1. Center matcher middelværdien
+for hver variabel. Når vi trækker den fra samtlige observationer, bliver middel
+værdien af de nye værdier 0. Tilsvarende med scale. Her dividerer vi med
+værdien i scale. 
+
+
+
+
+```{r}
+pca_wine$sdev
+```
+
+Så er der rotation. Det er beregningen af det nye koordinatsystem:
+
+```{r}
+pca_wine$rotation
+```
+PC1, er den første af 13 akser i det nye koordinatsystem. Den er en lineær kombination
+af de oprindelige 13 akser. 
+
+```{r}
+pca_wine$center
+```
+
+```{r}
+summary(wine)
+```
+
+
+```{r}
+pca_wine$scale
+```
+Og så er der sdev
+```{r}
+pca_wine$sdev
+```
+Det er standardafvigelserne for de enkelte principale komponenter.  Det kan vi
+tolke som den del af variationen i datasættet, der forklares af hver af komponenterne.
+
+
+
+Vi skal gerne kunne tage en ny måling, og placere den korrekt baseret på
+data. 
+
+Jeg kan forstå at den skalerer - for vi har jo sat scale. = TRUE. hvorfor?
+
+Vi har en helt konkret udfordring. En af variablene har en middelværdi på 746.
+En anden har 0.3619. En relativ ændring på 5% på den ene svarer til 37. Og på den anden 0.018095. Ret små variationer
+i den første, der måske er helt ubetydelige for at 
+afgøre hvad der er hvad, overdøver ret store ændringer på
+den anden. Derfor skalarer og centrerer vi.
+
+Skal man altid det? Ja. Og nej.
+Centrering skal man stort set altid. Derfor er 
+center = TRUE default. Her behøver vi sjældet at tænke
+over det. Det er nu en god ide at gøre det alligevel.
+Skalering derimod - afhænger af situationen. Derfor 
+er scale. = FALSE default. Her skal vi huske at tænke os 
+om.
+
+Centrering - Hvis ikke vi centrerer vores data omkring 0,
+vil den første pc pege mod gennemsnittet. Og det giver sjældent mening.
+Skalering er vigtig når variablene har forskellig størrelsesorden. Eller er i forskellige enheder. Her har vi
+begge dele.
+Hvis alle variable er i samme enhed og størrelsesorden,
+behøver vi ikke skalere. På den anden side skader det ikke
+at gøre det, og vi sparer ikke nogen nævneværdig tid ved
+at gøre det selvom det er overflødigt.
+
+Men hvis vi ønsker at resultatet skal afspejle den absolutte
+varians, ikke den relative, kan vi vælge ikke at skalere.
+Og i en del fag, økonomi, teknik og geologi, er den 
+høje varians faktisk vigtig. Og derfor kan vi vælge ikke at 
+skalere.
+
+Kan vi klassificere? Jep. Men det gør vi ved at køre en klassifikationsalgo på 
+resultaterne af pca'en.
 
 ## Hvad ligger der ellers i modellen?
 
@@ -170,6 +271,64 @@ pca_penguins$rotation
 ```{r}
 
 ```
+
+
+::::spoiler
+## What does scaling and centering look like?
+
+We can scale or not. And we can center. Or not. The four combinations in the
+example with data on wine looks like this:
+
+```{r echo = FALSE}
+pca_ct_st <- prcomp(wine_to_pca, center = TRUE, scale. = TRUE)$x %>% 
+  as_tibble() %>% 
+  mutate(cultivar = cultivars$X1)
+pca_ct_sf <- prcomp(wine_to_pca, center = TRUE, scale. = FALSE)$x %>% 
+  as_tibble() %>% 
+  mutate(cultivar = cultivars$X1)
+pca_cf_st <- prcomp(wine_to_pca, center = FALSE, scale. = TRUE)$x %>% 
+  as_tibble() %>% 
+  mutate(cultivar = cultivars$X1)
+pca_cf_sf <- prcomp(wine_to_pca, center = FALSE, scale. = FALSE)$x %>% 
+  as_tibble() %>% 
+  mutate(cultivar = cultivars$X1)
+
+ct_st <- pca_ct_st %>% 
+  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+  geom_point() +
+  ggtitle("Both centering and scaling") +
+  theme(legend.position = "none")
+
+ct_sf <- pca_ct_sf %>% 
+  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+  geom_point() +
+  ggtitle("Centering, no scaling") +
+  theme(legend.position = "none")
+
+cf_st <- pca_cf_st %>% 
+  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+  geom_point() +
+  ggtitle("Scaling, no centering") +
+  theme(legend.position = "none")
+
+cf_sf <- pca_cf_sf %>% 
+  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+  geom_point() +
+  ggtitle("Neither scaling, nor centering") +
+  theme(legend.position = "none")
+
+ct_st + ct_sf + cf_st + cf_sf
+
+```
+
+In this case, it is clear that we should both scale and center our data
+to get the best separation between the three cultivars
+::::
+
+
+%>% 
+  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+  geom_point()
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
