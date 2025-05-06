@@ -24,25 +24,44 @@ reducing it to fewer variables while keeping important information: "Dimension r
 
 Imagine a table with 100 columns (variables or features). A lot of them might
 be correlated, noisy or redundant. Instead of working with all 100 features, we
-might be able to identify or summarise the imparton structure or information
+might be able to identify or summarise the important structure or information
 of the data, using only 5 or 6 features (or variables)
 
 We could pick out the most important variables and use only those to describe the
 data. This is more or less what we do when we make a multiple linear regression:
 We try to explain the variability in the data, using a selection of a few variables.
-But we might need a lot of variables to explain variability enough. Any two variables
-might not be able to explain more than 10% of the variability.
+But we might need a lot of variables to explain enough of the variability. Any two
+variables might not be able to explain more than 10% of the variability.
 
-An alternative approach could be to construct new variables by combining the 
-original ones. Done right, it might be possible to construct 5 or 6 new
-features that describe a lot of the variance.
+It would be nice if by combining them in a clever way, we could construct new
+variables that explain more of the data.
 
-This is what Principal Component Analysis does. It constructs, algorithmically
+## Principal Component Analysis
+
+One of the ways we can do that is by Principal Component Analysis, or PCA
+
+It constructs, algorithmically
 (or automatically) a set of new variables. It is not able to explain more
-of the variance than the original 100 variables. But it migh be able to 
+of the variance than the original 100 variables. But it might be able to 
 construct one new variable that explains 60% of the variability, and another,
 second one, that explain 25%. Those two new features alone would then
 explain a total of 85% of the variability of the data. 
+
+It does this by taking the existing coordinate system, where each axis corresponds
+to one variable, and making a new coordinate system, whre the variability of the
+data is better explained.
+
+Imagine a friendly blue whale, oriented like this in the coordinate system:
+
+![](../fig/horst_pca_1.jpg)
+How would you rotate the whale for it to be able to catch as much krill as 
+possible, if the krill is scattered like this?
+
+![](../fig/horst_pca_2.jpg)
+
+Yep, you would rotate the whale 45 degrees. This is what we do when we run a 
+principal component analysis. We rotate the coordinate system in order to
+catch as much variability as possible.
 
 
 ```{r, include = FALSE}
@@ -52,40 +71,56 @@ library(ggExtra)
 library(patchwork)
 ```
 
-# Principal Component Analysis
-
-There exist quite a few different methods for doing dimension reduction. One
-of the more popular is Principal Component Analysis - or PCA.
-
-PCA is a method for reducing dimensions of a dataset. 
-
+# Doing it
 
 Let us look at some data, in this case wine. 
 
-VI SKAL NOK HAVE ET DOWNLOAD EKSEMPEL
+Begin by downloading the wine dataset from the "data sets" menu under "More" on this website.
+Or do it with code like this:
 
-```{r}
+```{r data_download, eval = FALSE}
+download.file("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/wine.data",
+               destfile = "data/wine.data")
+```
+
+And then read it in:
+
+```{r reading_wine_dont_run, eval = FALSE}
+wine <- read_csv("data/wine.data", col_names = FALSE)
+```
+
+
+```{r reading_wine_dont_show, echo = FALSE, message = FALSE}
 wine <- read_csv("../data/wine.data", col_names = FALSE)
 ```
+
+The data looks like this:
+
+```{r}
+head(wine)
+```
+In the [metadata description](https://kubdatalab.github.io/R-toolbox/data.html#wine)
+we can see what kind of measurement each variable contains.
+
+Three different "cultivars", basically types of grapes, have been examined. We 
+can note that the units of the variables differ widely, and that the values are 
+also quite different, as shown by the mean of the values for each cultivar:
 
 ```{r}
 wine %>% group_by(X1) %>% 
   summarise(across(X2:X14, mean))
 ```
 
+We have 13 dimensions, and our thesis is, that by
+measuring these values, we should be able to diffentiate between the three
+cultivars. 
 
+Making density plots of all the dimensions, we can observe that there are 
+differences. If the variable X13 is low, it is probably cultivar 3. But we 
+are not able to use any of the variables to conclusively differentiate between
+them. But we still believe that the aggregate variability in all the variables
+together will be able to discriminate between them.
 
-
-In the description we can read about what the individual values are. But the 
-thesis is, that really matters is note the concentration of one chemical component.
-But rather the "cultivar", the type of grape used for making the wine.
-
-
-Vi laver density plots på dem alle. Så. Hvor hyppige er en given 
-observation i hver af de tre cultivarer? Der er da variable, hvor
-vi kan se at lave værdier hyppigt optræder for en bestemt cultivar,
-og høje for en anden. Men overlappet er ret stort for alle 
-variable.
 ```{r}
 wine %>% 
   pivot_longer(cols = X2:X14) %>% 
@@ -95,182 +130,159 @@ wine %>%
   facet_wrap(~name, scales = "free")
 ```
 
+So we will construct a new coordinate system, based on the original 
+coordinates/features/variables, that better catch the variablity.
 
-ideen er at vi prøver at konstruere nye variable som kombinationer 
-af de oprindelige. Og ser om vi kan skille cultivarerne baseret på 
-dem i stedet.
-
-
-
-Lad os prøve at gøre det. Og lad os pille cultivarerne ud først
+This is machinelearning, and we would like to make sure that the machine does
+not have acccess to the cheatsheet. In order to avoid this, we extract the 
+column containing the correct answer, X1, where we have information about the
+cultivars.
 
 ```{r}
-cultivars <- wine %>% select(X1)
+cultivars <- wine %>% pull(X1)
 ```
 
+Next we prepare the data, by removing X1:
 
 ```{r}
 wine_to_pca <- wine %>% select(-X1)
 ```
 
-Vi har nu data uden facit. Og vi har facitlisten. Vi antager at den 
-variation der er i data kan forklare cultivarerne.
 
-PCA'en køres med funktionen promp.
-
-
+We are now ready to run the PCA, using the `prcomp()` function:
 
 ```{r run-pca, echo  =F}
 pca_wine <- prcomp(wine_to_pca, scale. = TRUE)
 ```
 
-Og så kan vi plotte det. Vi får en del med i modellen, men lad os starte
-med at se på de principiale komponenter. De ligger i pca_penguins$x.
-Vi tilføjer oplysninger om pingvin-arten, og farvelægger efter netop den:
+The new coordinates of the data is stored in the `pca_wine` object, more 
+precisely in `pca_wine$x`. We can plot that, and color the points using
+the correct results we extracted earlier:
+
+
 ```{r pca-plot}
 pca_wine$x %>% 
   as_tibble() %>% 
-  mutate(cultivar = cultivars$X1) %>% 
-  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+  ggplot(aes(PC1, PC2, colour = factor(cultivars))) + 
   geom_point()
 
 ```
 
-vupti - ret klar adskillelse af de tre cultivarer.
+This give a not complete, but still pretty good, separation of the three
+cultivars.
 
-Hvad har modellen gjort? 
+## What did the function return?
 
-algoritmen beregner et nyt koordinatsystem for vinene. Og nye koordinater for
-vinene i dette nye koordinatsystem.
-
-Lad os kigge på den: 
+We made a plot of the `x` component of the result. What else is in there?
 
 ```{r}
 pca_wine %>% names()
 ```
 
-Scale og center. 
+Let us look at each of them. First "x"
 
 ```{r}
-pca_wine$scale
+pca_wine$x %>% head()
 ```
+This is the coordinates in the new coordinate system. The plot was made using
+only the first two of the new features/variables/dimensions, and we do that firstly
+because we have trouble plotting more than two dimensions, but also because the
+function organises the new features, or Principal Components, in a specific
+order. `PC1` is the component that explains the most variability in the
+original data. `PC2` is the component explaining the second most. Therefore 
+these two dimensions are the most important, as they explain more than the
+others.
+
+### Scale og center
 
 ```{r}
 pca_wine$center
 ```
 
+```{r}
+pca_wine$scale
+```
 
-dette beskriver hvordan samtlige observationer i datasættet er blevet centreret
-og skaleret. Vi bringer basalt set alle vores variable på en form hvor deres
-middelværdi er 0, og deres standardafvigelse er 1. Center matcher middelværdien
-for hver variabel. Når vi trækker den fra samtlige observationer, bliver middel
-værdien af de nye værdier 0. Tilsvarende med scale. Her dividerer vi med
-værdien i scale. 
+These two components describes how our data was scaled and centered. All the 
+observations in the X2 variable have had 13.0006180 subtracted, and been divided
+by 0.8118265. The result is that X2 after this procedure have a mean of 0, and 
+a standard deviation of 1, which makes the math easier to both do and interpret.
 
+We will return to that in details later.
 
+### sdev
+
+This describes how large the standard deviation of the principal components is.
 
 
 ```{r}
 pca_wine$sdev
 ```
 
-Så er der rotation. Det er beregningen af det nye koordinatsystem:
+This is a measure of how much of the overall variability of the data has been
+captured by each component. Note that the first component is the largest.
+
+## Rotation
+
+The rotation of the model describes how the principal components have been 
+constructed, how the original dimensions/variables/features, have been 
+"rotated" in order to construct the principal components:
 
 ```{r}
 pca_wine$rotation
 ```
-PC1, er den første af 13 akser i det nye koordinatsystem. Den er en lineær kombination
-af de oprindelige 13 akser. 
+For a given observation in the data, knowing the values of its X2 to X14 
+variables (after centering and scaling), we can calculate the value of the
+first principal component using_
+PC1 = -0.144329395*X2 + 0.245187580*X3 + 0.002051061*X4 + 0.239320405*X5 - 0.141992042*X6 - 0.394660845*X7 - 0.422934297*X8 + 
+0.298533103*X9 -0.313429488*X10 + 0.088616705*X11 - 0.296714564*X12 
+ - 0.376167411*X13 - 0.286752227*X14 
 
-```{r}
-pca_wine$center
-```
+## I thought we wanted to reduce the dimensions?
 
-```{r}
-summary(wine)
-```
+And yet we still have 13 variables/dimensions/components/features?
 
-
-```{r}
-pca_wine$scale
-```
-Og så er der sdev
-```{r}
-pca_wine$sdev
-```
-Det er standardafvigelserne for de enkelte principale komponenter.  Det kan vi
-tolke som den del af variationen i datasættet, der forklares af hver af komponenterne.
+Yes. `prcomp` returns 13 principal components, which is not a reduction in
+dimensions. But we are able to separate the cultivars using only two, 
+perhaps three principal components. And 3 is smaller than 13.
 
 
+## Scaling and centering
 
-Vi skal gerne kunne tage en ny måling, og placere den korrekt baseret på
-data. 
+Note that we set the argument `scale. = TRUE` in `prcomp()`. This will scale
+the data before doing the actual PCA. Why do we do that?
 
-Jeg kan forstå at den skalerer - for vi har jo sat scale. = TRUE. hvorfor?
+Remember the means we calculated earlier. One of the varibles had a mean of
+746, and the variable with the smallest mean was X9 with a mean of 0.3619.
 
-Vi har en helt konkret udfordring. En af variablene har en middelværdi på 746.
-En anden har 0.3619. En relativ ændring på 5% på den ene svarer til 37. Og på den anden 0.018095. Ret små variationer
-i den første, der måske er helt ubetydelige for at 
-afgøre hvad der er hvad, overdøver ret store ændringer på
-den anden. Derfor skalarer og centrerer vi.
+A relative change of 5% in X14 will be 37, and in X9 0.0181. If the variables 
+are not scaled, the variables with the larger values, will completely dominate 
+the result.
 
-Skal man altid det? Ja. Og nej.
-Centrering skal man stort set altid. Derfor er 
-center = TRUE default. Her behøver vi sjældet at tænke
-over det. Det er nu en god ide at gøre det alligevel.
-Skalering derimod - afhænger af situationen. Derfor 
-er scale. = FALSE default. Her skal vi huske at tænke os 
-om.
+Must we always scale the variables? Yes, and no. As a general rule of thumb,
+if the variables have different orders of magnitude, or are measured in
+different units, we should (probably) scale the date. But for some applications,
+especially in economics and in the technical or geophysical sciences, the 
+high variance is actually important, and we might prefer not to scale the data.
 
-Centrering - Hvis ikke vi centrerer vores data omkring 0,
-vil den første pc pege mod gennemsnittet. Og det giver sjældent mening.
-Skalering er vigtig når variablene har forskellig størrelsesorden. Eller er i forskellige enheder. Her har vi
-begge dele.
-Hvis alle variable er i samme enhed og størrelsesorden,
-behøver vi ikke skalere. På den anden side skader det ikke
-at gøre det, og vi sparer ikke nogen nævneværdig tid ved
-at gøre det selvom det er overflødigt.
+It depends.
 
-Men hvis vi ønsker at resultatet skal afspejle den absolutte
-varians, ikke den relative, kan vi vælge ikke at skalere.
-Og i en del fag, økonomi, teknik og geologi, er den 
-høje varians faktisk vigtig. Og derfor kan vi vælge ikke at 
-skalere.
+Looking at the help for `prcomp` we find that we can also change the default
+value of `center´ to FALSE. By default the data is always centeret, and for all
+practical purposes we have to do that. If we set `center = FALSE`, the first
+principal component will primarily point in the direction of the mean of the
+individual original variables, witch is not very informative. 
 
-Kan vi klassificere? Jep. Men det gør vi ved at køre en klassifikationsalgo på 
+
+## Can we use this to classify the data?
+
+Jep. Men det gør vi ved at køre en klassifikationsalgo på 
 resultaterne af pca'en.
 
-## Hvad ligger der ellers i modellen?
+## predicting the location of a new datapoint
 
-PCA-modellen for pingvinerne hedder pca_penguins. 
+Or many
 
-Den indeholder flere ting. I x ligger de nye værdier for alle 
-pingvinerne i de nye dimensioner, kaldet Principiale Komponenter:
-```{r}
-pca_penguins$x %>% head()
-```
-
-
-Hvad havde den første pingvin af data?
-```{r}
-data_penguins %>% slice(1)
-```
-
-Og hvor blev den placeret i de nye koordinater?
-```{r}
-pca_penguins$x[1,]
-```
-Hvordan fandt vi dem?
-```{r}
-pca_penguins$rotation
-```
-
-```{r}
-(43.99279-39.1)* 0.4537532 - (17.16486-18.7)*0.3990472 + (200.96697-181)*0.5768250+ (4207.05706-3750)*0.5496747
-```
-```{r}
-
-```
 
 
 ::::spoiler
@@ -325,11 +337,70 @@ In this case, it is clear that we should both scale and center our data
 to get the best separation between the three cultivars
 ::::
 
+## How can we visualise this?
 
-%>% 
-  ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
+We already have - All data according to the first two principal components
+
+But if we want PC3 vs PC4, that is straight forward:
+
+```{r}
+pca_wine$x %>% 
+  as_tibble() %>% 
+  ggplot(aes(PC3, PC4, colour = factor(cultivars))) + 
   geom_point()
+```
 
+What else
+
+We had sdev describing the standard deviation of the individual components,
+which describe the amount of the variance in the data explained.
+
+jeg skal nok have en ide om sammenhængen mellem egenværdier og sdev.
+
+```{r}
+eigen_values <- pca_wine$sdev^2
+
+plot(eigen_values, type = "b")
+```
+
+Og procentdelen af varians forklaret
+
+```{r}
+plot(eigen_values/sum(eigen_values), type = "b",
+     xlab = "Principal Component",
+     ylab = "Percentage of Variance Explained")
+abline(v = 2, col = "red")
+```
+Og hvordan finder man så den optimale elbow.
+
+ggbiplot - og hvad den viser
+
+## Assumptions and prerequisites
+
+There are some prerequisites that have to be fulfilled in order to 
+be able to run a PCA.
+1. All variables have to be numerical, and continous
+2. Linearity - PCA assumes linear relations between the varibles. It is a linear
+method, as indicated by the fact that the principal components are found as linear combinations of the variables.
+3. No (strong) multicoliniarity. Any variables that are very strongly correlated, or
+(almost) equal, they should be excluded.
+4. Adequate variance in the data. If data is almost constant, or if there
+are too few observations relative to the number of variables, we cannot expect
+PCA to work well.
+
+Recommendations
+
+* The number of observations have to be larger than the number of variables. 
+Preferably much larger. 
+* If possible work on normally distributed data. This is not a requirement, but
+recommended. 
+* Consider identifying and removing outliers, as PCA is sensitive to outliers.
+
+## Alternatives
+
+Linear discriminant analysis
+random forest
+t-sne
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
