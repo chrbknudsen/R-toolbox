@@ -294,16 +294,16 @@ example with data on wine looks like this:
 ```{r echo = FALSE}
 pca_ct_st <- prcomp(wine_to_pca, center = TRUE, scale. = TRUE)$x %>% 
   as_tibble() %>% 
-  mutate(cultivar = cultivars$X1)
+  mutate(cultivar = cultivars)
 pca_ct_sf <- prcomp(wine_to_pca, center = TRUE, scale. = FALSE)$x %>% 
   as_tibble() %>% 
-  mutate(cultivar = cultivars$X1)
+  mutate(cultivar = cultivars)
 pca_cf_st <- prcomp(wine_to_pca, center = FALSE, scale. = TRUE)$x %>% 
   as_tibble() %>% 
-  mutate(cultivar = cultivars$X1)
+  mutate(cultivar = cultivars)
 pca_cf_sf <- prcomp(wine_to_pca, center = FALSE, scale. = FALSE)$x %>% 
   as_tibble() %>% 
-  mutate(cultivar = cultivars$X1)
+  mutate(cultivar = cultivars)
 
 ct_st <- pca_ct_st %>% 
   ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
@@ -350,20 +350,23 @@ pca_wine$x %>%
   geom_point()
 ```
 
-What else
+Most of the variation has been captured by the first two principal components,
+so it is not surprising that there is no apparent patterns in the third and
+fourth.
 
 We had sdev describing the standard deviation of the individual components,
-which describe the amount of the variance in the data explained.
+which describe the amount of the variance in the data explained. A more
+intuitive value is the variance, which we find by squareing the standard deviation.
 
-jeg skal nok have en ide om sammenhængen mellem egenværdier og sdev.
+This is the same as the eigenvalues in the covariance matrix of the data:
 
 ```{r}
 eigen_values <- pca_wine$sdev^2
-
-plot(eigen_values, type = "b")
 ```
 
-Og procentdelen af varians forklaret
+If we divide each eigen_value with the sum of them all, we get the percentage
+of the total variance in the data that each principal component explains, and
+we can plot that:
 
 ```{r}
 plot(eigen_values/sum(eigen_values), type = "b",
@@ -371,7 +374,17 @@ plot(eigen_values/sum(eigen_values), type = "b",
      ylab = "Percentage of Variance Explained")
 abline(v = 2, col = "red")
 ```
-Og hvordan finder man så den optimale elbow. det er der metoder til.
+
+This gives us an indication of how many principal components we need to explain
+the variance of the data. Using all of them we can of course explain everything,
+but we would like to only include enough - the goal was afterall to reduce the
+dimensions. 
+
+What we are looking for is the "elbow" of this socalled "scree" plot. The point
+where the curve changes, and where adding an extra principal component does not
+provide a significant improvement to the model.
+
+There are several ways of locating the elbow. 
 
 ggbiplot - og hvad den viser
 
@@ -402,7 +415,7 @@ Linear discriminant analysis
 random forest
 t-sne
 
-
+summary(pca_wine)
 
 rotationen er hvad den er. De enkelte værdier kalder vi loadings.
 
@@ -432,6 +445,25 @@ Symbol	Dimension	Forklaring
 U	n × n	Venstre-singulære vektorer (scores-retning)
 D	n × p (diagonal)	Singularværdier (√egenværdier)
 V	p × p	Højre-singulære vektorer (loadings-retning)
+
+
+```{r 3dtest}
+library(plotly)
+first3 <- data.frame(pca_wine$x[,1:3], cultivar = cultivars)
+
+plot_ly(data = first3,
+        x = ~PC1,
+        y = ~PC2,
+        z = ~PC3,
+        type = "scatter3d",
+        mode = "markers",
+        color = ~cultivar) 
+
+```
+
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
