@@ -120,6 +120,16 @@ Changes made on your new page are similarly not affecting R-toolbox.
 
 There are a lot of useful information on https://carpentries.github.io/sandpaper-docs
 
+## Updating
+
+You have a course based on this. Time have passed and there is an update here,
+that you would like to incorporate in your course. 
+
+The easiest way to update is to simply copy the relevant episode from here, to
+your own local repo. Then commit, push etc.
+
+Remember that any changes you have made will be gone!
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - It is fairly easy to make a new course page
