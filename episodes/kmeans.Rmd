@@ -237,7 +237,11 @@ two features/dimensions: Plot them on a piece of paper, and bring out the ruler.
 
 But what is the distance between this point:
 
-`r vin[1,]` and `r vin[2,]`?
+`r vin[1,]` 
+
+and this one:
+
+`r vin[2,]`?
 
 Rather than plotting and measuring, if we only have two observations with two 
 features, and we call the the observations $(x_1, y_1)$ and $(x_2,y_2)$ 
@@ -329,7 +333,7 @@ or lesss evenly spread around it.
 
 The algorithm _will_ find two clusters:
 
-```{r}
+```{r message = FALSE}
 library(tidymodels)
 kmeans_model3 <- kmeans(test_data[,-3], 2)
 cluster3 <- augment(kmeans_model3, test_data[,-3])
