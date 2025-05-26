@@ -32,7 +32,7 @@ Den skal nok deles op. Og overskriftshierarkierne er et bud på hvordan.
 ## Enkeltprøve-tests
 
 ### One-sample chi-square test
-
+EJ KORREKTURLÆST
 #### Used for
 Testing whether observed categorical frequencies differ from expected frequencies under a specified distribution.
 
@@ -227,7 +227,7 @@ from populations with the same variance.
 ### Intraclass Correlation Coefficient (ICC)
 
 ### Bland–Altman analysis
-
+EJ KORREKTURLÆST
 #### Used for
 Assessing agreement between two quantitative measurement methods by examining the mean difference (bias) and the limits of agreement.
 
