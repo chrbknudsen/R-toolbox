@@ -14,6 +14,7 @@ authors:
   - given-names: Ene Rammer
     family-names: Nielsen
     email: enrn@kb.dk
+    orcid: 'https://orcid.org/0000-0001-6220-3709'
 repository-code: 'https://github.com/KUBDatalab/R-toolbox'
 url: 'https://kubdatalab.github.io/R-toolbox/'
 abstract: >-
