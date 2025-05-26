@@ -226,33 +226,77 @@ from populations with the same variance.
 
 ### Intraclass Correlation Coefficient (ICC)
 
-### Bland–Altman analyse
+### Bland–Altman analysis
 
-
-# PROMPTEN
-prompt: 
-Jeg skal nu have lavet demoer af statistiske tests. Giv mig i det følgende Rmarkdown formatterede eksempler på en statistisk test. Formen skal være :
 #### Used for
+Assessing agreement between two quantitative measurement methods by examining the mean difference (bias) and the limits of agreement.
 
 #### Assumptions
+- Paired measurements on the same subjects.  
+- Differences (method A – method B) are approximately normally distributed.  
+- No strong relationship between the magnitude of the measurement and the difference (homoscedasticity).
 
 #### Strengths
+- Provides both a visual (Bland–Altman plot) and numerical summary (bias and limits) of agreement.  
+- Easy to interpret clinically: shows how far apart two methods can differ for most observations.  
+- Does not rely on correlation, which can be misleading for agreement.
 
 #### Weaknesses
+- Assumes constant bias across range of measurements.  
+- Sensitive to outliers, which can widen limits of agreement.  
+- Requires adequate sample size (n ≥ 30 preferred) to estimate limits reliably.
 
 #### Example
 
 ##### Hypothesis
+- **Null hypothesis (H₀):** Mean difference between methods A and B is zero (no systematic bias).  
+- **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
 
-Bemækr at vi under example skal have et underpunkt der specificerer hvilken hypotese det er vi opstiller. Eksemplet skal også indeholde en tolkning af resultatet - med udgangspunkt i hypotesen.
+```{r bland_altman}
+# Simulated paired measurements on 12 subjects:
+methodA <- c(100.5, 102.3,  99.7, 101.2, 100.9,  98.4, 102.0, 101.5, 100.2,  99.9, 101.8, 100.7)
+methodB <- c(100.8, 102.0,  99.9, 101.5, 100.6,  98.7, 102.2, 101.3, 100.4, 100.1, 101.6, 100.9)
 
-Når jeg giver dig navnet på testen, svarer du med Rmarkdown formatteret output. R-koden skal pakkes ind i 
-{r navn}
+# Compute differences and means:
+diffs <- methodA - methodB
+means <- (methodA + methodB) / 2
 
-Hvor "navn" er R-chunkens navn der matcher den statistiske test. 
-Alt på engelsk.
+# Calculate bias and limits of agreement:
+bias <- mean(diffs)
+sd_diff <- sd(diffs)
+loa_upper <- bias + 1.96 * sd_diff
+loa_lower <- bias - 1.96 * sd_diff
 
-Forstået?
+# Perform t-test on differences:
+t_result <- t.test(diffs, mu = 0)
+
+# Create Bland–Altman plot:
+library(ggplot2)
+ba_data <- data.frame(mean = means, diff = diffs)
+ggplot(ba_data, aes(x = mean, y = diff)) +
+  geom_point() +
+  geom_hline(yintercept = bias,       linetype = "solid") +
+  geom_hline(yintercept = loa_upper,  linetype = "dashed") +
+  geom_hline(yintercept = loa_lower,  linetype = "dashed") +
+  labs(
+    title = "Bland–Altman Plot",
+    x     = "Mean of Method A and B",
+    y     = "Difference (A – B)"
+  )
+
+# Print numerical results:
+bias; loa_lower; loa_upper; t_result
+```
+
+The mean difference (bias) is `r round(bias, 2)` units, with 95% limits of 
+agreement from `r round(loa_lower, 2)` to `r round(loa_upper, 2)` units. 
+The t-test for zero bias yields a p-value of `r signif(t_result$p.value, 3)`, so we
+`r if(t_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis".`
+This indicates that there is
+`r if(t_result$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
