@@ -17,12 +17,66 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+for dem alle følger vi metoden
+
+1. Formulate hypotheses, 
+2. Calculate test statistic, 
+3. Determine p-value, 
+4. Make decision
+
+
 Den skal nok deles op. Og overskriftshierarkierne er et bud på hvordan.
+
 
 
 ## Enkeltprøve-tests
 
 ### One-sample chi-square test
+
+#### Used for
+Testing whether observed categorical frequencies differ from expected frequencies under a specified distribution.
+
+#### Assumptions
+- Observations are independent.  
+- Categories are mutually exclusive and collectively exhaustive.  
+- Expected count in each category is at least 5 (for the chi-square approximation to be valid).
+
+#### Strengths
+- Simple to compute and interpret.  
+- Does not require the data to be normally distributed.  
+- Applicable to any number of categories.
+
+#### Weaknesses
+- Sensitive to small expected counts (violates asymptotic approximation).  
+- Does not indicate which categories contribute most to the discrepancy without further investigation.  
+- Requires independence; cannot be used for paired or repeated measures.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The proportions of outcomes equal the specified distribution.  
+- **Alternative hypothesis (H₁):** At least one category’s proportion differs from the specified distribution.
+
+```{r one_sample_chi_square_test}
+# Observed counts of die rolls in 60 trials:
+observed <- c(8, 12, 9, 11, 10, 10)
+
+# Expected probabilities for a fair die:
+p_expected <- rep(1/6, 6)
+
+# Perform one-sample chi-square goodness-of-fit test:
+test_result <- chisq.test(x = observed, p = p_expected)
+
+# Show results:
+test_result
+```
+
+Interpretation:
+With a χ² statistic of `r round(test_result$statistic, 2) and a p-value of r signif(test_result$p.value, 3)`, we
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means that, given our data, there is
+`r if(test_result$p.value < 0.05) "evidence that the die is not fair." else "no evidence to conclude the die is unfair."`
+
 
 ### One-sample z test
 
@@ -175,6 +229,31 @@ from populations with the same variance.
 ### Bland–Altman analyse
 
 
+# PROMPTEN
+prompt: 
+Jeg skal nu have lavet demoer af statistiske tests. Giv mig i det følgende Rmarkdown formatterede eksempler på en statistisk test. Formen skal være :
+#### Used for
+
+#### Assumptions
+
+#### Strengths
+
+#### Weaknesses
+
+#### Example
+
+##### Hypothesis
+
+Bemækr at vi under example skal have et underpunkt der specificerer hvilken hypotese det er vi opstiller. Eksemplet skal også indeholde en tolkning af resultatet - med udgangspunkt i hypotesen.
+
+Når jeg giver dig navnet på testen, svarer du med Rmarkdown formatteret output. R-koden skal pakkes ind i 
+{r navn}
+
+Hvor "navn" er R-chunkens navn der matcher den statistiske test. 
+Alt på engelsk.
+
+Forstået?
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
@@ -183,4 +262,6 @@ from populations with the same variance.
 - Run `sandpaper::build_lesson()` to preview your lesson locally
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
