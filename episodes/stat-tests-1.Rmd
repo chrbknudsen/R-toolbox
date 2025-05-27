@@ -94,6 +94,7 @@ Thus, there is
 EJ KORREKTURLÆST!
 
 #### Used for
+
 - Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
 - **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known.
 
@@ -109,7 +110,7 @@ EJ KORREKTURLÆST!
 - Relies on the normal distribution, which is well understood.
 
 #### Weaknesses
-- Rarely is the true population σ known in practice.  
+- The true population σ is only very rarely known in practice.  
 - Sensitive to departures from normality for small samples.  
 - Misspecification of σ leads to incorrect inferences.
 
