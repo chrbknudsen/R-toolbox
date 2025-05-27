@@ -52,7 +52,7 @@ in a variety of versions. And it happens in an environment on the computer that
 might not be identical from day to day.
 
 One example of these problems is shown every time we load tidyverse:
-![Tidyverse conflicts](fig/tidyverse_conflicts.png)
+![Tidyverse conflicts](fig/tidyverse_conflicts.png){alt="Screenshot of messages from attaching core tidyverse packages including conflicts"}
 
 This message informs us that there is a `filter()` function in the `stats` 
 packages which is part of the core R-installation. That function is masked by the
@@ -64,7 +64,7 @@ If our analysis relies on the way the `filter()` function works in the
 We might also have data stored in memory. Every time we close RStudio, we are 
 asked if we want to save the environment:
 
-![Should we save the environment? No!](fig/save_environment.png)
+![Should we save the environment? No!](fig/save_environment.png){alt="Screenshot of dialog box from RStudio asking about saving workspace image"}
 
 This will save all the objects we have in our environment, in order for RStudio
 to be able to load them into memory when we open RStudio again.
@@ -104,7 +104,7 @@ deleting irrelevant observations.
 
 ## The solution to all of this!
 
-![The Rmarkdown family. Artwork by @allison_horst, https://twitter.com/allison_horst, CC-BY](fig/horstmarkdown.png)
+![The Rmarkdown family. Artwork by @allison_horst, https://twitter.com/allison_horst, CC-BY](fig/horstmarkdown.png){alt='A glam rock band comprised of 3 fuzzy round monsters labeled as “Text”, “Outputs” and “Code” performing together. Stylized title text reads: “R Markdown - we’re getting the band back together.'}
 
 
 Working in RMarkdown allows us to collect the text describing our data, what and
@@ -113,7 +113,7 @@ all in one document.
 
 Open a new file, choose RMarkdown, and give your document a name:
 
-![An RMarkdown document](fig/rmarkdown.png)
+![An RMarkdown document](fig/rmarkdown.png){alt='Screenshot of initial demo Rmarkdown document in RStudio'}
 
 The code chunks, marked here with a light grey background, contains code, 
 in this case not very advanced code. You can run the entire code chunk by 
@@ -125,7 +125,7 @@ our reasons for actually running `summary` on the `cars` dataframe, and describe
 what it contains. 
 
 You will see a new button in RStudio:
-![The Knit button](fig/knitr_button.png)
+![The Knit button](fig/knitr_button.png){alt='Screenshot of the Knit-button in RStudio'}
 
 Clicking this, will "knit" your document; run each chunck of code, add the 
 output to your document, and combine your code, the results and all your explanatory
