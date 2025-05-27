@@ -17,24 +17,35 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-for dem alle følger vi metoden
+:::: instructor
+Den her side er virkelig ikke egnet til undervisningsbrug. Det er oversigten
+med eksempler og ret korte forklaringer.
+Hele siden kan nok med fordel deles ret meget op.
+::::
 
-1. Formulate hypotheses, 
-2. Calculate test statistic, 
-3. Determine p-value, 
+A collection of statistical tests
+
+For all tests, the approach is:
+
+1. Formulate hypotheses
+2. Calculate test statistic
+3. Determine p-value
 4. Make decision
 
-
-Den skal nok deles op. Og overskriftshierarkierne er et bud på hvordan.
 
 
 
 ## Enkeltprøve-tests
 
 ### One-sample chi-square test
+
 EJ KORREKTURLÆST
+
 #### Used for
+
 Testing whether observed categorical frequencies differ from expected frequencies under a specified distribution.
+
+**Real-world example:** Checking if the observed M&M candy color proportions match the manufacturer’s claimed distribution.
 
 #### Assumptions
 - Observations are independent.  
@@ -54,33 +65,139 @@ Testing whether observed categorical frequencies differ from expected frequencie
 #### Example
 
 ##### Hypothesis
-- **Null hypothesis (H₀):** The proportions of outcomes equal the specified distribution.  
-- **Alternative hypothesis (H₁):** At least one category’s proportion differs from the specified distribution.
+- **Null hypothesis (H₀):** The proportions of M&M colors equal the manufacturer’s claimed distribution.  
+- **Alternative hypothesis (H₁):** At least one color’s proportion differs from the claimed distribution.
+
 
 ```{r one_sample_chi_square_test}
-# Observed counts of die rolls in 60 trials:
-observed <- c(8, 12, 9, 11, 10, 10)
+# Observed counts of M&M colors:
+observed <- c(red = 20, blue = 25, green = 15, brown = 18, orange = 12, yellow = 10)
 
-# Expected probabilities for a fair die:
-p_expected <- rep(1/6, 6)
+# Manufacturer's claimed proportions:
+p_expected <- c(red = 0.20, blue = 0.20, green = 0.20, brown = 0.20, orange = 0.10, yellow = 0.10)
 
 # Perform one-sample chi-square goodness-of-fit test:
 test_result <- chisq.test(x = observed, p = p_expected)
 
-# Show results:
+# Display results:
 test_result
 ```
 
 Interpretation:
-With a χ² statistic of `r round(test_result$statistic, 2)` and a p-value of `r signif(test_result$p.value, 3)`, we
+The test yields χ² = `r round(test_result$statistic, 2)` with a p-value = `r signif(test_result$p.value, 3)`. We
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
-This means that, given our data, there is
-`r if(test_result$p.value < 0.05) "evidence that the die is not fair." else "no evidence to conclude the die is unfair."`
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the observed M&M colour proportions differ from the claimed distribution." else "no evidence to conclude a difference from the claimed distribution."`.
 
 
 ### One-sample z test
 
+EJ KORREKTURLÆST!
+
+#### Used for
+
+- Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
+- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known.
+
+#### Assumptions
+- Sample is a simple random sample from the population.  
+- Observations are independent.  
+- Population standard deviation (σ) is known.  
+- The sampling distribution of the mean is approximately normal (either the population is normal or n is large, e.g. ≥ 30).
+
+#### Strengths
+- More powerful than the t-test when σ is truly known.  
+- Simple calculation and interpretation.  
+- Relies on the normal distribution, which is well understood.
+
+#### Weaknesses
+- The true population σ is only very rarely known in practice.  
+- Sensitive to departures from normality for small samples.  
+- Misspecification of σ leads to incorrect inferences.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+- **Alternative hypothesis (H₁):** μ ≠ 5.00 cm.
+
+```{r one_sample_z_test}
+# Sample of diameters (cm) for 25 ball bearings:
+diameters <- c(5.03, 4.97, 5.01, 5.05, 4.99, 5.02, 5.00, 5.04, 4.96, 5.00,
+               5.01, 4.98, 5.02, 5.03, 4.94, 5.00, 5.02, 4.99, 5.01, 5.03,
+               4.98, 5.00, 5.04, 4.97, 5.02)
+
+# Known population standard deviation:
+sigma <- 0.05
+
+# Hypothesized mean:
+mu0 <- 5.00
+
+# Compute test statistic:
+n <- length(diameters)
+xbar <- mean(diameters)
+z_stat <- (xbar - mu0) / (sigma / sqrt(n))
+
+# Two-sided p-value:
+p_value <- 2 * (1 - pnorm(abs(z_stat)))
+
+# Output results:
+z_stat; p_value
+``` 
+
+
+Interpretation:
+The sample mean is `r round(xbar, 3)` cm. The z-statistic is `r round(z_stat, 2)` 
+with a two-sided p-value of `r signif(p_value, 3)`. We
+`r if(p_value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
+
+
 ### One-sample t test
+
+EJ KORREKTURLÆST!
+
+#### Used for
+- Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
+- **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
+
+#### Assumptions
+- Sample is a simple random sample from the population.  
+- Observations are independent.  
+- The data are approximately normally distributed (especially important for small samples; n ≥ 30 reduces sensitivity).
+
+#### Strengths
+- Does not require knowing the population standard deviation.  
+- Robust to mild departures from normality for moderate-to-large sample sizes.  
+- Widely applicable and easily implemented.
+
+#### Weaknesses
+- Sensitive to outliers in small samples.  
+- Performance degrades if normality assumption is seriously violated and n is small.  
+- Degrees of freedom reduce power relative to z-test.
+
+#### Example
+
+##### Hypothesis
+
+- **Null hypothesis (H₀):** The true mean exam score μ = 70.  
+- **Alternative hypothesis (H₁):** μ ≠ 70.
+
+```{r one_sample_t_test}
+# Sample of exam scores for 20 students:
+scores <- c(68, 74, 71, 69, 73, 65, 77, 72, 70, 66,
+            75, 68, 71, 69, 74, 67, 72, 70, 73, 68)
+
+# Hypothesized mean:
+mu0 <- 70
+
+# Perform one-sample t-test:
+test_result <- t.test(x = scores, mu = mu0)
+
+# Display results:
+test_result
+
 
 ### One-sample Poisson test
 
@@ -99,7 +216,13 @@ er det det samme som Two-sample F-test for variance?
 
 We use this when we want to determine if two independent samples originate
 from populations with the same variance.
+```
 
+Interpretation:
+The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two-sided p-value of `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the class’s average score differs from 70." else "no evidence to conclude the average score differs from the passing threshold of 70."`
 
 ### Paired t-test
 
@@ -227,9 +350,16 @@ from populations with the same variance.
 ### Intraclass Correlation Coefficient (ICC)
 
 ### Bland–Altman analysis
+
 EJ KORREKTURLÆST
+
 #### Used for
-Assessing agreement between two quantitative measurement methods by examining the mean difference (bias) and the limits of agreement.
+Assessing agreement between two quantitative measurement methods by examining 
+the mean difference (bias) and the limits of agreement. It tests if any difference
+is constant across the range of measurements, and if there is heteroskedasticity
+in the data (are there differences that are dependent on measurement levels)
+**Real-world example:** Comparing blood pressure readings from a new wrist monitor and a standard sphygmomanometer.
+
 
 #### Assumptions
 - Paired measurements on the same subjects.  
@@ -253,39 +383,37 @@ Assessing agreement between two quantitative measurement methods by examining th
 - **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
 
 ```{r bland_altman}
-# Simulated paired measurements on 12 subjects:
-methodA <- c(100.5, 102.3,  99.7, 101.2, 100.9,  98.4, 102.0, 101.5, 100.2,  99.9, 101.8, 100.7)
-methodB <- c(100.8, 102.0,  99.9, 101.5, 100.6,  98.7, 102.2, 101.3, 100.4, 100.1, 101.6, 100.9)
+# Simulated paired blood pressure measurements (mmHg) on 12 subjects:
+wrist   <- c(120, 122, 118, 121, 119, 117, 123, 120, 118, 119, 122, 121)
+sphyg   <- c(119, 121, 117, 122, 118, 116, 124, 119, 117, 120, 121, 122)
 
 # Compute differences and means:
-diffs <- methodA - methodB
-means <- (methodA + methodB) / 2
+diffs    <- wrist - sphyg
+means    <- (wrist + sphyg) / 2
 
 # Calculate bias and limits of agreement:
-bias <- mean(diffs)
-sd_diff <- sd(diffs)
-loa_upper <- bias + 1.96 * sd_diff
-loa_lower <- bias - 1.96 * sd_diff
+bias     <- mean(diffs)
+sd_diff  <- sd(diffs)
+loa_up   <- bias + 1.96 * sd_diff
+loa_low  <- bias - 1.96 * sd_diff
 
-# Perform t-test on differences:
-t_result <- t.test(diffs, mu = 0)
+# Test for zero bias:
+t_test   <- t.test(diffs, mu = 0)
 
-# Create Bland–Altman plot:
+# Bland–Altman plot:
 library(ggplot2)
-ba_data <- data.frame(mean = means, diff = diffs)
-ggplot(ba_data, aes(x = mean, y = diff)) +
+ba_df <- data.frame(mean = means, diff = diffs)
+ggplot(ba_df, aes(x = mean, y = diff)) +
   geom_point() +
-  geom_hline(yintercept = bias,       linetype = "solid") +
-  geom_hline(yintercept = loa_upper,  linetype = "dashed") +
-  geom_hline(yintercept = loa_lower,  linetype = "dashed") +
-  labs(
-    title = "Bland–Altman Plot",
-    x     = "Mean of Method A and B",
-    y     = "Difference (A – B)"
-  )
+  geom_hline(yintercept = bias,    linetype = "solid") +
+  geom_hline(yintercept = loa_up,   linetype = "dashed") +
+  geom_hline(yintercept = loa_low,  linetype = "dashed") +
+  labs(title = "Bland–Altman Plot",
+       x = "Mean of Wrist & Sphyg Measurements",
+       y = "Difference (Wrist – Sphyg)")
 
 # Print numerical results:
-bias; loa_lower; loa_upper; t_result
+bias; loa_low; loa_up; t_test
 ```
 
 The mean difference (bias) is `r round(bias, 2)` units, with 95% limits of 

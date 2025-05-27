@@ -361,6 +361,8 @@ conclude that it is not.
 
 
 ::: keypoints
--   Use `.md` files for episodes when you want static content
+-   Begin by a visual inspection to assess if data is normally distributed
+-   Use a statistical test to support your conclusion
+-   Do not fret too much about non-normality. It is quite normal.
 
 :::
