@@ -13,7 +13,7 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -208,6 +208,54 @@ Thus, there is
 
 ### One-sample Poisson test
 
+EJ KORREKTURLÆST!
+
+#### Used for
+- Testing whether the observed count of events in a fixed period differs from a hypothesized Poisson rate.  
+- **Real-world example:** Checking if the number of customer arrivals per hour at a call center matches the expected rate of 30 calls/hour.
+
+#### Assumptions
+- Events occur independently.  
+- The rate of occurrence (λ) is constant over the observation period.  
+- The count of events in non-overlapping intervals is independent.
+
+#### Strengths
+- Exact test based on the Poisson distribution (no large-sample approximation needed).  
+- Valid for small counts and rare events.  
+- Simple to implement in R via `poisson.test()`.
+
+#### Weaknesses
+- Sensitive to violations of the Poisson assumptions (e.g., overdispersion or time-varying rate).  
+- Only assesses the overall rate, not the dispersion or clustering of events.  
+- Cannot handle covariates or more complex rate structures.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The event rate λ = 30 calls/hour.  
+- **Alternative hypothesis (H₁):** λ ≠ 30 calls/hour.
+
+```{r one_sample_poisson_test}
+# Observed number of calls in one hour:
+observed_calls <- 36
+
+# Hypothesized rate (calls per hour):
+lambda0 <- 30
+
+# Perform one-sample Poisson test (two-sided):
+test_result <- poisson.test(x = observed_calls, T = 1, r = lambda0, alternative = "two.sided")
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The test reports an observed count of `r test_result$statistic` calls versus an expected 30 calls, yielding a p-value of `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the true call rate differs from 30 calls/hour." else "no evidence to conclude the call rate differs from 30 calls/hour."`
+
+
 ### Shapiro–Wilk test for normalitet
 
 ### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
@@ -223,13 +271,7 @@ er det det samme som Two-sample F-test for variance?
 
 We use this when we want to determine if two independent samples originate
 from populations with the same variance.
-```
 
-Interpretation:
-The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two-sided p-value of `r signif(test_result$p.value, 3)`. We
-`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
-Thus, there is
-`r if(test_result$p.value < 0.05) "evidence that the class’s average score differs from 70." else "no evidence to conclude the average score differs from the passing threshold of 70."`
 
 ### Paired t-test
 
@@ -424,11 +466,11 @@ bias; loa_low; loa_up; t_test
 ```
 
 The mean difference (bias) is `r round(bias, 2)` units, with 95% limits of 
-agreement from `r round(loa_lower, 2)` to `r round(loa_upper, 2)` units. 
-The t-test for zero bias yields a p-value of `r signif(t_result$p.value, 3)`, so we
-`r if(t_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+agreement from `r round(loa_low, 2)` to `r round(loa_up, 2)` units. 
+The t-test for zero bias yields a p-value of `r signif(t_test$p.value, 3)`, so we
+`r if(t_test$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This indicates that there is
-`r if(t_result$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
+`r if(t_test$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
 
 
 
@@ -436,9 +478,7 @@ This indicates that there is
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
