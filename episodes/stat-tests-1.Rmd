@@ -91,6 +91,67 @@ Thus, there is
 
 ### One-sample z test
 
+EJ KORREKTURLÆST!
+
+#### Used for
+- Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
+- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known.
+
+#### Assumptions
+- Sample is a simple random sample from the population.  
+- Observations are independent.  
+- Population standard deviation (σ) is known.  
+- The sampling distribution of the mean is approximately normal (either the population is normal or n is large, e.g. ≥ 30).
+
+#### Strengths
+- More powerful than the t-test when σ is truly known.  
+- Simple calculation and interpretation.  
+- Relies on the normal distribution, which is well understood.
+
+#### Weaknesses
+- Rarely is the true population σ known in practice.  
+- Sensitive to departures from normality for small samples.  
+- Misspecification of σ leads to incorrect inferences.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+- **Alternative hypothesis (H₁):** μ ≠ 5.00 cm.
+
+```{r one_sample_z_test}
+# Sample of diameters (cm) for 25 ball bearings:
+diameters <- c(5.03, 4.97, 5.01, 5.05, 4.99, 5.02, 5.00, 5.04, 4.96, 5.00,
+               5.01, 4.98, 5.02, 5.03, 4.94, 5.00, 5.02, 4.99, 5.01, 5.03,
+               4.98, 5.00, 5.04, 4.97, 5.02)
+
+# Known population standard deviation:
+sigma <- 0.05
+
+# Hypothesized mean:
+mu0 <- 5.00
+
+# Compute test statistic:
+n <- length(diameters)
+xbar <- mean(diameters)
+z_stat <- (xbar - mu0) / (sigma / sqrt(n))
+
+# Two-sided p-value:
+p_value <- 2 * (1 - pnorm(abs(z_stat)))
+
+# Output results:
+z_stat; p_value
+``` 
+
+
+Interpretation:
+The sample mean is `r round(xbar, 3)` cm. The z-statistic is `r round(z_stat, 2)` 
+with a two-sided p-value of `r signif(p_value, 3)`. We
+`r if(p_value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
+
+
 ### One-sample t test
 
 ### One-sample Poisson test
