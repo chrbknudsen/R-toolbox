@@ -72,7 +72,7 @@ test_result
 ```
 
 Interpretation:
-With a χ² statistic of `r round(test_result$statistic, 2) and a p-value of r signif(test_result$p.value, 3)`, we
+With a χ² statistic of `r round(test_result$statistic, 2)` and a p-value of `r signif(test_result$p.value, 3)`, we
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This means that, given our data, there is
 `r if(test_result$p.value < 0.05) "evidence that the die is not fair." else "no evidence to conclude the die is unfair."`
@@ -291,7 +291,7 @@ bias; loa_lower; loa_upper; t_result
 The mean difference (bias) is `r round(bias, 2)` units, with 95% limits of 
 agreement from `r round(loa_lower, 2)` to `r round(loa_upper, 2)` units. 
 The t-test for zero bias yields a p-value of `r signif(t_result$p.value, 3)`, so we
-`r if(t_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis".`
+`r if(t_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This indicates that there is
 `r if(t_result$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
 
