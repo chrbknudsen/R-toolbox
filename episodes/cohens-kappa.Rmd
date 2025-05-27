@@ -297,7 +297,7 @@ look familiar. Thats because it actually is.
 With two raters and two categories, that $\kappa$ statistic is the same. And
 if you want to delve deeper into that, you can look up this paper:
 
-Feingold, Marcia (1992). "The Equivalence of Cohen's Kappa and Pearson's Chi-Square Statistics in the 2 × 2 Table." Educational and Psychological Measurement 52(1): 57-61. <http://hdl.handle.net/2027.42/67443>
+Feingold, Marcia (1992). "The Equivalence of Cohen's Kappa and Pearson's Chi-Square Statistics in the 2 × 2 Table." Educational and Psychological Measurement 52(1): 57-61. <https://hdl.handle.net/2027.42/67443>
 
 
 ::::
