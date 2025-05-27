@@ -38,6 +38,7 @@ For all tests, the approach is:
 ## Enkeltprøve-tests
 
 ### One-sample chi-square test
+
 EJ KORREKTURLÆST
 
 #### Used for
@@ -155,6 +156,49 @@ Thus, there is
 
 ### One-sample t test
 
+EJ KORREKTURLÆST!
+
+#### Used for
+- Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
+- **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
+
+#### Assumptions
+- Sample is a simple random sample from the population.  
+- Observations are independent.  
+- The data are approximately normally distributed (especially important for small samples; n ≥ 30 reduces sensitivity).
+
+#### Strengths
+- Does not require knowing the population standard deviation.  
+- Robust to mild departures from normality for moderate-to-large sample sizes.  
+- Widely applicable and easily implemented.
+
+#### Weaknesses
+- Sensitive to outliers in small samples.  
+- Performance degrades if normality assumption is seriously violated and n is small.  
+- Degrees of freedom reduce power relative to z-test.
+
+#### Example
+
+##### Hypothesis
+
+- **Null hypothesis (H₀):** The true mean exam score μ = 70.  
+- **Alternative hypothesis (H₁):** μ ≠ 70.
+
+```{r one_sample_t_test}
+# Sample of exam scores for 20 students:
+scores <- c(68, 74, 71, 69, 73, 65, 77, 72, 70, 66,
+            75, 68, 71, 69, 74, 67, 72, 70, 73, 68)
+
+# Hypothesized mean:
+mu0 <- 70
+
+# Perform one-sample t-test:
+test_result <- t.test(x = scores, mu = mu0)
+
+# Display results:
+test_result
+
+
 ### One-sample Poisson test
 
 ### Shapiro–Wilk test for normalitet
@@ -172,7 +216,13 @@ er det det samme som Two-sample F-test for variance?
 
 We use this when we want to determine if two independent samples originate
 from populations with the same variance.
+```
 
+Interpretation:
+The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two-sided p-value of `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the class’s average score differs from 70." else "no evidence to conclude the average score differs from the passing threshold of 70."`
 
 ### Paired t-test
 
