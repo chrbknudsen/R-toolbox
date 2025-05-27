@@ -275,128 +275,297 @@ from populations with the same variance.
 
 ### Paired t-test
 
-
+EJ KORREKTURLÆST
 
 
 ### Two-sample t test (equal variances)
 
+EJ KORREKTURLÆST
+
 ### Two-sample t test (unequal variances)
+
+EJ KORREKTURLÆST
 
 ### Mann–Whitney U-test (Wilcoxon rank-sum)
 
+EJ KORREKTURLÆST
+
 ### Wilcoxon signed-rank test
+
+EJ KORREKTURLÆST
 
 ### Kolmogorov–Smirnov to-prøve-test
 
+EJ KORREKTURLÆST
+
+
 ### Levene’s test for homoskedasticitet
 
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether multiple groups have equal variances.  
+- **Real-world example:** Checking if the variability in patient blood pressure differs between three different clinics.
+
+#### Assumptions
+- Observations are independent.  
+- The underlying distributions within each group are approximately symmetric (Levene’s test is robust to non-normality but assumes no extreme skew).
+
+#### Strengths
+- More robust to departures from normality than Bartlett’s test.  
+- Applicable to two or more groups.  
+- Simple to implement and interpret.
+
+#### Weaknesses
+- Less powerful than tests that assume normality when data truly are normal.  
+- Can be sensitive to extreme outliers despite its robustness.  
+- Does not indicate which groups differ in variance without follow-up comparisons.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All groups have equal variances (σ₁² = σ₂² = … = σₖ²).  
+- **Alternative hypothesis (H₁):** At least one group’s variance differs.
+
+```{r levene_test}
+# Simulate data for three groups (n = 10 each):
+set.seed(123)
+group   <- factor(rep(c("ClinicA", "ClinicB", "ClinicC"), each = 10))
+scores  <- c(rnorm(10, mean = 120, sd = 5),
+             rnorm(10, mean = 120, sd = 8),
+             rnorm(10, mean = 120, sd = 5))
+df      <- data.frame(group, scores)
+
+# Perform Levene’s test for homogeneity of variances:
+library(car)
+levene_result <- leveneTest(scores ~ group, data = df)
+
+# Show results:
+levene_result
+``` 
+
+Interpretation:
+Levene’s test yields an F-statistic of `r round(levene_result$F value[1], 2)` 
+with a p-value of `r signif(levene_result$Pr(>F)[1], 3)`. We
+`r if(levene_result$Pr(>F)[1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means there is
+`r if(levene_result$Pr(>F)[1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
+
+
+
+
+
+
+
+
+
 ### Bartlett’s test for homoskedasticitet
+
+EJ KORREKTURLÆST
 
 ## Variansanalyse (ANOVA/ANCOVA)
 
 ### One-way ANOVA
 
+EJ KORREKTURLÆST
+
 ### One-way ANCOVA
+
+EJ KORREKTURLÆST
 
 ### Welch’s ANOVA (uden antagelse om lige varianser)
 
+EJ KORREKTURLÆST
+
 ### Repeated-measures ANOVA
+
+EJ KORREKTURLÆST
 
 ### Friedman test (nonparametrisk gentagne målinger)
 
+EJ KORREKTURLÆST
+
 ### Post-hoc: Tukey HSD
+
+EJ KORREKTURLÆST
 
 ### Post-hoc: Dunnett’s test
 
-
+EJ KORREKTURLÆST
 
 ### Post-hoc: Bonferroni korrektion
 
+EJ KORREKTURLÆST
+
 ## Ikke-parametriske k-prøve-tests
+
+
 
 ### Kruskal–Wallis test
 
+EJ KORREKTURLÆST
+
 ### Rank correlation
+
+EJ KORREKTURLÆST
 
 ### Anderson–Darling test
 
+EJ KORREKTURLÆST
+
 ## Regression og korrelation
+
 
 ### Simple linear regression
 
+EJ KORREKTURLÆST
+
 ### Multiple regression
+
+EJ KORREKTURLÆST
 
 ### Pearson correlation
 
+EJ KORREKTURLÆST
+
 ### Spearman’s rank correlation
+
+EJ KORREKTURLÆST
 
 ### Kendall’s tau
 
+EJ KORREKTURLÆST
+
 ### Multiple logistic regression
+
+EJ KORREKTURLÆST
 
 ### Poisson regression
 
+EJ KORREKTURLÆST
+
 ### Negative binomial regression
+
+EJ KORREKTURLÆST
 
 ### Ordinal logistic regression
 
+EJ KORREKTURLÆST
+
 ### Linear mixed-effects modeller (LME)
+
+EJ KORREKTURLÆST
 
 ### Generalized linear mixed-effects modeller (GLMM)
 
+EJ KORREKTURLÆST
+
 ### Generalized Estimating Equations (GEE)
+
+EJ KORREKTURLÆST
 
 ## Kontingenstabel- og proportions-tests
 
 ### Contingency-table methods (χ² osv.)
 
+EJ KORREKTURLÆST
+
 ### McNemar’s test
+
+EJ KORREKTURLÆST
 
 ### Fisher’s exact test
 
+EJ KORREKTURLÆST
+
 ### Barnard’s exact test
+
+EJ KORREKTURLÆST
 
 ### Cochran–Armitage trend test (ordinal tabel)
 
+EJ KORREKTURLÆST
+
+
 ### Cochran’s Q test (≥3 matched proportions)
+
+EJ KORREKTURLÆST
 
 ### Stuart–Maxwell test (marginal homogenitet)
 
+EJ KORREKTURLÆST
+
 ### Two-sample test for binomial proportions / Mantel–Haenszel test
+
+EJ KORREKTURLÆST
 
 ### Chi-square test for R×C-tabeller
 
+EJ KORREKTURLÆST
+
 ### Chi-square test for trend (Mantel-extension)
+
+EJ KORREKTURLÆST
 
 ### Chi-square test for heterogenitet (2×k-tabeller)
 
+EJ KORREKTURLÆST
+
 ## Incidens- og rate-tests
+
+
 
 ### One-sample test for incidence rates
 
+EJ KORREKTURLÆST
+
 ### Two-sample comparison of incidence rates
+
+EJ KORREKTURLÆST
 
 ### Trend-test for incidence rates over flere eksponeringsgrupper
 
+EJ KORREKTURLÆST
+
 ### Exact rate ratio test
+
+EJ KORREKTURLÆST
 
 ## Overlevelsesanalyse
 
 ### Log-rank test
 
+EJ KORREKTURLÆST
+
 ### Parametric survival methods (Weibull)
+
+EJ KORREKTURLÆST
 
 ### Cox proportional hazards model
 
+EJ KORREKTURLÆST
+
 ### Accelerated Failure Time (AFT) modeller (eksponentiel, log-logistisk, …)
+
+EJ KORREKTURLÆST
 
 ### Gray’s test for konkurrentrisiko
 
+EJ KORREKTURLÆST
+
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
+
+EJ KORREKTURLÆST
 
 ## Aftale- og concordance-mål
 
+
+
 ### Kappa statistic
+
+EJ KORREKTURLÆST
+
+
 
 ### Intraclass Correlation Coefficient (ICC)
 
