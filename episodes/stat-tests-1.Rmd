@@ -17,15 +17,21 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-for dem alle følger vi metoden
+:::: instructor
+Den her side er virkelig ikke egnet til undervisningsbrug. Det er oversigten
+med eksempler og ret korte forklaringer.
+Hele siden kan nok med fordel deles ret meget op.
+::::
 
-1. Formulate hypotheses, 
-2. Calculate test statistic, 
-3. Determine p-value, 
+A collection of statistical tests
+
+For all tests, the approach is:
+
+1. Formulate hypotheses
+2. Calculate test statistic
+3. Determine p-value
 4. Make decision
 
-
-Den skal nok deles op. Og overskriftshierarkierne er et bud på hvordan.
 
 
 
