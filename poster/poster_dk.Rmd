@@ -26,7 +26,7 @@ main_findings:
   - "Made-to-Measure data kurser"
 logoleft_name: Datalab_colours_clear.png
 logoright_name: DKB_logo_expanded_black_RGB.png
-# logocenter_name: http://raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png
+# logocenter_name: https://raw.githubusercontent.com/brentthorne/posterdown/master/images/qr-code-black.png
 output: 
   posterdown::posterdown_betterport:
     self_contained: true
