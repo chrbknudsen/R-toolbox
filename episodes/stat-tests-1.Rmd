@@ -197,6 +197,13 @@ test_result <- t.test(x = scores, mu = mu0)
 
 # Display results:
 test_result
+```
+
+Interpretation:
+The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two-sided p-value of `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the class’s average score differs from 70." else "no evidence to conclude the average score differs from the passing threshold of 70."`
 
 
 ### One-sample Poisson test
