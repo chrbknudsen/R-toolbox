@@ -308,6 +308,8 @@ from populations with the same variance.
 
 ### Post-hoc: Dunnett’s test
 
+
+
 ### Post-hoc: Bonferroni korrektion
 
 ## Ikke-parametriske k-prøve-tests
