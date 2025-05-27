@@ -73,7 +73,7 @@ data has the correct structure.
 
 If we follow the general rules of thumb for tidy data, we are off to a good 
 start. This is the structure of the data set we are working with here - after 
-we have made some modifications as described above.
+we have made some modifications regarding labels, levels and units.
 
 ```{r data_structure_example}
 head(blood)
