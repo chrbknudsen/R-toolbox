@@ -150,7 +150,9 @@ label(blood$ageblood) <- "Age"
 units(blood$ageblood) <- "years"
 ```
 
-Which looks a bit nicer:
+This will add labels to the plot, and allow us to give the data more meaningful
+names and units without changing the date it self. This looks nicer, and is 
+easier to read:
 
 
 ```{r table-one-live-2}
