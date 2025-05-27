@@ -56,7 +56,7 @@ Pakken colorblindr giver et bud på det. Den skal installeres fra github:
 
 library(devtools)
 remotes::install_github("wilkelab/cowplot")
-install.packages("colorspace", repos = "http://R-Forge.R-project.org")
+install.packages("colorspace", repos = "https://r-forge.r-project.org/")
 install_github("clauswilke/colorblindr")
 
 Hvorefter vi kan indlæse den.
