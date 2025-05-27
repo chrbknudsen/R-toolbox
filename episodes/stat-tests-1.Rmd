@@ -400,6 +400,60 @@ from populations with the same variance.
 
 ### Intraclass Correlation Coefficient (ICC)
 
+EJ KORREKTURLÆST
+
+#### Used for
+- Assessing the reliability or agreement of quantitative measurements made by two or more raters.  
+- **Real-world example:** Determining how consistently three radiologists measure tumor size on MRI scans.
+
+#### Assumptions
+- Measurements are continuous and approximately normally distributed.  
+- Raters are randomly selected (for the “random‐effects” model) or fixed (for the “fixed‐effects” model), depending on choice.  
+- No interaction between subjects and raters (i.e., rater effects are consistent across subjects).  
+- Balanced design: each subject is rated by the same set of raters.
+
+#### Strengths
+- Quantifies both consistency and absolute agreement, with different model/type options.  
+- Can accommodate any number of raters and subjects.  
+- Provides confidence intervals and tests for ICC.
+
+#### Weaknesses
+- Sensitive to violations of normality and homogeneity of variance.  
+- Choice of model (one‐way vs. two‐way) and type (consistency vs. agreement) affects results.  
+- Requires balanced data; missing ratings complicate estimation.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
+- **Alternative hypothesis (H₁):** ICC > 0 (measurements are more reliable than chance).
+
+```{r intraclass_correlation_coefficient}
+library(irr)
+
+# Simulate ratings of 10 subjects by 3 raters:
+set.seed(42)
+ratings <- data.frame(
+  rater1 = round(rnorm(10, mean = 50, sd = 5)),
+  rater2 = round(rnorm(10, mean = 50, sd = 5)),
+  rater3 = round(rnorm(10, mean = 50, sd = 5))
+)
+
+# Compute two-way random effects, absolute agreement, single rater ICC:
+icc_result <- icc(ratings,
+                  model = "twoway",
+                  type  = "agreement",
+                  unit  = "single")
+
+# Display results:
+icc_result
+```
+Interpretation:
+The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_result$lbound, 2)`, `r round(icc_result$ubound, 2)`] and p-value = `r signif(icc_result$p.value, 3)`. We
+`r if(icc_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that
+`r if(icc_result$p.value < 0.05) "there is statistically significant reliability among the raters." else "there is no evidence of reliability beyond chance among the raters."`
+
 ### Bland–Altman analysis
 
 EJ KORREKTURLÆST
