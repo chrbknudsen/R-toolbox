@@ -32,41 +32,45 @@ For all tests, the approach is:
 3. Determine p-value
 4. Make decision
 
+The cutoff chosen for all tests is a p-value of 0.05 unless otherwise indicated.
 
+If a specific test is prefaced with "EJ KORREKTURLÆST" the text, examples etc
+have not been checked.
 
-
-## Enkeltprøve-tests
+## One sample tests
 
 ### One-sample chi-square test
 
-EJ KORREKTURLÆST
-
 #### Used for
 
-Testing whether observed categorical frequencies differ from expected frequencies under a specified distribution.
+Testing whether observed categorical frequencies differ from expected 
+frequencies under a specified distribution.
 
-**Real-world example:** Checking if the observed M&M candy color proportions match the manufacturer’s claimed distribution.
+**Real-world example:** Mars Inc. claims a specific distribution of colours in
+their M&M bags. Does the observed proportions in a given bag match their claim?
+
 
 #### Assumptions
+
 - Observations are independent.  
-- Categories are mutually exclusive and collectively exhaustive.  
-- Expected count in each category is at least 5 (for the chi-square approximation to be valid).
+- Categories are mutually exclusive and collectively exhaustive.
+- _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller.
 
 #### Strengths
-- Simple to compute and interpret.  
-- Does not require the data to be normally distributed.  
+- Simple to compute and interpret.
+- Does not require the data to be normally distributed.
 - Applicable to any number of categories.
 
 #### Weaknesses
-- Sensitive to small expected counts (violates asymptotic approximation).  
-- Does not indicate which categories contribute most to the discrepancy without further investigation.  
+- Sensitive to small expected counts.  
+- Does not indicate which categories contribute most to the discrepancy without further investigation.
 - Requires independence; cannot be used for paired or repeated measures.
 
 #### Example
 
 ##### Hypothesis
-- **Null hypothesis (H₀):** The proportions of M&M colors equal the manufacturer’s claimed distribution.  
-- **Alternative hypothesis (H₁):** At least one color’s proportion differs from the claimed distribution.
+- **Null hypothesis (H₀):** The proportions of M&M colours equal the manufacturer’s claimed distribution.  
+- **Alternative hypothesis (H₁):** The proportion of at least one colour differs from the claimed distribution.
 
 
 ```{r one_sample_chi_square_test}
@@ -83,21 +87,19 @@ test_result <- chisq.test(x = observed, p = p_expected)
 test_result
 ```
 
-Interpretation:
-The test yields χ² = `r round(test_result$statistic, 2)` with a p-value = `r signif(test_result$p.value, 3)`. We
-`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
-Thus, there is
-`r if(test_result$p.value < 0.05) "evidence that the observed M&M colour proportions differ from the claimed distribution." else "no evidence to conclude a difference from the claimed distribution."`.
+*Interpretation*: The test yields χ² = 3.1 with a p-value = 0.685. We
+fail to reject the null hypothesis", and there is no evidence to conclude a 
+difference from the claimed distribution.
 
 
 ### One-sample z test
 
-EJ KORREKTURLÆST!
+
 
 #### Used for
 
 - Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
-- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known.
+- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. This checks if the average is different, ie either smaller _or_ larger. We can also test if it _is_ smaller or larger.
 
 #### Assumptions
 - Sample is a simple random sample from the population.  
@@ -141,8 +143,14 @@ z_stat <- (xbar - mu0) / (sigma / sqrt(n))
 # Two-sided p-value:
 p_value <- 2 * (1 - pnorm(abs(z_stat)))
 
+# Larger p-value
+larger_p_value <- 1- pnorm(z_stat)
+
+# Smaller p-value
+smaller_p_value <- pnorm(z_stat)
+
 # Output results:
-z_stat; p_value
+z_stat; p_value; larger_p_value; smaller_p_value
 ``` 
 
 
@@ -153,10 +161,16 @@ with a two-sided p-value of `r signif(p_value, 3)`. We
 Thus, there is
 `r if(p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
 
+We can similarly reject the hypothesis that the average diameter is larger (p = `r larger_p_value`)
+or that it is smaller (p = `r smaller_p_value`)
+
+
 
 ### One-sample t test
 
 EJ KORREKTURLÆST!
+
+Her kan vi nok med fordel bruge samme eksempel som i z-testen.
 
 #### Used for
 - Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
@@ -256,16 +270,155 @@ Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that the true call rate differs from 30 calls/hour." else "no evidence to conclude the call rate differs from 30 calls/hour."`
 
 
-### Shapiro–Wilk test for normalitet
+### Shapiro–Wilk test for normality
+
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether a sample comes from a normally distributed population.  
+- **Real-world example:** Checking if the distribution of daily blood glucose measurements in a patient cohort is approximately normal.
+
+#### Assumptions
+- Observations are independent.  
+- Data are continuous.  
+- No extreme ties or many identical values.
+
+#### Strengths
+- Good power for detecting departures from normality in small to moderate samples (n ≤ 50).  
+- Widely implemented and easy to run in R.  
+- Provides both a test statistic (W) and p-value.
+
+#### Weaknesses
+- Very sensitive to even slight deviations from normality in large samples (n > 2000).  
+- Does not indicate the nature of the departure (e.g., skewness vs. kurtosis).  
+- Ties or repeated values can invalidate the test.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The sample is drawn from a normal distribution.  
+- **Alternative hypothesis (H₁):** The sample is not drawn from a normal distribution.
+
+```{r shapiro_wilk_test}
+# Simulate a sample of 30 observations from a normal distribution:
+set.seed(123)
+sample_data <- rnorm(30, mean = 100, sd = 15)
+
+# Perform Shapiro–Wilk test:
+sw_result <- shapiro.test(sample_data)
+
+# Display results:
+sw_result
+```
+
+Interpretation:
+The Shapiro–Wilk statistic W = `r round(sw_result$statistic, 3)` with p-value = `r signif(sw_result$p.value, 3)`. We
+`r if(sw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(sw_result$p.value < 0.05) "evidence that the data deviate from normality." else "no evidence to conclude a departure from normality."`
 
 ### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
 
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether a sample comes from a specified continuous distribution.  
+- **Real-world example:** Checking if patient systolic blood pressures follow a normal distribution with mean 120 mmHg and SD 15 mmHg.
+
+#### Assumptions
+- Observations are independent.  
+- Data are continuous (no ties).  
+- The null distribution is fully specified (parameters known, not estimated from the data).
+
+#### Strengths
+- Nonparametric: makes no assumption about distribution shape beyond continuity.  
+- Sensitive to any kind of departure (location, scale, shape).  
+- Exact distribution of the test statistic under H₀.
+
+#### Weaknesses
+- Requires that distribution parameters (e.g., mean, SD) are known a priori; if estimated from data, p-values are invalid.  
+- Less powerful than parametric tests when the parametric form is correct.  
+- Sensitive to ties and discrete data.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The blood pressure values follow a Normal(μ = 120, σ = 15) distribution.  
+- **Alternative hypothesis (H₁):** The blood pressure values do not follow Normal(120, 15).
+
+```{r ks_one_sample}
+set.seed(2025)
+# Simulate systolic blood pressure for 40 patients:
+sample_bp <- rnorm(40, mean = 120, sd = 15)
+
+# Perform one-sample Kolmogorov–Smirnov test against N(120,15):
+ks_result <- ks.test(sample_bp, "pnorm", mean = 120, sd = 15)
+
+# Show results:
+ks_result
+```
+
+Interpretation:
+The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(ks_result$p.value, 3)`. We
+`r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ks_result$p.value < 0.05) "evidence that systolic blood pressures deviate from Normal(120,15)." else "no evidence to conclude deviation from Normal(120,15)."`
+
 ### χ² goodness-of-fit test
+
+EJ KORREKTURLÆST
+
+
+#### Used for
+- Testing whether observed categorical frequencies differ from expected categorical proportions.  
+- **Real-world example:** Comparing the distribution of blood types in a sample of donors to known population proportions.
+
+#### Assumptions
+- Observations are independent.  
+- Categories are mutually exclusive and exhaustive.  
+- Expected count in each category is at least 5 for the chi-square approximation to hold.
+
+#### Strengths
+- Simple to compute and interpret.  
+- Nonparametric: no requirement of normality.  
+- Flexible for any number of categories.
+
+#### Weaknesses
+- Sensitive to small expected counts (invalidates approximation).  
+- Doesn’t identify which categories drive the discrepancy without further post-hoc tests.  
+- Requires independence—unsuitable for paired or repeated measures.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The sample blood type proportions equal the known population proportions (A=0.42, B=0.10, AB=0.04, O=0.44).  
+- **Alternative hypothesis (H₁):** At least one blood type proportion differs from its known value.
+
+```{r chi_square_gof}
+# Observed counts of blood types in 200 donors:
+observed <- c(A = 85, B = 18, AB = 6, O = 91)
+
+# Known population proportions:
+p_expected <- c(A = 0.42, B = 0.10, AB = 0.04, O = 0.44)
+
+# Perform chi-square goodness-of-fit test:
+test_result <- chisq.test(x = observed, p = p_expected)
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The test yields χ² = `r round(test_result$statistic, 2)` with p-value = `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that blood type proportions in the sample differ from the population." else "no evidence to conclude the sample proportions differ from the population."`
 
 ## To-prøve-tests og parrede tests
 
 ### Two-sample F test
 
+EJ KORREKTURLÆST
 
 er det det samme som Two-sample F-test for variance?
 
@@ -275,128 +428,543 @@ from populations with the same variance.
 
 ### Paired t-test
 
+EJ KORREKTURLÆST
+#### Used for
+- Testing whether the mean difference between two related (paired) samples differs from zero.  
+- **Real-world example:** Comparing patients’ blood pressure before and after administering a new medication.
 
+#### Assumptions
+- Paired observations are independent of other pairs.  
+- Differences between pairs are approximately normally distributed.  
+- The scale of measurement is continuous (interval or ratio).
 
+#### Strengths
+- Controls for between‐subject variability by using each subject as their own control.  
+- More powerful than unpaired tests when pairs are truly dependent.  
+- Easy to implement and interpret.
+
+#### Weaknesses
+- Sensitive to outliers in the difference scores.  
+- Requires that differences be approximately normal, especially for small samples.  
+- Not appropriate if pairing is not justified or if missing data break pairs.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The mean difference Δ = 0 (no change in blood pressure).  
+- **Alternative hypothesis (H₁):** Δ ≠ 0 (blood pressure changes after medication).
+
+```{r paired_t_test}
+# Simulated systolic blood pressure (mmHg) for 15 patients before and after treatment:
+before <- c(142, 138, 150, 145, 133, 140, 147, 139, 141, 136, 144, 137, 148, 142, 139)
+after  <- c(135, 132, 144, 138, 128, 135, 142, 133, 136, 130, 139, 132, 143, 137, 133)
+
+# Perform paired t-test:
+test_result <- t.test(before, after, paired = TRUE)
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The mean difference (before – after) is `r round(mean(before - after), 2)` mmHg. The t‐statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two‐sided p‐value of` r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the medication significantly changed blood pressure." else "no evidence that the medication changed blood pressure."`
 
 ### Two-sample t test (equal variances)
 
+EJ KORREKTURLÆST
+
 ### Two-sample t test (unequal variances)
+
+EJ KORREKTURLÆST
 
 ### Mann–Whitney U-test (Wilcoxon rank-sum)
 
+EJ KORREKTURLÆST
+
 ### Wilcoxon signed-rank test
+
+EJ KORREKTURLÆST
 
 ### Kolmogorov–Smirnov to-prøve-test
 
+EJ KORREKTURLÆST
+
+
 ### Levene’s test for homoskedasticitet
 
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether multiple groups have equal variances.  
+- **Real-world example:** Checking if the variability in patient blood pressure differs between three different clinics.
+
+#### Assumptions
+- Observations are independent.  
+- The underlying distributions within each group are approximately symmetric (Levene’s test is robust to non-normality but assumes no extreme skew).
+
+#### Strengths
+- More robust to departures from normality than Bartlett’s test.  
+- Applicable to two or more groups.  
+- Simple to implement and interpret.
+
+#### Weaknesses
+- Less powerful than tests that assume normality when data truly are normal.  
+- Can be sensitive to extreme outliers despite its robustness.  
+- Does not indicate which groups differ in variance without follow-up comparisons.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All groups have equal variances (σ₁² = σ₂² = … = σₖ²).  
+- **Alternative hypothesis (H₁):** At least one group’s variance differs.
+
+```{r levene_test}
+# Simulate data for three groups (n = 10 each):
+set.seed(123)
+group   <- factor(rep(c("ClinicA", "ClinicB", "ClinicC"), each = 10))
+scores  <- c(rnorm(10, mean = 120, sd = 5),
+             rnorm(10, mean = 120, sd = 8),
+             rnorm(10, mean = 120, sd = 5))
+df      <- data.frame(group, scores)
+
+# Perform Levene’s test for homogeneity of variances:
+library(car)
+levene_result <- leveneTest(scores ~ group, data = df)
+
+# Show results:
+levene_result
+``` 
+
+Interpretation:
+Levene’s test yields an F-statistic of `r round(levene_result$F value[1], 2)` 
+with a p-value of `r signif(levene_result$Pr(>F)[1], 3)`. We
+`r if(levene_result$Pr(>F)[1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means there is
+`r if(levene_result$Pr(>F)[1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
+
+
+
+
+
+
+
+
+
 ### Bartlett’s test for homoskedasticitet
+
+EJ KORREKTURLÆST
 
 ## Variansanalyse (ANOVA/ANCOVA)
 
 ### One-way ANOVA
 
+EJ KORREKTURLÆST
+
 ### One-way ANCOVA
+
+EJ KORREKTURLÆST
 
 ### Welch’s ANOVA (uden antagelse om lige varianser)
 
+EJ KORREKTURLÆST
+
 ### Repeated-measures ANOVA
+
+EJ KORREKTURLÆST
+
+### MANOVA
+
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing for differences on multiple continuous dependent variables across one or more grouping factors simultaneously.  
+- **Real-world example:** Evaluating whether three different diets lead to different patterns of weight loss and cholesterol reduction.
+
+#### Assumptions
+- Multivariate normality of the dependent variables within each group.  
+- Homogeneity of covariance matrices across groups.  
+- Observations are independent.  
+- Linear relationships among dependent variables.
+
+#### Strengths
+- Controls family-wise Type I error by testing all DVs together.  
+- Can detect patterns that univariate ANOVAs might miss.  
+- Provides multiple test statistics (Pillai, Wilks, Hotelling–Lawley, Roy) for flexibility.
+
+#### Weaknesses
+- Sensitive to violations of multivariate normality and homogeneity of covariances.  
+- Requires larger sample sizes as the number of DVs increases.  
+- Interpretation can be complex; follow-up analyses often needed to determine which DVs drive effects.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The vector of means for weight loss and cholesterol change is equal across the three diet groups.  
+- **Alternative hypothesis (H₁):** At least one diet group differs on the combination of weight loss and cholesterol change.
+
+```{r manova}
+set.seed(2025)
+n_per_group <- 15
+diet <- factor(rep(c("LowFat", "LowCarb", "Mediterranean"), each = n_per_group))
+
+# Simulate outcomes:
+weight_loss <- c(rnorm(n_per_group, mean = 5,  sd = 1.5),
+                 rnorm(n_per_group, mean = 8,  sd = 1.5),
+                 rnorm(n_per_group, mean = 7,  sd = 1.5))
+cholesterol  <- c(rnorm(n_per_group, mean = 10, sd = 2),
+                 rnorm(n_per_group, mean = 12, sd = 2),
+                 rnorm(n_per_group, mean = 9,  sd = 2))
+
+df <- data.frame(diet, weight_loss, cholesterol)
+
+# Fit MANOVA:
+manova_fit <- manova(cbind(weight_loss, cholesterol) ~ diet, data = df)
+
+# Summarize using Pillai’s trace:
+manova_summary <- summary(manova_fit, test = "Pillai")
+manova_summary
+```
+
+Interpretation:
+Pillai’s trace = `r round(manova_summary$stats[["Pillai"]][1], 3)`, F = `r round(manova_summary$stats[["approx F"]][1], 2)` with df = `r paste(manova_summary$stats[["df1"]][1], manova_summary$stats[["df2"]][1], sep = ", ")`, and p-value = `r signif(manova_summary$stats[["Pr(>F)"]][1], 3)`. We
+`r if(manova_summary$stats[["Pr(>F)"]][1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that there is
+`r if(manova_summary$stats[["Pr(>F)"]][1] < 0.05) "a significant multivariate effect of diet on weight loss and cholesterol change." else "no multivariate evidence that the diets differ on the combined outcomes."`
+
+Pillai?
+
+Der er fire almindeligt brugte taststatistikker i MANOVA. Pillai, Wilks' lambd,
+Hotelling-Lawleys trace og Roys largest root.
+
+Pillai’s trace (også kaldet Pillai–Bartlett’s trace) er én af fire almindeligt brugte multivariate test-statistikker i MANOVA (ud over Wilks’ lambda, Hotelling–Lawley’s trace og Roy’s largest root). Kort om Pillai:
+
+Definition: Summen af egenværdierne divideret med (1 + egenværdierne) for hver kanonisk variabel. Det giver en samlet målestok for, hvor stor en andel af den totale variation der forklares af gruppetilhørsforholdet på tværs af alle afhængige variable.
+
+Fortolkning: Højere Pillai-værdi (op til 1) indikerer stærkere multivariat effekt.
+
+Hvorfor vælge Pillai?
+
+Robusthed: Pillai’s trace er den mest robuste over for overtrædelser af antagelserne om homogen kovarians og multivariat normalitet. Hvis dine data har ulige gruppe-størrelser eller let skæve fordelinger, er Pillai ofte det sikreste valg.
+
+Type I-kontrol: Den holder typisk kontrol med falsk positive (Type I-fejl) bedre end de andre, når antagelser brydes.
+
+Er det altid det bedste valg?
+
+Ikke nødvendigvis. Hvis dine data strengt opfylder antagelserne (multivariat normalitet, homogen kovarians og rimeligt store, ensartede grupper), kan de andre statistikker være mere “kraftfulde” (dvs. give større chance for at opdage en ægte effekt).
+
+Wilks’ lambda er mest brugt i traditionel litteratur og har ofte god power under idéelle forhold.
+
+Hotelling–Lawley’s trace kan være særligt følsom, når få kanoniske dimensioner bærer meget af effekten.
+
+Roy’s largest root er ekstremt kraftfuld, hvis kun én kanonisk variabel adskiller grupperne, men er også mest sårbar over for antagelsesovertrædelser.
+
+Kort anbefaling:
+
+Brug Pillai’s trace som standard, især hvis du er usikker på antagelsesopfyldelsen eller har små/ulige gruppe-størrelser.
+
+Overvej Wilks’ lambda eller andre, hvis dine data opfylder alle antagelser solidt, og du ønsker maksimal statistisk power.
+
+Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
+
+#### Wilks’ lambda  
+- **Definition:** Ratio of the determinant of the within‐groups SSCP (sum of squares and cross‐products) matrix to the determinant of the total SSCP matrix:  
+  \[
+    \Lambda = \frac{\det(W)}{\det(T)} = \prod_{i=1}^s \frac{1}{1 + \lambda_i}
+  \]  
+  hvor \(\lambda_i\) er de canoniske egenværdier.  
+- **Fortolkning:** Værdier nær 0 indikerer stor multivariat effekt (mellem‐grupper‐variation >> inden‐gruppe‐variation), værdier nær 1 indikerer lille eller ingen effekt.  
+- **Styrker:**  
+  - Klassisk og mest udbredt i litteraturen.  
+  - God power under ideal antagelsesopfyldelse (multivariat normalitet, homogene kovarianser).  
+- **Svagheder:**  
+  - Mindre robust ved skæve fordelinger eller ulige gruppe‐størrelser.  
+  - Kan undervurdere effektstørrelse, hvis én eller flere kanoniske variabler bærer effekten ujævnt.  
+- **Anbefaling:**  
+  - Brug Wilks’ lambda, når du er sikker på, at antagelserne er opfyldt, og du ønsker en velkendt statistisk test med god power under idealforhold.
+
+#### Hotelling–Lawley’s trace  
+- **Definition:** Summen af de canoniske egenværdier:  
+  \[
+    T = \sum_{i=1}^s \lambda_i
+  \]  
+- **Fortolkning:** Højere værdi betyder større samlet multivariat effekt.  
+- **Styrker:**  
+  - Sensitiv over for effekter fordelt over flere kanoniske dimensioner.  
+  - Kan være mere kraftfuld end Wilks’ lambda, hvis flere dimensioner bidrager til forskellen.  
+- **Svagheder:**  
+  - Mindre robust over for antagelsesbrud end Pillai’s trace.  
+  - Kan overvurdere effektstørrelse, hvis én dimension dominerer kraftigt.  
+- **Anbefaling:**  
+  - Overvej Hotelling–Lawley’s trace, når du forventer, at effekten spreder sig over flere kanoniske variabler, og antagelserne er rimeligt dækket.
+
+#### Roy’s largest root  
+- **Definition:** Den største canoniske egenværdi alene:  
+  \[
+    \Theta = \max_i \lambda_i
+  \]  
+- **Fortolkning:** Måler den stærkeste enkeltdimensionseffekt.  
+- **Styrker:**  
+  - Højest power, når én kanonisk variabel står for størstedelen af gruppedifferensen.  
+  - Let at beregne og fortolke, hvis fokus er på “den stærkeste effekt”.  
+- **Svagheder:**  
+  - Meget følsom over for antagelsesbrud (normalitet, homogene kovarianser).  
+  - Ikke informativ, hvis flere dimensioner bidrager jævnt.  
+- **Anbefaling:**  
+  - Brug Roy’s largest root, når du har en stærk a priori mistanke om én dominerende kanonisk dimension og er komfortabel med forudsætningerne.
+
+> **Tips:** Sammenlign altid flere test‐statistikker – hvis de peger i samme retning, styrker det din konklusion. Pillai’s trace er generelt mest robust, Wilks’ lambda mest almindelig, Hotelling–Lawley god til flere dimensioner, og Roy’s largest root bedst, når én dimension dominerer.  
+
+
+
+
+
+
+
 
 ### Friedman test (nonparametrisk gentagne målinger)
 
+EJ KORREKTURLÆST
+
 ### Post-hoc: Tukey HSD
+
+EJ KORREKTURLÆST
 
 ### Post-hoc: Dunnett’s test
 
+EJ KORREKTURLÆST
+
 ### Post-hoc: Bonferroni korrektion
+
+EJ KORREKTURLÆST
 
 ## Ikke-parametriske k-prøve-tests
 
+
+
 ### Kruskal–Wallis test
+
+EJ KORREKTURLÆST
 
 ### Rank correlation
 
+EJ KORREKTURLÆST
+
 ### Anderson–Darling test
+
+EJ KORREKTURLÆST
 
 ## Regression og korrelation
 
+
 ### Simple linear regression
+
+EJ KORREKTURLÆST
 
 ### Multiple regression
 
+EJ KORREKTURLÆST
+
 ### Pearson correlation
+
+EJ KORREKTURLÆST
 
 ### Spearman’s rank correlation
 
+EJ KORREKTURLÆST
+
 ### Kendall’s tau
+
+EJ KORREKTURLÆST
 
 ### Multiple logistic regression
 
+EJ KORREKTURLÆST
+
 ### Poisson regression
+
+EJ KORREKTURLÆST
 
 ### Negative binomial regression
 
+EJ KORREKTURLÆST
+
 ### Ordinal logistic regression
+
+EJ KORREKTURLÆST
 
 ### Linear mixed-effects modeller (LME)
 
+EJ KORREKTURLÆST
+
 ### Generalized linear mixed-effects modeller (GLMM)
 
+EJ KORREKTURLÆST
+
 ### Generalized Estimating Equations (GEE)
+
+EJ KORREKTURLÆST
 
 ## Kontingenstabel- og proportions-tests
 
 ### Contingency-table methods (χ² osv.)
 
+EJ KORREKTURLÆST
+
 ### McNemar’s test
+
+EJ KORREKTURLÆST
 
 ### Fisher’s exact test
 
+EJ KORREKTURLÆST
+
 ### Barnard’s exact test
+
+EJ KORREKTURLÆST
 
 ### Cochran–Armitage trend test (ordinal tabel)
 
+EJ KORREKTURLÆST
+
+
 ### Cochran’s Q test (≥3 matched proportions)
+
+EJ KORREKTURLÆST
 
 ### Stuart–Maxwell test (marginal homogenitet)
 
+EJ KORREKTURLÆST
+
 ### Two-sample test for binomial proportions / Mantel–Haenszel test
+
+EJ KORREKTURLÆST
 
 ### Chi-square test for R×C-tabeller
 
+EJ KORREKTURLÆST
+
 ### Chi-square test for trend (Mantel-extension)
+
+EJ KORREKTURLÆST
 
 ### Chi-square test for heterogenitet (2×k-tabeller)
 
+EJ KORREKTURLÆST
+
 ## Incidens- og rate-tests
+
+
 
 ### One-sample test for incidence rates
 
+EJ KORREKTURLÆST
+
 ### Two-sample comparison of incidence rates
+
+EJ KORREKTURLÆST
 
 ### Trend-test for incidence rates over flere eksponeringsgrupper
 
+EJ KORREKTURLÆST
+
 ### Exact rate ratio test
+
+EJ KORREKTURLÆST
 
 ## Overlevelsesanalyse
 
 ### Log-rank test
 
+EJ KORREKTURLÆST
+
 ### Parametric survival methods (Weibull)
+
+EJ KORREKTURLÆST
 
 ### Cox proportional hazards model
 
+EJ KORREKTURLÆST
+
 ### Accelerated Failure Time (AFT) modeller (eksponentiel, log-logistisk, …)
+
+EJ KORREKTURLÆST
 
 ### Gray’s test for konkurrentrisiko
 
+EJ KORREKTURLÆST
+
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
+
+EJ KORREKTURLÆST
 
 ## Aftale- og concordance-mål
 
+
+
 ### Kappa statistic
 
+EJ KORREKTURLÆST
+
+
+
 ### Intraclass Correlation Coefficient (ICC)
+
+EJ KORREKTURLÆST
+
+#### Used for
+- Assessing the reliability or agreement of quantitative measurements made by two or more raters.  
+- **Real-world example:** Determining how consistently three radiologists measure tumor size on MRI scans.
+
+#### Assumptions
+- Measurements are continuous and approximately normally distributed.  
+- Raters are randomly selected (for the “random‐effects” model) or fixed (for the “fixed‐effects” model), depending on choice.  
+- No interaction between subjects and raters (i.e., rater effects are consistent across subjects).  
+- Balanced design: each subject is rated by the same set of raters.
+
+#### Strengths
+- Quantifies both consistency and absolute agreement, with different model/type options.  
+- Can accommodate any number of raters and subjects.  
+- Provides confidence intervals and tests for ICC.
+
+#### Weaknesses
+- Sensitive to violations of normality and homogeneity of variance.  
+- Choice of model (one‐way vs. two‐way) and type (consistency vs. agreement) affects results.  
+- Requires balanced data; missing ratings complicate estimation.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
+- **Alternative hypothesis (H₁):** ICC > 0 (measurements are more reliable than chance).
+
+```{r intraclass_correlation_coefficient}
+library(irr)
+
+# Simulate ratings of 10 subjects by 3 raters:
+set.seed(42)
+ratings <- data.frame(
+  rater1 = round(rnorm(10, mean = 50, sd = 5)),
+  rater2 = round(rnorm(10, mean = 50, sd = 5)),
+  rater3 = round(rnorm(10, mean = 50, sd = 5))
+)
+
+# Compute two-way random effects, absolute agreement, single rater ICC:
+icc_result <- icc(ratings,
+                  model = "twoway",
+                  type  = "agreement",
+                  unit  = "single")
+
+# Display results:
+icc_result
+```
+Interpretation:
+The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_result$lbound, 2)`, `r round(icc_result$ubound, 2)`] and p-value = `r signif(icc_result$p.value, 3)`. We
+`r if(icc_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that
+`r if(icc_result$p.value < 0.05) "there is statistically significant reliability among the raters." else "there is no evidence of reliability beyond chance among the raters."`
 
 ### Bland–Altman analysis
 
