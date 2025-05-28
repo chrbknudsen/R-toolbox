@@ -541,11 +541,11 @@ levene_result
 ``` 
 
 Interpretation:
-Levene’s test yields an F-statistic of `r round(levene_result$F value[1], 2)` 
-with a p-value of `r signif(levene_result$Pr(>F)[1], 3)`. We
-`r if(levene_result$Pr(>F)[1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Levene’s test yields an F-statistic of `r round(levene_result[["F value"]][1], 2)` 
+with a p-value of `r signif(levene_result[["Pr(>F)"]][1], 3)`. We
+`r if(levene_result[["Pr(>F)"]][1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This means there is
-`r if(levene_result$Pr(>F)[1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
+`r if(levene_result[["Pr(>F)"]][1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
 
 
 
@@ -901,16 +901,21 @@ EJ KORREKTURLÆST
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
 
 EJ KORREKTURLÆST
+::::
 
 ## Aftale- og concordance-mål
 
 
 
+
+::::spoiler
 ### Kappa statistic
 
 EJ KORREKTURLÆST
 
+::::
 
+::::spoiler
 
 ### Intraclass Correlation Coefficient (ICC)
 
