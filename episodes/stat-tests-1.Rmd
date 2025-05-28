@@ -94,12 +94,12 @@ difference from the claimed distribution.
 
 ### One-sample z test
 
-EJ KORREKTURLÆST!
+
 
 #### Used for
 
 - Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
-- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known.
+- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. This checks if the average is different, ie either smaller _or_ larger. We can also test if it _is_ smaller or larger.
 
 #### Assumptions
 - Sample is a simple random sample from the population.  
@@ -143,8 +143,14 @@ z_stat <- (xbar - mu0) / (sigma / sqrt(n))
 # Two-sided p-value:
 p_value <- 2 * (1 - pnorm(abs(z_stat)))
 
+# Larger p-value
+larger_p_value <- 1- pnorm(z_stat)
+
+# Smaller p-value
+smaller_p_value <- pnorm(z_stat)
+
 # Output results:
-z_stat; p_value
+z_stat; p_value; larger_p_value; smaller_p_value
 ``` 
 
 
@@ -155,8 +161,9 @@ with a two-sided p-value of `r signif(p_value, 3)`. We
 Thus, there is
 `r if(p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
 
-Vi skal have forklaret at det er to-sidet. Og exemplificeret less og greater som 
-alternativet
+We can similarly reject the hypothesis that the average diameter is larger (p = `r larger_p_value`)
+or that it is smaller (p = `r smaller_p_value`)
+
 
 
 ### One-sample t test
