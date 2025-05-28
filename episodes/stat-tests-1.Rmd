@@ -39,6 +39,8 @@ have not been checked.
 
 ## One sample tests
 
+::::spoiler
+
 ### One-sample chi-square test
 
 #### Used for
@@ -966,6 +968,10 @@ The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_
 This indicates that
 `r if(icc_result$p.value < 0.05) "there is statistically significant reliability among the raters." else "there is no evidence of reliability beyond chance among the raters."`
 
+
+::::
+
+::::spoiler
 ### Bland–Altman analysis
 
 EJ KORREKTURLÆST
@@ -1041,6 +1047,8 @@ This indicates that there is
 `r if(t_test$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
 
 
+
+::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
