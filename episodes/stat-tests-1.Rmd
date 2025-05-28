@@ -32,41 +32,45 @@ For all tests, the approach is:
 3. Determine p-value
 4. Make decision
 
+The cutoff chosen for all tests is a p-value of 0.05 unless otherwise indicated.
 
+If a specific test is prefaced with "EJ KORREKTURLÆST" the text, examples etc
+have not been checked.
 
-
-## Enkeltprøve-tests
+## One sample tests
 
 ### One-sample chi-square test
 
-EJ KORREKTURLÆST
-
 #### Used for
 
-Testing whether observed categorical frequencies differ from expected frequencies under a specified distribution.
+Testing whether observed categorical frequencies differ from expected 
+frequencies under a specified distribution.
 
-**Real-world example:** Checking if the observed M&M candy color proportions match the manufacturer’s claimed distribution.
+**Real-world example:** Mars Inc. claims a specific distribution of colours in
+their M&M bags. Does the observed proportions in a given bag match their claim?
+
 
 #### Assumptions
+
 - Observations are independent.  
-- Categories are mutually exclusive and collectively exhaustive.  
-- Expected count in each category is at least 5 (for the chi-square approximation to be valid).
+- Categories are mutually exclusive and collectively exhaustive.
+- _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller.
 
 #### Strengths
-- Simple to compute and interpret.  
-- Does not require the data to be normally distributed.  
+- Simple to compute and interpret.
+- Does not require the data to be normally distributed.
 - Applicable to any number of categories.
 
 #### Weaknesses
-- Sensitive to small expected counts (violates asymptotic approximation).  
-- Does not indicate which categories contribute most to the discrepancy without further investigation.  
+- Sensitive to small expected counts.  
+- Does not indicate which categories contribute most to the discrepancy without further investigation.
 - Requires independence; cannot be used for paired or repeated measures.
 
 #### Example
 
 ##### Hypothesis
-- **Null hypothesis (H₀):** The proportions of M&M colors equal the manufacturer’s claimed distribution.  
-- **Alternative hypothesis (H₁):** At least one color’s proportion differs from the claimed distribution.
+- **Null hypothesis (H₀):** The proportions of M&M colours equal the manufacturer’s claimed distribution.  
+- **Alternative hypothesis (H₁):** The proportion of at least one colour differs from the claimed distribution.
 
 
 ```{r one_sample_chi_square_test}
@@ -83,11 +87,9 @@ test_result <- chisq.test(x = observed, p = p_expected)
 test_result
 ```
 
-Interpretation:
-The test yields χ² = `r round(test_result$statistic, 2)` with a p-value = `r signif(test_result$p.value, 3)`. We
-`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
-Thus, there is
-`r if(test_result$p.value < 0.05) "evidence that the observed M&M colour proportions differ from the claimed distribution." else "no evidence to conclude a difference from the claimed distribution."`.
+*Interpretation*: The test yields χ² = 3.1 with a p-value = 0.685. We
+fail to reject the null hypothesis", and there is no evidence to conclude a 
+difference from the claimed distribution.
 
 
 ### One-sample z test
@@ -153,10 +155,15 @@ with a two-sided p-value of `r signif(p_value, 3)`. We
 Thus, there is
 `r if(p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
 
+Vi skal have forklaret at det er to-sidet. Og exemplificeret less og greater som 
+alternativet
+
 
 ### One-sample t test
 
 EJ KORREKTURLÆST!
+
+Her kan vi nok med fordel bruge samme eksempel som i z-testen.
 
 #### Used for
 - Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
@@ -380,6 +387,155 @@ EJ KORREKTURLÆST
 ### Repeated-measures ANOVA
 
 EJ KORREKTURLÆST
+
+### MANOVA
+
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing for differences on multiple continuous dependent variables across one or more grouping factors simultaneously.  
+- **Real-world example:** Evaluating whether three different diets lead to different patterns of weight loss and cholesterol reduction.
+
+#### Assumptions
+- Multivariate normality of the dependent variables within each group.  
+- Homogeneity of covariance matrices across groups.  
+- Observations are independent.  
+- Linear relationships among dependent variables.
+
+#### Strengths
+- Controls family-wise Type I error by testing all DVs together.  
+- Can detect patterns that univariate ANOVAs might miss.  
+- Provides multiple test statistics (Pillai, Wilks, Hotelling–Lawley, Roy) for flexibility.
+
+#### Weaknesses
+- Sensitive to violations of multivariate normality and homogeneity of covariances.  
+- Requires larger sample sizes as the number of DVs increases.  
+- Interpretation can be complex; follow-up analyses often needed to determine which DVs drive effects.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The vector of means for weight loss and cholesterol change is equal across the three diet groups.  
+- **Alternative hypothesis (H₁):** At least one diet group differs on the combination of weight loss and cholesterol change.
+
+```{r manova}
+set.seed(2025)
+n_per_group <- 15
+diet <- factor(rep(c("LowFat", "LowCarb", "Mediterranean"), each = n_per_group))
+
+# Simulate outcomes:
+weight_loss <- c(rnorm(n_per_group, mean = 5,  sd = 1.5),
+                 rnorm(n_per_group, mean = 8,  sd = 1.5),
+                 rnorm(n_per_group, mean = 7,  sd = 1.5))
+cholesterol  <- c(rnorm(n_per_group, mean = 10, sd = 2),
+                 rnorm(n_per_group, mean = 12, sd = 2),
+                 rnorm(n_per_group, mean = 9,  sd = 2))
+
+df <- data.frame(diet, weight_loss, cholesterol)
+
+# Fit MANOVA:
+manova_fit <- manova(cbind(weight_loss, cholesterol) ~ diet, data = df)
+
+# Summarize using Pillai’s trace:
+manova_summary <- summary(manova_fit, test = "Pillai")
+manova_summary
+```
+
+Interpretation:
+Pillai’s trace = `r round(manova_summary$stats[["Pillai"]][1], 3)`, F = `r round(manova_summary$stats[["approx F"]][1], 2)` with df = `r paste(manova_summary$stats[["df1"]][1], manova_summary$stats[["df2"]][1], sep = ", ")`, and p-value = `r signif(manova_summary$stats[["Pr(>F)"]][1], 3)`. We
+`r if(manova_summary$stats[["Pr(>F)"]][1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that there is
+`r if(manova_summary$stats[["Pr(>F)"]][1] < 0.05) "a significant multivariate effect of diet on weight loss and cholesterol change." else "no multivariate evidence that the diets differ on the combined outcomes."`
+
+Pillai?
+
+Der er fire almindeligt brugte taststatistikker i MANOVA. Pillai, Wilks' lambd,
+Hotelling-Lawleys trace og Roys largest root.
+
+Pillai’s trace (også kaldet Pillai–Bartlett’s trace) er én af fire almindeligt brugte multivariate test-statistikker i MANOVA (ud over Wilks’ lambda, Hotelling–Lawley’s trace og Roy’s largest root). Kort om Pillai:
+
+Definition: Summen af egenværdierne divideret med (1 + egenværdierne) for hver kanonisk variabel. Det giver en samlet målestok for, hvor stor en andel af den totale variation der forklares af gruppetilhørsforholdet på tværs af alle afhængige variable.
+
+Fortolkning: Højere Pillai-værdi (op til 1) indikerer stærkere multivariat effekt.
+
+Hvorfor vælge Pillai?
+
+Robusthed: Pillai’s trace er den mest robuste over for overtrædelser af antagelserne om homogen kovarians og multivariat normalitet. Hvis dine data har ulige gruppe-størrelser eller let skæve fordelinger, er Pillai ofte det sikreste valg.
+
+Type I-kontrol: Den holder typisk kontrol med falsk positive (Type I-fejl) bedre end de andre, når antagelser brydes.
+
+Er det altid det bedste valg?
+
+Ikke nødvendigvis. Hvis dine data strengt opfylder antagelserne (multivariat normalitet, homogen kovarians og rimeligt store, ensartede grupper), kan de andre statistikker være mere “kraftfulde” (dvs. give større chance for at opdage en ægte effekt).
+
+Wilks’ lambda er mest brugt i traditionel litteratur og har ofte god power under idéelle forhold.
+
+Hotelling–Lawley’s trace kan være særligt følsom, når få kanoniske dimensioner bærer meget af effekten.
+
+Roy’s largest root er ekstremt kraftfuld, hvis kun én kanonisk variabel adskiller grupperne, men er også mest sårbar over for antagelsesovertrædelser.
+
+Kort anbefaling:
+
+Brug Pillai’s trace som standard, især hvis du er usikker på antagelsesopfyldelsen eller har små/ulige gruppe-størrelser.
+
+Overvej Wilks’ lambda eller andre, hvis dine data opfylder alle antagelser solidt, og du ønsker maksimal statistisk power.
+
+Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
+
+#### Wilks’ lambda  
+- **Definition:** Ratio of the determinant of the within‐groups SSCP (sum of squares and cross‐products) matrix to the determinant of the total SSCP matrix:  
+  \[
+    \Lambda = \frac{\det(W)}{\det(T)} = \prod_{i=1}^s \frac{1}{1 + \lambda_i}
+  \]  
+  hvor \(\lambda_i\) er de canoniske egenværdier.  
+- **Fortolkning:** Værdier nær 0 indikerer stor multivariat effekt (mellem‐grupper‐variation >> inden‐gruppe‐variation), værdier nær 1 indikerer lille eller ingen effekt.  
+- **Styrker:**  
+  - Klassisk og mest udbredt i litteraturen.  
+  - God power under ideal antagelsesopfyldelse (multivariat normalitet, homogene kovarianser).  
+- **Svagheder:**  
+  - Mindre robust ved skæve fordelinger eller ulige gruppe‐størrelser.  
+  - Kan undervurdere effektstørrelse, hvis én eller flere kanoniske variabler bærer effekten ujævnt.  
+- **Anbefaling:**  
+  - Brug Wilks’ lambda, når du er sikker på, at antagelserne er opfyldt, og du ønsker en velkendt statistisk test med god power under idealforhold.
+
+#### Hotelling–Lawley’s trace  
+- **Definition:** Summen af de canoniske egenværdier:  
+  \[
+    T = \sum_{i=1}^s \lambda_i
+  \]  
+- **Fortolkning:** Højere værdi betyder større samlet multivariat effekt.  
+- **Styrker:**  
+  - Sensitiv over for effekter fordelt over flere kanoniske dimensioner.  
+  - Kan være mere kraftfuld end Wilks’ lambda, hvis flere dimensioner bidrager til forskellen.  
+- **Svagheder:**  
+  - Mindre robust over for antagelsesbrud end Pillai’s trace.  
+  - Kan overvurdere effektstørrelse, hvis én dimension dominerer kraftigt.  
+- **Anbefaling:**  
+  - Overvej Hotelling–Lawley’s trace, når du forventer, at effekten spreder sig over flere kanoniske variabler, og antagelserne er rimeligt dækket.
+
+#### Roy’s largest root  
+- **Definition:** Den største canoniske egenværdi alene:  
+  \[
+    \Theta = \max_i \lambda_i
+  \]  
+- **Fortolkning:** Måler den stærkeste enkeltdimensionseffekt.  
+- **Styrker:**  
+  - Højest power, når én kanonisk variabel står for størstedelen af gruppedifferensen.  
+  - Let at beregne og fortolke, hvis fokus er på “den stærkeste effekt”.  
+- **Svagheder:**  
+  - Meget følsom over for antagelsesbrud (normalitet, homogene kovarianser).  
+  - Ikke informativ, hvis flere dimensioner bidrager jævnt.  
+- **Anbefaling:**  
+  - Brug Roy’s largest root, når du har en stærk a priori mistanke om én dominerende kanonisk dimension og er komfortabel med forudsætningerne.
+
+> **Tips:** Sammenlign altid flere test‐statistikker – hvis de peger i samme retning, styrker det din konklusion. Pillai’s trace er generelt mest robust, Wilks’ lambda mest almindelig, Hotelling–Lawley god til flere dimensioner, og Roy’s largest root bedst, når én dimension dominerer.  
+
+
+
+
+
+
+
 
 ### Friedman test (nonparametrisk gentagne målinger)
 
