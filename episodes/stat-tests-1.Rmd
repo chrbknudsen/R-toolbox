@@ -368,6 +368,52 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+
+#### Used for
+- Testing whether observed categorical frequencies differ from expected categorical proportions.  
+- **Real-world example:** Comparing the distribution of blood types in a sample of donors to known population proportions.
+
+#### Assumptions
+- Observations are independent.  
+- Categories are mutually exclusive and exhaustive.  
+- Expected count in each category is at least 5 for the chi-square approximation to hold.
+
+#### Strengths
+- Simple to compute and interpret.  
+- Nonparametric: no requirement of normality.  
+- Flexible for any number of categories.
+
+#### Weaknesses
+- Sensitive to small expected counts (invalidates approximation).  
+- Doesn’t identify which categories drive the discrepancy without further post-hoc tests.  
+- Requires independence—unsuitable for paired or repeated measures.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The sample blood type proportions equal the known population proportions (A=0.42, B=0.10, AB=0.04, O=0.44).  
+- **Alternative hypothesis (H₁):** At least one blood type proportion differs from its known value.
+
+```{r chi_square_gof}
+# Observed counts of blood types in 200 donors:
+observed <- c(A = 85, B = 18, AB = 6, O = 91)
+
+# Known population proportions:
+p_expected <- c(A = 0.42, B = 0.10, AB = 0.04, O = 0.44)
+
+# Perform chi-square goodness-of-fit test:
+test_result <- chisq.test(x = observed, p = p_expected)
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The test yields χ² = `r round(test_result$statistic, 2)` with p-value = `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that blood type proportions in the sample differ from the population." else "no evidence to conclude the sample proportions differ from the population."`
+
 ## To-prøve-tests og parrede tests
 
 ### Two-sample F test
@@ -383,7 +429,48 @@ from populations with the same variance.
 ### Paired t-test
 
 EJ KORREKTURLÆST
+#### Used for
+- Testing whether the mean difference between two related (paired) samples differs from zero.  
+- **Real-world example:** Comparing patients’ blood pressure before and after administering a new medication.
 
+#### Assumptions
+- Paired observations are independent of other pairs.  
+- Differences between pairs are approximately normally distributed.  
+- The scale of measurement is continuous (interval or ratio).
+
+#### Strengths
+- Controls for between‐subject variability by using each subject as their own control.  
+- More powerful than unpaired tests when pairs are truly dependent.  
+- Easy to implement and interpret.
+
+#### Weaknesses
+- Sensitive to outliers in the difference scores.  
+- Requires that differences be approximately normal, especially for small samples.  
+- Not appropriate if pairing is not justified or if missing data break pairs.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The mean difference Δ = 0 (no change in blood pressure).  
+- **Alternative hypothesis (H₁):** Δ ≠ 0 (blood pressure changes after medication).
+
+```{r paired_t_test}
+# Simulated systolic blood pressure (mmHg) for 15 patients before and after treatment:
+before <- c(142, 138, 150, 145, 133, 140, 147, 139, 141, 136, 144, 137, 148, 142, 139)
+after  <- c(135, 132, 144, 138, 128, 135, 142, 133, 136, 130, 139, 132, 143, 137, 133)
+
+# Perform paired t-test:
+test_result <- t.test(before, after, paired = TRUE)
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The mean difference (before – after) is `r round(mean(before - after), 2)` mmHg. The t‐statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two‐sided p‐value of` r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the medication significantly changed blood pressure." else "no evidence that the medication changed blood pressure."`
 
 ### Two-sample t test (equal variances)
 
