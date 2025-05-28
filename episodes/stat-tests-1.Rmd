@@ -270,7 +270,52 @@ Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that the true call rate differs from 30 calls/hour." else "no evidence to conclude the call rate differs from 30 calls/hour."`
 
 
-### Shapiro–Wilk test for normalitet
+### Shapiro–Wilk test for normality
+
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether a sample comes from a normally distributed population.  
+- **Real-world example:** Checking if the distribution of daily blood glucose measurements in a patient cohort is approximately normal.
+
+#### Assumptions
+- Observations are independent.  
+- Data are continuous.  
+- No extreme ties or many identical values.
+
+#### Strengths
+- Good power for detecting departures from normality in small to moderate samples (n ≤ 50).  
+- Widely implemented and easy to run in R.  
+- Provides both a test statistic (W) and p-value.
+
+#### Weaknesses
+- Very sensitive to even slight deviations from normality in large samples (n > 2000).  
+- Does not indicate the nature of the departure (e.g., skewness vs. kurtosis).  
+- Ties or repeated values can invalidate the test.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The sample is drawn from a normal distribution.  
+- **Alternative hypothesis (H₁):** The sample is not drawn from a normal distribution.
+
+```{r shapiro_wilk_test}
+# Simulate a sample of 30 observations from a normal distribution:
+set.seed(123)
+sample_data <- rnorm(30, mean = 100, sd = 15)
+
+# Perform Shapiro–Wilk test:
+sw_result <- shapiro.test(sample_data)
+
+# Display results:
+sw_result
+```
+
+Interpretation:
+The Shapiro–Wilk statistic W = `r round(sw_result$statistic, 3)` with p-value = `r signif(sw_result$p.value, 3)`. We
+`r if(sw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(sw_result$p.value < 0.05) "evidence that the data deviate from normality." else "no evidence to conclude a departure from normality."`
 
 ### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
 
