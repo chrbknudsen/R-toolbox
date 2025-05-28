@@ -319,12 +319,60 @@ Thus, there is
 
 ### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
 
+EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether a sample comes from a specified continuous distribution.  
+- **Real-world example:** Checking if patient systolic blood pressures follow a normal distribution with mean 120 mmHg and SD 15 mmHg.
+
+#### Assumptions
+- Observations are independent.  
+- Data are continuous (no ties).  
+- The null distribution is fully specified (parameters known, not estimated from the data).
+
+#### Strengths
+- Nonparametric: makes no assumption about distribution shape beyond continuity.  
+- Sensitive to any kind of departure (location, scale, shape).  
+- Exact distribution of the test statistic under H₀.
+
+#### Weaknesses
+- Requires that distribution parameters (e.g., mean, SD) are known a priori; if estimated from data, p-values are invalid.  
+- Less powerful than parametric tests when the parametric form is correct.  
+- Sensitive to ties and discrete data.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The blood pressure values follow a Normal(μ = 120, σ = 15) distribution.  
+- **Alternative hypothesis (H₁):** The blood pressure values do not follow Normal(120, 15).
+
+```{r ks_one_sample}
+set.seed(2025)
+# Simulate systolic blood pressure for 40 patients:
+sample_bp <- rnorm(40, mean = 120, sd = 15)
+
+# Perform one-sample Kolmogorov–Smirnov test against N(120,15):
+ks_result <- ks.test(sample_bp, "pnorm", mean = 120, sd = 15)
+
+# Show results:
+ks_result
+```
+
+Interpretation:
+The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(ks_result$p.value, 3)`. We
+`r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ks_result$p.value < 0.05) "evidence that systolic blood pressures deviate from Normal(120,15)." else "no evidence to conclude deviation from Normal(120,15)."`
+
 ### χ² goodness-of-fit test
+
+EJ KORREKTURLÆST
 
 ## To-prøve-tests og parrede tests
 
 ### Two-sample F test
 
+EJ KORREKTURLÆST
 
 er det det samme som Two-sample F-test for variance?
 
