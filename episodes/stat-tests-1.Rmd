@@ -595,7 +595,7 @@ test_result
 ```
 
 Interpretation:
-The pooled estimate of the difference in means is `r round(mean(groupA) - mean(groupB), 2)` mmHg. The t-statistic is `r round(test_result$statistic, 2)` with df = `r test_result$parameter and p-value = r signif(test_result$p.value, 3)`. We
+The pooled estimate of the difference in means is `r round(mean(groupA) - mean(groupB), 2)` mmHg. The t-statistic is `r round(test_result$statistic, 2)` with df = `r test_result$parameter` and p-value = `r signif(test_result$p.value, 3)`. We
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that the average systolic blood pressure differs between the two groups." else "no evidence of a difference in average systolic blood pressure."`
@@ -1682,6 +1682,54 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether a sample comes from a specified continuous distribution (most commonly normal).  
+- **Real-world example:** Checking if daily measurement errors from a laboratory instrument follow a normal distribution.
+
+#### Assumptions
+- Observations are independent.  
+- Data are continuous (no excessive ties).  
+- For goodness‐of‐fit to a non‐normal distribution (e.g. exponential), the distribution’s parameters must be fully specified a priori.
+
+#### Strengths
+- More sensitive than the Shapiro–Wilk test to departures in the tails of the distribution.  
+- Applicable to a wide range of target distributions (with the appropriate implementation).  
+- Provides both a test statistic (A²) and p-value.
+
+#### Weaknesses
+- Very sensitive in large samples—small deviations can yield significant results.  
+- If parameters are estimated from the data (e.g. normal mean/SD), p-values may be conservative.  
+- Does not indicate the form of the departure (e.g. skew vs. kurtosis).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The sample is drawn from a Normal distribution.  
+- **Alternative hypothesis (H₁):** The sample is not drawn from a Normal distribution.
+
+```{r anderson_darling_test}
+# Install and load nortest if necessary:
+# install.packages("nortest")
+library(nortest)
+
+# Simulate a sample of 40 observations:
+set.seed(123)
+sample_data <- rnorm(40, mean = 100, sd = 15)
+
+# Perform Anderson–Darling test for normality:
+ad_result <- ad.test(sample_data)
+
+# Display results:
+ad_result
+```
+
+Interpretation:
+The Anderson–Darling statistic A² = `r round(ad_result$statistic, 3)` with p-value = `r signif(ad_result$p.value, 3)`. We
+`r if(ad_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ad_result$p.value < 0.05) "evidence that the data deviate from normality." else "no evidence to conclude a departure from normality."`
+
+
 ::::
 
 
@@ -1697,6 +1745,62 @@ EJ KORREKTURLÆST
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Modeling and quantifying the linear relationship between a continuous predictor and a continuous outcome.  
+- **Real-world example:** Predicting house sale price based on living area in square feet.
+
+#### Assumptions
+- A linear relationship between predictor and outcome.  
+- Residuals are independent and normally distributed with mean zero.  
+- Homoscedasticity: constant variance of residuals across values of the predictor.  
+- No influential outliers or high-leverage points.
+
+#### Strengths
+- Provides an interpretable estimate of the change in outcome per unit change in predictor.  
+- Inference on slope and intercept via hypothesis tests and confidence intervals.  
+- Basis for more complex regression models and diagnostics.
+
+#### Weaknesses
+- Only captures linear patterns; will miss nonlinear relationships.  
+- Sensitive to outliers, which can distort estimates and inference.  
+- Extrapolation beyond observed predictor range is unreliable.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The slope β₁ = 0 (no linear association between x and y).  
+- **Alternative hypothesis (H₁):** β₁ ≠ 0 (a linear association exists).
+
+```{r simple_linear_regression}
+set.seed(2025)
+# Simulate data:
+n <- 50
+x <- runif(n, min = 0, max = 10)
+y <- 2 + 1.5 * x + rnorm(n, sd = 2)
+df <- data.frame(x, y)
+
+# Fit simple linear regression:
+model <- lm(y ~ x, data = df)
+
+# Show summary of model:
+summary(model)
+
+# Plot data with regression line:
+library(ggplot2)
+ggplot(df, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Simple Linear Regression of y on x",
+       x = "Predictor (x)",
+       y = "Outcome (y)")
+```
+
+Interpretation:
+The estimated slope is `r round(coef(model)[2], 3)`, with a p-value of `r signif(summary(model)$coefficients[2,4], 3)`. We
+`r if(summary(model)$coefficients[2,4] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`,
+indicating that there is
+`r if(summary(model)$coefficients[2,4] < 0.05) "evidence of a significant linear association between x and y." else "no evidence of a linear association between x and y."`
+
 ::::
 
 ::::spoiler
@@ -1704,6 +1808,72 @@ EJ KORREKTURLÆST
 ### Multiple regression
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Modeling the relationship between one continuous outcome and two or more predictors (continuous or categorical).  
+- **Real-world example:** Predicting house sale price based on living area, number of bedrooms, and neighborhood quality.
+
+#### Assumptions
+- Correct specification: linear relationship between each predictor and the outcome (additivity).  
+- Residuals are independent and normally distributed with mean zero.  
+- Homoscedasticity: constant variance of residuals for all predictor values.  
+- No perfect multicollinearity among predictors.  
+- No influential outliers unduly affecting the model.
+
+#### Strengths
+- Can adjust for multiple confounders or risk factors simultaneously.  
+- Provides estimates and inference (CI, p-values) for each predictor’s unique association with the outcome.  
+- Basis for variable selection, prediction, and causal modeling in observational data.
+
+#### Weaknesses
+- Sensitive to multicollinearity, which inflates variances of coefficient estimates.  
+- Assumes a linear, additive form; interactions or nonlinearity require extension.  
+- Outliers and high-leverage points can distort estimates and inference.  
+- Interpretation can be complex when including many predictors or interactions.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All regression coefficients for predictors (β₁, β₂, β₃) are zero (no association).  
+- **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0.
+
+```{r multiple_regression}
+set.seed(2025)
+n <- 100
+# Simulate predictors:
+living_area     <- runif(n, 800, 3500)        # in square feet
+bedrooms        <- sample(2:6, n, replace = TRUE)
+neighborhood    <- factor(sample(c("Low","Medium","High"), n, replace = TRUE))
+# Simulate price with true model:
+price <- 50000 +
+         30 * living_area + 
+         10000 * bedrooms + 
+         ifelse(neighborhood=="Medium", 20000, 
+                ifelse(neighborhood=="High", 50000, 0)) +
+         rnorm(n, sd = 30000)
+df <- data.frame(price, living_area, bedrooms, neighborhood)
+
+# Fit multiple linear regression:
+model_mlr <- lm(price ~ living_area + bedrooms + neighborhood, data = df)
+
+# Show model summary:
+summary(model_mlr)
+```
+
+Interpretation:
+
+The overall F-test (in `r round(summary(model_mlr)$fstatistic[1], 2)` on df₁ = `r summary(model_mlr)$fstatistic[2]`, df₂ = `r summary(model_mlr)$fstatistic[3])` has p-value = `r signif(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE), 3)`, so
+`r if(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE) < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+
+Individual coefficients: for example, living_area’s estimate is `r round(coef(model_mlr)["living_area"], 2)` (p = `r signif(coef(summary(model_mlr))["living_area","Pr(>|t|)"], 3)`), indicating
+`r if(coef(summary(model_mlr))["living_area","Pr(>|t|)"] < 0.05) "a significant positive association: each additional square foot increases price by about \$30 on average." else "no significant association between living area and price."`
+
+Similar interpretation applies to bedrooms and neighborhood indicators.
+
+
+
+
+
 
 ::::
 
