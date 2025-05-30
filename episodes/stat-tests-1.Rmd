@@ -1941,6 +1941,49 @@ indicating that there is
 ### Spearman’s rank correlation
 
 EJ KORREKTURLÆST
+#### Used for
+- Assessing the strength and direction of a monotonic association between two variables using their ranks.  
+- **Real-world example:** Evaluating whether patients’ pain rankings correlate with their anxiety rankings.
+
+#### Assumptions
+- Observations are independent pairs.  
+- Variables are at least ordinal.  
+- The relationship is monotonic (consistently increasing or decreasing).
+
+#### Strengths
+- Nonparametric: does not require normality of the underlying data.  
+- Robust to outliers in the original measurements.  
+- Captures any monotonic relationship, not limited to linear.
+
+#### Weaknesses
+- Less powerful than Pearson’s correlation when the true relationship is linear and data are bivariate normal.  
+- Does not distinguish between different monotonic shapes (e.g. concave vs. convex).  
+- Tied ranks reduce effective sample size and can complicate exact p-value calculation.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The true Spearman rank correlation ρ = 0 (no monotonic association).  
+- **Alternative hypothesis (H₁):** ρ ≠ 0 (a monotonic association exists).
+
+```{r spearman_rank_correlation}
+# Simulate two variables with a monotonic relationship:
+set.seed(2025)
+x <- sample(1:100, 30)                   # e.g., anxiety scores ranked
+y <- x + rnorm(30, sd = 15)              # roughly increasing with x, plus noise
+
+# Perform Spearman rank correlation test:
+spearman_result <- cor.test(x, y, method = "spearman", exact = FALSE)
+
+# Display results:
+spearman_result
+```
+
+Interpretation:
+Spearman’s rho = `r round(spearman_result$estimate, 3)` with p-value = `r signif(spearman_result$p.value, 3)`. We
+`r if (spearman_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that there is
+`r if (spearman_result$p.value < 0.05) "evidence of a significant monotonic association between the two variables." else "no evidence of a monotonic association between the two variables."`
 
 ::::
 
