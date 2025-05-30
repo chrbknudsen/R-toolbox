@@ -658,6 +658,55 @@ This means there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether multiple groups have equal variances under the assumption of normality.  
+- **Real-world example:** Checking if the variability in laboratory test results differs across three different laboratories.
+
+#### Assumptions
+- Observations within each group are independent.  
+- Each group is drawn from a normally distributed population.  
+- Groups are independent of one another.
+
+#### Strengths
+- More powerful than Levene’s test when normality holds.  
+- Directly targets equality of variances under the normal model.  
+- Simple to compute in R via `bartlett.test()`.
+
+#### Weaknesses
+- Highly sensitive to departures from normality—small deviations can inflate Type I error.  
+- Does not indicate which groups differ without further pairwise testing.  
+- Not robust to outliers.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All group variances are equal (σ₁² = σ₂² = σ₃²).  
+- **Alternative hypothesis (H₁):** At least one group variance differs.
+
+```{r bartlett_test}
+# Simulate data for three laboratories (n = 12 each):
+set.seed(456)
+lab      <- factor(rep(c("LabA", "LabB", "LabC"), each = 12))
+values   <- c(rnorm(12, mean = 100, sd = 5),
+              rnorm(12, mean = 100, sd = 8),
+              rnorm(12, mean = 100, sd = 5))
+df       <- data.frame(lab, values)
+
+# Perform Bartlett’s test for homogeneity of variances:
+bartlett_result <- bartlett.test(values ~ lab, data = df)
+
+# Display results:
+bartlett_result
+```
+
+
+Interpretation:
+Bartlett’s K-squared = `r round(bartlett_result$statistic, 2)` with df = `r bartlett_result$parameter` and p-value = `r signif(bartlett_result$p.value, 3)`. We
+`r if(bartlett_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(bartlett_result$p.value < 0.05) "evidence that at least one laboratory’s variance differs from the others." else "no evidence that variances differ across laboratories."`
+
+
 ::::
 
 
@@ -669,6 +718,53 @@ EJ KORREKTURLÆST
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the means of three or more independent groups differ.  
+- **Real-world example:** Comparing average test scores among students taught by three different teaching methods.
+
+#### Assumptions
+- Observations are independent.  
+- Each group’s residuals are approximately normally distributed.  
+- Homogeneity of variances across groups.
+
+#### Strengths
+- Controls Type I error rate when comparing multiple groups.  
+- Simple to compute and interpret via F-statistic.  
+- Foundation for many extensions (e.g., factorial ANOVA, mixed models).
+
+#### Weaknesses
+- Sensitive to heterogeneity of variances, especially with unequal group sizes.  
+- Only tells you that at least one mean differs—does not indicate which groups differ without post-hoc tests.  
+- Assumes normality; moderately robust for large samples, but small samples can be problematic.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** μ₁ = μ₂ = μ₃ (all three group means are equal).  
+- **Alternative hypothesis (H₁):** At least one group mean differs.
+
+```{r one_way_anova}
+# Simulate exam scores for three teaching methods (n = 20 each):
+set.seed(2025)
+method <- factor(rep(c("Lecture", "Online", "Hybrid"), each = 20))
+scores <- c(rnorm(20, mean = 75, sd = 8),
+            rnorm(20, mean = 80, sd = 8),
+            rnorm(20, mean = 78, sd = 8))
+df     <- data.frame(method, scores)
+
+# Fit one-way ANOVA:
+anova_fit <- aov(scores ~ method, data = df)
+
+# Summarize ANOVA table:
+anova_summary <- summary(anova_fit)
+anova_summary
+```
+
+Interpretation:
+The ANOVA yields F = `r round(anova_summary[[1]]["method","F value"], 2)` with df₁ =` r anova_summary[[1]]["method","Df"]` and df₂ =` r anova_summary[[1]]["Residuals","Df"]`, and p-value = `r signif(anova_summary[[1]]["method","Pr(>F)"], 3)`. We
+`r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "evidence that at least one teaching method yields a different average score." else "no evidence of a difference in mean scores among methods."`
 
 ::::
 
@@ -677,6 +773,62 @@ EJ KORREKTURLÆST
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Comparing group means on a continuous outcome while adjusting for one continuous covariate.  
+- **Real-world example:** Evaluating whether three different teaching methods lead to different final exam scores after accounting for students’ prior GPA.
+
+#### Assumptions
+- Observations are independent.  
+- The relationship between the covariate and the outcome is linear and the same across groups (homogeneity of regression slopes).  
+- Residuals are normally distributed with equal variances across groups.  
+- Covariate is measured without error and is independent of group assignment.
+
+#### Strengths
+- Removes variability due to the covariate, increasing power to detect group differences.  
+- Controls for confounding by the covariate.  
+- Simple extension of one-way ANOVA with interpretation familiar to ANOVA users.
+
+#### Weaknesses
+- Sensitive to violation of homogeneity of regression slopes.  
+- Mis‐specification of the covariate‐outcome relationship biases results.  
+- Requires accurate measurement of the covariate.  
+- Does not accommodate multiple covariates without extension to factorial ANCOVA or regression.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** After adjusting for prior GPA, the mean final exam scores are equal across the three teaching methods (μ_Lecture = μ_Online = μ_Hybrid).  
+- **Alternative hypothesis (H₁):** At least one adjusted group mean differs.
+
+```{r one_way_ancova}
+set.seed(2025)
+n <- 20
+method <- factor(rep(c("Lecture","Online","Hybrid"), each = n))
+prior_gpa <- rnorm(3*n, mean = 3.0, sd = 0.3)
+
+# Simulate final exam scores with a covariate effect:
+# true intercepts 75, 78, 80; slope = 5 points per GPA unit; noise sd = 5
+final_score <- 75 + 
+               ifelse(method=="Online", 3, 0) + 
+               ifelse(method=="Hybrid", 5, 0) + 
+               5 * prior_gpa + 
+               rnorm(3*n, sd = 5)
+
+df <- data.frame(method, prior_gpa, final_score)
+
+# Fit one-way ANCOVA:
+ancova_fit <- aov(final_score ~ prior_gpa + method, data = df)
+ancova_summary <- summary(ancova_fit)
+ancova_summary
+```
+
+Interpretation:
+After adjusting for prior GPA, the effect of teaching method yields F = `r round(ancova_summary[[1]]["method","F value"], 2)` (df₁ =` r ancova_summary[[1]]["method","Df"]`, df₂ =` r ancova_summary[[1]]["Residuals","Df"]`) with p =` r signif(ancova_summary[[1]]["method","Pr(>F)"], 3`). We
+`r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "evidence that, controlling for prior GPA, at least one teaching method leads to a different average final score." else "no evidence of differences in final exam scores among methods after adjustment."`.
+
+
 
 ::::
 
@@ -684,6 +836,55 @@ EJ KORREKTURLÆST
 ### Welch’s ANOVA (uden antagelse om lige varianser)
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether the means of three or more independent groups differ when variances are unequal.  
+- **Real-world example:** Comparing average systolic blood pressure across three clinics known to have different measurement variability.
+
+#### Assumptions
+- Observations are independent.  
+- Each group’s residuals are approximately normally distributed.  
+- Does **not** assume equal variances across groups.
+
+#### Strengths
+- Controls Type I error under heteroskedasticity better than ordinary ANOVA.  
+- Simple to implement via `oneway.test(..., var.equal = FALSE)`.  
+- More powerful than nonparametric alternatives when normality holds.
+
+#### Weaknesses
+- Sensitive to departures from normality, especially with small sample sizes.  
+- Does not provide post-hoc comparisons by default; requires additional tests.  
+- Still assumes independence and approximate normality within each group.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All group means are equal (μ₁ = μ₂ = μ₃).  
+- **Alternative hypothesis (H₁):** At least one group mean differs.
+
+```{r welchs_anova}
+set.seed(2025)
+# Simulate systolic BP (mmHg) for three clinics with unequal variances:
+clinic   <- factor(rep(c("A","B","C"), each = c(15, 20, 12)))
+bp_values <- c(
+  rnorm(15, mean = 120, sd = 5),
+  rnorm(20, mean = 125, sd = 10),
+  rnorm(12, mean = 118, sd = 7)
+)
+df <- data.frame(clinic, bp_values)
+
+# Perform Welch’s one-way ANOVA:
+welch_result <- oneway.test(bp_values ~ clinic, data = df, var.equal = FALSE)
+
+# Display results:
+welch_result
+```
+
+Interpretation:
+The Welch statistic = `r round(welch_result$statistic, 2)` with df ≈ `r round(welch_result$parameter, 2)`, and p-value = `r signif(welch_result$p.value, 3)`. We
+`r if(welch_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(welch_result$p.value < 0.05) "evidence that mean blood pressure differs across the clinics." else "no evidence of a difference in mean blood pressure among the clinics."`
 
 ::::
 
