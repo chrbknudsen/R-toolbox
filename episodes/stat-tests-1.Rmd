@@ -1571,6 +1571,57 @@ The output shows adjusted p-values for each pair of diets. For example, if the A
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Comparing the central tendency of three or more independent groups when the outcome is ordinal or not normally distributed.  
+- **Real-world example:** Testing whether median pain scores differ across four treatment groups in a clinical trial when scores are skewed.
+
+#### Assumptions
+- Observations are independent both within and between groups.  
+- The response variable is at least ordinal.  
+- The distributions of the groups have the same shape (so differences reflect shifts in location).
+
+#### Strengths
+- Nonparametric: does not require normality or equal variances.  
+- Handles ordinal data and skewed continuous data.  
+- Controls Type I error when comparing multiple groups without assuming normality.
+
+#### Weaknesses
+- Less powerful than one-way ANOVA when normality holds.  
+- If group distributions differ in shape, interpretation of a location shift is ambiguous.  
+- Only indicates that at least one group differs—post-hoc tests needed to identify which.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The distributions (medians) of the four treatment groups are equal.  
+- **Alternative hypothesis (H₁):** At least one group’s median pain score differs.
+
+```{r kruskal_wallis_test}
+# Simulate pain scores (0–10) for four treatment groups (n = 15 each):
+set.seed(2025)
+group <- factor(rep(c("Placebo","DrugA","DrugB","DrugC"), each = 15))
+scores <- c(
+  rpois(15, lambda = 5),   # Placebo
+  rpois(15, lambda = 4),   # Drug A
+  rpois(15, lambda = 3),   # Drug B
+  rpois(15, lambda = 2)    # Drug C
+)
+df <- data.frame(group, scores)
+
+# Perform Kruskal–Wallis rank‐sum test:
+kw_result <- kruskal.test(scores ~ group, data = df)
+
+# Display results:
+kw_result
+```
+
+Interpretation:
+The Kruskal–Wallis chi-squared = `r round(kw_result$statistic, 2)` with df = `r kw_result$parameter` and p-value = `r signif(kw_result$p.value, 3)`. We
+`r if(kw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(kw_result$p.value < 0.05) "evidence that at least one treatment group’s median pain score differs." else "no evidence of a difference in median pain scores among the groups."`
+
+
 ::::
 
 ::::spoiler
