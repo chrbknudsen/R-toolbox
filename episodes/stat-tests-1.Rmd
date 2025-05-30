@@ -1630,7 +1630,8 @@ Thus, there is
 
 ### Rank correlation
 
-EJ KORREKTURLÆST
+EJ KORREKTURLÆST HAV SÆRLIGT FOKUS PÅ OM DER ER FORSKEL PÅ DENNE OG
+SPEARMAN-RANK CORRELATION SENERE
 
 #### Used for
 - Assessing the strength and direction of a monotonic association between two variables using their ranks.  
@@ -1657,7 +1658,7 @@ EJ KORREKTURLÆST
 - **Null hypothesis (H₀):** There is no monotonic association between X and Y (ρ = 0).  
 - **Alternative hypothesis (H₁):** There is a nonzero monotonic association (ρ ≠ 0).
 
-```{r spearman_rank_correlation}
+```{r rank_correlation}
 # Simulate two variables with a monotonic relationship:
 set.seed(2025)
 x <- sample(1:100, 30)
