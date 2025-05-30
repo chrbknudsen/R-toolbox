@@ -764,7 +764,7 @@ Thus, there is
 
 ::::spoiler
 
-### Kolmogorov–Smirnov to-prøve-test
+### Kolmogorov–Smirnov two-sample-test
 
 EJ KORREKTURLÆST
 
@@ -1116,6 +1116,57 @@ Thus, there is
 ### Repeated-measures ANOVA
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether the means of three or more related (within‐subject) conditions differ.  
+- **Real-world example:** Assessing whether students’ reaction times change across three levels of sleep deprivation (0 h, 12 h, 24 h) measured on the same individuals.
+
+#### Assumptions
+- Observations (subjects) are independent.  
+- The dependent variable is approximately normally distributed in each condition.  
+- **Sphericity:** variances of the pairwise differences between conditions are equal.
+
+#### Strengths
+- Controls for between‐subject variability by using each subject as their own control.  
+- More powerful than independent‐groups ANOVA when measures are correlated.  
+- Can model complex within‐subject designs (e.g. time × treatment interactions).
+
+#### Weaknesses
+- Sensitive to violations of sphericity (inflates Type I error).  
+- Missing data in any condition drops the entire subject (unless using more advanced mixed‐model methods).  
+- Interpretation can be complex when there are many levels or interactions.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The mean reaction time is the same across 0 h, 12 h, and 24 h sleep deprivation.  
+- **Alternative hypothesis (H₁):** At least one condition’s mean reaction time differs.
+
+```{r repeated_measures_anova}
+set.seed(2025)
+n_subj <- 12
+subject <- factor(rep(1:n_subj, each = 3))
+condition <- factor(rep(c("0h","12h","24h"), times = n_subj))
+# Simulate reaction times (ms):
+rt <- c(rnorm(n_subj, mean = 300, sd = 20),
+        rnorm(n_subj, mean = 320, sd = 20),
+        rnorm(n_subj, mean = 340, sd = 20))
+df <- data.frame(subject, condition, rt)
+
+# Fit repeated-measures ANOVA:
+rm_fit <- aov(rt ~ condition + Error(subject/condition), data = df)
+rm_summary <- summary(rm_fit)
+
+# Display results:
+rm_summary
+```
+
+Interpretation:
+The within‐subjects effect of sleep deprivation yields F =  `r round(rm_summary[[2]][["condition","F value"]], 2)` with df₁ = `r rm_summary[[2]]["condition","Df"]` and df₂ = `r rm_summary[[2]]["Residuals","Df"]`, p = `r signif(rm_summary[[2]]["condition","Pr(>F)"], 3)`. We
+`r if(rm_summary[[2]]["condition","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(rm_summary[[2]]["condition","Pr(>F)"] < 0.05) "evidence that reaction times differ across levels of sleep deprivation." else "no evidence that reaction times differ across sleep deprivation conditions."`
+
 
 ::::
 
