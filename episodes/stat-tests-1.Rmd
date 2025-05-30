@@ -1088,7 +1088,7 @@ EJ KORREKTURLÆST
 ```{r welchs_anova}
 set.seed(2025)
 # Simulate systolic BP (mmHg) for three clinics with unequal variances:
-clinic   <- factor(rep(c("A","B","C"), each = c(15, 20, 12)))
+clinic   <- factor(rep(c("A","B","C"), times = c(15, 20, 12)))
 bp_values <- c(
   rnorm(15, mean = 120, sd = 5),
   rnorm(20, mean = 125, sd = 10),
@@ -1162,10 +1162,11 @@ rm_summary
 ```
 
 Interpretation:
-The within‐subjects effect of sleep deprivation yields F =  `r round(rm_summary[[2]][["condition","F value"]], 2)` with df₁ = `r rm_summary[[2]]["condition","Df"]` and df₂ = `r rm_summary[[2]]["Residuals","Df"]`, p = `r signif(rm_summary[[2]]["condition","Pr(>F)"], 3)`. We
-`r if(rm_summary[[2]]["condition","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+The within‐subjects effect of sleep deprivation yields F =  `r round(rm_summary[[2]][[1]]["condition","F value"], 2)` with df₁ = `r rm_summary[[2]][[1]]["condition","Df"]` and df₂ = `r
+rm_summary[[2]][[1]]["Residuals","Df"]`, p = `r signif(rm_summary[[2]][[1]]["condition","Pr(>F)"], 3)`. We
+`r if(rm_summary[[2]][[1]]["condition","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
-`r if(rm_summary[[2]]["condition","Pr(>F)"] < 0.05) "evidence that reaction times differ across levels of sleep deprivation." else "no evidence that reaction times differ across sleep deprivation conditions."`
+`r if(rm_summary[[2]][[1]]["condition","Pr(>F)"] < 0.05) "evidence that reaction times differ across levels of sleep deprivation." else "no evidence that reaction times differ across sleep deprivation conditions."`
 
 
 ::::
@@ -1500,7 +1501,7 @@ confint(dunnett_result)
 Interpretation:
 The Dunnett contrasts compare each fertilizer to Control. For example, if the contrast FertilizerA–Control shows an estimate of r round(coef(dunnett_result)[1], 2) kg with a 95% simultaneous CI [`r round(confint(dunnett_result)$confint[1,1], 2)`, `r round(confint(dunnett_result)$confint[1,2], 2)`] and adjusted p-value = `r signif(summary(dunnett_result)$test$pvalues[1], 3)`, we
 `r if(summary(dunnett_result)$test$pvalues[1] < 0.05) "reject the null for Fertilizer A vs. Control—i.e., Fertilizer A yields significantly different crop output." else "fail to reject the null for Fertilizer A vs. Control."`
-Similarly, for FertilizerB vs. Control (contrast index 2), the estimate is `r round(coef(dunnett_result)[2], 2)` kg (CI [`r round(confint(dunnett_result)$confint[2,1], 2)`, `r round(confint(dunnett_result)$confint[2,2], 2)`], p-value = `r signif(summary(dunnett_result)$test$pvalues[2], 3))`, so we
+Similarly, for FertilizerB vs. Control (contrast index 2), the estimate is `r round(coef(dunnett_result)[2], 2)` kg (CI [`r round(confint(dunnett_result)$confint[2,1], 2)`, `r round(confint(dunnett_result)$confint[2,2], 2)`], p-value = `r signif(summary(dunnett_result)$test$pvalues[2], 3)`, so we
 `r if(summary(dunnett_result)$test$pvalues[2] < 0.05) "reject the null for Fertilizer B vs. Control." else "fail to reject the null for Fertilizer B vs. Control."`
 
 ::::
@@ -1862,11 +1863,11 @@ summary(model_mlr)
 
 Interpretation:
 
-The overall F-test (in `r round(summary(model_mlr)$fstatistic[1], 2)` on df₁ = `r summary(model_mlr)$fstatistic[2]`, df₂ = `r summary(model_mlr)$fstatistic[3])` has p-value = `r signif(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE), 3)`, so
+The overall F-test (in `r round(summary(model_mlr)$fstatistic[1], 2)` on df₁ = `r summary(model_mlr)$fstatistic[2]`, df₂ = `r summary(model_mlr)$fstatistic[3]` has p-value = `r signif(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE), 3)`, so
 `r if(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE) < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 
 Individual coefficients: for example, living_area’s estimate is `r round(coef(model_mlr)["living_area"], 2)` (p = `r signif(coef(summary(model_mlr))["living_area","Pr(>|t|)"], 3)`), indicating
-`r if(coef(summary(model_mlr))["living_area","Pr(>|t|)"] < 0.05) "a significant positive association: each additional square foot increases price by about \$30 on average." else "no significant association between living area and price."`
+`r if(coef(summary(model_mlr))["living_area","Pr(>|t|)"] < 0.05) "a significant positive association: each additional square foot increases price by about \\$30 on average." else "no significant association between living area and price."`
 
 Similar interpretation applies to bedrooms and neighborhood indicators.
 
