@@ -2406,6 +2406,66 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Modeling non-normal outcomes (e.g. binary, counts) with both fixed effects and random effects.  
+- **Real-world example:** Predicting whether patients are readmitted (yes/no) based on age and comorbidity score, with random intercepts for each hospital.
+
+#### Assumptions
+- Observations within each cluster (e.g. hospital) are correlated, but clusters are independent.  
+- The conditional distribution of the outcome given predictors and random effects follows a specified exponential‐family distribution (e.g. binomial, Poisson).  
+- The link function (e.g. logit, log) correctly relates the linear predictor to the mean of the outcome.  
+- Random effects are normally distributed.
+
+#### Strengths
+- Can accommodate hierarchical or longitudinal data and non-Gaussian outcomes.  
+- Estimates both population‐level (fixed) effects and cluster‐specific (random) variation.  
+- Flexible: supports a variety of link functions and distributions.
+
+#### Weaknesses
+- Computationally intensive; convergence can fail with complex random‐effects structures.  
+- Inference (especially p-values for fixed effects) relies on approximations.  
+- Model specification (random slopes, link choice) can be challenging.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The log-odds of readmission do not depend on age (β_age = 0).  
+- **Alternative hypothesis (H₁):** Age affects the log-odds of readmission (β_age ≠ 0).
+
+```{r generalized_linear_mixed_effects_model}
+# Load packages
+library(lme4)
+
+set.seed(2025)
+# Simulate data for 2000 patients in 20 hospitals:
+n_hospitals <- 20
+patients_per <- 100
+hospital   <- factor(rep(1:n_hospitals, each = patients_per))
+age        <- rnorm(n_hospitals * patients_per, mean = 65, sd = 10)
+comorbidity<- rpois(n_hospitals * patients_per, lambda = 2)
+
+# True model: logit(p) = -2 + 0.03*age + 0.5*comorbidity + random intercept by hospital
+logit_p    <- -2 + 0.03 * age + 0.5 * comorbidity + rnorm(n_hospitals, 0, 0.5)[hospital]
+p_readmit  <- plogis(logit_p)
+readmit    <- rbinom(n_hospitals * patients_per, size = 1, prob = p_readmit)
+
+df_glmm <- data.frame(readmit = factor(readmit, levels = c(0,1)),
+                      age, comorbidity, hospital)
+
+# Fit a binomial GLMM with random intercepts for hospital:
+glmm_fit <- glmer(readmit ~ age + comorbidity + (1 | hospital),
+                  data = df_glmm, family = binomial(link = "logit"))
+
+# Display summary:
+summary(glmm_fit)
+```
+
+Interpretation:
+The fixed‐effect estimate for age is `r round(fixef(glmm_fit)["age"], 3)` (SE = `r round(summary(glmm_fit)$coefficients["age","Std. Error"], 3)`), giving an odds ratio of `r round(exp(fixef(glmm_fit)["age"]), 3)` per year of age. With a z‐value = `r round(summary(glmm_fit)$coefficients["age","z value"], 2)` and p ≈ `r signif(summary(glmm_fit)$coefficients["age","Pr(>|z|)"], 3)`, we
+`r if(summary(glmm_fit)$coefficients["age","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that age
+`r if(summary(glmm_fit)$coefficients["age","Pr(>|z|)"] < 0.05) "is significantly associated with higher odds of readmission, accounting for hospital clustering." else "is not significantly associated with readmission when accounting for hospital clustering."`
+
 ::::
 
 ::::spoiler
