@@ -1333,6 +1333,56 @@ Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing for differences in central tendency across three or more related (paired) groups when assumptions of repeated‐measures ANOVA are violated.  
+- **Real-world example:** Comparing median pain scores at baseline, 1 hour, and 24 hours after surgery in the same patients.
+
+#### Assumptions
+- Observations are paired and the sets of scores for each condition are related (e.g., repeated measures on the same subjects).  
+- Data are at least ordinal.  
+- The distribution of differences across pairs need not be normal.
+
+#### Strengths
+- Nonparametric: does not require normality or sphericity.  
+- Controls for between‐subject variability by using each subject as their own block.  
+- Robust to outliers and skewed data.
+
+#### Weaknesses
+- Less powerful than repeated‐measures ANOVA when normality and sphericity hold.  
+- Only indicates that at least one condition differs—post‐hoc tests are needed to locate differences.  
+- Assumes similar shaped distributions across conditions.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The distributions of scores are the same across all conditions (no median differences).  
+- **Alternative hypothesis (H₁):** At least one condition’s distribution (median) differs.
+
+```{r friedman_test}
+# Simulate pain scores (0–10) for 12 patients at 3 time points:
+set.seed(2025)
+patient   <- factor(rep(1:12, each = 3))
+timepoint <- factor(rep(c("Baseline","1hr","24hr"), times = 12))
+scores    <- c(
+  rpois(12, lambda = 5),   # Baseline
+  rpois(12, lambda = 3),   # 1 hour post-op
+  rpois(12, lambda = 4)    # 24 hours post-op
+)
+df <- data.frame(patient, timepoint, scores)
+
+# Perform Friedman test:
+friedman_result <- friedman.test(scores ~ timepoint | patient, data = df)
+
+# Display results:
+friedman_result
+```
+
+Interpretation:
+The Friedman chi-squared = `r round(friedman_result$statistic, 2)` with df = `r friedman_result$parameter` and p-value = `r signif(friedman_result$p.value, 3)`. We
+`r if(friedman_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(friedman_result$p.value < 0.05) "evidence that pain scores differ across at least one time point." else "no evidence that pain scores differ across time points."`
+
 ::::
 
 ::::spoiler
