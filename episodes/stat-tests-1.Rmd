@@ -41,9 +41,11 @@ have not been checked.
 
 ## One sample tests
 
-::::spoiler
 
 ### One-sample chi-square test
+
+::::spoiler
+### Details
 
 #### Used for
 

@@ -71,7 +71,7 @@ test_data <- data %>%
 
 The means and standard deviations can be calculated like this:
 
-```{r}
+```{r summary_stat_calc}
 test_data %>% 
   group_by(Sex) %>% 
 summarise(mean = mean(FEV),
@@ -83,7 +83,7 @@ of `r test_data %>%   group_by(Sex) %>% summarise(mean = mean(FEV)) %>% summaris
 Is there a difference? The null-hypothesis is that there is not. We have two
 independent samples, so we are running a two-sample-t-test:
 
-```{r}
+```{r t.test}
 girls <- test_data %>% 
 filter(Sex == 0)
 boys <- test_data %>% 
@@ -120,7 +120,7 @@ $$\sigma_{pooled} = \sqrt{\frac{(n_{boys}-1)s_{boys}^2 + (n_{girls}-1)s_{girls}^
 Which is a weighted average of the two standard deviations.
 
 We need the following values:
-```{r}
+```{r getting_parameters}
 test_data %>% 
   group_by(Sex) %>% 
   summarise(n = n(), mean = mean(FEV), sd = sd(FEV))
@@ -129,13 +129,13 @@ test_data %>%
 
 And now get the pooled standard deviation with:
 
-```{r}
+```{r pooled_sd}
 s_p <- sqrt(((154-1)*0.5144072^2 + (155-1)*0.5075533^2)/(154+155-2))
 ```
 
 And can then calculate Cohen's d, or, the effect size in standard deviations:
 
-```{r}
+```{r cohens_d}
 d <- (2.070799-1.995097)/s_p
 d
 ```
@@ -154,7 +154,7 @@ functions for handling other tests.
 
 The function we are going to use is `pwr.t.test`:
 
-```{r}
+```{r power_calc}
 library(pwr)
 pwr.t.test(d=d, sig.level = 0.05, power = 0.9, type = "two.sample")
 
@@ -173,7 +173,7 @@ significanse level, the power and the number of observations. They are all
 connected, and if we specify three of them, we will get the fourth.
 
 Given the number of observations we have, we can calculate the power of the test:
-```{r}
+```{r effect_sizes}
 pwr.t.test(n = 155, d=d, sig.level = 0.05, type = "two.sample")
 ```
 There is ~75% chance of getting a type II error. 
