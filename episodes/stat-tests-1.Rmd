@@ -1994,6 +1994,52 @@ This indicates that there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Assessing the strength and direction of a monotonic association between two variables based on concordant and discordant pairs.  
+- **Real-world example:** Evaluating whether the ranking of students by homework completion correlates with their ranking by final exam performance.
+
+#### Assumptions
+- Observations are independent pairs.  
+- Variables are measured on at least an ordinal scale.  
+- The relationship is monotonic (but not necessarily linear).
+
+#### Strengths
+- Nonparametric: does not require any distributional assumptions.  
+- Robust to outliers and tied values (with appropriate corrections).  
+- Directly interprets probability of concordance vs. discordance.
+
+#### Weaknesses
+- Less powerful than Spearman’s rho when the relationship is strictly monotonic and no ties.  
+- Tied ranks reduce effective sample size and require tie corrections.  
+- Only measures monotonic association, not form or magnitude of change.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** Kendall’s τ = 0 (no association between the two rankings).  
+- **Alternative hypothesis (H₁):** τ ≠ 0 (a monotonic association exists).
+
+```{r kendall_tau}
+# Simulate two sets of rankings for 25 students:
+set.seed(2025)
+homework_rank <- sample(1:25, 25)                  # ranking by homework completion
+exam_rank     <- homework_rank + rpois(25, lambda=2) - 1  # roughly related with some noise
+
+# Perform Kendall’s tau test:
+kendall_result <- cor.test(homework_rank, exam_rank,
+                          method  = "kendall",
+                          exact   = FALSE)
+
+# Display results:
+kendall_result
+```
+
+Interpretation:
+Kendall’s τ = `r round(kendall_result$estimate, 3)` with a two-sided p-value = `r signif(kendall_result$p.value, 3)`. We
+`r if(kendall_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(kendall_result$p.value < 0.05) "evidence of a significant monotonic association between homework and exam rankings." else "no evidence of a monotonic association between homework and exam rankings."`
+
 ::::
 
 ::::spoiler
