@@ -2194,6 +2194,59 @@ This means each 1 °C increase in average daily temperature is associated with a
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Modeling overdispersed count data (variance > mean) as a function of one or more predictors.  
+- **Real-world example:** Predicting the number of daily asthma attacks per patient based on air pollution level when counts show extra-Poisson variation.
+
+#### Assumptions
+- Counts follow a negative binomial distribution (allows variance > mean).  
+- Events occur independently.  
+- The log of the expected count is a linear function of the predictors.  
+- Overdispersion parameter is constant across observations.
+
+#### Strengths
+- Handles overdispersion naturally without biasing standard errors.  
+- Estimates incidence rate ratios (IRRs) with correct inference.  
+- Can include both continuous and categorical predictors.
+
+#### Weaknesses
+- Requires estimation of an extra dispersion parameter, which may be unstable in small samples.  
+- Sensitive to model misspecification (link function, omitted covariates).  
+- Influential observations can still distort estimates if extreme.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** Air pollution level has no effect on the expected number of asthma attacks (β₁ = 0).  
+- **Alternative hypothesis (H₁):** Air pollution level affects the expected number of asthma attacks (β₁ ≠ 0).
+
+```{r negative_binomial_regression}
+# install.packages("MASS")  # if necessary
+library(MASS)
+
+set.seed(2025)
+n_patients <- 150
+# Simulate predictor: average daily PM2.5 level (µg/m³)
+pm25       <- runif(n_patients, min = 5, max = 50)
+# True model: log(µ) = 0.5 + 0.04 * pm25, dispersion theta = 2
+log_mu     <- 0.5 + 0.04 * pm25
+mu         <- exp(log_mu)
+attacks    <- rnbinom(n_patients, mu = mu, size = 2)
+
+df_nb <- data.frame(attacks, pm25)
+
+# Fit negative binomial regression:
+nb_fit <- glm.nb(attacks ~ pm25, data = df_nb)
+
+# Display summary:
+summary(nb_fit)
+```
+
+Interpretation:
+The estimated coefficient for PM2.5 is `r round(coef(nb_fit)["pm25"], 3)`, giving an incidence rate ratio IRR = `r round(exp(coef(nb_fit)["pm25"]), 3)`. With p-value = `r signif(summary(nb_fit)$coefficients["pm25","Pr(>|z|)"], 3)`, we
+`r if(summary(nb_fit)$coefficients["pm25","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means each 1 µg/m³ increase in PM2.5 is associated with a multiplicative change of approximately `r round(exp(coef(nb_fit)["pm25"]), 3)` in the expected number of asthma attacks, accounting for overdispersion.
+
 ::::
 
 ::::spoiler
