@@ -34,10 +34,14 @@ For all tests, the approach is:
 
 The cutoff chosen for all tests is a p-value of 0.05 unless otherwise indicated.
 
+
+
 If a specific test is prefaced with "EJ KORREKTURLÆST" the text, examples etc
 have not been checked.
 
 ## One sample tests
+
+::::spoiler
 
 ### One-sample chi-square test
 
@@ -92,9 +96,11 @@ fail to reject the null hypothesis", and there is no evidence to conclude a
 difference from the claimed distribution.
 
 
+::::
+
+::::spoiler
+
 ### One-sample z test
-
-
 
 #### Used for
 
@@ -164,7 +170,9 @@ Thus, there is
 We can similarly reject the hypothesis that the average diameter is larger (p = `r larger_p_value`)
 or that it is smaller (p = `r smaller_p_value`)
 
+::::
 
+::::spoiler
 
 ### One-sample t test
 
@@ -219,6 +227,9 @@ The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_
 Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that the class’s average score differs from 70." else "no evidence to conclude the average score differs from the passing threshold of 70."`
 
+::::
+
+::::spoiler
 
 ### One-sample Poisson test
 
@@ -269,6 +280,9 @@ The test reports an observed count of `r test_result$statistic` calls versus an 
 Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that the true call rate differs from 30 calls/hour." else "no evidence to conclude the call rate differs from 30 calls/hour."`
 
+::::
+
+::::spoiler
 
 ### Shapiro–Wilk test for normality
 
@@ -317,6 +331,10 @@ The Shapiro–Wilk statistic W = `r round(sw_result$statistic, 3)` with p-value 
 Thus, there is
 `r if(sw_result$p.value < 0.05) "evidence that the data deviate from normality." else "no evidence to conclude a departure from normality."`
 
+::::
+
+::::spoiler
+
 ### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
 
 EJ KORREKTURLÆST
@@ -363,6 +381,10 @@ The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(
 `r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
 `r if(ks_result$p.value < 0.05) "evidence that systolic blood pressures deviate from Normal(120,15)." else "no evidence to conclude deviation from Normal(120,15)."`
+
+::::
+
+::::spoiler
 
 ### χ² goodness-of-fit test
 
@@ -414,17 +436,69 @@ The test yields χ² = `r round(test_result$statistic, 2)` with p-value = `r sig
 Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that blood type proportions in the sample differ from the population." else "no evidence to conclude the sample proportions differ from the population."`
 
+::::
+
 ## To-prøve-tests og parrede tests
 
-### Two-sample F test
+
+
+::::spoiler
+
+### Two-sample F test for variance
 
 EJ KORREKTURLÆST
-
-er det det samme som Two-sample F-test for variance?
 
 We use this when we want to determine if two independent samples originate
 from populations with the same variance.
 
+#### Used for
+- Testing whether two independent samples have equal variances.  
+- **Real-world example:** Comparing the variability in systolic blood pressure measurements between two clinics.
+
+#### Assumptions
+- Both samples consist of independent observations.  
+- Each sample is drawn from a normally distributed population.  
+- Samples are independent of one another.
+
+#### Strengths
+- Simple calculation and interpretation.  
+- Directly targets variance equality, a key assumption in many downstream tests (e.g., t-test).  
+- Exact inference under normality.
+
+#### Weaknesses
+- Highly sensitive to departures from normality.  
+- Only compares variance—doesn’t assess other distributional differences.  
+- Not robust to outliers.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** σ₁² = σ₂² (the two population variances are equal).  
+- **Alternative hypothesis (H₁):** σ₁² ≠ σ₂² (the variances differ).
+
+```{r two_sample_f_test}
+# Simulate systolic BP (mmHg) from two clinics:
+set.seed(2025)
+clinicA <- rnorm(30, mean = 120, sd = 8)
+clinicB <- rnorm(25, mean = 118, sd = 12)
+
+# Perform two-sample F-test for variances:
+f_result <- var.test(clinicA, clinicB, alternative = "two.sided")
+
+# Display results:
+f_result
+``` 
+
+The F statistic is `r round(f_result$statistic, 3)` with numerator df = `r f_result$parameter[1]` and denominator df = `r f_result$parameter[2]`, and p-value = `r signif(f_result$p.value, 3)`. We
+
+
+`r if(f_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(f_result$p.value < 0.05) "evidence that the variability in blood pressure differs between the two clinics." else "no evidence to conclude a difference in blood pressure variability."`
+
+::::
+
+::::spoiler
 
 ### Paired t-test
 
@@ -472,27 +546,50 @@ The mean difference (before – after) is `r round(mean(before - after), 2)` mmH
 Thus, there is
 `r if(test_result$p.value < 0.05) "evidence that the medication significantly changed blood pressure." else "no evidence that the medication changed blood pressure."`
 
+::::
+
+::::spoiler
+
 ### Two-sample t test (equal variances)
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Two-sample t test (unequal variances)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Mann–Whitney U-test (Wilcoxon rank-sum)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Wilcoxon signed-rank test
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Kolmogorov–Smirnov to-prøve-test
 
 EJ KORREKTURLÆST
 
 
+::::
+
+::::spoiler
 ### Levene’s test for homoskedasticitet
 
 EJ KORREKTURLÆST
@@ -539,11 +636,11 @@ levene_result
 ``` 
 
 Interpretation:
-Levene’s test yields an F-statistic of `r round(levene_result$F value[1], 2)` 
-with a p-value of `r signif(levene_result$Pr(>F)[1], 3)`. We
-`r if(levene_result$Pr(>F)[1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Levene’s test yields an F-statistic of `r round(levene_result[["F value"]][1], 2)` 
+with a p-value of `r signif(levene_result[["Pr(>F)"]][1], 3)`. We
+`r if(levene_result[["Pr(>F)"]][1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This means there is
-`r if(levene_result$Pr(>F)[1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
+`r if(levene_result[["Pr(>F)"]][1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
 
 
 
@@ -551,29 +648,52 @@ This means there is
 
 
 
+::::
 
+::::spoiler
 
 ### Bartlett’s test for homoskedasticitet
 
 EJ KORREKTURLÆST
 
+::::
+
+
+
 ## Variansanalyse (ANOVA/ANCOVA)
 
+::::spoiler
 ### One-way ANOVA
 
 EJ KORREKTURLÆST
 
+
+::::
+
+::::spoiler
 ### One-way ANCOVA
 
 EJ KORREKTURLÆST
 
+
+::::
+
+::::spoiler
 ### Welch’s ANOVA (uden antagelse om lige varianser)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Repeated-measures ANOVA
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### MANOVA
 
@@ -629,12 +749,16 @@ manova_summary
 ```
 
 Interpretation:
-Pillai’s trace = `r round(manova_summary$stats[["Pillai"]][1], 3)`, F = `r round(manova_summary$stats[["approx F"]][1], 2)` with df = `r paste(manova_summary$stats[["df1"]][1], manova_summary$stats[["df2"]][1], sep = ", ")`, and p-value = `r signif(manova_summary$stats[["Pr(>F)"]][1], 3)`. We
-`r if(manova_summary$stats[["Pr(>F)"]][1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Pillai’s trace = `r round(manova_summary$stats[1,"Pillai"], 3)`, F = `r round(manova_summary$stats[1,"approx F"], 2)` with df = `r manova_summary$stats[2,"Df"]`, and p-value = `r signif(manova_summary$stats[1, "Pr(>F)"], 3)`. We
+`r if(manova_summary$stats[1, "Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This indicates that there is
-`r if(manova_summary$stats[["Pr(>F)"]][1] < 0.05) "a significant multivariate effect of diet on weight loss and cholesterol change." else "no multivariate evidence that the diets differ on the combined outcomes."`
+
+`r if(manova_summary$stats[1,"Pr(>F)"] < 0.05) "a significant multivariate effect of diet on weight loss and cholesterol change." else "no multivariate evidence that the diets differ on the combined outcomes."`
+
+
 
 Pillai?
+
 
 Der er fire almindeligt brugte taststatistikker i MANOVA. Pillai, Wilks' lambd,
 Hotelling-Lawleys trace og Roys largest root.
@@ -659,15 +783,16 @@ Wilks’ lambda er mest brugt i traditionel litteratur og har ofte god power und
 
 Hotelling–Lawley’s trace kan være særligt følsom, når få kanoniske dimensioner bærer meget af effekten.
 
-Roy’s largest root er ekstremt kraftfuld, hvis kun én kanonisk variabel adskiller grupperne, men er også mest sårbar over for antagelsesovertrædelser.
+Roy’s largest root er ekstremt kraftfuld, hvis kun én kanonisk variabel adskiller grupperne, men er også mest sårbar gruppe-størrelser.over for antagelsesovertrædelser.
 
 Kort anbefaling:
 
-Brug Pillai’s trace som standard, især hvis du er usikker på antagelsesopfyldelsen eller har små/ulige gruppe-størrelser.
+Brug Pillai’s trace som standard, især hvis du er usikker på antagelsesopfyldelsen eller har små/ulige 
 
 Overvej Wilks’ lambda eller andre, hvis dine data opfylder alle antagelser solidt, og du ønsker maksimal statistisk power.
 
 Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
+
 
 #### Wilks’ lambda  
 - **Definition:** Ratio of the determinant of the within‐groups SSCP (sum of squares and cross‐products) matrix to the determinant of the total SSCP matrix:  
@@ -722,193 +847,434 @@ Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
 
 
 
+::::
+
+::::spoiler
 
 
 ### Friedman test (nonparametrisk gentagne målinger)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Post-hoc: Tukey HSD
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Post-hoc: Dunnett’s test
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Post-hoc: Bonferroni korrektion
 
 EJ KORREKTURLÆST
 
+
+::::
+
+
+
 ## Ikke-parametriske k-prøve-tests
 
+
+::::spoiler
 
 
 ### Kruskal–Wallis test
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Rank correlation
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
+
 
 ### Anderson–Darling test
 
 EJ KORREKTURLÆST
 
+::::
+
+
+
+
 ## Regression og korrelation
 
+
+
+::::spoiler
 
 ### Simple linear regression
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Multiple regression
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
+
 
 ### Pearson correlation
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Spearman’s rank correlation
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
+
 
 ### Kendall’s tau
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Multiple logistic regression
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
+
 
 ### Poisson regression
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Negative binomial regression
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
+
 
 ### Ordinal logistic regression
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Linear mixed-effects modeller (LME)
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Generalized linear mixed-effects modeller (GLMM)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Generalized Estimating Equations (GEE)
 
 EJ KORREKTURLÆST
 
+::::
+
+
+
 ## Kontingenstabel- og proportions-tests
+
+
+::::spoiler
 
 ### Contingency-table methods (χ² osv.)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### McNemar’s test
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Fisher’s exact test
 
 EJ KORREKTURLÆST
+::::
+
+::::spoiler
 
 ### Barnard’s exact test
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Cochran–Armitage trend test (ordinal tabel)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
 
 ### Cochran’s Q test (≥3 matched proportions)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Stuart–Maxwell test (marginal homogenitet)
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Two-sample test for binomial proportions / Mantel–Haenszel test
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Chi-square test for R×C-tabeller
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Chi-square test for trend (Mantel-extension)
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Chi-square test for heterogenitet (2×k-tabeller)
 
 EJ KORREKTURLÆST
 
+::::
+
+
+
 ## Incidens- og rate-tests
 
+
+
+::::spoiler
 
 
 ### One-sample test for incidence rates
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether an observed incidence rate (events per unit person‐time) differs from a specified rate.  
+- **Real-world example:** Determining if a hospital’s rate of catheter‐associated infections (per 1,000 patient‐days) equals the national benchmark.
+
+#### Assumptions
+- Events occur independently and follow a Poisson process.  
+- The incidence rate is constant over the observation period.  
+- Person‐time is measured accurately and non‐overlapping.
+
+#### Strengths
+- Exact test based on the Poisson distribution—no large‐sample approximation needed.  
+- Naturally accounts for differing follow‐up times via person‐time.  
+- Valid for rare events and small counts.
+
+#### Weaknesses
+- Sensitive to overdispersion (variance > mean) and violation of Poisson assumptions.  
+- Cannot adjust for covariates or time‐varying rates.  
+- Assumes homogeneity of the rate across the period.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The true incidence rate λ = 2 infections per 1,000 patient‐days.  
+- **Alternative hypothesis (H₁):** λ ≠ 2 infections per 1,000 patient‐days.
+
+```{r one_sample_incidence_rate_test}
+# Observed infections and total patient‐days:
+events    <- 8
+patient_days <- 3500   # total follow‐up time in patient‐days
+
+# Hypothesized rate (infections per 1 patient‐day):
+# 2 per 1,000 patient‐days = 0.002 per patient‐day
+rate0     <- 2 / 1000  
+
+# Perform one‐sample incidence‐rate test:
+test_result <- poisson.test(x = events,
+                            T = patient_days,
+                            r = rate0,
+                            alternative = "two.sided")
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The test compares the observed 8 infections over 3,500 patient‐days to the expected rate of 2/1,000 patient‐days (i.e., 7 infections). With a p‐value of r signif(test_result$p.value, 3), we
+r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis".
+Thus, there is
+r if(test_result$p.value < 0.05) "evidence that the hospital’s infection rate differs from 2 per 1,000 patient‐days." else "no evidence that the infection rate differs from the benchmark."
+
+::::
+
+::::spoiler
+
 ### Two-sample comparison of incidence rates
 
 EJ KORREKTURLÆST
+::::
+
+::::spoiler
 
 ### Trend-test for incidence rates over flere eksponeringsgrupper
 
 EJ KORREKTURLÆST
+::::
+
+::::spoiler
 
 ### Exact rate ratio test
 
 EJ KORREKTURLÆST
 
+::::
+
+
+
 ## Overlevelsesanalyse
+
+
+
+::::spoiler
+
 
 ### Log-rank test
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
+
 ### Parametric survival methods (Weibull)
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Cox proportional hazards model
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Accelerated Failure Time (AFT) modeller (eksponentiel, log-logistisk, …)
 
 EJ KORREKTURLÆST
+
+::::
+
+::::spoiler
 
 ### Gray’s test for konkurrentrisiko
 
 EJ KORREKTURLÆST
 
+::::
+
+::::spoiler
+
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
 
 EJ KORREKTURLÆST
+::::
 
 ## Aftale- og concordance-mål
 
 
 
+
+::::spoiler
 ### Kappa statistic
 
 EJ KORREKTURLÆST
 
+::::
 
+::::spoiler
 
 ### Intraclass Correlation Coefficient (ICC)
 
@@ -966,6 +1332,10 @@ The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_
 This indicates that
 `r if(icc_result$p.value < 0.05) "there is statistically significant reliability among the raters." else "there is no evidence of reliability beyond chance among the raters."`
 
+
+::::
+
+::::spoiler
 ### Bland–Altman analysis
 
 EJ KORREKTURLÆST
@@ -1040,7 +1410,7 @@ The t-test for zero bias yields a p-value of `r signif(t_test$p.value, 3)`, so w
 This indicates that there is
 `r if(t_test$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
 
-
+::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
