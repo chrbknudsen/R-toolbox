@@ -1512,6 +1512,51 @@ Similarly, for FertilizerB vs. Control (contrast index 2), the estimate is `r ro
 EJ KORREKTURLÆST
 
 
+#### Used for
+- Adjusting p-values when performing multiple hypothesis tests to control the family-wise error rate.  
+- **Real-world example:** Comparing mean blood pressure between four different diets with all six pairwise t-tests, using Bonferroni to adjust for multiple comparisons.
+
+#### Assumptions
+- The individual tests (e.g., pairwise t-tests) satisfy their own assumptions (independence, normality, equal variances if applicable).  
+- Tests are independent or positively dependent (Bonferroni remains valid under any dependency but can be conservative).
+
+#### Strengths
+- Simple to calculate: multiply each p-value by the number of comparisons.  
+- Guarantees control of the family-wise error rate at the chosen α level.  
+- Applicable to any set of p-values regardless of test type.
+
+#### Weaknesses
+- Very conservative when many comparisons are made, reducing power.  
+- Can inflate Type II error (miss true effects), especially with large numbers of tests.  
+- Does not take into account the magnitude of dependency among tests.
+
+#### Example
+
+##### Hypothesis
+- **Null hypotheses (H₀):** For each pair of diets, the mean blood pressure is equal (e.g., μ_A = μ_B, μ_A = μ_C, …).  
+- **Alternative hypotheses (H₁):** For at least one pair, the means differ.
+
+```{r bonferroni_correction}
+set.seed(2025)
+# Simulate blood pressure for four diet groups (n = 15 each):
+diet  <- factor(rep(c("A","B","C","D"), each = 15))
+bp    <- c(
+  rnorm(15, mean = 120, sd = 8),
+  rnorm(15, mean = 125, sd = 8),
+  rnorm(15, mean = 130, sd = 8),
+  rnorm(15, mean = 135, sd = 8)
+)
+
+# Perform all pairwise t-tests with Bonferroni adjustment:
+pairwise_result <- pairwise.t.test(bp, diet, p.adjust.method = "bonferroni")
+
+# Display results:
+pairwise_result
+```
+
+Interpretation:
+The output shows adjusted p-values for each pair of diets. For example, if the A vs D comparison has p adj = 0.004 (< 0.05), we reject H₀ for that pair and conclude a significant mean difference. Comparisons with p adj ≥ 0.05 fail to reject H₀, indicating no evidence of difference after correction.
+
 ::::
 
 
