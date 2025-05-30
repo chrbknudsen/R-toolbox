@@ -556,6 +556,51 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the means of two independent samples differ, assuming equal variances.  
+- **Real-world example:** Comparing average systolic blood pressure between male and female patients when variability is similar.
+
+#### Assumptions
+- Observations in each group are independent.  
+- Both populations are normally distributed (especially important for small samples).  
+- The two populations have equal variances (homoscedasticity).
+
+#### Strengths
+- More powerful than Welch’s t-test when variances truly are equal.  
+- Simple computation and interpretation via pooled variance.  
+- Widely implemented and familiar to practitioners.
+
+#### Weaknesses
+- Sensitive to violations of normality in small samples.  
+- Incorrect if variances differ substantially—can inflate Type I error.  
+- Assumes homogeneity of variance, which may not hold in practice.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** μ₁ = μ₂ (the two population means are equal).  
+- **Alternative hypothesis (H₁):** μ₁ ≠ μ₂ (the means differ).
+
+```{r two_sample_t_test_equal_var}
+set.seed(2025)
+# Simulate systolic BP (mmHg):
+groupA <- rnorm(25, mean = 122, sd = 10)  # e.g., males
+groupB <- rnorm(25, mean = 118, sd = 10)  # e.g., females
+
+# Perform two-sample t-test with equal variances:
+test_result <- t.test(groupA, groupB, var.equal = TRUE)
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The pooled estimate of the difference in means is `r round(mean(groupA) - mean(groupB), 2)` mmHg. The t-statistic is `r round(test_result$statistic, 2)` with df = `r test_result$parameter and p-value = r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the average systolic blood pressure differs between the two groups." else "no evidence of a difference in average systolic blood pressure."`
+
+
 ::::
 
 ::::spoiler
