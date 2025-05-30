@@ -837,6 +837,55 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the means of three or more independent groups differ when variances are unequal.  
+- **Real-world example:** Comparing average systolic blood pressure across three clinics known to have different measurement variability.
+
+#### Assumptions
+- Observations are independent.  
+- Each group’s residuals are approximately normally distributed.  
+- Does **not** assume equal variances across groups.
+
+#### Strengths
+- Controls Type I error under heteroskedasticity better than ordinary ANOVA.  
+- Simple to implement via `oneway.test(..., var.equal = FALSE)`.  
+- More powerful than nonparametric alternatives when normality holds.
+
+#### Weaknesses
+- Sensitive to departures from normality, especially with small sample sizes.  
+- Does not provide post-hoc comparisons by default; requires additional tests.  
+- Still assumes independence and approximate normality within each group.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All group means are equal (μ₁ = μ₂ = μ₃).  
+- **Alternative hypothesis (H₁):** At least one group mean differs.
+
+```{r welchs_anova}
+set.seed(2025)
+# Simulate systolic BP (mmHg) for three clinics with unequal variances:
+clinic   <- factor(rep(c("A","B","C"), each = c(15, 20, 12)))
+bp_values <- c(
+  rnorm(15, mean = 120, sd = 5),
+  rnorm(20, mean = 125, sd = 10),
+  rnorm(12, mean = 118, sd = 7)
+)
+df <- data.frame(clinic, bp_values)
+
+# Perform Welch’s one-way ANOVA:
+welch_result <- oneway.test(bp_values ~ clinic, data = df, var.equal = FALSE)
+
+# Display results:
+welch_result
+```
+
+Interpretation:
+The Welch statistic = `r round(welch_result$statistic, 2)` with df ≈ `r round(welch_result$parameter, 2)`, and p-value = `r signif(welch_result$p.value, 3)`. We
+`r if(welch_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(welch_result$p.value < 0.05) "evidence that mean blood pressure differs across the clinics." else "no evidence of a difference in mean blood pressure among the clinics."`
+
 ::::
 
 ::::spoiler
