@@ -1631,6 +1631,48 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Assessing the strength and direction of a monotonic association between two variables using their ranks.  
+- **Real-world example:** Evaluating whether patients’ pain rankings correlate with their anxiety rankings.
+
+#### Assumptions
+- Observations are independent.  
+- Variables are at least ordinal.  
+- The relationship is monotonic (but not necessarily linear).
+
+#### Strengths
+- Nonparametric: does not require normality.  
+- Robust to outliers in the original measurements.  
+- Captures any monotonic relationship, not limited to linear.
+
+#### Weaknesses
+- Less powerful than Pearson’s correlation when data are bivariate normal and relationship is linear.  
+- Does not distinguish between different monotonic shapes (e.g., concave vs. convex).  
+- Ties reduce the effective sample size and complicate exact p-value calculation.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** There is no monotonic association between X and Y (ρ = 0).  
+- **Alternative hypothesis (H₁):** There is a nonzero monotonic association (ρ ≠ 0).
+
+```{r spearman_rank_correlation}
+# Simulate two variables with a monotonic relationship:
+set.seed(2025)
+x <- sample(1:100, 30)
+y <- x + rnorm(30, sd = 10)               # roughly increasing with x
+# Perform Spearman rank correlation test:
+spearman_result <- cor.test(x, y, method = "spearman", exact = FALSE)
+# Display results:
+spearman_result
+```
+
+Interpretation:
+Spearman’s ρ = `r round(spearman_result$estimate, 3)` with p-value = `r signif(spearman_result$p.value, 3)`. We
+`r if(spearman_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(spearman_result$p.value < 0.05) "evidence of a monotonic association between X and Y." else "no evidence of a monotonic association between X and Y."`
+
 ::::
 
 ::::spoiler
