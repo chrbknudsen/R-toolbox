@@ -716,6 +716,50 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the median difference between paired observations is zero.  
+- **Real-world example:** Comparing patients’ pain scores before and after a new analgesic treatment when differences may not be normally distributed.
+
+#### Assumptions
+- Observations are paired and the pairs are independent.  
+- Differences are at least ordinal and symmetrically distributed around the median.  
+- No large number of exact zero differences (ties).
+
+#### Strengths
+- Nonparametric: does not require normality of differences.  
+- Controls for within‐subject variability by using paired design.  
+- Robust to outliers in the paired differences.
+
+#### Weaknesses
+- Less powerful than the paired t-test when differences are truly normal.  
+- Requires symmetry of the distribution of differences.  
+- Cannot easily handle many tied differences.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The median difference in pain score (before – after) = 0 (no change).  
+- **Alternative hypothesis (H₁):** The median difference ≠ 0 (pain changes after treatment).
+
+```{r wilcoxon_signed_rank_test}
+# Simulated pain scores (0–10) for 12 patients:
+before <- c(6, 7, 5, 8, 6, 7, 9, 5, 6, 8, 7, 6)
+after  <- c(4, 6, 5, 7, 5, 6, 8, 4, 5, 7, 6, 5)
+
+# Perform Wilcoxon signed-rank test:
+wsr_result <- wilcox.test(before, after, paired = TRUE, 
+                          alternative = "two.sided", exact = FALSE)
+
+# Display results:
+wsr_result
+```
+
+Interpretation:
+The Wilcoxon signed‐rank test statistic V =`r wsr_result$statistic` with p-value =` r signif(wsr_result$p.value, 3)`. We
+`r ifelse(wsr_result$p.value < 0.05, "reject the null hypothesis", "fail to reject the null hypothesis")`.
+Thus, there is
+`r ifelse(wsr_result$p.value < 0.05, "evidence that median pain scores change after treatment.", "no evidence of a change in median pain scores after treatment.")`.
+
 ::::
 
 ::::spoiler
