@@ -1448,6 +1448,61 @@ interval, and an adjusted p‐value. For example, if the Lecture–Online compar
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Comparing multiple treatment groups to a single control while controlling the family‐wise error rate.  
+- **Real-world example:** Testing whether two new fertilizers (Fertilizer A, Fertilizer B) improve crop yield compared to the standard fertilizer (Control).
+
+#### Assumptions
+- Observations are independent.  
+- Residuals from the ANOVA are approximately normally distributed.  
+- Homogeneity of variances across groups.  
+- A significant overall ANOVA (omnibus F-test) has been observed or intended.
+
+#### Strengths
+- Controls the family-wise error rate when making multiple comparisons to a control.  
+- More powerful than Tukey HSD when only control comparisons are of interest.  
+- Provides simultaneous confidence intervals and adjusted p-values.
+
+#### Weaknesses
+- Only compares each group to the control; does not test all pairwise contrasts.  
+- Sensitive to violations of normality and homogeneity of variances.  
+- Requires a pre-specified control group.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** Each treatment mean equals the control mean (e.g., μ_A = μ_Control, μ_B = μ_Control).  
+- **Alternative hypothesis (H₁):** At least one treatment mean differs from the control mean (e.g., μ_A ≠ μ_Control, μ_B ≠ μ_Control).
+
+```{r dunnett_test}
+# Simulate crop yields (kg/plot) for Control and two new fertilizers:
+set.seed(2025)
+treatment <- factor(rep(c("Control", "FertilizerA", "FertilizerB"), each = 20))
+yield     <- c(
+  rnorm(20, mean = 50, sd = 5),   # Control
+  rnorm(20, mean = 55, sd = 5),   # Fertilizer A
+  rnorm(20, mean = 53, sd = 5)    # Fertilizer B
+)
+df <- data.frame(treatment, yield)
+
+# Fit one-way ANOVA:
+fit_anova <- aov(yield ~ treatment, data = df)
+
+# Perform Dunnett's test (each treatment vs. Control):
+library(multcomp)
+dunnett_result <- glht(fit_anova, linfct = mcp(treatment = "Dunnett"))
+
+# Summary with adjusted p-values:
+summary(dunnett_result)
+confint(dunnett_result)
+```
+
+Interpretation:
+The Dunnett contrasts compare each fertilizer to Control. For example, if the contrast FertilizerA–Control shows an estimate of r round(coef(dunnett_result)[1], 2) kg with a 95% simultaneous CI [`r round(confint(dunnett_result)$confint[1,1], 2)`, `r round(confint(dunnett_result)$confint[1,2], 2)`] and adjusted p-value = `r signif(summary(dunnett_result)$test$pvalues[1], 3)`, we
+`r if(summary(dunnett_result)$test$pvalues[1] < 0.05) "reject the null for Fertilizer A vs. Control—i.e., Fertilizer A yields significantly different crop output." else "fail to reject the null for Fertilizer A vs. Control."`
+Similarly, for FertilizerB vs. Control (contrast index 2), the estimate is `r round(coef(dunnett_result)[2], 2)` kg (CI [`r round(confint(dunnett_result)$confint[2,1], 2)`, `r round(confint(dunnett_result)$confint[2,2], 2)`], p-value = `r signif(summary(dunnett_result)$test$pvalues[2], 3))`, so we
+`r if(summary(dunnett_result)$test$pvalues[2] < 0.05) "reject the null for Fertilizer B vs. Control." else "fail to reject the null for Fertilizer B vs. Control."`
+
 ::::
 
 ::::spoiler
