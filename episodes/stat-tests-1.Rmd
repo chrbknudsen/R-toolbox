@@ -658,6 +658,55 @@ This means there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether multiple groups have equal variances under the assumption of normality.  
+- **Real-world example:** Checking if the variability in laboratory test results differs across three different laboratories.
+
+#### Assumptions
+- Observations within each group are independent.  
+- Each group is drawn from a normally distributed population.  
+- Groups are independent of one another.
+
+#### Strengths
+- More powerful than Levene’s test when normality holds.  
+- Directly targets equality of variances under the normal model.  
+- Simple to compute in R via `bartlett.test()`.
+
+#### Weaknesses
+- Highly sensitive to departures from normality—small deviations can inflate Type I error.  
+- Does not indicate which groups differ without further pairwise testing.  
+- Not robust to outliers.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All group variances are equal (σ₁² = σ₂² = σ₃²).  
+- **Alternative hypothesis (H₁):** At least one group variance differs.
+
+```{r bartlett_test}
+# Simulate data for three laboratories (n = 12 each):
+set.seed(456)
+lab      <- factor(rep(c("LabA", "LabB", "LabC"), each = 12))
+values   <- c(rnorm(12, mean = 100, sd = 5),
+              rnorm(12, mean = 100, sd = 8),
+              rnorm(12, mean = 100, sd = 5))
+df       <- data.frame(lab, values)
+
+# Perform Bartlett’s test for homogeneity of variances:
+bartlett_result <- bartlett.test(values ~ lab, data = df)
+
+# Display results:
+bartlett_result
+```
+
+
+Interpretation:
+Bartlett’s K-squared = `r round(bartlett_result$statistic, 2)` with df = `r bartlett_result$parameter` and p-value = `r signif(bartlett_result$p.value, 3)`. We
+`r if(bartlett_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(bartlett_result$p.value < 0.05) "evidence that at least one laboratory’s variance differs from the others." else "no evidence that variances differ across laboratories."`
+
+
 ::::
 
 
