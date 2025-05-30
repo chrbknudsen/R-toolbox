@@ -718,6 +718,53 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the means of three or more independent groups differ.  
+- **Real-world example:** Comparing average test scores among students taught by three different teaching methods.
+
+#### Assumptions
+- Observations are independent.  
+- Each group’s residuals are approximately normally distributed.  
+- Homogeneity of variances across groups.
+
+#### Strengths
+- Controls Type I error rate when comparing multiple groups.  
+- Simple to compute and interpret via F-statistic.  
+- Foundation for many extensions (e.g., factorial ANOVA, mixed models).
+
+#### Weaknesses
+- Sensitive to heterogeneity of variances, especially with unequal group sizes.  
+- Only tells you that at least one mean differs—does not indicate which groups differ without post-hoc tests.  
+- Assumes normality; moderately robust for large samples, but small samples can be problematic.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** μ₁ = μ₂ = μ₃ (all three group means are equal).  
+- **Alternative hypothesis (H₁):** At least one group mean differs.
+
+```{r one_way_anova}
+# Simulate exam scores for three teaching methods (n = 20 each):
+set.seed(2025)
+method <- factor(rep(c("Lecture", "Online", "Hybrid"), each = 20))
+scores <- c(rnorm(20, mean = 75, sd = 8),
+            rnorm(20, mean = 80, sd = 8),
+            rnorm(20, mean = 78, sd = 8))
+df     <- data.frame(method, scores)
+
+# Fit one-way ANOVA:
+anova_fit <- aov(scores ~ method, data = df)
+
+# Summarize ANOVA table:
+anova_summary <- summary(anova_fit)
+anova_summary
+```
+
+Interpretation:
+The ANOVA yields F = `r round(anova_summary[[1]]["method","F value"], 2)` with df₁ =` r anova_summary[[1]]["method","Df"]` and df₂ =` r anova_summary[[1]]["Residuals","Df"]`, and p-value = `r signif(anova_summary[[1]]["method","Pr(>F)"], 3)`. We
+`r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "evidence that at least one teaching method yields a different average score." else "no evidence of a difference in mean scores among methods."`
 
 ::::
 
