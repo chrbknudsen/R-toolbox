@@ -768,6 +768,49 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether two independent samples come from the same continuous distribution.  
+- **Real-world example:** Comparing the distribution of recovery times for patients receiving Drug A versus Drug B.
+
+#### Assumptions
+- Observations in each sample are independent.  
+- Data are continuous with no ties.  
+- The two samples are drawn from fully specified continuous distributions (no parameters estimated from the same data).
+
+#### Strengths
+- Nonparametric: makes no assumption about the shape of the distribution.  
+- Sensitive to differences in location, scale, or overall shape.  
+- Exact distribution under the null when samples are not too large.
+
+#### Weaknesses
+- Less powerful than parametric alternatives if the true form is known (e.g., t-test for normal data).  
+- Invalid p-values if there are ties or discrete data.  
+- Does not indicate how distributions differ—only that they do.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The two samples come from the same distribution.  
+- **Alternative hypothesis (H₁):** The two samples come from different distributions.
+
+```{r ks_two_sample}
+# Simulate recovery times (days) for two therapies:
+set.seed(2025)
+therapyA <- rnorm(30, mean = 10, sd = 2)   # Therapy A
+therapyB <- rnorm(30, mean = 12, sd = 3)   # Therapy B
+
+# Perform two-sample Kolmogorov–Smirnov test:
+ks_result <- ks.test(therapyA, therapyB, alternative = "two.sided", exact = FALSE)
+
+# Display results:
+ks_result
+```
+
+Interpretation:
+The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(ks_result$p.value, 3)`. We
+`r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ks_result$p.value < 0.05) "evidence that the distribution of recovery times differs between therapies." else "no evidence that the distributions differ."`
 
 ::::
 
