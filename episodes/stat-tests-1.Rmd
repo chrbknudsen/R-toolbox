@@ -609,6 +609,50 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the means of two independent samples differ when variances are unequal.  
+- **Real-world example:** Comparing average recovery times for two different therapies when one therapy shows more variable outcomes.
+
+#### Assumptions
+- Observations in each group are independent.  
+- Each population is approximately normally distributed (especially important for small samples).  
+- Does **not** assume equal variances across groups.
+
+#### Strengths
+- Controls Type I error when variances differ.  
+- More reliable than the pooled‐variance t‐test under heteroskedasticity.  
+- Simple to implement via `t.test(..., var.equal = FALSE)` in R.
+
+#### Weaknesses
+- Slight loss of power compared to equal-variance t‐test when variances truly are equal.  
+- Sensitive to departures from normality in small samples.  
+- Degrees of freedom are approximated (Welch–Satterthwaite), which can reduce interpretability.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** μ₁ = μ₂ (the two population means are equal).  
+- **Alternative hypothesis (H₁):** μ₁ ≠ μ₂ (the means differ).
+
+```{r two_sample_t_test_unequal_var}
+set.seed(2025)
+# Simulate recovery times (days) for two therapies:
+therapyA <- rnorm(20, mean = 10, sd = 2)   # Therapy A
+therapyB <- rnorm(25, mean = 12, sd = 4)   # Therapy B (more variable)
+
+# Perform two-sample t-test with unequal variances:
+test_result <- t.test(therapyA, therapyB, var.equal = FALSE)
+
+# Display results:
+test_result
+```
+
+Interpretation:
+The estimated difference in means is `r round(mean(therapyA) - mean(therapyB), 2)` days. The Welch t‐statistic is` r round(test_result$statistic, 2)` with df ≈ `r round(test_result$parameter, 1)` and two‐sided p‐value =` r signif(test_result$p.value, 3`). We
+`r ifelse(test_result$p.value < 0.05, "reject the null hypothesis", "fail to reject the null hypothesis")`.
+Thus, there is
+`r ifelse(test_result$p.value < 0.05, "evidence that the average recovery times differ between therapies.", "no evidence of a difference in average recovery times.")`.
+
 ::::
 
 ::::spoiler
