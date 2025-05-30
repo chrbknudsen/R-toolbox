@@ -1391,6 +1391,55 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Performing pairwise comparisons of group means after a significant one‐way ANOVA to identify which groups differ.  
+- **Real-world example:** Determining which teaching methods (Lecture, Online, Hybrid) differ in average exam scores after finding an overall effect.
+
+#### Assumptions
+- A significant one‐way ANOVA has been obtained.  
+- Observations are independent.  
+- Residuals from the ANOVA are approximately normally distributed.  
+- Homogeneity of variances across groups (though Tukey’s HSD is fairly robust).
+
+#### Strengths
+- Controls the family‐wise error rate across all pairwise tests.  
+- Provides confidence intervals for each mean difference.  
+- Widely available and simple to interpret.
+
+#### Weaknesses
+- Requires balanced or nearly balanced designs for optimal power.  
+- Less powerful than some alternatives if variances are highly unequal.  
+- Only applies after a significant omnibus ANOVA.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All pairwise mean differences between teaching methods are zero (e.g., μ_Lecture – μ_Online = 0, etc.).  
+- **Alternative hypothesis (H₁):** At least one pairwise mean difference ≠ 0.
+
+```{r tukey_hsd}
+set.seed(2025)
+# Simulate exam scores for three teaching methods (n = 20 each):
+method <- factor(rep(c("Lecture", "Online", "Hybrid"), each = 20))
+scores <- c(rnorm(20, mean = 75, sd = 8),
+            rnorm(20, mean = 80, sd = 8),
+            rnorm(20, mean = 78, sd = 8))
+df     <- data.frame(method, scores)
+
+# Fit one-way ANOVA:
+anova_fit <- aov(scores ~ method, data = df)
+
+# Perform Tukey HSD post-hoc:
+tukey_result <- TukeyHSD(anova_fit, "method")
+
+# Display results:
+tukey_result
+```
+
+Interpretation:
+Each row of the output gives the estimated difference in means, a 95% confidence 
+interval, and an adjusted p‐value. For example, if the Lecture–Online comparison shows a mean difference of –5.0 (95% CI: –8.0 to –2.0, p adj = 0.002), we conclude that the Online method yields significantly higher scores than Lecture. Comparisons with p adj < 0.05 indicate significant mean differences between those teaching methods.
+
 ::::
 
 ::::spoiler
