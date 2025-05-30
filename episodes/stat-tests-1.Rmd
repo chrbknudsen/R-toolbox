@@ -2050,6 +2050,79 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+
+#### Used for
+- Modeling the probability of a binary outcome as a function of two or more predictors.  
+- **Real-world example:** Predicting whether a patient has heart disease (yes/no) based on age, cholesterol level, and smoking status.
+
+#### Assumptions
+- Outcome is binary (0/1) and observations are independent.  
+- Log-odds of the outcome are a linear function of the predictors (linearity in the logit).  
+- No perfect multicollinearity among predictors.  
+- Large enough sample so that maximum likelihood estimates are stable (rule of thumb: ≥10 events per predictor).
+
+#### Strengths
+- Adjusts for multiple confounders simultaneously.  
+- Coefficients have clear interpretation as log‐odds (or odds ratios).  
+- Flexible: handles continuous, categorical, and interaction terms.
+
+#### Weaknesses
+- Sensitive to complete or quasi‐complete separation (can prevent convergence).  
+- Assumes linearity in the logit—requires transformation or splines if violated.  
+- Interpretation of interactions and higher‐order terms can be complex.  
+- Requires adequate sample size, especially when events are rare.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** All predictor coefficients β₁ = β₂ = β₃ = 0 (none of the variables affect disease odds).  
+- **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0 (at least one predictor affects odds).
+
+```{r multiple_logistic_regression}
+set.seed(2025)
+n <- 200
+# Simulate predictors:
+age          <- rnorm(n, mean = 60, sd = 10)
+cholesterol  <- rnorm(n, mean = 200, sd = 30)
+smoker       <- factor(rbinom(n, 1, 0.3), labels = c("No", "Yes"))
+
+# Simulate binary outcome via logistic model:
+logit_p <- -5 + 0.04 * age + 0.01 * cholesterol + 1.2 * (smoker=="Yes")
+p        <- 1 / (1 + exp(-logit_p))
+disease  <- rbinom(n, 1, p)
+
+df <- data.frame(disease = factor(disease, labels = c("No","Yes")),
+                 age, cholesterol, smoker)
+
+# Fit multiple logistic regression:
+model <- glm(disease ~ age + cholesterol + smoker,
+             data = df,
+             family = binomial)
+
+# Show summary and odds ratios:
+summary(model)
+exp(coef(model))
+exp(confint(model))
+```
+
+Interpretation:
+
+The Wald test for each coefficient (from summary(model)) gives a z-statistic and p-value. For example, if the coefficient for age is β̂ = 0.04 (p = 0.01), its odds ratio is exp(0.04) ≈ 1.04 (95% CI from exp(confint(model))), meaning each additional year of age multiplies the odds of disease by about 1.04.
+
+A significant p-value (e.g., p < 0.05) for cholesterol indicates that higher cholesterol is associated with increased odds (OR = exp(β̂_cholesterol)).
+
+A significant positive coefficient for smoker (β̂ ≈ 1.2, OR ≈ 3.3) implies smokers have about 3.3 times the odds of disease compared to non-smokers, adjusting for age and cholesterol.
+
+You would `r if(any(summary(model)$coefficients[-1,4] < 0.05)) "reject the null hypothesis" else "fail to reject the null hypothesis"` overall, concluding that at least one predictor is significantly associated with the outcome.
+
+
+
+
+
+
+
+
+
 ::::
 
 ::::spoiler
