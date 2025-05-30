@@ -773,6 +773,62 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Comparing group means on a continuous outcome while adjusting for one continuous covariate.  
+- **Real-world example:** Evaluating whether three different teaching methods lead to different final exam scores after accounting for students’ prior GPA.
+
+#### Assumptions
+- Observations are independent.  
+- The relationship between the covariate and the outcome is linear and the same across groups (homogeneity of regression slopes).  
+- Residuals are normally distributed with equal variances across groups.  
+- Covariate is measured without error and is independent of group assignment.
+
+#### Strengths
+- Removes variability due to the covariate, increasing power to detect group differences.  
+- Controls for confounding by the covariate.  
+- Simple extension of one-way ANOVA with interpretation familiar to ANOVA users.
+
+#### Weaknesses
+- Sensitive to violation of homogeneity of regression slopes.  
+- Mis‐specification of the covariate‐outcome relationship biases results.  
+- Requires accurate measurement of the covariate.  
+- Does not accommodate multiple covariates without extension to factorial ANCOVA or regression.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** After adjusting for prior GPA, the mean final exam scores are equal across the three teaching methods (μ_Lecture = μ_Online = μ_Hybrid).  
+- **Alternative hypothesis (H₁):** At least one adjusted group mean differs.
+
+```{r one_way_ancova}
+set.seed(2025)
+n <- 20
+method <- factor(rep(c("Lecture","Online","Hybrid"), each = n))
+prior_gpa <- rnorm(3*n, mean = 3.0, sd = 0.3)
+
+# Simulate final exam scores with a covariate effect:
+# true intercepts 75, 78, 80; slope = 5 points per GPA unit; noise sd = 5
+final_score <- 75 + 
+               ifelse(method=="Online", 3, 0) + 
+               ifelse(method=="Hybrid", 5, 0) + 
+               5 * prior_gpa + 
+               rnorm(3*n, sd = 5)
+
+df <- data.frame(method, prior_gpa, final_score)
+
+# Fit one-way ANCOVA:
+ancova_fit <- aov(final_score ~ prior_gpa + method, data = df)
+ancova_summary <- summary(ancova_fit)
+ancova_summary
+```
+
+Interpretation:
+After adjusting for prior GPA, the effect of teaching method yields F = `r round(ancova_summary[[1]]["method","F value"], 2)` (df₁ =` r ancova_summary[[1]]["method","Df"]`, df₂ =` r ancova_summary[[1]]["Residuals","Df"]`) with p =` r signif(ancova_summary[[1]]["method","Pr(>F)"], 3`). We
+`r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "evidence that, controlling for prior GPA, at least one teaching method leads to a different average final score." else "no evidence of differences in final exam scores among methods after adjustment."`.
+
+
 
 ::::
 
