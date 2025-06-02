@@ -2474,6 +2474,101 @@ This indicates that age
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Modeling correlated or clustered data (e.g., repeated measures, longitudinal, or clustered observations) when interest lies in population‐averaged effects rather than subject‐specific effects.  
+- **Real-world example:** Estimating the effect of a diabetes education program on the probability of glycemic control (A1C < 7%) over multiple clinic visits per patient.
+
+#### Assumptions
+- Clustered or repeated observations per subject/cluster with some “working” correlation structure (e.g., exchangeable, autoregressive).  
+- Correct specification of the link function and the mean model (e.g., logit link for binary outcomes).  
+- Missing data are missing completely at random (MCAR) or missing at random (MAR), assuming missingness only depends on observed covariates.  
+- Large‐sample inference: GEE relies on asymptotic properties (number of clusters ≫ 1).
+
+#### Strengths
+- Robust (“sandwich”) standard errors even if the working correlation structure is mis‐specified.  
+- Provides marginal (population‐averaged) estimates, often of direct interest in public health/epidemiology.  
+- Accommodates a variety of outcomes (binary, count, continuous) via appropriate link and family.
+
+#### Weaknesses
+- Efficiency can be lost if the working correlation is far from the truth (though estimates remain consistent).  
+- Inference is asymptotic—small numbers of clusters can lead to biased standard errors.  
+- Does not model subject‐specific trajectories; cannot estimate random‐effects variance components.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The education program has no effect on odds of glycemic control over time (β_edu = 0).  
+- **Alternative hypothesis (H₁):** The education program changes the odds of glycemic control over time (β_edu ≠ 0).
+
+```{r gee_logistic}
+# Install/load necessary package:
+# install.packages("geepack")
+library(geepack)
+
+set.seed(2025)
+# Simulate data: 100 patients (clusters), each with 4 visits
+n_patients   <- 100
+visits_per   <- 4
+patient_id   <- rep(1:n_patients, each = visits_per)
+visit_number <- rep(1:visits_per, times = n_patients)
+
+# Simulate a binary program indicator (0=no program, 1=received education), randomly assigned at baseline
+edu_program  <- rbinom(n_patients, 1, 0.5)
+edu          <- rep(edu_program, each = visits_per)
+
+# Simulate time effect (visits 1–4 coded 0–3) and baseline covariate (e.g., age)
+age_cont     <- rnorm(n_patients, mean = 60, sd = 10)
+age          <- rep(age_cont, each = visits_per)
+
+# True population‐averaged logistic model:
+# logit(p_ij) = -1 + 0.4 * edu_i - 0.02 * age_i + 0.3 * visit_number_j
+# For simplicity, ignore cluster‐specific random effect; correlation introduced via GEE working structure.
+lin_pred     <- -1 +
+                0.4 * edu +
+               -0.02 * age +
+                0.3 * visit_number
+prob         <- plogis(lin_pred)
+
+# Simulate binary outcome: glycemic control (1=yes, 0=no)
+gly_control  <- rbinom(n_patients * visits_per, 1, prob)
+
+df_gee <- data.frame(
+  patient_id   = factor(patient_id),
+  visit_number = visit_number,
+  edu          = factor(edu, labels = c("NoEdu","Edu")),
+  age          = age,
+  gly_control  = gly_control
+)
+
+# Fit GEE with exchangeable working correlation:
+gee_fit <- geeglm(
+  gly_control ~ edu + age + visit_number,
+  id            = patient_id,
+  family        = binomial(link = "logit"),
+  corstr        = "exchangeable",
+  data          = df_gee
+)
+
+# Display summary:
+summary(gee_fit)
+```
+
+Interpretation:
+
+The estimated coefficient for edu (Edu vs. NoEdu) is `r round(coef(gee_fit)["eduEdu"], 3)`
+. Its robust (“sandwich”) standard error is `r round(summary(gee_fit)$coefficients["eduEdu","Std.err"], 3)`
+
+, yielding a Wald‐type z = `r round(coef(gee_fit)["eduEdu"] / summary(gee_fit)$coefficients["eduEdu","Std.err"], 2)`, with p = `r signif(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"], 3)`. We
+`r if(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that, across all visits and patients, those in the education program have `r if(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"] < 0.05) "significantly" else "no statistically"` difference in odds of glycemic control compared to those without education.
+
+The coefficient for age equals `r round(coef(gee_fit)["age"], 4)` (p = `r signif(summary(gee_fit)$coefficients["age","Pr(>|W|)"], 3)`), indicating each additional year of age multiplies the odds of control by exp(`r round(coef(gee_fit)["age"], 4)`).
+
+The visit_number effect is `r round(coef(gee_fit)["visit_number"], 3)` per visit (p = `r signif(summary(gee_fit)$coefficients["visit_number","Pr(>|W|)"], 3)`), showing whether odds of control change over successive visits.
+
+Because GEE uses a sandwich estimator, these inferences remain valid even if “exchangeable” correlation is not exactly correct, provided we have a sufficiently large number of patients.
+
+
 ::::
 
 
