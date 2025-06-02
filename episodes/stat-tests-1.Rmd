@@ -2581,6 +2581,9 @@ Because GEE uses a sandwich estimator, these inferences remain valid even if “
 ### Contingency-table methods (χ² osv.)
 
 EJ KORREKTURLÆST
+HVOR KATTEN KOMMER DET HER EGENTLIG FRA?
+
+
 
 ::::
 
@@ -2589,6 +2592,60 @@ EJ KORREKTURLÆST
 ### McNemar’s test
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether the proportions of paired binary outcomes differ (i.e., detecting marginal changes in a 2×2 paired table).  
+- **Real-world example:** Determining if a new diagnostic test classification (Positive/Negative) differs from an existing “gold standard” classification on the same patients.
+
+#### Assumptions
+- Data consist of paired binary observations (e.g., before/after, test1/test2) on the same subjects.  
+- Discordant cell counts (subjects where Test A=Positive & Test B=Negative or vice versa) are sufficiently large (≥ 10) for the χ² approximation; otherwise use exact McNemar.  
+- Each pair is independent of all other pairs.
+
+#### Strengths
+- Simple to implement for paired binary data.  
+- Specifically tests for a change in proportion rather than overall association.  
+- Does not require marginal homogeneity for concordant pairs (only discordant pairs matter).
+
+#### Weaknesses
+- Ignores concordant pairs (those where both methods agree), focusing only on discordant counts.  
+- χ² approximation can be invalid if discordant counts are small—requires exact test.  
+- Only applicable to 2×2 paired tables (binary outcomes).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The probability of discordant outcomes is the same in both directions (b = c).  
+- **Alternative hypothesis (H₁):** The probability of discordant outcomes differs (b ≠ c).
+
+```{r mcnemar_test}
+# Simulated paired binary data: OldTest vs. NewTest (n = 100 patients)
+#      NewTest
+# OldTest  Positive  Negative
+# Positive      30        20   (b = 20)
+# Negative      10        40   (c = 10)
+
+ctab <- matrix(c(30, 20,
+                 10, 40),
+               nrow = 2,
+               byrow = TRUE,
+               dimnames = list(
+                 OldTest = c("Positive","Negative"),
+                 NewTest = c("Positive","Negative")
+               ))
+
+# Perform McNemar’s test (χ² approximation):
+mcnemar_result <- mcnemar.test(ctab, correct = FALSE)
+
+# Display results:
+mcnemar_result
+```
+
+Interpretation:
+The McNemar χ² statistic is `r round(mcnemar_result$statistic, 2)` with p-value = `r signif(mcnemar_result$p.value, 3)`. We
+`r if(mcnemar_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTest Positive) = 10, a significant result would indicate that the switch in classifications is not symmetric—i.e., the new test’s positive/negative calls differ from the old test more often in one direction than the other.
+
 
 ::::
 
