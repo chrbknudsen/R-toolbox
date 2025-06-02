@@ -2655,6 +2655,62 @@ Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTe
 ### Fisher’s exact test
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing independence between two categorical variables in a small-sample 2×2 contingency table.  
+- **Real-world example:** Examining whether a new antibiotic leads to cure versus failure in 15 patients (small sample where χ² might be invalid).
+
+#### Assumptions
+- Observations are independent.  
+- Data form a 2×2 table (binary outcome × binary exposure).  
+- Marginal totals are fixed (conditional inference on margins).
+
+#### Strengths
+- Exact p-value without relying on large-sample approximations.  
+- Valid even when expected cell counts are very small or zero.  
+- Simple to implement in R via `fisher.test()`.
+
+#### Weaknesses
+- Only directly applies to 2×2 tables; extensions to larger tables exist but are computationally intensive.  
+- Does not provide an effect-size estimate beyond the odds ratio (which must be computed separately).  
+- Can be conservative (lower power) compared to asymptotic tests with moderate sample sizes.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** Treatment and outcome are independent (odds ratio = 1).  
+- **Alternative hypothesis (H₁):** Treatment and outcome are not independent (odds ratio ≠ 1).
+
+```{r fishers_exact_test}
+# Construct a 2×2 contingency table:
+#               Outcome
+# Treatment   Cure  Failure
+#   New        7      3
+#   Standard   2      3
+
+ctab <- matrix(c(7, 3,
+                 2, 3),
+               nrow = 2,
+               byrow = TRUE,
+               dimnames = list(
+                 Treatment = c("New", "Standard"),
+                 Outcome   = c("Cure", "Failure")
+               ))
+
+# Perform Fisher’s exact test:
+fisher_result <- fisher.test(ctab, alternative = "two.sided")
+
+# Display results:
+fisher_result
+```
+
+Interpretation:
+Fisher’s exact test yields an odds ratio estimate of `r round(fisher_result$estimate, 2)` with a two-sided p-value = `r signif(fisher_result$p.value, 3)`. We
+`r if(fisher_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(fisher_result$p.value < 0.05) "evidence that the probability of cure differs between the new and standard treatments." else "no evidence of a difference in cure rates between the two treatments."`
+
+
 ::::
 
 ::::spoiler
