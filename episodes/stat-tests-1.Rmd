@@ -2982,6 +2982,65 @@ Since the p-value is r round(stuart_result$p.value, 3), we
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Comparing two independent binomial proportions, possibly stratified by a third variable (Mantel–Haenszel).  
+- **Real-world example:** Assessing whether a new vaccine reduces infection rates compared to placebo across multiple clinics.
+
+#### Assumptions
+- Observations within each group (and stratum, if stratified) are independent.  
+- Each observation has a binary outcome (success/failure).  
+- In the unstratified case, the two groups are independent and sample sizes are sufficiently large for the normal approximation (if using a z-test or `prop.test()`).  
+- For the Mantel–Haenszel test: effects are assumed homogeneous across strata (common odds ratio).
+
+#### Strengths
+- Simple two‐sample z‐test or χ²‐based test (`prop.test()`) for unstratified comparisons.  
+- Mantel–Haenszel test controls for confounding by stratification, providing an overall test of association and a pooled odds ratio.  
+- Exact or asymptotic inference available (Fisher’s exact for small counts, Mantel–Haenszel χ² for larger).
+
+#### Weaknesses
+- The unstratified z‐test/χ² test can give misleading results if confounders are present.  
+- Mantel–Haenszel requires the common‐odds‐ratio assumption; if this fails (effect modification), the pooled estimate may be invalid.  
+- Both methods rely on adequate sample sizes in each cell (especially for asymptotic approximations).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The infection rates in Vaccine and Placebo groups are equal across clinics (common odds ratio = 1).  
+- **Alternative hypothesis (H₁):** The infection rates differ between Vaccine and Placebo groups (common odds ratio ≠ 1).
+
+```{r two_sample_binomial_mh}
+# Simulated data from two clinics (strata):
+# Clinic A: Vaccine (5 infections / 100), Placebo (15 infections / 100)
+# Clinic B: Vaccine (8 infections / 120), Placebo (20 infections / 120)
+
+# Create a 3‐dimensional array: 2 × 2 × 2 (Treatment × Outcome × Clinic)
+# Dimension names: Treatment = Vaccine, Placebo; Outcome = Infected, NotInfected; Clinic = A, B
+mh_table <- array(
+  c(  5,  95,   # Clinic A, Vaccine
+     15,  85,   # Clinic A, Placebo
+      8, 112,   # Clinic B, Vaccine
+     20, 100 ), # Clinic B, Placebo
+  dim = c(2, 2, 2),
+  dimnames = list(
+    Treatment = c("Vaccine", "Placebo"),
+    Outcome   = c("Infected", "NotInfected"),
+    Clinic    = c("A", "B")
+  )
+)
+
+# Perform Mantel–Haenszel test:
+mh_result <- mantelhaen.test(mh_table, correct = FALSE)
+
+# Display results:
+mh_result
+```
+
+Interpretation:
+The Mantel–Haenszel χ² statistic = `r round(mh_result$statistic, 3)` with df = `r mh_result$parameter` and p‐value = `r signif(mh_result$p.value, 3)`. We
+`r if(mh_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
+`r if(mh_result$p.value < 0.05) "conclude there is a significant difference in infection rates between Vaccine and Placebo after controlling for clinic." else "conclude there is no evidence of a difference in infection rates between Vaccine and Placebo after controlling for clinic."`
+
 ::::
 
 ::::spoiler
