@@ -2718,66 +2718,75 @@ Thus, there is
 ### Barnard’s exact test
 
 EJ KORREKTURLÆST
-
+VÆR SÆRLIGT OPMÆRKSOM HER - DER VAR STORE UDFORDRINGER...
 #### Used for
-- Testing independence in a 2×2 contingency table without conditioning on all marginal totals (unconditional exact test).  
-- **Real-world example:** Determining if a new pain medication reduces adverse events compared to placebo when sample size is small and margins are not fixed.
+- Testing independence in a 2×2 contingency table via an unconditional exact test.  
+- **Real-world example:** Determining if a new pain medication and placebo differ in adverse event rates when sample sizes are small.
 
 #### Assumptions
-- Observations are independent.  
-- Data form a 2×2 table (binary outcome × binary exposure).  
-- Only one margin (row or column) may be treated as fixed; the other is free (unconditional design).  
+- Observations are independent and each subject contributes exactly one cell in the 2×2 table.  
+- Only one margin (row or column totals) is fixed; the other margin is free.  
+- Binary outcome (e.g., “Adverse Event: Yes/No”) and binary grouping (“Medication vs. Placebo”).
 
 #### Strengths
-- Generally more powerful than Fisher’s exact test for 2×2 tables because it does not condition on both margins.  
-- Provides an exact p-value without relying on large-sample approximations.  
-- Particularly advantageous when the margins are not fixed by design.
+- More powerful than Fisher’s exact test because it does not condition on both margins.  
+- Provides an exact p-value without relying on large‐sample approximations.  
+- Particularly advantageous when margins are not fixed by design.
 
 #### Weaknesses
-- Computationally more intensive than Fisher’s exact test.  
-- Less widely available in standard software (requires specialized packages such as `exact2x2` or `Barnard`).  
-- Interpretation of the unconditional approach can be less intuitive if one is accustomed to conditional tests.
+- Computationally slower than Fisher’s exact test for larger sample sizes.  
+- Only applies to 2×2 tables (binary × binary).  
+- Requires installation of the **Barnard** package (not in base R).
 
 #### Example
 
 ##### Hypothesis
-- **Null hypothesis (H₀):** The probability of an adverse event is the same for medication and placebo (no association).  
-- **Alternative hypothesis (H₁):** The probability of an adverse event differs between medication and placebo.
+- **Null hypothesis (H₀):** The probability of an adverse event is the same in the Medication and Placebo groups (no association).  
+- **Alternative hypothesis (H₁):** The probability of an adverse event differs between Medication and Placebo.
 
-```{r barnards_exact_test}
-# Install and load the exact2x2 package if necessary:
-# install.packages("exact2x2")
-library(exact2x2)
+```{r barnard_exact_test}
+# Install and load the Barnard package (only once if not already installed):
+# install.packages("Barnard")
+library(Barnard)
 
-# Construct a 2×2 contingency table:
-#                 AdverseEvent
+# Define the 2×2 counts:
+#              AdverseEvent
 # Treatment   Yes   No
-#   Medication  2    8
-#   Placebo     7    3
+#   Medication  2     8
+#   Placebo     7     3
+n1 <- 2   # Medication & Yes
+n2 <- 8   # Medication & No
+n3 <- 7   # Placebo    & Yes
+n4 <- 3   # Placebo    & No
 
-ctab <- matrix(c(2, 8,
-                 7, 3),
-               nrow = 2,
-               byrow = TRUE,
-               dimnames = list(
-                 Treatment     = c("Medication", "Placebo"),
-                 AdverseEvent  = c("Yes", "No")
-               ))
+# Run Barnard's unconditional exact test:
+barnard_result <- barnard.test(n1, n2, n3, n4, pooled = TRUE)
 
-# Perform Barnard’s exact test (unconditional):
-barnard_result <- barnard.test(ctab, test = "score")  # "score" is the default ordering
-
-# Display results:
+# Display the test result:
 barnard_result
+
 ```
 
 Interpretation:
-Barnard’s test reports an unconditional test statistic and an exact p-value. 
-Suppose the output shows p-value = `r signif(barnard_result$p.value, 3)`. We
-`r if(barnard_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
-This means there is
-`r if(barnard_result$p.value < 0.05) "evidence that the probability of an adverse event differs between medication and placebo." else "no evidence to conclude a difference in adverse event rates between medication and placebo."`
+The output includes:
 
+A score statistic (here ≈ 2.24733).
+
+Two nuisance parameter estimates (0.666 for one-sided, 0.500 for two-sided).
+
+Two p-values in $p.value:
+
+barnard_result$p.value[1] = 0.0167869 (one‐sided)
+
+barnard_result$p.value[2] = 0.0334587 (two‐sided)
+
+Two‐sided p‐value (0.0335): Tests whether the adverse‐event probabilities differ in either direction. Since 0.0335 < 0.05, we reject 
+H0
+
+
+  and conclude there is a significant difference in adverse‐event rates between Medication and Placebo.
+
+One‐sided p‐value (0.0168): Tests specifically whether the Medication adverse‐event rate is greater than the Placebo rate. Because 0.0168 < 0.05, we also conclude that Medication has a higher adverse‐event probability than Placebo.
 ::::
 
 ::::spoiler
@@ -2786,6 +2795,8 @@ This means there is
 ### Cochran–Armitage trend test (ordinal tabel)
 
 EJ KORREKTURLÆST
+
+
 
 ::::
 
