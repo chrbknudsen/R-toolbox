@@ -2853,6 +2853,58 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether proportions of a binary outcome differ across three or more related (matched) groups.  
+- **Real-world example:** Checking if three different allergy medications have different proportions of symptom relief in the same set of patients.
+
+#### Assumptions
+- Each subject is measured on the same binary outcome under each condition (matched/paired design).  
+- Observations (subjects) are independent of one another.  
+- The outcome for each subject in each group is binary (e.g., “relief” vs. “no relief”).  
+
+#### Strengths
+- Extends McNemar’s test to more than two matched proportions.  
+- Controls for subject‐level variability by using each subject as their own block.  
+- Simple test statistic and interpretation via χ² distribution.
+
+#### Weaknesses
+- Only addresses overall difference; does not indicate which pairs of groups differ (post‐hoc tests required).  
+- Sensitive to missing data: any subject missing a response in one condition must be excluded.  
+- Assumes no interactions or clustering beyond the matched sets.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The proportion of patients experiencing symptom relief is the same across all three medications (p₁ = p₂ = p₃).  
+- **Alternative hypothesis (H₁):** At least one medication’s relief proportion differs from the others.
+
+```{r cochran_q_test}
+# Install and load DescTools if not already installed:
+# install.packages("DescTools")
+library(DescTools)
+
+# Simulate binary relief outcomes for 12 patients on three medications:
+# 1 = relief, 0 = no relief
+set.seed(2025)
+relief_med1 <- c(1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1)
+relief_med2 <- c(1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1)
+relief_med3 <- c(1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1)
+
+# Combine into a matrix: rows = subjects, columns = medications
+relief_matrix <- cbind(relief_med1, relief_med2, relief_med3)
+
+# Perform Cochran’s Q test:
+cq_result <- CochranQTest(relief_matrix)
+
+# Display results:
+cq_result
+```
+Interpretation:
+Cochran’s Q statistic = `r round(cq_result$statistic, 3)` with df = `r cq_result$parameter` and p-value = `r signif(cq_result$p.value, 3)`. We
+`r if(cq_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(cq_result$p.value < 0.05) "evidence that at least one medication’s relief proportion differs from the others." else "no evidence that relief proportions differ across the three medications."`
+
 ::::
 
 ::::spoiler
