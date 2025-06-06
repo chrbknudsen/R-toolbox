@@ -164,7 +164,7 @@ trukket fra vores toolbox.
 
 ## Introduktion til statistik
 
-Noget om noget med Roskilde og statistik
+På Roskilde Universitetsbibliotek har vi på baggrund af ønsker fra studerende og de udvalgte episoder. De udvalgte episoder drejer sig om deskriptive data, Normal fordeling herunder test af normalfordeling og linear regressioner. Målet med undervisningen er ikke et statistik kursus, men et kursus i hvordan R kan hjælpe en med at udføre statistiske metoder. Hvis de studerende ønsker mere statistisk viden kan de læse de tilknyttede lessons.
 
 # Bonus
 
