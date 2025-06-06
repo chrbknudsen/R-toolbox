@@ -3573,6 +3573,81 @@ then, since $p = 0.289 \ge 0.05$, we fail to reject $H_{0}$. There is no evidenc
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Comparing the survival distributions of two or more groups in time-to-event data.  
+- **Real-world example:** Testing whether patients receiving Drug A have different overall survival than patients receiving Drug B after cancer diagnosis.
+
+#### Assumptions
+- Censoring is independent of survival (noninformative).  
+- Survival times are continuously distributed.  
+- The hazard functions are proportional over time (i.e., the ratio of hazard rates between groups is constant).
+
+#### Strengths
+- Nonparametric: does not assume any specific survival distribution.  
+- Accommodates right-censoring.  
+- Widely used and easy to implement via `survdiff()`.
+
+#### Weaknesses
+- Sensitive to violations of proportional hazards—if hazards cross, test may mislead.  
+- Only tests for equality of entire survival curves, not pinpointing when differences occur.  
+- Requires adequate numbers of events—limited power if many censored observations.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis ($H_{0}$):** The survival functions in the two groups are equal, i.e.  $S_{A}(t) = S_{B}(t)\quad \text{for all } t$
+- **Alternative hypothesis ($H_{1}$):** The survival functions differ, i.e.  $S_{A}(t) \neq S_{B}(t)\quad \text{for some } t$
+
+
+```{r log_rank_test}
+# Install and load the 'survival' package if necessary:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+# Simulate survival times for two groups (A and B):
+n_A <- 50
+n_B <- 50
+
+# True hazard rates: lambda_A = 0.05, lambda_B = 0.08
+# Exponential survival times (for simplicity)
+time_A <- rexp(n_A, rate = 0.05)
+time_B <- rexp(n_B, rate = 0.08)
+
+# Simulate independent right-censoring times
+censor_A <- rexp(n_A, rate = 0.02)
+censor_B <- rexp(n_B, rate = 0.02)
+
+# Observed time = min(survival, censoring); event indicator = 1 if survival <= censoring
+obs_time_A <- pmin(time_A, censor_A)
+status_A   <- as.numeric(time_A <= censor_A)
+
+obs_time_B <- pmin(time_B, censor_B)
+status_B   <- as.numeric(time_B <= censor_B)
+
+# Combine into one data frame
+group      <- factor(c(rep("A", n_A), rep("B", n_B)))
+time       <- c(obs_time_A, obs_time_B)
+status     <- c(status_A, status_B)
+df_surv    <- data.frame(time, status, group)
+
+# Perform log-rank test comparing groups A and B
+surv_diff <- survdiff(Surv(time, status) ~ group, data = df_surv)
+
+# Display results
+surv_diff
+```
+
+Interpretation:
+The log-rank test yields a chi-square statistic $\chi^{2} \;=\; \text{surv_diff\$chisq}$
+
+
+with 1 degree of freedom and p-value = `r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`. We
+`r if((1 - pchisq(surv_diff$chisq, df = 1)) < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, since $p = \text{`r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`}$, we
+`r if((1 - pchisq(surv_diff$chisq, df = 1)) < 0.05) "conclude that survival differs between Drug A and Drug B." else "conclude there is no evidence of a difference in survival between Drug A and Drug B."`.
+
+
 ::::
 
 ::::spoiler
