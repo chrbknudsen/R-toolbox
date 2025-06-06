@@ -3407,6 +3407,76 @@ Thus, there is
 ### Trend-test for incidence rates over flere eksponeringsgrupper
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether there is a linear trend in incidence rates across ordered exposure groups.  
+- **Real-world example:** Evaluating whether lung cancer incidence per 1,000 person‐years increases across smoking intensity categories (Non‐smoker, Light‐smoker, Heavy‐smoker).
+
+#### Assumptions
+- Events in each group follow a Poisson process.  
+- The exposure groups have a natural order and can be assigned numeric scores (e.g., 0, 1, 2).  
+- Person‐time denominators are measured accurately and non‐overlapping.  
+- The log‐rate of events is linearly related to the numeric score of the exposure groups.
+
+#### Strengths
+- Directly tests for a dose‐response (linear) relationship in rates.  
+- Accounts for differing person‐time across groups via an offset in Poisson regression.  
+- Provides an estimate of the rate‐ratio per one‐unit increase in the exposure score.
+
+#### Weaknesses
+- Only detects a linear trend; non‐linear patterns across groups may be missed.  
+- Sensitive to misclassification of exposure group ordering or scoring.  
+- Assumes no overdispersion; if variance > mean, inference may be invalid unless corrected.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** There is no linear trend in incidence rates across exposure groups (β = 0).  
+- **Alternative hypothesis (H₁):** β ≠ 0 (the log‐rate changes linearly with the exposure score).
+
+```{r poisson_trend}
+# Simulated data for three smoking categories:
+# Category labels and numeric scores:
+#   0 = Non‐smoker
+#   1 = Light‐smoker
+#   2 = Heavy‐smoker
+data <- data.frame(
+  smoke_cat   = factor(c("Non", "Light", "Heavy"), 
+                       levels = c("Non","Light","Heavy")),
+  score       = c(0, 1, 2),
+  events      = c(12, 30, 55),    # number of lung cancer cases
+  person_years = c(5000, 4000, 3000)  # total person‐years in each category
+)
+
+# Fit Poisson regression with offset(log(person_years)):
+trend_fit <- glm(events ~ score + offset(log(person_years)),
+                 family = poisson(link = "log"),
+                 data = data)
+
+# Display summary (including coefficient and Wald test for trend):
+summary(trend_fit)
+```
+
+Interpretation:
+
+The estimated coefficient for score is `r round(coef(trend_fit)["score"], 3)`.
+
+Exponentiating gives a rate ratio per one‐unit increase in exposure score:
+
+$$\text{RR per category} = \exp\bigl(\beta_{\text{score}}\bigr)$$
+
+From summary(trend_fit), the Wald‐type $z$‐value for score has p‐value = `r signif(summary(trend_fit)$coefficients["score","Pr(>|z|)"], 3)`.
+
+If this p‐value $< 0.05$, we reject $H_{0}$, indicating a significant linear trend in incidence rates across exposure categories.
+
+If the p‐value $\ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a linear trend.
+
+For example, if $\widehat{\beta}_{\text{score}} = 0.45$ (p = 0.002), then
+
+
+$\text{RR} = \exp(0.45) \approx 1.57$
+per category increase, and since p $<0.05$, we conclude that incidence rises significantly from Non‐smoker → Light‐smoker → Heavy‐smoker.
+
 ::::
 
 ::::spoiler
