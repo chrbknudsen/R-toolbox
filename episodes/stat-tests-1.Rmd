@@ -2474,6 +2474,101 @@ This indicates that age
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Modeling correlated or clustered data (e.g., repeated measures, longitudinal, or clustered observations) when interest lies in population‐averaged effects rather than subject‐specific effects.  
+- **Real-world example:** Estimating the effect of a diabetes education program on the probability of glycemic control (A1C < 7%) over multiple clinic visits per patient.
+
+#### Assumptions
+- Clustered or repeated observations per subject/cluster with some “working” correlation structure (e.g., exchangeable, autoregressive).  
+- Correct specification of the link function and the mean model (e.g., logit link for binary outcomes).  
+- Missing data are missing completely at random (MCAR) or missing at random (MAR), assuming missingness only depends on observed covariates.  
+- Large‐sample inference: GEE relies on asymptotic properties (number of clusters ≫ 1).
+
+#### Strengths
+- Robust (“sandwich”) standard errors even if the working correlation structure is mis‐specified.  
+- Provides marginal (population‐averaged) estimates, often of direct interest in public health/epidemiology.  
+- Accommodates a variety of outcomes (binary, count, continuous) via appropriate link and family.
+
+#### Weaknesses
+- Efficiency can be lost if the working correlation is far from the truth (though estimates remain consistent).  
+- Inference is asymptotic—small numbers of clusters can lead to biased standard errors.  
+- Does not model subject‐specific trajectories; cannot estimate random‐effects variance components.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The education program has no effect on odds of glycemic control over time (β_edu = 0).  
+- **Alternative hypothesis (H₁):** The education program changes the odds of glycemic control over time (β_edu ≠ 0).
+
+```{r gee_logistic}
+# Install/load necessary package:
+# install.packages("geepack")
+library(geepack)
+
+set.seed(2025)
+# Simulate data: 100 patients (clusters), each with 4 visits
+n_patients   <- 100
+visits_per   <- 4
+patient_id   <- rep(1:n_patients, each = visits_per)
+visit_number <- rep(1:visits_per, times = n_patients)
+
+# Simulate a binary program indicator (0=no program, 1=received education), randomly assigned at baseline
+edu_program  <- rbinom(n_patients, 1, 0.5)
+edu          <- rep(edu_program, each = visits_per)
+
+# Simulate time effect (visits 1–4 coded 0–3) and baseline covariate (e.g., age)
+age_cont     <- rnorm(n_patients, mean = 60, sd = 10)
+age          <- rep(age_cont, each = visits_per)
+
+# True population‐averaged logistic model:
+# logit(p_ij) = -1 + 0.4 * edu_i - 0.02 * age_i + 0.3 * visit_number_j
+# For simplicity, ignore cluster‐specific random effect; correlation introduced via GEE working structure.
+lin_pred     <- -1 +
+                0.4 * edu +
+               -0.02 * age +
+                0.3 * visit_number
+prob         <- plogis(lin_pred)
+
+# Simulate binary outcome: glycemic control (1=yes, 0=no)
+gly_control  <- rbinom(n_patients * visits_per, 1, prob)
+
+df_gee <- data.frame(
+  patient_id   = factor(patient_id),
+  visit_number = visit_number,
+  edu          = factor(edu, labels = c("NoEdu","Edu")),
+  age          = age,
+  gly_control  = gly_control
+)
+
+# Fit GEE with exchangeable working correlation:
+gee_fit <- geeglm(
+  gly_control ~ edu + age + visit_number,
+  id            = patient_id,
+  family        = binomial(link = "logit"),
+  corstr        = "exchangeable",
+  data          = df_gee
+)
+
+# Display summary:
+summary(gee_fit)
+```
+
+Interpretation:
+
+The estimated coefficient for edu (Edu vs. NoEdu) is `r round(coef(gee_fit)["eduEdu"], 3)`
+. Its robust (“sandwich”) standard error is `r round(summary(gee_fit)$coefficients["eduEdu","Std.err"], 3)`
+
+, yielding a Wald‐type z = `r round(coef(gee_fit)["eduEdu"] / summary(gee_fit)$coefficients["eduEdu","Std.err"], 2)`, with p = `r signif(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"], 3)`. We
+`r if(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that, across all visits and patients, those in the education program have `r if(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"] < 0.05) "significantly" else "no statistically"` difference in odds of glycemic control compared to those without education.
+
+The coefficient for age equals `r round(coef(gee_fit)["age"], 4)` (p = `r signif(summary(gee_fit)$coefficients["age","Pr(>|W|)"], 3)`), indicating each additional year of age multiplies the odds of control by exp(`r round(coef(gee_fit)["age"], 4)`).
+
+The visit_number effect is `r round(coef(gee_fit)["visit_number"], 3)` per visit (p = `r signif(summary(gee_fit)$coefficients["visit_number","Pr(>|W|)"], 3)`), showing whether odds of control change over successive visits.
+
+Because GEE uses a sandwich estimator, these inferences remain valid even if “exchangeable” correlation is not exactly correct, provided we have a sufficiently large number of patients.
+
+
 ::::
 
 
@@ -2486,6 +2581,9 @@ EJ KORREKTURLÆST
 ### Contingency-table methods (χ² osv.)
 
 EJ KORREKTURLÆST
+HVOR KATTEN KOMMER DET HER EGENTLIG FRA?
+
+
 
 ::::
 
@@ -2495,6 +2593,60 @@ EJ KORREKTURLÆST
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing whether the proportions of paired binary outcomes differ (i.e., detecting marginal changes in a 2×2 paired table).  
+- **Real-world example:** Determining if a new diagnostic test classification (Positive/Negative) differs from an existing “gold standard” classification on the same patients.
+
+#### Assumptions
+- Data consist of paired binary observations (e.g., before/after, test1/test2) on the same subjects.  
+- Discordant cell counts (subjects where Test A=Positive & Test B=Negative or vice versa) are sufficiently large (≥ 10) for the χ² approximation; otherwise use exact McNemar.  
+- Each pair is independent of all other pairs.
+
+#### Strengths
+- Simple to implement for paired binary data.  
+- Specifically tests for a change in proportion rather than overall association.  
+- Does not require marginal homogeneity for concordant pairs (only discordant pairs matter).
+
+#### Weaknesses
+- Ignores concordant pairs (those where both methods agree), focusing only on discordant counts.  
+- χ² approximation can be invalid if discordant counts are small—requires exact test.  
+- Only applicable to 2×2 paired tables (binary outcomes).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The probability of discordant outcomes is the same in both directions (b = c).  
+- **Alternative hypothesis (H₁):** The probability of discordant outcomes differs (b ≠ c).
+
+```{r mcnemar_test}
+# Simulated paired binary data: OldTest vs. NewTest (n = 100 patients)
+#      NewTest
+# OldTest  Positive  Negative
+# Positive      30        20   (b = 20)
+# Negative      10        40   (c = 10)
+
+ctab <- matrix(c(30, 20,
+                 10, 40),
+               nrow = 2,
+               byrow = TRUE,
+               dimnames = list(
+                 OldTest = c("Positive","Negative"),
+                 NewTest = c("Positive","Negative")
+               ))
+
+# Perform McNemar’s test (χ² approximation):
+mcnemar_result <- mcnemar.test(ctab, correct = FALSE)
+
+# Display results:
+mcnemar_result
+```
+
+Interpretation:
+The McNemar χ² statistic is `r round(mcnemar_result$statistic, 2)` with p-value = `r signif(mcnemar_result$p.value, 3)`. We
+`r if(mcnemar_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTest Positive) = 10, a significant result would indicate that the switch in classifications is not symmetric—i.e., the new test’s positive/negative calls differ from the old test more often in one direction than the other.
+
+
 ::::
 
 ::::spoiler
@@ -2503,6 +2655,62 @@ EJ KORREKTURLÆST
 ### Fisher’s exact test
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing independence between two categorical variables in a small-sample 2×2 contingency table.  
+- **Real-world example:** Examining whether a new antibiotic leads to cure versus failure in 15 patients (small sample where χ² might be invalid).
+
+#### Assumptions
+- Observations are independent.  
+- Data form a 2×2 table (binary outcome × binary exposure).  
+- Marginal totals are fixed (conditional inference on margins).
+
+#### Strengths
+- Exact p-value without relying on large-sample approximations.  
+- Valid even when expected cell counts are very small or zero.  
+- Simple to implement in R via `fisher.test()`.
+
+#### Weaknesses
+- Only directly applies to 2×2 tables; extensions to larger tables exist but are computationally intensive.  
+- Does not provide an effect-size estimate beyond the odds ratio (which must be computed separately).  
+- Can be conservative (lower power) compared to asymptotic tests with moderate sample sizes.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** Treatment and outcome are independent (odds ratio = 1).  
+- **Alternative hypothesis (H₁):** Treatment and outcome are not independent (odds ratio ≠ 1).
+
+```{r fishers_exact_test}
+# Construct a 2×2 contingency table:
+#               Outcome
+# Treatment   Cure  Failure
+#   New        7      3
+#   Standard   2      3
+
+ctab <- matrix(c(7, 3,
+                 2, 3),
+               nrow = 2,
+               byrow = TRUE,
+               dimnames = list(
+                 Treatment = c("New", "Standard"),
+                 Outcome   = c("Cure", "Failure")
+               ))
+
+# Perform Fisher’s exact test:
+fisher_result <- fisher.test(ctab, alternative = "two.sided")
+
+# Display results:
+fisher_result
+```
+
+Interpretation:
+Fisher’s exact test yields an odds ratio estimate of `r round(fisher_result$estimate, 2)` with a two-sided p-value = `r signif(fisher_result$p.value, 3)`. We
+`r if(fisher_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(fisher_result$p.value < 0.05) "evidence that the probability of cure differs between the new and standard treatments." else "no evidence of a difference in cure rates between the two treatments."`
+
+
 ::::
 
 ::::spoiler
@@ -2510,7 +2718,75 @@ EJ KORREKTURLÆST
 ### Barnard’s exact test
 
 EJ KORREKTURLÆST
+VÆR SÆRLIGT OPMÆRKSOM HER - DER VAR STORE UDFORDRINGER...
+#### Used for
+- Testing independence in a 2×2 contingency table via an unconditional exact test.  
+- **Real-world example:** Determining if a new pain medication and placebo differ in adverse event rates when sample sizes are small.
 
+#### Assumptions
+- Observations are independent and each subject contributes exactly one cell in the 2×2 table.  
+- Only one margin (row or column totals) is fixed; the other margin is free.  
+- Binary outcome (e.g., “Adverse Event: Yes/No”) and binary grouping (“Medication vs. Placebo”).
+
+#### Strengths
+- More powerful than Fisher’s exact test because it does not condition on both margins.  
+- Provides an exact p-value without relying on large‐sample approximations.  
+- Particularly advantageous when margins are not fixed by design.
+
+#### Weaknesses
+- Computationally slower than Fisher’s exact test for larger sample sizes.  
+- Only applies to 2×2 tables (binary × binary).  
+- Requires installation of the **Barnard** package (not in base R).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The probability of an adverse event is the same in the Medication and Placebo groups (no association).  
+- **Alternative hypothesis (H₁):** The probability of an adverse event differs between Medication and Placebo.
+
+```{r barnard_exact_test}
+# Install and load the Barnard package (only once if not already installed):
+# install.packages("Barnard")
+library(Barnard)
+
+# Define the 2×2 counts:
+#              AdverseEvent
+# Treatment   Yes   No
+#   Medication  2     8
+#   Placebo     7     3
+n1 <- 2   # Medication & Yes
+n2 <- 8   # Medication & No
+n3 <- 7   # Placebo    & Yes
+n4 <- 3   # Placebo    & No
+
+# Run Barnard's unconditional exact test:
+barnard_result <- barnard.test(n1, n2, n3, n4, pooled = TRUE)
+
+# Display the test result:
+barnard_result
+
+```
+
+Interpretation:
+The output includes:
+
+A score statistic (here ≈ 2.24733).
+
+Two nuisance parameter estimates (0.666 for one-sided, 0.500 for two-sided).
+
+Two p-values in $p.value:
+
+barnard_result$p.value[1] = 0.0167869 (one‐sided)
+
+barnard_result$p.value[2] = 0.0334587 (two‐sided)
+
+Two‐sided p‐value (0.0335): Tests whether the adverse‐event probabilities differ in either direction. Since 0.0335 < 0.05, we reject 
+H0
+
+
+  and conclude there is a significant difference in adverse‐event rates between Medication and Placebo.
+
+One‐sided p‐value (0.0168): Tests specifically whether the Medication adverse‐event rate is greater than the Placebo rate. Because 0.0168 < 0.05, we also conclude that Medication has a higher adverse‐event probability than Placebo.
 ::::
 
 ::::spoiler
@@ -2519,6 +2795,55 @@ EJ KORREKTURLÆST
 ### Cochran–Armitage trend test (ordinal tabel)
 
 EJ KORREKTURLÆST
+#### Used for
+- Testing for a linear trend in proportions across ordered categories in a 2×k contingency table.  
+- **Real-world example:** Assessing whether increasing levels of prenatal vitamin dose (Low, Medium, High) correspond to higher rates of healthy birth outcomes (Yes/No).
+
+#### Assumptions
+- Observations are independent.  
+- Categories of the ordinal predictor have a natural order (e.g., Low < Medium < High).  
+- The response is binary within each category (success/failure).  
+- Expected counts for successes and failures in each category are sufficiently large for the χ² approximation (generally ≥ 5).
+
+#### Strengths
+- Specifically targets a monotonic (linear) increase or decrease in the success probability across ordered groups.  
+- More powerful than a general χ² test of independence when a linear trend is present.  
+- Straightforward to compute via `prop.trend.test()` in R.
+
+#### Weaknesses
+- Only detects a linear trend; non-monotonic patterns (e.g., U-shaped) will be missed.  
+- Requires correct ordering and spacing of category scores; misordering invalidates the test.  
+- Sensitive to small expected counts in any group, which can distort the chi-square approximation.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** No linear trend in the probability of a healthy birth outcome across dose levels (slope = 0).  
+- **Alternative hypothesis (H₁):** A positive linear trend exists: higher dose levels correspond to higher healthy birth rates (slope > 0).
+
+```{r cochran_armitage_trend_test}
+# Define counts of healthy outcomes by dose:
+#   Low:    30 healthy, 20 unhealthy
+#   Medium: 40 healthy, 10 unhealthy
+#   High:   45 healthy, 5  unhealthy
+
+successes <- c(30, 40, 45)   # number of healthy births in Low, Medium, High
+totals    <- c(50, 50, 50)   # total births in each dose group
+scores    <- c(1, 2, 3)      # equally spaced scores for Low, Medium, High
+
+# Perform Cochran–Armitage trend test via prop.trend.test:
+trend_result <- prop.trend.test(successes, totals, score = scores)
+
+# Display results:
+trend_result
+```
+
+Interpretation:
+The Cochran–Armitage test statistic χ² = `r round(trend_result$statistic, 3)` with p-value = `r signif(trend_result$p.value, 3)`. Because the p-value is `r ifelse(trend_result$p.value < 0.05, "< 0.05", paste("=", round(trend_result$p.value, 3)))`, we
+`r if(trend_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(trend_result$p.value < 0.05) "evidence of a positive linear trend: higher prenatal vitamin doses are associated with higher healthy birth rates." else "no evidence of a linear trend in healthy birth rates across dose levels."`
+
 
 ::::
 
@@ -2527,6 +2852,58 @@ EJ KORREKTURLÆST
 ### Cochran’s Q test (≥3 matched proportions)
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing whether proportions of a binary outcome differ across three or more related (matched) groups.  
+- **Real-world example:** Checking if three different allergy medications have different proportions of symptom relief in the same set of patients.
+
+#### Assumptions
+- Each subject is measured on the same binary outcome under each condition (matched/paired design).  
+- Observations (subjects) are independent of one another.  
+- The outcome for each subject in each group is binary (e.g., “relief” vs. “no relief”).  
+
+#### Strengths
+- Extends McNemar’s test to more than two matched proportions.  
+- Controls for subject‐level variability by using each subject as their own block.  
+- Simple test statistic and interpretation via χ² distribution.
+
+#### Weaknesses
+- Only addresses overall difference; does not indicate which pairs of groups differ (post‐hoc tests required).  
+- Sensitive to missing data: any subject missing a response in one condition must be excluded.  
+- Assumes no interactions or clustering beyond the matched sets.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The proportion of patients experiencing symptom relief is the same across all three medications (p₁ = p₂ = p₃).  
+- **Alternative hypothesis (H₁):** At least one medication’s relief proportion differs from the others.
+
+```{r cochran_q_test}
+# Install and load DescTools if not already installed:
+# install.packages("DescTools")
+library(DescTools)
+
+# Simulate binary relief outcomes for 12 patients on three medications:
+# 1 = relief, 0 = no relief
+set.seed(2025)
+relief_med1 <- c(1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1)
+relief_med2 <- c(1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1)
+relief_med3 <- c(1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1)
+
+# Combine into a matrix: rows = subjects, columns = medications
+relief_matrix <- cbind(relief_med1, relief_med2, relief_med3)
+
+# Perform Cochran’s Q test:
+cq_result <- CochranQTest(relief_matrix)
+
+# Display results:
+cq_result
+```
+Interpretation:
+Cochran’s Q statistic = `r round(cq_result$statistic, 3)` with df = `r cq_result$parameter` and p-value = `r signif(cq_result$p.value, 3)`. We
+`r if(cq_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(cq_result$p.value < 0.05) "evidence that at least one medication’s relief proportion differs from the others." else "no evidence that relief proportions differ across the three medications."`
 
 ::::
 
@@ -2537,6 +2914,66 @@ EJ KORREKTURLÆST
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing marginal homogeneity in a square contingency table of paired categorical outcomes (k ≥ 3 categories).  
+- **Real-world example:** Assessing whether patients’ self‐rated pain levels (None, Mild, Moderate, Severe) before and after a new analgesic are distributed the same way.
+
+#### Assumptions
+- Data consist of paired observations on the same subjects, each classified into one of k categories at two time points or under two conditions.  
+- The contingency table is square (same set of k categories for “before” and “after”).  
+- Observations (pairs) are independent of one another.  
+- No cell has zero counts that prevent the necessary sums for the test (ideally none of the off‐diagonal cell sums are zero across all pairs).
+
+#### Strengths
+- Generalizes McNemar’s test to k > 2 categories.  
+- Specifically tests whether the overall marginal (row vs. column) distributions are the same.  
+- Computes a χ²‐statistic based on off‐diagonal discordances, summarizing all category shifts.
+
+#### Weaknesses
+- Only detects overall marginal changes; does not indicate which category pairs drive the difference (post‐hoc needed).  
+- Sensitive to small sample sizes or sparse off‐diagonal entries (may lack power or violate asymptotic χ² approximation).  
+- Assumes symmetry under the null; if many pairs move in one direction but not the reverse, marginal sums can still balance, potentially masking certain shifts.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The marginal distribution of pain levels is the same before and after treatment.  
+- **Alternative hypothesis (H₁):** The marginal distributions differ (some shifts in categories occurred).
+
+```{r stuart_maxwell_test}
+# Install and load DescTools if not already installed:
+# install.packages("DescTools")
+library(DescTools)
+
+# Simulate paired pain ratings for 50 patients:
+# Categories: 1=None, 2=Mild, 3=Moderate, 4=Severe
+set.seed(123)
+before <- sample(1:4, 50, replace = TRUE, prob = c(0.10, 0.30, 0.40, 0.20))
+# After treatment: some improvement for many, some unchanged or worse
+after  <- pmin(pmax(before + sample(c(-1, 0, 1), 50, replace = TRUE, prob = c(0.4, 0.4, 0.2)), 1), 4)
+
+# Create a square contingency table of before vs. after:
+pain_table <- table(factor(before, levels = 1:4),
+                    factor(after,  levels = 1:4))
+dimnames(pain_table) <- list(
+  Before = c("None", "Mild", "Moderate", "Severe"),
+  After  = c("None", "Mild", "Moderate", "Severe")
+)
+
+# Perform Stuart–Maxwell test for marginal homogeneity:
+stuart_result <- StuartMaxwellTest(pain_table)
+
+# Display the table and test result:
+pain_table
+stuart_result
+```
+
+Interpretation:
+The Stuart–Maxwell χ² statistic = `r round(stuart_result$statistic, 2)` with df = `r stuart_result$parameter` and p-value = `r signif(stuart_result$p.value, 3)`. We
+`r if(stuart_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Since the p-value is r round(stuart_result$p.value, 3), we
+`r if(stuart_result$p.value < 0.05) "conclude that the marginal distribution of pain levels differs before vs. after treatment (some patients shifted categories)." else "conclude there is no evidence of a change in the overall distribution of pain levels."`
+
 ::::
 
 ::::spoiler
@@ -2544,6 +2981,65 @@ EJ KORREKTURLÆST
 ### Two-sample test for binomial proportions / Mantel–Haenszel test
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Comparing two independent binomial proportions, possibly stratified by a third variable (Mantel–Haenszel).  
+- **Real-world example:** Assessing whether a new vaccine reduces infection rates compared to placebo across multiple clinics.
+
+#### Assumptions
+- Observations within each group (and stratum, if stratified) are independent.  
+- Each observation has a binary outcome (success/failure).  
+- In the unstratified case, the two groups are independent and sample sizes are sufficiently large for the normal approximation (if using a z-test or `prop.test()`).  
+- For the Mantel–Haenszel test: effects are assumed homogeneous across strata (common odds ratio).
+
+#### Strengths
+- Simple two‐sample z‐test or χ²‐based test (`prop.test()`) for unstratified comparisons.  
+- Mantel–Haenszel test controls for confounding by stratification, providing an overall test of association and a pooled odds ratio.  
+- Exact or asymptotic inference available (Fisher’s exact for small counts, Mantel–Haenszel χ² for larger).
+
+#### Weaknesses
+- The unstratified z‐test/χ² test can give misleading results if confounders are present.  
+- Mantel–Haenszel requires the common‐odds‐ratio assumption; if this fails (effect modification), the pooled estimate may be invalid.  
+- Both methods rely on adequate sample sizes in each cell (especially for asymptotic approximations).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (H₀):** The infection rates in Vaccine and Placebo groups are equal across clinics (common odds ratio = 1).  
+- **Alternative hypothesis (H₁):** The infection rates differ between Vaccine and Placebo groups (common odds ratio ≠ 1).
+
+```{r two_sample_binomial_mh}
+# Simulated data from two clinics (strata):
+# Clinic A: Vaccine (5 infections / 100), Placebo (15 infections / 100)
+# Clinic B: Vaccine (8 infections / 120), Placebo (20 infections / 120)
+
+# Create a 3‐dimensional array: 2 × 2 × 2 (Treatment × Outcome × Clinic)
+# Dimension names: Treatment = Vaccine, Placebo; Outcome = Infected, NotInfected; Clinic = A, B
+mh_table <- array(
+  c(  5,  95,   # Clinic A, Vaccine
+     15,  85,   # Clinic A, Placebo
+      8, 112,   # Clinic B, Vaccine
+     20, 100 ), # Clinic B, Placebo
+  dim = c(2, 2, 2),
+  dimnames = list(
+    Treatment = c("Vaccine", "Placebo"),
+    Outcome   = c("Infected", "NotInfected"),
+    Clinic    = c("A", "B")
+  )
+)
+
+# Perform Mantel–Haenszel test:
+mh_result <- mantelhaen.test(mh_table, correct = FALSE)
+
+# Display results:
+mh_result
+```
+
+Interpretation:
+The Mantel–Haenszel χ² statistic = `r round(mh_result$statistic, 3)` with df = `r mh_result$parameter` and p‐value = `r signif(mh_result$p.value, 3)`. We
+`r if(mh_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
+`r if(mh_result$p.value < 0.05) "conclude there is a significant difference in infection rates between Vaccine and Placebo after controlling for clinic." else "conclude there is no evidence of a difference in infection rates between Vaccine and Placebo after controlling for clinic."`
 
 ::::
 
