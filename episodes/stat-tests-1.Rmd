@@ -3657,6 +3657,135 @@ Thus, since $p = \text{`r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`}$, we
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Modeling time‐to‐event data with a specified parametric form—specifically the Weibull distribution—for both the baseline hazard and covariate effects.  
+- **Real-world example:** Estimating the effect of a new chemotherapy agent on time to disease progression, assuming a Weibull hazard shape.
+
+#### Assumptions
+- **Weibull distribution**: The survival times \(T\) follow a Weibull distribution with shape parameter \(\alpha\) and scale parameter \(\lambda\), so the hazard is  $h(t) = \alpha \lambda^{\alpha} t^{\alpha - 1}$
+
+- **Independent censoring**: Censoring times are independent of true event times.  
+- **Correct functional form**: The log of survival time is linearly related to covariates (if covariates are included).  
+- **Linear predictor**: In the accelerated‐failure‐time (AFT) parameterization, we assume  $\log(T_i) = \mathbf{X}_i^\top \boldsymbol{\beta} + \sigma W_i$
+
+where \(W_i\) is a random error with extreme‐value distribution.
+
+#### Strengths
+- Provides a fully specified likelihood, enabling efficient estimation and confidence intervals.  
+- Yields both scale (AFT) and hazard‐ratio interpretations (via transformation).  
+- Can extrapolate beyond observed follow‐up (if model fit is adequate).  
+
+#### Weaknesses
+- Mis‐specification of the Weibull form (shape \(\alpha\) wrong) can bias estimates and inferences.  
+- Less robust than semi‐parametric Cox models if the true hazard is not Weibull‐shaped.  
+- Requires careful checking of model fit (e.g., via residuals or AIC comparisons).
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (\(H_{0}\))**: The new chemotherapy does not change time to progression, i.e. the coefficient \(\beta_{\text{treatment}} = 0\).  
+- **Alternative hypothesis (\(H_{1}\))**: The new chemotherapy changes time to progression, i.e. \(\beta_{\text{treatment}} \neq 0\).
+
+```{r weibull_survival}
+# Install and load the 'survival' package if not already installed:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+n <- 200
+
+# Simulate a binary treatment indicator (0 = Control, 1 = NewChemo):
+treatment <- rbinom(n, 1, 0.5)
+
+# True Weibull parameters:
+#    shape (alpha) = 1.5
+#    baseline scale (lambda0) = exp(beta0) = exp(3)
+#    treatment effect on log(T) is beta1 = -0.5 (accelerated failure time)
+alpha <- 1.5
+beta0 <- 3
+beta1 <- -0.5
+
+# Simulate true event times from Weibull AFT model:
+#   log(T) = beta0 + beta1 * treatment + sigma * W, where W ~ EV(0,1)
+sigma <- 1 / alpha  # In survreg parameterization, scale = 1/alpha
+
+# Generate extreme‐value errors W:
+W <- evd::revdbeta(n, 1, 1)  # Alternatively, simulate from Gumbel via -log(-log(U))
+
+# Compute log‐times:
+logT <- beta0 + beta1 * treatment + sigma * W
+
+# Convert to event times:
+time <- exp(logT)
+
+# Simulate random right‐censoring times from Uniform(0, 20):
+censor_time <- runif(n, 0, 20)
+
+# Observed time and event indicator:
+obs_time <- pmin(time, censor_time)
+status   <- as.numeric(time <= censor_time)
+
+# Combine into a data frame:
+df_weibull <- data.frame(
+time      = obs_time,
+status    = status,
+treatment = factor(treatment, labels = c("Control","NewChemo"))
+)
+
+# Fit Weibull AFT model using survreg():
+weibull_fit <- survreg(
+Surv(time, status) ~ treatment,
+data   = df_weibull,
+dist   = "weibull"
+)
+
+# Display summary:
+summary(weibull_fit)
+```
+
+Interpretation:
+
+In the AFT parameterization, survreg() reports a scale which equals 
+𝜎^=1/𝛼^σ^ =1/ α^ .
+
+Suppose 𝜎^=0.667. Then the estimated shape is
+
+$\widehat{\alpha} = \frac{1}{\hat{\sigma}} = \frac{1}{0.667} \approx 1.50$.
+
+The coefficient for treatmentNewChemo is 
+𝛽^1=−0.482β (for example), with p‐value = 0.012. We test
+
+$H_{0}: \beta_{1} = 0 \quad\text{vs.}\quad H_{1}: \beta_{1} \neq 0$.
+
+Since 𝑝=0.012<0.05 , we reject 𝐻_0
+  and conclude that “NewChemo” significantly accelerates failure time compared to “Control.”
+
+To interpret as a hazard ratio, note that under Weibull AFT, the hazard‐ratio (HR) for treatment is
+$\text{HR} = \exp\bigl(-\beta_{1} \,\hat{\alpha}\bigr)$.
+
+For 
+𝛽^1=−0.482  and 𝛼^=1.50,
+
+$\widehat{\text{HR}} = \exp\bigl(-(-0.482) \times 1.50\bigr) = \exp(0.723) \approx 2.06$.
+
+Since 
+HR^ > 1, patients on “NewChemo” have more rapid progression (higher hazard) than “Control.”
+
+The 95 % confidence interval for 
+𝛽1
+
+  is reported in `r `summary(weibull_fit)$table["treatmentNewChemo", c("Value","Std. Error","p")]`.
+
+If the 95 % CI for 
+𝛽1   is [−0.845,−0.118], then
+
+$\exp\bigl(-(-0.845)\times 1.50\bigr) = 3.20, \quad
+  \exp\bigl(-(-0.118)\times 1.50\bigr) = 1.19$  
+
+giving a 95 % CI for HR: 
+[1.19,3.20]. Because this interval excludes 1, it confirms a significant difference in hazards.
+
+
 ::::
 
 ::::spoiler
@@ -3664,6 +3793,148 @@ EJ KORREKTURLÆST
 ### Cox proportional hazards model
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Modeling the hazard (instantaneous event rate) for time‐to‐event data as a function of covariates without specifying a baseline hazard.  
+- **Real-world example:** Estimating the effect of a new drug (Drug A vs. Drug B) on time to cancer recurrence, adjusting for age and tumor grade.
+
+#### Assumptions
+- **Proportional hazards**: For any two individuals \(i\) and \(j\),  $ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\boldsymbol{X}_i^\top \boldsymbol{\beta} - \boldsymbol{X}_j^\top \boldsymbol{\beta}\bigr) $
+is constant over time (no interaction between covariates and time).  
+- **Independent censoring**: Censoring times are independent of event times.  
+- **Linearity**: The log‐hazard is a linear function of continuous covariates:  $\log h(t \mid \boldsymbol{X}) = \log h_0(t) + \boldsymbol{X}^\top \boldsymbol{\beta}$.
+
+- No important omitted covariates that interact with time.
+
+#### Strengths
+- **Semi‐parametric**: No need to specify \(h_0(t)\) (baseline hazard) explicitly.  
+- Accommodates right‐censoring and time‐dependent covariates (if extended).  
+- Provides easily interpretable **hazard ratios** (\(\text{HR} = \exp(\beta)\)).  
+- Widely used and implemented (e.g., `coxph()` in R).
+
+#### Weaknesses
+- Sensitive to violation of proportional hazards—if hazards cross, estimates and tests may be invalid.  
+- Does not automatically provide baseline survival estimate unless explicitly requested (e.g., via `survfit()`).  
+- Cannot easily handle non‐linear effects of continuous covariates without transformations or splines.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis (\(H_{0}\))**: There is no difference in hazard between Drug A and Drug B after adjusting for age and tumor grade, i.e.  $\beta_{\text{drug}} = 0 \quad \Longrightarrow \quad \text{HR} = \exp(\beta_{\text{drug}}) = 1$.
+
+- **Alternative hypothesis (\(H_{1}\))**: Drug A and Drug B have different hazards, i.e.  $\beta_{\text{drug}} \neq 0 \quad \Longrightarrow \quad \text{HR} \neq 1$.
+
+
+
+```{r cox_ph_model}
+# Install and load survival package if necessary:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+n <- 200
+
+# Simulate covariates:
+#   drug: 0 = Drug B (reference), 1 = Drug A
+#   age: continuous, uniform 40–80
+#   grade: tumor grade (1,2,3)
+drug  <- rbinom(n, 1, 0.5)
+age   <- runif(n, 40, 80)
+grade <- sample(1:3, n, replace = TRUE)
+
+# True coefficients:
+beta_drug  <- -0.5   # Drug A hazard ratio = exp(-0.5) ≈ 0.61
+beta_age   <- 0.03   # hazard increases 3% per year
+beta_grade <- 0.7    # hazard ratio ≈ exp(0.7) ≈ 2.01 per grade increment
+
+# Baseline hazard simulation via Weibull for simplicity:
+shape   <- 1.5
+scale0  <- 0.01     # baseline scale parameter
+# Linear predictor:
+lin_pred <- beta_drug * drug + beta_age * age + beta_grade * grade
+
+# Simulate survival times from a Weibull:
+#   S(t | X) = exp(- (t * scale0 * exp(lin_pred))^shape )
+u        <- runif(n)
+time     <- (-log(u) / (scale0 * exp(lin_pred)))^(1/shape)
+
+# Simulate censoring times:
+censor_time <- runif(n, 0, 10)
+# Observed time and status:
+obs_time <- pmin(time, censor_time)
+status   <- as.numeric(time <= censor_time)
+
+# Build data frame:
+df_cox <- data.frame(
+time   = obs_time,
+status = status,
+drug   = factor(drug, labels = c("DrugB","DrugA")),
+age    = age,
+grade  = factor(grade, levels = 1:3)
+)
+
+# Fit Cox proportional hazards model:
+cox_fit <- coxph(Surv(time, status) ~ drug + age + grade, data = df_cox)
+
+# Display summary:
+summary(cox_fit)
+```
+
+Interpretation:
+
+For each covariate, summary(cox_fit) reports:
+
+Estimated coefficient 𝛽^
+ .
+
+Hazard ratio:
+
+$\widehat{\text{HR}} = \exp(\hat{\beta}).$
+95 % confidence interval for HR.
+
+Wald test (z) statistic and p-value.
+
+Suppose the output shows for drugDrugA:
+
+coef    exp(coef)   se(coef)    z    p  
+-0.512    0.599     0.180    -2.84  0.0045
+
+Then 
+𝛽^_ drug = − 0.512
+
+Hazard ratio:
+$\widehat{\text{HR}} = \exp(-0.512) \approx 0.599$,
+
+meaning patients on Drug A have about 0.60 times the hazard of recurrence compared to Drug B.
+
+The 95 % CI (e.g., [0.427,0.839]) excludes 1, and 
+p=0.0045<0.05, so we reject 
+𝐻_ 0
+  and conclude Drug A significantly reduces hazard relative to Drug B.
+
+For age (e.g., 
+𝛽^_ age = 0.029
+, 
+
+p=0.012):
+
+HR  =exp(0.029)≈1.03 per year of age, indicating each additional year increases hazard by ~3 %, controlling for drug and grade.
+
+Because 
+
+p<0.05, age is a significant predictor of hazard.
+
+For grade (e.g., Grade2: 
+𝛽^ =0.695, HR ≈ 2.00, 
+p=0.001; Grade3: 
+𝛽^ = 1.210, HR ≈ 3.35, 
+p<0.001):
+
+Patients with grade 2 tumors have about twice the hazard compared to grade 1; grade 3 tumors have ~3.35× hazard of grade 1.
+
+Both are highly significant (CIs exclude 1).
+
+Overall, because all covariate p values for drug, age, and grade are < 0.05, we conclude each is significantly associated with time to recurrence, holding the others constant.
 
 ::::
 
