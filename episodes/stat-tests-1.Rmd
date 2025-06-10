@@ -4117,6 +4117,69 @@ exp( β^_treatment )≈0.56 (p = 0.008), indicating DrugA significantly reduces 
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing equality of cumulative incidence functions between groups in the presence of competing risks.  
+- **Real-world example:** Comparing the incidence of cancer relapse (event of interest) between two treatment arms, accounting for death from other causes as a competing event.
+
+#### Assumptions
+- Competing risks are mutually exclusive and each subject experiences at most one event.  
+- Censoring is independent of the event processes.  
+- The cause‐specific hazards are proportional across groups.
+
+#### Strengths
+- Directly compares cumulative incidence functions rather than cause‐specific hazards.  
+- Accounts properly for competing events (does not treat them as noninformative censoring).  
+- Implemented in `cmprsk::cuminc()` with the Gray test built in.
+
+#### Weaknesses
+- Assumes proportional subdistribution hazards (which may be violated).  
+- Sensitive to heavy censoring or sparse events in one group.  
+- Only tests overall equality of curves, not differences at specific time points.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis ($H_{0}$):**  $F_1^{(1)}(t) = F_2^{(1)}(t)\quad\text{for all }t$
+(the cumulative incidence of the event of interest is the same in both groups).  
+- **Alternative hypothesis ($H_{1}$):**  $F_1^{(1)}(t) \neq F_2^{(1)}(t)\quad\text{for some }t$
+
+
+```{r gray_test}
+# install.packages("cmprsk")  # if needed
+library(cmprsk)
+
+# Simulate competing‐risks data for 100 patients in two arms:
+set.seed(2025)
+n <- 100
+group <- factor(rep(c("A","B"), each = n/2))
+
+# True subdistribution hazards:
+#   cause 1 (relapse): faster in B; cause 2 (death): equal
+lambda1 <- ifelse(group=="A", 0.05, 0.1)
+lambda2 <- 0.03
+
+# Simulate event times via exponential (for simplicity)
+time1 <- rexp(n, rate = lambda1)
+time2 <- rexp(n, rate = lambda2)
+ftime   <- pmin(time1, time2)
+fstatus <- ifelse(time1 <= time2, 1, 2)  # 1=relapse, 2=death
+
+# Compute cumulative incidence and Gray's test:
+ci <- cuminc(ftime, fstatus, group = group)
+
+# ci is a list; test results in ci$Tests
+ci
+```
+
+Interpretation:
+The Gray test for cause 1 (relapse) yields
+
+$\chi^2 = \text{ci\$Tests["1  A vs B", "stat"]},\quad p = \text{ci\$Tests["1  A vs B","pv"]}$
+
+If $p < 0.05$, we reject $H_{0}$ and conclude the cumulative incidence of relapse differs between groups A and B.
+
+If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a difference in relapse incidence between the treatment arms.
+
 ::::
 
 ::::spoiler
@@ -4124,6 +4187,86 @@ EJ KORREKTURLÆST
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing the proportional‐hazards assumption in Cox models using Schoenfeld residuals.  
+- **Real-world example:** Verifying that the hazard ratio between a new drug and control remains constant over follow‐up time.
+
+#### Assumptions
+- You have a fitted Cox model (`coxph()`).  
+- Censoring is noninformative.  
+- The true hazard ratios are constant over time under the null.
+
+#### Strengths
+- Provides both a global test and covariate‐specific tests.  
+- Uses residuals to detect time‐varying effects.  
+- Easy to implement via `cox.zph()`.
+
+#### Weaknesses
+- Sensitive to sparse data or few events.  
+- May flag minor, clinically irrelevant departures.  
+- Graphical interpretation can be subjective.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis ($H_0$):** The hazard ratio is constant over time for each covariate, i.e.  
+$ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\beta_k (X_{ik}-X_{jk})\bigr)\quad\text{independent of }t.$
+
+- **Alternative hypothesis ($H_1$):** At least one covariate’s hazard ratio varies with time.
+
+```{r cox_ph_assumption_test}
+library(survival)
+
+set.seed(2025)
+# Simulate data:
+n <- 200
+drug  <- rbinom(n, 1, 0.5)               # 0=Control, 1=DrugA
+age   <- runif(n, 40, 80)
+grade <- sample(1:3, n, replace = TRUE)
+
+# True hazard: h(t) = h0(t) * exp(-0.5*drug + 0.03*age + 0.7*grade)
+shape  <- 1.5
+scale0 <- 0.01
+linpred <- -0.5*drug + 0.03*age + 0.7*grade
+u       <- runif(n)
+time    <- ( -log(u) / (scale0 * exp(linpred)) )^(1/shape)
+censor  <- runif(n, 0, 10)
+obs_time <- pmin(time, censor)
+status   <- as.numeric(time <= censor)
+
+df_cox <- data.frame(
+time   = obs_time,
+status = status,
+drug   = factor(drug, labels = c("Control","DrugA")),
+age,
+grade  = factor(grade)
+)
+
+# Fit Cox model:
+cox_fit <- coxph(Surv(time, status) ~ drug + age + grade, data = df_cox)
+
+# Test proportional hazards via Schoenfeld residuals:
+zph_test <- cox.zph(cox_fit)
+
+# Display results:
+zph_test
+plot(zph_test)
+```
+
+Interpretation:
+
+The output shows a test statistic and p‐value for each covariate and a GLOBAL test.
+
+For each row, p‐value $<0.05$ indicates that covariate’s hazard ratio varies over time.
+
+A GLOBAL p‐value $<0.05$ indicates some covariate violates proportional hazards.
+
+Graphs of residuals vs.\ time (plot(zph_test)) should show a roughly horizontal line under $H_0$. Trends suggest time‐varying effects.
+
+If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportional hazards assumption is reasonable.
+
+
 ::::
 
 ## Aftale- og concordance-mål
@@ -4135,6 +4278,84 @@ EJ KORREKTURLÆST
 ### Kappa statistic
 
 EJ KORREKTURLÆST
+MON IKKE DENNE SNARERE SKAL KONSOLIDERES MED DEN COHENS VI ALLEREDE HAR?
+
+#### Used for
+- Quantifying agreement between two raters classifying the same subjects into categories, beyond chance.  
+- **Real-world example:** Assessing whether two pathologists agree on “Benign” vs. “Malignant” diagnoses.
+
+#### Assumptions
+- Each subject is independently rated by both raters.  
+- Ratings are categorical (nominal or ordinal).  
+- The marginal distributions of categories need not be equal.
+
+#### Strengths
+- Corrects for agreement expected by chance.  
+- Provides an interpretable coefficient, $\kappa$, ranging from –1 to 1.  
+- Can be weighted for ordinal categories.
+
+#### Weaknesses
+- Sensitive to prevalence and marginal imbalances (“paradox”).  
+- Doesn’t distinguish systematic bias from random disagreement.  
+- Requires at least two raters and non‐sparse tables for stable estimates.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis ($H_{0}$):** $\kappa = 0$ (no agreement beyond chance).  
+- **Alternative hypothesis ($H_{1}$):** $\kappa \neq 0$ (agreement beyond chance).
+
+```{r kappa_statistic}
+# install.packages("psych")  # if necessary
+library(psych)
+
+set.seed(2025)
+n <- 50
+# Simulate two raters classifying subjects as "Yes" or "No":
+rater1 <- sample(c("Yes","No"), n, replace = TRUE, prob = c(0.6,0.4))
+# Rater2 agrees 70% of the time:
+rater2 <- ifelse(runif(n) < 0.7,
+                 rater1,
+                 ifelse(rater1=="Yes","No","Yes"))
+
+ratings    <- data.frame(rater1, rater2)
+kappa_result <- cohen.kappa(ratings)
+
+# Display results:
+kappa_result
+```
+
+The estimated Cohen’s $\kappa$ is
+
+$\widehat{\kappa} = \texttt{kappa_result\$kappa[1]}$
+
+The test statistic (z) =
+
+$\texttt{kappa_result\$z[1]}$
+
+with p-value =$\texttt{signif(kappa_result\$p.value[1], 3)}$.
+
+Since p = r signif(kappa_result$p.value[1], 3)
+
+If p < 0.05, we reject $H_{0}$ and conclude there is agreement beyond chance.
+
+If p ≥ 0.05, we fail to reject $H_{0}$ and conclude no evidence of agreement beyond chance.
+
+Conventionally, $\kappa$ values are interpreted as:
+
+0.01–0.20: slight agreement
+
+0.21–0.40: fair agreement
+
+0.41–0.60: moderate agreement
+
+0.61–0.80: substantial agreement
+
+0.81–1.00: almost perfect agreement
+
+
+
+
 
 ::::
 
