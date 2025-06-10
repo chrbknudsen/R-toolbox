@@ -4117,6 +4117,69 @@ exp( β^_treatment )≈0.56 (p = 0.008), indicating DrugA significantly reduces 
 
 EJ KORREKTURLÆST
 
+#### Used for
+- Testing equality of cumulative incidence functions between groups in the presence of competing risks.  
+- **Real-world example:** Comparing the incidence of cancer relapse (event of interest) between two treatment arms, accounting for death from other causes as a competing event.
+
+#### Assumptions
+- Competing risks are mutually exclusive and each subject experiences at most one event.  
+- Censoring is independent of the event processes.  
+- The cause‐specific hazards are proportional across groups.
+
+#### Strengths
+- Directly compares cumulative incidence functions rather than cause‐specific hazards.  
+- Accounts properly for competing events (does not treat them as noninformative censoring).  
+- Implemented in `cmprsk::cuminc()` with the Gray test built in.
+
+#### Weaknesses
+- Assumes proportional subdistribution hazards (which may be violated).  
+- Sensitive to heavy censoring or sparse events in one group.  
+- Only tests overall equality of curves, not differences at specific time points.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis ($H_{0}$):**  $F_1^{(1)}(t) = F_2^{(1)}(t)\quad\text{for all }t$
+(the cumulative incidence of the event of interest is the same in both groups).  
+- **Alternative hypothesis ($H_{1}$):**  $F_1^{(1)}(t) \neq F_2^{(1)}(t)\quad\text{for some }t$
+
+
+```{r gray_test}
+# install.packages("cmprsk")  # if needed
+library(cmprsk)
+
+# Simulate competing‐risks data for 100 patients in two arms:
+set.seed(2025)
+n <- 100
+group <- factor(rep(c("A","B"), each = n/2))
+
+# True subdistribution hazards:
+#   cause 1 (relapse): faster in B; cause 2 (death): equal
+lambda1 <- ifelse(group=="A", 0.05, 0.1)
+lambda2 <- 0.03
+
+# Simulate event times via exponential (for simplicity)
+time1 <- rexp(n, rate = lambda1)
+time2 <- rexp(n, rate = lambda2)
+ftime   <- pmin(time1, time2)
+fstatus <- ifelse(time1 <= time2, 1, 2)  # 1=relapse, 2=death
+
+# Compute cumulative incidence and Gray's test:
+ci <- cuminc(ftime, fstatus, group = group)
+
+# ci is a list; test results in ci$Tests
+ci
+```
+
+Interpretation:
+The Gray test for cause 1 (relapse) yields
+
+$\chi^2 = \text{ci\$Tests["1  A vs B", "stat"]},\quad p = \text{ci\$Tests["1  A vs B","pv"]}$
+
+If $p < 0.05$, we reject $H_{0}$ and conclude the cumulative incidence of relapse differs between groups A and B.
+
+If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a difference in relapse incidence between the treatment arms.
+
 ::::
 
 ::::spoiler
