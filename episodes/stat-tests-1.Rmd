@@ -4187,6 +4187,86 @@ If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a differen
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
 
 EJ KORREKTURLÆST
+
+#### Used for
+- Testing the proportional‐hazards assumption in Cox models using Schoenfeld residuals.  
+- **Real-world example:** Verifying that the hazard ratio between a new drug and control remains constant over follow‐up time.
+
+#### Assumptions
+- You have a fitted Cox model (`coxph()`).  
+- Censoring is noninformative.  
+- The true hazard ratios are constant over time under the null.
+
+#### Strengths
+- Provides both a global test and covariate‐specific tests.  
+- Uses residuals to detect time‐varying effects.  
+- Easy to implement via `cox.zph()`.
+
+#### Weaknesses
+- Sensitive to sparse data or few events.  
+- May flag minor, clinically irrelevant departures.  
+- Graphical interpretation can be subjective.
+
+#### Example
+
+##### Hypothesis
+- **Null hypothesis ($H_0$):** The hazard ratio is constant over time for each covariate, i.e.  
+$ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\beta_k (X_{ik}-X_{jk})\bigr)\quad\text{independent of }t.$
+
+- **Alternative hypothesis ($H_1$):** At least one covariate’s hazard ratio varies with time.
+
+```{r cox_ph_assumption_test}
+library(survival)
+
+set.seed(2025)
+# Simulate data:
+n <- 200
+drug  <- rbinom(n, 1, 0.5)               # 0=Control, 1=DrugA
+age   <- runif(n, 40, 80)
+grade <- sample(1:3, n, replace = TRUE)
+
+# True hazard: h(t) = h0(t) * exp(-0.5*drug + 0.03*age + 0.7*grade)
+shape  <- 1.5
+scale0 <- 0.01
+linpred <- -0.5*drug + 0.03*age + 0.7*grade
+u       <- runif(n)
+time    <- ( -log(u) / (scale0 * exp(linpred)) )^(1/shape)
+censor  <- runif(n, 0, 10)
+obs_time <- pmin(time, censor)
+status   <- as.numeric(time <= censor)
+
+df_cox <- data.frame(
+time   = obs_time,
+status = status,
+drug   = factor(drug, labels = c("Control","DrugA")),
+age,
+grade  = factor(grade)
+)
+
+# Fit Cox model:
+cox_fit <- coxph(Surv(time, status) ~ drug + age + grade, data = df_cox)
+
+# Test proportional hazards via Schoenfeld residuals:
+zph_test <- cox.zph(cox_fit)
+
+# Display results:
+zph_test
+plot(zph_test)
+```
+
+Interpretation:
+
+The output shows a test statistic and p‐value for each covariate and a GLOBAL test.
+
+For each row, p‐value $<0.05$ indicates that covariate’s hazard ratio varies over time.
+
+A GLOBAL p‐value $<0.05$ indicates some covariate violates proportional hazards.
+
+Graphs of residuals vs.\ time (plot(zph_test)) should show a roughly horizontal line under $H_0$. Trends suggest time‐varying effects.
+
+If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportional hazards assumption is reasonable.
+
+
 ::::
 
 ## Aftale- og concordance-mål
