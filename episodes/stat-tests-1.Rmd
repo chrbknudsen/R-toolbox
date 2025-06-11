@@ -4504,8 +4504,8 @@ This indicates that there is
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-
+- Use an appropriate statistical test
+- Make sure you understand the assumptions underlying the test
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
