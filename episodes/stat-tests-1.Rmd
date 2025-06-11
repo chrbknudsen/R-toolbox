@@ -42,9 +42,11 @@ have not been checked.
 ## One sample tests
 
 
-### One-sample chi-square test
 
 ::::spoiler
+### One-sample chi-square test
+
+
 ### Details
 
 #### Used for
@@ -4110,6 +4112,8 @@ In summary, fitting the correctly specified exponential AFT yields a time ratio
 exp( β^_treatment )≈0.56 (p = 0.008), indicating DrugA significantly reduces survival time. The mis‐specified log‐logistic model gives a similar but biased estimate (time ratio ≈ 0.62, p = 0.015) and higher AIC, illustrating the importance of choosing the correct AFT distribution.
 
 ::::
+
+<a id="grays-test"></a>
 
 ::::spoiler
 
