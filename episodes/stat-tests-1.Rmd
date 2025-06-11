@@ -4186,6 +4186,8 @@ If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a differen
 
 ::::
 
+<a id="grays-test"></a>
+
 ::::spoiler
 
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
@@ -4276,7 +4278,7 @@ If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportio
 ## Aftale- og concordance-mål
 
 
-
+<a id="grays-test"></a>
 
 ::::spoiler
 ### Kappa statistic
@@ -4285,20 +4287,24 @@ EJ KORREKTURLÆST
 MON IKKE DENNE SNARERE SKAL KONSOLIDERES MED DEN COHENS VI ALLEREDE HAR?
 
 #### Used for
+
 - Quantifying agreement between two raters classifying the same subjects into categories, beyond chance.  
 - **Real-world example:** Assessing whether two pathologists agree on “Benign” vs. “Malignant” diagnoses.
 
 #### Assumptions
+
 - Each subject is independently rated by both raters.  
 - Ratings are categorical (nominal or ordinal).  
 - The marginal distributions of categories need not be equal.
 
 #### Strengths
+
 - Corrects for agreement expected by chance.  
 - Provides an interpretable coefficient, $\kappa$, ranging from –1 to 1.  
 - Can be weighted for ordinal categories.
 
 #### Weaknesses
+
 - Sensitive to prevalence and marginal imbalances (“paradox”).  
 - Doesn’t distinguish systematic bias from random disagreement.  
 - Requires at least two raters and non‐sparse tables for stable estimates.
@@ -4395,7 +4401,7 @@ EJ KORREKTURLÆST
 - **Null hypothesis (H₀):** The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
 - **Alternative hypothesis (H₁):** ICC > 0 (measurements are more reliable than chance).
 
-```{r intraclass_correlation_coefficient}
+```{r intraclass_correlation_coefficient, message=FALSE}
 library(irr)
 
 # Simulate ratings of 10 subjects by 3 raters:
@@ -4501,6 +4507,14 @@ This indicates that there is
 
 ::::
 
+
+Der skal nok suppleres med:
+Weighted κ
+ is used for ordinal values. We use the function kappa2() from the irr package.
+Light’s κ
+ is used for studying interrater agreement between more than 2 raters. We use the function kappamlight() from the irr package.
+Fleiss κ
+ is also used when having more than 2 raters. But does not require the same raters for each subject.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
