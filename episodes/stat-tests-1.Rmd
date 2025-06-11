@@ -4379,8 +4379,7 @@ Conventionally, $\kappa$ values are interpreted as:
 
 ::::
 
-<a id="default-anchor"></a>
-
+<a id="intraclass-correlation-coefficient"></a>
 
 ::::spoiler
 
@@ -4388,31 +4387,31 @@ Conventionally, $\kappa$ values are interpreted as:
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Assessing the reliability or agreement of quantitative measurements made by two or more raters.  
-- **Real-world example:** Determining how consistently three radiologists measure tumor size on MRI scans.
+* **Used for** Assessing the reliability or agreement of quantitative measurements made by two or more raters.  
+* **Real-world example:** Determining how consistently three radiologists measure tumor size on MRI scans.
 
-#### Assumptions
+**Assumptions**:
+
 - Measurements are continuous and approximately normally distributed.  
 - Raters are randomly selected (for the “random‐effects” model) or fixed (for the “fixed‐effects” model), depending on choice.  
-- No interaction between subjects and raters (i.e., rater effects are consistent across subjects).  
+- No interaction between subjects and raters (i.e., rater effects are consistent across subjects).
 - Balanced design: each subject is rated by the same set of raters.
 
-#### Strengths
+**Strengths**
 - Quantifies both consistency and absolute agreement, with different model/type options.  
 - Can accommodate any number of raters and subjects.  
 - Provides confidence intervals and tests for ICC.
 
-#### Weaknesses
+**Weaknesses**
 - Sensitive to violations of normality and homogeneity of variance.  
 - Choice of model (one‐way vs. two‐way) and type (consistency vs. agreement) affects results.  
 - Requires balanced data; missing ratings complicate estimation.
 
 #### Example
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
-- **Alternative hypothesis (H₁):** ICC > 0 (measurements are more reliable than chance).
+**Hypothesis**
+- _Null hypothesis (H₀):_ The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
+- _Alternative hypothesis (H₁):_ ICC > 0 (measurements are more reliable than chance).
 
 ```{r intraclass_correlation_coefficient, message=FALSE}
 library(irr)
@@ -4434,12 +4433,11 @@ icc_result <- icc(ratings,
 # Display results:
 icc_result
 ```
-Interpretation:
+**Interpretation:**
 The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_result$lbound, 2)`, `r round(icc_result$ubound, 2)`] and p-value = `r signif(icc_result$p.value, 3)`. We
 `r if(icc_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This indicates that
 `r if(icc_result$p.value < 0.05) "there is statistically significant reliability among the raters." else "there is no evidence of reliability beyond chance among the raters."`
-
 
 ::::
 
@@ -4530,6 +4528,13 @@ Light’s κ
  is used for studying interrater agreement between more than 2 raters. We use the function kappamlight() from the irr package.
 Fleiss κ
  is also used when having more than 2 raters. But does not require the same raters for each subject.
+
+
+Vi har også nogen:
+.learner-accordion .accordion-item, .spoiler-accordion .accordion-item, .challenge-accordion .accordion-item 
+
+hvor font-size skal være 1rem i stedet for 1.2rem
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
