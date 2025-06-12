@@ -44,7 +44,8 @@ før markeringen af manglende korrektur er fjernet.
 Samtlige eksempler bør omlægges til noget der bruger datasæt enten fra denne
 side selv, eller fra https://vincentarelbundock.github.io/Rdatasets/
 
-
+skal indsættes:
+<a id = "test-navn"></a>
 
 ::::
 
@@ -67,43 +68,40 @@ have not been checked.
 ## One sample tests
 
 
-
+<a id = "one_sample_chi_square_test"></a>
 ::::spoiler
 ### One-sample chi-square test
 
 
-### Details
-
-#### Used for
-
-Testing whether observed categorical frequencies differ from expected 
+**Used for:** Testing whether observed categorical frequencies differ from expected 
 frequencies under a specified distribution.
-
 **Real-world example:** Mars Inc. claims a specific distribution of colours in
 their M&M bags. Does the observed proportions in a given bag match their claim?
 
 
-#### Assumptions
+**Assumptions**
 
-- Observations are independent.  
-- Categories are mutually exclusive and collectively exhaustive.
-- _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller.
+* Observations are independent.  
+* Categories are mutually exclusive and collectively exhaustive.
+* _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller.
 
-#### Strengths
-- Simple to compute and interpret.
-- Does not require the data to be normally distributed.
-- Applicable to any number of categories.
+**Strengths**
 
-#### Weaknesses
-- Sensitive to small expected counts.  
-- Does not indicate which categories contribute most to the discrepancy without further investigation.
-- Requires independence; cannot be used for paired or repeated measures.
+* Simple to compute and interpret.
+* Does not require the data to be normally distributed.
+* Applicable to any number of categories.
 
-#### Example
+**Weaknesses**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The proportions of M&M colours equal the manufacturer’s claimed distribution.  
-- **Alternative hypothesis (H₁):** The proportion of at least one colour differs from the claimed distribution.
+* Sensitive to small expected counts.  
+* Does not indicate which categories contribute most to the discrepancy without further investigation.
+* Requires independence; cannot be used for paired or repeated measures.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** The proportions of M&M colours equal the manufacturer’s claimed distribution.  
+* **Alternative hypothesis (H₁):** The proportion of at least one colour differs from the claimed distribution.
 
 
 ```{r one_sample_chi_square_test}
@@ -120,7 +118,7 @@ test_result <- chisq.test(x = observed, p = p_expected)
 test_result
 ```
 
-*Interpretation*: The test yields χ² = 3.1 with a p-value = 0.685. We
+**Interpretation**: The test yields χ² = 3.1 with a p-value = 0.685. We
 fail to reject the null hypothesis", and there is no evidence to conclude a 
 difference from the claimed distribution.
 
@@ -4432,11 +4430,10 @@ EJ KORREKTURLÆST
 * Choice of model (one‐way vs. two‐way) and type (consistency vs. agreement) affects results.  
 * Requires balanced data; missing ratings complicate estimation.
 
-#### Example
+**Example**
 
-**Hypothesis**
-* Null hypothesis (H₀): The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
-* Alternative hypothesis (H₁): ICC > 0 (measurements are more reliable than chance).
+* *Null hypothesis (H₀)*: The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
+* *Alternative hypothesis (H₁)*: ICC > 0 (measurements are more reliable than chance).
 
 ```{r intraclass_correlation_coefficient, message=FALSE}
 library(irr)
@@ -4460,6 +4457,7 @@ icc_result
 ```
 
 **Interpretation:**
+
 The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_result$lbound, 2)`, `r round(icc_result$ubound, 2)`] and p-value = `r signif(icc_result$p.value, 3)`. We
 `r if(icc_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This indicates that
