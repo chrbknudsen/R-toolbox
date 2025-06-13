@@ -70,6 +70,7 @@ have not been checked.
 
 <a id = "one_sample_chi_square_test"></a>
 ::::spoiler
+
 ### One-sample chi-square test
 
 
@@ -853,6 +854,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Levene’s test for homoskedasticitet
 
 EJ KORREKTURLÆST
@@ -977,6 +979,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### One-way ANOVA
 
 EJ KORREKTURLÆST
@@ -1098,6 +1101,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Welch’s ANOVA (uden antagelse om lige varianser)
 
 EJ KORREKTURLÆST
@@ -1369,6 +1373,7 @@ Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Friedman test (nonparametrisk gentagne målinger)
 
 EJ KORREKTURLÆST
@@ -1427,6 +1432,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Post-hoc: Tukey HSD
 
 EJ KORREKTURLÆST
@@ -1605,10 +1611,9 @@ The output shows adjusted p-values for each pair of diets. For example, if the A
 
 ## Ikke-parametriske k-prøve-tests
 
-
+<a id = "test-navn"></a>
 ::::spoiler
 
-<a id = "test-navn"></a>
 ### Kruskal–Wallis test
 
 EJ KORREKTURLÆST
@@ -1669,6 +1674,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Rank correlation
 
 EJ KORREKTURLÆST HAV SÆRLIGT FOKUS PÅ OM DER ER FORSKEL PÅ DENNE OG
@@ -1720,6 +1726,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Anderson–Darling test
 
 EJ KORREKTURLÆST
@@ -1782,6 +1789,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Simple linear regression
 
 EJ KORREKTURLÆST
@@ -1917,6 +1925,7 @@ Similar interpretation applies to bedrooms and neighborhood indicators.
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Pearson correlation
 
 EJ KORREKTURLÆST
@@ -1973,6 +1982,7 @@ indicating that there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Spearman’s rank correlation
 
 EJ KORREKTURLÆST
@@ -2024,6 +2034,7 @@ This indicates that there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Kendall’s tau
 
 EJ KORREKTURLÆST
@@ -2078,6 +2089,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Multiple logistic regression
 
 EJ KORREKTURLÆST
@@ -2151,6 +2163,7 @@ You would `r if(any(summary(model)$coefficients[-1,4] < 0.05)) "reject the null 
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Poisson regression
 
 EJ KORREKTURLÆST
@@ -2213,6 +2226,7 @@ This means each 1 °C increase in average daily temperature is associated with a
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Negative binomial regression
 
 EJ KORREKTURLÆST
@@ -2274,6 +2288,7 @@ This means each 1 µg/m³ increase in PM2.5 is associated with a multiplicative 
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Ordinal logistic regression
 
 EJ KORREKTURLÆST
@@ -2352,6 +2367,7 @@ Similar interpretation applies to price.
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Linear mixed-effects modeller (LME)
 
 EJ KORREKTURLÆST
@@ -2494,6 +2510,7 @@ This indicates that age
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Generalized Estimating Equations (GEE)
 
 EJ KORREKTURLÆST
@@ -2601,6 +2618,7 @@ Because GEE uses a sandwich estimator, these inferences remain valid even if “
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Contingency-table methods (χ² osv.)
 
 EJ KORREKTURLÆST
@@ -2612,6 +2630,7 @@ HVOR KATTEN KOMMER DET HER EGENTLIG FRA?
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### McNemar’s test
 
 EJ KORREKTURLÆST
@@ -2674,6 +2693,7 @@ Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTe
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Fisher’s exact test
 
 EJ KORREKTURLÆST
@@ -2737,6 +2757,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Barnard’s exact test
 
 EJ KORREKTURLÆST
@@ -2814,6 +2835,7 @@ One‐sided p‐value (0.0168): Tests specifically whether the Medication advers
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Cochran–Armitage trend test (ordinal tabel)
 
 EJ KORREKTURLÆST
@@ -2871,6 +2893,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Cochran’s Q test (≥3 matched proportions)
 
 EJ KORREKTURLÆST
@@ -2931,6 +2954,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Stuart–Maxwell test (marginal homogenitet)
 
 EJ KORREKTURLÆST
@@ -2999,6 +3023,7 @@ Since the p-value is r round(stuart_result$p.value, 3), we
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Two-sample test for binomial proportions / Mantel–Haenszel test
 
 EJ KORREKTURLÆST
@@ -3066,6 +3091,7 @@ Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Chi-square test for R×C-tabeller
 
 EJ KORREKTURLÆST
@@ -3143,6 +3169,7 @@ Cells with |residual| > 2 indicate categories where the observed count deviates 
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Chi-square test for trend (Mantel-extension)
 
 EJ KORREKTURLÆST
@@ -3229,6 +3256,7 @@ If p‐value ≥ 0.05, we would fail to reject H₀, concluding no evidence of a
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Chi-square test for heterogenitet (2×k-tabeller)
 
 EJ KORREKTURLÆST
@@ -3304,6 +3332,7 @@ Cells with |residual| > 2 indicate categories where observed counts deviate subs
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### One-sample test for incidence rates
 
 EJ KORREKTURLÆST
@@ -3362,6 +3391,7 @@ r if(test_result$p.value < 0.05) "evidence that the hospital’s infection rate 
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Two-sample comparison of incidence rates
 
 EJ KORREKTURLÆST
@@ -3423,6 +3453,7 @@ Thus, there is
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Trend-test for incidence rates over flere eksponeringsgrupper
 
 EJ KORREKTURLÆST
@@ -3500,6 +3531,7 @@ per category increase, and since p $<0.05$, we conclude that incidence rises sig
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Exact rate ratio test
 
 EJ KORREKTURLÆST
@@ -3586,6 +3618,7 @@ then, since $p = 0.289 \ge 0.05$, we fail to reject $H_{0}$. There is no evidenc
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Log-rank test
 
 EJ KORREKTURLÆST
@@ -3669,6 +3702,7 @@ Thus, since $p = \text{`r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`}$, we
 
 <a id="default-anchor"></a>
 ::::spoiler
+
 ### Parametric survival methods (Weibull)
 
 EJ KORREKTURLÆST
@@ -3808,6 +3842,7 @@ giving a 95 % CI for HR:
 
 <a id = "test-navn"></a>
 ::::spoiler
+
 ### Cox proportional hazards model
 
 EJ KORREKTURLÆST
@@ -3958,6 +3993,7 @@ Overall, because all covariate p values for drug, age, and grade are < 0.05, we 
 
 <a id="default-anchor"></a>
 ::::spoiler
+
 ### Accelerated Failure Time (AFT) modeller (eksponentiel, log-logistisk, …)
 
 EJ KORREKTURLÆST
@@ -4131,6 +4167,7 @@ exp( β^_treatment )≈0.56 (p = 0.008), indicating DrugA significantly reduces 
 
 <a id="grays-test"></a>
 ::::spoiler
+
 ### Gray’s test for konkurrentrisiko
 
 EJ KORREKTURLÆST
@@ -4202,6 +4239,7 @@ If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a differen
 
 <a id="default-anchor"></a>
 ::::spoiler
+
 ### Test af proportional hazards-antagelsen (Schoenfeld residualer)
 
 EJ KORREKTURLÆST
@@ -4292,6 +4330,7 @@ If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportio
 
 <a id="default-anchor"></a>
 ::::spoiler
+
 ### Kappa statistic
 
 EJ KORREKTURLÆST
@@ -4380,6 +4419,7 @@ Conventionally, $\kappa$ values are interpreted as:
 
 <a id="intraclass-correlation-coefficient"></a>
 ::::spoiler
+
 ### Intraclass Correlation Coefficient (ICC)
 
 EJ KORREKTURLÆST
@@ -4443,6 +4483,7 @@ This indicates that
 
 <a id="default-anchor"></a>
 ::::spoiler
+
 ### Bland–Altman analysis
 
 EJ KORREKTURLÆST
