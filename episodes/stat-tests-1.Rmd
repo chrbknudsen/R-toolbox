@@ -76,9 +76,9 @@ have not been checked.
 
 EJ KORREKTURLÆST
 
-**Used for:** Testing whether observed categorical frequencies differ from expected 
+* **Used for:** Testing whether observed categorical frequencies differ from expected 
 frequencies under a specified distribution.
-**Real-world example:** Mars Inc. claims a specific distribution of colours in
+* **Real-world example:** Mars Inc. claims a specific distribution of colours in
 their M&M bags. Does the observed proportions in a given bag match their claim?
 
 
@@ -136,32 +136,32 @@ difference from the claimed distribution.
 
 EJ KORREKTURLÆST
 
-#### Used for
+* **Used for:** Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
+* **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. This checks if the average is different, ie either smaller _or_ larger. We can also test if it _is_ smaller or larger.
 
-- Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
-- **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. This checks if the average is different, ie either smaller _or_ larger. We can also test if it _is_ smaller or larger.
+**Assumptions**
 
-#### Assumptions
-- Sample is a simple random sample from the population.  
-- Observations are independent.  
-- Population standard deviation (σ) is known.  
-- The sampling distribution of the mean is approximately normal (either the population is normal or n is large, e.g. ≥ 30).
+* Sample is a simple random sample from the population.  
+* Observations are independent.  
+* Population standard deviation (σ) is known.  
+* The sampling distribution of the mean is approximately normal (either the population is normal or n is large, e.g. ≥ 30).
 
-#### Strengths
-- More powerful than the t-test when σ is truly known.  
-- Simple calculation and interpretation.  
-- Relies on the normal distribution, which is well understood.
+**Strengths**
 
-#### Weaknesses
-- The true population σ is only very rarely known in practice.  
-- Sensitive to departures from normality for small samples.  
-- Misspecification of σ leads to incorrect inferences.
+* More powerful than the t-test when σ is truly known.  
+* Simple calculation and interpretation.  
+* Relies on the normal distribution, which is well understood.
 
-#### Example
+**Weaknesses**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
-- **Alternative hypothesis (H₁):** μ ≠ 5.00 cm.
+* The true population σ is only very rarely known in practice.  
+* Sensitive to departures from normality for small samples.  
+* Misspecification of σ leads to incorrect inferences.
+
+**Example**
+
+* **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+* **Alternative hypothesis (H₁):** μ ≠ 5.00 cm.
 
 ```{r one_sample_z_test}
 # Sample of diameters (cm) for 25 ball bearings:
@@ -194,7 +194,8 @@ z_stat; p_value; larger_p_value; smaller_p_value
 ``` 
 
 
-Interpretation:
+** Interpretation:**
+
 The sample mean is `r round(xbar, 3)` cm. The z-statistic is `r round(z_stat, 2)` 
 with a two-sided p-value of `r signif(p_value, 3)`. We
 `r if(p_value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
@@ -216,14 +217,14 @@ EJ KORREKTURLÆST!
 
 Her kan vi nok med fordel bruge samme eksempel som i z-testen.
 
-#### Used for
-- Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
-- **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
+* **Used for: ** Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
+* **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
 
-#### Assumptions
-- Sample is a simple random sample from the population.  
-- Observations are independent.  
-- The data are approximately normally distributed (especially important for small samples; n ≥ 30 reduces sensitivity).
+**Assumptions:**
+
+* Sample is a simple random sample from the population.  
+* Observations are independent.  
+* The data are approximately normally distributed (especially important for small samples; n ≥ 30 reduces sensitivity).
 
 #### Strengths
 - Does not require knowing the population standard deviation.  
@@ -1006,6 +1007,8 @@ Thus, there is
 ### One-way ANOVA
 
 EJ KORREKTURLÆST
+
+SAMMENHOLD MED [undervisningsudgaven](anova.Rmd)
 
 #### Used for
 - Testing whether the means of three or more independent groups differ.  
