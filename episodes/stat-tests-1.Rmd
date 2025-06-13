@@ -948,11 +948,10 @@ EJ KORREKTURLÆST
 * Does not indicate which groups differ without further pairwise testing.  
 * Not robust to outliers.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** All group variances are equal (σ₁² = σ₂² = σ₃²).  
-- **Alternative hypothesis (H₁):** At least one group variance differs.
+* **Null hypothesis (H₀):** All group variances are equal (σ₁² = σ₂² = σ₃²).  
+* **Alternative hypothesis (H₁):** At least one group variance differs.
 
 ```{r bartlett_test}
 # Simulate data for three laboratories (n = 12 each):
@@ -971,7 +970,8 @@ bartlett_result
 ```
 
 
-Interpretation:
+**Interpretation:**
+
 Bartlett’s K-squared = `r round(bartlett_result$statistic, 2)` with df = `r bartlett_result$parameter` and p-value = `r signif(bartlett_result$p.value, 3)`. We
 `r if(bartlett_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -994,30 +994,28 @@ EJ KORREKTURLÆST
 
 SAMMENHOLD MED [undervisningsudgaven](anova.Rmd)
 
-#### Used for
-- Testing whether the means of three or more independent groups differ.  
-- **Real-world example:** Comparing average test scores among students taught by three different teaching methods.
+* **Used for** Testing whether the means of three or more independent groups differ.  
+* **Real-world example:** Comparing average test scores among students taught by three different teaching methods.
 
-#### Assumptions
-- Observations are independent.  
-- Each group’s residuals are approximately normally distributed.  
-- Homogeneity of variances across groups.
+**Assumptions**
+* Observations are independent.  
+* Each group’s residuals are approximately normally distributed.  
+* Homogeneity of variances across groups.
 
-#### Strengths
-- Controls Type I error rate when comparing multiple groups.  
-- Simple to compute and interpret via F-statistic.  
-- Foundation for many extensions (e.g., factorial ANOVA, mixed models).
+**Strengths**
+* Controls Type I error rate when comparing multiple groups.  
+* Simple to compute and interpret via F-statistic.  
+* Foundation for many extensions (e.g., factorial ANOVA, mixed models).
 
-#### Weaknesses
-- Sensitive to heterogeneity of variances, especially with unequal group sizes.  
-- Only tells you that at least one mean differs—does not indicate which groups differ without post-hoc tests.  
-- Assumes normality; moderately robust for large samples, but small samples can be problematic.
+**Weaknesses**
+* Sensitive to heterogeneity of variances, especially with unequal group sizes.  
+* Only tells you that at least one mean differs—does not indicate which groups differ without post-hoc tests.  
+* Assumes normality; moderately robust for large samples, but small samples can be problematic.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** μ₁ = μ₂ = μ₃ (all three group means are equal).  
-- **Alternative hypothesis (H₁):** At least one group mean differs.
+* **Null hypothesis (H₀):** μ₁ = μ₂ = μ₃ (all three group means are equal).  
+* **Alternative hypothesis (H₁):** At least one group mean differs.
 
 ```{r one_way_anova}
 # Simulate exam scores for three teaching methods (n = 20 each):
@@ -1036,7 +1034,8 @@ anova_summary <- summary(anova_fit)
 anova_summary
 ```
 
-Interpretation:
+**Interpretation:**
+
 The ANOVA yields F = `r round(anova_summary[[1]]["method","F value"], 2)` with df₁ =` r anova_summary[[1]]["method","Df"]` and df₂ =` r anova_summary[[1]]["Residuals","Df"]`, and p-value = `r signif(anova_summary[[1]]["method","Pr(>F)"], 3)`. We
 `r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -1051,32 +1050,30 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Comparing group means on a continuous outcome while adjusting for one continuous covariate.  
-- **Real-world example:** Evaluating whether three different teaching methods lead to different final exam scores after accounting for students’ prior GPA.
+* **Used for** Comparing group means on a continuous outcome while adjusting for one continuous covariate.  
+* **Real-world example:** Evaluating whether three different teaching methods lead to different final exam scores after accounting for students’ prior GPA.
 
-#### Assumptions
-- Observations are independent.  
-- The relationship between the covariate and the outcome is linear and the same across groups (homogeneity of regression slopes).  
-- Residuals are normally distributed with equal variances across groups.  
-- Covariate is measured without error and is independent of group assignment.
+**Assumptions**
+* Observations are independent.  
+* The relationship between the covariate and the outcome is linear and the same across groups (homogeneity of regression slopes).  
+* Residuals are normally distributed with equal variances across groups.  
+* Covariate is measured without error and is independent of group assignment.
 
-#### Strengths
-- Removes variability due to the covariate, increasing power to detect group differences.  
-- Controls for confounding by the covariate.  
-- Simple extension of one-way ANOVA with interpretation familiar to ANOVA users.
+**Strengths**
+* Removes variability due to the covariate, increasing power to detect group differences.  
+* Controls for confounding by the covariate.  
+* Simple extension of one-way ANOVA with interpretation familiar to ANOVA users.
 
-#### Weaknesses
-- Sensitive to violation of homogeneity of regression slopes.  
-- Mis‐specification of the covariate‐outcome relationship biases results.  
-- Requires accurate measurement of the covariate.  
-- Does not accommodate multiple covariates without extension to factorial ANCOVA or regression.
+**Weaknesses**
+* Sensitive to violation of homogeneity of regression slopes.  
+* Mis‐specification of the covariate‐outcome relationship biases results.  
+* Requires accurate measurement of the covariate.  
+* Does not accommodate multiple covariates without extension to factorial ANCOVA or regression.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** After adjusting for prior GPA, the mean final exam scores are equal across the three teaching methods (μ_Lecture = μ_Online = μ_Hybrid).  
-- **Alternative hypothesis (H₁):** At least one adjusted group mean differs.
+* **Null hypothesis (H₀):** After adjusting for prior GPA, the mean final exam scores are equal across the three teaching methods (μ_Lecture = μ_Online = μ_Hybrid).  
+* **Alternative hypothesis (H₁):** At least one adjusted group mean differs.
 
 ```{r one_way_ancova}
 set.seed(2025)
@@ -1100,7 +1097,8 @@ ancova_summary <- summary(ancova_fit)
 ancova_summary
 ```
 
-Interpretation:
+**Interpretation:**
+
 After adjusting for prior GPA, the effect of teaching method yields F = `r round(ancova_summary[[1]]["method","F value"], 2)` (df₁ =` r ancova_summary[[1]]["method","Df"]`, df₂ =` r ancova_summary[[1]]["Residuals","Df"]`) with p =` r signif(ancova_summary[[1]]["method","Pr(>F)"], 3`). We
 `r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -1118,30 +1116,28 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether the means of three or more independent groups differ when variances are unequal.  
-- **Real-world example:** Comparing average systolic blood pressure across three clinics known to have different measurement variability.
+* **Used for** Testing whether the means of three or more independent groups differ when variances are unequal.  
+* **Real-world example:** Comparing average systolic blood pressure across three clinics known to have different measurement variability.
 
-#### Assumptions
-- Observations are independent.  
-- Each group’s residuals are approximately normally distributed.  
-- Does **not** assume equal variances across groups.
+**Assumptions**
+* Observations are independent.  
+* Each group’s residuals are approximately normally distributed.  
+* Does **not** assume equal variances across groups.
 
-#### Strengths
-- Controls Type I error under heteroskedasticity better than ordinary ANOVA.  
-- Simple to implement via `oneway.test(..., var.equal = FALSE)`.  
-- More powerful than nonparametric alternatives when normality holds.
+**Strengths**
+* Controls Type I error under heteroskedasticity better than ordinary ANOVA.  
+* Simple to implement via `oneway.test(..., var.equal = FALSE)`.  
+* More powerful than nonparametric alternatives when normality holds.
 
-#### Weaknesses
-- Sensitive to departures from normality, especially with small sample sizes.  
-- Does not provide post-hoc comparisons by default; requires additional tests.  
-- Still assumes independence and approximate normality within each group.
+**Weaknesses**
+* Sensitive to departures from normality, especially with small sample sizes.  
+* Does not provide post-hoc comparisons by default; requires additional tests.  
+* Still assumes independence and approximate normality within each group.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** All group means are equal (μ₁ = μ₂ = μ₃).  
-- **Alternative hypothesis (H₁):** At least one group mean differs.
+* **Null hypothesis (H₀):** All group means are equal (μ₁ = μ₂ = μ₃).  
+* **Alternative hypothesis (H₁):** At least one group mean differs.
 
 ```{r welchs_anova}
 set.seed(2025)
@@ -1161,7 +1157,8 @@ welch_result <- oneway.test(bp_values ~ clinic, data = df, var.equal = FALSE)
 welch_result
 ```
 
-Interpretation:
+**Interpretation:**
+
 The Welch statistic = `r round(welch_result$statistic, 2)` with df ≈ `r round(welch_result$parameter, 2)`, and p-value = `r signif(welch_result$p.value, 3)`. We
 `r if(welch_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -1177,30 +1174,28 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether the means of three or more related (within‐subject) conditions differ.  
-- **Real-world example:** Assessing whether students’ reaction times change across three levels of sleep deprivation (0 h, 12 h, 24 h) measured on the same individuals.
+* **Used for** Testing whether the means of three or more related (within‐subject) conditions differ.  
+* **Real-world example:** Assessing whether students’ reaction times change across three levels of sleep deprivation (0 h, 12 h, 24 h) measured on the same individuals.
 
-#### Assumptions
-- Observations (subjects) are independent.  
-- The dependent variable is approximately normally distributed in each condition.  
-- **Sphericity:** variances of the pairwise differences between conditions are equal.
+**Assumptions**
+* Observations (subjects) are independent.  
+* The dependent variable is approximately normally distributed in each condition.  
+* **Sphericity:** variances of the pairwise differences between conditions are equal.
 
-#### Strengths
-- Controls for between‐subject variability by using each subject as their own control.  
-- More powerful than independent‐groups ANOVA when measures are correlated.  
-- Can model complex within‐subject designs (e.g. time × treatment interactions).
+**Strengths**
+* Controls for between‐subject variability by using each subject as their own control.  
+* More powerful than independent‐groups ANOVA when measures are correlated.  
+* Can model complex within‐subject designs (e.g. time × treatment interactions).
 
-#### Weaknesses
-- Sensitive to violations of sphericity (inflates Type I error).  
-- Missing data in any condition drops the entire subject (unless using more advanced mixed‐model methods).  
-- Interpretation can be complex when there are many levels or interactions.
+**Weaknesses**
+* Sensitive to violations of sphericity (inflates Type I error).  
+* Missing data in any condition drops the entire subject (unless using more advanced mixed‐model methods).  
+* Interpretation can be complex when there are many levels or interactions.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The mean reaction time is the same across 0 h, 12 h, and 24 h sleep deprivation.  
-- **Alternative hypothesis (H₁):** At least one condition’s mean reaction time differs.
+* **Null hypothesis (H₀):** The mean reaction time is the same across 0 h, 12 h, and 24 h sleep deprivation.  
+* **Alternative hypothesis (H₁):** At least one condition’s mean reaction time differs.
 
 ```{r repeated_measures_anova}
 set.seed(2025)
@@ -1221,7 +1216,8 @@ rm_summary <- summary(rm_fit)
 rm_summary
 ```
 
-Interpretation:
+**Interpretation:**
+
 The within‐subjects effect of sleep deprivation yields F =  `r round(rm_summary[[2]][[1]]["condition","F value"], 2)` with df₁ = `r rm_summary[[2]][[1]]["condition","Df"]` and df₂ = `r
 rm_summary[[2]][[1]]["Residuals","Df"]`, p = `r signif(rm_summary[[2]][[1]]["condition","Pr(>F)"], 3)`. We
 `r if(rm_summary[[2]][[1]]["condition","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
@@ -1239,25 +1235,24 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing for differences on multiple continuous dependent variables across one or more grouping factors simultaneously.  
-- **Real-world example:** Evaluating whether three different diets lead to different patterns of weight loss and cholesterol reduction.
+* **Used for** Testing for differences on multiple continuous dependent variables across one or more grouping factors simultaneously.  
+* **Real-world example:** Evaluating whether three different diets lead to different patterns of weight loss and cholesterol reduction.
 
-#### Assumptions
-- Multivariate normality of the dependent variables within each group.  
-- Homogeneity of covariance matrices across groups.  
-- Observations are independent.  
-- Linear relationships among dependent variables.
+**Assumptions**
+* Multivariate normality of the dependent variables within each group.  
+* Homogeneity of covariance matrices across groups.  
+* Observations are independent.  
+* Linear relationships among dependent variables.
 
-#### Strengths
-- Controls family-wise Type I error by testing all DVs together.  
-- Can detect patterns that univariate ANOVAs might miss.  
-- Provides multiple test statistics (Pillai, Wilks, Hotelling–Lawley, Roy) for flexibility.
+**Strengths**
+* Controls family-wise Type I error by testing all DVs together.  
+* Can detect patterns that univariate ANOVAs might miss.  
+* Provides multiple test statistics (Pillai, Wilks, Hotelling–Lawley, Roy) for flexibility.
 
-#### Weaknesses
-- Sensitive to violations of multivariate normality and homogeneity of covariances.  
-- Requires larger sample sizes as the number of DVs increases.  
-- Interpretation can be complex; follow-up analyses often needed to determine which DVs drive effects.
+**Weaknesses**
+* Sensitive to violations of multivariate normality and homogeneity of covariances.  
+* Requires larger sample sizes as the number of DVs increases.  
+* Interpretation can be complex; follow-up analyses often needed to determine which DVs drive effects.
 
 #### Example
 
