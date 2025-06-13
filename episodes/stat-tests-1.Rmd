@@ -1869,33 +1869,31 @@ indicating that there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling the relationship between one continuous outcome and two or more predictors (continuous or categorical).  
-- **Real-world example:** Predicting house sale price based on living area, number of bedrooms, and neighborhood quality.
+* **Used for** Modeling the relationship between one continuous outcome and two or more predictors (continuous or categorical).  
+* **Real-world example:** Predicting house sale price based on living area, number of bedrooms, and neighborhood quality.
 
-#### Assumptions
-- Correct specification: linear relationship between each predictor and the outcome (additivity).  
-- Residuals are independent and normally distributed with mean zero.  
-- Homoscedasticity: constant variance of residuals for all predictor values.  
-- No perfect multicollinearity among predictors.  
-- No influential outliers unduly affecting the model.
+**Assumptions**
+* Correct specification: linear relationship between each predictor and the outcome (additivity).  
+* Residuals are independent and normally distributed with mean zero.  
+* Homoscedasticity: constant variance of residuals for all predictor values.  
+* No perfect multicollinearity among predictors.  
+* No influential outliers unduly affecting the model.
 
-#### Strengths
-- Can adjust for multiple confounders or risk factors simultaneously.  
-- Provides estimates and inference (CI, p-values) for each predictor’s unique association with the outcome.  
-- Basis for variable selection, prediction, and causal modeling in observational data.
+**Strengths**
+* Can adjust for multiple confounders or risk factors simultaneously.  
+* Provides estimates and inference (CI, p-values) for each predictor’s unique association with the outcome.  
+* Basis for variable selection, prediction, and causal modeling in observational data.
 
-#### Weaknesses
-- Sensitive to multicollinearity, which inflates variances of coefficient estimates.  
-- Assumes a linear, additive form; interactions or nonlinearity require extension.  
-- Outliers and high-leverage points can distort estimates and inference.  
-- Interpretation can be complex when including many predictors or interactions.
+**Weaknesses**
+* Sensitive to multicollinearity, which inflates variances of coefficient estimates.  
+* Assumes a linear, additive form; interactions or nonlinearity require extension.  
+* Outliers and high-leverage points can distort estimates and inference.  
+* Interpretation can be complex when including many predictors or interactions.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** All regression coefficients for predictors (β₁, β₂, β₃) are zero (no association).  
-- **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0.
+* **Null hypothesis (H₀):** All regression coefficients for predictors (β₁, β₂, β₃) are zero (no association).  
+* **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0.
 
 ```{r multiple_regression}
 set.seed(2025)
@@ -1920,7 +1918,7 @@ model_mlr <- lm(price ~ living_area + bedrooms + neighborhood, data = df)
 summary(model_mlr)
 ```
 
-Interpretation:
+**Interpretation:**
 
 The overall F-test (in `r round(summary(model_mlr)$fstatistic[1], 2)` on df₁ = `r summary(model_mlr)$fstatistic[2]`, df₂ = `r summary(model_mlr)$fstatistic[3]` has p-value = `r signif(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE), 3)`, so
 `r if(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE) < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
@@ -1941,31 +1939,30 @@ Similar interpretation applies to bedrooms and neighborhood indicators.
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Assessing the strength and direction of a linear relationship between two continuous variables.  
-- **Real-world example:** Examining whether students’ hours of study correlate with their exam scores.
+* **Used for**  Assessing the strength and direction of a linear relationship between two continuous variables.  
+* **Real-world example:** Examining whether students’ hours of study correlate with their exam scores.
 
-#### Assumptions
-- Observations are independent pairs.  
-- Both variables are approximately normally distributed (bivariate normality).  
-- Relationship is linear.  
-- No extreme outliers.
+**Assumptions**
+* Observations are independent pairs.  
+* Both variables are approximately normally distributed (bivariate normality).  
+* Relationship is linear.  
+* No extreme outliers.
 
-#### Strengths
-- Provides both a correlation coefficient (r) and hypothesis test (t‐statistic, p‐value).  
-- Confidence interval for the true correlation can be obtained.  
-- Well understood and widely used.
+**Strengths**
+* Provides both a correlation coefficient (r) and hypothesis test (t‐statistic, p‐value).  
+* Confidence interval for the true correlation can be obtained.  
+* Well understood and widely used.
 
-#### Weaknesses
-- Sensitive to outliers, which can distort r.  
-- Only measures linear association—will miss non‐linear relationships.  
-- Reliant on normality; departures can affect Type I/II error rates.
+**Weaknesses**
+* Sensitive to outliers, which can distort r.  
+* Only measures linear association—will miss non‐linear relationships.  
+* Reliant on normality; departures can affect Type I/II error rates.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The true Pearson correlation ρ = 0 (no linear association).  
-- **Alternative hypothesis (H₁):** ρ ≠ 0 (a linear association exists).
+
+* **Null hypothesis (H₀):** The true Pearson correlation ρ = 0 (no linear association).  
+* **Alternative hypothesis (H₁):** ρ ≠ 0 (a linear association exists).
 
 ```{r pearson_correlation}
 set.seed(2025)
@@ -1982,7 +1979,7 @@ pearson_result <- cor.test(hours_studied, exam_scores, method = "pearson")
 pearson_result
 ```
 
-Interpretation:
+**Interpretation:**
 The sample Pearson correlation is `r round(pearson_result$estimate, 3)`, with t = `r round(pearson_result$statistic, 2)` on df = `r pearson_result$parameter` and p-value = `r signif(pearson_result$p.value, 3)`. We
 `r if (pearson_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`,
 indicating that there is
@@ -1998,30 +1995,28 @@ indicating that there is
 ### Spearman’s rank correlation
 
 EJ KORREKTURLÆST
-#### Used for
-- Assessing the strength and direction of a monotonic association between two variables using their ranks.  
-- **Real-world example:** Evaluating whether patients’ pain rankings correlate with their anxiety rankings.
+**Used for** Assessing the strength and direction of a monotonic association between two variables using their ranks.  
+* **Real-world example:** Evaluating whether patients’ pain rankings correlate with their anxiety rankings.
 
-#### Assumptions
-- Observations are independent pairs.  
-- Variables are at least ordinal.  
-- The relationship is monotonic (consistently increasing or decreasing).
+**Assumptions**
+* Observations are independent pairs.  
+* Variables are at least ordinal.  
+* The relationship is monotonic (consistently increasing or decreasing).
 
-#### Strengths
-- Nonparametric: does not require normality of the underlying data.  
-- Robust to outliers in the original measurements.  
-- Captures any monotonic relationship, not limited to linear.
+**Strengths**
+* Nonparametric: does not require normality of the underlying data.  
+* Robust to outliers in the original measurements.  
+* Captures any monotonic relationship, not limited to linear.
 
-#### Weaknesses
-- Less powerful than Pearson’s correlation when the true relationship is linear and data are bivariate normal.  
-- Does not distinguish between different monotonic shapes (e.g. concave vs. convex).  
-- Tied ranks reduce effective sample size and can complicate exact p-value calculation.
+**Weaknesses**
+* Less powerful than Pearson’s correlation when the true relationship is linear and data are bivariate normal.  
+* Does not distinguish between different monotonic shapes (e.g. concave vs. convex).  
+* Tied ranks reduce effective sample size and can complicate exact p-value calculation.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The true Spearman rank correlation ρ = 0 (no monotonic association).  
-- **Alternative hypothesis (H₁):** ρ ≠ 0 (a monotonic association exists).
+* **Null hypothesis (H₀):** The true Spearman rank correlation ρ = 0 (no monotonic association).  
+* **Alternative hypothesis (H₁):** ρ ≠ 0 (a monotonic association exists).
 
 ```{r spearman_rank_correlation}
 # Simulate two variables with a monotonic relationship:
