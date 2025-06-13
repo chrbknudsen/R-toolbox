@@ -226,22 +226,20 @@ Her kan vi nok med fordel bruge samme eksempel som i z-testen.
 * Observations are independent.  
 * The data are approximately normally distributed (especially important for small samples; n ≥ 30 reduces sensitivity).
 
-#### Strengths
-- Does not require knowing the population standard deviation.  
-- Robust to mild departures from normality for moderate-to-large sample sizes.  
-- Widely applicable and easily implemented.
+**Strengths:** 
+* Does not require knowing the population standard deviation.  
+* Robust to mild departures from normality for moderate-to-large sample sizes.  
+* Widely applicable and easily implemented.
 
-#### Weaknesses
-- Sensitive to outliers in small samples.  
-- Performance degrades if normality assumption is seriously violated and n is small.  
-- Degrees of freedom reduce power relative to z-test.
+**Weaknesses**
+* Sensitive to outliers in small samples.  
+* Performance degrades if normality assumption is seriously violated and n is small.  
+* Degrees of freedom reduce power relative to z-test.
 
-#### Example
+**Example**
 
-##### Hypothesis
-
-- **Null hypothesis (H₀):** The true mean exam score μ = 70.  
-- **Alternative hypothesis (H₁):** μ ≠ 70.
+* **Null hypothesis (H₀):** The true mean exam score μ = 70.  
+* **Alternative hypothesis (H₁):** μ ≠ 70.
 
 ```{r one_sample_t_test}
 # Sample of exam scores for 20 students:
@@ -258,7 +256,8 @@ test_result <- t.test(x = scores, mu = mu0)
 test_result
 ```
 
-Interpretation:
+**Interpretation:**
+
 The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two-sided p-value of `r signif(test_result$p.value, 3)`. We
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -274,30 +273,28 @@ Thus, there is
 
 EJ KORREKTURLÆST!
 
-#### Used for
-- Testing whether the observed count of events in a fixed period differs from a hypothesized Poisson rate.  
-- **Real-world example:** Checking if the number of customer arrivals per hour at a call center matches the expected rate of 30 calls/hour.
+* **Used for**  Testing whether the observed count of events in a fixed period differs from a hypothesized Poisson rate.  
+* **Real-world example:** Checking if the number of customer arrivals per hour at a call center matches the expected rate of 30 calls/hour.
 
-#### Assumptions
-- Events occur independently.  
-- The rate of occurrence (λ) is constant over the observation period.  
-- The count of events in non-overlapping intervals is independent.
+**Assumptions**
+* Events occur independently.  
+* The rate of occurrence (λ) is constant over the observation period.  
+* The count of events in non-overlapping intervals is independent.
 
-#### Strengths
-- Exact test based on the Poisson distribution (no large-sample approximation needed).  
-- Valid for small counts and rare events.  
-- Simple to implement in R via `poisson.test()`.
+**Strengths**
+* Exact test based on the Poisson distribution (no large-sample approximation needed).  
+* Valid for small counts and rare events.  
+* Simple to implement in R via `poisson.test()`.
 
-#### Weaknesses
-- Sensitive to violations of the Poisson assumptions (e.g., overdispersion or time-varying rate).  
-- Only assesses the overall rate, not the dispersion or clustering of events.  
-- Cannot handle covariates or more complex rate structures.
+**Weaknesses**
+* Sensitive to violations of the Poisson assumptions (e.g., overdispersion or time-varying rate).  
+* Only assesses the overall rate, not the dispersion or clustering of events.  
+* Cannot handle covariates or more complex rate structures.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The event rate λ = 30 calls/hour.  
-- **Alternative hypothesis (H₁):** λ ≠ 30 calls/hour.
+* **Null hypothesis (H₀):** The event rate λ = 30 calls/hour.  
+* **Alternative hypothesis (H₁):** λ ≠ 30 calls/hour.
 
 ```{r one_sample_poisson_test}
 # Observed number of calls in one hour:
@@ -313,7 +310,8 @@ test_result <- poisson.test(x = observed_calls, T = 1, r = lambda0, alternative 
 test_result
 ```
 
-Interpretation:
+**Interpretation:**
+
 The test reports an observed count of `r test_result$statistic` calls versus an expected 30 calls, yielding a p-value of `r signif(test_result$p.value, 3)`. We
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -327,32 +325,30 @@ Thus, there is
 
 ### Shapiro–Wilk test for normality
 
-EJ KORREKTURLÆST
+EJ KORREKTURLÆST. DEN HAR VI NOGET UNDERVISNINGSMATERIALE OM I "ER DET NORMALT?"
 
-#### Used for
-- Testing whether a sample comes from a normally distributed population.  
-- **Real-world example:** Checking if the distribution of daily blood glucose measurements in a patient cohort is approximately normal.
+* **Used for** Testing whether a sample comes from a normally distributed population.  
+* **Real-world example:** Checking if the distribution of daily blood glucose measurements in a patient cohort is approximately normal.
 
-#### Assumptions
-- Observations are independent.  
-- Data are continuous.  
-- No extreme ties or many identical values.
+**Assumptions**
+* Observations are independent.  
+* Data are continuous.  
+* No extreme ties or many identical values.
 
-#### Strengths
-- Good power for detecting departures from normality in small to moderate samples (n ≤ 50).  
-- Widely implemented and easy to run in R.  
-- Provides both a test statistic (W) and p-value.
+**Strengths**
+* Good power for detecting departures from normality in small to moderate samples (n ≤ 50).  
+* Widely implemented and easy to run in R.  
+* Provides both a test statistic (W) and p-value.
 
-#### Weaknesses
-- Very sensitive to even slight deviations from normality in large samples (n > 2000).  
-- Does not indicate the nature of the departure (e.g., skewness vs. kurtosis).  
-- Ties or repeated values can invalidate the test.
+**Weaknesses**
+* Very sensitive to even slight deviations from normality in large samples (n > 2000).  
+* Does not indicate the nature of the departure (e.g., skewness vs. kurtosis).  
+* Ties or repeated values can invalidate the test.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The sample is drawn from a normal distribution.  
-- **Alternative hypothesis (H₁):** The sample is not drawn from a normal distribution.
+* **Null hypothesis (H₀):** The sample is drawn from a normal distribution.  
+* **Alternative hypothesis (H₁):** The sample is not drawn from a normal distribution.
 
 ```{r shapiro_wilk_test}
 # Simulate a sample of 30 observations from a normal distribution:
@@ -366,7 +362,8 @@ sw_result <- shapiro.test(sample_data)
 sw_result
 ```
 
-Interpretation:
+**Interpretation:**
+
 The Shapiro–Wilk statistic W = `r round(sw_result$statistic, 3)` with p-value = `r signif(sw_result$p.value, 3)`. We
 `r if(sw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -380,32 +377,31 @@ Thus, there is
 
 ### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
 
-EJ KORREKTURLÆST
+EJ KORREKTURLÆST. DENNE HAR VI OGSÅ UNDERVISNINGSMATERIALE OM I "ER DET NORMALT"
 
-#### Used for
-- Testing whether a sample comes from a specified continuous distribution.  
-- **Real-world example:** Checking if patient systolic blood pressures follow a normal distribution with mean 120 mmHg and SD 15 mmHg.
+* **Used for** Testing whether a sample comes from a specified continuous distribution.  
+* **Real-world example:** Checking if patient systolic blood pressures follow a normal distribution with mean 120 mmHg and SD 15 mmHg.
 
-#### Assumptions
-- Observations are independent.  
-- Data are continuous (no ties).  
-- The null distribution is fully specified (parameters known, not estimated from the data).
+**Assumptions**
+* Observations are independent.  
+* Data are continuous (no ties).  
+* The null distribution is fully specified (parameters known, not estimated from the data).
 
-#### Strengths
-- Nonparametric: makes no assumption about distribution shape beyond continuity.  
-- Sensitive to any kind of departure (location, scale, shape).  
-- Exact distribution of the test statistic under H₀.
+**Strengths**
+* Nonparametric: makes no assumption about distribution shape beyond continuity.  
+* Sensitive to any kind of departure (location, scale, shape).  
+* Exact distribution of the test statistic under H₀.
 
-#### Weaknesses
-- Requires that distribution parameters (e.g., mean, SD) are known a priori; if estimated from data, p-values are invalid.  
-- Less powerful than parametric tests when the parametric form is correct.  
-- Sensitive to ties and discrete data.
+**Weaknesses**
+* Requires that distribution parameters (e.g., mean, SD) are known a priori; if estimated from data, p-values are invalid.  
+* Less powerful than parametric tests when the parametric form is correct.  
+* Sensitive to ties and discrete data.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The blood pressure values follow a Normal(μ = 120, σ = 15) distribution.  
-- **Alternative hypothesis (H₁):** The blood pressure values do not follow Normal(120, 15).
+
+* **Null hypothesis (H₀):** The blood pressure values follow a Normal(μ = 120, σ = 15) distribution.  
+* **Alternative hypothesis (H₁):** The blood pressure values do not follow Normal(120, 15).
 
 ```{r ks_one_sample}
 set.seed(2025)
@@ -419,7 +415,8 @@ ks_result <- ks.test(sample_bp, "pnorm", mean = 120, sd = 15)
 ks_result
 ```
 
-Interpretation:
+**Interpretation:**
+
 The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(ks_result$p.value, 3)`. We
 `r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
@@ -439,30 +436,29 @@ Thus, there is
 EJ KORREKTURLÆST
 
 
-#### Used for
-- Testing whether observed categorical frequencies differ from expected categorical proportions.  
-- **Real-world example:** Comparing the distribution of blood types in a sample of donors to known population proportions.
+**Used for** Testing whether observed categorical frequencies differ from expected categorical proportions.  
+* **Real-world example:** Comparing the distribution of blood types in a sample of donors to known population proportions.
 
-#### Assumptions
-- Observations are independent.  
-- Categories are mutually exclusive and exhaustive.  
-- Expected count in each category is at least 5 for the chi-square approximation to hold.
+**Assumptions**
+* Observations are independent.  
+* Categories are mutually exclusive and exhaustive.  
+* Expected count in each category is at least 5 for the chi-square approximation to hold.
 
-#### Strengths
-- Simple to compute and interpret.  
-- Nonparametric: no requirement of normality.  
-- Flexible for any number of categories.
+**Strengths**
+* Simple to compute and interpret.  
+* Nonparametric: no requirement of normality.  
+* Flexible for any number of categories.
 
-#### Weaknesses
-- Sensitive to small expected counts (invalidates approximation).  
-- Doesn’t identify which categories drive the discrepancy without further post-hoc tests.  
-- Requires independence—unsuitable for paired or repeated measures.
+**Weaknesses**
+* Sensitive to small expected counts (invalidates approximation).  
+* Doesn’t identify which categories drive the discrepancy without further post-hoc tests.  
+* Requires independence—unsuitable for paired or repeated measures.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The sample blood type proportions equal the known population proportions (A=0.42, B=0.10, AB=0.04, O=0.44).  
-- **Alternative hypothesis (H₁):** At least one blood type proportion differs from its known value.
+
+* **Null hypothesis (H₀):** The sample blood type proportions equal the known population proportions (A=0.42, B=0.10, AB=0.04, O=0.44).  
+* **Alternative hypothesis (H₁):** At least one blood type proportion differs from its known value.
 
 ```{r chi_square_gof}
 # Observed counts of blood types in 200 donors:
@@ -478,7 +474,8 @@ test_result <- chisq.test(x = observed, p = p_expected)
 test_result
 ```
 
-Interpretation:
+**Interpretation:** 
+
 The test yields χ² = `r round(test_result$statistic, 2)` with p-value = `r signif(test_result$p.value, 3)`. We
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
