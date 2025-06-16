@@ -1795,7 +1795,7 @@ Thus, there is
 ## Regression og korrelation
 
 
-<a id = "test-navn"></a>
+<a id = "simple_linear_regression"></a>
 
 ::::spoiler
 
