@@ -3316,30 +3316,28 @@ Cells with |residual| > 2 indicate categories where observed counts deviate subs
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether an observed incidence rate (events per unit person‐time) differs from a specified rate.  
-- **Real-world example:** Determining if a hospital’s rate of catheter‐associated infections (per 1,000 patient‐days) equals the national benchmark.
+* **Used for** Testing whether an observed incidence rate (events per unit person‐time) differs from a specified rate.  
+* **Real-world example:** Determining if a hospital’s rate of catheter‐associated infections (per 1,000 patient‐days) equals the national benchmark.
 
-#### Assumptions
-- Events occur independently and follow a Poisson process.  
-- The incidence rate is constant over the observation period.  
-- Person‐time is measured accurately and non‐overlapping.
+**Assumptions**
+* Events occur independently and follow a Poisson process.  
+* The incidence rate is constant over the observation period.  
+* Person‐time is measured accurately and non‐overlapping.
 
-#### Strengths
-- Exact test based on the Poisson distribution—no large‐sample approximation needed.  
-- Naturally accounts for differing follow‐up times via person‐time.  
-- Valid for rare events and small counts.
+**Strengths**
+* Exact test based on the Poisson distribution—no large‐sample approximation needed.  
+* Naturally accounts for differing follow‐up times via person‐time.  
+* Valid for rare events and small counts.
 
-#### Weaknesses
-- Sensitive to overdispersion (variance > mean) and violation of Poisson assumptions.  
-- Cannot adjust for covariates or time‐varying rates.  
-- Assumes homogeneity of the rate across the period.
+**Weaknesses**
+* Sensitive to overdispersion (variance > mean) and violation of Poisson assumptions.  
+* Cannot adjust for covariates or time‐varying rates.  
+* Assumes homogeneity of the rate across the period.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The true incidence rate λ = 2 infections per 1,000 patient‐days.  
-- **Alternative hypothesis (H₁):** λ ≠ 2 infections per 1,000 patient‐days.
+* **Null hypothesis (H₀):** The true incidence rate λ = 2 infections per 1,000 patient‐days.  
+* **Alternative hypothesis (H₁):** λ ≠ 2 infections per 1,000 patient‐days.
 
 ```{r one_sample_incidence_rate_test}
 # Observed infections and total patient‐days:
@@ -3360,7 +3358,7 @@ test_result <- poisson.test(x = events,
 test_result
 ```
 
-Interpretation:
+**Interpretation:**
 The test compares the observed 8 infections over 3,500 patient‐days to the expected rate of 2/1,000 patient‐days (i.e., 7 infections). With a p‐value of r signif(test_result$p.value, 3), we
 r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis".
 Thus, there is
