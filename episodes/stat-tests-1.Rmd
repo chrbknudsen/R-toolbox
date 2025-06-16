@@ -1227,7 +1227,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "manova"></a>
 
 ::::spoiler
 
