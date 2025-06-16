@@ -2748,30 +2748,29 @@ Thus, there is
 
 EJ KORREKTURLÆST
 VÆR SÆRLIGT OPMÆRKSOM HER - DER VAR STORE UDFORDRINGER...
-#### Used for
-- Testing independence in a 2×2 contingency table via an unconditional exact test.  
-- **Real-world example:** Determining if a new pain medication and placebo differ in adverse event rates when sample sizes are small.
 
-#### Assumptions
-- Observations are independent and each subject contributes exactly one cell in the 2×2 table.  
-- Only one margin (row or column totals) is fixed; the other margin is free.  
-- Binary outcome (e.g., “Adverse Event: Yes/No”) and binary grouping (“Medication vs. Placebo”).
+* **Used for** Testing independence in a 2×2 contingency table via an unconditional exact test.  
+* **Real-world example:** Determining if a new pain medication and placebo differ in adverse event rates when sample sizes are small.
 
-#### Strengths
-- More powerful than Fisher’s exact test because it does not condition on both margins.  
-- Provides an exact p-value without relying on large‐sample approximations.  
-- Particularly advantageous when margins are not fixed by design.
+**Assumptions**
+* Observations are independent and each subject contributes exactly one cell in the 2×2 table.  
+* Only one margin (row or column totals) is fixed; the other margin is free.  
+* Binary outcome (e.g., “Adverse Event: Yes/No”) and binary grouping (“Medication vs. Placebo”).
 
-#### Weaknesses
-- Computationally slower than Fisher’s exact test for larger sample sizes.  
-- Only applies to 2×2 tables (binary × binary).  
-- Requires installation of the **Barnard** package (not in base R).
+**Strengths**
+* More powerful than Fisher’s exact test because it does not condition on both margins.  
+* Provides an exact p-value without relying on large‐sample approximations.  
+* Particularly advantageous when margins are not fixed by design.
 
-#### Example
+**Weaknesses**
+* Computationally slower than Fisher’s exact test for larger sample sizes.  
+* Only applies to 2×2 tables (binary × binary).  
+* Requires installation of the **Barnard** package (not in base R).
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The probability of an adverse event is the same in the Medication and Placebo groups (no association).  
-- **Alternative hypothesis (H₁):** The probability of an adverse event differs between Medication and Placebo.
+**Example**
+
+* **Null hypothesis (H₀):** The probability of an adverse event is the same in the Medication and Placebo groups (no association).  
+* **Alternative hypothesis (H₁):** The probability of an adverse event differs between Medication and Placebo.
 
 ```{r barnard_exact_test}
 # Install and load the Barnard package (only once if not already installed):
@@ -2796,7 +2795,7 @@ barnard_result
 
 ```
 
-Interpretation:
+**Interpretation:**
 The output includes:
 
 A score statistic (here ≈ 2.24733).
