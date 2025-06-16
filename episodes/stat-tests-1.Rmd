@@ -2297,31 +2297,30 @@ This means each 1 µg/m³ increase in PM2.5 is associated with a multiplicative 
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling an ordinal outcome (with more than two ordered categories) as a function of one or more predictors.  
-- **Real-world example:** Predicting customer satisfaction levels (Low, Medium, High) based on service wait time and price.
+**Used for**
+* Modeling an ordinal outcome (with more than two ordered categories) as a function of one or more predictors.  
+* **Real-world example:** Predicting customer satisfaction levels (Low, Medium, High) based on service wait time and price.
 
-#### Assumptions
-- The dependent variable is ordinal with a meaningful order.  
-- **Proportional odds (parallel lines):** the effect of each predictor is the same across all thresholds between outcome categories.  
-- Observations are independent.  
-- No multicollinearity among predictors.
+**Assumptions**
+* The dependent variable is ordinal with a meaningful order.  
+* **Proportional odds (parallel lines):** the effect of each predictor is the same across all thresholds between outcome categories.  
+* Observations are independent.  
+* No multicollinearity among predictors.
 
-#### Strengths
-- Makes efficient use of the ordering information in the outcome.  
-- Provides interpretable odds‐ratios for cumulative probabilities.  
-- More powerful than nominal models (e.g., multinomial logit) when the order matters.
+**Strengths**
+* Makes efficient use of the ordering information in the outcome.  
+* Provides interpretable odds‐ratios for cumulative probabilities.  
+* More powerful than nominal models (e.g., multinomial logit) when the order matters.
 
-#### Weaknesses
-- Relies on the proportional‐odds assumption; violation can bias estimates.  
-- Interpretation can be less intuitive than linear regression.  
-- Cannot easily accommodate non‐proportional effects without extension.
+**Weaknesses**
+* Relies on the proportional‐odds assumption; violation can bias estimates.  
+* Interpretation can be less intuitive than linear regression.  
+* Cannot easily accommodate non‐proportional effects without extension.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** Waiting time has no effect on the odds of higher satisfaction (\(\beta_{\text{wait}} = 0\)).  
-- **Alternative hypothesis (H₁):** Waiting time affects the odds of higher satisfaction (\(\beta_{\text{wait}} \neq 0\)).
+* **Null hypothesis (H₀):** Waiting time has no effect on the odds of higher satisfaction (\(\beta_{\text{wait}} = 0\)).  
+* **Alternative hypothesis (H₁):** Waiting time affects the odds of higher satisfaction (\(\beta_{\text{wait}} \neq 0\)).
 
 ```{r ordinal_logistic_regression}
 # Load data and package
@@ -2356,8 +2355,7 @@ results <- cbind(ctable, "p value" = round(pvals, 3))
 results
 ```
 
-Interpretation:
-
+**Interpretation:**
 The estimated coefficient for wait_time is `r round(coef(model_polr)["wait_time"], 3)`.
 
 The odds‐ratio is `r round(exp(coef(model_polr)["wait_time"]), 3)`, meaning each additional minute of wait changes the odds of being in a higher satisfaction category by that factor.
