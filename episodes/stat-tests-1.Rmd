@@ -426,7 +426,7 @@ Thus, there is
 
 
 
-<a id = "test-navn"></a>
+<a id = "chi_square_gof"></a>
 
 ::::spoiler
 
