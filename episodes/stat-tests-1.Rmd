@@ -2875,7 +2875,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "cochran_q_test"></a>
 
 ::::spoiler
 
@@ -2883,30 +2883,28 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether proportions of a binary outcome differ across three or more related (matched) groups.  
-- **Real-world example:** Checking if three different allergy medications have different proportions of symptom relief in the same set of patients.
+* **Used for** Testing whether proportions of a binary outcome differ across three or more related (matched) groups.  
+* **Real-world example:** Checking if three different allergy medications have different proportions of symptom relief in the same set of patients.
 
-#### Assumptions
-- Each subject is measured on the same binary outcome under each condition (matched/paired design).  
-- Observations (subjects) are independent of one another.  
-- The outcome for each subject in each group is binary (e.g., “relief” vs. “no relief”).  
+**Assumptions**
+* Each subject is measured on the same binary outcome under each condition (matched/paired design).  
+* Observations (subjects) are independent of one another.  
+* The outcome for each subject in each group is binary (e.g., “relief” vs. “no relief”).  
 
-#### Strengths
-- Extends McNemar’s test to more than two matched proportions.  
-- Controls for subject‐level variability by using each subject as their own block.  
-- Simple test statistic and interpretation via χ² distribution.
+**Strengths**
+* Extends McNemar’s test to more than two matched proportions.  
+* Controls for subject‐level variability by using each subject as their own block.  
+* Simple test statistic and interpretation via χ² distribution.
 
-#### Weaknesses
-- Only addresses overall difference; does not indicate which pairs of groups differ (post‐hoc tests required).  
-- Sensitive to missing data: any subject missing a response in one condition must be excluded.  
-- Assumes no interactions or clustering beyond the matched sets.
+**Weaknesses**
+* Only addresses overall difference; does not indicate which pairs of groups differ (post‐hoc tests required).  
+* Sensitive to missing data: any subject missing a response in one condition must be excluded.  
+* Assumes no interactions or clustering beyond the matched sets.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The proportion of patients experiencing symptom relief is the same across all three medications (p₁ = p₂ = p₃).  
-- **Alternative hypothesis (H₁):** At least one medication’s relief proportion differs from the others.
+* **Null hypothesis (H₀):** The proportion of patients experiencing symptom relief is the same across all three medications (p₁ = p₂ = p₃).  
+* **Alternative hypothesis (H₁):** At least one medication’s relief proportion differs from the others.
 
 ```{r cochran_q_test}
 # Install and load DescTools if not already installed:
@@ -2929,7 +2927,7 @@ cq_result <- CochranQTest(relief_matrix)
 # Display results:
 cq_result
 ```
-Interpretation:
+**Interpretation:**
 Cochran’s Q statistic = `r round(cq_result$statistic, 3)` with df = `r cq_result$parameter` and p-value = `r signif(cq_result$p.value, 3)`. We
 `r if(cq_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
