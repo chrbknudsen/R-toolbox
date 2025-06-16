@@ -595,7 +595,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "two_sample_t_test_equal_var"></a>
 
 ::::spoiler
 
