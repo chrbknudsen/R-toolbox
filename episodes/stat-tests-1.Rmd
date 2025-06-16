@@ -2177,27 +2177,26 @@ EJ KORREKTURLÆST
 * **Used for** Modeling count data (events per unit time or space) as a function of one or more predictors.  
 * **Real-world example:** Predicting the number of daily emergency room visits based on average daily temperature.
 
-#### Assumptions
-- Counts follow a Poisson distribution (mean = variance).  
-- Events occur independently.  
-- The log of the expected count is a linear function of the predictors.  
-- No excessive zero‐inflation (if present, consider zero‐inflated models).
+**Assumptions**
+* Counts follow a Poisson distribution (mean = variance).  
+* Events occur independently.  
+* The log of the expected count is a linear function of the predictors.  
+* No excessive zero‐inflation (if present, consider zero‐inflated models).
 
-#### Strengths
-- Naturally handles non‐negative integer outcomes.  
-- Estimates incidence rate ratios (IRRs) that are easy to interpret.  
-- Can include both categorical and continuous predictors.
+**Strengths**
+* Naturally handles non‐negative integer outcomes.  
+* Estimates incidence rate ratios (IRRs) that are easy to interpret.  
+* Can include both categorical and continuous predictors.
 
-#### Weaknesses
-- Sensitive to overdispersion (variance > mean); may need quasi‐Poisson or negative binomial.  
-- Assumes log‐linear relationship—misspecification leads to bias.  
-- Influential observations (e.g., days with extreme counts) can distort estimates.
+**Weaknesses**
+* Sensitive to overdispersion (variance > mean); may need quasi‐Poisson or negative binomial.  
+* Assumes log‐linear relationship—misspecification leads to bias.  
+* Influential observations (e.g., days with extreme counts) can distort estimates.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** Temperature has no effect on the expected number of ER visits (β₁ = 0).  
-- **Alternative hypothesis (H₁):** Temperature affects the expected number of ER visits (β₁ ≠ 0).
+* **Null hypothesis (H₀):** Temperature has no effect on the expected number of ER visits (β₁ = 0).  
+* **Alternative hypothesis (H₁):** Temperature affects the expected number of ER visits (β₁ ≠ 0).
 
 ```{r poisson_regression}
 set.seed(2025)
@@ -2218,7 +2217,7 @@ pois_fit <- glm(er_visits ~ temp, family = poisson(link = "log"), data = df)
 summary(pois_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 The estimated coefficient for temperature is `r round(coef(pois_fit)["temp"], 3)`, giving an incidence rate ratio IRR = `r round(exp(coef(pois_fit)["temp"]), 3)`. With a p-value = `r signif(summary(pois_fit)$coefficients["temp","Pr(>|z|)"], 3)`, we
 `r if(summary(pois_fit)$coefficients["temp","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This means each 1 °C increase in average daily temperature is associated with a multiplicative change of approximately `r round(exp(coef(pois_fit)["temp"]), 3)` in the expected number of ER visits.
