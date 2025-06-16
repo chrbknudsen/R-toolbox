@@ -371,7 +371,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "ks_one_sample"></a>
 
 ::::spoiler
 
