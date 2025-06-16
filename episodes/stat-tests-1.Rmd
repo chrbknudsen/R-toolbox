@@ -3003,7 +3003,7 @@ Since the p-value is r round(stuart_result$p.value, 3), we
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "two_sample_binomial_mh"></a>
 
 ::::spoiler
 
