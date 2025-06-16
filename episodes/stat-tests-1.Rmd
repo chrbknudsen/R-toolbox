@@ -702,7 +702,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "mann_whitney_u_test"></a>
 
 ::::spoiler
 
