@@ -3366,7 +3366,7 @@ r if(test_result$p.value < 0.05) "evidence that the hospital’s infection rate 
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "two_sample_incidence_rates"></a>
 
 ::::spoiler
 
