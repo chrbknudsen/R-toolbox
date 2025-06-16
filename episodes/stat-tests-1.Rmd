@@ -207,7 +207,7 @@ or that it is smaller (p = `r smaller_p_value`)
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "one_sample_t_test"></a>
 
 ::::spoiler
 
