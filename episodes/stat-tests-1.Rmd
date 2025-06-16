@@ -3155,31 +3155,29 @@ Cells with |residual| > 2 indicate categories where the observed count deviates 
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing for a linear (monotonic) association between two ordinal variables in an R×C contingency table (Mantel’s extension of the χ² test).  
-- **Real-world example:** Assessing whether increasing pain‐severity category (None < Mild < Moderate < Severe) is associated with increasing level of inflammation marker (Low < Medium < High) in the same patients.
+* **Used for**  Testing for a linear (monotonic) association between two ordinal variables in an R×C contingency table (Mantel’s extension of the χ² test).  
+* **Real-world example:** Assessing whether increasing pain‐severity category (None < Mild < Moderate < Severe) is associated with increasing level of inflammation marker (Low < Medium < High) in the same patients.
 
-#### Assumptions
-- Observations are independent.  
-- Both row and column variables are ordinal with a meaningful order.  
-- Expected counts in all cells are sufficiently large (≈ ≥ 5) for the χ² approximation to hold.  
-- The association between row and column scores is (approximately) linear on the log‐odds scale.
+**Assumptions**
+* Observations are independent.  
+* Both row and column variables are ordinal with a meaningful order.  
+* Expected counts in all cells are sufficiently large (≈ ≥ 5) for the χ² approximation to hold.  
+* The association between row and column scores is (approximately) linear on the log‐odds scale.
 
-#### Strengths
-- Specifically targets a linear trend across ordered categories rather than any arbitrary departure from independence.  
-- More powerful than a general χ² test of independence when the true association is monotonic.  
-- Accommodates arbitrary R×C tables (not limited to 2×k or k×2).
+**Strengths**
+* Specifically targets a linear trend across ordered categories rather than any arbitrary departure from independence.  
+* More powerful than a general χ² test of independence when the true association is monotonic.  
+* Accommodates arbitrary R×C tables (not limited to 2×k or k×2).
 
-#### Weaknesses
-- Only detects linear-by-linear association; non‐monotonic patterns (e.g. U‐shaped) may be missed.  
-- Requires correct ordering of both row and column categories—misordering invalidates the test.  
-- Sensitive to small expected counts in any cell, which can bias the χ² approximation.
+**Weaknesses**
+* Only detects linear-by-linear association; non‐monotonic patterns (e.g. U‐shaped) may be missed.  
+* Requires correct ordering of both row and column categories—misordering invalidates the test.  
+* Sensitive to small expected counts in any cell, which can bias the χ² approximation.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** No linear trend in the log‐odds of inflammation level across pain‐severity categories (row and column are independent in a linear sense).  
-- **Alternative hypothesis (H₁):** A positive (or negative) linear trend exists: higher pain severity is associated with higher inflammation levels.
+* **Null hypothesis (H₀):** No linear trend in the log‐odds of inflammation level across pain‐severity categories (row and column are independent in a linear sense).  
+* **Alternative hypothesis (H₁):** A positive (or negative) linear trend exists: higher pain severity is associated with higher inflammation levels.
 
 ```{r mantel_trend_test}
 # Install and load the vcd package if not already installed:
@@ -3216,7 +3214,7 @@ mantel_result <- CMHtest(
 mantel_result
 ```
 
-Interpretation:
+**Interpretation:**
 The output shows:
 
 A Mantel χ² statistic (linear‐by‐linear association) and its degrees of freedom (df = 1).
