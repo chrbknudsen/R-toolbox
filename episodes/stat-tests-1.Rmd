@@ -2825,31 +2825,29 @@ One‐sided p‐value (0.0168): Tests specifically whether the Medication advers
 ### Cochran–Armitage trend test (ordinal tabel)
 
 EJ KORREKTURLÆST
-#### Used for
-- Testing for a linear trend in proportions across ordered categories in a 2×k contingency table.  
-- **Real-world example:** Assessing whether increasing levels of prenatal vitamin dose (Low, Medium, High) correspond to higher rates of healthy birth outcomes (Yes/No).
+* **Used for** Testing for a linear trend in proportions across ordered categories in a 2×k contingency table.  
+* **Real-world example:** Assessing whether increasing levels of prenatal vitamin dose (Low, Medium, High) correspond to higher rates of healthy birth outcomes (Yes/No).
 
-#### Assumptions
-- Observations are independent.  
-- Categories of the ordinal predictor have a natural order (e.g., Low < Medium < High).  
-- The response is binary within each category (success/failure).  
-- Expected counts for successes and failures in each category are sufficiently large for the χ² approximation (generally ≥ 5).
+**Assumptions**
+* Observations are independent.  
+* Categories of the ordinal predictor have a natural order (e.g., Low < Medium < High).  
+* The response is binary within each category (success/failure).  
+* Expected counts for successes and failures in each category are sufficiently large for the χ² approximation (generally ≥ 5).
 
-#### Strengths
-- Specifically targets a monotonic (linear) increase or decrease in the success probability across ordered groups.  
-- More powerful than a general χ² test of independence when a linear trend is present.  
-- Straightforward to compute via `prop.trend.test()` in R.
+**Strengths**
+* Specifically targets a monotonic (linear) increase or decrease in the success probability across ordered groups.  
+* More powerful than a general χ² test of independence when a linear trend is present.  
+* Straightforward to compute via `prop.trend.test()` in R.
 
-#### Weaknesses
-- Only detects a linear trend; non-monotonic patterns (e.g., U-shaped) will be missed.  
-- Requires correct ordering and spacing of category scores; misordering invalidates the test.  
-- Sensitive to small expected counts in any group, which can distort the chi-square approximation.
+**Weaknesses**
+* Only detects a linear trend; non-monotonic patterns (e.g., U-shaped) will be missed.  
+* Requires correct ordering and spacing of category scores; misordering invalidates the test.  
+* Sensitive to small expected counts in any group, which can distort the chi-square approximation.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** No linear trend in the probability of a healthy birth outcome across dose levels (slope = 0).  
-- **Alternative hypothesis (H₁):** A positive linear trend exists: higher dose levels correspond to higher healthy birth rates (slope > 0).
+* **Null hypothesis (H₀):** No linear trend in the probability of a healthy birth outcome across dose levels (slope = 0).  
+* **Alternative hypothesis (H₁):** A positive linear trend exists: higher dose levels correspond to higher healthy birth rates (slope > 0).
 
 ```{r cochran_armitage_trend_test}
 # Define counts of healthy outcomes by dose:
@@ -2868,7 +2866,7 @@ trend_result <- prop.trend.test(successes, totals, score = scores)
 trend_result
 ```
 
-Interpretation:
+**Interpretation:**
 The Cochran–Armitage test statistic χ² = `r round(trend_result$statistic, 3)` with p-value = `r signif(trend_result$p.value, 3)`. Because the p-value is `r ifelse(trend_result$p.value < 0.05, "< 0.05", paste("=", round(trend_result$p.value, 3)))`, we
 `r if(trend_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
