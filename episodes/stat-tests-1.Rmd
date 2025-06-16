@@ -2374,32 +2374,29 @@ Similar interpretation applies to price.
 ### Linear mixed-effects modeller (LME)
 
 EJ KORREKTURLÆST
-#### Used for
-- Modeling continuous outcomes with both fixed effects (predictors of interest) and random effects (to account for grouped or repeated measures).  
-- **Real-world example:** Evaluating the effect of a new teaching method on student test scores, while accounting for variability between classrooms and schools.
+* **Used for** Modeling continuous outcomes with both fixed effects (predictors of interest) and random effects (to account for grouped or repeated measures).  
+* **Real-world example:** Evaluating the effect of a new teaching method on student test scores, while accounting for variability between classrooms and schools.
 
-#### Assumptions
-- Linear relationship between predictors and outcome.  
-- Residuals are independent and normally distributed with mean zero.  
-- Random effects are normally distributed.  
-- Homoscedasticity: constant variance of residuals.  
-- Random effects structure correctly specified (e.g., intercepts and/or slopes).
+**Assumptions**
+* Linear relationship between predictors and outcome.  
+* Residuals are independent and normally distributed with mean zero.  
+* Random effects are normally distributed.  
+* Homoscedasticity: constant variance of residuals.  
+* Random effects structure correctly specified (e.g., intercepts and/or slopes).
 
-#### Strengths
-- Accounts for correlation within clusters (e.g., pupils within the same classroom).  
-- Can handle unbalanced data and missing observations within clusters.  
-- Flexibly models complex hierarchical or longitudinal data structures.
+**Strengths**
+* Accounts for correlation within clusters (e.g., pupils within the same classroom).  
+* Can handle unbalanced data and missing observations within clusters.  
+* Flexibly models complex hierarchical or longitudinal data structures.
 
-#### Weaknesses
-- Model specification (random effects structure) can be challenging.  
-- Parameter estimation can be computationally intensive and may fail to converge.  
-- Inference (p-values) often relies on approximations or additional packages.
+**Weaknesses**
+* Model specification (random effects structure) can be challenging.  
+* Parameter estimation can be computationally intensive and may fail to converge.  
+* Inference (p-values) often relies on approximations or additional packages.
 
-#### Example
-
-##### Hypothesis
-- **Null hypothesis (H₀):** The new teaching method has no effect on student test scores (fixed effect β_method = 0).  
-- **Alternative hypothesis (H₁):** The new teaching method affects student test scores (β_method ≠ 0).
+**Example**
+* **Null hypothesis (H₀):** The new teaching method has no effect on student test scores (fixed effect β_method = 0).  
+* **Alternative hypothesis (H₁):** The new teaching method affects student test scores (β_method ≠ 0).
 
 ```{r linear_mixed_effects_model}
 # Install/load necessary packages
@@ -2432,7 +2429,7 @@ lme_fit <- lmer(score ~ method + (1 | school/class), data = df)
 summary(lme_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 The fixed-effect estimate for NewMethod is `r round(fixef(lme_fit)["methodNewMethod"], 2)` points (SE = `r round(summary(lme_fit)$coefficients["methodNewMethod","Std. Error"], 2)`), with p = `r signif(summary(lme_fit)$coefficients["methodNewMethod","Pr(>|t|)"], 3)`. We
 `r if(summary(lme_fit)$coefficients["methodNewMethod","Pr(>|t|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
