@@ -2102,32 +2102,30 @@ Thus, there is
 EJ KORREKTURLÆST
 
 
-#### Used for
-- Modeling the probability of a binary outcome as a function of two or more predictors.  
-- **Real-world example:** Predicting whether a patient has heart disease (yes/no) based on age, cholesterol level, and smoking status.
+* **Used for** Modeling the probability of a binary outcome as a function of two or more predictors.  
+* **Real-world example:** Predicting whether a patient has heart disease (yes/no) based on age, cholesterol level, and smoking status.
 
-#### Assumptions
-- Outcome is binary (0/1) and observations are independent.  
-- Log-odds of the outcome are a linear function of the predictors (linearity in the logit).  
-- No perfect multicollinearity among predictors.  
-- Large enough sample so that maximum likelihood estimates are stable (rule of thumb: ≥10 events per predictor).
+**Assumptions**
+* Outcome is binary (0/1) and observations are independent.  
+* Log-odds of the outcome are a linear function of the predictors (linearity in the logit).  
+* No perfect multicollinearity among predictors.  
+* Large enough sample so that maximum likelihood estimates are stable (rule of thumb: ≥10 events per predictor).
 
-#### Strengths
-- Adjusts for multiple confounders simultaneously.  
-- Coefficients have clear interpretation as log‐odds (or odds ratios).  
-- Flexible: handles continuous, categorical, and interaction terms.
+**Strengths**
+* Adjusts for multiple confounders simultaneously.  
+* Coefficients have clear interpretation as log‐odds (or odds ratios).  
+* Flexible: handles continuous, categorical, and interaction terms.
 
-#### Weaknesses
-- Sensitive to complete or quasi‐complete separation (can prevent convergence).  
-- Assumes linearity in the logit—requires transformation or splines if violated.  
-- Interpretation of interactions and higher‐order terms can be complex.  
-- Requires adequate sample size, especially when events are rare.
+**Weaknesses**
+* Sensitive to complete or quasi‐complete separation (can prevent convergence).  
+* Assumes linearity in the logit—requires transformation or splines if violated.  
+* Interpretation of interactions and higher‐order terms can be complex.  
+* Requires adequate sample size, especially when events are rare.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** All predictor coefficients β₁ = β₂ = β₃ = 0 (none of the variables affect disease odds).  
-- **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0 (at least one predictor affects odds).
+* **Null hypothesis (H₀):** All predictor coefficients β₁ = β₂ = β₃ = 0 (none of the variables affect disease odds).  
+* **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0 (at least one predictor affects odds).
 
 ```{r multiple_logistic_regression}
 set.seed(2025)
@@ -2156,7 +2154,7 @@ exp(coef(model))
 exp(confint(model))
 ```
 
-Interpretation:
+**Interpretation:**
 
 The Wald test for each coefficient (from summary(model)) gives a z-statistic and p-value. For example, if the coefficient for age is β̂ = 0.04 (p = 0.01), its odds ratio is exp(0.04) ≈ 1.04 (95% CI from exp(confint(model))), meaning each additional year of age multiplies the odds of disease by about 1.04.
 
