@@ -4439,7 +4439,7 @@ This indicates that
 
 ::::
 
-<a id="default-anchor"></a>
+<a id="bland_altman"></a>
 
 ::::spoiler
 
@@ -4447,34 +4447,32 @@ This indicates that
 
 EJ KORREKTURLÆST
 
-#### Used for
-Assessing agreement between two quantitative measurement methods by examining 
+* **Used for** Assessing agreement between two quantitative measurement methods by examining 
 the mean difference (bias) and the limits of agreement. It tests if any difference
 is constant across the range of measurements, and if there is heteroskedasticity
 in the data (are there differences that are dependent on measurement levels)
-**Real-world example:** Comparing blood pressure readings from a new wrist monitor and a standard sphygmomanometer.
+* **Real-world example:** Comparing blood pressure readings from a new wrist monitor and a standard sphygmomanometer.
 
 
-#### Assumptions
-- Paired measurements on the same subjects.  
-- Differences (method A – method B) are approximately normally distributed.  
-- No strong relationship between the magnitude of the measurement and the difference (homoscedasticity).
+**Assumptions**
+* Paired measurements on the same subjects.  
+* Differences (method A – method B) are approximately normally distributed.  
+* No strong relationship between the magnitude of the measurement and the difference (homoscedasticity).
 
-#### Strengths
-- Provides both a visual (Bland–Altman plot) and numerical summary (bias and limits) of agreement.  
-- Easy to interpret clinically: shows how far apart two methods can differ for most observations.  
-- Does not rely on correlation, which can be misleading for agreement.
+**Strengths**
+* Provides both a visual (Bland–Altman plot) and numerical summary (bias and limits) of agreement.  
+* Easy to interpret clinically: shows how far apart two methods can differ for most observations.  
+* Does not rely on correlation, which can be misleading for agreement.
 
-#### Weaknesses
-- Assumes constant bias across range of measurements.  
-- Sensitive to outliers, which can widen limits of agreement.  
-- Requires adequate sample size (n ≥ 30 preferred) to estimate limits reliably.
+**Weaknesses**
+* Assumes constant bias across range of measurements.  
+* Sensitive to outliers, which can widen limits of agreement.  
+* Requires adequate sample size (n ≥ 30 preferred) to estimate limits reliably.
 
-#### Example
+**Example**
 
-##### Hypothesis
 * **Null hypothesis (H₀):** Mean difference between methods A and B is zero (no systematic bias).  
-' **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
+* **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
 
 ```{r bland_altman}
 # Simulated paired blood pressure measurements (mmHg) on 12 subjects:
@@ -4510,6 +4508,7 @@ ggplot(ba_df, aes(x = mean, y = diff)) +
 bias; loa_low; loa_up; t_test
 ```
 
+**Interpretation**
 The mean difference (bias) is `r round(bias, 2)` units, with 95% limits of 
 agreement from `r round(loa_low, 2)` to `r round(loa_up, 2)` units. 
 The t-test for zero bias yields a p-value of `r signif(t_test$p.value, 3)`, so we
