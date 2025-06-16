@@ -3674,7 +3674,7 @@ Thus, since $p = \text{`r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`}$, we
 
 ::::
 
-<a id="default-anchor"></a>
+<a id="weibull_survival"></a>
 
 ::::spoiler
 
@@ -3682,34 +3682,31 @@ Thus, since $p = \text{`r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`}$, we
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling time‐to‐event data with a specified parametric form—specifically the Weibull distribution—for both the baseline hazard and covariate effects.  
-- **Real-world example:** Estimating the effect of a new chemotherapy agent on time to disease progression, assuming a Weibull hazard shape.
+* **Used for** Modeling time‐to‐event data with a specified parametric form—specifically the Weibull distribution—for both the baseline hazard and covariate effects.  
+* **Real-world example:** Estimating the effect of a new chemotherapy agent on time to disease progression, assuming a Weibull hazard shape.
 
-#### Assumptions
-- **Weibull distribution**: The survival times \(T\) follow a Weibull distribution with shape parameter \(\alpha\) and scale parameter \(\lambda\), so the hazard is  $h(t) = \alpha \lambda^{\alpha} t^{\alpha - 1}$
-
-- **Independent censoring**: Censoring times are independent of true event times.  
-- **Correct functional form**: The log of survival time is linearly related to covariates (if covariates are included).  
-- **Linear predictor**: In the accelerated‐failure‐time (AFT) parameterization, we assume  $\log(T_i) = \mathbf{X}_i^\top \boldsymbol{\beta} + \sigma W_i$
+**Assumptions**
+* **Weibull distribution**: The survival times \(T\) follow a Weibull distribution with shape parameter \(\alpha\) and scale parameter \(\lambda\), so the hazard is  $h(t) = \alpha \lambda^{\alpha} t^{\alpha - 1}$
+* **Independent censoring**: Censoring times are independent of true event times.  
+* **Correct functional form**: The log of survival time is linearly related to covariates (if covariates are included).  
+* **Linear predictor**: In the accelerated‐failure‐time (AFT) parameterization, we assume  $\log(T_i) = \mathbf{X}_i^\top \boldsymbol{\beta} + \sigma W_i$
 
 where \(W_i\) is a random error with extreme‐value distribution.
 
-#### Strengths
-- Provides a fully specified likelihood, enabling efficient estimation and confidence intervals.  
-- Yields both scale (AFT) and hazard‐ratio interpretations (via transformation).  
-- Can extrapolate beyond observed follow‐up (if model fit is adequate).  
+**Strengths**
+* Provides a fully specified likelihood, enabling efficient estimation and confidence intervals.  
+* Yields both scale (AFT) and hazard‐ratio interpretations (via transformation).  
+* Can extrapolate beyond observed follow‐up (if model fit is adequate).  
 
-#### Weaknesses
-- Mis‐specification of the Weibull form (shape \(\alpha\) wrong) can bias estimates and inferences.  
-- Less robust than semi‐parametric Cox models if the true hazard is not Weibull‐shaped.  
-- Requires careful checking of model fit (e.g., via residuals or AIC comparisons).
+**Weaknesses**
+* Mis‐specification of the Weibull form (shape \(\alpha\) wrong) can bias estimates and inferences.  
+* Less robust than semi‐parametric Cox models if the true hazard is not Weibull‐shaped.  
+* Requires careful checking of model fit (e.g., via residuals or AIC comparisons).
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (\(H_{0}\))**: The new chemotherapy does not change time to progression, i.e. the coefficient \(\beta_{\text{treatment}} = 0\).  
-- **Alternative hypothesis (\(H_{1}\))**: The new chemotherapy changes time to progression, i.e. \(\beta_{\text{treatment}} \neq 0\).
+* **Null hypothesis (\(H_{0}\))**: The new chemotherapy does not change time to progression, i.e. the coefficient \(\beta_{\text{treatment}} = 0\).  
+* **Alternative hypothesis (\(H_{1}\))**: The new chemotherapy changes time to progression, i.e. \(\beta_{\text{treatment}} \neq 0\).
 
 ```{r weibull_survival}
 # Install and load the 'survival' package if not already installed:
@@ -3768,7 +3765,7 @@ dist   = "weibull"
 summary(weibull_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 
 In the AFT parameterization, survreg() reports a scale which equals 
 𝜎^=1/𝛼^σ^ =1/ α^ .
