@@ -4290,7 +4290,7 @@ If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportio
 ## Aftale- og concordance-mål
 
 
-<a id="default-anchor"></a>
+<a id="kappa_statistic"></a>
 
 ::::spoiler
 
