@@ -3147,7 +3147,7 @@ Cells with |residual| > 2 indicate categories where the observed count deviates 
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "mantel_trend_test"></a>
 
 ::::spoiler
 
