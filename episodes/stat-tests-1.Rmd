@@ -3436,31 +3436,29 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether there is a linear trend in incidence rates across ordered exposure groups.  
-- **Real-world example:** Evaluating whether lung cancer incidence per 1,000 person‐years increases across smoking intensity categories (Non‐smoker, Light‐smoker, Heavy‐smoker).
+* **Used for** Testing whether there is a linear trend in incidence rates across ordered exposure groups.  
+* **Real-world example:** Evaluating whether lung cancer incidence per 1,000 person‐years increases across smoking intensity categories (Non‐smoker, Light‐smoker, Heavy‐smoker).
 
-#### Assumptions
-- Events in each group follow a Poisson process.  
-- The exposure groups have a natural order and can be assigned numeric scores (e.g., 0, 1, 2).  
-- Person‐time denominators are measured accurately and non‐overlapping.  
-- The log‐rate of events is linearly related to the numeric score of the exposure groups.
+**Assumptions**
+* Events in each group follow a Poisson process.  
+* The exposure groups have a natural order and can be assigned numeric scores (e.g., 0, 1, 2).  
+* Person‐time denominators are measured accurately and non‐overlapping.  
+* The log‐rate of events is linearly related to the numeric score of the exposure groups.
 
-#### Strengths
-- Directly tests for a dose‐response (linear) relationship in rates.  
-- Accounts for differing person‐time across groups via an offset in Poisson regression.  
-- Provides an estimate of the rate‐ratio per one‐unit increase in the exposure score.
+**Strengths**
+* Directly tests for a dose‐response (linear) relationship in rates.  
+* Accounts for differing person‐time across groups via an offset in Poisson regression.  
+* Provides an estimate of the rate‐ratio per one‐unit increase in the exposure score.
 
-#### Weaknesses
-- Only detects a linear trend; non‐linear patterns across groups may be missed.  
-- Sensitive to misclassification of exposure group ordering or scoring.  
-- Assumes no overdispersion; if variance > mean, inference may be invalid unless corrected.
+**Weaknesses**
+* Only detects a linear trend; non‐linear patterns across groups may be missed.  
+* Sensitive to misclassification of exposure group ordering or scoring.  
+* Assumes no overdispersion; if variance > mean, inference may be invalid unless corrected.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** There is no linear trend in incidence rates across exposure groups (β = 0).  
-- **Alternative hypothesis (H₁):** β ≠ 0 (the log‐rate changes linearly with the exposure score).
+* **Null hypothesis (H₀):** There is no linear trend in incidence rates across exposure groups (β = 0).  
+* **Alternative hypothesis (H₁):** β ≠ 0 (the log‐rate changes linearly with the exposure score).
 
 ```{r poisson_trend}
 # Simulated data for three smoking categories:
@@ -3485,7 +3483,7 @@ trend_fit <- glm(events ~ score + offset(log(person_years)),
 summary(trend_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 
 The estimated coefficient for score is `r round(coef(trend_fit)["score"], 3)`.
 
