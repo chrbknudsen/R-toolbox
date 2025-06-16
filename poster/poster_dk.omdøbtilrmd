@@ -38,6 +38,11 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 
 ---
 
+Denne side fører, af årsager jeg ikke helt forstår, til fejl på github.
+Formentlig fordi den prøver at installere posterdownpakken. Derfor er denne side
+omdøbt til poster_dk.omdøbtilrmd. Når siden skal genereres - omdøb den og gør det 
+lokalt.
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE,
