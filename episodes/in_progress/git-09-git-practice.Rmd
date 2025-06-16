@@ -18,9 +18,6 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Inspireret af https://jennajordan.me/git-novice-speedrun/
-
-Som vi skal huske at kreditere
 
 The following [GitHub Skills](https://skills.github.com) courses are recommended for further independent practice:
 
