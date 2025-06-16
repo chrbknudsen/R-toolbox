@@ -265,7 +265,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "one_sample_poisson_test"></a>
 
 ::::spoiler
 
