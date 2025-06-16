@@ -3233,7 +3233,7 @@ If p‐value ≥ 0.05, we would fail to reject H₀, concluding no evidence of a
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "chi_square_heterogeneity"></a>
 
 ::::spoiler
 
