@@ -984,7 +984,7 @@ Thus, there is
 
 ## Variansanalyse (ANOVA/ANCOVA)
 
-<a id = "test-navn"></a>
+<a id = "one_way_anova"></a>
 
 ::::spoiler
 
@@ -1043,7 +1043,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "one_way_ancova"></a>
 
 ::::spoiler
 ### One-way ANCOVA
@@ -1108,7 +1108,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "welchs_anova"></a>
 
 ::::spoiler
 
