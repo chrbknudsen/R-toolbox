@@ -2614,20 +2614,8 @@ Because GEE uses a sandwich estimator, these inferences remain valid even if “
 
 ## Kontingenstabel- og proportions-tests
 
-<a id = "test-navn"></a>
 
-::::spoiler
-
-### Contingency-table methods (χ² osv.)
-
-EJ KORREKTURLÆST
-HVOR KATTEN KOMMER DET HER EGENTLIG FRA?
-
-
-
-::::
-
-<a id = "test-navn"></a>
+<a id = "mcnemar_test"></a>
 
 ::::spoiler
 
