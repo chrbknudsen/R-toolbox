@@ -3374,31 +3374,30 @@ r if(test_result$p.value < 0.05) "evidence that the hospital’s infection rate 
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Comparing incidence rates (events per unit person‐time) between two independent groups.  
-- **Real-world example:** Determining if Hospital A’s rate of central‐line infections (per 1,000 catheter‐days) differs from Hospital B’s rate.
+**Used for**
+* Comparing incidence rates (events per unit person‐time) between two independent groups.  
+* **Real-world example:** Determining if Hospital A’s rate of central‐line infections (per 1,000 catheter‐days) differs from Hospital B’s rate.
 
-#### Assumptions
-- Events in each group follow a Poisson process.  
-- The incidence rate is constant over person‐time within each group.  
-- Person‐time is measured accurately and non‐overlapping.  
-- Groups are independent and there is no unaccounted confounding.
+**Assumptions**
+* Events in each group follow a Poisson process.  
+* The incidence rate is constant over person‐time within each group.  
+* Person‐time is measured accurately and non‐overlapping.  
+* Groups are independent and there is no unaccounted confounding.
 
-#### Strengths
-- Accounts for differing follow‐up times via person‐time denominators.  
-- Provides an exact test (via Poisson) for comparing rates without relying on large‐sample normal approximations.  
-- Outputs both a rate‐ratio estimate and confidence interval.
+**Strengths**
+* Accounts for differing follow‐up times via person‐time denominators.  
+* Provides an exact test (via Poisson) for comparing rates without relying on large‐sample normal approximations.  
+* Outputs both a rate‐ratio estimate and confidence interval.
 
-#### Weaknesses
-- Sensitive to violations of the Poisson assumption (e.g., overdispersion or clustering of events).  
-- Does not adjust for covariates—only a crude two‐group comparison.  
-- Assumes constant risk over time within each group; if rates change, inference may be biased.
+**Weaknesses**
+* Sensitive to violations of the Poisson assumption (e.g., overdispersion or clustering of events).  
+* Does not adjust for covariates—only a crude two‐group comparison.  
+* Assumes constant risk over time within each group; if rates change, inference may be biased.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The two incidence rates are equal (\(\lambda_A = \lambda_B\)).  
-- **Alternative hypothesis (H₁):** The incidence rates differ (\(\lambda_A \neq \lambda_B\)).
+* **Null hypothesis (H₀):** The two incidence rates are equal (\(\lambda_A = \lambda_B\)).  
+* **Alternative hypothesis (H₁):** The incidence rates differ (\(\lambda_A \neq \lambda_B\)).
 
 ```{r two_sample_incidence_rates}
 # Observed events and person-time:
@@ -3420,7 +3419,7 @@ test_result <- poisson.test(
 test_result
 ```
 
-Interpretation:
+**Interpretation:**
 The test reports a rate ratio (Hospital A vs. Hospital B) = `r round(test_result$estimate, 3)`, with a 95% CI = [`r round(test_result$conf.int[1], 3)`, `r round(test_result$conf.int[2], 3)`], and p-value = `r signif(test_result$p.value, 3)`. We
 `r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
