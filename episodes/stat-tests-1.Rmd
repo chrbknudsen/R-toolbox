@@ -1166,7 +1166,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "repeated_measures_anova"></a>
 
 ::::spoiler
 
