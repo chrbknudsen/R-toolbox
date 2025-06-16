@@ -3070,7 +3070,7 @@ Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "chi_square_rc"></a>
 
 ::::spoiler
 
