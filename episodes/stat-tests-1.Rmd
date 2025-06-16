@@ -4299,34 +4299,28 @@ If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportio
 EJ KORREKTURLÆST
 MON IKKE DENNE SNARERE SKAL KONSOLIDERES MED DEN COHENS VI ALLEREDE HAR?
 
-#### Used for
+* **Used for** Quantifying agreement between two raters classifying the same subjects into categories, beyond chance.  
+* **Real-world example:** Assessing whether two pathologists agree on “Benign” vs. “Malignant” diagnoses.
 
-- Quantifying agreement between two raters classifying the same subjects into categories, beyond chance.  
-- **Real-world example:** Assessing whether two pathologists agree on “Benign” vs. “Malignant” diagnoses.
+**Assumptions**
+* Each subject is independently rated by both raters.  
+* Ratings are categorical (nominal or ordinal).  
+* The marginal distributions of categories need not be equal.
 
-#### Assumptions
+**Strengths**
+* Corrects for agreement expected by chance.  
+* Provides an interpretable coefficient, $\kappa$, ranging from –1 to 1.  
+* Can be weighted for ordinal categories.
 
-- Each subject is independently rated by both raters.  
-- Ratings are categorical (nominal or ordinal).  
-- The marginal distributions of categories need not be equal.
+**Weaknesses**
+* Sensitive to prevalence and marginal imbalances (“paradox”).  
+* Doesn’t distinguish systematic bias from random disagreement.  
+* Requires at least two raters and non‐sparse tables for stable estimates.
 
-#### Strengths
+**Example**
 
-- Corrects for agreement expected by chance.  
-- Provides an interpretable coefficient, $\kappa$, ranging from –1 to 1.  
-- Can be weighted for ordinal categories.
-
-#### Weaknesses
-
-- Sensitive to prevalence and marginal imbalances (“paradox”).  
-- Doesn’t distinguish systematic bias from random disagreement.  
-- Requires at least two raters and non‐sparse tables for stable estimates.
-
-#### Example
-
-##### Hypothesis
-- **Null hypothesis ($H_{0}$):** $\kappa = 0$ (no agreement beyond chance).  
-- **Alternative hypothesis ($H_{1}$):** $\kappa \neq 0$ (agreement beyond chance).
+* **Null hypothesis ($H_{0}$):** $\kappa = 0$ (no agreement beyond chance).  
+* **Alternative hypothesis ($H_{1}$):** $\kappa \neq 0$ (agreement beyond chance).
 
 ```{r kappa_statistic}
 # install.packages("psych")  # if necessary
@@ -4347,7 +4341,7 @@ kappa_result <- cohen.kappa(ratings)
 # Display results:
 kappa_result
 ```
-
+**Interpretation**
 The estimated Cohen’s $\kappa$ is
 
 $\widehat{\kappa}$ = `r kappa_result$kappa[1]`
