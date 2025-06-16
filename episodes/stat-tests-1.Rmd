@@ -3810,7 +3810,7 @@ giving a 95 % CI for HR:
 
 ::::
 
-<a id="default-anchor"></a>
+<a id="cox_ph_model"></a>
 
 ::::spoiler
 
