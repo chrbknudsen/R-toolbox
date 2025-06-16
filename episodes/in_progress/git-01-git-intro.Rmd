@@ -32,3 +32,4 @@ Som vi skal huske at kreditere
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+*This episode is partially adapted from "[Intro to Git & GitHub (Speedrun edition)](https://jennajordan.me/git-novice-speedrun)", by Jenna Jordan.*

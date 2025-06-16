@@ -1,20 +1,20 @@
 ---
-title: 'Git'
+title: 'Practice makes perfect'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What is git?
-- Why do we use it?
+- How can I practice these skills
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
 - Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -22,13 +22,26 @@ Inspireret af https://jennajordan.me/git-novice-speedrun/
 
 Som vi skal huske at kreditere
 
+The following [GitHub Skills](https://skills.github.com) courses are recommended for further independent practice:
+
+- [Introduction to GitHub](https://github.com/skills/introduction-to-github)
+- [Communicate using Markdown](https://github.com/skills/communicate-using-markdown)
+- [Review pull requests](https://github.com/skills/review-pull-requests)
+- [Resolve merge conflicts](https://github.com/skills/resolve-merge-conflicts)
+- [Release-based workflow](https://github.com/skills/release-based-workflow)
+- [Connect the dots](https://github.com/skills/connect-the-dots)
+
+Follow the directions in the README files for each of the courses. Each course is a repo that you will fork, creating a copy of the repo under your username. The course progresses using GitHub Actions, which means you must follow the directions exactly.
+
+
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+*This episode is partially adapted from "[Intro to Git & GitHub (Speedrun edition)](https://jennajordan.me/git-novice-speedrun)", by Jenna Jordan.*
