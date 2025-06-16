@@ -4138,31 +4138,29 @@ exp( β^_treatment )≈0.56 (p = 0.008), indicating DrugA significantly reduces 
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing equality of cumulative incidence functions between groups in the presence of competing risks.  
-- **Real-world example:** Comparing the incidence of cancer relapse (event of interest) between two treatment arms, accounting for death from other causes as a competing event.
+* **Used for** Testing equality of cumulative incidence functions between groups in the presence of competing risks.  
+* **Real-world example:** Comparing the incidence of cancer relapse (event of interest) between two treatment arms, accounting for death from other causes as a competing event.
 
-#### Assumptions
-- Competing risks are mutually exclusive and each subject experiences at most one event.  
-- Censoring is independent of the event processes.  
-- The cause‐specific hazards are proportional across groups.
+**Assumptions**
+* Competing risks are mutually exclusive and each subject experiences at most one event.  
+* Censoring is independent of the event processes.  
+* The cause‐specific hazards are proportional across groups.
 
-#### Strengths
-- Directly compares cumulative incidence functions rather than cause‐specific hazards.  
-- Accounts properly for competing events (does not treat them as noninformative censoring).  
-- Implemented in `cmprsk::cuminc()` with the Gray test built in.
+**Strengths**
+* Directly compares cumulative incidence functions rather than cause‐specific hazards.  
+* Accounts properly for competing events (does not treat them as noninformative censoring).  
+* Implemented in `cmprsk::cuminc()` with the Gray test built in.
 
-#### Weaknesses
-- Assumes proportional subdistribution hazards (which may be violated).  
-- Sensitive to heavy censoring or sparse events in one group.  
-- Only tests overall equality of curves, not differences at specific time points.
+**Weaknesses**
+* Assumes proportional subdistribution hazards (which may be violated).  
+* Sensitive to heavy censoring or sparse events in one group.  
+* Only tests overall equality of curves, not differences at specific time points.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis ($H_{0}$):**  $F_1^{(1)}(t) = F_2^{(1)}(t)\quad\text{for all }t$
+* **Null hypothesis ($H_{0}$):**  $F_1^{(1)}(t) = F_2^{(1)}(t)\quad\text{for all }t$
 (the cumulative incidence of the event of interest is the same in both groups).  
-- **Alternative hypothesis ($H_{1}$):**  $F_1^{(1)}(t) \neq F_2^{(1)}(t)\quad\text{for some }t$
+* **Alternative hypothesis ($H_{1}$):**  $F_1^{(1)}(t) \neq F_2^{(1)}(t)\quad\text{for some }t$
 
 
 ```{r gray_test}
@@ -4192,7 +4190,7 @@ ci <- cuminc(ftime, fstatus, group = group)
 ci
 ```
 
-Interpretation:
+**Interpretation:**
 The Gray test for cause 1 (relapse) yields
 
 $\chi^2 = \text{ci\$Tests["1  A vs B", "stat"]},\quad p = \text{ci\$Tests["1  A vs B","pv"]}$
