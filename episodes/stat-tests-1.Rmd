@@ -3818,36 +3818,32 @@ giving a 95 % CI for HR:
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling the hazard (instantaneous event rate) for time‐to‐event data as a function of covariates without specifying a baseline hazard.  
-- **Real-world example:** Estimating the effect of a new drug (Drug A vs. Drug B) on time to cancer recurrence, adjusting for age and tumor grade.
+* **Used for** Modeling the hazard (instantaneous event rate) for time‐to‐event data as a function of covariates without specifying a baseline hazard.  
+* **Real-world example:** Estimating the effect of a new drug (Drug A vs. Drug B) on time to cancer recurrence, adjusting for age and tumor grade.
 
-#### Assumptions
-- **Proportional hazards**: For any two individuals \(i\) and \(j\),  $ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\boldsymbol{X}_i^\top \boldsymbol{\beta} - \boldsymbol{X}_j^\top \boldsymbol{\beta}\bigr) $
+**Assumptions**
+* **Proportional hazards**: For any two individuals \(i\) and \(j\),  $ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\boldsymbol{X}_i^\top \boldsymbol{\beta} - \boldsymbol{X}_j^\top \boldsymbol{\beta}\bigr) $
 is constant over time (no interaction between covariates and time).  
-- **Independent censoring**: Censoring times are independent of event times.  
-- **Linearity**: The log‐hazard is a linear function of continuous covariates:  $\log h(t \mid \boldsymbol{X}) = \log h_0(t) + \boldsymbol{X}^\top \boldsymbol{\beta}$.
+* **Independent censoring**: Censoring times are independent of event times.  
+* **Linearity**: The log‐hazard is a linear function of continuous covariates:  $\log h(t \mid \boldsymbol{X}) = \log h_0(t) + \boldsymbol{X}^\top \boldsymbol{\beta}$.
 
-- No important omitted covariates that interact with time.
+* No important omitted covariates that interact with time.
 
-#### Strengths
-- **Semi‐parametric**: No need to specify \(h_0(t)\) (baseline hazard) explicitly.  
-- Accommodates right‐censoring and time‐dependent covariates (if extended).  
-- Provides easily interpretable **hazard ratios** (\(\text{HR} = \exp(\beta)\)).  
-- Widely used and implemented (e.g., `coxph()` in R).
+**Strengths**
+* **Semi‐parametric**: No need to specify \(h_0(t)\) (baseline hazard) explicitly.  
+* Accommodates right‐censoring and time‐dependent covariates (if extended).  
+* Provides easily interpretable **hazard ratios** (\(\text{HR} = \exp(\beta)\)).  
+* Widely used and implemented (e.g., `coxph()` in R).
 
-#### Weaknesses
-- Sensitive to violation of proportional hazards—if hazards cross, estimates and tests may be invalid.  
-- Does not automatically provide baseline survival estimate unless explicitly requested (e.g., via `survfit()`).  
-- Cannot easily handle non‐linear effects of continuous covariates without transformations or splines.
+**Weaknesses**
+* Sensitive to violation of proportional hazards—if hazards cross, estimates and tests may be invalid.  
+* Does not automatically provide baseline survival estimate unless explicitly requested (e.g., via `survfit()`).  
+* Cannot easily handle non‐linear effects of continuous covariates without transformations or splines.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (\(H_{0}\))**: There is no difference in hazard between Drug A and Drug B after adjusting for age and tumor grade, i.e.  $\beta_{\text{drug}} = 0 \quad \Longrightarrow \quad \text{HR} = \exp(\beta_{\text{drug}}) = 1$.
-
-- **Alternative hypothesis (\(H_{1}\))**: Drug A and Drug B have different hazards, i.e.  $\beta_{\text{drug}} \neq 0 \quad \Longrightarrow \quad \text{HR} \neq 1$.
-
+* **Null hypothesis (\(H_{0}\))**: There is no difference in hazard between Drug A and Drug B after adjusting for age and tumor grade, i.e.  $\beta_{\text{drug}} = 0 \quad \Longrightarrow \quad \text{HR} = \exp(\beta_{\text{drug}}) = 1$.
+* **Alternative hypothesis (\(H_{1}\))**: Drug A and Drug B have different hazards, i.e.  $\beta_{\text{drug}} \neq 0 \quad \Longrightarrow \quad \text{HR} \neq 1$.
 
 
 ```{r cox_ph_model}
@@ -3904,7 +3900,7 @@ cox_fit <- coxph(Surv(time, status) ~ drug + age + grade, data = df_cox)
 summary(cox_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 
 For each covariate, summary(cox_fit) reports:
 
