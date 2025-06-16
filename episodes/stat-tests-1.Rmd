@@ -3078,30 +3078,28 @@ Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether two categorical variables (with R rows and C columns) are independent in an R×C contingency table.  
-- **Real-world example:** Assessing if education level (High School, Bachelor’s, Master’s, PhD) is associated with preferred news source (TV, Online, Print) in a survey.
+* **Used for** Testing whether two categorical variables (with R rows and C columns) are independent in an R×C contingency table.  
+* **Real-world example:** Assessing if education level (High School, Bachelor’s, Master’s, PhD) is associated with preferred news source (TV, Online, Print) in a survey.
 
-#### Assumptions
-- Observations are independent (each subject contributes to exactly one cell).  
-- The table is R×C with mutually exclusive and exhaustive categories.  
-- Expected count in each cell is at least 5 for the χ² approximation to be valid; otherwise consider collapsing categories or using an exact test.
+**Assumptions**
+* Observations are independent (each subject contributes to exactly one cell).  
+* The table is R×C with mutually exclusive and exhaustive categories.  
+* Expected count in each cell is at least 5 for the χ² approximation to be valid; otherwise consider collapsing categories or using an exact test.
 
-#### Strengths
-- Simple to compute and interpret via a single χ² statistic and p-value.  
-- Applicable to any R×C table, not just 2×2.  
-- Nonparametric: does not assume any distribution of underlying continuous variables.
+**Strengths**
+* Simple to compute and interpret via a single χ² statistic and p-value.  
+* Applicable to any R×C table, not just 2×2.  
+* Nonparametric: does not assume any distribution of underlying continuous variables.
 
-#### Weaknesses
-- Sensitive to small expected counts—cells with expected < 5 can invalidate the approximation.  
-- Does not indicate which specific cells contribute most to the dependence; follow-up residual analysis or post-hoc tests are required.  
-- Requires sufficiently large sample sizes; for sparse tables consider Fisher’s exact or Monte Carlo methods.
+**Weaknesses**
+* Sensitive to small expected counts—cells with expected < 5 can invalidate the approximation.  
+* Does not indicate which specific cells contribute most to the dependence; follow-up residual analysis or post-hoc tests are required.  
+* Requires sufficiently large sample sizes; for sparse tables consider Fisher’s exact or Monte Carlo methods.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** Education level and preferred news source are independent.  
-- **Alternative hypothesis (H₁):** There is an association between education level and preferred news source (they are not independent).
+* **Null hypothesis (H₀):** Education level and preferred news source are independent.  
+* **Alternative hypothesis (H₁):** There is an association between education level and preferred news source (they are not independent).
 
 ```{r chi_square_rc}
 # Simulate a 4×3 contingency table: Education × NewsSource
@@ -3134,7 +3132,7 @@ chi2_result <- chisq.test(obs_matrix)
 chi2_result
 ```
 
-Interpretation:
+**Interpretation:**
 The test yields χ² = `r round(chi2_result$statistic, 2)` with df = `r chi2_result$parameter` and p-value = `r signif(chi2_result$p.value, 3)`. We
 `r if(chi2_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Since the p-value is `r round(chi2_result$p.value, 3)`, we
