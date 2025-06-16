@@ -3011,31 +3011,29 @@ Since the p-value is r round(stuart_result$p.value, 3), we
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Comparing two independent binomial proportions, possibly stratified by a third variable (Mantel–Haenszel).  
-- **Real-world example:** Assessing whether a new vaccine reduces infection rates compared to placebo across multiple clinics.
+* **Used for** Comparing two independent binomial proportions, possibly stratified by a third variable (Mantel–Haenszel).  
+* **Real-world example:** Assessing whether a new vaccine reduces infection rates compared to placebo across multiple clinics.
 
-#### Assumptions
-- Observations within each group (and stratum, if stratified) are independent.  
-- Each observation has a binary outcome (success/failure).  
-- In the unstratified case, the two groups are independent and sample sizes are sufficiently large for the normal approximation (if using a z-test or `prop.test()`).  
-- For the Mantel–Haenszel test: effects are assumed homogeneous across strata (common odds ratio).
+**Assumptions**
+* Observations within each group (and stratum, if stratified) are independent.  
+* Each observation has a binary outcome (success/failure).  
+* In the unstratified case, the two groups are independent and sample sizes are sufficiently large for the normal approximation (if using a z-test or `prop.test()`).  
+* For the Mantel–Haenszel test: effects are assumed homogeneous across strata (common odds ratio).
 
-#### Strengths
-- Simple two‐sample z‐test or χ²‐based test (`prop.test()`) for unstratified comparisons.  
-- Mantel–Haenszel test controls for confounding by stratification, providing an overall test of association and a pooled odds ratio.  
-- Exact or asymptotic inference available (Fisher’s exact for small counts, Mantel–Haenszel χ² for larger).
+**Strengths**
+* Simple two‐sample z‐test or χ²‐based test (`prop.test()`) for unstratified comparisons.  
+* Mantel–Haenszel test controls for confounding by stratification, providing an overall test of association and a pooled odds ratio.  
+* Exact or asymptotic inference available (Fisher’s exact for small counts, Mantel–Haenszel χ² for larger).
 
-#### Weaknesses
-- The unstratified z‐test/χ² test can give misleading results if confounders are present.  
-- Mantel–Haenszel requires the common‐odds‐ratio assumption; if this fails (effect modification), the pooled estimate may be invalid.  
-- Both methods rely on adequate sample sizes in each cell (especially for asymptotic approximations).
+**Weaknesses**
+* The unstratified z‐test/χ² test can give misleading results if confounders are present.  
+* Mantel–Haenszel requires the common‐odds‐ratio assumption; if this fails (effect modification), the pooled estimate may be invalid.  
+* Both methods rely on adequate sample sizes in each cell (especially for asymptotic approximations).
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The infection rates in Vaccine and Placebo groups are equal across clinics (common odds ratio = 1).  
-- **Alternative hypothesis (H₁):** The infection rates differ between Vaccine and Placebo groups (common odds ratio ≠ 1).
+* **Null hypothesis (H₀):** The infection rates in Vaccine and Placebo groups are equal across clinics (common odds ratio = 1).  
+* **Alternative hypothesis (H₁):** The infection rates differ between Vaccine and Placebo groups (common odds ratio ≠ 1).
 
 ```{r two_sample_binomial_mh}
 # Simulated data from two clinics (strata):
@@ -3064,7 +3062,7 @@ mh_result <- mantelhaen.test(mh_table, correct = FALSE)
 mh_result
 ```
 
-Interpretation:
+**Interpretation:**
 The Mantel–Haenszel χ² statistic = `r round(mh_result$statistic, 3)` with df = `r mh_result$parameter` and p‐value = `r signif(mh_result$p.value, 3)`. We
 `r if(mh_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
