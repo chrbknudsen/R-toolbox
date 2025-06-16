@@ -319,7 +319,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "shapiro_wilk_test"></a>
 
 ::::spoiler
 
