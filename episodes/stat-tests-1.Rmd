@@ -2515,31 +2515,29 @@ This indicates that age
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling correlated or clustered data (e.g., repeated measures, longitudinal, or clustered observations) when interest lies in population‐averaged effects rather than subject‐specific effects.  
-- **Real-world example:** Estimating the effect of a diabetes education program on the probability of glycemic control (A1C < 7%) over multiple clinic visits per patient.
+* **Used for** Modeling correlated or clustered data (e.g., repeated measures, longitudinal, or clustered observations) when interest lies in population‐averaged effects rather than subject‐specific effects.  
+* **Real-world example:** Estimating the effect of a diabetes education program on the probability of glycemic control (A1C < 7%) over multiple clinic visits per patient.
 
-#### Assumptions
-- Clustered or repeated observations per subject/cluster with some “working” correlation structure (e.g., exchangeable, autoregressive).  
-- Correct specification of the link function and the mean model (e.g., logit link for binary outcomes).  
-- Missing data are missing completely at random (MCAR) or missing at random (MAR), assuming missingness only depends on observed covariates.  
-- Large‐sample inference: GEE relies on asymptotic properties (number of clusters ≫ 1).
+**Assumptions**
+* Clustered or repeated observations per subject/cluster with some “working” correlation structure (e.g., exchangeable, autoregressive).  
+* Correct specification of the link function and the mean model (e.g., logit link for binary outcomes).  
+* Missing data are missing completely at random (MCAR) or missing at random (MAR), assuming missingness only depends on observed covariates.  
+* Large‐sample inference: GEE relies on asymptotic properties (number of clusters ≫ 1).
 
-#### Strengths
-- Robust (“sandwich”) standard errors even if the working correlation structure is mis‐specified.  
-- Provides marginal (population‐averaged) estimates, often of direct interest in public health/epidemiology.  
-- Accommodates a variety of outcomes (binary, count, continuous) via appropriate link and family.
+**Strengths**
+* Robust (“sandwich”) standard errors even if the working correlation structure is mis‐specified.  
+* Provides marginal (population‐averaged) estimates, often of direct interest in public health/epidemiology.  
+* Accommodates a variety of outcomes (binary, count, continuous) via appropriate link and family.
 
-#### Weaknesses
-- Efficiency can be lost if the working correlation is far from the truth (though estimates remain consistent).  
-- Inference is asymptotic—small numbers of clusters can lead to biased standard errors.  
-- Does not model subject‐specific trajectories; cannot estimate random‐effects variance components.
+**Weaknesses**
+* Efficiency can be lost if the working correlation is far from the truth (though estimates remain consistent).  
+* Inference is asymptotic—small numbers of clusters can lead to biased standard errors.  
+* Does not model subject‐specific trajectories; cannot estimate random‐effects variance components.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The education program has no effect on odds of glycemic control over time (β_edu = 0).  
-- **Alternative hypothesis (H₁):** The education program changes the odds of glycemic control over time (β_edu ≠ 0).
+* **Null hypothesis (H₀):** The education program has no effect on odds of glycemic control over time (β_edu = 0).  
+* **Alternative hypothesis (H₁):** The education program changes the odds of glycemic control over time (β_edu ≠ 0).
 
 ```{r gee_logistic}
 # Install/load necessary package:
@@ -2594,7 +2592,7 @@ gee_fit <- geeglm(
 summary(gee_fit)
 ```
 
-Interpretation:
+**Interpretation:*'
 
 The estimated coefficient for edu (Edu vs. NoEdu) is `r round(coef(gee_fit)["eduEdu"], 3)`
 . Its robust (“sandwich”) standard error is `r round(summary(gee_fit)$coefficients["eduEdu","Std.err"], 3)`
