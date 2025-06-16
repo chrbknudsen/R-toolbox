@@ -3241,31 +3241,29 @@ If p‐value ≥ 0.05, we would fail to reject H₀, concluding no evidence of a
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether two groups have the same distribution across k categories (heterogeneity of proportions in a 2×k table).  
-- **Real-world example:** Comparing the distribution of smoking status (Never, Former, Current, Occasional) between males and females.
+* **Used for** Testing whether two groups have the same distribution across k categories (heterogeneity of proportions in a 2×k table).  
+* **Real-world example:** Comparing the distribution of smoking status (Never, Former, Current, Occasional) between males and females.
 
-#### Assumptions
-- Observations are independent.  
-- Categories (columns) are mutually exclusive and exhaustive.  
-- Expected count in each cell is at least 5 for the χ² approximation to be valid.  
-- The table is 2×k (two groups by k categories).
+**Assumptions**
+* Observations are independent.  
+* Categories (columns) are mutually exclusive and exhaustive.  
+* Expected count in each cell is at least 5 for the χ² approximation to be valid.  
+* The table is 2×k (two groups by k categories).
 
-#### Strengths
-- Simple to compute via `chisq.test()` in R.  
-- Tests whether proportions differ across all k categories simultaneously.  
-- Does not require any parametric distribution beyond categorical counts.
+**Strengths**
+* Simple to compute via `chisq.test()` in R.  
+* Tests whether proportions differ across all k categories simultaneously.  
+* Does not require any parametric distribution beyond categorical counts.
 
-#### Weaknesses
-- Sensitive to small expected counts; if many cells have expected < 5, approximation may be invalid.  
-- Only indicates that distributions differ, not which categories drive the difference (follow‐up residual or post‐hoc tests needed).  
-- Requires independence; not suitable for paired or repeated measures.
+**Weaknesses**
+* Sensitive to small expected counts; if many cells have expected < 5, approximation may be invalid.  
+* Only indicates that distributions differ, not which categories drive the difference (follow‐up residual or post‐hoc tests needed).  
+* Requires independence; not suitable for paired or repeated measures.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The two groups have the same distribution across the k categories (no heterogeneity).  
-- **Alternative hypothesis (H₁):** At least one category’s proportion differs between the two groups.
+* **Null hypothesis (H₀):** The two groups have the same distribution across the k categories (no heterogeneity).  
+* **Alternative hypothesis (H₁):** At least one category’s proportion differs between the two groups.
 
 ```{r chi_square_heterogeneity}
 # Simulate a 2×4 table: Sex (Male/Female) × SmokingStatus (Never, Former, Current, Occasional)
@@ -3292,7 +3290,7 @@ chihet_result <- chisq.test(obs_matrix)
 chihet_result
 ```
 
-Interpretation:
+**Interpretation:**
 The χ² statistic = `r round(chihet_result$statistic, 2)` with df = `r chihet_result$parameter` and p-value = `r signif(chihet_result$p.value, 3)`. We
 `r if(chihet_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
