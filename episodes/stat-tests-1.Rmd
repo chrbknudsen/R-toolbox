@@ -2438,7 +2438,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "generalized_linear_mixed_effects_model"></a>
 
 ::::spoiler
 
@@ -2446,31 +2446,29 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling non-normal outcomes (e.g. binary, counts) with both fixed effects and random effects.  
-- **Real-world example:** Predicting whether patients are readmitted (yes/no) based on age and comorbidity score, with random intercepts for each hospital.
+* **Used for** Modeling non-normal outcomes (e.g. binary, counts) with both fixed effects and random effects.  
+* **Real-world example:** Predicting whether patients are readmitted (yes/no) based on age and comorbidity score, with random intercepts for each hospital.
 
-#### Assumptions
-- Observations within each cluster (e.g. hospital) are correlated, but clusters are independent.  
-- The conditional distribution of the outcome given predictors and random effects follows a specified exponential‐family distribution (e.g. binomial, Poisson).  
-- The link function (e.g. logit, log) correctly relates the linear predictor to the mean of the outcome.  
-- Random effects are normally distributed.
+**Assumptions**
+* Observations within each cluster (e.g. hospital) are correlated, but clusters are independent.  
+* The conditional distribution of the outcome given predictors and random effects follows a specified exponential‐family distribution (e.g. binomial, Poisson).  
+* The link function (e.g. logit, log) correctly relates the linear predictor to the mean of the outcome.  
+* Random effects are normally distributed.
 
-#### Strengths
-- Can accommodate hierarchical or longitudinal data and non-Gaussian outcomes.  
-- Estimates both population‐level (fixed) effects and cluster‐specific (random) variation.  
-- Flexible: supports a variety of link functions and distributions.
+**Strengths**
+* Can accommodate hierarchical or longitudinal data and non-Gaussian outcomes.  
+* Estimates both population‐level (fixed) effects and cluster‐specific (random) variation.  
+* Flexible: supports a variety of link functions and distributions.
 
-#### Weaknesses
-- Computationally intensive; convergence can fail with complex random‐effects structures.  
-- Inference (especially p-values for fixed effects) relies on approximations.  
-- Model specification (random slopes, link choice) can be challenging.
+**Weaknesses**
+* Computationally intensive; convergence can fail with complex random‐effects structures.  
+* Inference (especially p-values for fixed effects) relies on approximations.  
+* Model specification (random slopes, link choice) can be challenging.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The log-odds of readmission do not depend on age (β_age = 0).  
-- **Alternative hypothesis (H₁):** Age affects the log-odds of readmission (β_age ≠ 0).
+* **Null hypothesis (H₀):** The log-odds of readmission do not depend on age (β_age = 0).  
+* **Alternative hypothesis (H₁):** Age affects the log-odds of readmission (β_age ≠ 0).
 
 ```{r generalized_linear_mixed_effects_model}
 # Load packages
@@ -2500,7 +2498,7 @@ glmm_fit <- glmer(readmit ~ age + comorbidity + (1 | hospital),
 summary(glmm_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 The fixed‐effect estimate for age is `r round(fixef(glmm_fit)["age"], 3)` (SE = `r round(summary(glmm_fit)$coefficients["age","Std. Error"], 3)`), giving an odds ratio of `r round(exp(fixef(glmm_fit)["age"]), 3)` per year of age. With a z‐value = `r round(summary(glmm_fit)$coefficients["age","z value"], 2)` and p ≈ `r signif(summary(glmm_fit)$coefficients["age","Pr(>|z|)"], 3)`, we
 `r if(summary(glmm_fit)$coefficients["age","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 This indicates that age
