@@ -484,7 +484,7 @@ Thus, there is
 ## To-prøve-tests og parrede tests
 
 
-<a id = "test-navn"></a>
+<a id = "two_sample_f_test"></a>
 
 ::::spoiler
 
