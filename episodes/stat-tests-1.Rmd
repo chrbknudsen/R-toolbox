@@ -3591,7 +3591,7 @@ then, since $p = 0.289 \ge 0.05$, we fail to reject $H_{0}$. There is no evidenc
 ## Overlevelsesanalyse
 
 
-<a id = "test-navn"></a>
+<a id = "log_rank_test"></a>
 
 ::::spoiler
 
