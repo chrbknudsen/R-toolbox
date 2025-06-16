@@ -2943,31 +2943,29 @@ Thus, there is
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing marginal homogeneity in a square contingency table of paired categorical outcomes (k ≥ 3 categories).  
-- **Real-world example:** Assessing whether patients’ self‐rated pain levels (None, Mild, Moderate, Severe) before and after a new analgesic are distributed the same way.
+* **Used for** Testing marginal homogeneity in a square contingency table of paired categorical outcomes (k ≥ 3 categories).  
+* **Real-world example:** Assessing whether patients’ self‐rated pain levels (None, Mild, Moderate, Severe) before and after a new analgesic are distributed the same way.
 
-#### Assumptions
-- Data consist of paired observations on the same subjects, each classified into one of k categories at two time points or under two conditions.  
-- The contingency table is square (same set of k categories for “before” and “after”).  
-- Observations (pairs) are independent of one another.  
-- No cell has zero counts that prevent the necessary sums for the test (ideally none of the off‐diagonal cell sums are zero across all pairs).
+**Assumptions**
+* Data consist of paired observations on the same subjects, each classified into one of k categories at two time points or under two conditions.  
+* The contingency table is square (same set of k categories for “before” and “after”).  
+* Observations (pairs) are independent of one another.  
+* No cell has zero counts that prevent the necessary sums for the test (ideally none of the off‐diagonal cell sums are zero across all pairs).
 
-#### Strengths
-- Generalizes McNemar’s test to k > 2 categories.  
-- Specifically tests whether the overall marginal (row vs. column) distributions are the same.  
-- Computes a χ²‐statistic based on off‐diagonal discordances, summarizing all category shifts.
+**Strengths**
+* Generalizes McNemar’s test to k > 2 categories.  
+* Specifically tests whether the overall marginal (row vs. column) distributions are the same.  
+* Computes a χ²‐statistic based on off‐diagonal discordances, summarizing all category shifts.
 
-#### Weaknesses
-- Only detects overall marginal changes; does not indicate which category pairs drive the difference (post‐hoc needed).  
-- Sensitive to small sample sizes or sparse off‐diagonal entries (may lack power or violate asymptotic χ² approximation).  
-- Assumes symmetry under the null; if many pairs move in one direction but not the reverse, marginal sums can still balance, potentially masking certain shifts.
+**Weaknesses**
+* Only detects overall marginal changes; does not indicate which category pairs drive the difference (post‐hoc needed).  
+* Sensitive to small sample sizes or sparse off‐diagonal entries (may lack power or violate asymptotic χ² approximation).  
+* Assumes symmetry under the null; if many pairs move in one direction but not the reverse, marginal sums can still balance, potentially masking certain shifts.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** The marginal distribution of pain levels is the same before and after treatment.  
-- **Alternative hypothesis (H₁):** The marginal distributions differ (some shifts in categories occurred).
+* **Null hypothesis (H₀):** The marginal distribution of pain levels is the same before and after treatment.  
+* **Alternative hypothesis (H₁):** The marginal distributions differ (some shifts in categories occurred).
 
 ```{r stuart_maxwell_test}
 # Install and load DescTools if not already installed:
@@ -2997,7 +2995,7 @@ pain_table
 stuart_result
 ```
 
-Interpretation:
+**Interpretation:**
 The Stuart–Maxwell χ² statistic = `r round(stuart_result$statistic, 2)` with df = `r stuart_result$parameter` and p-value = `r signif(stuart_result$p.value, 3)`. We
 `r if(stuart_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Since the p-value is r round(stuart_result$p.value, 3), we
