@@ -4201,7 +4201,7 @@ If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a differen
 
 ::::
 
-<a id="default-anchor"></a>
+<a id="cox_ph_assumption_test"></a>
 
 ::::spoiler
 
@@ -4209,32 +4209,29 @@ If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a differen
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing the proportional‐hazards assumption in Cox models using Schoenfeld residuals.  
-- **Real-world example:** Verifying that the hazard ratio between a new drug and control remains constant over follow‐up time.
+' **Used for** Testing the proportional‐hazards assumption in Cox models using Schoenfeld residuals.  
+* **Real-world example:** Verifying that the hazard ratio between a new drug and control remains constant over follow‐up time.
 
-#### Assumptions
-- You have a fitted Cox model (`coxph()`).  
-- Censoring is noninformative.  
-- The true hazard ratios are constant over time under the null.
+**Assumptions**
+* You have a fitted Cox model (`coxph()`).  
+* Censoring is noninformative.  
+* The true hazard ratios are constant over time under the null.
 
-#### Strengths
-- Provides both a global test and covariate‐specific tests.  
-- Uses residuals to detect time‐varying effects.  
-- Easy to implement via `cox.zph()`.
+**Strengths**
+* Provides both a global test and covariate‐specific tests.  
+* Uses residuals to detect time‐varying effects.  
+* Easy to implement via `cox.zph()`.
 
-#### Weaknesses
-- Sensitive to sparse data or few events.  
-- May flag minor, clinically irrelevant departures.  
-- Graphical interpretation can be subjective.
+**Weaknesses**
+* Sensitive to sparse data or few events.  
+* May flag minor, clinically irrelevant departures.  
+* Graphical interpretation can be subjective.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis ($H_0$):** The hazard ratio is constant over time for each covariate, i.e.  
+* **Null hypothesis ($H_0$):** The hazard ratio is constant over time for each covariate, i.e.  
 $ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\beta_k (X_{ik}-X_{jk})\bigr)\quad\text{independent of }t.$
-
-- **Alternative hypothesis ($H_1$):** At least one covariate’s hazard ratio varies with time.
+* **Alternative hypothesis ($H_1$):** At least one covariate’s hazard ratio varies with time.
 
 ```{r cox_ph_assumption_test}
 library(survival)
@@ -4275,7 +4272,7 @@ zph_test
 plot(zph_test)
 ```
 
-Interpretation:
+**Interpretation:**
 
 The output shows a test statistic and p‐value for each covariate and a GLOBAL test.
 
