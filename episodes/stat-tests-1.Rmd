@@ -3966,43 +3966,40 @@ Overall, because all covariate p values for drug, age, and grade are < 0.05, we 
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Modeling time‐to‐event data under the assumption that covariates act multiplicatively on survival time (“accelerate” or “decelerate” survival).  
-- **Real‐world example:** Estimating how a new treatment (“Drug A” vs. “Drug B”) affects time to relapse, assuming survival follows an exponential or log‐logistic distribution.
+* **Used for** Modeling time‐to‐event data under the assumption that covariates act multiplicatively on survival time (“accelerate” or “decelerate” survival).  
+* **Real‐world example:** Estimating how a new treatment (“Drug A” vs. “Drug B”) affects time to relapse, assuming survival follows an exponential or log‐logistic distribution.
 
-#### Assumptions
-- **AFT form:** For each subject \(i\),  
+**Assumptions**
+* **AFT form:** For each subject \(i\),  
   \[
     \log T_i \;=\; \mathbf{X}_i^\top \boldsymbol{\beta} \;+\; \sigma\,W_i,
   \]  
   where \(W_i\) has a known distribution (e.g., extreme‐value for exponential, logistic for log‐logistic).  
-- **Exponential AFT:** \(W_i\) is standard extreme‐value, so survival \(\bigl(T_i\mid \mathbf{X}_i\bigr)\sim \text{Weibull}\) with shape \(\alpha=1\).  
-- **Log‐Logistic AFT:** \(W_i\) is standard logistic, so \(\log T_i\) is logistic, and \(T_i\sim \text{Log‐Logistic}(\alpha,\lambda)\).  
-- Independent right‐censoring: censoring times are independent of event times.  
-- Correct specification of the error distribution (exponential vs. log‐logistic).  
-- Covariates enter linearly on the log‐time scale; no omitted interacting variables.
+* **Exponential AFT:** \(W_i\) is standard extreme‐value, so survival \(\bigl(T_i\mid \mathbf{X}_i\bigr)\sim \text{Weibull}\) with shape \(\alpha=1\).  
+* **Log‐Logistic AFT:** \(W_i\) is standard logistic, so \(\log T_i\) is logistic, and \(T_i\sim \text{Log‐Logistic}(\alpha,\lambda)\).  
+* Independent right‐censoring: censoring times are independent of event times.  
+* Correct specification of the error distribution (exponential vs. log‐logistic).  
+* Covariates enter linearly on the log‐time scale; no omitted interacting variables.
 
-#### Strengths
-- Provides a direct interpretation in terms of **time ratios**:  
+**Strengths**
+* Provides a direct interpretation in terms of **time ratios**:  
   \[
     \text{Time Ratio for covariate }j = \exp\bigl(\beta_{j}\bigr),
   \]  
   i.e.\ each unit increase in \(X_j\) multiplies median survival time by \(\exp(\beta_{j})\).  
-- Parametric: can yield more precise estimates (smaller standard errors) if the distributional form is correct.  
-- Can extrapolate beyond the observed data if model fit is adequate.
+* Parametric: can yield more precise estimates (smaller standard errors) if the distributional form is correct.  
+* Can extrapolate beyond the observed data if model fit is adequate.
 
-#### Weaknesses
-- Mis‐specifying the error distribution (e.g.\ assuming exponential when data are log‐logistic) biases estimates and inference.  
-- Less robust than the semi‐parametric Cox model if true hazard shape deviates from assumed form.  
-- Requires checking model fit (e.g.\ via AIC, residual plots) to ensure the chosen distribution is appropriate.
+**Weaknesses**
+* Mis‐specifying the error distribution (e.g.\ assuming exponential when data are log‐logistic) biases estimates and inference.  
+* Less robust than the semi‐parametric Cox model if true hazard shape deviates from assumed form.  
+* Requires checking model fit (e.g.\ via AIC, residual plots) to ensure the chosen distribution is appropriate.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (\(H_{0}\)):** Treatment has no effect on log‐survival time, i.e.  
+* **Null hypothesis (\(H_{0}\)):** Treatment has no effect on log‐survival time, i.e.  
   $\beta_{\text{treatment}} = 0 \quad \Longrightarrow \quad \text{Time Ratio} = \exp(0) = 1.$
-
-Alternative hypothesis (𝐻_1 ): Treatment alters log‐survival time, i.e.
+* Alternative hypothesis (𝐻_1 ): Treatment alters log‐survival time, i.e.
 $\beta_{\text{treatment}} \neq 0 \quad \Longrightarrow \quad \text{Time Ratio} \neq 1.$
 
 ```{r Accelerated-Failure-Time}
@@ -4078,7 +4075,7 @@ summary(aft_expo_fit)
 summary(aft_loglog_fit)
 ```
 
-Interpretation:
+**Interpretation:**
 
 Exponential AFT (dist="exponential")
 
