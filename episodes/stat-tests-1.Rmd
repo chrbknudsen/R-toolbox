@@ -3958,7 +3958,7 @@ Overall, because all covariate p values for drug, age, and grade are < 0.05, we 
 
 ::::
 
-<a id="default-anchor"></a>
+<a id="Accelerated-Failure-Time"></a>
 
 ::::spoiler
 
@@ -4005,7 +4005,7 @@ EJ KORREKTURLÆST
 Alternative hypothesis (𝐻_1 ): Treatment alters log‐survival time, i.e.
 $\beta_{\text{treatment}} \neq 0 \quad \Longrightarrow \quad \text{Time Ratio} \neq 1.$
 
-```{r noget}
+```{r Accelerated-Failure-Time}
 # Install and load the 'survival' package if necessary:
 # install.packages("survival")
 library(survival)
