@@ -1380,7 +1380,7 @@ Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "friedman_test"></a>
 
 ::::spoiler
 
@@ -1439,7 +1439,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "tukey_hsd"></a>
 
 ::::spoiler
 
@@ -1497,7 +1497,7 @@ interval, and an adjusted p‐value. For example, if the Lecture–Online compar
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "dunnett_test"></a>
 
 ::::spoiler
 
@@ -1560,7 +1560,7 @@ Similarly, for FertilizerB vs. Control (contrast index 2), the estimate is `r ro
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "bonferroni_correction"></a>
 
 ::::spoiler
 
@@ -1618,7 +1618,7 @@ The output shows adjusted p-values for each pair of diets. For example, if the A
 
 ## Ikke-parametriske k-prøve-tests
 
-<a id = "test-navn"></a>
+<a id = "kruskal_wallis_test"></a>
 
 ::::spoiler
 
