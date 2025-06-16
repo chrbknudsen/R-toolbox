@@ -6,7 +6,7 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How do I run X statistical test?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -16,7 +16,7 @@ exercises: 2
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-  padding-left: 1.5em;          /* plads til marker + hul */
+
 
 <!-- Hyper-lokal css -->
 <style>
@@ -128,7 +128,7 @@ difference from the claimed distribution.
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "one_sample_z_test"></a>
 
 ::::spoiler
 
@@ -4550,8 +4550,8 @@ in the data (are there differences that are dependent on measurement levels)
 #### Example
 
 ##### Hypothesis
-- **Null hypothesis (H₀):** Mean difference between methods A and B is zero (no systematic bias).  
-- **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
+* **Null hypothesis (H₀):** Mean difference between methods A and B is zero (no systematic bias).  
+' **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
 
 ```{r bland_altman}
 # Simulated paired blood pressure measurements (mmHg) on 12 subjects:
