@@ -2677,7 +2677,7 @@ Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTe
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "fishers_exact_test"></a>
 
 ::::spoiler
 
