@@ -2818,7 +2818,7 @@ One‐sided p‐value (0.0168): Tests specifically whether the Medication advers
 ::::
 
 
-<a id = "test-navn"></a>
+<a id = "cochran_armitage_trend_test"></a>
 
 ::::spoiler
 
