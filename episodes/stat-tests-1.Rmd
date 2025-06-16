@@ -3505,7 +3505,7 @@ per category increase, and since p $<0.05$, we conclude that incidence rises sig
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "Exact_rate_ratio_test"></a>
 
 ::::spoiler
 
@@ -3513,33 +3513,31 @@ per category increase, and since p $<0.05$, we conclude that incidence rises sig
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing whether the incidence rate in one group differs from that in another group using an exact (Poisson) method for the rate ratio.  
-- **Real-world example:** Comparing ICU infection rates between two antibiotic regimens (A vs. B) when event counts and person‐time are relatively small.
+* **Used for** Testing whether the incidence rate in one group differs from that in another group using an exact (Poisson) method for the rate ratio.  
+* **Real-world example:** Comparing ICU infection rates between two antibiotic regimens (A vs. B) when event counts and person‐time are relatively small.
 
-#### Assumptions
-- Events in each group follow a Poisson process.  
-- The rate within each group is constant over the observed person‐time.  
-- Person‐time denominators are measured accurately and non‐overlapping.  
-- Groups are independent (no shared person‐time or overlapping exposure).
+**Assumptions**
+* Events in each group follow a Poisson process.  
+* The rate within each group is constant over the observed person‐time.  
+* Person‐time denominators are measured accurately and non‐overlapping.  
+* Groups are independent (no shared person‐time or overlapping exposure).
 
-#### Strengths
-- Provides an exact confidence interval for the rate ratio and an exact test p‐value without relying on large‐sample normal approximations.  
-- Valid for small counts or rare events.  
-- Directly tests the null hypothesis $\text{RR} = 1$ (where $\text{RR} = \lambda_1 / \lambda_2$).
+**Strengths**
+* Provides an exact confidence interval for the rate ratio and an exact test p‐value without relying on large‐sample normal approximations.  
+* Valid for small counts or rare events.  
+* Directly tests the null hypothesis $\text{RR} = 1$ (where $\text{RR} = \lambda_1 / \lambda_2$).
 
-#### Weaknesses
-- Sensitive to overdispersion (variance > mean) or clustering—assumes Poisson variance equals the mean.  
-- Only compares two groups at a time; cannot easily adjust for covariates.  
-- Assumes constant rate over time; if rates vary, inference can be biased.
+**Weaknesses**
+* Sensitive to overdispersion (variance > mean) or clustering—assumes Poisson variance equals the mean.  
+* Only compares two groups at a time; cannot easily adjust for covariates.  
+* Assumes constant rate over time; if rates vary, inference can be biased.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis ($H_{0}$):** The rate in group A equals the rate in group B, i.e.  $\text{RR} = 1$
-- **Alternative hypothesis ($H_{1}$):** The rate in group A differs from the rate in group B, i.e.  $\text{RR} \neq 1$
+* **Null hypothesis ($H_{0}$):** The rate in group A equals the rate in group B, i.e.  $\text{RR} = 1$
+* **Alternative hypothesis ($H_{1}$):** The rate in group A differs from the rate in group B, i.e.  $\text{RR} \neq 1$
 
-```{r Exact rate ratio test}
+```{r Exact_rate_ratio_test}
 # Observed events and person-time for two antibiotic regimens:
 # Observed events and person-time for two antibiotic regimens:
 events_A      <- 10    # infections under Regimen A
@@ -3561,7 +3559,7 @@ alternative = "two.sided"
 rr_test
 ```
 
-Interpretation:
+**Interpretation:**
 
 The estimated rate ratio is
 
