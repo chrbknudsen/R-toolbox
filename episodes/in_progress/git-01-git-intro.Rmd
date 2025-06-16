@@ -1,0 +1,39 @@
+---
+title: 'Git'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is git?
+- Why do we use it?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+This lesson was built with The Carpentries Workbench. The content was adapted from the Software Carpentry Version Control with Git lesson, the Carpentries Incubator Version Control with Git lesson that incorporates branches and PRs, and the Library Carpentry Introduction to Git lesson. This lesson is designed to contain only the minimal amount of information to get learners functional with Git & GitHub, and should not be considered a comprehensive introduction to git.
+
+The goal of this lesson is to introduce core git concepts and commands while following a common git workflow pattern. Learners will start with creating a repository on GitHub, then use VS Code to clone the repo, make edits locally, and push those changes to the remote GitHub repo.
+
+Bash is not a pre-requisite for this lesson, and any bash commands used (like pwd or ls -a) are purely optional. The VS Code interface is used to create new files, and provides a GUI interface that learners should be more comfortable with compared to a purely terminal-based workflow.
+
+By the end of the lesson, learners should be ready to follow the same workflow in a repo of their own creation/choosing, and understand the core git commands: config, status, log, add, commit, diff, push, pull, and branch. They should be comfortable using both the terminal and the VS Code Source Control pane to perform these git operations.
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+*This episode is partially adapted from "[Intro to Git & GitHub (Speedrun edition)](https://jennajordan.me/git-novice-speedrun)", by Jenna Jordan.*

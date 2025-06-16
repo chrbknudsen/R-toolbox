@@ -1,0 +1,245 @@
+---
+title: 'Git'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What is git?
+- Why do we use it?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Inspireret af https://jennajordan.me/git-novice-speedrun/
+
+Som vi skal huske at kreditere
+
+
+Git overordnet. Hovedprincipperne.
+
+
+## Introduction
+
+
+I et repo har vi en primær linie af udvikling. Den kaldes i dag ofte for "main",
+i gamle dage, indtil amerikanerne kom i tanker om deres arvesynd, kaldtes 
+den for master. Om det betyder at vi ikke længere har masteruddannelser på universiteterne,
+men i stedet main-uddannelser, er der ingen der ved.
+
+Ud fra denne master, er der branches. Forgreninger. disse forgreninger repræsenterer
+forskellige, samtidige, sæt af udviklinger. Du arbejder i en branch, jeg arbejder 
+i en anden. Det tillader os at arbejde på projektet parallelt. Det er praktisk og 
+effektivt.
+
+Når vi i vores branch har lavet noget arbejde, noget korde, committer vi det.
+Det er et snapshot af hvordan koden ser ud på et bestemt tidspunkt. Hver
+commit indeholder ændringerne til koden siden sidste commit, og bygger videre
+på udviklingen. 
+Hvert commit får sin egen kode, en hash. en kombination af bogstaver og tal,
+der unikt identificerer denne commit.
+
+Undertiden har vi brug for at markere særlige begivenheder i koden. Det gør vi
+med tags. Det kan være at vi nu synes der er sket så meget, at det er en ny
+version. Eller at det er et meget vigtigt commit der er blevet lavet.
+
+Head, eller hovedet af vores branch, er den seneste udgave - det seneste commit
+af den branch vi pt. arbejder med. Når du arbejder med en bestemt branch,
+er head der hvor du er nu, efter din seneste commit.
+
+Staging.
+
+Når vi arbejder med vores kode, har vi den normalt lokalt på vores computer.
+Vi retter og justerer og alt sådan. Og når vi er glade og fornøjede med
+indholdet af en fil, tilføjer vi den. Adder den, til vores "staging area", hvor
+vi samler vores arbejde. Det er der filerne står klar, og venter på at blive 
+committed til vores git repository. Det er vores "pre-commit" område.
+
+I rstudio sker tingene ofte automatisk, men vil vi manuelt tilføje en
+fil til dette staging area, skriver vi "git add". og filnavnet. Så tilføjes
+filen til staging area, og git holder øje med den. Vi kan også fjerne den igen
+ved at køre "git remove". 
+
+Vores lokale repository er det vi har på vores computer. Når vi har noget 
+i vores staging area vil vil tilføje dertil, kører vi en commit. Ændringerne
+går nu fra staging area, ind i vores lokale repo.
+
+Vi har også, normalt, et remote repository. Det er det der ligger et andet sted 
+end på vores computer. Typisk github, men det kunen være andre steder.
+
+Når vi har ændringer i vores lokale repo, som vi vil have sendt til det remote,
+kører vi git push. Det pusher vores ændringer op til det fjerne, centrale repo.
+
+Er der ændringer på det centrale, som vi mangler lokalt, det kunne være der var 
+en kollega der havde lavet ting, kører vi git pull. Det trækker ændringerne ned
+til os lokalt.
+
+Når vi starter, skal vi starte et sted. Og det er normalt lokalt. Vi forker eller 
+cloner et eksisterende repo, og har det nu i et lokalt workspace. Det kan også
+være vi starter helt fra bunden. I så fald kører vi "git init".
+
+Så. Vi trækker fra et remote repo ned til vores workspace. I vores workspace
+ændrer vi ting. kører git add for at placere filerne i staging area. og git remove
+eller git reset for at fjerne ændringer. Når vi har ting i vores staging area,
+kan vi køre git commit, for at placere ændringeren i vores lokale repo. og 
+så kører vi git push for at sende ændringerne tilbage til det remote repo. 
+eller git fetch / git pull for at opdatere vores lokale repo fra det remote.
+
+Vi skal fortælle hvem vi er. og i stedet for at gøre det hver gang, kører vi
+git config --global credential.helper store, der beder om navn, email og password.
+Så bliver det brug igen og igen.
+
+Hvis vi vil tjekke hvad der er kan vi køre 
+git config --global credential.helper for at se hvad vi har gemt.
+
+Der var noget med branches. Vi kunne lave branches fra main eller master. 
+Hvis vi vil vide hvilken branch vi er på, kører vi git branch.
+
+Hvis vi vil lave en branch, kan vi gøre det med
+git branch og-så-navnet-på-vores-nye-branch.
+
+hvis vi har mere end en, kan vi skifte mellem dem.
+
+git chekcout.
+er vi dovne, kan vi lave en og skifte til den med det samme.
+git checkout -b og-så-navnet
+
+Hvis vi vil vide hvad status er_
+git status
+
+Så får vi en liste over hvilke filer vi har ændret, men som ikke er staged
+for commit. Og hvilken branch vi er på, og om den er opdateret osv.
+
+
+Når vi committer skal vi altid give en lille besked. Den skal være meningsfuld,
+og forklare hvad vi har lavet. Fald ikke for fristelsen til bare at give en 
+meningsløs kommentar. Du vil fortryde det hvis du skal lede efter fejl...
+
+git commit -m "og noget der giver mening"
+
+Hvis vi falder over en tastefejl umiddelbart efter vi har committet. Så kan vi
+ammende. 
+git add .
+cit commit --amend.
+
+Så laver vi ikke en ny commit, men retter den lige før.
+
+Commit ofte. 
+
+Rebasing and merging.
+
+Conflicts
+
+Der er forskellige workflows. Der er ikke et bedste workflow.
+
+feature branch workflow.
+Hver ny feature eller fejlretning sker i sin egen branch. Og når den er på 
+plads, merges den tilbage i main. Det isolerer ændringerne, og reducerer 
+konflikter. Men det kræver at man holder tungen lige i munden når man
+administrerer sine branches.
+
+Gitflow workflow
+Vi etablerer et antal branches, der lever længe. I feature branch tilgange,
+lever de enkelte branches ikke så længe. Her har vi "main" "develop", "features"
+"release" etc. Det er nyttigt når man har en ide om hvornår man offentliggør en
+ny version, eller når der skal vedligeholdes over lange perioder.
+Men det er ret tungt for små teams.
+
+forking workflow
+Hver udvikler laver sin egen fork af main. men i stedet for at pushe ændringer
+direkte til main, pusher man til sin egen fork. Så laver man pull requests på
+main, hvor man foreslår ændringer, og nogen trækker dem så ind. Det understøtter
+code review og samarbejde før man merger til main.
+Det er den måde vi arbejder på her.
+Det opfordrer til at eksterne samarbejdspartnere kan bidrage, uden at man 
+skal give dem rettigheder til main.
+Men det kan være en udfordring at holde ens lokale forks opdateret. Det er 
+der det ofte er bøvlet for os.
+
+pull request workflow
+Ligner forking workflow. Men i stedet laver man branches direkte i main. 
+Det fremmer code review og samarbejde. men det kan også forsinke ting.
+
+Trunk based 
+Udvikling sker direkte på main. Det giver hurtige iterationer, og skaber fokus p¨
+små hyppige ændringer.
+Men kræver at man, gerne automatisk, tester om tingene faktisk virker, så main
+ikke bliver ustabil.
+
+Fork?
+
+
+Git Cheatsheet
+
+
+# Clone a Repository
+git clone <repository_url>
+
+# Stage Changes for Commit
+git add <file(s)>
+
+# Commit Changes
+git commit -m "Commit message"
+
+# Push Changes to the Remote Repository
+git push
+
+# Force Push Changes (use with caution)
+git push --force
+
+# Reset Working Directory to Last Commit
+git reset --hard
+
+# Create a New Branch
+git branch <branch_name>
+
+# Switch to a Different Branch
+git checkout <branch_name>
+
+# Merge Changes from Another Branch
+git merge <branch_name>
+
+# Rebase Changes onto Another Branch (use with caution)
+git rebase <base_branch>
+
+# View Status of Working Directory
+git status
+
+# View Commit History
+git log
+
+# Undo Last Commit (use with caution)
+git reset --soft HEAD^
+
+# Discard Changes in Working Directory
+git restore <file(s)>
+
+# Retrieve Lost Commit References
+git reflog
+
+# Interactive Rebase to Rearrange Commits
+git rebase --interactive HEAD~3
+
+# Pull changes from remote repo
+git pull <remote_name> <branch_name>
+
+# Fetch changes from remote repo 
+git fetch <remote_name>
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
