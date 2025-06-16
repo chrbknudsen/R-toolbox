@@ -1,5 +1,5 @@
 ---
-title: 'Git'
+title: 'Setup for Git'
 teaching: 10
 exercises: 2
 ---
@@ -21,7 +21,7 @@ exercises: 2
 ## RStudio
 
 We are going to assume that you already have an installation of R and RStudio
-on your computer. Otherwise, follow the (instructions on the main setup page)[file:///C:/Users/cbk/Documents/R_projekter/R-toolbox/site/docs/index.html]
+on your computer. Otherwise, follow the [instructions on the main setup page](setup.md)
 
 ::::instructor
 Bruges disse sider til et separat git(hub) kursus, kan setup instrukserne med
