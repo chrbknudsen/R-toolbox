@@ -758,7 +758,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "wilcoxon_signed_rank_test"></a>
 
 ::::spoiler
 
