@@ -2740,7 +2740,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "barnard_exact_test"></a>
 
 ::::spoiler
 
