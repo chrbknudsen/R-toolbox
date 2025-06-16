@@ -90,7 +90,7 @@ good. You can think of a PAT as a password for communicating with GitHub.
 
 Go to the console panel and run this line of code:
 
-```{r eval}
+```{r eval = FALSE}
 usethis::create_github_token()
 ```
 
