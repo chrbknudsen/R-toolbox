@@ -3599,30 +3599,28 @@ then, since $p = 0.289 \ge 0.05$, we fail to reject $H_{0}$. There is no evidenc
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Comparing the survival distributions of two or more groups in time-to-event data.  
-- **Real-world example:** Testing whether patients receiving Drug A have different overall survival than patients receiving Drug B after cancer diagnosis.
+* **Used for** Comparing the survival distributions of two or more groups in time-to-event data.  
+* **Real-world example:** Testing whether patients receiving Drug A have different overall survival than patients receiving Drug B after cancer diagnosis.
 
-#### Assumptions
-- Censoring is independent of survival (noninformative).  
-- Survival times are continuously distributed.  
-- The hazard functions are proportional over time (i.e., the ratio of hazard rates between groups is constant).
+**Assumptions**
+* Censoring is independent of survival (noninformative).  
+* Survival times are continuously distributed.  
+* The hazard functions are proportional over time (i.e., the ratio of hazard rates between groups is constant).
 
-#### Strengths
-- Nonparametric: does not assume any specific survival distribution.  
-- Accommodates right-censoring.  
-- Widely used and easy to implement via `survdiff()`.
+**Strengths**
+* Nonparametric: does not assume any specific survival distribution.  
+* Accommodates right-censoring.  
+* Widely used and easy to implement via `survdiff()`.
 
-#### Weaknesses
-- Sensitive to violations of proportional hazards—if hazards cross, test may mislead.  
-- Only tests for equality of entire survival curves, not pinpointing when differences occur.  
-- Requires adequate numbers of events—limited power if many censored observations.
+**Weaknesses**
+* Sensitive to violations of proportional hazards—if hazards cross, test may mislead.  
+* Only tests for equality of entire survival curves, not pinpointing when differences occur.  
+* Requires adequate numbers of events—limited power if many censored observations.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis ($H_{0}$):** The survival functions in the two groups are equal, i.e.  $S_{A}(t) = S_{B}(t)\quad \text{for all } t$
-- **Alternative hypothesis ($H_{1}$):** The survival functions differ, i.e.  $S_{A}(t) \neq S_{B}(t)\quad \text{for some } t$
+* **Null hypothesis ($H_{0}$):** The survival functions in the two groups are equal, i.e.  $S_{A}(t) = S_{B}(t)\quad \text{for all } t$
+* **Alternative hypothesis ($H_{1}$):** The survival functions differ, i.e.  $S_{A}(t) \neq S_{B}(t)\quad \text{for some } t$
 
 
 ```{r log_rank_test}
@@ -3664,7 +3662,7 @@ surv_diff <- survdiff(Surv(time, status) ~ group, data = df_surv)
 surv_diff
 ```
 
-Interpretation:
+**Interpretation:**
 The log-rank test yields a chi-square statistic $\chi^{2} \;=\; \text{surv_diff\$chisq}$
 
 
