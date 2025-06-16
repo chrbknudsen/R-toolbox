@@ -922,7 +922,7 @@ This means there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "bartlett_test"></a>
 
 ::::spoiler
 
