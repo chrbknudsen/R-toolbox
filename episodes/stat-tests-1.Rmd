@@ -542,7 +542,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "paired_t_test"></a>
 
 ::::spoiler
 
