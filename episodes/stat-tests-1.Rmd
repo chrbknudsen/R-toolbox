@@ -1732,7 +1732,7 @@ Thus, there is
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "anderson_darling_test"></a>
 
 ::::spoiler
 
