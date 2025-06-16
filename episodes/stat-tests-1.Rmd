@@ -2289,7 +2289,7 @@ This means each 1 µg/m³ increase in PM2.5 is associated with a multiplicative 
 
 ::::
 
-<a id = "test-navn"></a>
+<a id = "ordinal_logistic_regression"></a>
 
 ::::spoiler
 
