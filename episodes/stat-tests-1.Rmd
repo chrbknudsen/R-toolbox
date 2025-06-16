@@ -2685,30 +2685,28 @@ Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTe
 
 EJ KORREKTURLÆST
 
-#### Used for
-- Testing independence between two categorical variables in a small-sample 2×2 contingency table.  
-- **Real-world example:** Examining whether a new antibiotic leads to cure versus failure in 15 patients (small sample where χ² might be invalid).
+* **Used for** Testing independence between two categorical variables in a small-sample 2×2 contingency table.  
+* **Real-world example:** Examining whether a new antibiotic leads to cure versus failure in 15 patients (small sample where χ² might be invalid).
 
-#### Assumptions
-- Observations are independent.  
-- Data form a 2×2 table (binary outcome × binary exposure).  
-- Marginal totals are fixed (conditional inference on margins).
+**Assumptions**
+* Observations are independent.  
+* Data form a 2×2 table (binary outcome × binary exposure).  
+* Marginal totals are fixed (conditional inference on margins).
 
-#### Strengths
-- Exact p-value without relying on large-sample approximations.  
-- Valid even when expected cell counts are very small or zero.  
-- Simple to implement in R via `fisher.test()`.
+**Strengths**
+* Exact p-value without relying on large-sample approximations.  
+* Valid even when expected cell counts are very small or zero.  
+* Simple to implement in R via `fisher.test()`.
 
-#### Weaknesses
-- Only directly applies to 2×2 tables; extensions to larger tables exist but are computationally intensive.  
-- Does not provide an effect-size estimate beyond the odds ratio (which must be computed separately).  
-- Can be conservative (lower power) compared to asymptotic tests with moderate sample sizes.
+**Weaknesses**
+* Only directly applies to 2×2 tables; extensions to larger tables exist but are computationally intensive.  
+* Does not provide an effect-size estimate beyond the odds ratio (which must be computed separately).  
+* Can be conservative (lower power) compared to asymptotic tests with moderate sample sizes.
 
-#### Example
+**Example**
 
-##### Hypothesis
-- **Null hypothesis (H₀):** Treatment and outcome are independent (odds ratio = 1).  
-- **Alternative hypothesis (H₁):** Treatment and outcome are not independent (odds ratio ≠ 1).
+* **Null hypothesis (H₀):** Treatment and outcome are independent (odds ratio = 1).  
+* **Alternative hypothesis (H₁):** Treatment and outcome are not independent (odds ratio ≠ 1).
 
 ```{r fishers_exact_test}
 # Construct a 2×2 contingency table:
@@ -2733,7 +2731,7 @@ fisher_result <- fisher.test(ctab, alternative = "two.sided")
 fisher_result
 ```
 
-Interpretation:
+**Interpretation:**
 Fisher’s exact test yields an odds ratio estimate of `r round(fisher_result$estimate, 2)` with a two-sided p-value = `r signif(fisher_result$p.value, 3)`. We
 `r if(fisher_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
 Thus, there is
