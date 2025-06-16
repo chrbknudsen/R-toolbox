@@ -3308,7 +3308,7 @@ Cells with |residual| > 2 indicate categories where observed counts deviate subs
 ## Incidens- og rate-tests
 
 
-<a id = "test-navn"></a>
+<a id = "one_sample_incidence_rate_test"></a>
 
 ::::spoiler
 
