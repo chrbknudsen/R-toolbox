@@ -39,6 +39,12 @@ the basic R-infrastructure. But other repositories exist, and we can specify
 them either in general settings in R, or by specifying them in `install.packages` 
 using the `repos` argument. 
 
+Most repositories will place restrictions on what packages are allowed. CRAN
+fx runs a set of tests, making sure a new package is documented and does
+more or less what it claims to do. Updated packages are also checked to ensure
+any changes does not break stuff. The checks are continously improving, so a 
+package that passed the tests last year, might no longer live up to the standard.
+
 In order to share the load, CRAN, and some other repositories, have "mirrors",
 sites that have the same packages stored, but located in different countries.
 The internet is fast, but it is quicker to download large amounts of data from
@@ -80,47 +86,70 @@ find the correct package name. Also, package names are case sensitive.
 This is an annoying mistake to make, and in our experience surprisingly difficult
 to locate.
 
-2. You did not look in the right repository.
-CRAN is default. But sometimes we need packages that lives in other
-repositories.
+## 2. You did not look in the right repository.
+By default `install.packages()` looks in CRAN. But sometimes we need 
+packages that live in other repositories.
+
 ```{r eval = FALSE}
 setRepositories()
 ```
+allow us to chose one or more of the repositories that R knows about:
 ![](fig/setRepositories.png)
 
-3. The package is not in the repositories you have selected:
+What if we need a repository our local R-installation already know? No worries,
+a function for that exist:
+
+```{r eval = FALSE}
+setRepositories(addURLs =
+                c(CRANxtras = "https://www.stats.ox.ac.uk/pub/RWin"))
+```
+
+
+## 2.5 The package is not in the repositories you have selected:
+
+This is almost the same problem. We can get at list, or rather a matrix of
+all the available packages in the repositories we have selected:
+
 ```{r}
 ap <- available.packages()
 ```
 
-This is a matrix of all the packages available. In our case `r dim(ap)[1]` of them.
+In this example we find `r dim(ap)[1]` packages.
 
-Rather than viewing all of them, it is better to test:
+Rather than viewing all of them, it is better to test if the package we are 
+looking for is actually available:
 ```{r}
 "tidyverse" %in% ap
 ```
-But remember point 1.
+It is, but remember the point about spelling and case sensitivity.
 
-If you get ths message: 
+## 3. Repository is unavailable
+
+If you get this message: 
 
 `Warning: unable to access index for repository` 
-This is probably due to the selected CRAN repo to be currently unavailable.
-Run `chooseCRANmirror()` to chose another, and try again.
 
-4. maybe it is not a package you want. 
-But a dataset. 
-A package is a standardized collection of material extending R, e.g. providing code, data, or documentation. A library is a place (directory) where R knows to find packages it can use
+The selected repository is probably currently unavailable. you can try again
+later, or run `chooseCRANmirror()` to chose another mirror, and then try again.
 
-5. R is out of date.
+
+## 4. Maybe it is not actually a package you want
+
+Many are the times we have tried to run `library(diamonds)` followed by
+`install.packages("diamonds")` only to remember that `diamonds` is a 
+dataset in the `ggplot2` package. Run `data()` to get a list of all the 
+datasets available in your current setup.
+
+## 5. R is out of date.
 The package you want might depend on a more recent version of R. Or another package.
 
 Take a look at the list of available packages we got earlier:
 ```{r}
 ap["baguette", "Depends"]
 ```
-If `install.packages("baguette")` fails, begin ensuring that you have a version
-for `parsnip` at least as new as 1.0.0, and a version of R at least as good as
-3.6.
+If `install.packages("baguette")` fails, start by making sure that you have
+a version of `parsnip` installed that meets the requirements. And also make sure
+your installed version of R is adequate. 
 
 Depending on your setup, the easy way to update R is:
 ```{r eval = FALSE}
@@ -128,55 +157,69 @@ library(installr)
 updateR()
 ```
 
-6. the package might be out of date
-For example it could be archived. I a package is no longer maintained, and do no
-longer pass R CMD check tests, it will be archived. We can still access it:
+## 6. The package might be out of date
+
+For example it could be archived. If a package is no longer maintained, and do no
+longer pass the automatic checks in the repositories, it will be archived. However,
+we can still access it:
 
 ```{r eval = FALSE}
 library(remotes)
 install_version("tidyverse", "1.2.3")
 ```
 
-An archived package may still be found on github (or another version control system)
+An archived package may also be found on github (or another version control 
+system). This is especially useful if the package is actually still maintained
+but have been archived by CRAN because any error in the automatic checks have
+not yet been fixed:
 
 ```{r eval = FALSE}
 library(remotes)
 install_github("vqv/ggbiplot")
 ```
 
-9? A binary for your os may not exist
+## 7. A binary for your OS may not exist
 
-It might require additional software not available to CRAN. This is mostly
-a problem for windows because CRAN have access to linux, and MacOS is at its root
-a linux (ok bsd) distribution.
+CRAN and other repositories will often compile a package to a selection
+of operating systems. Some packages require additional software to compile,
+that are not available to CRAN for at given operating system. And some
+packages are not available as binaries at all.
 
-Some packages are not available as binaries at all.
-You can try to locate a version in the CRAN (extras) repository.
+In this case you will have to compile the package yourself. Do not worry,
+R will handle it for you.
 
-If a package requires compiling on Windows you will need RTools (http://cran.r-project.org/bin/windows/Rtools/) or Xcode (https://stackoverflow.com/q/9329243/324364) on macos. On a "true" linux machine
-most of what you need is already available.¨
+If you are on windows, you will need to have [RTools
+installed](http://cran.r-project.org/bin/windows/Rtools/).
 
-You can now run:
+On MacOS you will need [Xcode](https://stackoverflow.com/q/9329243/324364)
+
+On a Linux machine you will have to compile most packages, but your operating
+system have access to what it need to do this already.
+
+Havin prepared by installing Rtools or Xcode, you can now run:
 ```{r eval =FALSE}
 install.packages("dplyr", type = "source")
 ```
 
-
-If you need additional software, it will be mentinend under "NeedsCompilation"
+If you do need additional software, it will be mentioned under "NeedsCompilation"
 on cran.r-project.org for the specific package.
 
-8. The package is on GitHub. Or another location.
+## 8. The package is on GitHub. Or another location.
 
-This requires the remotes package:
+This is similar to the situation where we have to get a package from github
+because it has been archived on CRAN. It requires the `remotes` package,
+and knowledge about where on GitHub the package resides:
+
 ```{r eval = FALSE}
 library(remotes)
 install_github("vqv/ggbiplot")
 ```
 
-Other similar services exist, like bitbucket (install_bitbucket) and gitoriuous (install_gitorious)
+Other similar services exist, and `remotes` provides function for the more
+popular.
 
 
-9. There is no source version of the package
+## 9. There is no source version of the package
 
 A binary version may be available, but a source version is not. This can cause problems. or so
 we're told. 
@@ -200,9 +243,7 @@ at the same time from the same location. Wait.
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
