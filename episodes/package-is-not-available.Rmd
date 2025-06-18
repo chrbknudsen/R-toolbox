@@ -81,7 +81,9 @@ But how can this go wrong, and what can we do to fix it?
 
 
 ## 1. You can't spell
-Well, you probably can. But if you made a typo, install.packages will not
+Well, you probably can. But packages are not always spelled as you would expect.
+The correct spelling is defined as the way the package name is spelled, and if
+you make a typo relative to that, install.packages will not
 find the correct package name. Also, package names are case sensitive.
 This is an annoying mistake to make, and in our experience surprisingly difficult
 to locate.
@@ -221,24 +223,40 @@ popular.
 
 ## 9. There is no source version of the package
 
-A binary version may be available, but a source version is not. This can cause problems. or so
-we're told. 
-run `options(install.packages.check.source = "no")` 
+A binary version may be available, but a source version is not. Why this should 
+cause problems is a mystery, but it happens.
 
-10. The package is in a non-standard repository.
+This can be solved by asking install.packages to stop checking for access to
+a source version, by running: 
+
+`options(install.packages.check.source = "no")` 
+
+Remember to change the option back to "yes" after installing the offending package.
+
+## 10. The package is in a non-standard repository.
+
+CRAN is the major repository. BioC a close second. But others exist. 
 If the repository is reasonably compliant with CRAN, 
-`install.packages("Rbbg", repos = "http://r.findata.org")`
+`install.packages("Rbbg", repos = "http://r.nonstandard.repo.org")`
 will work. Otherwise you will have to read the documentation of the non-standard repo.
 
-11. the repo is down or does not exist. 
-you will typically get something like `Warning: unable to access index for repository` 
-install.packages("quux", repos = "https://does.not.exist/CRAN")
+## 11. the repo is down or does not exist. 
 
-In this case it fails because does.not.exist does not exist. 
+You will typically get something like `Warning: unable to access index for repository` 
 
-12. The repo is blocking you
-installing from github can cause problems, if a lot of people try to install
-at the same time from the same location. Wait.
+Running this
+`install.packages("quux", repos = "https://does.not.exist/CRAN")`
+will fail because "does.not.exist" does not exist. Double check that the 
+repo actually exist (or that you have no typos in the name). If it does exist,
+it might be a temporary problem and can, maybe, be solved by trying again later.
+
+
+## 12. The repo is blocking you
+
+Besides being blocked because you are not allowed to access the repo, this can be
+caused by the repo throttling accesss. It often happens with installations from 
+GitHub, if a lot op people try to install at the same time from the same location.
+In this case you will have to wait.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
