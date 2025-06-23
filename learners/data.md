@@ -997,7 +997,7 @@ _Dimensions:_ Rows: 34 Columns: 10
 |  lv2sys    |  Level 2 systolic bp    |  mm Hg                   |
 |  lv3sys    |  Level 3 systolic bp    |  mm Hg                   |
 
-::::
+
 
 * Immediately prior to randomization.
 
@@ -1012,6 +1012,8 @@ Values of 999 indicates that either
 
 (c) the patient encountered this level of therapy, but this particular piece
        of data was missing.
+
+::::
 
 ### OTO
 
