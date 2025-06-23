@@ -787,15 +787,15 @@ _Dimensions:_ Rows: 100 Columns: 18
 |  Variable  |    Description                       | unit |
 |------------|--------------------------------------|------|
 |  ID        |                                      |      |
-|  Mn_sbp    |  Mean SBP*                           | mmHg |
-|  Mn_dbp    |  Mean DBP*                           | mmHg |
+|  Mn_sbp    |  Mean SBP†                           | mmHg |
+|  Mn_dbp    |  Mean DBP†                           | mmHg |
 
 
 Salt Taste Variables
 
 |  Variable  |    Description                       | 
 |------------|--------------------------------------|
-|  MSB1slt   |  MSB-trial 1** water                  |
+|  MSB1slt   |  MSB-trial 1‡ water                  |
 |  MSB2slt   |  MSB-trial 2 water                   |
 |  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |
 |  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |
@@ -814,16 +814,21 @@ Sugar Taste Variables
 |  MSB2sug   |  MSB-trial 2 water                  |
 |  MSB3sug   |  MSB-trial 3 5% sucrose + water     |
 |  MSB4sug   |  MSB-trial 4 15% sucrose + water    |
-|  MSB5sug   |  MSB-trial 5 non-nutritive sucking***  |
+|  MSB5sug   |  MSB-trial 5 non-nutritive sucking⸸ |
 
 
-* For mean bloodpressure (Mn_sbp/Mn_dbp) 99.99 indicates a missing value.
-** Unit of all MSB data is "mean number of sucks pr burst of sucking". 999.99 indicates a missing value; 0 indicates the baby did not suck.
-*** non-nutrive sucking is sucking without the infant receiving liquid.
+† For mean bloodpressure (Mn_sbp/Mn_dbp) 99.99 indicates a missing value.
+
+‡ Unit of all MSB data is "mean number of sucks pr burst of sucking". 999.99 indicates a missing value; 0 indicates the baby did not suck.
+
+⸸ non-nutrive sucking is sucking without the infant receiving liquid.
 
 ::::
 
 ### LEAD
+
+A study of the effect of exposure to lead on neurological and psychological 
+parameters for children. 124 children were studied in 1972
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
@@ -837,94 +842,75 @@ siden er nr. 29 i bogen
 
 ## Metadata
 
-|  VARIABLE  |  DESCRIPTION                 |
-|------------|------------------------------|
-|  id        |  IDENTIFICATION NUMBER       |
-|  area      |  AREA - RESIDENCE ON AUG'72 <br> 1 = 0-1 MILES FROM SMELTER <br> 2 = 1-2.5 MILES <br> 3 = 2.5-4.1 MILES             |
-|  ageyrs    |  AGE in years           |
-|  sex       |  SEX <br> 1 = MALE <br> 2 = FEMALE       |
+**Demographic variables**
 
+|  Variable  |  Description                 | Unit |
+|------------|------------------------------|------|
+|  id        |  Identification number       |      |
+|  area      |  Residence on Aug '72 <br> 1 = 0-1  <br> 2 = 1-2.5  <br> 3 = 2.5-4.1 | Miles from smelter |
+|  ageyrs    |  Age           | Years |
+|  sex       |  1 = Male <br> 2 = Female       |      |
 
-IQ TEST RESULTS
+**IQ test results**
 
-|  VARIABLE  |  DESCRIPTION                                                           |
+|  Variable  |  Description                                                           |
 |------------|------------------------------------------------------------------------|
-|  iqv_inf   |  INF - INFORMATION SUBTEST IN WISC AND WPPSI                           |
-|  iqv_comp  |  COMP - COMPREHENSION SUBTEST IN WISC AND WPPSI                        |
-|  iqv_ar    |  AR - ARITHMETIC SUBTEST IN WISC AND WPPSI                             |
-|  iqv_ds    |  DS - DIGIT SPAN SUBTEST(WISC) AND SENTENCE COMPLETION(WPPSI)          |
-|  iqv_raw   |  V/RAW - RAW SCORE/VERBAL IQ                                           |
-|  iqp_pc    |  PC - PICTURE COMPLETION SUBTEST IN WISC AND WPPSI                     |
-|  iqp_bd    |  BD - BLOCK DESIGN SUBTEST IN WISC AND WPPSI                           |
-|  iqp_oa    |  OA - OBJECT ASSEMBLY SUBTEST(WISC), ANIMAL HOUSE SUBTEST(WPPSI)       |
-|  iqp_cod   |  COD - CODING SUBTEST(WISC), GEOMETRIC DESIGN SUBTEST(WPPSI)           |
-|  iqp_raw   |  P/RAW - RAW SCORE/PERFORMANCE IQ (TOTAL OF SCORES PC, BD, OA, & COD)  |
-|  hh_index  |  HH/INDEX - HOLLINGSHEAD INDEX OF SOCIAL STATUS                        |
-|  iqv       |  IQV - VERBAL IQ                                                       |
-|  iqp       |  IQP - PERFORMANCE IQ                                                  |
-|  iqf       |  IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)                 |
-|  iq_type   |  TYPE OF IQ TEST <br> 1 = WISC <br> 2 = WPPSI <br> (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE <br> WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE)                       |
-|  lead_grp  |  GROUP - BLOOD LEAD LEVEL GROUP                                        |
-|            |  1=BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN                      |
-|            |  BOTH 1972 & 1973 (control group)                                      |
-|            |  2=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO                          |
-|            |  40 MICROGRAMS/100ML                                                   |
-|            |  IN BOTH 72 & 73 OR A LEVEL GREATER THAN OR                            |
-|            |  EQUAL TO 40                                                           |
-|            |  IN 73 ALONE (3 CASES ONLY) (currently exposed                         |
-|            |  Group)                                                                |
-|            |  3=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO                          |
-|            |  40 MICROGRAMS/100ML                                                   |
-|            |  IN 72 AND LESS THAN 40 IN 73                                          |
-|            |  (previously exposed group)                                            |
-|  Group     |  1=control group; 2=exposed group                                      |
-|  ld72      |  LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72                      |
-|            |  MISSING=99                                                            |
-|  ld73      |  LD73 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN 73                     |
-|  fst2yrs   |  FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN                         |
-|            |  1 MILE OF SMELTER  1=YES  2=NO                                        |
-|  totyrs    |  TOTYRS - TOTAL NUMBER OF YEARS SPENT WITHIN                           |
-|            |  4.1 MILES OF SMELTER                                                  |
+|  iqv_inf   |  Information subtest in WISC and WPPSI                           |
+|  iqv_comp  |  Comprehension subtest in WISC and WPPSI                        |
+|  iqv_ar    |  Arithmetic subtest in WISC and WPPSI                             |
+|  iqv_ds    |  Digit span subtest (WISC) and Sentence Completion (WPPSI)          |
+|  iqv_raw   |  Raw score/Verbal IQ                                           |
+|  iqp_pc    |  Picture completion subtest in WISC and WPPSI                     |
+|  iqp_bd    |  Block design subtest in WISC and WPPSI                           |
+|  iqp_oa    |  Object assembly subtest (WISC), animal house subtest (WPPSI)       |
+|  iqp_cod   |  Coding subtest (WISC), geometric design subtest(WPPSI)           |
+|  iqp_raw   |  Raw socre/performance IQ (total of scores pc, bd, oa & cod)  |
+|  hh_index  |  Hollingshead index of social status                        |
+|  iqv       |  Verbal IQ                                                       |
+|  iqp       |  Performance IQ                                                  |
+|  iqf       |  Full scale IQ (not sum or average of iqv or iqp)                 |
+|  iq_type   |  Type of IQ test <br> 1 = WISC <br> 2 = WPPSI <br> (WISC usually given to children age >= 5 year 1 month<br> WPPSI usually given to children age < 5 year)                       |
 
+**Lead exposure**
 
-SYMPTOM DATA (AS REPORTED BY PARENTS)
+|  Variable  |  Description                                                           | Unit |
+|------------|------------------------------------------------------------------------|------|
+|  lead_grp  |  Blood lead level group <br> 1 = blood lead levels < 40  in both 1972 & 1973 (control group) <br> 2 = blood lead levels >= 40 in both 72 & 1973, or >= 40 in 1973 alone (3 cases) (currently exposed group) <br> 3 = blood lead levels >= 40 in 1972 and < 40 in 1973 (previously exposed group) | µg/100mL |
+|            |  |      |
+|  Group     |  1=control group <br> 2=exposed group                     |      |
+|  ld72      |  Blood lead values in 1972 †                      |  µg/100mL    |
+|  ld73      |  Blood lead values in 1973                     | µg/100mL     |
+|  fst2yrs   |  Did child live for 1st 2 years within 1 mile of smelter <br> 1 = yes <br>  2 = no |      |
+|  totyrs    |  Total number of years spent within 4.1 miles of smelter  |years      |
 
-|  VARIABLE  |  DESCRIPTION                |
+† 99 indicates missing data
+
+**Symptom data (as reported by parents)**
+
+|  Variable  |  Description                |
 |------------|-----------------------------|
-|  pica      |  PICA <br> 1 = YES <br> 2 = NO         |
-|  colic     |  COLIC <br> 1 = YES <br> 2 = NO         |
-|  clumsi    |  CLUMSINESS <br> 1 = YES <br> 2 = NO    |
-|  irrit     |  IRRITABILITY <br> 1 = YES <br> 2 = NO  |
-|  convul    |  CONVULSIONS  <br> 1 = YES <br> 2 = NO   |
+|  pica      |  An eating disorder <br> 1 = yes <br> 2 = no         |
+|  colic     |  Colic <br> 1 = yes <br> 2 = no         |
+|  clumsi    |  Clumsiness <br> 1 = yes <br> 2 = no    |
+|  irrit     |  Irritability <br> 1 = yes <br> 2 = no  |
+|  convul    |  Convulsions  <br> 1 = yes <br> 2 = no   |
 
-CONTAIN NEUROLOGICAL TEST DATA
+**Neurological test data**
 
-|  VARIABLE  |  DESCRIPTION                                                     |
-|------------|------------------------------------------------------------------|
-|  _2plat_r  |  # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING                 |
-|            |  TEST  (#TAPS IN ONE 10 SECOND TRIAL)                            |
-|            |  MISSING=99                                                      |
-|  _2plat_l  |  # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST             |
-|            |  (#TAPS IN ONE 10 SECOND TRIAL)                                  |
-|            |  MISSING=99                                                      |
-|  visrea_r  |  VISUAL REACTION TIME RIGHT HAND (MILLISECONDS)                  |
-|            |  MISSING=99                                                      |
-|  visrea_l  |  VISUAL REATION TIME LEFT HAND (MILLISECONDS)                    |
-|            |  MISSING=99                                                      |
-|  audrea_r  |  AUDITORY REACTION TIME RIGHT HAND (MILLISECONDS)                |
-|            |  MISSING=99                                                      |
-|  audrea_l  |  AUDITORY REACTION TIME LEFT HAND (MILLISECONDS)                 |
-|            |  MISSING=99                                                      |
-|  fwt_r     |  FINGER-WRIST TAPPING TEST RIGHT HAND                            |
-|            |  (# TAPS IN ONE 10 SECOND TRIAL)                                 |
-|            |  MISSING=99                                                      |
-|  fwt_l     |  FINGER-WRIST TAPPING TEST LEFT HAND                             |
-|            |  (#TAPS IN ONE 10 SECOND TRIAL)                                  |
-|            |  MISSING=99                                                      |
-|  hyperact  |  WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY               |
-|            |  0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE                     |
-|            |  (AS REPORTED BY PARENTS) MISSING=99                             |
-|  maxfwt    |  Finger-wrist tapping test in dominant hand(max of fwt_r,fwt_l)  |
+|  Variable  |  Description                                                     | Unit |
+|------------|------------------------------------------------------------------|------|
+|  _2plat_r  |  Number of taps for right hand in the 2-plate tapping test (number of taps in one 10 second trial)   † |      |
+|  _2plat_l  |  Number of taps for left hand in the 2-plate tapping test (number of taps in one 10 second trial)  † |      |
+|  visrea_r  |  Visual reaction time right hand †                |  ms    |
+|  visrea_l  |  Visual reaction time left hand †                  | ms      |
+|  audrea_r  |  Auditory reaction time right hand †                |   ms   |
+|  audrea_l  |  Auditory reaction time left hand †                |  ms    |
+|  fwt_r     |  Finger-wrist tapping test right hand (number of taps in one 10 second trial)  † |      |
+|  fwt_l     |  Finger-wrist tapping test left hand (number of taps in one 10 second trial)  † |      |
+|  hyperact  |  WWPS - Werry-Weiss-Peters Scale for hyperactivity <br> 0 = no activity . . . . 4 = severely hyperactive <br> (as reported by parents) †|      |
+|  maxfwt    |  Finger-wrist tapping test in dominant hand (max of fwt_r,fwt_l)  |      |
+
+† 99 indicates missing data
 
 ::::
 
