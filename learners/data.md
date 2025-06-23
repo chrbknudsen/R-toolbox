@@ -929,8 +929,8 @@ _Dimensions:_ Rows: 240 Columns: 6
 |  Variable  |  Description           | unit |
 |------------|------------------------|------|
 |  Id        |  ID                    |      |
-|  Group     | <br> 1 = RP <br> 2 = NORMAL |      |
-|  Trtgrp    |  TREATMENT GROUP <br> A = light <br> B = dim <br> C = dark |      |
+|  Group     | <br> 1 = RP <br> 2 = normal |      |
+|  Trtgrp    |  Treatment group <br> A = light <br> B = dim <br> C = dark |      |
 |  Age       |  Age                   | days |
 |  B_amp     |  B AMP     |      |
 |  A_amp     |  A AMP     |      |
