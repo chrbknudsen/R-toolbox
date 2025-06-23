@@ -766,13 +766,19 @@ WBC: White Bloodcell Count, an indicator of infection.
 
 ### INFANTBP
 
+100 3 day old infants were given a drop of various solutions (salt or sugar),
+and the vigour with witch they sucked was recorded. First ten measurements were
+done with solutions only containing salt (or no salt at all). As a control, after
+the measurements of the response to salt, the response to sugar solutions were
+recorded. A common hypothesis is that the response to the taste of salt depends
+on the blood pressure. Is this true?
+
 _Dimensions:_ Rows: 100 Columns: 18  
 
 [Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
-Salt Taste Variables den er på side 202 i bogen
 
 :::: spoiler
 
@@ -781,18 +787,24 @@ Salt Taste Variables den er på side 202 i bogen
 |  Variable  |    Description                       | unit |
 |------------|--------------------------------------|------|
 |  ID        |                                      |      |
-|  Mn_sbp    |  Mean SBP 99.99=missing              |      |
-|  Mn_dbp    |  Mean DBP 99.99=missing              |      |
-|  MSB1slt   |  MSB-trial 1* water                  |      |
-|  MSB2slt   |  MSB-trial 2 water                   |      |
-|  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |      |
-|  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |      |
-|  MSB5slt   |  MSB-trial 5 water                   |      |
-|  MSB6slt   |  MSB-trial 6 water                   |      |
-|  MSB7slt   |  MSB-trial 7 0.3 molar salt + water  |      |
-|  MSB8slt   |  MSB-trial 8 0.3 molar salt + water  |      |
-|  MSB9slt   |  MSB-trial 9 water                   |      |
-|  MSB10slt  |  MSB-trial 10 water                  |      |
+|  Mn_sbp    |  Mean SBP*                           | mmHg |
+|  Mn_dbp    |  Mean DBP*                           | mmHg |
+
+
+Salt Taste Variables
+
+|  Variable  |    Description                       | 
+|------------|--------------------------------------|
+|  MSB1slt   |  MSB-trial 1** water                  |
+|  MSB2slt   |  MSB-trial 2 water                   |
+|  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |
+|  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |
+|  MSB5slt   |  MSB-trial 5 water                   |
+|  MSB6slt   |  MSB-trial 6 water                   |
+|  MSB7slt   |  MSB-trial 7 0.3 molar salt + water  |
+|  MSB8slt   |  MSB-trial 8 0.3 molar salt + water  |
+|  MSB9slt   |  MSB-trial 9 water                   |
+|  MSB10slt  |  MSB-trial 10 water                  |
 
 Sugar Taste Variables
 
@@ -802,10 +814,12 @@ Sugar Taste Variables
 |  MSB2sug   |  MSB-trial 2 water                  |
 |  MSB3sug   |  MSB-trial 3 5% sucrose + water     |
 |  MSB4sug   |  MSB-trial 4 15% sucrose + water    |
-|  MSB5sug   |  MSB-trial 5 non-nutritive sucking  |
+|  MSB5sug   |  MSB-trial 5 non-nutritive sucking***  |
 
 
-* for MSB data 999.99 is a missing value; 0 indicates the baby did not suck.
+* For mean bloodpressure (Mn_sbp/Mn_dbp) 99.99 indicates a missing value.
+** Unit of all MSB data is "mean number of sucks pr burst of sucking". 999.99 indicates a missing value; 0 indicates the baby did not suck.
+*** non-nutrive sucking is sucking without the infant receiving liquid.
 
 ::::
 
