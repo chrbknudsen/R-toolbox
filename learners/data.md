@@ -930,8 +930,8 @@ _Dimensions:_ Rows: 240 Columns: 6
 |------------|------------------------|------|
 |  Id        |  ID                    |      |
 |  Group     | <br> 1 = RP <br> 2 = NORMAL |      |
-|  Trtgrp    |  TREATMENT GROUP <br> A = LIGHT <br> B = DIM <br> C = DARK |      |
-|  Age       |  AGE                   | days |
+|  Trtgrp    |  TREATMENT GROUP <br> A = light <br> B = dim <br> C = dark |      |
+|  Age       |  Age                   | days |
 |  B_amp     |  B AMP     |      |
 |  A_amp     |  A AMP     |      |
 
@@ -1403,35 +1403,35 @@ _Dimensions:_ Rows: 444 Columns: 12
 |            |          7=OTHER                                  | |
 |            |          9=MISSING                                | |
 |  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  | |
-|            |          1=NYLON                                  | |
-|            |          2=GUT                                    | |
-|            |          3=DON'T KNOW                             | |
-|            |          9=MISSING                                | |
-|  Typ_curr  |  TYPE OF RACQUET USED CURRENTLY                   | |
-|            |  1 = CONVENTIONAL SIZE                      | |
-|            |  2 = MID-SIZE                               | |
-|            |  3 = OVER-SIZE                              | |
-|            |  9 = MISSING                                | |
+|            |          1 = nylon                                  | |
+|            |          2 = gut                                    | |
+|            |          3 = DON'T KNOW                             | |
+|            |          9 = missing                                | |
+|  Typ_curr  |  Type of racquet used currently                   | |
+|            |  1 = conventional size                      | |
+|            |  2 = mid-size                               | |
+|            |  3 = over-size                              | |
+|            |  9 = missing                                | |
 |  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 | |
-|            |  1 = HEAVY                                  | |
-|            |  2 = MEDIUM                                 | |
-|            |  3 = LIGHT                                  | |
-|            |  4 = DON'T KNOW                             | |
-|            |  9 = MISSING                                | |
+|            |  1 = heavy                                  | |
+|            |  2 = medium                                 | |
+|            |  3 = light                                  | |
+|            |  4 = don't know                             | |
+|            |  9 = missing                                | |
 |  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               | |
-|            |  1 = WOOD                                   | |
-|            |  2 = ALUMINUM                               | |
-|            |  3 = FIBERGLASS AND COMPOSITE               | |
-|            |  4 = GRAPHITE                               | |
-|            |  5 = STEEL                                  | |
-|            |  6 = COMPOSITE                              | |
-|            |  7 = OTHER                                  | |
-|            |  9 = MISSING                                | |
+|            |  1 = wood                                   | |
+|            |  2 = aluminium                              | |
+|            |  3 = FIBERGLASS and composite               | |
+|            |  4 = graphite                               | |
+|            |  5 = steel                                  | |
+|            |  6 = composite                              | |
+|            |  7 = other                                  | |
+|            |  9 = missing                                | |
 |  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            | |
 |            |  1 = NYLON                                  | |
-|            |  2 = GUT                                    | |
-|            |  3 = DON'T KNOW                             | |
-|            |  9 = MISSING                                |  |
+|            |  2 = gut                                    | |
+|            |  3 = don't know                             | |
+|            |  9 = missing                                |  |
 
 ::::
 
