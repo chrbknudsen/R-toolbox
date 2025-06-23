@@ -1206,13 +1206,14 @@ _Dimensions:_ Rows: 234 Columns: 8
 
 999 and 9999 = missing values
 
-::::
+
 
 * This variable represents adjusted carbon monoxide (CO) values. CO values
 were adjusted for minutes elapsed since last cigarette smoked using the formula
 Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the
 number of minutes elapsed since the last cigarette smoked.  
 
+::::
 
 ### SWISS
 
@@ -1687,25 +1688,3 @@ https://www.jstor.org/stable/2532505
 
 <a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
 
-
-
-
-## List of datasets not sufficiently documented yet
-Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
-
-
-* infantbp siden identificeret 202
-* lead siden identificeret 29
-* mice 
-* nephro
-* nifed
-* oto
-* piriform
-* smoke
-* tear
-* temperat
-* tennis1
-* tennis2
-* valid
-* spermatozoa
-* who
