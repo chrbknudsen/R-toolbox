@@ -35,7 +35,10 @@ this workshop, available at [this URL](http://jennajordan.me/git-novice-speedrun
 
 ## Create a new repo on GitHub
 
-The first thing we need to do is create a new repository. While you can create repositories locally, and never even connect the local repo to a remote repo (hosted on a site like GitHub), the simplist and most common pattern to first create a new repo on GitHub, and then clone that repo to your local computer.
+The first thing we need to do is create a new repository. While you can create 
+repositories locally, and never even connect the local repo to a remote repo 
+(hosted on a site like GitHub), the simplist and most common pattern to first 
+create a new repo on GitHub, and then clone that repo to your local computer.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
@@ -56,7 +59,8 @@ Type `multiverse` for the repository name.
 
 Check the box next to "Add a README file".
 
-Leave all other options as the default - your repo should be public, no gitignore selected, no license selected, and no template selected.
+Leave all other options as the default - your repo should be public, no 
+gitignore selected, no license selected, and no template selected.
 
 ![Create the multiverse repo in GitHub](fig/github-create-multiverse-repo.png)
 
@@ -68,7 +72,8 @@ You will be redirected to your newly created and empty `multiverse` repo.
 
 ## Clone your multiverse repo to your local computer
 
-Now that the `multiverse` repo has been created, we can "clone" it (get a local copy of the repo) through VS Code.
+Now that the `multiverse` repo has been created, we can "clone" it (get a local 
+copy of the repo) through VS Code.
 
 Make sure you have a new VS Code window open. If you already have a repo/folder open in VS Code, go to the "File" menu and click "New window".
 
@@ -80,23 +85,32 @@ If you don't immediately see your `multiverse` repo, you can search for it by ty
 
 ![Clone your multiverse repo via VS Code](fig/vscode-clone-multiverse-repo.png)
 
-You will now need to choose where on your local computer the `multiverse` repo will live. You can choose any easily accessible location, such as the "Desktop" folder. It is standard practice to save all local repos in a folder named "GitHub" in your "Documents" folder.
+You will now need to choose where on your local computer the `multiverse` repo 
+will live. You can choose any easily accessible location, such as the "Desktop" 
+folder. It is standard practice to save all local repos in a folder named 
+"GitHub" in your "Documents" folder.
 
 Click "Open" when prompted to open the newly cloned `multiverse` repo.
 
 ## Open a Bash Terminal in VS Code
 
-Now that you have your `multiverse` repo cloned and open in VS Code, the last step is to open a bash terminal.
+Now that you have your `multiverse` repo cloned and open in VS Code, the last 
+step is to open a bash terminal.
 
 To see the terminal pane, go to the "Terminal" menu, and click "New terminal".
 
-If you are on a Windows computer, you will need to specifically open a GitBash terminal. Find the "+" icon in the terminal pane, and click the carrot dropdown icon next to it. Click "GitBash".
+If you are on a Windows computer, you will need to specifically open a GitBash 
+terminal. Find the "+" icon in the terminal pane, and click the carrot dropdown 
+icon next to it. Click "GitBash".
 
 ![Open a GitBash terminal if on Windows](fig/vscode-gitbash-terminal.png)
 
-If you are on a Mac or Linux computer, your default terminal should be sufficient. You can also choose to open a Bash terminal by following the same instructions.
+If you are on a Mac or Linux computer, your default terminal should be 
+sufficient. You can also choose to open a Bash terminal by following the same 
+instructions.
 
-You should now have your empty `multiverse` repo open, with a Bash terminal open, and you are ready to start typing your first git commands!
+You should now have your empty `multiverse` repo open, with a Bash terminal 
+open, and you are ready to start typing your first git commands!
 
 ![Ready to begin](fig/vscode-multiverse-repo-open.png)
 

@@ -24,7 +24,13 @@ exercises: 0
 
 ## Loki writes a story about Thor in New Asgard
 
-Loki, in his role as God of Stories, oversees the many branching timelines in the multiverse. But even an infinitely clever being like Loki has trouble keeping track of all of the events across the multiverse. Fortunately, there is a tool that can help keep track of these events across different timeline branches: git! Loki has decided to start logging events in a git repository named `multiverse`. Each planet will have their own file. Loki starts recording the events of New Asgard on Earth, where his brother Thor lives.
+Loki, in his role as God of Stories, oversees the many branching timelines in 
+the multiverse. But even an infinitely clever being like Loki has trouble 
+keeping track of all of the events across the multiverse. Fortunately, there 
+is a tool that can help keep track of these events across different timeline 
+branches: git! Loki has decided to start logging events in a git repository 
+named `multiverse`. Each planet will have their own file. Loki starts recording 
+the events of New Asgard on Earth, where his brother Thor lives.
 
 ## Create a file
 
