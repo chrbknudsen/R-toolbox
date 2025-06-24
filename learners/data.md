@@ -828,7 +828,17 @@ Sugar Taste Variables
 ### LEAD
 
 A study of the effect of exposure to lead on neurological and psychological 
-parameters for children. 124 children were studied in 1972
+parameters for children. 124 children living in varying proximity 
+to a lead smelter in El Paso in Texas, USA in 1972 and 1973 were studied.
+Intelligence tests 
+([WISC](https://en.wikipedia.org/wiki/Wechsler_Intelligence_Scale_for_Children) 
+or [WPPSI](https://en.wikipedia.org/wiki/Wechsler_Preschool_and_Primary_Scale_of_Intelligence)) 
+depending on age were performed as well as a neurological 
+[finger tapping test](https://en.wikipedia.org/wiki/Tapping_rate).
+Behavioral parameters as reported by the parents are also included.
+
+Does lead concentration in the blood affect intelligence, behaviour 
+and neurological parameters?
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
