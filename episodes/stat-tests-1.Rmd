@@ -217,6 +217,7 @@ EJ KORREKTURLÆST!
 
 Her kan vi nok med fordel bruge samme eksempel som i z-testen.
 
+
 * **Used for: ** Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
 * **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
 
