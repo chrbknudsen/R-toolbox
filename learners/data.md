@@ -137,9 +137,12 @@ _Dimensions_: Rows: 510 Columns: 9
 |curpmh    |  Current PMH use <br> 1 = yes <br> 0 = no   |            |       |
 |ageblood  |  Age at blood draw  |                        | years |
 |estradol  |  Estradiol          |                        | pg/mL |
-|estrone   |  Estrone <br> missing = 999             |             | pg/mL |
-|testost   |  Testosterone <br> missing = 999       |             | ng/dL |
-|prolactn  |  Prolactin <br> missing = 99.99          |      | ng/L  |
+|estrone   |  Estrone †              |             | pg/mL |
+|testost   |  Testosterone †       |             | ng/dL |
+|prolactn  |  Prolactin ‡           |      | ng/L  |
+
+† 999 indicates missing data
+‡ 99.99  indicates missing data
 
 ::::
 
@@ -189,18 +192,18 @@ xx2 for the heavier smoking twin
 |  cur       |  Current Smoking            | (cigarettes/day) |
 |  men       |  Menopause Status<br>0: Premenopausal<br> 1: Postmenopausal<br>2: unknown or hysterectomy |                  |
 |  pyr       |  Pack-years smoking         | year             |
-|  ls        |  Lumbar spine               | g/cm^2^          |
-|  fn        |  Femoral neck               | g/cm^2^          |
-|  fs        |  Femoral shaft              | g/cm^2^          |
+|  ls        |  Lumbar spine †             | g/cm^2^          |
+|  fn        |  Femoral neck ‡             | g/cm^2^          |
+|  fs        |  Femoral shaft ⸸            | g/cm^2^          |
 
 Pack-years are defined as how many years the woman have smoked a pack of 
 cigarettes pr day, normally ca. 20 cigarettes pr pack.
 
-Lumbar spine: L1-L5. 
+† Lumbar spine: L1-L5. 
 
-Femoral neck: Collum femoris
+‡ Femoral neck: Collum femoris
 
-Femoral shaft: Corpus femoris
+⸸ Femoral shaft: Corpus femoris
 
 ::::
 
@@ -369,7 +372,7 @@ _Dimensions:_ Rows: 186 Columns: 17
 |  t3      |  Temporal Visit 3                     | mm |
 |  n3      |  Nasal Visit 3                        | mm |
 
-99: Missing values
+99 indicates missing values
 
 ::::
 
@@ -403,8 +406,10 @@ _Dimensions:_ Rows: 910 Columns: 8
 |yr_a1c    |  Yr                            |      |
 |age_yrs   |  Age in years                  | year |
 |gly_a1c   |  Hemoglobin A1c                |  %   |
-|ht_cm     |  Height <br>  missing=999.9    | cm   |
+|ht_cm     |  Height †                      | cm   |
 |wt_kg     |  Weight                        | kg   |
+
+† 999.9 indicates missing data
 
 ::::
 
@@ -487,12 +492,13 @@ _Dimensions:_ Rows: 10 Columns: 6
 
 | Variable   |  LABEL           | unit  |
 |------------|------------------|-------|
-|  Subject   |  SUBJECT #       |       |
+|  Subject   |  Subject number  |       |
 |  Replicat  |  REPLICATE #     |       |
-|  Estrone   |  ESTRONE         | pg/mL |
-|  Estradol  |  ESTRADIOL       | pg/ml |
-|  Androste  |  ANDROSTENEDIONE | ng/dL |
-|  Testost   |  TESTOSTERONE    | ng/dL |
+|  Estrone   |  Estrone         | pg/mL |
+|  Estradol  |  Estradiol       | pg/ml |
+|  Androste  |  Androstenedione | ng/dL |
+|  Testost   |  Testosterone    | ng/dL |
+
 
 ::::
 
@@ -518,13 +524,15 @@ _Dimensions:_ Rows: 211 Columns: 10
 |Ethnic   |  Ethnicity <br> 0 = African-American <br> 1 = Caucasian |         |
 |Entage   |  Age                                                    | year    |
 |Numchild |  Parity, number of children  9=missing                  |         |
-|Agefbo   |  Age at 1st birth (= 0 if numchild = 0)  99 = missing   | year    |
+|Agefbo   |  Age at 1st birth (= 0 if numchild = 0) †               | year    |
 |Anykids	|  Any children <br> 1 = yes <br> 0 = no <br> 9 = missing |         |
-|Agemenar |  Age at menarche <br> 99=missing                        | years   |
+|Agemenar |  Age at menarche †                                      | years   |
 |BMI      |  Body Mass Index                                        | kg/^m^^ |
 |WHR      |  waist-hip ratio                                        |         |
 
 CAVE: Note the coding of Agefbo
+
+† 99 = missing
 
 ::::
 
@@ -787,15 +795,15 @@ _Dimensions:_ Rows: 100 Columns: 18
 |  Variable  |    Description                       | unit |
 |------------|--------------------------------------|------|
 |  ID        |                                      |      |
-|  Mn_sbp    |  Mean SBP†                           | mmHg |
-|  Mn_dbp    |  Mean DBP†                           | mmHg |
+|  Mn_sbp    |  Mean SBP †                          | mmHg |
+|  Mn_dbp    |  Mean DBP †                          | mmHg |
 
 
-Salt Taste Variables
+**Salt Taste Variables**
 
 |  Variable  |    Description                       | 
 |------------|--------------------------------------|
-|  MSB1slt   |  MSB-trial 1‡ water                  |
+|  MSB1slt   |  MSB-trial 1 ‡ water                  |
 |  MSB2slt   |  MSB-trial 2 water                   |
 |  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |
 |  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |
@@ -806,7 +814,7 @@ Salt Taste Variables
 |  MSB9slt   |  MSB-trial 9 water                   |
 |  MSB10slt  |  MSB-trial 10 water                  |
 
-Sugar Taste Variables
+**Sugar Taste Variables**
 
 |  Variable  |   Description                       |
 |------------|-------------------------------------|
@@ -846,7 +854,6 @@ _Dimensions:_ Rows: 124 Columns: 40
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
-siden er nr. 29 i bogen
 
 :::: spoiler
 
@@ -1700,3 +1707,8 @@ https://www.jstor.org/stable/2532505
 
 <a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
 
+
+
+† 
+‡ 
+⸸ 
