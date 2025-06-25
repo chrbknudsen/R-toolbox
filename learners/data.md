@@ -1115,17 +1115,17 @@ _Dimensions:_ Rows: 60 Columns: 8
 |  sx_3       |  Sex of 3rd born      |
 |  sx_4       |  Sex of 4th born      |
 |  sx_5       |  Sex of 5th born      |
-|  sexchldn*  |  Sex of all children  |
-|  num_fam**  |  Number of families   |
+|  sexchldn † |  Sex of all children  |
+|  num_fam ‡  |  Number of families   |
 
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
 
-* The sex of successive births is given. Thus, MMMF means that the first
+† The sex of successive births is given. Thus, MMMF means that the first
 three children were males and the fourth child was a female. There were 484
 such families.
 
-** Number of families with specific gender contribution of children
+‡ Number of families with specific gender contribution of children
 
 Example; there are:
 
@@ -1220,14 +1220,12 @@ _Dimensions:_ Rows: 234 Columns: 8
 |  Cig_day   |  Cigarettes/day                                     |      |
 |  CO        |  Carbon monoxide (CO) (X 10)             |      |
 |  Min_last  |  Minutes elapsed since last cigarette   |      |
-|  LogCOadj  |  Log CO Adj * (X 1000)                  |      |
+|  LogCOadj  |  Log CO Adj † (X 1000)                  |      |
 |  Day_abs   |  Days abstinent  Those abstinent less than 1 day <br> were given a value of zero.|      |
 
 999 and 9999 = missing values
 
-
-
-* This variable represents adjusted carbon monoxide (CO) values. CO values
+† This variable represents adjusted carbon monoxide (CO) values. CO values
 were adjusted for minutes elapsed since last cigarette smoked using the formula
 Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the
 number of minutes elapsed since the last cigarette smoked.  
@@ -1373,10 +1371,10 @@ _Dimensions:_ Rows: 630 Columns: 6
 |  Variable  |    LABEL                                       | unit |
 |------------|------------------------------------------------|------|
 |  Date      |  DATE (MDY)                                    |      |
-|  Out_temp  |  OUTSIDE TEMERATURE                            | °F   |
-|  Room      |  ROOM LOCATION                                 |      |
-|  In_temp   |  INSIDE TEMPERATURE                            | °F   |
-|  Cor_fac   |  CORRECTION FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
+|  Out_temp  |  Outside temperature                            | °F   |
+|  Room      |  Room location                                 |      |
+|  In_temp   |  Inside temperature                            | °F   |
+|  Cor_fac   |  Correction FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
 |  Typ_wea   |  TYPE OF WEATHER<br>1 = SUNNY<br>2 = PARTLY CLOUDY<br>3 = CLOUDY<br>4 = RAINY<br>5 = FOGGY <br>9 = MISSING|      |
 
 
@@ -1397,58 +1395,56 @@ _Dimensions:_ Rows: 444 Columns: 12
 |  VARIABLE  |  VARIABLE NAME                                    | unit |
 |------------|---------------------------------------------------|------|
 |  Id        |  ID                                               | |
-|  Age       |  AGE    99=MISSING                                || 
-|  Sex       |  SEX                             | |
-|            |  1 = MALE                          | |
-|            |  2 = FEMALE                          | |
-|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     | |
-|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         | |
-|            |  1 = CONVENTIONAL SIZE                      | |
-|            |  2 = MID-SIZE                               | |
-|            |  3 = OVER-SIZE                              | |
-|            |  9 = MISSING                                | |
-|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       | |
-|            |          1=HEAVY                                  | |
-|            |          2=MEDIUM                                 | |
-|            |          3=LIGHT                                  | |
-|            |          4=DON'T KNOW                             | |
-|            |          9=MISSING                                | |
-|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     | |
-|            |          1=WOOD                                   | |
-|            |          2=ALUMINUM                               | |
-|            |          3=FIBERGLASS AND COMPOSITE               | |
-|            |          4=GRAPHITE                               | |
-|            |          5=STEEL                                  | |
-|            |          6=COMPOSITE                              | |
-|            |          7=OTHER                                  | |
-|            |          9=MISSING                                | |
-|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  | |
+|  Age       |  Age    99=missing                                | years| 
+|  Sex       |  Sex <br> 1 = male <br> 2 = female                             | |
+|  Num_epis  |  Number of episodes of tennis elbow  9= missing     | |
+|  Typ_last  |  Type of raquet used during last episode         | |
+|            |  1 = conventional size                      | |
+|            |  2 = mid-size                               | |
+|            |  3 = over-size                              | |
+|            |  9 = missing                                | |
+|  Wgt_last  |  WEIGHT of racquet used during laset episode       | |
+|            |          1 = heavy                                  | |
+|            |          2 = medium                                 | |
+|            |          3 = light                                  | |
+|            |          4 = don't know                             | |
+|            |          9 = missing                                | |
+|  Mat_last  |  Material of racquet used during last episode     | |
+|            |          1 = wood                                   | |
+|            |          2 = aluminium                               | |
+|            |          3 = fiberglass and composite               | |
+|            |          4 = graphite                               | |
+|            |          5 = steel                                  | |
+|            |          6 = composite                              | |
+|            |          7 = other                                  | |
+|            |          9 = missing                                | |
+|  Str_last  |  String type of racquet used during last episode  | |
 |            |          1 = nylon                                  | |
 |            |          2 = gut                                    | |
-|            |          3 = DON'T KNOW                             | |
+|            |          3 = don't know                             | |
 |            |          9 = missing                                | |
 |  Typ_curr  |  Type of racquet used currently                   | |
 |            |  1 = conventional size                      | |
 |            |  2 = mid-size                               | |
 |            |  3 = over-size                              | |
 |            |  9 = missing                                | |
-|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 | |
+|  Wgt_curr  |  Weight of racquet used currently                 | |
 |            |  1 = heavy                                  | |
 |            |  2 = medium                                 | |
 |            |  3 = light                                  | |
 |            |  4 = don't know                             | |
 |            |  9 = missing                                | |
-|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               | |
+|  Mat_curr  |  Material of racquet used currently               | |
 |            |  1 = wood                                   | |
 |            |  2 = aluminium                              | |
-|            |  3 = FIBERGLASS and composite               | |
+|            |  3 = fiberglass and composite               | |
 |            |  4 = graphite                               | |
 |            |  5 = steel                                  | |
 |            |  6 = composite                              | |
 |            |  7 = other                                  | |
 |            |  9 = missing                                | |
-|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            | |
-|            |  1 = NYLON                                  | |
+|  Str_curr  |  String type of racquet used currently            | |
+|            |  1 = nylon                                  | |
 |            |  2 = gut                                    | |
 |            |  3 = don't know                             | |
 |            |  9 = missing                                |  |
@@ -1470,49 +1466,49 @@ _Dimensions:_ Rows: 88 Columns: 16
 |  VARIABLE  |  PERIOD*  |  VARIABLE NAME                                                             |
 |------------|-----------|----------------------------------------------------------------------------|
 |  id        |           |  ID                                                                        |
-|  age       |           |  AGE                                                                       |
-|  sex       |           |  SEX                                                                       |
-|            |           |       1 = MALE                                                             |
-|            |           |       2 = FEMALE                                                           |
-|            |           |       9 = MISSING                                                          |
-|  drg_ord   |           |  DRUG ORDER                                                                |
-|            |           |       1 = MOTRIN-PLACEBO                                                   |
-|            |           |       2 = PLACEBO-MOTRIN                                                   |
-|  painmx_2  |  2        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BAESLINE                                                                |
-|            |           |       1 = WORST                                                            |
-|            |           |       2 = UNCHANGED                                                        |
-|            |           |       3 = SLIGHTLY IMPROVED (25%)                                          |
-|            |           |       4 = MODERATELY IMPROVED (50%)                                        |
-|            |           |       5 = MOSTLY IMPROVED (75%)                                            |
-|            |           |       6 = COMPLETELY IMPROVED                                              |
-|            |           |       9 = MISSING                                                          |
-|  pain12_2  |  2        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE  (SAME CODE AS painmx_2)                        |
-|  painav_2  |  2        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE                  |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_2  |  2        |  OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS painmx_2)  |
-|  painmx_3  |  3        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BASELINE   (SAME CODE AS painmx_2)                                      |
-|  pain12_3  |  3        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE   (SAME CODE AS painmx_2)                       |
-|  painav_3  |  3        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE                   |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_3  |  3        |  OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE                           |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painmx_4  |  4        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BASELINE   (SAME CODE AS painmx_2)                                      |
-|  pain12_4  |  4        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE  (SAME CODE AS painmx_2)                        |
-|  painav_4  |  4        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE                   |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_4  |  4        |  OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE                           |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
+|  age       |           |  Age                                                                       |
+|  sex       |           |  Sex                                                                       |
+|            |           |       1 = male                                                             |
+|            |           |       2 = female                                                           |
+|            |           |       9 = missing                                                          |
+|  drg_ord   |           |  Drug order                                                                |
+|            |           |       1 = motrin-placebo                                                   |
+|            |           |       2 = placebo-motrin                                                   |
+|  painmx_2  |  2        |  During study period, pain during maximum activity vs                      |
+|            |           |    baseline                                                                |
+|            |           |       1 = worst                                                            |
+|            |           |       2 = unchanged                                                        |
+|            |           |       3 = slightly improved (25%)                                          |
+|            |           |       4 = moderately improved (50%)                                        |
+|            |           |       5 = mostly improved (75%)                                            |
+|            |           |       6 = completely improved                                              |
+|            |           |       9 = missing                                                          |
+|  pain12_2  |  2        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline  (same code as painmx_2)                        |
+|  painav_2  |  2        |  During the average day of study period pain vs. baseline                  |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_2  |  2        |  Overall impression of drug efficacy vs. baseline (same code as painmx_2)  |
+|  painmx_3  |  3        |  During study period, pain during maximum activity vs.                      |
+|            |           |    baseline   (same code as painmx_2)                                      |
+|  pain12_3  |  3        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline   (same code as painmx_2)                       |
+|  painav_3  |  3        |  During the average day of study period pain vs. baseline                   |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_3  |  3        |  Overall impressoin of drug efficacy vs. baseline                           |
+|            |           |    (same code as painmx_2)                                                 |
+|  painmx_4  |  4        |  During study period, pain during maximum activity vs.                      |
+|            |           |    baseline   (same code as painmx_2)                                      |
+|  pain12_4  |  4        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline  (same code as painmx_2)                        |
+|  painav_4  |  4        |  During the average day of study period pain vs. baseline                   |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_4  |  4        |  Overall impressoin of drug efficacy vs baseline                           |
+|            |           |    (same code as painmx_2)                                                 |
 
 
-* PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+* PERIOD 2 = Pain scores after the first active drug period compared with baseline
   
-  PERIOD 3 = PAIN SCORES AFTER THE WASHOUT PERIOD COMPARED WITH BASELINE
+  PERIOD 3 = Pain scores after the washout period compared with baseline
 
   PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
 
