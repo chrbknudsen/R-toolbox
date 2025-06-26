@@ -1398,56 +1398,50 @@ _Dimensions:_ Rows: 444 Columns: 12
 |  Age       |  Age    99=missing                                | years| 
 |  Sex       |  Sex <br> 1 = male <br> 2 = female                             | |
 |  Num_epis  |  Number of episodes of tennis elbow  9= missing     | |
-|  Typ_last  |  Type of raquet used during last episode         | |
-|            |  1 = conventional size                      | |
-|            |  2 = mid-size                               | |
-|            |  3 = over-size                              | |
-|            |  9 = missing                                | |
-|  Wgt_last  |  WEIGHT of racquet used during laset episode       | |
+|  Typ_last  |  Type of raquet used during last episode <br> 1 = conventional size <br> 2 = mid-size <br> 3 = over-size <br> 9 = missing         | |
+|  Wgt_last  |  Weight of racquet used during last episode       | |
 |            |          1 = heavy                                  | |
 |            |          2 = medium                                 | |
 |            |          3 = light                                  | |
 |            |          4 = don't know                             | |
 |            |          9 = missing                                | |
 |  Mat_last  |  Material of racquet used during last episode     | |
-|            |          1 = wood                                   | |
-|            |          2 = aluminium                               | |
-|            |          3 = fiberglass and composite               | |
-|            |          4 = graphite                               | |
-|            |          5 = steel                                  | |
-|            |          6 = composite                              | |
-|            |          7 = other                                  | |
-|            |          9 = missing                                | |
+|            |        <br>  1 = wood                                   | |
+|            |        <br>  2 = aluminium                               | |
+|            |        <br>  3 = fiberglass and composite               | |
+|            |        <br>  4 = graphite                               | |
+|            |        <br>  5 = steel                                  | |
+|            |        <br>  6 = composite                              | |
+|            |        <br>  7 = other                                  | |
+|            |        <br>  9 = missing                                | |
 |  Str_last  |  String type of racquet used during last episode  | |
-|            |          1 = nylon                                  | |
-|            |          2 = gut                                    | |
-|            |          3 = don't know                             | |
-|            |          9 = missing                                | |
+|            |        <br>  1 = nylon                                  | |
+|            |        <br>  2 = gut                                    | |
+|            |        <br>  3 = don't know                             | |
+|            |        <br>  9 = missing                                | |
 |  Typ_curr  |  Type of racquet used currently                   | |
-|            |  1 = conventional size                      | |
-|            |  2 = mid-size                               | |
-|            |  3 = over-size                              | |
-|            |  9 = missing                                | |
+|            |  <br> 1 = conventional size                      | |
+|            |  <br> 2 = mid-size                               | |
+|            |  <br> 3 = over-size                              | |
+|            |  <br> 9 = missing                                | |
 |  Wgt_curr  |  Weight of racquet used currently                 | |
-|            |  1 = heavy                                  | |
-|            |  2 = medium                                 | |
-|            |  3 = light                                  | |
-|            |  4 = don't know                             | |
-|            |  9 = missing                                | |
+|            |  <br> 1 = heavy                                  | |
+|            |  <br> 2 = medium                                 | |
+|            |  <br> 3 = light                                  | |
+|            |  <br> 4 = don't know                             | |
+|            |  <br> 9 = missing                                | |
 |  Mat_curr  |  Material of racquet used currently               | |
-|            |  1 = wood                                   | |
-|            |  2 = aluminium                              | |
-|            |  3 = fiberglass and composite               | |
-|            |  4 = graphite                               | |
-|            |  5 = steel                                  | |
-|            |  6 = composite                              | |
-|            |  7 = other                                  | |
-|            |  9 = missing                                | |
+|            |  <br> 1 = wood                                   | |
+|            |  <br> 2 = aluminium                              | |
+|            |  <br> 3 = fiberglass and composite               | |
+|            |  <br> 4 = graphite                               | |
+|            |  <br> 5 = steel                                  | |
+|            |  <br> 6 = composite                              | |
+|            |  <br> 7 = other                                  | |
+|            |  <br> 9 = missing                                | |
 |  Str_curr  |  String type of racquet used currently            | |
-|            |  1 = nylon                                  | |
-|            |  2 = gut                                    | |
-|            |  3 = don't know                             | |
-|            |  9 = missing                                |  |
+|            |  <br> 1 = nylon                                  | |
+|            |  <br> 2 = gut <br> 3 = don't know <br> 9 = missing                                    | |
 
 ::::
 
@@ -1467,22 +1461,18 @@ _Dimensions:_ Rows: 88 Columns: 16
 |------------|-----------|----------------------------------------------------------------------------|
 |  id        |           |  ID                                                                        |
 |  age       |           |  Age                                                                       |
-|  sex       |           |  Sex                                                                       |
-|            |           |       1 = male                                                             |
-|            |           |       2 = female                                                           |
-|            |           |       9 = missing                                                          |
+|  sex       |           |  Sex <br> 1 = male <br> 2 = female <br> 9 = missing                                                                      |
 |  drg_ord   |           |  Drug order                                                                |
-|            |           |       1 = motrin-placebo                                                   |
-|            |           |       2 = placebo-motrin                                                   |
-|  painmx_2  |  2        |  During study period, pain during maximum activity vs                      |
-|            |           |    baseline                                                                |
-|            |           |       1 = worst                                                            |
-|            |           |       2 = unchanged                                                        |
-|            |           |       3 = slightly improved (25%)                                          |
-|            |           |       4 = moderately improved (50%)                                        |
-|            |           |       5 = mostly improved (75%)                                            |
-|            |           |       6 = completely improved                                              |
-|            |           |       9 = missing                                                          |
+|            |           |      <br> 1 = motrin-placebo                                                   |
+|            |           |      <br> 2 = placebo-motrin                                                   |
+|  painmx_2  |  2        |  During study period, pain during maximum activity vs baseline |
+|            |           |      <br> 1 = worst                                                            |
+|            |           |      <br> 2 = unchanged                                                        |
+|            |           |      <br> 3 = slightly improved (25%)                                          |
+|            |           |      <br> 4 = moderately improved (50%)                                        |
+|            |           |      <br> 5 = mostly improved (75%)                                            |
+|            |           |      <br> 6 = completely improved                                              |
+|            |           |      <br> 9 = missing                                                          |
 |  pain12_2  |  2        |  Within 12 hours following maximal activity, compared to                   |
 |            |           |    same period at baseline  (same code as painmx_2)                        |
 |  painav_2  |  2        |  During the average day of study period pain vs. baseline                  |
@@ -1502,7 +1492,7 @@ _Dimensions:_ Rows: 88 Columns: 16
 |            |           |    same period at baseline  (same code as painmx_2)                        |
 |  painav_4  |  4        |  During the average day of study period pain vs. baseline                   |
 |            |           |    (same code as painmx_2)                                                 |
-|  painov_4  |  4        |  Overall impressoin of drug efficacy vs baseline                           |
+|  painov_4  |  4        |  Overall impression of drug efficacy vs baseline                           |
 |            |           |    (same code as painmx_2)                                                 |
 
 
@@ -1510,7 +1500,7 @@ _Dimensions:_ Rows: 88 Columns: 16
   
   PERIOD 3 = Pain scores after the washout period compared with baseline
 
-  PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+  PERIOD 4 = Pain scores after the second active drug period compared with baseline
 
 ::::
 
@@ -1644,20 +1634,20 @@ _Dimensions:_ Rows: 178 Columns: 14
 
 |  Variable  |  Description                      |  Unit            |
 |------------|-----------------------------------|----------------------------|
-|1      |  Cultivar                        |                            | 
-|2        | Alcohol                    |                %            | 
-|3        | Malic acid                    |         g/L                   | 
-|4        | Ash                                 |   g/L                     |         
-|5        | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
-|6        | Magnesium                |        mg/L                   |
-|7         | Total phenols                    g/L             |    |
-|8        | Flavanoids               |        g/L                  |
-|9    | Nonflavanoid phenols  |              g/L            |
-|10       | Proanthocyanins  |               g/L             |
-|11       | Colour intensity  |   Absorbance                         |
-|12       | Hue  |  Absorbance-ratio             |
-|13       | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
-|14       | Proline  |  mg/L                          |
+|1           |  Cultivar                        |                            | 
+|2           | Alcohol                    |                %            | 
+|3           | Malic acid                    |         g/L                   | 
+|4           | Ash                                 |   g/L                     |         
+|5           | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
+|6           | Magnesium                |        mg/L                   |
+|7           | Total phenols                    g/L             |    |
+|8           | Flavanoids               |        g/L                  |
+|9           | Nonflavanoid phenols  |              g/L            |
+|10          | Proanthocyanins  |               g/L             |
+|11          | Colour intensity  |   Absorbance                         |
+|12          | Hue  |  Absorbance-ratio             |
+|13          | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
+|14          | Proline  |  mg/L                          |
 
 Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm 
 (blue, green and red light respectively, measuring the yellow, red, and blue colours of the wine.)
