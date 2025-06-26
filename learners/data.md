@@ -137,9 +137,12 @@ _Dimensions_: Rows: 510 Columns: 9
 |curpmh    |  Current PMH use <br> 1 = yes <br> 0 = no   |            |       |
 |ageblood  |  Age at blood draw  |                        | years |
 |estradol  |  Estradiol          |                        | pg/mL |
-|estrone   |  Estrone <br> missing = 999             |             | pg/mL |
-|testost   |  Testosterone <br> missing = 999       |             | ng/dL |
-|prolactn  |  Prolactin <br> missing = 99.99          |      | ng/L  |
+|estrone   |  Estrone †              |             | pg/mL |
+|testost   |  Testosterone †       |             | ng/dL |
+|prolactn  |  Prolactin ‡           |      | ng/L  |
+
+† 999 indicates missing data
+‡ 99.99  indicates missing data
 
 ::::
 
@@ -189,18 +192,18 @@ xx2 for the heavier smoking twin
 |  cur       |  Current Smoking            | (cigarettes/day) |
 |  men       |  Menopause Status<br>0: Premenopausal<br> 1: Postmenopausal<br>2: unknown or hysterectomy |                  |
 |  pyr       |  Pack-years smoking         | year             |
-|  ls        |  Lumbar spine               | g/cm^2^          |
-|  fn        |  Femoral neck               | g/cm^2^          |
-|  fs        |  Femoral shaft              | g/cm^2^          |
+|  ls        |  Lumbar spine †             | g/cm^2^          |
+|  fn        |  Femoral neck ‡             | g/cm^2^          |
+|  fs        |  Femoral shaft ⸸            | g/cm^2^          |
 
 Pack-years are defined as how many years the woman have smoked a pack of 
 cigarettes pr day, normally ca. 20 cigarettes pr pack.
 
-Lumbar spine: L1-L5. 
+† Lumbar spine: L1-L5. 
 
-Femoral neck: Collum femoris
+‡ Femoral neck: Collum femoris
 
-Femoral shaft: Corpus femoris
+⸸ Femoral shaft: Corpus femoris
 
 ::::
 
@@ -369,7 +372,7 @@ _Dimensions:_ Rows: 186 Columns: 17
 |  t3      |  Temporal Visit 3                     | mm |
 |  n3      |  Nasal Visit 3                        | mm |
 
-99: Missing values
+99 indicates missing values
 
 ::::
 
@@ -403,8 +406,10 @@ _Dimensions:_ Rows: 910 Columns: 8
 |yr_a1c    |  Yr                            |      |
 |age_yrs   |  Age in years                  | year |
 |gly_a1c   |  Hemoglobin A1c                |  %   |
-|ht_cm     |  Height <br>  missing=999.9    | cm   |
+|ht_cm     |  Height †                      | cm   |
 |wt_kg     |  Weight                        | kg   |
+
+† 999.9 indicates missing data
 
 ::::
 
@@ -487,12 +492,13 @@ _Dimensions:_ Rows: 10 Columns: 6
 
 | Variable   |  LABEL           | unit  |
 |------------|------------------|-------|
-|  Subject   |  SUBJECT #       |       |
+|  Subject   |  Subject number  |       |
 |  Replicat  |  REPLICATE #     |       |
-|  Estrone   |  ESTRONE         | pg/mL |
-|  Estradol  |  ESTRADIOL       | pg/ml |
-|  Androste  |  ANDROSTENEDIONE | ng/dL |
-|  Testost   |  TESTOSTERONE    | ng/dL |
+|  Estrone   |  Estrone         | pg/mL |
+|  Estradol  |  Estradiol       | pg/ml |
+|  Androste  |  Androstenedione | ng/dL |
+|  Testost   |  Testosterone    | ng/dL |
+
 
 ::::
 
@@ -518,13 +524,15 @@ _Dimensions:_ Rows: 211 Columns: 10
 |Ethnic   |  Ethnicity <br> 0 = African-American <br> 1 = Caucasian |         |
 |Entage   |  Age                                                    | year    |
 |Numchild |  Parity, number of children  9=missing                  |         |
-|Agefbo   |  Age at 1st birth (= 0 if numchild = 0)  99 = missing   | year    |
+|Agefbo   |  Age at 1st birth (= 0 if numchild = 0) †               | year    |
 |Anykids	|  Any children <br> 1 = yes <br> 0 = no <br> 9 = missing |         |
-|Agemenar |  Age at menarche <br> 99=missing                        | years   |
+|Agemenar |  Age at menarche †                                      | years   |
 |BMI      |  Body Mass Index                                        | kg/^m^^ |
 |WHR      |  waist-hip ratio                                        |         |
 
 CAVE: Note the coding of Agefbo
+
+† 99 = missing
 
 ::::
 
@@ -787,15 +795,15 @@ _Dimensions:_ Rows: 100 Columns: 18
 |  Variable  |    Description                       | unit |
 |------------|--------------------------------------|------|
 |  ID        |                                      |      |
-|  Mn_sbp    |  Mean SBP†                           | mmHg |
-|  Mn_dbp    |  Mean DBP†                           | mmHg |
+|  Mn_sbp    |  Mean SBP †                          | mmHg |
+|  Mn_dbp    |  Mean DBP †                          | mmHg |
 
 
-Salt Taste Variables
+**Salt Taste Variables**
 
 |  Variable  |    Description                       | 
 |------------|--------------------------------------|
-|  MSB1slt   |  MSB-trial 1‡ water                  |
+|  MSB1slt   |  MSB-trial 1 ‡ water                  |
 |  MSB2slt   |  MSB-trial 2 water                   |
 |  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |
 |  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |
@@ -806,7 +814,7 @@ Salt Taste Variables
 |  MSB9slt   |  MSB-trial 9 water                   |
 |  MSB10slt  |  MSB-trial 10 water                  |
 
-Sugar Taste Variables
+**Sugar Taste Variables**
 
 |  Variable  |   Description                       |
 |------------|-------------------------------------|
@@ -828,7 +836,17 @@ Sugar Taste Variables
 ### LEAD
 
 A study of the effect of exposure to lead on neurological and psychological 
-parameters for children. 124 children were studied in 1972
+parameters for children. 124 children living in varying proximity 
+to a lead smelter in El Paso in Texas, USA in 1972 and 1973 were studied.
+Intelligence tests 
+([WISC](https://en.wikipedia.org/wiki/Wechsler_Intelligence_Scale_for_Children) 
+or [WPPSI](https://en.wikipedia.org/wiki/Wechsler_Preschool_and_Primary_Scale_of_Intelligence)) 
+depending on age were performed as well as a neurological 
+[finger tapping test](https://en.wikipedia.org/wiki/Tapping_rate).
+Behavioral parameters as reported by the parents are also included.
+
+Does lead concentration in the blood affect intelligence, behaviour 
+and neurological parameters?
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
@@ -836,7 +854,6 @@ _Dimensions:_ Rows: 124 Columns: 40
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
-siden er nr. 29 i bogen
 
 :::: spoiler
 
@@ -1098,17 +1115,17 @@ _Dimensions:_ Rows: 60 Columns: 8
 |  sx_3       |  Sex of 3rd born      |
 |  sx_4       |  Sex of 4th born      |
 |  sx_5       |  Sex of 5th born      |
-|  sexchldn*  |  Sex of all children  |
-|  num_fam**  |  Number of families   |
+|  sexchldn † |  Sex of all children  |
+|  num_fam ‡  |  Number of families   |
 
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
 
-* The sex of successive births is given. Thus, MMMF means that the first
+† The sex of successive births is given. Thus, MMMF means that the first
 three children were males and the fourth child was a female. There were 484
 such families.
 
-** Number of families with specific gender contribution of children
+‡ Number of families with specific gender contribution of children
 
 Example; there are:
 
@@ -1203,14 +1220,12 @@ _Dimensions:_ Rows: 234 Columns: 8
 |  Cig_day   |  Cigarettes/day                                     |      |
 |  CO        |  Carbon monoxide (CO) (X 10)             |      |
 |  Min_last  |  Minutes elapsed since last cigarette   |      |
-|  LogCOadj  |  Log CO Adj * (X 1000)                  |      |
+|  LogCOadj  |  Log CO Adj † (X 1000)                  |      |
 |  Day_abs   |  Days abstinent  Those abstinent less than 1 day <br> were given a value of zero.|      |
 
 999 and 9999 = missing values
 
-
-
-* This variable represents adjusted carbon monoxide (CO) values. CO values
+† This variable represents adjusted carbon monoxide (CO) values. CO values
 were adjusted for minutes elapsed since last cigarette smoked using the formula
 Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the
 number of minutes elapsed since the last cigarette smoked.  
@@ -1356,10 +1371,10 @@ _Dimensions:_ Rows: 630 Columns: 6
 |  Variable  |    LABEL                                       | unit |
 |------------|------------------------------------------------|------|
 |  Date      |  DATE (MDY)                                    |      |
-|  Out_temp  |  OUTSIDE TEMERATURE                            | °F   |
-|  Room      |  ROOM LOCATION                                 |      |
-|  In_temp   |  INSIDE TEMPERATURE                            | °F   |
-|  Cor_fac   |  CORRECTION FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
+|  Out_temp  |  Outside temperature                            | °F   |
+|  Room      |  Room location                                 |      |
+|  In_temp   |  Inside temperature                            | °F   |
+|  Cor_fac   |  Correction FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
 |  Typ_wea   |  TYPE OF WEATHER<br>1 = SUNNY<br>2 = PARTLY CLOUDY<br>3 = CLOUDY<br>4 = RAINY<br>5 = FOGGY <br>9 = MISSING|      |
 
 
@@ -1380,61 +1395,53 @@ _Dimensions:_ Rows: 444 Columns: 12
 |  VARIABLE  |  VARIABLE NAME                                    | unit |
 |------------|---------------------------------------------------|------|
 |  Id        |  ID                                               | |
-|  Age       |  AGE    99=MISSING                                || 
-|  Sex       |  SEX                             | |
-|            |  1 = MALE                          | |
-|            |  2 = FEMALE                          | |
-|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     | |
-|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         | |
-|            |  1 = CONVENTIONAL SIZE                      | |
-|            |  2 = MID-SIZE                               | |
-|            |  3 = OVER-SIZE                              | |
-|            |  9 = MISSING                                | |
-|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       | |
-|            |          1=HEAVY                                  | |
-|            |          2=MEDIUM                                 | |
-|            |          3=LIGHT                                  | |
-|            |          4=DON'T KNOW                             | |
-|            |          9=MISSING                                | |
-|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     | |
-|            |          1=WOOD                                   | |
-|            |          2=ALUMINUM                               | |
-|            |          3=FIBERGLASS AND COMPOSITE               | |
-|            |          4=GRAPHITE                               | |
-|            |          5=STEEL                                  | |
-|            |          6=COMPOSITE                              | |
-|            |          7=OTHER                                  | |
-|            |          9=MISSING                                | |
-|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  | |
-|            |          1 = nylon                                  | |
-|            |          2 = gut                                    | |
-|            |          3 = DON'T KNOW                             | |
+|  Age       |  Age    99=missing                                | years| 
+|  Sex       |  Sex <br> 1 = male <br> 2 = female                             | |
+|  Num_epis  |  Number of episodes of tennis elbow  9= missing     | |
+|  Typ_last  |  Type of raquet used during last episode <br> 1 = conventional size <br> 2 = mid-size <br> 3 = over-size <br> 9 = missing         | |
+|  Wgt_last  |  Weight of racquet used during last episode       | |
+|            |          1 = heavy                                  | |
+|            |          2 = medium                                 | |
+|            |          3 = light                                  | |
+|            |          4 = don't know                             | |
 |            |          9 = missing                                | |
+|  Mat_last  |  Material of racquet used during last episode     | |
+|            |        <br>  1 = wood                                   | |
+|            |        <br>  2 = aluminium                               | |
+|            |        <br>  3 = fiberglass and composite               | |
+|            |        <br>  4 = graphite                               | |
+|            |        <br>  5 = steel                                  | |
+|            |        <br>  6 = composite                              | |
+|            |        <br>  7 = other                                  | |
+|            |        <br>  9 = missing                                | |
+|  Str_last  |  String type of racquet used during last episode  | |
+|            |        <br>  1 = nylon                                  | |
+|            |        <br>  2 = gut                                    | |
+|            |        <br>  3 = don't know                             | |
+|            |        <br>  9 = missing                                | |
 |  Typ_curr  |  Type of racquet used currently                   | |
-|            |  1 = conventional size                      | |
-|            |  2 = mid-size                               | |
-|            |  3 = over-size                              | |
-|            |  9 = missing                                | |
-|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 | |
-|            |  1 = heavy                                  | |
-|            |  2 = medium                                 | |
-|            |  3 = light                                  | |
-|            |  4 = don't know                             | |
-|            |  9 = missing                                | |
-|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               | |
-|            |  1 = wood                                   | |
-|            |  2 = aluminium                              | |
-|            |  3 = FIBERGLASS and composite               | |
-|            |  4 = graphite                               | |
-|            |  5 = steel                                  | |
-|            |  6 = composite                              | |
-|            |  7 = other                                  | |
-|            |  9 = missing                                | |
-|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            | |
-|            |  1 = NYLON                                  | |
-|            |  2 = gut                                    | |
-|            |  3 = don't know                             | |
-|            |  9 = missing                                |  |
+|            |  <br> 1 = conventional size                      | |
+|            |  <br> 2 = mid-size                               | |
+|            |  <br> 3 = over-size                              | |
+|            |  <br> 9 = missing                                | |
+|  Wgt_curr  |  Weight of racquet used currently                 | |
+|            |  <br> 1 = heavy                                  | |
+|            |  <br> 2 = medium                                 | |
+|            |  <br> 3 = light                                  | |
+|            |  <br> 4 = don't know                             | |
+|            |  <br> 9 = missing                                | |
+|  Mat_curr  |  Material of racquet used currently               | |
+|            |  <br> 1 = wood                                   | |
+|            |  <br> 2 = aluminium                              | |
+|            |  <br> 3 = fiberglass and composite               | |
+|            |  <br> 4 = graphite                               | |
+|            |  <br> 5 = steel                                  | |
+|            |  <br> 6 = composite                              | |
+|            |  <br> 7 = other                                  | |
+|            |  <br> 9 = missing                                | |
+|  Str_curr  |  String type of racquet used currently            | |
+|            |  <br> 1 = nylon                                  | |
+|            |  <br> 2 = gut <br> 3 = don't know <br> 9 = missing                                    | |
 
 ::::
 
@@ -1453,51 +1460,47 @@ _Dimensions:_ Rows: 88 Columns: 16
 |  VARIABLE  |  PERIOD*  |  VARIABLE NAME                                                             |
 |------------|-----------|----------------------------------------------------------------------------|
 |  id        |           |  ID                                                                        |
-|  age       |           |  AGE                                                                       |
-|  sex       |           |  SEX                                                                       |
-|            |           |       1 = MALE                                                             |
-|            |           |       2 = FEMALE                                                           |
-|            |           |       9 = MISSING                                                          |
-|  drg_ord   |           |  DRUG ORDER                                                                |
-|            |           |       1 = MOTRIN-PLACEBO                                                   |
-|            |           |       2 = PLACEBO-MOTRIN                                                   |
-|  painmx_2  |  2        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BAESLINE                                                                |
-|            |           |       1 = WORST                                                            |
-|            |           |       2 = UNCHANGED                                                        |
-|            |           |       3 = SLIGHTLY IMPROVED (25%)                                          |
-|            |           |       4 = MODERATELY IMPROVED (50%)                                        |
-|            |           |       5 = MOSTLY IMPROVED (75%)                                            |
-|            |           |       6 = COMPLETELY IMPROVED                                              |
-|            |           |       9 = MISSING                                                          |
-|  pain12_2  |  2        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE  (SAME CODE AS painmx_2)                        |
-|  painav_2  |  2        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE                  |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_2  |  2        |  OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS painmx_2)  |
-|  painmx_3  |  3        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BASELINE   (SAME CODE AS painmx_2)                                      |
-|  pain12_3  |  3        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE   (SAME CODE AS painmx_2)                       |
-|  painav_3  |  3        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE                   |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_3  |  3        |  OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE                           |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painmx_4  |  4        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BASELINE   (SAME CODE AS painmx_2)                                      |
-|  pain12_4  |  4        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE  (SAME CODE AS painmx_2)                        |
-|  painav_4  |  4        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE                   |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_4  |  4        |  OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE                           |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
+|  age       |           |  Age                                                                       |
+|  sex       |           |  Sex <br> 1 = male <br> 2 = female <br> 9 = missing                                                                      |
+|  drg_ord   |           |  Drug order                                                                |
+|            |           |      <br> 1 = motrin-placebo                                                   |
+|            |           |      <br> 2 = placebo-motrin                                                   |
+|  painmx_2  |  2        |  During study period, pain during maximum activity vs baseline |
+|            |           |      <br> 1 = worst                                                            |
+|            |           |      <br> 2 = unchanged                                                        |
+|            |           |      <br> 3 = slightly improved (25%)                                          |
+|            |           |      <br> 4 = moderately improved (50%)                                        |
+|            |           |      <br> 5 = mostly improved (75%)                                            |
+|            |           |      <br> 6 = completely improved                                              |
+|            |           |      <br> 9 = missing                                                          |
+|  pain12_2  |  2        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline  (same code as painmx_2)                        |
+|  painav_2  |  2        |  During the average day of study period pain vs. baseline                  |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_2  |  2        |  Overall impression of drug efficacy vs. baseline (same code as painmx_2)  |
+|  painmx_3  |  3        |  During study period, pain during maximum activity vs.                      |
+|            |           |    baseline   (same code as painmx_2)                                      |
+|  pain12_3  |  3        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline   (same code as painmx_2)                       |
+|  painav_3  |  3        |  During the average day of study period pain vs. baseline                   |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_3  |  3        |  Overall impressoin of drug efficacy vs. baseline                           |
+|            |           |    (same code as painmx_2)                                                 |
+|  painmx_4  |  4        |  During study period, pain during maximum activity vs.                      |
+|            |           |    baseline   (same code as painmx_2)                                      |
+|  pain12_4  |  4        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline  (same code as painmx_2)                        |
+|  painav_4  |  4        |  During the average day of study period pain vs. baseline                   |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_4  |  4        |  Overall impression of drug efficacy vs baseline                           |
+|            |           |    (same code as painmx_2)                                                 |
 
 
-* PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+* PERIOD 2 = Pain scores after the first active drug period compared with baseline
   
-  PERIOD 3 = PAIN SCORES AFTER THE WASHOUT PERIOD COMPARED WITH BASELINE
+  PERIOD 3 = Pain scores after the washout period compared with baseline
 
-  PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+  PERIOD 4 = Pain scores after the second active drug period compared with baseline
 
 ::::
 
@@ -1631,20 +1634,20 @@ _Dimensions:_ Rows: 178 Columns: 14
 
 |  Variable  |  Description                      |  Unit            |
 |------------|-----------------------------------|----------------------------|
-|1      |  Cultivar                        |                            | 
-|2        | Alcohol                    |                %            | 
-|3        | Malic acid                    |         g/L                   | 
-|4        | Ash                                 |   g/L                     |         
-|5        | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
-|6        | Magnesium                |        mg/L                   |
-|7         | Total phenols                    g/L             |    |
-|8        | Flavanoids               |        g/L                  |
-|9    | Nonflavanoid phenols  |              g/L            |
-|10       | Proanthocyanins  |               g/L             |
-|11       | Colour intensity  |   Absorbance                         |
-|12       | Hue  |  Absorbance-ratio             |
-|13       | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
-|14       | Proline  |  mg/L                          |
+|1           |  Cultivar                        |                            | 
+|2           | Alcohol                    |                %            | 
+|3           | Malic acid                    |         g/L                   | 
+|4           | Ash                                 |   g/L                     |         
+|5           | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
+|6           | Magnesium                |        mg/L                   |
+|7           | Total phenols                    g/L             |    |
+|8           | Flavanoids               |        g/L                  |
+|9           | Nonflavanoid phenols  |              g/L            |
+|10          | Proanthocyanins  |               g/L             |
+|11          | Colour intensity  |   Absorbance                         |
+|12          | Hue  |  Absorbance-ratio             |
+|13          | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
+|14          | Proline  |  mg/L                          |
 
 Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm 
 (blue, green and red light respectively, measuring the yellow, red, and blue colours of the wine.)
@@ -1690,3 +1693,8 @@ https://www.jstor.org/stable/2532505
 
 <a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
 
+
+
+† 
+‡ 
+⸸ 

@@ -27,7 +27,8 @@ we need to configure a few things. Some basic configurations to set for Git are:
 - your email address,
 - your preferred text editor
 
-To start we will check in on our current Git configuration. Open your shell terminal window and type:
+To start we will check in on our current Git configuration. Open your shell 
+terminal window and type:
 
 ```bash
 $ git config --list
@@ -65,7 +66,11 @@ If you have different output, then you may have your Git configured already. If 
 
 First, we will tell Git our user name and email.
 
-Please note: You need to use the same email address in your Git configuration in the shell as you entered into GitHub when you created your GitHub account. Later in the lesson we will be using GitHub and the email addresses need to match. If you are concerned about privacy, please review [GitHub's instructions for keeping your email address private](https://help.github.com/articles/keeping-your-email-address-private/).
+Please note: You need to use the same email address in your Git configuration 
+in the shell as you entered into GitHub when you created your GitHub account. 
+Later in the lesson we will be using GitHub and the email addresses need to 
+match. If you are concerned about privacy, please review 
+[GitHub's instructions for keeping your email address private](https://help.github.com/articles/keeping-your-email-address-private/).
 
 Type these two commands into your shell, using your own name and email:
 
@@ -74,9 +79,14 @@ $ git config --global user.name "Loki Odinson"
 $ git config --global user.email "loki.odinson@tva.org"
 ```
 
-If you enter the commands correctly, the shell will merely return a command prompt and no messages. To check your work, ask Git what your configuration is using the same command as above:
+If you enter the commands correctly, the shell will merely return a command 
+prompt and no messages. To check your work, ask Git what your configuration 
+is using the same command as above:
 
-Let's also set our default text editor. A text editor is necessary with some of your Git work, and the default from Git is Vim, which is a text editor that is hard to learn at first. Since we are using VS Code for this lesson, we will set the default editor to `code`. You can feel free to change this at a later time.
+Let's also set our default text editor. A text editor is necessary with some 
+of your Git work, and the default from Git is Vim, which is a text editor that 
+is hard to learn at first. Since we are using VS Code for this lesson, we will 
+set the default editor to `code`. You can feel free to change this at a later time.
 
 ```bash
 $ git config --global core.editor "code --wait"
@@ -137,18 +147,24 @@ Source file changes are associated with a "branch."
 By default, Git will create a branch called `master` 
 when you create a new repository with `git init`. This term evokes 
 the racist practice of human slavery and the 
-[software development community](https://github.com/github/renaming)  has moved to adopt 
+[software development community](https://github.com/github/renaming)  has moved 
+to adopt 
 more inclusive language. 
+
+MEN JEG HAR STADIG EN MASTER I ENGINEERING, IKKE EN MAIN...
 
 In 2020, most Git code hosting services transitioned to using `main` as the default 
 branch. As an example, any new repository that is opened in GitHub and GitLab default 
 to `main`.  However, Git has not yet made the same change.  As a result, local repositories 
 must be manually configured have the same main branch name as most cloud services.  
 
-For versions of Git prior to 2.28, the change can be made on an individual repository level. Note that if this value is unset in your local Git 
+For versions of Git prior to 2.28, the change can be made on an individual 
+repository level. Note that if this value is unset in your local Git 
 configuration, the `init.defaultBranch` value defaults to `master`.
 
-Since we are creating the repository on GitHub, the default branch name for the `multiverse` repo will be `main`. Configure this setting if you plan on creating git repositories locally first.
+Since we are creating the repository on GitHub, the default branch name for 
+the `multiverse` repo will be `main`. Configure this setting if you plan on 
+creating git repositories locally first.
 
 ::::::::::::::::::::::::::::::
 
