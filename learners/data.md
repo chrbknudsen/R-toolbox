@@ -1400,11 +1400,11 @@ _Dimensions:_ Rows: 444 Columns: 12
 |  Num_epis  |  Number of episodes of tennis elbow  9= missing     | |
 |  Typ_last  |  Type of raquet used during last episode <br> 1 = conventional size <br> 2 = mid-size <br> 3 = over-size <br> 9 = missing         | |
 |  Wgt_last  |  Weight of racquet used during last episode       | |
-|            |          1 = heavy                                  | |
-|            |          2 = medium                                 | |
-|            |          3 = light                                  | |
-|            |          4 = don't know                             | |
-|            |          9 = missing                                | |
+|            |          <br> 1 = heavy                                  | |
+|            |          <br> 2 = medium                                 | |
+|            |          <br> 3 = light                                  | |
+|            |          <br> 4 = don't know                             | |
+|            |          <br> 9 = missing                                | |
 |  Mat_last  |  Material of racquet used during last episode     | |
 |            |        <br>  1 = wood                                   | |
 |            |        <br>  2 = aluminium                               | |
@@ -1462,17 +1462,8 @@ _Dimensions:_ Rows: 88 Columns: 16
 |  id        |           |  ID                                                                        |
 |  age       |           |  Age                                                                       |
 |  sex       |           |  Sex <br> 1 = male <br> 2 = female <br> 9 = missing                                                                      |
-|  drg_ord   |           |  Drug order                                                                |
-|            |           |      <br> 1 = motrin-placebo                                                   |
-|            |           |      <br> 2 = placebo-motrin                                                   |
-|  painmx_2  |  2        |  During study period, pain during maximum activity vs baseline |
-|            |           |      <br> 1 = worst                                                            |
-|            |           |      <br> 2 = unchanged                                                        |
-|            |           |      <br> 3 = slightly improved (25%)                                          |
-|            |           |      <br> 4 = moderately improved (50%)                                        |
-|            |           |      <br> 5 = mostly improved (75%)                                            |
-|            |           |      <br> 6 = completely improved                                              |
-|            |           |      <br> 9 = missing                                                          |
+|  drg_ord   |           |  Drug order <br> 1 = motrin-placebo <br> 2 = placebo-motrin |
+|  painmx_2  |  2        |  During study period, pain during maximum activity vs baseline <br> 1 = worst <br> 2 = unchanged <br> 3 = slightly improved (25%) <br> 4 = moderately improved (50%) <br> 5 = mostly improved (75%) <br> 6 = completely improved <br> 9 = missing |
 |  pain12_2  |  2        |  Within 12 hours following maximal activity, compared to                   |
 |            |           |    same period at baseline  (same code as painmx_2)                        |
 |  painav_2  |  2        |  During the average day of study period pain vs. baseline                  |
@@ -1480,11 +1471,10 @@ _Dimensions:_ Rows: 88 Columns: 16
 |  painov_2  |  2        |  Overall impression of drug efficacy vs. baseline (same code as painmx_2)  |
 |  painmx_3  |  3        |  During study period, pain during maximum activity vs.                      |
 |            |           |    baseline   (same code as painmx_2)                                      |
-|  pain12_3  |  3        |  Within 12 hours following maximal activity, compared to                   |
-|            |           |    same period at baseline   (same code as painmx_2)                       |
+|  pain12_3  |  3        |  Within 12 hours following maximal activity, compared to same period at baseline   (same code as painmx_2)                |
 |  painav_3  |  3        |  During the average day of study period pain vs. baseline                   |
 |            |           |    (same code as painmx_2)                                                 |
-|  painov_3  |  3        |  Overall impressoin of drug efficacy vs. baseline                           |
+|  painov_3  |  3        |  Overall impression of drug efficacy vs. baseline                           |
 |            |           |    (same code as painmx_2)                                                 |
 |  painmx_4  |  4        |  During study period, pain during maximum activity vs.                      |
 |            |           |    baseline   (same code as painmx_2)                                      |
@@ -1632,22 +1622,22 @@ _Dimensions:_ Rows: 178 Columns: 14
 
 ## Metadata
 
-|  Variable  |  Description                      |  Unit            |
+|  Variable  |  Description                      |  Unit                      |
 |------------|-----------------------------------|----------------------------|
-|1           |  Cultivar                        |                            | 
-|2           | Alcohol                    |                %            | 
-|3           | Malic acid                    |         g/L                   | 
-|4           | Ash                                 |   g/L                     |         
-|5           | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
-|6           | Magnesium                |        mg/L                   |
-|7           | Total phenols                    g/L             |    |
-|8           | Flavanoids               |        g/L                  |
-|9           | Nonflavanoid phenols  |              g/L            |
-|10          | Proanthocyanins  |               g/L             |
-|11          | Colour intensity  |   Absorbance                         |
-|12          | Hue  |  Absorbance-ratio             |
-|13          | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
-|14          | Proline  |  mg/L                          |
+|1           | Cultivar                          |                            | 
+|2           | Alcohol                           |                %           | 
+|3           | Malic acid                        |         g/L                | 
+|4           | Ash                               |   g/L                      |         
+|5           | Alcalinity of ash                 |   meq/L <br> (milliequivalents per liter)     | 
+|6           | Magnesium                         |        mg/L                   |
+|7           | Total phenols                     |g/L    |
+|8           | Flavanoids                        |        g/L                  |
+|9           | Nonflavanoid phenols              |              g/L            |
+|10          | Proanthocyanins                   |               g/L           |
+|11          | Colour intensity                  |   Absorbance                |
+|12          | Hue                               |  Absorbance-ratio           |
+|13          | OD280/OD315 of diluted wines      | Absorbance-ratio            |
+|14          | Proline                           |  mg/L                       |
 
 Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm 
 (blue, green and red light respectively, measuring the yellow, red, and blue colours of the wine.)
