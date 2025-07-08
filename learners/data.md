@@ -1009,6 +1009,14 @@ _Dimensions:_ Rows: 72 Columns: 6
 
 ### NIFED
 
+A test of nifedipine as a drug for reducing chest pain in patients with angina.
+Unless the patient was withdrawn, discharged or died the study ran for 14 days.
+Patients were randomly assigned either nifedipine or propanolol, and given
+identical dosage at level 1 of therapy. If pain did not cease or recurred, the 
+patient progressed to level 2 with increased dosage. Similar with a progression
+to level 3. A secondary objective was to understand the effect of these drugs on
+heart rate and blood pressure.
+
 _Dimensions:_ Rows: 34 Columns: 10 
 
 [Source](data.md#rosner_1)^1^
@@ -1022,21 +1030,20 @@ _Dimensions:_ Rows: 34 Columns: 10
 |  Variable  |  Description            |  Code                    |
 |------------|-------------------------|--------------------------|
 |  Id        |  ID                     |                          |
-|  trtgrp    |  Treatment group        |  N=nifedipine/P=placebo  |
-|  bashrtrt  |  Baseline heart rate*   |  beats/min               |
-|  lv1hrtrt  |  Level 1 heart rate+    |  beats/min               |
+|  trtgrp    |  Treatment group        |  N=nifedipine/P=propanolol  |
+|  bashrtrt  |  Baseline heart rate †  |  beats/min               |
+|  lv1hrtrt  |  Level 1 heart rate ‡   |  beats/min               |
 |  lv2hrtrt  |  Level 2 heart rate     |  beats/min               |
 |  lv3hrtrt  |  Level 3 heart rate     |  beats/min               |
-|  bassys    |  Baseline systolic bp*  |  mm Hg                   |
-|  lv1sys    |  Level 1 systolic bp    |  mm Hg                   |
+|  bassys    |  Baseline systolic bp † |  mm Hg                   |
+|  lv1sys    |  Level 1 systolic bp ‡  |  mm Hg                   |
 |  lv2sys    |  Level 2 systolic bp    |  mm Hg                   |
 |  lv3sys    |  Level 3 systolic bp    |  mm Hg                   |
 
 
+† Immediately prior to randomization.
 
-* Immediately prior to randomization.
-
-+ Highest heart rate and systolic blood pressure at baseline and each level of
+‡ Highest heart rate and systolic blood pressure at baseline and each level of
   therapy respectively.
 
 Values of 999 indicates that either
@@ -1514,6 +1521,19 @@ _Dimensions:_ Rows: 88 Columns: 16
 
 ### VALID
 
+Two ways of assessing consumption of specific foods were compared. 173 nurses
+recored four weeks of diet recording (DR), approximately equally spaced over
+12 months. After each recording period, a food-frequency questionaire (FFQ) were
+completed. Diet recording and subsequent calculation of consumption of specific
+nutrients are considered the gold standard, but are more expensive to administer
+than the FFQ, where subjects record the number of servings of >100 individual
+food items typically eaten. 
+
+Compare the estimates of consumption between the two recording methods. 
+Is a given respondent placed in the same quintile for eg alcohol consumption
+measured by DR as measured by FFQ?
+
+
 _Dimensions:_ Rows: 173 Columns: 9   
 
 [Source](data.md#rosner_1)^1^
@@ -1525,16 +1545,16 @@ _Dimensions:_ Rows: 173 Columns: 9
 ## Metadata
 
 |  Variable  |  Description              | unit  |
-|------------|---------------------------|----------------|
-|  Id        |  ID number                |                |
-|  sfat_dr   |  Saturated fat-DR         |        |
-|  sfat_ffq  |  Saturated fat-FFQ        |        |
-|  tfat_dr   |  Total fat-DR             |        |
-|  tfat_ffq  |  Total fat-FFQ            |        |
-|  alco_dr   |  Alcohol consumption-DR   |        |
-|  alco_ffq  |  Alcohol consumption-FFQ  |        |
-|  cal_dr    |  Total calories-DR        |       |
-|  cal_ffq   |  Total calories-FFQ       |       |
+|------------|---------------------------|-------|
+|  Id        |  ID number                |       |
+|  sfat_dr   |  Saturated fat-DR         |   g   | 
+|  sfat_ffq  |  Saturated fat-FFQ        |  g    |
+|  tfat_dr   |  Total fat-DR             |  g    |
+|  tfat_ffq  |  Total fat-FFQ            |  g    |
+|  alco_dr   |  Alcohol consumption-DR   |  oz   |
+|  alco_ffq  |  Alcohol consumption-FFQ  |  oz   |
+|  cal_dr    |  Total calories-DR        | kcal  |
+|  cal_ffq   |  Total calories-FFQ       | kcal  |
 
 ::::
 
@@ -1701,7 +1721,7 @@ https://www.jstor.org/stable/2532505
 
 <a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
 
-
+https://www.unilus.ac.zm/lms/e-books/books/Basic_Sciences/Behavioural%20sciences%20and%20public%20health/Fundamentals%20of%20Biostatistics%20%287th%20Edition%29.pdf
 
 † 
 ‡ 
