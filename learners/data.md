@@ -1521,6 +1521,19 @@ _Dimensions:_ Rows: 88 Columns: 16
 
 ### VALID
 
+Two ways of assessing consumption of specific foods were compared. 173 nurses
+recored four weeks of diet recording (DR), approximately equally spaced over
+12 months. After each recording period, a food-frequency questionaire (FFQ) were
+completed. Diet recording and subsequent calculation of consumption of specific
+nutrients are considered the gold standard, but are more expensive to administer
+than the FFQ, where subjects record the number of servings of >100 individual
+food items typically eaten. 
+
+Compare the estimates of consumption between the two recording methods. 
+Is a given respondent placed in the same quintile for eg alcohol consumption
+measured by DR as measured by FFQ?
+
+
 _Dimensions:_ Rows: 173 Columns: 9   
 
 [Source](data.md#rosner_1)^1^
@@ -1532,16 +1545,16 @@ _Dimensions:_ Rows: 173 Columns: 9
 ## Metadata
 
 |  Variable  |  Description              | unit  |
-|------------|---------------------------|----------------|
-|  Id        |  ID number                |                |
-|  sfat_dr   |  Saturated fat-DR         |        |
-|  sfat_ffq  |  Saturated fat-FFQ        |        |
-|  tfat_dr   |  Total fat-DR             |        |
-|  tfat_ffq  |  Total fat-FFQ            |        |
-|  alco_dr   |  Alcohol consumption-DR   |        |
-|  alco_ffq  |  Alcohol consumption-FFQ  |        |
-|  cal_dr    |  Total calories-DR        |       |
-|  cal_ffq   |  Total calories-FFQ       |       |
+|------------|---------------------------|-------|
+|  Id        |  ID number                |       |
+|  sfat_dr   |  Saturated fat-DR         |   g   | 
+|  sfat_ffq  |  Saturated fat-FFQ        |  g    |
+|  tfat_dr   |  Total fat-DR             |  g    |
+|  tfat_ffq  |  Total fat-FFQ            |  g    |
+|  alco_dr   |  Alcohol consumption-DR   |  oz   |
+|  alco_ffq  |  Alcohol consumption-FFQ  |  oz   |
+|  cal_dr    |  Total calories-DR        | kcal  |
+|  cal_ffq   |  Total calories-FFQ       | kcal  |
 
 ::::
 
