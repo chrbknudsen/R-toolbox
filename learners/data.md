@@ -933,6 +933,19 @@ _Dimensions:_ Rows: 124 Columns: 40
 
 ### MICE
 
+Retinitis Pigmentosa (RP) is a group of hereditary conditions that can 
+cause night blindness and partial or total loss of vision. One method of following
+the progression is taking electroretinograms (ERG), a measure of 
+electrical activity in the retina. Amplitudes of these measurements declines
+as the disease progresses. A hypothesis is
+that direct exposure of the retina to sunligt is harmful. To test this
+hypothesis a specific gene linked to the RP was introduces to a group of mice.
+They were then randomly assigned to lighting conditions (Trtgrp) from birth.
+A control group were treated similarly. 
+
+
+Data should probably be log-transformed to ensure normality.
+
 _Dimensions:_ Rows: 240 Columns: 6
 
 [Source](data.md#rosner_1)^1^
@@ -949,8 +962,13 @@ _Dimensions:_ Rows: 240 Columns: 6
 |  Group     | <br> 1 = RP <br> 2 = normal |      |
 |  Trtgrp    |  Treatment group <br> A = light <br> B = dim <br> C = dark |      |
 |  Age       |  Age                   | days |
-|  B_amp     |  B AMP     |      |
-|  A_amp     |  A AMP     |      |
+|  B_amp     |  B Amplitude  †  |      |
+|  A_amp     |  A Amplitude  † ‡  |      |
+
+† The amplitude of B- and A-waves corresponding to different
+frequencies of light in the ERG.
+
+‡ Not measured for the control group
 
 9999 = missing.
 
