@@ -1305,6 +1305,19 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 
 ### TEAR
 
+Tear breakup time (TBUT) is the time, measured in second from a blink of the eye to
+the first dry spot appears on the cornea. 
+
+A pilotstudy comprising 14 individuals were examined under three different
+protocols A, B and C. Under protocol A TBUT were measured as a baseline, and 
+were then instructed to not blink for 3 seconds. An eyedrop were then administered,
+and TBUT were measured immediately after, and again after 5, 10 and 15 minutes.
+For protocal B and C, subjects were instructed to not blink for 6 and 10 seconds
+respectively. Data were replicated two times, for both eyes.
+
+Is there an immediate effect of the eye drop? Does the effect of the eye drop
+change over time?
+
 _Dimensions:_ Rows: 14 Columns: 61     
 
 [Source](data.md#rosner_1)^1^
@@ -1378,6 +1391,17 @@ _Dimensions:_ Rows: 14 Columns: 61
 |  os10p102  |  OS 10 sec 10min post 2        |
 |  os10p151  |  OS 10 sec 15min post 1        |
 |  os10p152  |  OS 10 sec 15min post 2        | 
+
+A very wide dataset that should be tidied before actual use.
+
+Naming of variables
+| Part | meaning |
+|------|---------|
+| od/os | Rigth (dexter)/ left (sinister) eye |
+| 3,6,10 | Protocol, seconds without blinking |
+| bas, im, pst5, pt10, pt15, ps5, p10, p15 | Time for measurement. Baseline, immedately after application, 5, 10 or 15 minutes post application |
+|1/2 | Replicate number |
+
 
 ::::
 
