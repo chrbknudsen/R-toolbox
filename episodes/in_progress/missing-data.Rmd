@@ -112,6 +112,17 @@ library(naniar)
 naniar::test
 ```
 
+og littles test har null-hypotesen at data er MCAR. Så hvis p-værdien er 
+mindre end 0.05 kan vi afvise null-hypotesen. Og det er ikke det vi er 
+ude efter. 
+
+ p > 0,05, vi kan ikke afvise, at data er MCAR (altså: de kan være MCAR)
+
+Hvis p < 0,05, er der systematik i missingness → ikke MCAR → muligvis MAR eller MNAR
+bemærk at det er omvendt af hvad vi plejer at se. Normalt vil vi gerne se en
+lav p-værdi, fordi vi så kan afvise null-hypotesen, der som regel er at "der er ikke
+noget spændende her". Her vil vi gerne se en høj p-værdi, fordi vi så ikke kan
+afvise null-hypotesen, der her er "det er den lette udgave af problemet".
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
