@@ -1,5 +1,5 @@
 ---
-title: 'missing-data'
+title: 'Handling missing data'
 teaching: 10
 exercises: 2
 ---
@@ -16,36 +16,101 @@ exercises: 2
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+```{r}
+library(dlookr)
+```
 
-## Introduction
-tre slags manglende data. 
 
-* Missing completely at random
-* Missing at random
-* Missing not at random
 
-Tilgange
+Missing data happens. And they happen for different reasons. 
 
-listwise deletion. Vi sender spørgeskemaer ud. og ikke alle svarer.
+* data der skulle have været der. Men ikke er der alligevel.
+* Data der ikke skulle have været der.
+
+tekniske fejl - data der blev målt. Men ikke gemt. Eler hvis et måle instrument
+fejlede, så eksempelvis temperaturen ikke blev målt.
+
+I spørgeskemaer - hvis respondenten nægter at svare
+
+Ikke relevant. Hvis respondenten ikke har børn - så er der ofte en række spørgsmål der
+med god grund mangler.
+
+Drop-ud eller frafald. I længerevarende undersøgelser kan nogen af respondenterne
+falde ud af undersgøelsen over tid. Eller i længere spørgeskemaer, kan respondenter
+give op undervejs.
+
+Manglende match mellem indsamlingspraksis. Forskellige interviewere registrerer 
+forskelligt.
+
+Der kan være forskellige mekanismer, som er relevante.
+
+MCAR - Missing Completely At Random. Data mangler tilfældigt, uafhængigt af 
+øvrige data. 
+
+MAR - Missing At Random. Mangler afhængig af observerede variable. Mangleheden, 
+eller hvad vi nu skal kalde det - afhænger af variablen. Eg at vi mangler 
+BMI-værdier for kvinder. Men vi har registeret deres køn.
+
+MNAR - Missing Not At Random. Manglen afhænger af værdien selv, eller noget andet
+som vi ikke ved hvad er. Folk med højt alkoholforbrug oplyser eksempelvis ofte at 
+oplyse herom.
+
+DU MÅ ALDRIG ANTAGE AT DATA MANGLER TILFÆLDIGT. Du skal forstå hvorfor noget mangler,
+før du beslutter hvordan du håndterer det. Hvis din antagelse om mekanismen (MCAR, MAR, MNAR),
+er forkert, kan det skævvride hele analysen.
+
+
+MCAR er den enkleste tilgang. Vi foretager "listwise deletion". Hvilket bare
+er en fancy måde at sige at vi sletter de observationer hvor data mangler. 
+Vi sender spørgeskemaer ud. og ikke alle svarer.
 Dem sletter vi. Nogen svarer ikke på alle spørgsmål. Dem sletter vi også.
 Vi kunne også kalde det for "complete case analysis" - vi analyserer kun
 på de komplette cases.
 
-pairwise deletion
+Hvordan sikrer vi os at det faktisk er MCAR. Det er der en test for. Little's 
+test hedder den.
 
-Imputationer
-
-Hot deck imputation
-
-mean substitution. Dårlig ide
-
-regressions subsistitution. Lidt bedre. Men ikke god.
-
-Multiple imputation - lader til at være god.
-maximum likelihood imputation
+```{r}
+library(naniar)
+```
 
 
-Og hvordan gør man det i praksis?
+Vi bliver ofte kede af at sltte observationer - for så mange data har vi sjældent.
+Men listwise deletion er nok det mest sikre sådan statistisk, når mængden af 
+manglende data er lille (<5-10%)
+
+Hvis vi vil bevare statistisk styrke, holde mængden af observationer, foretager vi
+imputation.
+Brug imputation hvis:
+Du har mange NA'er og ikke vil miste observationsrækker
+Du laver modeller, der er følsomme over for sample size (fx GLMs)
+Du skal træne maskinlæringsmodeller (de fleste kræver komplette data)
+
+undlad imputering hvis:
+Der kun mangler få værdier
+Du laver deskriptiv statistik, og vil holde alt transparent
+Du ikke vil introducere nogen som helst antagelser
+
+MAR er mere komplekst. Her kan vi med fordel imputere data. 
+
+MNAR - her er der ingen gode løsninger. Overvej at antage forskellige scenarier.
+du kan eksempelvis imputere lav, høj eller gennemsnitlig værdig og sammenligene
+resultaterne.
+
+Du kan ogå imputere baseret på din faglige viden eksempelvis "vi ved fra tidligere
+studier at folk med lav score typisk ikke svarer". og baseret på det imputere lave
+værider (eller høje, hvis det normalt er dem der ikke svarer)
+
+
+
+
+```{r}
+install.packages("naniar")
+library(naniar)
+
+# Test om missingness er MCAR
+naniar::test
+```
 
 
 
