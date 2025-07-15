@@ -4527,6 +4527,8 @@ Light’s κ
  is used for studying interrater agreement between more than 2 raters. We use the function kappamlight() from the irr package.
 Fleiss κ
  is also used when having more than 2 raters. But does not require the same raters for each subject.
+ 
+ Little's test for MCAR. Fra biblioteket naniar
 
 
 
