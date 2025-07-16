@@ -1,0 +1,146 @@
+---
+title: 'Visualisation of likert data'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Et bud
+
+vi kommer til at bruge datasættet essequal
+
+
+library(tidyverse)
+
+# Simuleret data
+set.seed(123)
+df <- data.frame(
+  Q1 = sample(1:7, 100, replace = TRUE),
+  Q2 = sample(1:7, 100, replace = TRUE),
+  Q3 = sample(1:7, 100, replace = TRUE)
+)
+
+# Labels og faktorer
+likert_labels <- c(
+  "Strongly Disagree", "Disagree", "Somewhat Disagree",
+  "Neutral",
+  "Somewhat Agree", "Agree", "Strongly Agree"
+)
+
+df_long <- df %>%
+  pivot_longer(cols = everything(), names_to = "question", values_to = "response") %>%
+  mutate(
+    response = factor(response, levels = 1:7, labels = likert_labels),
+    question = factor(question, levels = unique(question))
+  )
+
+# Tæl og beregn procenter
+df_count <- df_long %>%
+  count(question, response) %>%
+  group_by(question) %>%
+  mutate(
+    percent = n / sum(n) * 100,
+    direction = case_when(
+      response %in% likert_labels[1:3] ~ "neg",
+      response == "Neutral" ~ "neu",
+      TRUE ~ "pos"
+    ),
+    response = factor(response, levels = likert_labels)
+  ) %>%
+  arrange(question, direction, response)
+
+# Beregn stacking-positioner
+df_stack <- df_count %>%
+  group_by(question, direction) %>%
+  mutate(
+    xpos_start = case_when(
+      direction == "neg" ~ -rev(cumsum(rev(percent))),
+      direction == "neu" ~ -percent / 2,
+      direction == "pos" ~ cumsum(percent) - percent
+    ),
+    xpos_end = xpos_start + percent,
+    y = as.numeric(question),
+    xpos_mid = (xpos_start + xpos_end) / 2,
+    label = ifelse(percent >= 5, paste0(round(percent), "%"), "")
+  )
+
+questions <- levels(df_stack$question)
+
+df_main <- df_stack %>% filter(direction != "neu")
+df_neutral <- df_stack %>%
+  filter(direction == "neu") %>%
+  mutate(
+    xpos_start = -percent / 2,
+    xpos_end = percent / 2,
+    xpos_mid = 0
+  )
+
+ggplot() +
+  # Positive/negative
+  geom_rect(data = df_main, aes(
+    xmin = xpos_start, xmax = xpos_end,
+    ymin = y - 0.4, ymax = y + 0.4,
+    fill = response
+  )) +
+  # Neutral ovenpå, centreret
+  geom_rect(data = df_neutral, aes(
+    xmin = xpos_start, xmax = xpos_end,
+    ymin = y - 0.4, ymax = y + 0.4,
+    fill = response
+  )) +
+  # Labels
+  geom_text(data = bind_rows(df_main, df_neutral), aes(
+    x = xpos_mid,
+    y = y,
+    label = label
+  ), size = 3) +
+  # Akse og tema
+  geom_vline(xintercept = 0, color = "black", linewidth = 0.3) +
+  scale_y_continuous(
+    breaks = 1:length(questions),
+    labels = questions
+  ) +
+  scale_fill_manual(values = c(
+    "Strongly Disagree" = "#8B0000",
+    "Disagree" = "#D2691E",
+    "Somewhat Disagree" = "#FFD700",
+    "Neutral" = "#C0C0C0",
+    "Somewhat Agree" = "#90EE90",
+    "Agree" = "#00C000",
+    "Strongly Agree" = "#00008B"
+  )) +
+  labs(
+    x = "Percent", y = "Question", fill = "Response"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    axis.title.y = element_text(margin = margin(r = 10))
+  )
+
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
