@@ -1711,6 +1711,77 @@ OD280/OD315 is measured as absorbance at 280 nm divided by absorbance at 315 nm.
 ::::
 
 
+### essequal
+
+A subset of data from European Social Survey, ESS11, edition 1.2, containing responses from
+46162 respondents in 28 different countries. Responces relating to respondents
+experience of unfair treatment because of sex have been selected.
+
+_Dimensions:_ Rows: 46162 Columns: 9 
+
+[Source](learners/data.md#ess_11)^11^
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/essequal.csv)
+
+::::spoiler
+### Metadata
+
+|  Variable  |  Description                      |  Unit                      |
+|------------|-----------------------------------|----------------------------|
+| idno           | Respondent's identification number                         |                            |
+|  cntry          |   Country                        |                            |
+|  gndr          |  Sex of respondent. <br> 1: Male <br> 2: Female <br> 9. No answer/missing value                         |                            |
+| trmedmw            | Unfairly treated when visiting a doctor or seeking medical treatment because being a man/woman † |                            |
+| trwrkmw           | Unfairly treated in hiring pay or promotion at work because being a man/woman † |                            |
+| trplcmw           | Unfairly treated by the police because being a man/woman † |                            |
+| trmdcnt            | Women/men: treated equally fairly when seeking medical treatment in country   ‡                       |                            |
+| trwkcnt           | Women/men: treated equally fairly in hiring, pay or promotions at work in [country] ‡ | |
+|  trplcnt          | How fair the police in [country] treat women/men ⸸                         |                            |
+
+† Responses in trmedmw, trwrkmw, trplcmw codes as:
+
+| Value |	Category |
+|-------|----------|
+| 1 | 	Yes, once |
+| 2	| Yes, more than once |
+| 3	| No |
+| 4	| Have never visited doctor or sought medical treatment |
+| 6	| Not applicable* |
+| 7	| Refusal* |
+|8	| Don't know* |
+| 9	| No answer* |
+
+ 
+‡ Responses in trmdcnt, trwkcnt coded as:
+
+| Value |	Category |
+|-------|----------|
+| 1	|Women are treated less fairly than men|
+| 2|	Men are treated less fairly than women|
+| 3|	Women and men are treated equally fairly|
+| 7|	Refusal*|
+| 8	|Don't know*|
+| 9 |	No answer*|
+
+
+
+⸸ Responses in trplcnt coded as:
+
+Value	Category
+1	The police treat women less fairly than men
+2	The police treat men less fairly than women
+3	Women and men are treated equally fairly
+7	Refusal*
+8	Don't know*
+9	No answer*
+
+*) Missing Value
+
+::::
+
+doi:10.21338/ess11md_e01_2
+
+
 
 ## References
 
@@ -1744,6 +1815,10 @@ https://www.jstor.org/stable/2532505
 <a id = "wine_9">9</a>: Aeberhard, S. & Forina, M. 1991, UCI Machine Learning Repository, https://doi.org/10.24432/C5PC7J
 
 <a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
+
+<a id = "ess_11">10</a>: ESS11 Multilevel Data, edition 1.2 (published 04.07.25): https://doi.org/10.21338/ess11md_e01_2
+
+
 
 https://www.unilus.ac.zm/lms/e-books/books/Basic_Sciences/Behavioural%20sciences%20and%20public%20health/Fundamentals%20of%20Biostatistics%20%287th%20Edition%29.pdf
 
