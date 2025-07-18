@@ -4,7 +4,7 @@ teaching: 30
 exercises: 1
 ---
 
-# ALT HERUNDER ER DIREKTE KOPIERET
+
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
@@ -20,11 +20,15 @@ exercises: 1
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
+
+
 As soon as people can work in parallel, they'll likely step on each other's
-toes.  This will even happen with a single person: if we are working on
+toes.  This will even happen if you work alone: if we are working on
 a piece of software on two different computers, we could make
-different changes to each copy.  Version control helps us manage these
-conflicts by giving us tools to resolve overlapping changes.
+different changes to each copy. This is to be expected, and version control 
+helps us manage these conflicts by giving us tools to handle overlapping changes.
+
+# ALT HERUNDER ER DIREKTE KOPIERET
 
 To see how we can resolve conflicts, we must first create one.  The
 file `earth.txt` currently looks like this in our `multiverse` repository:
