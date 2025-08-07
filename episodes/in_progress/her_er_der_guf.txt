@@ -84,3 +84,14 @@ Så. Gem det som et ørebeløb i int, og juster på visningen.
 
 Men pas også på med renteberegninger hvis du er i regnskabsverdenen. Der skal være
 5 betydende cifre for at overholde bogføringsloven. 
+
+
+der kan være problemer med at downloade youtube videoer med yt-dlp. 
+I Linux Mint eksisterer der en 4kTube pro ting der stadig kan.
+
+
+
+https://www.timeanddate.com/ er cool.
+
+bemærk. ugenumre er vanskelige. der er år med 54 uger... Og det kan være forskelligt fra
+land til land. Vær opmærksom på at vi ikke engnag følger en fælles standard i EU
