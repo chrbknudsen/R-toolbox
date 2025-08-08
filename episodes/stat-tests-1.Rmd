@@ -75,7 +75,6 @@ have not been checked.
 ### One-sample chi-square test
 
 Or, more complete - one-sample chi-square goodnes-of-fit test.
-EJ KORREKTURLÆST
 
 * **Used for:** Testing whether observed categorical frequencies differ from expected 
 frequencies under a specified distribution.
@@ -87,7 +86,7 @@ their M&M bags. Do the observed proportions in a given bag match their claim?
 
 * Observations are independent.  
 * Categories are mutually exclusive and collectively exhaustive.
-* _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller.
+* _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller, it is the expected counts that are important.
 
 **Strengths**
 
@@ -112,8 +111,8 @@ their M&M bags. Do the observed proportions in a given bag match their claim?
 # Observed counts of M&M colors:
 observed <- c(red = 20, blue = 25, green = 15, brown = 18, orange = 12, yellow = 10)
 
-# Manufacturer's claimed proportions:
-p_expected <- c(red = 0.20, blue = 0.20, green = 0.20, brown = 0.20, orange = 0.10, yellow = 0.10)
+# Manufacturer's claimed proportions.
+p_expected <- c(red = 0.12, blue = 0.24, green = 0.16, brown = 0.14, orange = 0.20, yellow = 0.14)
 
 # Perform one-sample chi-square goodness-of-fit test:
 test_result <- chisq.test(x = observed, p = p_expected)
@@ -122,10 +121,12 @@ test_result <- chisq.test(x = observed, p = p_expected)
 test_result
 ```
 
-**Interpretation**: The test yields χ² = 3.1 with a p-value = 0.685. We
-fail to reject the null hypothesis", and there is no evidence to conclude a 
+**Interpretation**: The test yields χ² = 10.9 with a p-value = 0.05292. We
+fail to reject the null hypothesis, and there is no evidence to conclude a 
 difference from the claimed distribution.
 
+Note that in this example, the number of observations sums to 100. `chisq.test()`
+normalises the expected values, so we do not _have_ to match the numbers.
 
 ::::
 
