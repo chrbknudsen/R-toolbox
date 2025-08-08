@@ -74,12 +74,13 @@ have not been checked.
 
 ### One-sample chi-square test
 
+Or, more complete - one-sample chi-square goodnes-of-fit test.
 EJ KORREKTURLÆST
 
 * **Used for:** Testing whether observed categorical frequencies differ from expected 
 frequencies under a specified distribution.
 * **Real-world example:** Mars Inc. claims a specific distribution of colours in
-their M&M bags. Does the observed proportions in a given bag match their claim?
+their M&M bags. Do the observed proportions in a given bag match their claim?
 
 
 **Assumptions**
