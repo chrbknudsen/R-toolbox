@@ -1,0 +1,219 @@
+---
+title: 'Debugging'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+for at demoe kan det være der skal sættes chunk option error = TRUE
+Hvilket skulle gøre det muligt at knitte med fejl.
+
+## Introduction
+
+Debugging is the task of figuring out why a problem occurs, and how to solve it.
+
+
+Ikke en gennemgang af alle former og metoder. De hyppigst forekommende 
+fejl og hvordan vi fikser dem. 
+
+Der skal så laves en del to, hvor vi kigger på værktøjer.
+
+## Jenny
+https://github.com/jennybc/debugging
+
+
+```{r}
+dat <- data.frame(x = 1, y =2)
+df$x
+```
+
+If at first you don't succeed. Try the exact same thing again!
+
+have you tried turning it off and on again?
+
+Restart R, dont save/reload .Rdata
+Især når ting begynder at blive mærkelige!
+Her skal vi have et billede af "save workspace to .Rdata on exit "never" i options.
+Og dereftre "restart R".
+
+At genstarte, uden at restore data eller gemme environment, er ikke det samme
+som at slette alt i environment. (rm(list = ls()))
+
+Det der overlever er nemlig:
+library(dplyr)
+options(stringsAsFactors = FALSE)
+Sys.setenv(LANGUAGE = "fr")
+attach(iris)
+
+
+En frisk genstart rydder workspace, resetter options og miljøvariable. Clearer 
+search path.
+
+
+Reproduce the problem.
+Now make a reprex Et minim reproducible example.
+reproducible betyder at det ikke må være afhængig af noget vi ikke kan se.
+Problemet er ofte at der er forskel på hvad du siger, tænker eller tror du gør.
+
+Og så hvad du faktisk gør.
+
+Og minimalt. Hvis du skal finde nålen i høstakken. Så er det en god ide at
+lede i en mindre høstak. Så. Små og simple inputs. Ingen overflødige pakker.
+ingen overflødige funktionskald.
+
+Det betyder ofte at du faktisk selv finder problemet og kan løse det. Og hvis
+du ikke kan, så gør det det lettere for andre at finde problemet.
+
+traceback. 
+rlang::last_trace
+
+debuggeren
+browser()
+debug()
+
+## resten ----
+
+se også 
+
+https://cosimameyer.com/post/mastering-debugging-in-r/
+
+debug()
+browser()
+undebug()
+flow()
+
+```{r}
+
+library(flow)
+flow::flow_run(mean(1:5))
+```
+
+
+https://rstats-wtf.github.io/wtf-debugging-slides/#/additional-resources
+
+https://adv-r.hadley.nz/debugging.html
+
+https://x.com/cogscimom/status/1354508785365078016
+
+# Noter
+pakkerne "flow" og "boomer". 
+Og dertil generelle tips og tricks
+
+https://rtask.thinkr.fr/the-top-10-r-mistakes-the-7th-one-will-surprise-you/
+
+
+Debugging er besværligt. For fejl er som regel vanskelige at finde. Hvis de
+var lette at finde, ville du formentlig ikke have lavet dem til en start.
+
+Udnyt at rstudio angiver åbenlyse fejl med små røde krydser ud for linie
+nummeret hvor fejlen optræder. Den fanger ubalancerede paranteser og manglende 
+kommaer
+
+## could not find function
+
+Klassisk fejl. Der er to typiske årsager.
+
+1. der er en stavefejl i funktionen:
+
+```{r eval = F}
+rnom(1) # i stedet for rnorm(1)
+```
+
+2. Den hyppigste. Du har glemt at indlæse et bibliotek
+
+## unexpected SPECIAL in %>% 
+
+```{r eval  =F }
+iris
+%>% select(Species)
+```
+
+Den er gal med linieskiftet.
+
+## unexpected 'else' in "else"
+if (  1 != 1 ) {print("youpi")} 
+else { print("coucou")}
+## Error: unexpected 'else' in "else"
+## 1: if (  1 != 1 ) {print("youpi")} 
+## 2: else
+##    ^
+Same cause as last issue.
+You misplaced a line break.
+
+Correction :
+
+You need to check that the else is correctly associated with the former line.
+R interprets the code one line at a time, and when if doesn’t have an associated else, which makes sense, make sure that R understands that your instruction is finished.
+
+if (  1 != 1 ) {print("youpi")
+  } else { print("coucou")}
+  
+## object dataset not found
+
+Det datasæt (eller object) du prøver at gøre noget ved findes ikke. Det kan være 
+en stavejl. Eller også har du ikke assigned noget til objectets navn.
+har du ikke 
+
+## there is no package called 'tidyvers'
+
+to muligheder. du har stavet forkert. Eller du har ikke indlæst biblioteket.
+
+## non-numeric argument to binary operator
+
+Du har en operator. +, - eller lignende, der forventer to numeriske input,
+et på hver side. Det ene input er ikke numerisk. 
+
+
+
+
+## Unexpected symbol in
+Optræder hyppigst når du har glemt et komma:
+
+mean(1:4 na.rm = F)
+
+Error: unexpected symbol in "mean(1:4 na.rm"
+
+R forventer at se et komma. I stedet er der na. Det er uventet.
+
+## Object of type closure is not subsettable
+
+```{r}
+mean[1:3]
+```
+Den fejl skyldes at `mean` er af typen "closure:
+```{r}
+typeof(mean)
+```
+Hvad er closure? det er objekter der "encloses", indkapsler, det environment
+det er defineret i. Det er derfor at en funktion har adgang til alle variable 
+i det aktuelle environment. Jeg ved ikke om der er andre ting i R end funktioner der er
+af typen closure. Men funktioner er af typen closure. 
+
+Og funktioner kan ikke subsettes. Fejlen opstår med andre ord, fordi du prøver at 
+subsette en funktioner. 
+
+Hvordan løses det? Ved at lade være med at subsette en funktion.
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
