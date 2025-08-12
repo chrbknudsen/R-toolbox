@@ -125,6 +125,20 @@ noget spændende her". Her vil vi gerne se en høj p-værdi, fordi vi så ikke k
 afvise null-hypotesen, der her er "det er den lette udgave af problemet".
 
 
+
+## noter om bwplot
+
+When performing multiple imputation of missing data, it is essential to evaluate how the imputed values compare to the observed data. The bwplot() function of the mice package in R offers a straightforward way to visualize and assess these relationships using boxplots.
+The attached image, created with the bwplot() function, showcases how the distributions of observed and imputed values vary across different imputations for multiple variables. Here's what the plot reveals!
+🔹 Plot Explained: The plot compares the distributions of observed (blue boxplots, labeled "0") and imputed values (pink boxplots, labeled "1" to "5") for each variable across five imputations.
+🔹 Observed vs. Imputed Data: For variables such as wgt and bmi, the imputed values closely align with the observed data, indicating that the imputation model effectively captures the underlying structure of the data. However, differences between observed and imputed distributions do not necessarily signify an issue. They may reflect systematic patterns in the missing data that are accurately modeled by the imputation algorithm.
+🔹 Imputation Consistency: Stable distributions across imputations demonstrate consistency and reliability in the imputation process. If variability persists between imputations, it may indicate the need for further iterations or adjustments to the imputation model.
+To generate this plot using the mice package in R:
+library(mice)
+my_imp <- mice(boys)
+bwplot(my_imp)
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
