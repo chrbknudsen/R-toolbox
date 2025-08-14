@@ -7,6 +7,7 @@ exercises: 2
 :::::::::::::::::::::::::::::::::::::: questions 
 
 - How do you make a Table One?
+- How do you make a Table One that is easy to configure?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -14,6 +15,7 @@ exercises: 2
 
 - Explain what a Table One is
 - Know how to make a Tabel One and adjust key parameters
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -29,11 +31,14 @@ demographic and clinical variables.
 
 It typically compares different groups (male~female, treatment~control), to highlight similarities and differences.
 
+```{r}
+1+1
+```
 
 ```{r prep_table1_data, echo = FALSE, warning = FALSE, message =FALSE}
 library(tidyverse)
 library(table1)
-blood <- read_csv("data/BLOOD.csv") %>% 
+blood <- read_csv("episodes/data/BLOOD.csv") %>% 
   mutate(testost = na_if(testost, 999.0)) %>% 
   mutate(prolactn = na_if(prolactn, 99.99)) %>% 
   select(-estrone)
@@ -53,271 +58,49 @@ units(blood$ageblood) <- "years"
 It can look like this:
 
 ```{r basic-table1-demo, echo = FALSE, results='asis'}
-table1(~ageblood+testost+prolactn|case+curpmh, data = blood)
-```
-Please note that the automatic styling of this site results in a table-one
-that is not very nice looking.
-
-We have 510 participants in a study, split into control and case groups, and
-further subdivided into two groups based on PostMenopausal Hormone use.
-It describes the distribution of sex and concentration of 
-testosterone and prolactin in a blood sample.
-
-## How do we make that?
-
-
-### Structuring the data
-
-Most things in R are simple to do (but rarely simple to understand) when the 
-data has the correct structure.
-
-If we follow the general rules of thumb for tidy data, we are off to a good 
-start. This is the structure of the data set we are working with here - after 
-we have made some modifications regarding labels, levels and units.
-
-```{r data_structure_example}
-head(blood)
-```
-
-The important thing to note is that when we stratify the summary statistics by
-some variable, this variable have to be a categorical variable. The variables 
-we want to do summary statistics _on_ also have to have the correct type.
-Are the values categorical, the column in the dataframe have to actually be
-categorical. Are they numeric, the data type have to be numeric.
-
-
-### And having the data - how do we actually do it?
-
-A number of packages making it easy to make a Table One exists. Here we look
-at the package `table1`.
-
-The specific way of doing it depends on the data available. If we do not have
-data on the weight of the participants, we are not able to describe the distribution
-of their weight.
-
-Let us begin by looking at the data. We begin by loading the two packages `tidyverse`
-and `table1`. We then read in the data from the csv-file "BLOOD.csv", which
-we have [downloaded from this link](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv).
-
-```{r load-data-1, message=FALSE}
-library(tidyverse)
-library(table1)
-blood <- read_csv("data/BLOOD.csv")
-head(blood)
-```
-510 rows. Its a case-control study, where the ID represents one individual, and 
-matchid gives us the link between cases and controls. Ageblood is the age of the
-individual at the time when the blood sample was drawn, and we then have levels 
-of four different hormones. 
-
-The data contains missing values, coded as "999.0" for estrone and testost, and
-99.99 for prolactin.
-
-Let us fix that:
-
-```{r load-data-2}
-blood <- blood %>% 
-  mutate(estrone = na_if(estrone, 999.0)) %>% 
-  mutate(testost = na_if(testost, 999.0)) %>% 
-  mutate(prolactn = na_if(prolactn, 99.99)) 
+library(gt)
+table1(~ageblood+testost+prolactn|case+curpmh, data = blood) 
 ```
 
 
-We then ensure that categorical values are stored as categorical values, and
-adjust the labels of those categorical values:
+Og det gør vi så med gt i stedet.
 
-```{r load-data-3}
-blood <- blood %>% 
-  mutate(case = factor(case, labels = c("control", "case"))) %>% 
-  mutate(curpmh = factor(curpmh, labels = c("no", "yes")))
+Herunder er vi ikke helt i mål endnu. Men vi er ret tæt.
+
+```{r}
+
+library(dplyr)
+library(gtsummary)
+
+# grunddata
+base <- blood |>
+  select(age, grade, stage, trt) |>
+  mutate(grade = paste("Grade", grade))
+
+# rækkefølge på paneler: Overall først, derefter Grade I/II/III
+lvl <- c("Overall", paste("Grade", levels(trial$grade)))
+
+# lav et samlet datasæt med et ekstra "Overall"-panel
+df <- bind_rows(
+  base |> mutate(.panel = "Overall"),
+  base |> mutate(.panel = grade)
+) |>
+  mutate(.panel = factor(.panel, levels = lvl))
+
+# tabel: tre strata + et overall-stratum
+tbl <- df |>
+  tbl_strata(
+    strata = .panel,
+    .tbl_fun = ~ .x |>
+      select(-grade) |> 
+      tbl_summary(by = trt, missing = "no") |>
+      add_n(),
+    .header = "**{strata}**, N = {n}"
+  )
+
+tbl
+
 ```
-
-And now we can make our table one like this. Note that we only include testosterone
-and prolactin, in order to get a more manageble table 1:
-
-
-```{r table-one-live}
-table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
-```
-
-It is a good idea, and increases readability, to add labels and units to
-the variables. The `table1` package provides functions for that:
-
-```{r load-data-4}
-label(blood$curpmh) <- "current_pmh"
-label(blood$case) <- "case_control"
-label(blood$ageblood) <- "Age"
-units(blood$ageblood) <- "years"
-```
-
-This will add labels to the plot, and allow us to give the data more meaningful
-names and units without changing the date it self. This looks nicer, and is 
-easier to read:
-
-
-```{r table-one-live-2}
-table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
-```
-
-
-## More advanced stuff
-
-We might want to be able to precisely control the summary
-statistics presented in the table. 
-
-We can do that by specifying input to the arguments
-`render.continuous` and `render.categorical` that
-control how continuous and categorical data respectively,
-is shown in the table.
-
-The simple way of doing that is by using abbrevieated
-function names. We only include testosterone and prolactin in the the table
-to save space:
-
-
-```{r summary-statistics}
-table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
-        render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
-                           "Geom. mean (Geo. SD%)"="GMEAN (GSD%)"))
-```
-
-`table1` recognizes the following summary statisticis:
-N, NMISS, MEAN, SD, CV, GMEAN, GCV, MEDIAN, MIN, MAX, IQR, 
-Q1, Q2, Q3, T1, T2, FREQ, PCT
-
-Details can be found in the help to the function `stats.default()` 
-
-Note that they are case-insensitive, and we can write Median or mediAn instead
-of median. 
-
-Also note that we write `.="Mean (SD%)"` which will be recognized
-as the functions `mean()` and `sd()`, but also that the label shown should be
-"Mean (SD%)".
-
-If we want to specify the label, we can write `"Geom. mean (Geo. SD%)"="GMEAN (GSD%)"`
-
-
-:::: challenge
-## Change the labels 
-
-We have two unusual values in this table - geometric mean and geometric 
-standard deviation. Change the code to write out "Geom." and "geo." as 
-geometric.
-
-
-:::: solution
-```{r summary-statistics-solution, eval = FALSE}
-table1(~ageblood + testost + prolactn |case + curpmh, data = blood,
-        render.continuous=c(.="Mean (SD%)", .="Median [Min, Max]",
-                           "Geometric mean (Geometric SD%)"="GMEAN (GSD%)"))
-```
-
-
-The geometric mean of two numbers is the squareroot of the product of the two
-numbers. If we have three numbers, we take the cube root of the product. In general:
-
-$$\left( \prod_{i=1}^{n} x_i \right)^{\frac{1}{n}}$$
-
-The geometric standard deviation is defined by:
-$$ \exp\left(\sqrt{\frac{1}{n} \sum_{i=1}^{n} \left( \log x_i - \frac{1}{n} \sum_{j=1}^{n} \log x_j \right)^2}\right)$$
-
-
-::::
-
-::::
-
-
-
-
-## Very advanced stuff
-
-If we want to specify the summary statistics very precisely, we have to 
-define a function ourself:
-
-```{r your-own-function}
-my_summary <- function(x){
-  c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
-"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
-}
-table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
-render.continuous = my_summary)
-```
-We do not _need_ to use the `sprintf()` function, but it is a very neat way of 
-combining text with numeric variables because it allows us to format 
-them directly.
-
-Summary statistics for categorical data can be adjusted similarly, by specifying
-`render.categorical`.
-
-:::: challenge
-## What does %.3f actually do?
-
-Can you guess what the formatting in ´sprintf´ does? 
-
-Try to change "%.3f" in the function to "%.2f".
-
-:::: solution
-
-```{r sprintf-solution, eval = FALSE}
-my_summary <- function(x){
-  c("","Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
-"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
-}
-```
-
-`sprintf` uses a bit of an arcane way of specifying the way numbers should be
-formatted when we combine them with text. The "%"-sign specifies that "this is
-where we place the number in the function". ".3f" specifies that we are treating
-the number as a floating point number (which is just a fancy way of saying that
-it is a decimal number), and that we would like three digits after the decimal point.
-
-::::
-
-
-
-::::
-
-
-:::: challenge
-
-## Whats up with that blank line?
-
-Note that in the function, we define a vector as output, with three elements:
-```{r blank-line-challenge, eval=FALSE}
-my_summary <- function(x){
-  c("",
-"Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
-"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
-}
-```
-
-Calculating and formatting the median and the varianse is pretty straightforward.
-
-But the first element is an empty string. Whats up with that?
-
-:::: solution
-
-Try to remove the empty string from the function, and use it is a table one 
-as previously shown:
-
-```{r blank-line-solution, eval=FALSE}
-my_summary <- function(x){
-  c("Median" = sprintf("%.3f", median(x, na.rm = TRUE)),
-"Variance" = sprintf("%.1f", var(x, na.rm=TRUE)))
-}
-table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
-render.continuous = my_summary)
-```
-The line beginning with "Median" does not show up, but the median value is 
-shown next to the "Age" and "Weight" lines. 
-
-::::
-
-::::
-
-
-
-
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
