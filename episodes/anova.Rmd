@@ -18,7 +18,16 @@ exercises: 2
 - Explain what an ANOVA is
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Introduction
+## What is ANOVA
+
+ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
+means of three or more groups in order to determine if there is a significant
+difference between them.
+
+Or, more simply: Are the means of all the groups equal?
+
+
+## An example
 
 Studying the length of penguin flippers, we notice that
 there is a difference between the average length between

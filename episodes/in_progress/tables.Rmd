@@ -1,0 +1,73 @@
+---
+title: 'tables'
+teaching: 10
+exercises: 2
+---
+
+::: questions
+-   How do you write a lesson using R Markdown and `{sandpaper}`?
+:::
+
+::: objectives
+-   Explain how to use markdown with the new lesson template
+-   Demonstrate how to include pieces of code, figures, and nested challenge blocks
+:::
+
+Tabeller er også datavisualiseringer. Vi er bare en del tættere på data.
+
+Making a table directly is as simple as printing the dataframe:
+
+```{r}
+head(mtcars)
+```
+
+We can do more advanced stuff working in markdown (as we do here) by using the `kable()` function, especially with the `kableExtra` extension:
+
+```{r}
+library(knitr)
+library(kableExtra)
+mtcars %>%
+  head() %>%
+  kable(
+    format = "markdown", 
+    caption = "Uddrag af `mtcars` dataset"
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE,
+    position = "center"
+  ) %>%
+  row_spec(0, bold = TRUE, background = "#2E3B4E", color = "white") %>%
+  row_spec(1:6, background = c("#F5F5F5", "white"))
+```
+But it is not very intuitive. 
+
+hvis vi postulerer at tabeller er en slags grafer. 
+og gg i ggplot er "grammar of graphics". Så er det oplagt at der
+kan eksistere en "grammar of tables". Og det gør der. Måske ikke helt
+så udfoldet som gg. Men alligevel.
+
+Vi er nok nødt til at holde det her relativt enkelt. For kompleksiteten
+er ikke nødvendigvis meget lavere end i ggplot2.
+
+Vi kan starte med at analysere på hvordan sådan en tabel overhoveet
+ser ud:
+
+![](gt_parts_of_a_table.svg){https://github.com/rstudio/gt/}
+Det er udgangspunktet. Så skal vi bare finde ud af at justere på indholdet.
+
+Vi skal måske ligefrem have en table1 udgave?
+
+Anyway. 
+```{r}
+library(palmerpenguins)
+```
+
+
+
+::: keypoints
+-   Use `.md` files for episodes when you want static content
+-   Use `.Rmd` files for episodes when you need to generate output
+-   Run `sandpaper::check_lesson()` to identify any issues with your lesson
+-   Run `sandpaper::build_lesson()` to preview your lesson locally
+:::
