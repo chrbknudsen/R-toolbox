@@ -70,6 +70,7 @@ episodes:
 - descript-stat.Rmd
 - histograms.Rmd
 - table1.Rmd
+- table1-gt.Rmd
 - tidy-data.Rmd
 - normal-distribution.Rmd
 - is-it-normal.Rmd
