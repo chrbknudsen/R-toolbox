@@ -59,15 +59,54 @@ It can look like this:
 
 ```{r basic-table1-demo, echo = FALSE, results='asis'}
 library(gt)
-table1(~ageblood+testost+prolactn|case+curpmh, data = blood) 
+table1(~ageblood+testost+prolactn|case, data = blood) 
 ```
 
 
+```{r eval = FALSE}
+blood |> 
+  tbl_strata2(
+    strata = case,
+    .tbl_fun = ~ .x |> 
+      tbl_summary(include = c(ageblood, estradol, testost),
+    type = all_continuous() ~"continuous2",
+      statistic = all_continuous() ~c(
+             "{N_nonmiss}",
+        "{median} ({p25}, {p75})",
+        "{min}, {max}"
+         )
+      ) |> 
+      add_n() 
+      
+  )  |> as_gtsummary()
+  
+   
+```
+
+
+
+
+```{r}
+tbl_summary(blood, 
+            by = case, 
+              type = all_continuous() ~ "continuous2", # for at få multilinie summary stats
+            include = c(ageblood, testost, curpmh),
+                statistic = all_continuous() ~ c(
+      "{mean} ({min}, {max})",
+      "{median} ({p25}, {p75})"
+    )
+            ) |>
+    add_overall(last = TRUE)
+```
+
 Og det gør vi så med gt i stedet.
+er der lettere måder? Ja, det er der. Link til lettere måde. 
+Men! det her giver os ret omfattende muligheder for at tilpasse tabellen.
+
 
 Herunder er vi ikke helt i mål endnu. Men vi er ret tæt.
 
-```{r}
+```{r eval = FALSE}
 
 library(dplyr)
 library(gtsummary)
