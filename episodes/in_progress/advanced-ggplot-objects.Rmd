@@ -137,7 +137,9 @@ mtcars %>%
 
 ```
 
+vi skal nok have lidt styr på hvad den der `parse` gør. 
 
+og `as.symbol`. Og hvad !! betyder i denne kontekst.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
