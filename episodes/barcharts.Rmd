@@ -18,7 +18,7 @@ exercises: 2
 
 ## Introduction
 
-Barcharts are easy to make, but how can we get them to look nicer.
+Barcharts are easy to make, but how can we get them to look nicer?
 
 This is a checklist for cleaning up your barchart.
 
