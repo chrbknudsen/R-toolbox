@@ -10,32 +10,12 @@ Få webR-kørende slides og website, og udgive til GitHub Pages – uden submodu
 Forudsætninger
 --------------
 - Positron eller RStudio + Quarto installeret (quarto check)
-- Git installeret og konfigureret (git --version)
-- GitHub-konto (her: chrbknudsen)
 
-Mappestruktur (minimum)
------------------------
-<projekt-rod>/
-  _quarto.yml
-  _extensions/
-    live/            ← kopieres ind i trin 4
-  slides/
-    demo.qmd         ← din slide, har include-linje jf. trin 5
-  docs/              ← genereres af `quarto render`
-
-
-Trin 0 - opret folder - vi er i Positron
------------------------
 - opret en folder. Ækvivalent til et projekt i Rstudio
+- Opret _quarto.yml
+- Indsæt nedenstående i _quarto.yml
 
-Trin 1 — Quarto website
------------------------
-- Opret _quarto.yml i projektroden som type: website, output-dir: docs.
-- Tilføj navbar-link til slides/demo.qmd.
-- Evt. theme under format.live-html.theme: cosmo.
-
-Dette gøres ved at sætte dette indhold ind i _quarto.yml:
---indsæt start --
+-- start indsæt
 project:
   type: website
   output-dir: docs
@@ -50,27 +30,16 @@ website:
 format:
   live-html:
     theme: cosmo
+-- slut indsæt
 
--- indsæt slut --
-
-Trin 2 — Git-repo og branch (på terminalen)
----------------------------
-git init
-git add .
-git commit -m "første commit"
-git branch -M main
+bemærk at hvis quarto præsentationen hedder noget andet end demo.qmd - så skal der stå noget andet.
+Og hvis den ikke ligger i folderen "slides", så skal der også ændres her.
 
 Trin 3 — Hent 'quarto-live' som ZIP (ingen submodule)
 -----------------------------------------------------
 - Gå til https://github.com/r-wasm/quarto-live (code - download zip)
 - Download ZIP og udpak et vilkårligt sted uden for projektmappen.
 
-Trin 3.2 hent en quarto-extention som ZIP
--------------
-- Hentes her: https://github.com/coatless/quarto-webr
-- i den zipfil er folderen _extensions/webr
-- den placeres i project folderes rod under 
-_extensions/coatless/webr
 
 Trin 4 — Installer 'live'-extension fladt i projektet
 -----------------------------------------------------
@@ -80,6 +49,16 @@ Trin 4 — Installer 'live'-extension fladt i projektet
   _extensions/live/live.lua
   _extensions/live/_extension.yml
   _extensions/live/_knitr.qmd
+
+
+Trin 3.2 hent en quarto-extention som ZIP
+-------------
+- Hentes her: https://github.com/coatless/quarto-webr (grøn knap - code - download zip)
+- i den zipfil er folderen _extensions/webr
+- den placeres i project folderes rod under 
+_extensions/webr
+
+
 
 Trin 5 — Knyt webR ind i dine slides
 ------------------------------------
@@ -96,14 +75,17 @@ filters:
 webr:
   packages: ["dplyr"]
 --- slut indsæt ---
+
 - bemærk at fra filters til ] ikke er nødvendig. Med mindre du ønsker at der er hurtig adgang til dplyr når siden åbnes.
 - alternativt kan man i slides i de ordinære codechunks - installere pakken med webr::install("dplyr"). Men det tager tid...
-- mon ikke det virker med en del andre pakker?
+- Det virker med de gængse pakker - men forudsætter at de er kompileret til webr brug.
+
 - I dine slides-filer (fx slides/demo.qmd), lige efter YAML:
   {{< include ../_extensions/live/_knitr.qmd >}}
-- Render/preview køres altid fra projektroden (samme mappe som _quarto.yml).
+  
 - Når du vil have en kodeblok med r-kode der kan eksekveres indsætter du som sædvanlig. Men som {webr} i stedet for r
-Trin 6 — Kør lokalt
+
+Trin 6 — Kør lokalt i terminalen:
 -------------------
 quarto preview
 - Åbn i ekstern browser (localhost-URL). Undgå file:// visning.
@@ -119,11 +101,7 @@ git push -u origin main
 - GitHub → Settings → Pages → Deploy from a branch → Branch: main → Folder: /docs
 - URL: https://chrbknudsen.github.io/webr-test/
 
-(Valgfrit) CI workflow
-----------------------
-- Opret .github/workflows/quarto-gh-pages.yml, der:
-  * checkout → setup Quarto → quarto render → commit docs/ til main
-- Fordel: `git push` er nok; GitHub bygger og udgiver automatisk.
+Skal det op at køre på github skal følgende tilføjes:
 
 opret filen .github/workflows/quarto-gh-pages.yml med dette indhold
 name: Quarto Publish
@@ -159,13 +137,4 @@ jobs:
           git push
 
 
-Fejltjek (kort)
----------------
-- Include-stier løses relativt til topdokumentet (din slide):
-  brug ../_extensions/live/_knitr.qmd når filen ligger i slides/.
-- Hvis webR brokker sig over SharedArrayBuffer/headers: brug `quarto preview`
-  og åbn i ekstern browser (localhost), ikke file://.
-- Render fra projektroden (der hvor _quarto.yml ligger).
-- Hold _extensions/live som flad, lokal mappe. Undgå at lægge hele
-  'quarto-live' repoet under _extensions/, så slipper du for Quarto, der
-  forsøger at indeksere fremmede docs.
+Og så skal den aktiveres som action på github. 
