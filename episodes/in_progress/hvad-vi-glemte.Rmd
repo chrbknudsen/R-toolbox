@@ -163,7 +163,7 @@ in the memory of R, is gone, and that you begin in a fresh environment. The idea
 make sure that you begin from scratch and nothing is in the memory of the computer that could affect
 your code.
 
-Given intention, it does not do enough. 
+Given that intention, it does not do enough. 
 
 It will delete objects in memory that you as a user, have created. However, lots of
 other stuff can change the behaviour of R. Any options you may have set to something
