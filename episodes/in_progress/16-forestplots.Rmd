@@ -2,20 +2,31 @@
 title: "forestplots"
 teaching: 42
 exercises: 47
-questions: 
-- "Hvad er forest plots?"
-objectives:
-- "Forstå det her nok til at vi kan hjælpe studerende"
-
-keypoints:
-- "FIXME"
-source: Rmd
-math: yes
 ---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 Ikke så meget forestplots, men det der ligger bag.
 
+Bruges ofte i metaanalyser af littereturen.
+
+```{r}
+library(dplyr)
+library(forestplot)
+library(forestr)
+
+```
 
 
 library(dplyr)
@@ -51,3 +62,8 @@ base_data |>
   fp_set_zebra_style("#EFEFEF")
 
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
