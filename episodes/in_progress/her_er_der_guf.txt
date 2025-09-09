@@ -50,6 +50,9 @@ vis:
 Note. Bias er her et teknisk begreb. 
 It's remarkable how often "bias" means "differs from my bias."
 
+grafer
+https://cran.r-project.org/web/packages/ggdag/vignettes/intro-to-ggdag.html
+
 Clustering metoder
 
 1. K-Means Clustering: 
@@ -99,3 +102,6 @@ land til land. Vær opmærksom på at vi ikke engnag følger en fælles standard
 https://statisticsglobe.com/
 
 venn diagrammer: https://krassowski.github.io/complex-upset/articles/Examples_R.html
+
+
+https://github.com/Chandra0505/Data-Science-Resources/blob/master/machine-learning/Practical%20Statistics%20for%20Data%20Scientists.pdf

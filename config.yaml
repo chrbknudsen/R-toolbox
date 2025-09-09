@@ -77,6 +77,7 @@ episodes:
 - which-distribution.Rmd
 - linear-regression.Rmd
 - multiple-linear-regression.Rmd
+- lasso-regularisation.Rmd
 - logistic-regression.Rmd
 - clt.Rmd
 - barcharts.Rmd
@@ -88,6 +89,7 @@ episodes:
 - pipes.Rmd
 - gis_setup.Rmd
 - git-00-setup.Rmd
+- git-01-git-intro.Rmd
 - git-09-practice.Rmd
 - stat-tests-1.Rmd
 - package-is-not-available.Rmd

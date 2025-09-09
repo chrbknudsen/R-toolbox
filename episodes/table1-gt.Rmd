@@ -1,5 +1,5 @@
 ---
-title: 'Table One'
+title: 'Table One - gt'
 teaching: 10
 exercises: 2
 ---
@@ -31,14 +31,12 @@ demographic and clinical variables.
 
 It typically compares different groups (male~female, treatment~control), to highlight similarities and differences.
 
-```{r}
-1+1
-```
+
 
 ```{r prep_table1_data, echo = FALSE, warning = FALSE, message =FALSE}
 library(tidyverse)
 library(table1)
-blood <- read_csv("episodes/data/BLOOD.csv") %>% 
+blood <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv") %>% 
   mutate(testost = na_if(testost, 999.0)) %>% 
   mutate(prolactn = na_if(prolactn, 99.99)) %>% 
   select(-estrone)
@@ -59,30 +57,9 @@ It can look like this:
 
 ```{r basic-table1-demo, echo = FALSE, results='asis'}
 library(gt)
+library(gtsummary)
 table1(~ageblood+testost+prolactn|case, data = blood) 
 ```
-
-
-```{r eval = FALSE}
-blood |> 
-  tbl_strata2(
-    strata = case,
-    .tbl_fun = ~ .x |> 
-      tbl_summary(include = c(ageblood, estradol, testost),
-    type = all_continuous() ~"continuous2",
-      statistic = all_continuous() ~c(
-             "{N_nonmiss}",
-        "{median} ({p25}, {p75})",
-        "{min}, {max}"
-         )
-      ) |> 
-      add_n() 
-      
-  )  |> as_gtsummary()
-  
-   
-```
-
 
 
 
@@ -106,14 +83,14 @@ Men! det her giver os ret omfattende muligheder for at tilpasse tabellen.
 
 Herunder er vi ikke helt i mål endnu. Men vi er ret tæt.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 
 library(dplyr)
 library(gtsummary)
-
+names(blood)
 # grunddata
 base <- blood |>
-  select(age, grade, stage, trt) |>
+  select(ageblood, grade, stage, trt) |>
   mutate(grade = paste("Grade", grade))
 
 # rækkefølge på paneler: Overall først, derefter Grade I/II/III
