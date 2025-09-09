@@ -1,0 +1,92 @@
+---
+title: "SQL - for R"
+teaching: 42
+exercises: 47
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Joins
+
+
+
+```{r}
+library(dplyr)
+library(VennDiagram)
+
+# To simple datasæt
+df1 <- data.frame(id = c(1, 2, 3, 4),
+                  value1 = letters[1:4])
+
+df2 <- data.frame(id = c(3, 4, 5, 6),
+                  value2 = LETTERS[3:6])
+
+
+# Demonstrér forskellige joins
+inner <- inner_join(df1, df2, by = "id")   # kun fælles id
+left  <- left_join(df1, df2, by = "id")    # alle id fra df1
+right <- right_join(df1, df2, by = "id")   # alle id fra df2
+full  <- full_join(df1, df2, by = "id")    # union af id
+
+# Lav Venn-diagram baseret på ID'erne i hvert datasæt
+venn.plot <- draw.pairwise.venn(
+  area1 = length(unique(df1$id)), 
+  area2 = length(unique(df2$id)), 
+  cross.area = length(intersect(df1$id, df2$id)),
+  category = c("df1", "df2"),
+  fill = c("skyblue", "pink"),
+  alpha = 0.5,
+  cat.cex = 1.2,
+  cex = 1.5
+)
+
+grid.newpage()
+grid.draw(venn.plot)
+```
+
+
+```{r}
+library(ggvenn)
+# Pakker
+library(dplyr)
+library(ggvenn)
+
+# To simple datasæt
+df1 <- data.frame(id = c(1, 2, 3, 4),
+                  value1 = letters[1:4])
+
+df2 <- data.frame(id = c(3, 4, 5, 6),
+                  value2 = LETTERS[3:6])
+
+# Lav en liste med id'er fra hver tabel
+id_list <- list(
+  df1 = df1$id,
+  df2 = df2$id
+)
+
+# Tegn venn-diagram
+ggvenn(
+  id_list,
+  fill_color = c("pink", "pink"),
+  stroke_size = 0.8,
+  set_name_size = 5
+)
+
+```
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::

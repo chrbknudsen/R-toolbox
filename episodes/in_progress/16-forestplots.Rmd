@@ -17,9 +17,7 @@ exercises: 47
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-Ikke så meget forestplots, men det der ligger bag.
-
-Bruges ofte i metaanalyser af littereturen.
+Forestplots 
 
 ```{r}
 library(dplyr)
