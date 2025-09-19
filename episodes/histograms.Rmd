@@ -351,35 +351,35 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r doanes_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r doanes_n}
 n <- length(bill_lengths)
 ```
 
 Find $g_1$:
 
-```{r}
+```{r doanes_g1}
 library(e1071)
 g1 <- skewness(bill_lengths)
 ```
 Find $\sigma_{g1}$:
 
-```{r}
+```{r  doanes_sqrt}
 s_g1 <- sqrt(6*(n-2)/((n+1)*(n+3)))
 ```
 Now we can find $k$. Remember to take the absolute value of $g_1$
 
-```{r}
+```{r  doanes_k}
 k <- 1 + log2(n) + log2(1+abs(g1)/s_g1)
 ```
 And then round up $k$ to get the number of bins:
 
-```{r}
+```{r  doanes_ceiling}
 ceiling(k)
 ```
 
