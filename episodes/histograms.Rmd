@@ -404,34 +404,34 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r scotts_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r scotts_n}
 n <- length(bill_lengths)
 ```
 
 Find $\sigma$:
 
-```{r}
+```{r scotts_sigma}
 sigma <- sd(bill_lengths)
 ```
 
 Now we can find the bin-width $h$:
-```{r}
+```{r scotts_h}
 h <- 3.49*sigma*(n^(-1/3))
 ```
 And from that, the number of bins $k$:
 
-```{r}
+```{r scotts_k}
 k <- (max(bill_lengths) - min(bill_lengths))/h
 ```
 Remember to round up $k$:
 
-```{r}
+```{r  scotts_ceiling}
 ceiling(k)
 ```
 
