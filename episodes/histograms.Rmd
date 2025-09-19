@@ -44,14 +44,14 @@ library(palmerpenguins)
 R has a build-in histogram function, `hist()`, which will make a basic histogram,
 of the data we provide it with:
 
-```{r}
+```{r penguin_base_histogram}
 hist(penguins$bill_length_mm)
 ```
 
 This is not a very nice looking histogram, and `ggplot2` provides us with a 
 more easily customisable `geom_histogram()` function:
 
-```{r}
+```{r penguin_ggplot_histogram}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram()
 ```
@@ -73,7 +73,7 @@ having penguins of both sexes.
 If we want to split the histogram into these different groups, we can use the
 possibilities available in `ggplot2`:
 
-```{r}
+```{r facetted_histogram}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram() +
   facet_grid(sex~species)
@@ -101,7 +101,7 @@ Try to plot the bill_length_mm variable in the penguins dataset with different
 numbers of bins.
 
 ::::solution
-```{r}
+```{r bins_20}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram(bins = 20)
 ```
@@ -177,31 +177,34 @@ bill length of the penguins?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r fd_solution_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r fd_solution_n}
 n <- length(bill_lengths)
 ```
 And the inter quartile range:
 
-```{r}
+```{r fd_solution_iqr}
 iqr <- IQR(bill_lengths)
 ```
 
 Now find the recommended bin-width:
-```{r}
+```{r fd_solution_bw}
 h <- 2*iqr*n^(-1/3)
 ```
+
 And then the number of bins:
-```{r}
+
+```{r fd_solution_h}
 k <- (max(bill_lengths) - min(bill_lengths))/h
 ```
+
 Remember to take the ceiling:
-```{r}
+```{r fd_solution_ceiling}
 ceiling(k)
 ```
 
