@@ -450,9 +450,10 @@ see the other options that `hist()` can work with, "Scott" and "FD" for
 Freedman-Diaconis. We also get a hint of the functions that can return 
 the number of bins:
 
-```{r}
+```{r build_in_methods}
 nclass.Sturges(penguins$bill_length_mm)
 ```
+
 `nclass.FD` and `nclass.scott` works similarly, but note that it is necessary
 to remove missing values. If one of the other heuristics is needed, we either
 need to do the calculations ourself - or try to identify a package that contains
@@ -485,7 +486,7 @@ The `seq()` function is useful for this.
 This function returns a sequence of numbers from a start value, to and end
 value, in steps that we can chose:
 
-```{r}
+```{r sequence}
 seq(from = 30, to = 65, by = 5)
 ```
 
@@ -493,7 +494,7 @@ You will have to think about the `from` and the `to` arguments, to not exclude
 any observations, but this method give us much more natural breaks in the
 histogram:
 
-```{r}
+```{r penguins_with_seq}
 penguins %>% 
   ggplot(aes(x=bill_length_mm)) +
   geom_histogram(breaks = seq(from = 30, to = 65, by = 5))
@@ -502,13 +503,13 @@ penguins %>%
 ## Do not abuse the option of specifying breaks!
 
 Instead of using the `seq()` function we could construct the breaks by hand:
-```{r eval = FALSE}
+```{r man_seq, eval = FALSE}
 c(30, 35, 40, 45, 50, 55, 60, 65)
 ```
 
 And it might be tempting enter breaks that would lead to uneven binwidths:
 
-```{r eval = FALSE}
+```{r bad_seq, eval = FALSE}
 c(30, 40, 42, 45, 50, 55, 60, 65)
 ```
 
