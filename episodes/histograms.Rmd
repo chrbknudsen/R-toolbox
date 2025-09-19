@@ -44,14 +44,14 @@ library(palmerpenguins)
 R has a build-in histogram function, `hist()`, which will make a basic histogram,
 of the data we provide it with:
 
-```{r}
+```{r penguin_base_histogram}
 hist(penguins$bill_length_mm)
 ```
 
 This is not a very nice looking histogram, and `ggplot2` provides us with a 
 more easily customisable `geom_histogram()` function:
 
-```{r}
+```{r penguin_ggplot_histogram}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram()
 ```
@@ -73,7 +73,7 @@ having penguins of both sexes.
 If we want to split the histogram into these different groups, we can use the
 possibilities available in `ggplot2`:
 
-```{r}
+```{r facetted_histogram}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram() +
   facet_grid(sex~species)
@@ -101,7 +101,7 @@ Try to plot the bill_length_mm variable in the penguins dataset with different
 numbers of bins.
 
 ::::solution
-```{r}
+```{r bins_20}
 ggplot(penguins, aes(x=bill_length_mm)) +
   geom_histogram(bins = 20)
 ```
@@ -167,6 +167,7 @@ The number of bins are then found as
 $$
 k = \lceil \frac{range}{h} \rceil
 $$
+
 ::::challenge
 ## Try it yourself
 
@@ -176,31 +177,34 @@ bill length of the penguins?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r fd_solution_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r fd_solution_n}
 n <- length(bill_lengths)
 ```
 And the inter quartile range:
 
-```{r}
+```{r fd_solution_iqr}
 iqr <- IQR(bill_lengths)
 ```
 
 Now find the recommended bin-width:
-```{r}
+```{r fd_solution_bw}
 h <- 2*iqr*n^(-1/3)
 ```
+
 And then the number of bins:
-```{r}
+
+```{r fd_solution_h}
 k <- (max(bill_lengths) - min(bill_lengths))/h
 ```
+
 Remember to take the ceiling:
-```{r}
+```{r fd_solution_ceiling}
 ceiling(k)
 ```
 
@@ -223,21 +227,22 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r sqrt_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r sqrt_n}
 n <- length(bill_lengths)
 ```
 
 And calculate the square root of $n$, rounded up using the `ceiling()` function:
 
-```{r}
+```{r sqrt_ceil}
 ceiling(sqrt(n))
 ```
+
 ::::
 ::::
 
@@ -260,24 +265,24 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r sturges_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r sturges_n}
 n <- length(bill_lengths)
 ```
 
 Now find $k$
-```{r}
+```{r sturges_k}
 k <- log2(n) + 1
 ```
 
 And remember to round up:
 
-```{r}
+```{r sturges_done}
 ceiling(k)
 ```
 
@@ -289,32 +294,36 @@ ceiling(k)
 Again we get $k$ directly from $n$:
 
 $$k = \lceil 2n^{1/3}\rceil$$
+
 ::::challenge
+## Try it yourself
 
 According to the Rice rule, how many bins should we use for a histogram
 of the length of penguin bills?
+
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r rice_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r rice_n}
 n <- length(bill_lengths)
 ```
 
 And then find $k$:
-```{r}
+```{r rice_k}
 k <- 2*n^(1/3)
 ```
 
 Remember to round up:
-```{r}
+```{r rice_celing}
 ceiling(k)
 ```
+
 ::::
 ::::
 
@@ -334,40 +343,43 @@ Doanes rule basically adds extra bins based on how skewed the data is, and
 works better than Sturges' rule for non-normal distributions.
 
 ::::challenge
+## Try it yourself
 
 According to Doanes rule, how many bins should we use for a histogram
 of the length of penguin bills?
+
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r doanes_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r doanes_n}
 n <- length(bill_lengths)
 ```
 
 Find $g_1$:
 
-```{r}
+```{r doanes_g1}
+library(e1071)
 g1 <- skewness(bill_lengths)
 ```
 Find $\sigma_{g1}$:
 
-```{r}
+```{r  doanes_sqrt}
 s_g1 <- sqrt(6*(n-2)/((n+1)*(n+3)))
 ```
 Now we can find $k$. Remember to take the absolute value of $g_1$
 
-```{r}
+```{r  doanes_k}
 k <- 1 + log2(n) + log2(1+abs(g1)/s_g1)
 ```
 And then round up $k$ to get the number of bins:
 
-```{r}
+```{r  doanes_ceiling}
 ceiling(k)
 ```
 
@@ -384,40 +396,42 @@ Where $\sigma$ is the standard deviation of the data. This rule implicitly assum
 that the data is normally distributed.
 
 ::::challenge
+## Try it yourself
 
 According to Scott's rule, how many bins should we use for a histogram
 of the length of penguin bills?
+
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r scotts_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r scotts_n}
 n <- length(bill_lengths)
 ```
 
 Find $\sigma$:
 
-```{r}
+```{r scotts_sigma}
 sigma <- sd(bill_lengths)
 ```
 
 Now we can find the bin-width $h$:
-```{r}
+```{r scotts_h}
 h <- 3.49*sigma*(n^(-1/3))
 ```
 And from that, the number of bins $k$:
 
-```{r}
+```{r scotts_k}
 k <- (max(bill_lengths) - min(bill_lengths))/h
 ```
 Remember to round up $k$:
 
-```{r}
+```{r  scotts_ceiling}
 ceiling(k)
 ```
 
@@ -436,9 +450,10 @@ see the other options that `hist()` can work with, "Scott" and "FD" for
 Freedman-Diaconis. We also get a hint of the functions that can return 
 the number of bins:
 
-```{r}
+```{r build_in_methods}
 nclass.Sturges(penguins$bill_length_mm)
 ```
+
 `nclass.FD` and `nclass.scott` works similarly, but note that it is necessary
 to remove missing values. If one of the other heuristics is needed, we either
 need to do the calculations ourself - or try to identify a package that contains
@@ -471,7 +486,7 @@ The `seq()` function is useful for this.
 This function returns a sequence of numbers from a start value, to and end
 value, in steps that we can chose:
 
-```{r}
+```{r sequence}
 seq(from = 30, to = 65, by = 5)
 ```
 
@@ -479,7 +494,7 @@ You will have to think about the `from` and the `to` arguments, to not exclude
 any observations, but this method give us much more natural breaks in the
 histogram:
 
-```{r}
+```{r penguins_with_seq}
 penguins %>% 
   ggplot(aes(x=bill_length_mm)) +
   geom_histogram(breaks = seq(from = 30, to = 65, by = 5))
@@ -488,13 +503,13 @@ penguins %>%
 ## Do not abuse the option of specifying breaks!
 
 Instead of using the `seq()` function we could construct the breaks by hand:
-```{r eval = FALSE}
+```{r man_seq, eval = FALSE}
 c(30, 35, 40, 45, 50, 55, 60, 65)
 ```
 
 And it might be tempting enter breaks that would lead to uneven binwidths:
 
-```{r eval = FALSE}
+```{r bad_seq, eval = FALSE}
 c(30, 40, 42, 45, 50, 55, 60, 65)
 ```
 
