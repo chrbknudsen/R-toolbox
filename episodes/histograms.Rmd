@@ -227,21 +227,22 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r sqrt_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r sqrt_n}
 n <- length(bill_lengths)
 ```
 
 And calculate the square root of $n$, rounded up using the `ceiling()` function:
 
-```{r}
+```{r sqrt_ceil}
 ceiling(sqrt(n))
 ```
+
 ::::
 ::::
 
