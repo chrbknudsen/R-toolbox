@@ -265,24 +265,24 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r sturges_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r sturges_n}
 n <- length(bill_lengths)
 ```
 
 Now find $k$
-```{r}
+```{r sturges_k}
 k <- log2(n) + 1
 ```
 
 And remember to round up:
 
-```{r}
+```{r sturges_done}
 ceiling(k)
 ```
 
@@ -304,23 +304,23 @@ of the length of penguin bills?
 ::::solution
 
 Get all the lengths of the penguin bills, excluding missing values:
-```{r}
+```{r rice_na}
 bill_lengths <- penguins$bill_length_mm %>% 
   na.omit()
 ```
 
 Find $n$:
-```{r}
+```{r rice_n}
 n <- length(bill_lengths)
 ```
 
 And then find $k$:
-```{r}
+```{r rice_k}
 k <- 2*n^(1/3)
 ```
 
 Remember to round up:
-```{r}
+```{r rice_celing}
 ceiling(k)
 ```
 
