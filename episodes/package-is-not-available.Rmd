@@ -191,7 +191,7 @@ In this case you will have to compile the package yourself. Do not worry,
 R will handle it for you.
 
 If you are on windows, you will need to have [RTools
-installed](http://cran.r-project.org/bin/windows/Rtools/).
+installed](https://cran.r-project.org/bin/windows/Rtools/).
 
 On MacOS you will need [Xcode](https://stackoverflow.com/q/9329243/324364)
 
