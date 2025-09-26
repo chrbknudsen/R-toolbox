@@ -177,6 +177,62 @@ not be reproducible. It works ~95% of the time. And makes it very difficult to f
 the remaining 5%.
 
 
+## Lazy evaluation
+
+R does what is called lazy evaluation. But what does that mean?
+
+When we write an expression that expression is only evaluated when the result is needed. 
+
+An example:
+
+This is an expression
+
+```{r eval = FALSE}
+stop("error")
+```
+
+`stop` is used to stop a function and return an error message. If we evaluate it, we will get 
+scary red text on the console, an indication of an error, and the messange "error". We get that, because
+the expression is evaluated.
+
+If we write a function that takes two arguments, but only works on one:
+
+```{r}
+lazy_test <- function(x, y){
+    message("only working on x")
+    x^2
+}
+
+
+```
+
+And then pass our stop-expression to that function:
+```{r}
+lazy_test(x = 5, y = stop("error"))
+```
+
+We do not get an error. Because y is not used in the function, the value of y is never 
+calculated, and the `stop("error")` expression is not calculated either.
+
+The opposite of lazy evaluation is eager evaluation. Under eager evaluation, all expressions are
+evaluated whenever they are expressed. As R uses lazy evaluation by default, it is not easy to illustrate.
+Here is an attempt:
+
+```{r}
+f_eager <- function(x, y) {
+  force(y)            # tvinger evaluering af y med det samme
+  message("Beregner x og y")
+  x^2
+}
+
+f_eager(3, stop("fejl")) 
+```
+
+In short, lazy evaluation delays the calculation until a result is actually needed. This will, as a 
+general rule of thumb save ressources. We may not need to evaluate a complex expression, so there is 
+no reason to actually do it. On the other hand, this can make it more difficult to debug code, as the 
+reason for an error might hide many lines earlier than it actually occurs.
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
