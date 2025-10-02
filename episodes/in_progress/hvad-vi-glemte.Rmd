@@ -14,7 +14,6 @@ exercises: 2
 
 - Get an overview of some of the rabbit holes.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
@@ -236,7 +235,8 @@ reason for an error might hide many lines earlier than it actually occurs.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
+- You will continue to learn new stuff
+- Do not despair when you discover things that would have saved a lot of time if only you've known about it earlier. It will happen again!
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

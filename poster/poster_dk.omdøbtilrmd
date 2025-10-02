@@ -38,10 +38,6 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
 
 ---
 
-Denne side fører, af årsager jeg ikke helt forstår, til fejl på github.
-Formentlig fordi den prøver at installere posterdownpakken. Derfor er denne side
-omdøbt til poster_dk.omdøbtilrmd. Når siden skal genereres - omdøb den og gør det 
-lokalt.
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -145,7 +141,7 @@ minutter, mens det tager GitHub op til en halv time at "bygge" siden.
 • k-means
 • ANOVA
 
-```{r materiale, echo=FALSE, fig.cap="Det kan være svært at overvinde trangen til at tilføje mere. [@horst]", out.width = '100%'}
+```{r materiale, echo=FALSE, fig.cap="Det kan være svært at overvinde trangen til at tilføje mere. [@horst]", out.width = '90%'}
 knitr::include_graphics("horst_new_mat.png")
 ```
 

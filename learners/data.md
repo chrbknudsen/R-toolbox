@@ -413,6 +413,28 @@ _Dimensions:_ Rows: 910 Columns: 8
 
 ::::
 
+### diagnoses
+
+Constructed dataset for comparing how two raters diagnose five different psychiatic disorders,
+
+_Dimensions:_ Rows: 30 Columns: 2     
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/diagnoses.csv)
+
+:::: spoiler
+### Metadata
+
+Two columns, one for each rater. Values indicates:
+
+* dep:  depression
+* dis: dissociation
+* sch: schizofrenia
+* neu: neurosis
+* oth: other
+
+::::
+
+
 ### EAR
 
 Data on 214 children with acute otitis media in one or both
