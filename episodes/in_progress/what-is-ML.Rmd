@@ -66,3 +66,28 @@ L2 = ½(y-y_predicted)^2
 - FIXME
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+```{r}
+library(tidyverse)
+sol_data <- read.csv("https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/delaney-processed.csv") 
+
+sol_data |> names()
+
+X <- sol_data |> 
+    select(Minimum.Degree,  Molecular.Weight,  Number.of.H.Bond.Donors,  Number.of.Rings,  Number.of.Rotatable.Bonds, Polar.Surface.Area) 
+
+y <- sol_data |>  
+    select(measured.log.solubility.in.mols.per.litre)
+
+data_to_fit <- sol_data |> select(measured.log.solubility.in.mols.per.litre,Minimum.Degree,  Molecular.Weight,  Number.of.H.Bond.Donors,  Number.of.Rings,  Number.of.Rotatable.Bonds, Polar.Surface.Area )
+
+model <- lm(measured.log.solubility.in.mols.per.litre ~ ., data = data_to_fit)
+library(tidymodels)
+# install.packages("tidymodels")
+
+augment(model) |> select(measured.log.solubility.in.mols.per.litre, .fitted) |> 
+    mutate(andre = sol_data$ESOL.predicted.log.solubility.in.mols.per.litre)
+
+```
