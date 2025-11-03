@@ -1,5 +1,5 @@
 ---
-title: 'ridge-regularisation'
+title: 'Ridge regularisation'
 teaching: 10
 exercises: 2
 ---
@@ -16,6 +16,8 @@ exercises: 2
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 samme mølle som lasso. Men med en anden loss-funktion. 
 Og den kan derfor ikke kan nå til samme resultater. Bl.a. 

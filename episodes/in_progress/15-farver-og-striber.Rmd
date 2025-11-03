@@ -4,7 +4,6 @@ teaching: 0
 exercises: 0
 questions:
 - "Hvordan laver jeg mine egne farveskalaer til ggplot?"
-- "Hvordan vælger jeg farver der tager hensyn til farveblinde?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:
