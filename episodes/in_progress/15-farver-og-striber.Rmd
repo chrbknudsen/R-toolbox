@@ -4,7 +4,6 @@ teaching: 0
 exercises: 0
 questions:
 - "Hvordan laver jeg mine egne farveskalaer til ggplot?"
-- "Hvordan vælger jeg farver der tager hensyn til farveblinde?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:
@@ -12,10 +11,6 @@ keypoints:
 ---
 
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
-```
 
 Hvordan vælger vi farver til vores plots? Hvordan laver vi vores 
 egne paletter.
@@ -80,30 +75,30 @@ cvd_grid()
 
 Det en person med normalt farvesyn får her, er et estimat af hvordan et plot vil se ud ved forskellige typer af farveblindhed. Og det er nok blot et estimat, men bedre end ingenting.
 
-Der findes forskellige typer af farveblindhed, og derfor får vi fire forskellige plots, et for hver af fire typer:
+Different types of colorblindness exists, and the package give us four different plots,
+one for each type of colorblindness_
 
-* Tritanomaly: blå-gul farveblindhed. under 0.01%. Rammer både mænd og kvinder.
-* Deutoanomaly: rød-grøn farveblindhed. ca. 6% af mænd
-* protanomaly: Rød-grøn farveblindhed- ca. 2% af mænd
-* Desaturated forsøger så vidt vi kan gennemskue af pakken, at simulere
-total farveblindhed (akromatopsi). Rammer 0.003% 
+* Tritanomaly: Blue-yellow colorblindness. Affects < 0.01%, both men and women.
+* Deutoanomaly: Red-green colorblindness. Affects ~6% of all men.
+* protanomaly: Red-green colorblindness. Affects ~2% of all men.
+* Desaturated attempts to simulate complete colorblindness (akromatopsi). This affects ~0.003% 
 
-### Er det noget man skal tage hensyn til? Nej og ja. 
+### Do we need to take colorblindness into account?
 
-Der er ting det kan være næsten umulige at visualisere i
-paletter der tager hensyn til de forskellige former for
-farveblindhed. Og helt umulige hvis de skal tage hensyn til 
-alle varianterne heraf.
+Yes. And no.
 
-Der er også plots der som deres primære formål har at være
-spektakulære. De kan være helt håbløse at lave i udgaver der gør alle glade.
+There are things that are almost impossible to visualise in palettes that 
+accomodate the different kinds of color blindness. And are completely 
+impossible if they have to accomodate _all_ the different kinds.
 
-Men når plottets formål er at formidle data, snarere end at
-være kunst, bør man. Ikke kun for at tage hensyn til
-farveblinde, men også fordi farvevalg der tager det hensyn,
-typisk gør det lettere folk læsere med normalt farvesyn at se
-forskel på det man vil vise, og fordi farverne også bedre
-overlever et print i sort/hvid.
+Some plots have a primary purpose of being spectacular and visually stunning.
+That can also be extremely difficult if we limit the colors we have to work with.
+
+But. If the purpose of the plot is to convey information about data, rather than
+being art, it is a good idea to take colorblindness into consideration. Not only
+to help color blind people, but also because the choice we make to do that, also makes
+it easier for people with normal color vision, to spot the differences and trends we
+want to illustrate. 
 
 ## Hvordan bruger vi så en palette i et plot?
 

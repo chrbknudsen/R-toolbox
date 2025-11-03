@@ -376,6 +376,12 @@ _Dimensions:_ Rows: 186 Columns: 17
 
 ::::
 
+
+### delaney-processed
+
+data fra https://deepchem.io/
+
+
 ### DIABETES
 
 A study on whether maintaining diabetes control in type I diabetes affects growth
@@ -427,7 +433,7 @@ _Dimensions:_ Rows: 30 Columns: 2
 Two columns, one for each rater. Values indicates:
 
 * dep:  depression
-* dis: dissociation
+* dis: dissociative disorder
 * sch: schizofrenia
 * neu: neurosis
 * oth: other

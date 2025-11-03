@@ -211,6 +211,14 @@ aov(Sepal.Width ~Species, data = iris) %>%
 
 ::::
 
+
+```{r}
+remotes::install_github("clauswilke/colorblindr")
+colorblindr::palette_plot(wesanderson::wes_palettes$FantasticFox1)
+colorblindr::cvd_grid()
+```
+
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Use `.md` files for episodes when you want static content
