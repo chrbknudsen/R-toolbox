@@ -12,7 +12,7 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
+- Provide a description on how to run common statistical tests
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
@@ -139,7 +139,7 @@ normalises the expected values, so we do not _have_ to match the numbers.
 EJ KORREKTURLÆST
 
 * **Used for:** Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
-* **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. This checks if the average is different, ie either smaller _or_ larger. We can also test if it _is_ smaller or larger.
+* **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. It can differ in three ways. It can differ from the specification. That is a Two-sided test. It can be smaller, that is a (left side) One-sided test. And it can be larger, that is a (right side) One-sided test. 
 
 **Assumptions**
 
@@ -162,8 +162,19 @@ EJ KORREKTURLÆST
 
 **Example**
 
+Two-sided:
 * **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
 * **Alternative hypothesis (H₁):** μ ≠ 5.00 cm.
+
+One-sided, left:
+* **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+* **Alternative hypothesis (H₁):** μ < 5.00 cm.
+
+
+One-sided, right:
+* **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+* **Alternative hypothesis (H₁):** μ > 5.00 cm.
+
 
 ```{r one_sample_z_test}
 # Sample of diameters (cm) for 25 ball bearings:
@@ -220,7 +231,7 @@ EJ KORREKTURLÆST!
 Her kan vi nok med fordel bruge samme eksempel som i z-testen.
 
 
-* **Used for: ** Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
+* **Used for:** Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
 * **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
 
 **Assumptions:**
