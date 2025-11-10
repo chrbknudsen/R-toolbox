@@ -23,6 +23,32 @@ library(palmerpenguins)
 ```
 
 
+Cleaning data
+
+Correcting errors: This can include fixing typos, syntax errors, or invalid entries.
+
+Handling missing data: Data cleaning involves filling in missing values or removing records with missing information.
+
+Step number 1 is identifying missing data
+
+identifikation. Fjernelse. Alternativer til at fjerne.
+
+
+Removing duplicates: Duplicate entries are identified and removed to ensure each record is unique.
+
+Standardizing formats: Inconsistent formats, such as different ways of writing dates or addresses, are standardized across the dataset.
+
+Cross-checking and validating: Information is cross-checked for accuracy and consistency, sometimes against other data sources.
+
+Modifying or deleting irrelevant data: Corrupt, irrelevant, or out-of-date information is modified or deleted. 
+
+
+Duplicates
+
+Identificer dubletter. Fjern dubletter
+
+Handle missing values. Start med at finde dem
+
 ## Introduction
 Og det er elementær fordi det er de grundlæggende elementer. Så måske et andet
 ord? det er elementary som i "periodic table of the elements".

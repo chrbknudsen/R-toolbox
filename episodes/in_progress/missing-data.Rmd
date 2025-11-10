@@ -6,7 +6,7 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How do we handle missing data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -24,58 +24,60 @@ library(dlookr)
 
 Missing data happens. And they happen for different reasons. 
 
-* data der skulle have været der. Men ikke er der alligevel.
-* Data der ikke skulle have været der.
+But in general - missing data is data that should have been there. But isn't.
 
-tekniske fejl - data der blev målt. Men ikke gemt. Eler hvis et måle instrument
-fejlede, så eksempelvis temperaturen ikke blev målt.
+There reasons are legion. 
 
-I spørgeskemaer - hvis respondenten nægter at svare
+* A measuring device fails measuring the data. Or fails to record it. 
+* In surveys - some respondents refuse, or forget to answer
+* Or maybe the question is not relevant, eg. questions about children that the respondent might not have. Especially if we forget to take it into account designing the survey.
+* Dropout. In longitudional studies some respondents might drop out of the survey. Or the survey might be so long, that respondents give up.
 
-Ikke relevant. Hvis respondenten ikke har børn - så er der ofte en række spørgsmål der
-med god grund mangler.
+They can also be missing in different ways:
 
-Drop-ud eller frafald. I længerevarende undersøgelser kan nogen af respondenterne
-falde ud af undersgøelsen over tid. Eller i længere spørgeskemaer, kan respondenter
-give op undervejs.
-
-Manglende match mellem indsamlingspraksis. Forskellige interviewere registrerer 
-forskelligt.
-
-Der kan være forskellige mekanismer, som er relevante.
-
-MCAR - Missing Completely At Random. Data mangler tilfældigt, uafhængigt af 
-øvrige data. 
-
-MAR - Missing At Random. Mangler afhængig af observerede variable. Mangleheden, 
-eller hvad vi nu skal kalde det - afhænger af variablen. Eg at vi mangler 
-BMI-værdier for kvinder. Men vi har registeret deres køn.
-
-MNAR - Missing Not At Random. Manglen afhænger af værdien selv, eller noget andet
-som vi ikke ved hvad er. Folk med højt alkoholforbrug oplyser eksempelvis ofte at 
-oplyse herom.
-
-DU MÅ ALDRIG ANTAGE AT DATA MANGLER TILFÆLDIGT. Du skal forstå hvorfor noget mangler,
-før du beslutter hvordan du håndterer det. Hvis din antagelse om mekanismen (MCAR, MAR, MNAR),
-er forkert, kan det skævvride hele analysen.
+* MCAR - Missing Completely At Random. Data is missing at random, independent of other data.
+* MAR - Missing At Random. Data is missing at random, but not completely at random. We might randomly miss data for a certain category in our data, but not for others.
+* MNAR - Missing Not At Random. Data is missing for some reason we do not know. People with a too high intake of alcohol tend to not answer questions about that.
 
 
-MCAR er den enkleste tilgang. Vi foretager "listwise deletion". Hvilket bare
-er en fancy måde at sige at vi sletter de observationer hvor data mangler. 
-Vi sender spørgeskemaer ud. og ikke alle svarer.
-Dem sletter vi. Nogen svarer ikke på alle spørgsmål. Dem sletter vi også.
-Vi kunne også kalde det for "complete case analysis" - vi analyserer kun
-på de komplette cases.
+You can never assume that data is missing at random. You need to understand why certain data is missing, before deciding how to handle it.
+If your assumptions about why data is missing are wrong, the techniques you chose for handling them can bias your results in unexpected ways.
 
-Hvordan sikrer vi os at det faktisk er MCAR. Det er der en test for. Little's 
-test hedder den.
+But first of all, are data missing? 
 
 ```{r}
-library(naniar)
+summary(penguins)
 ```
 
+Yes, data is missing in five variables.
 
-Vi bliver ofte kede af at sltte observationer - for så mange data har vi sjældent.
+
+## Missing completely at random
+
+This is the simplest situation. If data is missing completely at random, simply removing them will not
+affect the rest of the data. 
+
+The most robust way of handling MCAR data is to perform a "listwise deletion", which is just a fanciful way
+of saying that we delete all observations with missing data. We can also call this "complete case analysis".
+
+Removing observations with missing data is trivial. But how do we make sure that data is actually missing 
+completely at random?
+
+A statistical test for that exist. Little's test is available through the library `naniar`.
+The NULL-hypothesis is that data is missing completely at random.
+```{r}
+library(naniar)
+naniar::mcar_test(penguins)
+
+```
+
+Since the p-value is 0.242, that is: larger than 0.05, we can not reject the NULL-hypothesis. And therefore
+we have no evidence against data being missing completely at random, and we can do a listwise deletion on our
+data.
+
+
+### Imputing data
+Vi bliver ofte kede af at slette observationer - for så mange data har vi sjældent.
 Men listwise deletion er nok det mest sikre sådan statistisk, når mængden af 
 manglende data er lille (<5-10%)
 
@@ -90,6 +92,9 @@ undlad imputering hvis:
 Der kun mangler få værdier
 Du laver deskriptiv statistik, og vil holde alt transparent
 Du ikke vil introducere nogen som helst antagelser
+
+
+
 
 MAR er mere komplekst. Her kan vi med fordel imputere data. 
 
@@ -109,7 +114,7 @@ install.packages("naniar")
 library(naniar)
 
 # Test om missingness er MCAR
-naniar::test
+
 ```
 
 og littles test har null-hypotesen at data er MCAR. Så hvis p-værdien er 
