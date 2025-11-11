@@ -95,6 +95,7 @@ episodes:
 - package-is-not-available.Rmd
 - fence-test.Rmd
 - making-a-new-course.Rmd
+- checkliste.Rmd
 
 # Information for Learners
 learners: 
