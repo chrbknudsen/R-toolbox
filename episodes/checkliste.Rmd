@@ -19,6 +19,8 @@ exercises: 2
 ## Generelt
 
 - [ ] Link i kursuskalenderen er korrekt?
+- [ ] Slået notifikationer fra Teams fra
+- [ ] Slået notifikation fra Outlook fra
 - [ ] Kursusregistrering foretaget
 - [ ] Fundne fejl lagt som issue på GitHub
 - [ ] Erfaringer lagt som issue på Github (label: undervisningserfaring)
@@ -26,7 +28,7 @@ exercises: 2
 ## Hvis online
 
 - [ ] Link til zoom er korrekt i kalendersystemet
-- [ ] noget
+- [ ] Der er strøm på headsettet
 - [ ] Punkt 3
 
 
