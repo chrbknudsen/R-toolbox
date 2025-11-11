@@ -20,7 +20,7 @@ exercises: 2
 ## Generelt
 
 - [ ] Link i kursuskalenderen er korrekt?
-- [ ] Kursusregistrering
+- [ ] Kursusregistrering foretaget
 
 
 ## Hvis online
