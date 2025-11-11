@@ -119,11 +119,13 @@ bikes in a bikelane, measured in km/h.
 Assuming the speed is normally distributed, calculate an interval that contains
 95% of the observed values.
 ```{r echo = F}
-cars %>% 
-  mutate(speed = speed * 1.609344 ) %>% 
+cars |> 
+  mutate(speed = speed * 1.609344 ) |> 
   summarise(mean = mean(speed), sd = sd(speed))
 ```
+
 Mean +/- 1.96 gange sd.
+
 ```{r}
 c(24.7839 - 1.96*8.509639, 24.7839 + 1.96*8.509639)
 ```
@@ -150,6 +152,7 @@ Løsning:
 SEM <- sd(unlist(haem))/sqrt(length(unlist(haem)))
 mean(unlist(haem)) + c(-1,1)*1.96*SEM
 ```
+
 Dette interval indeholder med 95% sandsynlighed gennemsnittet $\mu$ i 
 baggrundspopulationen. Eller, lidt mere upræcist, der er 95%
 sandsynlighed for at baggrundspopulationens gennemsnit $\mu$ er indehold i
