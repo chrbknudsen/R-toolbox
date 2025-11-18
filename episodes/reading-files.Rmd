@@ -115,7 +115,7 @@ want to read in:
 Which will read in sheet number 2 from the workbook "filename".
 
 Read the documentation for details on how to read in specific cells or
-ranges.
+ranges. You can find it running `?read_excel`, or `help(read_excel)`.
 
 ## SPSS
 
@@ -134,7 +134,7 @@ library(haven)
 read_spss("filename")
 ```
 
-The function returns at tibble.
+The function returns a tibble.
 
 Note that SPSS uses a variety of different formats. `read_spss()` will
 make a guess of the correct format, but if problems arise, try using one

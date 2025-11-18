@@ -1,5 +1,5 @@
 ---
-title: 'checkliste'
+title: 'Checkliste'
 teaching: 10
 exercises: 2
 ---
@@ -12,21 +12,26 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Det der vi glemmer hver gang, det skal vi huske
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-## Generelt
+## Før
 
 - [ ] Link i kursuskalenderen er korrekt?
-- [ ] Kursusregistrering foretaget
+- [ ] Slået notifikationer fra Teams fra
+- [ ] Slået notifikation fra Outlook fra
 
+ 
+## Efter
+- [ ] Kursusregistrering foretaget
+- [ ] Fundne fejl lagt som issue på GitHub
+- [ ] Erfaringer lagt som issue på Github (label: undervisningserfaring)
 
 ## Hvis online
 
 - [ ] Link til zoom er korrekt i kalendersystemet
-- [ ] noget
+- [ ] Der er strøm på headsettet
 - [ ] Punkt 3
 
 
