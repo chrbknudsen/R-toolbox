@@ -197,8 +197,8 @@ There ar horizontal lines in the plot background that are unnessecary. And the
 grey background we get by default is not very nice. Remove them:
 
 ```{r decluttering}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
 ggplot(aes(y = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -228,8 +228,8 @@ to construct a dataframe with the data:
 
 ```{r count_penguins}
 penguin_count <- count(penguin_example, species)
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
   ggplot(aes(y = species)) + 
   geom_bar(fill = "darkorchid3") +
   labs(
@@ -265,8 +265,8 @@ bars and the text!
 We can do the same with labels if we want:
 
 ```{r labelling}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>%
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
   ggplot(aes(y = species)) + 
   geom_bar(fill = "darkorchid3") +
   labs(
@@ -306,8 +306,8 @@ Depending on aspect ratio of the final plot, number of categories etc, we
 might want to adjust the width of the bars:
 
 ```{r slimmer-bars}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
   ggplot(aes(y = species)) + 
   geom_bar(
     fill = "darkorchid3",
