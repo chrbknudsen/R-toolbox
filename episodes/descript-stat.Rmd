@@ -26,7 +26,7 @@ det kumulative densitetsplot - der danner grundlag for forståelsen af
 normalfordelingens sammenhæng med statistiske tests.
 :::
 
-Descriptive statistic involves summarising or describing a set of data.
+Descriptive statistics involves summarising or describing a set of data.
 It usually presents quantitative descriptions in a short form, and helps
 to simplify large datasets.
 
