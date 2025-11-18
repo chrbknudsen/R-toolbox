@@ -115,7 +115,7 @@ want to read in:
 Which will read in sheet number 2 from the workbook "filename".
 
 Read the documentation for details on how to read in specific cells or
-ranges.
+ranges. You can find it running `?read_excel`, or `help(read_excel)`.
 
 ## SPSS
 
