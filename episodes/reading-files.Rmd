@@ -134,7 +134,7 @@ library(haven)
 read_spss("filename")
 ```
 
-The function returns at tibble.
+The function returns a tibble.
 
 Note that SPSS uses a variety of different formats. `read_spss()` will
 make a guess of the correct format, but if problems arise, try using one
