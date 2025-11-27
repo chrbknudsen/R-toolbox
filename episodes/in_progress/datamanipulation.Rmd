@@ -84,7 +84,7 @@ dataframe.
 Used for selecting individual variables - otherwise known as columns. Here we
 are selecting the columns `species` and `island`:
 ```{r selecting}
-penguins %>%
+penguins |>
   select(species, island)
 ```
 
@@ -96,7 +96,7 @@ Rather than specifying which columns we are interested in, we can specify
 which columns we are _not_ interested in:
 
 ```{r negative_select}
-penguins %>% 
+penguins |> 
   select(-c(bill_length_mm, bill_depth_mm, year))
 ```
 Collecting the uninteresting columns in a vector, and placing a `-` in front,
@@ -106,7 +106,7 @@ _are_ interested in.
 
 A range of functions for selecting columns exists:
 ```{r functional_select}
-penguins %>% 
+penguins |> 
   select(-starts_with("bill"), year)
 ```
 Most can be found in the help for the package `tidyselect`.
@@ -114,7 +114,7 @@ Most can be found in the help for the package `tidyselect`.
 A special way of specifying columns is the  `:` notation:
 
 ```{r range_select}
-penguins %>% 
+penguins |> 
   select(species:bill_depth_mm)
 ```
 
@@ -126,7 +126,7 @@ The filter() function filters data, that is returns only the rows that conform
 to one or more criteria:
 
 ```{r filtering}
-penguins %>% 
+penguins |> 
   filter(species == "Adelie")
 ```
 
@@ -161,8 +161,8 @@ is larger than 40, and bill_depth_mm is smaller than 20.
 The mutate() function allows us to make new columns, based on existing columns:
 
 ```{r mutating}
-penguins %>% 
-  select(species, bill_length_mm) %>% 
+penguins |> 
+  select(species, bill_length_mm) |> 
   mutate(bill_length_inch = bill_length_mm*0.0393701)
 ```
 
@@ -179,7 +179,7 @@ By default mutate adds new columns to the end of the dataframe. A few arguments
 The summarise function allows us to summarise values in columns to a single value:
 
 ```{r summarising}
-penguins %>% 
+penguins |> 
   summarise(average_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 Note that the result is a dataframe. We get the column with the name that we
@@ -188,7 +188,7 @@ specified, and a value calculated, here with mean(body_mass_g, na.rm = TRUE).
 We are able to calculate more than one summary statistic:
 
 ```{r multiple_summarising}
-penguins %>% 
+penguins |> 
   summarise(average_weight = mean(body_mass_g, na.rm = TRUE),
             std_dev_weight = sd(body_mass_g, na.rm = TRUE))
 ```
@@ -196,7 +196,7 @@ Any function that can take a vector (remember that a column in a dataframe is a
 vector), and return a single value, can be used, including string-functions:
 
 ```{r second_summarising}
-penguins %>% 
+penguins |> 
   summarise(a_whole_lot_of_islands = paste0(island, collapse  = ""))
 ```
 But try to use more meaningful functions than this example...
@@ -205,8 +205,8 @@ But try to use more meaningful functions than this example...
 of Adelie penguins:
 
 ```{r filter_and_summarise}
-penguins %>% 
-  filter(species == "Adelie") %>% 
+penguins |> 
+  filter(species == "Adelie") |> 
   summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 
@@ -214,8 +214,8 @@ If we want to do that calculation for each species of penguin, we can group
 the dataframe:
 
 ```{r grouped_summarising}
-penguins %>% 
-  group_by(species) %>% 
+penguins |> 
+  group_by(species) |> 
   summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 
@@ -225,8 +225,8 @@ penguins %>%
 group_by allows us to group on more than one variable/column. 
 
 ```{r multiple_grouping}
-penguins %>% 
-  group_by(species, sex) %>% 
+penguins |> 
+  group_by(species, sex) |> 
   summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 
@@ -237,9 +237,9 @@ If we do further operations on this dataframe, they will be done on a grouped
 dataframe. We should therefore _always_ add an "ungroup" function to our pipe:
 
 ```{r ungrouping}
-penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) %>% 
+penguins |> 
+  group_by(species, sex) |> 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) |> 
   ungroup()
 ```
 
@@ -251,10 +251,10 @@ Finally - primarily for presentation purposes, we might want to sort a dataframe
 
 We do that using the `arrange()` function:
 ```{r arrange}
-penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) %>% 
-  ungroup() %>% 
+penguins |> 
+  group_by(species, sex) |> 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) |> 
+  ungroup() |> 
   arrange(avg_weight)
 ```
 

@@ -35,7 +35,7 @@ plot(1:10)
 dev.off()
 ```
 ```{r eval = F}
-plot_df <- mtcars %>% arrange(mpg)
+plot_df <- mtcars |> arrange(mpg)
 
 audio()
 ggplot(plot_df) +

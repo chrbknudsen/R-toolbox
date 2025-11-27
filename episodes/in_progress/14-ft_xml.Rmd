@@ -32,8 +32,8 @@ data <- xml2::read_xml("data/14_ft_xml_sample_xml.xml")
 Så konverterer vi. Først til en liste, og dernæst til en tibble:
 
 
-data <- data %>% 
-  as_list() %>% 
+data <- data |> 
+  as_list() |> 
   as_tibble()
 
 
@@ -41,30 +41,30 @@ Og så kan vi gå igang. Det komplette udtræk af alle data, næppe særligt ele
 Og nok også med en resultat af en dataframe hvor der trænger til at blive 
 ryddet lidt op. Men ikke desto mindre noget der giver et resultat:
 
- data %>% 
-    unnest_longer("EdixiData", "Møde") %>% 
+ data |> 
+    unnest_longer("EdixiData", "Møde") |> 
     hoist(Møde, "Samling", 
           "MeetingId", 
           "Location", 
           "Mødenummer", 
           "DateOfSitting", 
-          .transform = unlist) %>% 
-    select(-Møde_id) %>% 
-    unnest_longer("Møde") %>% 
+          .transform = unlist) |> 
+    select(-Møde_id) |> 
+    unnest_longer("Møde") |> 
     hoist(Møde, "Punktnummer",
           "Mødetitel",
           "Dagsordenpunkt",
           "Sagstype",
           "Sagsnummer",
           "Sagstrin",
-          .transform = unlist) %>% 
-    select(-Møde_id) %>% 
-    mutate(Mødetitel = map(Mødetitel, paste0, collapse = " ")) %>% 
-    unnest_longer(Møde) %>% 
-    unnest_wider(Møde, transform = unlist) %>% 
-    hoist(Tekst, "sup") %>% 
-    mutate(Tekst = map(Tekst, paste0, collapse = " ")) %>% 
-    unnest_longer(Tekst) %>% 
+          .transform = unlist) |> 
+    select(-Møde_id) |> 
+    mutate(Mødetitel = map(Mødetitel, paste0, collapse = " ")) |> 
+    unnest_longer(Møde) |> 
+    unnest_wider(Møde, transform = unlist) |> 
+    hoist(Tekst, "sup") |> 
+    mutate(Tekst = map(Tekst, paste0, collapse = " ")) |> 
+    unnest_longer(Tekst) |> 
     select(-Møde_id)
 
 

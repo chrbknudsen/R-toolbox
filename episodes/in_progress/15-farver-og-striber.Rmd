@@ -105,7 +105,7 @@ want to illustrate.
 Vi tilføjer en linie til vores plot `scale_fill_manual` eksempelvis:
 
 
-mtcars %>% 
+mtcars |> 
   ggplot(aes(hp, fill = factor(am))) +
   geom_histogram(position = "dodge") +
   scale_fill_manual(values=wesanderson::wes_palettes$FantasticFox1)
