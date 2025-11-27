@@ -54,7 +54,7 @@ coffee-habits. We are going to study the second twins, where all variables are
 suffixed with the digit "2":
 
 ```{r data-selection}
-density <- boneden %>% select(age, contains("2"))
+density <- boneden |> select(age, contains("2"))
 head(density)
 ```
 
@@ -79,7 +79,7 @@ The simple linear regresion between just the bone density and the height, can be
 done with:
 
 ```{r}
-lm(fs2 ~ ht2, data = density) %>% 
+lm(fs2 ~ ht2, data = density) |> 
   summary()
 ```
 Where we pipe the output of the regression to the summary function to take a 
@@ -102,7 +102,7 @@ we add the additional independent variables using the `+` sign. And again we
 pipe the result to the summary function to take a closer look:
 
 ```{r}
-lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) %>% 
+lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) |> 
 summary()
 ```
 It is _that_ simple. Interpreting the results on the other hand is a bit
@@ -132,7 +132,7 @@ are not significant, and should not be in the model. Let us remove them.
 But let us remove them one by one. First coffee that has the worst p-value:
 
 ```{r}
-lm(fs2 ~ ht2 + age + wt2 + tea2, data = density) %>% summary()
+lm(fs2 ~ ht2 + age + wt2 + tea2, data = density) |> summary()
 ```
 Note that not only is the coefficient for tea still not significant, it actually
 gets "worse". On the other hand, the coefficient for weight now is larger, 
@@ -170,7 +170,7 @@ variable measured by the p-value, and that is the next one we will remove:
 
 
 ```{r}
-lm(fs2 ~ ht2 + age + wt2 , data = density) %>% summary()
+lm(fs2 ~ ht2 + age + wt2 , data = density) |> summary()
 ```
 Now we have a model where all coefficients are significant.
 
@@ -208,7 +208,7 @@ What is the adjusted R squared value?
 :::: solution
 
 ```{r}
-dens_exercise <- boneden %>% 
+dens_exercise <- boneden |> 
   select(age, contains("1"), -c(cur1, ls1, fn1, men1 ))
 
 model_1 <- lm(fs1~., data = dens_exercise)
@@ -240,7 +240,7 @@ Let us add information about menopausal status, `men2`:
 
 ```{r}
 
-density <- density %>% 
+density <- density |> 
   mutate(men2 = factor(men2))
 
 cat_model <- lm(fs2 ~ ht2 + age + wt2 + men2, data = density)

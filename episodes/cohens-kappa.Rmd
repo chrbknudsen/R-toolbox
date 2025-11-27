@@ -154,7 +154,7 @@ tribble(~`Value of K`, ~`Level of agreement`,
         ">0.75", "Excellent agreement beyond chance",
         "0.4> value < 0.75", "Fair to good agreement beyond chance",
         "<0.4", "Poor agreement beyond chance"
-        ) %>% 
+        ) |> 
   knitr::kable()
 ```
 
@@ -169,7 +169,7 @@ tribble(~`Value of K`, ~`Level of agreement`, ~`% of data that are reliable`,
         "0.60 - 0.79", "Moderate", "35 - 63%",
         "0.80 - 0.90", "Strong", "64 - 81%",
         "Above 0.90", "Almost Perfect", "82 - 100%"
-        ) %>% 
+        ) |> 
   knitr::kable(align = "llr")
 ```
 

@@ -95,7 +95,7 @@ A slightly more cumbersome way is using the `summarise()` function from
 `tidyverse`:
 
 ```{r tidy_middel_pingvin_masse}
-penguins %>% 
+penguins |> 
   summarise(avg_mass = mean(body_mass_g, na.rm = T))
 ```
 
@@ -130,7 +130,7 @@ the data is skewed, in this case toward the larger penguins.
 We can get both `median` and `mean` in one go using the `summarise()` function:
 
 ```{r both_median_og_middel_pingvin_masse}
-penguins %>% 
+penguins |> 
   summarise(median = median(body_mass_g, na.rm = TRUE),
             mean   = mean(body_mass_g, na.rm = TRUE))
 ```
@@ -150,8 +150,8 @@ We typically do not use this for continous variables. The mode of the
 `sex` variable in this dataset can be found like this:
 
 ```{r mode}
-penguins %>% 
-  count(sex) %>% 
+penguins |> 
+  count(sex) |> 
   arrange(desc(n))
 ```
 
@@ -179,7 +179,7 @@ We can get that by using the `min()` and `max()` functions in a `summarise()`
 function:
 
 ```{r tidy_minmax}
-penguins %>% 
+penguins |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T))
 ```
@@ -192,7 +192,7 @@ If we would like to use the `range()` function, we can add it using the
 `reframe()` function instead of `summarise()`: 
 
 ```{r reframe_minmax}
-penguins %>% 
+penguins  |> 
   reframe(range = range(body_mass_g, na.rm = T))
 ```
 
@@ -270,7 +270,7 @@ And again we are not going to do that by hand, but will ask R to do it
 for us:
 
 ```{r variance}
-penguins %>% 
+penguins |> 
   summarise(
             variance = var(body_mass_g, na.rm = T)
           )
@@ -301,7 +301,7 @@ A measurement of the variation of the data would be the standard
 deviation, simply defined as the square root of the variance:
 
 ```{r standarddeviation}
-penguins %>% 
+penguins |> 
   summarise(
             s = sd(body_mass_g, na.rm = T)
           )
@@ -320,11 +320,11 @@ in a number of "buckets", and count the number of observations in each
 bucket:
 
 ```{r histogram_data}
-penguins %>% 
-  select(body_mass_g) %>% 
-  filter(!is.na(body_mass_g)) %>% 
-  mutate(buckets = cut(body_mass_g, breaks=seq(2500,6500,500))) %>% 
-group_by(buckets) %>% 
+penguins |> 
+  select(body_mass_g) |> 
+  filter(!is.na(body_mass_g)) |> 
+  mutate(buckets = cut(body_mass_g, breaks=seq(2500,6500,500))) |> 
+group_by(buckets) |> 
 summarise(antal = n())
 ```
 
@@ -332,7 +332,7 @@ Typically, rather than counting ourself, we leave the work to R, and
 make a histogram directly:
 
 ```{r histogram}
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram()
 ```
@@ -341,7 +341,7 @@ By default ggplot chooses 30 bins, typically we should chose a different
 number:
 
 ```{r change_bin_n}
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(bins = 25)
 ```
@@ -349,7 +349,7 @@ geom_histogram(bins = 25)
 Or, ideally, set the widths of them, manually:
 
 ```{r change_bin_width}
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(binwidth = 250) +
 ggtitle("Histogram with binwidth = 250 g")
@@ -358,7 +358,7 @@ Or even specify the exact intervals we want, here intervals from 0 to 6500 gram
 in intervals of 250 gram:
 
 ```{r bin_breaks}
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(breaks = seq(0,6500,250)) +
 ggtitle("Histogram with bins in 250 g steps from 0 to 6500 g")
@@ -404,7 +404,7 @@ observations fall.
 That is used often enough that we have a dedicated function for it:
 
 ```{r iqr}
-penguins %>% 
+penguins |> 
   summarise(iqr = IQR(body_mass_g, na.rm = T))
 ```
 
@@ -439,7 +439,6 @@ v_data <- tibble(x=quantiler, xend = quantiler, y = rep(0,3), yend = c(0.25, 0.5
 ggplot(penguins, aes(body_mass_g)) + 
   stat_ecdf(geom = "step") +
   geom_segment(data = v_data, aes(x=x, y = y, xend = xend, yend = yend)) +
-
   geom_segment(data = h_data, aes(x=x, y = y, xend = xend, yend = yend)) +
 coord_cartesian(xlim = c(2500,6500), expand = FALSE) +
 theme_classic()
@@ -522,7 +521,7 @@ We can also get all the descriptive values in one table, by adding more
 than one summarizing function to the summarise function:
 
 ```{r everything}
-penguins %>% 
+penguins |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
             mean = mean(body_mass_g, na.rm = T),
@@ -544,8 +543,8 @@ Their weight varies a lot. If we want to do the summarising on each for
 the species, we can group the data by species, before summarising:
 
 ```{r grouped_summarise}
-penguins %>% 
-  group_by(species) %>% 
+penguins |> 
+  group_by(species) |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
             mean = mean(body_mass_g, na.rm = T),
@@ -562,7 +561,7 @@ Finally boxplots offers a way of visualising some of the summary
 statistics:
 
 ```{r boxplots}
-penguins %>% 
+penguins |> 
   ggplot(aes(x=body_mass_g, y = sex)) +
   geom_boxplot()
 ```
@@ -624,16 +623,16 @@ In tidyverse we will typically group the data by the variables we want to count,
 and then tallying them:
 
 ```{r tally}
-penguins %>% 
-  group_by(sex) %>% 
+penguins |> 
+  group_by(sex) |> 
   tally()
 ```
 
 `group_by` works equally well with more than one group:
 
 ```{r grouped_tally}
-penguins %>% 
-  group_by(sex, species) %>% 
+penguins |> 
+  group_by(sex, species) |> 
   tally()
 ```
 
@@ -643,7 +642,7 @@ into a wider tabular format.
 A shortcut exists in tidyverse, `count`, which combines group_by and tally:
 
 ```{r count}
-penguins %>% 
+penguins |> 
   count(sex, species) 
 ```
 

@@ -140,7 +140,7 @@ The algorithm only works with numerical data.
 
 Let us begin by removing the variable containing the true answers.
 ```{r}
-cluster_data <- vin %>% 
+cluster_data <- vin |> 
   select(-cultivar)
 ```
 
@@ -216,7 +216,7 @@ get much better results:
 ```{r}
 set.seed(42)
 clustering <- kmeans(scaled_data, centers = 3)
-tibble(quess = clustering$cluster, true = vin$cultivar) %>% 
+tibble(quess = clustering$cluster, true = vin$cultivar) |> 
   table()
 
 ```
@@ -281,7 +281,7 @@ And then extract the clustering and match them like before:
 
 ```{r}
 tibble(take_one = kmeans_model1$cluster,
-        take_two = kmeans_model2$cluster) %>% 
+        take_two = kmeans_model2$cluster) |> 
 table()
 ```
 Two clusterings on the exact same data. And they are pretty different.
@@ -295,8 +295,8 @@ Visualizing it makes it even more apparent:
 
 ```{r}
 tibble(take_one = kmeans_model1$cluster,
-        take_two = kmeans_model2$cluster)  %>% 
-  cbind(test_data) %>% 
+        take_two = kmeans_model2$cluster)  |> 
+  cbind(test_data) |> 
 ggplot(aes(x,y,colour= factor(take_one))) +
 geom_point()
 ```
@@ -304,8 +304,8 @@ geom_point()
 
 ```{r}
 tibble(take_one = kmeans_model1$cluster,
-        take_two = kmeans_model2$cluster)  %>% 
-  cbind(test_data) %>% 
+        take_two = kmeans_model2$cluster)  |> 
+  cbind(test_data) |> 
 ggplot(aes(x,y,colour= factor(take_two))) +
 geom_point()
 ```
@@ -321,10 +321,10 @@ is not necessarily able to find them. Consider this data:
 ```{r echo = FALSE}
 test_data <- rbind(
   data.frame(x = rnorm(200, 0,1), y = rnorm(200,0,1), z = rep("A", 200)),
-  data.frame(x = runif(1400, -30,30), y = runif(1400,-30,30), z = rep("B", 1400)) %>% 
+  data.frame(x = runif(1400, -30,30), y = runif(1400,-30,30), z = rep("B", 1400)) |> 
     filter(abs(x)>10 | abs(y)>10)
   )
-test_data %>% 
+test_data |> 
   ggplot(aes(x,y, colour = z)) +
   geom_point()
 ```

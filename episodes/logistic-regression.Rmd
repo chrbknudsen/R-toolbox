@@ -181,7 +181,7 @@ actually coded as categorical values in the data, in order for R to be able to
 handle them as such:
 
 ```{r}
-fev <- fev %>% 
+fev <- fev |> 
   mutate(Sex = factor(Sex),
          Smoke = factor(Smoke))
 ```
