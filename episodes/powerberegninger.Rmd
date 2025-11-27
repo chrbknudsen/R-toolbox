@@ -65,28 +65,28 @@ between the ages of 3 and 19. Since we know that there _are_ significant differe
 between the two sexes once they reach puberty, we will be looking at the data for 
 prepubescent children.
 ```{r selecting_data}
-test_data <- data %>% 
+test_data <- data |> 
   filter(Age < 10)
 ```
 
 The means and standard deviations can be calculated like this:
 
 ```{r summary_stat_calc}
-test_data %>% 
-  group_by(Sex) %>% 
+test_data |> 
+  group_by(Sex) |> 
 summarise(mean = mean(FEV),
           sd = sd(FEV))
 ```
 In this dataset the girls are coded as "0" and the boys as "1". We see a difference
-of `r test_data %>%   group_by(Sex) %>% summarise(mean = mean(FEV)) %>% summarise(dif = diff(mean)) %>% pull(dif)`.
+of `r test_data |>   group_by(Sex) |> summarise(mean = mean(FEV)) |> summarise(dif = diff(mean)) |> pull(dif)`.
 
 Is there a difference? The null-hypothesis is that there is not. We have two
 independent samples, so we are running a two-sample-t-test:
 
 ```{r t.test}
-girls <- test_data %>% 
+girls <- test_data |> 
 filter(Sex == 0)
-boys <- test_data %>% 
+boys <- test_data |> 
 filter(Sex == 1)
 
 t.test(boys$FEV, girls$FEV)
@@ -96,7 +96,7 @@ conclude that even though there might be a difference, we cannot rule out the
 possibility that the difference we see between the two means is happening by chance.
 
 How many children should we measure, if we wanted to see a difference of
-`r test_data %>%   group_by(Sex) %>% summarise(mean = mean(FEV)) %>% summarise(dif = diff(mean)) %>% pull(dif)`?
+`r test_data |>   group_by(Sex) |> summarise(mean = mean(FEV)) |> summarise(dif = diff(mean)) |> pull(dif)`?
 
 That is, how large a sample should we have, if we want to detect an actual
 difference as small as this? This difference is often called the effect-size.
@@ -121,8 +121,8 @@ Which is a weighted average of the two standard deviations.
 
 We need the following values:
 ```{r getting_parameters}
-test_data %>% 
-  group_by(Sex) %>% 
+test_data |> 
+  group_by(Sex) |> 
   summarise(n = n(), mean = mean(FEV), sd = sd(FEV))
 ```
 

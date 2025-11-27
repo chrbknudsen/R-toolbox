@@ -61,21 +61,21 @@ is difficult. Similar problems arise if we want to follow the total number
 of new cases.
 
 ```{r echo = FALSE}
-who %>% select(country, year, new_sp_m014:new_sp_m3544) %>% filter(year >= 2000,year<=2009) %>% slice(1:10)
+who |> select(country, year, new_sp_m014:new_sp_m3544) |> filter(year >= 2000,year<=2009) |> slice(1:10)
 ```
 
 Getting this data on a tidy format is not trivial, but a resulting, tidy, 
 organised dataset would look something like this:
 
 ```{r echo = FALSE}
-who %>% 
-  select(country, year, new_sp_m014:new_sp_m3544) %>% 
-  filter(year >= 2000,year<=2009) %>% 
-  slice(1:10) %>% 
-  pivot_longer(new_sp_m014:new_sp_m3544, names_to = "var", values_to = "cases") %>%
-  separate_wider_delim(cols = var, delim = "_", names = c("new", "method", "var")) %>% 
-  separate(var, sep = 1, into=c("sex", "age_group")) %>% 
-  mutate(age_group = sub("^(\\d{1,2})(\\d{2})$", "\\1-\\2", age_group)) %>% 
+who |> 
+  select(country, year, new_sp_m014:new_sp_m3544) |> 
+  filter(year >= 2000,year<=2009) |> 
+  slice(1:10) |> 
+  pivot_longer(new_sp_m014:new_sp_m3544, names_to = "var", values_to = "cases") |> 
+  separate_wider_delim(cols = var, delim = "_", names = c("new", "method", "var")) |> 
+  separate(var, sep = 1, into=c("sex", "age_group")) |> 
+  mutate(age_group = sub("^(\\d{1,2})(\\d{2})$", "\\1-\\2", age_group)) |> 
 mutate(across(where(is.character), factor))
 ```
 
