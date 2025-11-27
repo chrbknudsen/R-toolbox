@@ -358,7 +358,7 @@ Or even specify the exact intervals we want, here intervals from 0 to 6500 gram
 in intervals of 250 gram:
 
 ```{r bin_breaks}
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(breaks = seq(0,6500,250)) +
 ggtitle("Histogram with bins in 250 g steps from 0 to 6500 g")
@@ -404,7 +404,7 @@ observations fall.
 That is used often enough that we have a dedicated function for it:
 
 ```{r iqr}
-penguins %>% 
+penguins |> 
   summarise(iqr = IQR(body_mass_g, na.rm = T))
 ```
 
@@ -439,7 +439,6 @@ v_data <- tibble(x=quantiler, xend = quantiler, y = rep(0,3), yend = c(0.25, 0.5
 ggplot(penguins, aes(body_mass_g)) + 
   stat_ecdf(geom = "step") +
   geom_segment(data = v_data, aes(x=x, y = y, xend = xend, yend = yend)) +
-
   geom_segment(data = h_data, aes(x=x, y = y, xend = xend, yend = yend)) +
 coord_cartesian(xlim = c(2500,6500), expand = FALSE) +
 theme_classic()
@@ -522,7 +521,7 @@ We can also get all the descriptive values in one table, by adding more
 than one summarizing function to the summarise function:
 
 ```{r everything}
-penguins %>% 
+penguins |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
             mean = mean(body_mass_g, na.rm = T),
@@ -544,8 +543,8 @@ Their weight varies a lot. If we want to do the summarising on each for
 the species, we can group the data by species, before summarising:
 
 ```{r grouped_summarise}
-penguins %>% 
-  group_by(species) %>% 
+penguins |> 
+  group_by(species) |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
             mean = mean(body_mass_g, na.rm = T),
@@ -562,7 +561,7 @@ Finally boxplots offers a way of visualising some of the summary
 statistics:
 
 ```{r boxplots}
-penguins %>% 
+penguins |> 
   ggplot(aes(x=body_mass_g, y = sex)) +
   geom_boxplot()
 ```
@@ -624,16 +623,16 @@ In tidyverse we will typically group the data by the variables we want to count,
 and then tallying them:
 
 ```{r tally}
-penguins %>% 
-  group_by(sex) %>% 
+penguins |> 
+  group_by(sex) |> 
   tally()
 ```
 
 `group_by` works equally well with more than one group:
 
 ```{r grouped_tally}
-penguins %>% 
-  group_by(sex, species) %>% 
+penguins |> 
+  group_by(sex, species) |> 
   tally()
 ```
 
@@ -643,7 +642,7 @@ into a wider tabular format.
 A shortcut exists in tidyverse, `count`, which combines group_by and tally:
 
 ```{r count}
-penguins %>% 
+penguins |> 
   count(sex, species) 
 ```
 
