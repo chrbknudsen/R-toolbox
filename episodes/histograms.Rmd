@@ -178,7 +178,7 @@ bill length of the penguins?
 
 Get all the lengths of the penguin bills, excluding missing values:
 ```{r fd_solution_na}
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -228,7 +228,7 @@ of the length of penguin bills?
 
 Get all the lengths of the penguin bills, excluding missing values:
 ```{r sqrt_na}
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -266,7 +266,7 @@ of the length of penguin bills?
 
 Get all the lengths of the penguin bills, excluding missing values:
 ```{r sturges_na}
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -305,7 +305,7 @@ of the length of penguin bills?
 
 Get all the lengths of the penguin bills, excluding missing values:
 ```{r rice_na}
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -352,7 +352,7 @@ of the length of penguin bills?
 
 Get all the lengths of the penguin bills, excluding missing values:
 ```{r doanes_na}
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -405,7 +405,7 @@ of the length of penguin bills?
 
 Get all the lengths of the penguin bills, excluding missing values:
 ```{r scotts_na}
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -495,7 +495,7 @@ any observations, but this method give us much more natural breaks in the
 histogram:
 
 ```{r penguins_with_seq}
-penguins %>% 
+penguins |> 
   ggplot(aes(x=bill_length_mm)) +
   geom_histogram(breaks = seq(from = 30, to = 65, by = 5))
 ```

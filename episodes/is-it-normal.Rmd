@@ -43,7 +43,7 @@ And then by extracting the bill depth of chinstrap penguins:
 
 ```{r making_test_data}
 normal_test_data <- penguins |> 
-  filter(species == "Chinstrap") %>% 
+  filter(species == "Chinstrap") |> 
   select(bill_depth_mm)
 ```
 
@@ -71,7 +71,7 @@ normal_test_data |>
 A normal distribution would have this shape:
 
 ```{r normal_curve, echo = FALSE}
-data.frame(x = rnorm(100)) %>% 
+data.frame(x = rnorm(100)) |> 
 ggplot(aes(x = x)) +
    stat_function(fun = dnorm, args = list(mean = 0, sd = 1)) +
   theme_minimal()

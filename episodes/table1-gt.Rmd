@@ -36,9 +36,9 @@ It typically compares different groups (male~female, treatment~control), to high
 ```{r prep_table1_data, echo = FALSE, warning = FALSE, message =FALSE}
 library(tidyverse)
 library(table1)
-blood <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv") %>% 
-  mutate(testost = na_if(testost, 999.0)) %>% 
-  mutate(prolactn = na_if(prolactn, 99.99)) %>% 
+blood <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/BLOOD.csv") |> 
+  mutate(testost = na_if(testost, 999.0)) |> 
+  mutate(prolactn = na_if(prolactn, 99.99)) |> 
   select(-estrone)
 
 blood$case <- factor(blood$case)
