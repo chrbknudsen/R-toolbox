@@ -89,7 +89,7 @@ Det en person med normalt farvesyn får her, er et estimat af hvordan et plot vi
 Vi tilføjer en linie til vores plot `scale_fill_manual` eksempelvis:
 
 
-mtcars %>% 
+mtcars |>
   ggplot(aes(hp, fill = factor(am))) +
   geom_histogram(position = "dodge") +
   scale_fill_manual(values=wesanderson::wes_palettes$FantasticFox1)

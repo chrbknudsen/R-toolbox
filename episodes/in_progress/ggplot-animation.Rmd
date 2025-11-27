@@ -34,17 +34,17 @@ library(gapminder)
 ```
 
 ```{r eval = F}
-data <- gapminder %>% 
-  filter(continent == "Europe") %>% 
-  group_by(year) %>% 
-  mutate(rank = rank(gdpPercap)) %>% 
+data <- gapminder |> 
+  filter(continent == "Europe") |> 
+  group_by(year) |> 
+  mutate(rank = rank(gdpPercap)) |> 
   ungroup()
   
 
-data %>% 
+data |> 
   ggplot()
 
-static_plot <- data %>% 
+static_plot <- data |> 
   ggplot(aes(x=rank, y=gdpPercap)) +
   geom_col() +
   facet_wrap(~year) +

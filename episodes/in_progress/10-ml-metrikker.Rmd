@@ -97,9 +97,9 @@ som ovenfor.
 Tallene sætter vi som regel op i en "confusion" matrix:
 
 ```{r}
-data.frame(x = c("SP", "FP"), y = c("FN", "SN")) %>% 
-  kable( align = "cc", col.names = c("", "")) %>% 
-  column_spec(2, border_left = T) %>% 
+data.frame(x = c("SP", "FP"), y = c("FN", "SN")) |> 
+  kable( align = "cc", col.names = c("", "")) |> 
+  column_spec(2, border_left = T) |> 
   kable_styling(full_width = F)
 ```
 
@@ -119,9 +119,9 @@ Med tallene ovenfor, vil det se således ud:
 
 
 ```{r}
-data.frame(gæt =c("gæt ja", "gæt nej"),x = c(5, 45), y = c(10, 940)) %>% 
-  kable( align = "lcc", col.names = c("","Faktisk kat", "Ingen kat")) %>% 
-  column_spec(2:3, border_left = T) %>% 
+data.frame(gæt =c("gæt ja", "gæt nej"),x = c(5, 45), y = c(10, 940)) |> 
+  kable( align = "lcc", col.names = c("","Faktisk kat", "Ingen kat")) |> 
+  column_spec(2:3, border_left = T) |> 
   kable_styling(full_width = F)
 ```
 

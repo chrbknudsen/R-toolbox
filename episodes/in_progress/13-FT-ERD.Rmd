@@ -36,10 +36,10 @@ Så. Brug det på eget ansvar.
 
 ```{r }
 library(dplyr)
-dm_read_yaml("../data/oda_er.yml") %>% 
-dm_create_graph(rankdir = "BT") %>% 
+dm_read_yaml("../data/oda_er.yml") |> 
+dm_create_graph(rankdir = "BT") |> 
 dm_render_graph() 
-# dm_get_graph_svg() %>% 
+# dm_get_graph_svg() |> 
 #   write("noget.svg")
 ```
 
