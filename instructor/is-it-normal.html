@@ -554,7 +554,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Testing for normality</h1>
-        <p>Last updated on 2025-11-26 |
+        <p>Last updated on 2025-11-28 |
 
         <a href="https://github.com/KUBDatalab/R-toolbox/edit/main/episodes/is-it-normal.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -615,8 +615,8 @@ the normal distribution.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap"</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">&lt;-</span> <span class="va">penguins</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">species</span> <span class="op">==</span> <span class="st">"Chinstrap"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">select</span><span class="op">(</span><span class="va">bill_depth_mm</span><span class="op">)</span></span></code></pre>
 </div>
 </div>
@@ -649,14 +649,14 @@ closer look at bill_depth_mm where mean and median are closest:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+<pre class="output" tabindex="0"><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <figure><img src="../fig/is-it-normal-rendered-histogram-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>A normal distribution would have this shape:</p>
 <p><img src="../fig/is-it-normal-rendered-normal_curve-1.png" style="display: block; margin: auto;" class="figure">
@@ -670,7 +670,7 @@ distribution:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x<span class="op">=</span><span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_density</span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
@@ -698,7 +698,7 @@ nice graphical way:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">normal_test_data</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>sample <span class="op">=</span> <span class="va">bill_depth_mm</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_qq</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_qq_line</span><span class="op">(</span><span class="op">)</span></span></code></pre>
@@ -768,22 +768,9 @@ line before the data is not normally distributed <em>enough</em>?</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">library</span><span class="op">(</span><span class="va">e1071</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>
-Attaching package: 'e1071'</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>The following object is masked from 'package:ggplot2':
-
-    element</code></pre>
-</div>
 <div class="section level4">
 <h4 id="skewness">Skewness<a class="anchor" aria-label="anchor" href="#skewness"></a></h4>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -802,7 +789,7 @@ skewness, and the data is probably not normally distributed.</p>
 </div>
 <div class="section level4">
 <h4 id="kurtosis">Kurtosis<a class="anchor" aria-label="anchor" href="#kurtosis"></a></h4>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -849,7 +836,7 @@ normally distributed quantiles, what we see in the qqplot.</p>
 <p>The null-hypothesis is that data is normally distributed, and the
 Shapiro-Wilk test returns a p-value reporting the risk of being wrong if
 we reject the null-hypothesis.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -876,7 +863,7 @@ this, we need to specify the specific distribution we are testing for,
 in this case a normal distribution with specific values for mean and
 standard deviation.</p>
 <p>Therefore we need to calculate those:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -919,7 +906,7 @@ testing for normality. It does not require us to know the true mean and
 standard deviation for the population.</p>
 <p>This test is also not available in base-R, but can be found in the
 <code>nortest</code> package:</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -943,7 +930,7 @@ null-hypothesis.</p>
 <p>This test is more sensitive for deviations in the tails.</p>
 <p>It is not available in base-R, but can be found in the
 <code>nortest</code> package.</p>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1048,8 +1035,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-toolbox/instructor/is-it-normal.html",
   "identifier": "https://KUBDatalab.github.io/R-toolbox/instructor/is-it-normal.html",
   "dateCreated": "2024-04-09",
-  "dateModified": "2025-11-26",
-  "datePublished": "2025-11-26"
+  "dateModified": "2025-11-28",
+  "datePublished": "2025-11-28"
 }
 
   </script><script>

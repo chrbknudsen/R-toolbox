@@ -554,7 +554,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Table One</h1>
-        <p>Last updated on 2025-11-26 |
+        <p>Last updated on 2025-11-28 |
 
         <a href="https://github.com/KUBDatalab/R-toolbox/edit/main/episodes/table1.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -637,7 +637,7 @@ Overall
 <span class="stratlabel">yes<br><span class="stratn">(N=77)</span></span>
 </th>
 </tr></thead><tbody><tr><td class="rowlabel firstrow">
-<span class="varlabel">Age<span class="varunits"> (years)</span></span>
+Age (years)
 </td>
 <td class="firstrow">
 </td>
@@ -694,7 +694,7 @@ Median [Min, Max]
 58.0 [46.0, 68.0]
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">testost</span>
+testost
 </td>
 <td class="firstrow">
 </td>
@@ -772,7 +772,7 @@ Missing
 3 (3.9%)
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">prolactn</span>
+prolactn
 </td>
 <td class="firstrow">
 </td>
@@ -936,9 +936,9 @@ testost, and 99.99 for prolactin.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">blood</span> <span class="op">&lt;-</span> <span class="va">blood</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>estrone <span class="op">=</span> <span class="fu">na_if</span><span class="op">(</span><span class="va">estrone</span>, <span class="fl">999.0</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>testost <span class="op">=</span> <span class="fu">na_if</span><span class="op">(</span><span class="va">testost</span>, <span class="fl">999.0</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">blood</span> <span class="op">&lt;-</span> <span class="va">blood</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>estrone <span class="op">=</span> <span class="fu">na_if</span><span class="op">(</span><span class="va">estrone</span>, <span class="fl">999.0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>testost <span class="op">=</span> <span class="fu">na_if</span><span class="op">(</span><span class="va">testost</span>, <span class="fl">999.0</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>prolactn <span class="op">=</span> <span class="fu">na_if</span><span class="op">(</span><span class="va">prolactn</span>, <span class="fl">99.99</span><span class="op">)</span><span class="op">)</span> </span></code></pre>
 </div>
 <p>We then ensure that categorical values are stored as categorical
@@ -947,8 +947,8 @@ values, and adjust the labels of those categorical values:</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">blood</span> <span class="op">&lt;-</span> <span class="va">blood</span> <span class="op">%&gt;%</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>case <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">case</span>, labels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"case"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> </span>
+<code class="sourceCode R"><span><span class="va">blood</span> <span class="op">&lt;-</span> <span class="va">blood</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>case <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">case</span>, labels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"case"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu">mutate</span><span class="op">(</span>curpmh <span class="op">=</span> <span class="fu">factor</span><span class="op">(</span><span class="va">curpmh</span>, labels <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"no"</span>, <span class="st">"yes"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>And now we can make our table one like this. Note that we only
@@ -1000,7 +1000,7 @@ Overall
 <span class="stratlabel">yes<br><span class="stratn">(N=77)</span></span>
 </th>
 </tr></thead><tbody><tr><td class="rowlabel firstrow">
-<span class="varlabel">ageblood</span>
+ageblood
 </td>
 <td class="firstrow">
 </td>
@@ -1057,7 +1057,7 @@ Median [Min, Max]
 58.0 [46.0, 68.0]
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">testost</span>
+testost
 </td>
 <td class="firstrow">
 </td>
@@ -1135,7 +1135,7 @@ Missing
 3 (3.9%)
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">prolactn</span>
+prolactn
 </td>
 <td class="firstrow">
 </td>
@@ -1275,7 +1275,7 @@ Overall
 <span class="stratlabel">yes<br><span class="stratn">(N=77)</span></span>
 </th>
 </tr></thead><tbody><tr><td class="rowlabel firstrow">
-<span class="varlabel">Age<span class="varunits"> (years)</span></span>
+Age (years)
 </td>
 <td class="firstrow">
 </td>
@@ -1332,7 +1332,7 @@ Median [Min, Max]
 58.0 [46.0, 68.0]
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">testost</span>
+testost
 </td>
 <td class="firstrow">
 </td>
@@ -1410,7 +1410,7 @@ Missing
 3 (3.9%)
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">prolactn</span>
+prolactn
 </td>
 <td class="firstrow">
 </td>
@@ -1548,7 +1548,7 @@ Overall
 <span class="stratlabel">yes<br><span class="stratn">(N=77)</span></span>
 </th>
 </tr></thead><tbody><tr><td class="rowlabel firstrow">
-<span class="varlabel">Age<span class="varunits"> (years)</span></span>
+Age (years)
 </td>
 <td class="firstrow">
 </td>
@@ -1626,7 +1626,7 @@ Geom. mean (Geo. SD%)
 58.4 (1.10%)
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">testost</span>
+testost
 </td>
 <td class="firstrow">
 </td>
@@ -1725,7 +1725,7 @@ Missing
 3 (3.9%)
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">prolactn</span>
+prolactn
 </td>
 <td class="firstrow">
 </td>
@@ -1856,7 +1856,7 @@ geometric standard deviation. Change the code to write out “Geom.” and
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1932,7 +1932,7 @@ Overall
 <span class="stratlabel">yes<br><span class="stratn">(N=77)</span></span>
 </th>
 </tr></thead><tbody><tr><td class="rowlabel firstrow">
-<span class="varlabel">Age<span class="varunits"> (years)</span></span>
+Age (years)
 </td>
 <td class="firstrow">
 </td>
@@ -1989,7 +1989,7 @@ Variance
 30.6
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">testost</span>
+testost
 </td>
 <td class="firstrow">
 </td>
@@ -2067,7 +2067,7 @@ Missing
 3 (3.9%)
 </td>
 </tr><tr><td class="rowlabel firstrow">
-<span class="varlabel">prolactn</span>
+prolactn
 </td>
 <td class="firstrow">
 </td>
@@ -2169,7 +2169,7 @@ specifying <code>render.categorical</code>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2222,7 +2222,7 @@ straightforward.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p>Try to remove the empty string from the function, and use it is a
 table one as previously shown:</p>
@@ -2320,8 +2320,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-toolbox/table1.html",
   "identifier": "https://KUBDatalab.github.io/R-toolbox/table1.html",
   "dateCreated": "2024-04-09",
-  "dateModified": "2025-11-26",
-  "datePublished": "2025-11-26"
+  "dateModified": "2025-11-28",
+  "datePublished": "2025-11-28"
 }
 
   </script><script>

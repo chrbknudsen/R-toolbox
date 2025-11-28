@@ -555,7 +555,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>R on Ucloud</h1>
-        <p>Last updated on 2025-11-26 |
+        <p>Last updated on 2025-11-28 |
 
         <a href="https://github.com/KUBDatalab/R-toolbox/edit/main/episodes/ucloud.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -931,7 +931,7 @@ know where to continue.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>Det svære her er at få korrekte versioner. Og at få openssl
 installeret med den samme version som der kører på systemet.</p>
@@ -950,10 +950,10 @@ script:</p>
 <code class="sourceCode R"><span><span class="fu">.rs.restartR</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">reticulate</span><span class="fu">::</span><span class="fu">use_condaenv</span><span class="op">(</span><span class="st">"my_project_env"</span>, required <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="kw">library</span><span class="op">(</span><span class="va">keras3</span><span class="op">)</span></span>
-<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">keras_model_sequential</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">layer_dense</span><span class="op">(</span>units <span class="op">=</span> <span class="fl">32</span>, input_shape <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">784</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">layer_activation</span><span class="op">(</span><span class="st">"relu"</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
-<span>  <span class="fu">layer_dense</span><span class="op">(</span>units <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu">keras_model_sequential</span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">layer_dense</span><span class="op">(</span>units <span class="op">=</span> <span class="fl">32</span>, input_shape <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">784</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">layer_activation</span><span class="op">(</span><span class="st">"relu"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">layer_dense</span><span class="op">(</span>units <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">layer_activation</span><span class="op">(</span><span class="st">"softmax"</span><span class="op">)</span></span>
 <span><span class="fu">summary</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
 <span></span>
@@ -1084,7 +1084,7 @@ above.</p>
 <button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
   <h3 class="accordion-header" id="headingSpoiler1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div> Notes on the good solution </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
 <div class="accordion-body">
 <p>Data analysis is not worth much, if we are not able to reproduce our
 results. A significant amount of work have therefore gone into providing
@@ -1201,8 +1201,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-toolbox/instructor/ucloud.html",
   "identifier": "https://KUBDatalab.github.io/R-toolbox/instructor/ucloud.html",
   "dateCreated": "2024-04-09",
-  "dateModified": "2025-11-26",
-  "datePublished": "2025-11-26"
+  "dateModified": "2025-11-28",
+  "datePublished": "2025-11-28"
 }
 
   </script><script>

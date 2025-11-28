@@ -559,7 +559,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Statistical tests</h1>
-        <p>Last updated on 2025-11-26 |
+        <p>Last updated on 2025-11-28 |
 
         <a href="https://github.com/KUBDatalab/R-toolbox/edit/main/episodes/stat-tests-1.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -698,7 +698,6 @@ no evidence to conclude a difference from the claimed distribution.</p>
 </button>
 <div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
-<p>EJ KORREKTURLÆST</p>
 <ul><li>
 <strong>Used for:</strong> Testing whether the mean of a single
 sample differs from a known population mean when the population standard
@@ -718,23 +717,31 @@ One-sided test.</li>
 (either the population is normal or n is large, e.g. ≥ 30).</li>
 </ul><p><strong>Strengths</strong></p>
 <ul><li>More powerful than the t-test when σ is truly known.<br></li>
-<li>Simple calculation and interpretation.<br></li>
-<li>Relies on the normal distribution, which is well understood.</li>
+<li>Simple calculation and interpretation.</li>
 </ul><p><strong>Weaknesses</strong></p>
 <ul><li>The true population σ is only very rarely known in practice.<br></li>
 <li>Sensitive to departures from normality for small samples.<br></li>
 <li>Misspecification of σ leads to incorrect inferences.</li>
 </ul><p><strong>Example</strong></p>
-<p>Two-sided: * <strong>Null hypothesis (H₀):</strong> The true mean
-diameter μ = 5.00 cm.<br>
-* <strong>Alternative hypothesis (H₁):</strong> μ ≠ 5.00 cm.</p>
-<p>One-sided, left: * <strong>Null hypothesis (H₀):</strong> The true
-mean diameter μ = 5.00 cm.<br>
-* <strong>Alternative hypothesis (H₁):</strong> μ &lt; 5.00 cm.</p>
-<p>One-sided, right: * <strong>Null hypothesis (H₀):</strong> The true
-mean diameter μ = 5.00 cm.<br>
-* <strong>Alternative hypothesis (H₁):</strong> μ &gt; 5.00 cm.</p>
-<div class="codewrapper sourceCode" id="cb3">
+<p>Two-sided:</p>
+<ul><li>
+<strong>Null hypothesis (H₀):</strong> The true mean diameter μ =
+5.00 cm.<br></li>
+<li>
+<strong>Alternative hypothesis (H₁):</strong> μ ≠ 5.00 cm.</li>
+</ul><p>One-sided, left:</p>
+<ul><li>
+<strong>Null hypothesis (H₀):</strong> The true mean diameter μ =
+5.00 cm.<br></li>
+<li>
+<strong>Alternative hypothesis (H₁):</strong> μ &lt; 5.00 cm.</li>
+</ul><p>One-sided, right:</p>
+<ul><li>
+<strong>Null hypothesis (H₀):</strong> The true mean diameter μ =
+5.00 cm.<br></li>
+<li>
+<strong>Alternative hypothesis (H₁):</strong> μ &gt; 5.00 cm.</li>
+</ul><div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -755,16 +762,16 @@ mean diameter μ = 5.00 cm.<br>
 <span><span class="va">z_stat</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">xbar</span> <span class="op">-</span> <span class="va">mu0</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">sigma</span> <span class="op">/</span> <span class="fu">sqrt</span><span class="op">(</span><span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Two-sided p-value:</span></span>
-<span><span class="va">p_value</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="fu">abs</span><span class="op">(</span><span class="va">z_stat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">two_sided_p_value</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="fu">abs</span><span class="op">(</span><span class="va">z_stat</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Larger p-value</span></span>
-<span><span class="va">larger_p_value</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="va">z_stat</span><span class="op">)</span></span>
+<span><span class="va">p_value_larger_mu</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="va">z_stat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Smaller p-value</span></span>
-<span><span class="va">smaller_p_value</span> <span class="op">&lt;-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="va">z_stat</span><span class="op">)</span></span>
+<span><span class="va">p_value_smaller_mu</span> <span class="op">&lt;-</span> <span class="fu">pnorm</span><span class="op">(</span><span class="va">z_stat</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Output results:</span></span>
-<span><span class="va">z_stat</span>; <span class="va">p_value</span>; <span class="va">larger_p_value</span>; <span class="va">smaller_p_value</span></span></code></pre>
+<span><span class="va">z_stat</span>; <span class="va">two_sided_p_value</span>; <span class="va">p_value_larger_mu</span>; <span class="va">p_value_smaller_mu</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4129,8 +4136,8 @@ Number of obs: 2000, groups:  hospital, 20
 
 Fixed effects:
              Estimate Std. Error z value Pr(&gt;|z|)
-(Intercept) -2.132901   0.370417  -5.758 8.51e-09 ***
-age          0.035056   0.005317   6.594 4.29e-11 ***
+(Intercept) -2.132901   0.370427  -5.758 8.51e-09 ***
+age          0.035056   0.005317   6.593 4.30e-11 ***
 comorbidity  0.457562   0.044238  10.343  &lt; 2e-16 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -4142,7 +4149,7 @@ comorbidity -0.293  0.101</code></pre>
 </div>
 <p><strong>Interpretation:</strong> The fixed‐effect estimate for age is
 0.035 (SE = 0.005), giving an odds ratio of 1.036 per year of age. With
-a z‐value = 6.59 and p ≈ 4.29^{-11}, we reject the null hypothesis. This
+a z‐value = 6.59 and p ≈ 4.3^{-11}, we reject the null hypothesis. This
 indicates that age is significantly associated with higher odds of
 readmission, accounting for hospital clustering.</p>
 </div>
@@ -8153,8 +8160,8 @@ any links that you are not going to use.
   "url": "https://KUBDatalab.github.io/R-toolbox/stat-tests-1.html",
   "identifier": "https://KUBDatalab.github.io/R-toolbox/stat-tests-1.html",
   "dateCreated": "2024-04-09",
-  "dateModified": "2025-11-26",
-  "datePublished": "2025-11-26"
+  "dateModified": "2025-11-28",
+  "datePublished": "2025-11-28"
 }
 
   </script><script>
