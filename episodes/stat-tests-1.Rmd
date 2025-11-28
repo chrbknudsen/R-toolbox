@@ -215,7 +215,7 @@ with a two-sided p-value of `r signif(two_sided_p_value, 3)`. We
 Thus, there is
 `r if(two_sided_p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
 
-We can similarly reject the hypothesis that the average diameter is larger (p = `r p_value_lager_mu`)
+We can similarly reject the hypothesis that the average diameter is larger (p = `r p_value_larger_mu`)
 or that it is smaller (p = `r p_value_smaller_mu`)
 
 ::::
