@@ -144,6 +144,18 @@ eksempelvis "Mac" i en group-tab, så skifter de andre group-tabs også til
 
 
 
+``` r
+library(colorblindr)
+```
+
+``` output
+Loading required package: colorspace
+```
+
+``` output
+Loading required package: ggplot2
+```
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Brug fences til at fremhæve eller skjule indhold på siderne.
