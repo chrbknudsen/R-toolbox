@@ -142,7 +142,7 @@ The algorithm only works with numerical data.
 Let us begin by removing the variable containing the true answers.
 
 ``` r
-cluster_data <- vin %>% 
+cluster_data <- vin |> 
   select(-cultivar)
 ```
 
@@ -160,31 +160,31 @@ clustering
 ```
 
 ``` output
-K-means clustering with 3 clusters of sizes 47, 69, 62
+K-means clustering with 3 clusters of sizes 47, 62, 69
 
 Cluster means:
    Alcohol Malicacid      Ash Alcalinityofash Magnesium Totalphenols Flavanoids
 1 13.80447  1.883404 2.426170        17.02340 105.51064     2.867234   3.014255
-2 12.51667  2.494203 2.288551        20.82319  92.34783     2.070725   1.758406
-3 12.92984  2.504032 2.408065        19.89032 103.59677     2.111129   1.584032
+2 12.92984  2.504032 2.408065        19.89032 103.59677     2.111129   1.584032
+3 12.51667  2.494203 2.288551        20.82319  92.34783     2.070725   1.758406
   Nonflavanoidphenols Proanthocyanins Colorintensity       Hue
 1           0.2853191        1.910426       5.702553 1.0782979
-2           0.3901449        1.451884       4.086957 0.9411594
-3           0.3883871        1.503387       5.650323 0.8839677
+2           0.3883871        1.503387       5.650323 0.8839677
+3           0.3901449        1.451884       4.086957 0.9411594
   OD280OD315ofdilutedwines   Proline
 1                 3.114043 1195.1489
-2                 2.490725  458.2319
-3                 2.365484  728.3387
+2                 2.365484  728.3387
+3                 2.490725  458.2319
 
 Clustering vector:
-  [1] 1 1 1 1 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 3 3 1 1 3 3 1 1 3 1 1 1 1 1 1 3 3
- [38] 1 1 3 3 1 1 3 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 3 2 3 2 2 3 2 2 3 3 3 2 2 1
- [75] 3 2 2 2 3 2 2 3 3 2 2 2 2 2 3 3 2 2 2 2 2 3 3 2 3 2 3 2 2 2 3 2 2 2 2 3 2
-[112] 2 3 2 2 2 2 2 2 2 3 2 2 2 2 2 2 2 2 2 3 2 2 3 3 3 3 2 2 2 3 3 2 2 3 3 2 3
-[149] 3 2 2 2 2 3 3 3 2 3 3 3 2 3 2 3 3 2 3 3 3 3 2 2 3 3 3 3 3 2
+  [1] 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 1 1 2 2 1 1 2 1 1 1 1 1 1 2 2
+ [38] 1 1 2 2 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 3 2 3 2 3 3 2 3 3 2 2 2 3 3 1
+ [75] 2 3 3 3 2 3 3 2 2 3 3 3 3 3 2 2 3 3 3 3 3 2 2 3 2 3 2 3 3 3 2 3 3 3 3 2 3
+[112] 3 2 3 3 3 3 3 3 3 2 3 3 3 3 3 3 3 3 3 2 3 3 2 2 2 2 3 3 3 2 2 3 3 2 2 3 2
+[149] 2 3 3 3 3 2 2 2 3 2 2 2 3 2 3 2 2 3 2 2 2 2 3 3 2 2 2 2 2 3
 
 Within cluster sum of squares by cluster:
-[1] 1360950.5  443166.7  566572.5
+[1] 1360950.5  566572.5  443166.7
  (between_SS / total_SS =  86.5 %)
 
 Available components:
@@ -225,8 +225,8 @@ table(testing_clusters)
      true
 quess  1  2  3
     1 46  1  0
-    2  0 50 19
-    3 13 20 29
+    2 13 20 29
+    3  0 50 19
 ```
 
 The algorithm have no idea about how the true groups are numbered, so the numbering does not match. But it appears
@@ -281,7 +281,7 @@ get much better results:
 ``` r
 set.seed(42)
 clustering <- kmeans(scaled_data, centers = 3)
-tibble(quess = clustering$cluster, true = vin$cultivar) %>% 
+tibble(quess = clustering$cluster, true = vin$cultivar) |> 
   table()
 ```
 
@@ -356,7 +356,7 @@ And then extract the clustering and match them like before:
 
 ``` r
 tibble(take_one = kmeans_model1$cluster,
-        take_two = kmeans_model2$cluster) %>% 
+        take_two = kmeans_model2$cluster) |> 
 table()
 ```
 
@@ -381,8 +381,8 @@ Visualizing it makes it even more apparent:
 
 ``` r
 tibble(take_one = kmeans_model1$cluster,
-        take_two = kmeans_model2$cluster)  %>% 
-  cbind(test_data) %>% 
+        take_two = kmeans_model2$cluster)  |> 
+  cbind(test_data) |> 
 ggplot(aes(x,y,colour= factor(take_one))) +
 geom_point()
 ```
@@ -393,8 +393,8 @@ geom_point()
 
 ``` r
 tibble(take_one = kmeans_model1$cluster,
-        take_two = kmeans_model2$cluster)  %>% 
-  cbind(test_data) %>% 
+        take_two = kmeans_model2$cluster)  |> 
+  cbind(test_data) |> 
 ggplot(aes(x,y,colour= factor(take_two))) +
 geom_point()
 ```

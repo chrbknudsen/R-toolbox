@@ -143,7 +143,7 @@ A slightly more cumbersome way is using the `summarise()` function from
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(avg_mass = mean(body_mass_g, na.rm = T))
 ```
 
@@ -191,7 +191,7 @@ We can get both `median` and `mean` in one go using the `summarise()` function:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(median = median(body_mass_g, na.rm = TRUE),
             mean   = mean(body_mass_g, na.rm = TRUE))
 ```
@@ -219,8 +219,8 @@ We typically do not use this for continous variables. The mode of the
 
 
 ``` r
-penguins %>% 
-  count(sex) %>% 
+penguins |> 
+  count(sex) |> 
   arrange(desc(n))
 ```
 
@@ -258,7 +258,7 @@ function:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T))
 ```
@@ -279,7 +279,7 @@ If we would like to use the `range()` function, we can add it using the
 
 
 ``` r
-penguins %>% 
+penguins  |> 
   reframe(range = range(body_mass_g, na.rm = T))
 ```
 
@@ -366,7 +366,7 @@ for us:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(
             variance = var(body_mass_g, na.rm = T)
           )
@@ -405,7 +405,7 @@ deviation, simply defined as the square root of the variance:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(
             s = sd(body_mass_g, na.rm = T)
           )
@@ -432,11 +432,11 @@ bucket:
 
 
 ``` r
-penguins %>% 
-  select(body_mass_g) %>% 
-  filter(!is.na(body_mass_g)) %>% 
-  mutate(buckets = cut(body_mass_g, breaks=seq(2500,6500,500))) %>% 
-group_by(buckets) %>% 
+penguins |> 
+  select(body_mass_g) |> 
+  filter(!is.na(body_mass_g)) |> 
+  mutate(buckets = cut(body_mass_g, breaks=seq(2500,6500,500))) |> 
+group_by(buckets) |> 
 summarise(antal = n())
 ```
 
@@ -459,13 +459,13 @@ make a histogram directly:
 
 
 ``` r
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram()
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ``` warning
@@ -480,7 +480,7 @@ number:
 
 
 ``` r
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(bins = 25)
 ```
@@ -496,7 +496,7 @@ Or, ideally, set the widths of them, manually:
 
 
 ``` r
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(binwidth = 250) +
 ggtitle("Histogram with binwidth = 250 g")
@@ -513,7 +513,7 @@ in intervals of 250 gram:
 
 
 ``` r
-penguins %>% 
+penguins |> 
 ggplot((aes(x=body_mass_g))) +
 geom_histogram(breaks = seq(0,6500,250)) +
 ggtitle("Histogram with bins in 250 g steps from 0 to 6500 g")
@@ -579,7 +579,7 @@ That is used often enough that we have a dedicated function for it:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(iqr = IQR(body_mass_g, na.rm = T))
 ```
 
@@ -658,20 +658,6 @@ the library `e1071`
 
 ``` r
 library(e1071)
-```
-
-``` output
-
-Attaching package: 'e1071'
-```
-
-``` output
-The following object is masked from 'package:ggplot2':
-
-    element
-```
-
-``` r
 skewness(penguins$body_mass_g, na.rm = T)
 ```
 
@@ -751,7 +737,7 @@ than one summarizing function to the summarise function:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
             mean = mean(body_mass_g, na.rm = T),
@@ -781,8 +767,8 @@ the species, we can group the data by species, before summarising:
 
 
 ``` r
-penguins %>% 
-  group_by(species) %>% 
+penguins |> 
+  group_by(species) |> 
   summarise(min = min(body_mass_g, na.rm = T),
             max = max(body_mass_g, na.rm = T),
             mean = mean(body_mass_g, na.rm = T),
@@ -809,7 +795,7 @@ statistics:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   ggplot(aes(x=body_mass_g, y = sex)) +
   geom_boxplot()
 ```
@@ -930,8 +916,8 @@ and then tallying them:
 
 
 ``` r
-penguins %>% 
-  group_by(sex) %>% 
+penguins |> 
+  group_by(sex) |> 
   tally()
 ```
 
@@ -948,8 +934,8 @@ penguins %>%
 
 
 ``` r
-penguins %>% 
-  group_by(sex, species) %>% 
+penguins |> 
+  group_by(sex, species) |> 
   tally()
 ```
 
@@ -975,7 +961,7 @@ A shortcut exists in tidyverse, `count`, which combines group_by and tally:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   count(sex, species) 
 ```
 

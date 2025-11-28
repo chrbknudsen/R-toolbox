@@ -62,7 +62,7 @@ ggplot(penguins, aes(x=bill_length_mm)) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ``` warning
@@ -97,7 +97,7 @@ ggplot(penguins, aes(x=bill_length_mm)) +
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ``` warning
@@ -215,7 +215,7 @@ bill length of the penguins?
 Get all the lengths of the penguin bills, excluding missing values:
 
 ``` r
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -275,7 +275,7 @@ of the length of penguin bills?
 Get all the lengths of the penguin bills, excluding missing values:
 
 ``` r
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -320,7 +320,7 @@ of the length of penguin bills?
 Get all the lengths of the penguin bills, excluding missing values:
 
 ``` r
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -367,7 +367,7 @@ of the length of penguin bills?
 Get all the lengths of the penguin bills, excluding missing values:
 
 ``` r
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -422,7 +422,7 @@ of the length of penguin bills?
 Get all the lengths of the penguin bills, excluding missing values:
 
 ``` r
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -437,20 +437,6 @@ Find $g_1$:
 
 ``` r
 library(e1071)
-```
-
-``` output
-
-Attaching package: 'e1071'
-```
-
-``` output
-The following object is masked from 'package:ggplot2':
-
-    element
-```
-
-``` r
 g1 <- skewness(bill_lengths)
 ```
 Find $\sigma_{g1}$:
@@ -499,7 +485,7 @@ of the length of penguin bills?
 Get all the lengths of the penguin bills, excluding missing values:
 
 ``` r
-bill_lengths <- penguins$bill_length_mm %>% 
+bill_lengths <- penguins$bill_length_mm |> 
   na.omit()
 ```
 
@@ -609,7 +595,7 @@ histogram:
 
 
 ``` r
-penguins %>% 
+penguins |> 
   ggplot(aes(x=bill_length_mm)) +
   geom_histogram(breaks = seq(from = 30, to = 65, by = 5))
 ```

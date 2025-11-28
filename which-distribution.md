@@ -44,8 +44,8 @@ eruptions that lasts longer than 3 minutes:
 
 ``` r
 library(tidyverse)
-eruption_example <- faithful %>% 
-  filter(eruptions > 3) %>% 
+eruption_example <- faithful |> 
+  filter(eruptions > 3) |> 
   dplyr::select(eruptions)
 ```
 

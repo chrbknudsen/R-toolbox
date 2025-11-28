@@ -428,10 +428,10 @@ One way to check that everything worked, is to run the following script:
 .rs.restartR()
 reticulate::use_condaenv("my_project_env", required = TRUE)
 library(keras3)
-model <- keras_model_sequential() %>%
-  layer_dense(units = 32, input_shape = c(784)) %>%
-  layer_activation("relu") %>%
-  layer_dense(units = 10) %>%
+model <- keras_model_sequential() |>
+  layer_dense(units = 32, input_shape = c(784)) |>
+  layer_activation("relu") |>
+  layer_dense(units = 10) |>
   layer_activation("softmax")
 summary(model)
 

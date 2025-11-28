@@ -62,11 +62,11 @@ library(tidyverse)
 
 ``` output
 ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.6
-✔ forcats   1.0.1     ✔ stringr   1.6.0
-✔ ggplot2   4.0.1     ✔ tibble    3.3.0
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.3.0
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.2.0     
+✔ purrr     1.1.0     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
@@ -93,7 +93,7 @@ between the two sexes once they reach puberty, we will be looking at the data fo
 prepubescent children.
 
 ``` r
-test_data <- data %>% 
+test_data <- data |> 
   filter(Age < 10)
 ```
 
@@ -101,8 +101,8 @@ The means and standard deviations can be calculated like this:
 
 
 ``` r
-test_data %>% 
-  group_by(Sex) %>% 
+test_data |> 
+  group_by(Sex) |> 
 summarise(mean = mean(FEV),
           sd = sd(FEV))
 ```
@@ -122,9 +122,9 @@ independent samples, so we are running a two-sample-t-test:
 
 
 ``` r
-girls <- test_data %>% 
+girls <- test_data |> 
 filter(Sex == 0)
-boys <- test_data %>% 
+boys <- test_data |> 
 filter(Sex == 1)
 
 t.test(boys$FEV, girls$FEV)
@@ -174,8 +174,8 @@ Which is a weighted average of the two standard deviations.
 We need the following values:
 
 ``` r
-test_data %>% 
-  group_by(Sex) %>% 
+test_data |> 
+  group_by(Sex) |> 
   summarise(n = n(), mean = mean(FEV), sd = sd(FEV))
 ```
 

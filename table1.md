@@ -44,17 +44,17 @@ It can look like this:
 </tr>
 <tr>
 <th class='rowlabel firstrow lastrow'></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=298)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=48)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=135)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=29)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=433)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=77)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=298)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=48)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=135)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=29)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=433)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=77)</span></span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>Age<span class='varunits'> (years)</span></span></td>
+<td class='rowlabel firstrow'>Age (years)</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -81,7 +81,7 @@ It can look like this:
 <td class='lastrow'>58.0 [46.0, 68.0]</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>testost</span></td>
+<td class='rowlabel firstrow'>testost</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -117,7 +117,7 @@ It can look like this:
 <td class='lastrow'>3 (3.9%)</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>prolactn</span></td>
+<td class='rowlabel firstrow'>prolactn</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -243,9 +243,9 @@ Let us fix that:
 
 
 ``` r
-blood <- blood %>% 
-  mutate(estrone = na_if(estrone, 999.0)) %>% 
-  mutate(testost = na_if(testost, 999.0)) %>% 
+blood <- blood |> 
+  mutate(estrone = na_if(estrone, 999.0)) |> 
+  mutate(testost = na_if(testost, 999.0)) |> 
   mutate(prolactn = na_if(prolactn, 99.99)) 
 ```
 
@@ -255,8 +255,8 @@ adjust the labels of those categorical values:
 
 
 ``` r
-blood <- blood %>% 
-  mutate(case = factor(case, labels = c("control", "case"))) %>% 
+blood <- blood |> 
+  mutate(case = factor(case, labels = c("control", "case"))) |> 
   mutate(curpmh = factor(curpmh, labels = c("no", "yes")))
 ```
 
@@ -279,17 +279,17 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 </tr>
 <tr>
 <th class='rowlabel firstrow lastrow'></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=298)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=48)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=135)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=29)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=433)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=77)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=298)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=48)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=135)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=29)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=433)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=77)</span></span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>ageblood</span></td>
+<td class='rowlabel firstrow'>ageblood</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -316,7 +316,7 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 <td class='lastrow'>58.0 [46.0, 68.0]</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>testost</span></td>
+<td class='rowlabel firstrow'>testost</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -352,7 +352,7 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 <td class='lastrow'>3 (3.9%)</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>prolactn</span></td>
+<td class='rowlabel firstrow'>prolactn</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -422,17 +422,17 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 </tr>
 <tr>
 <th class='rowlabel firstrow lastrow'></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=298)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=48)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=135)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=29)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=433)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=77)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=298)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=48)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=135)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=29)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=433)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=77)</span></span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>Age<span class='varunits'> (years)</span></span></td>
+<td class='rowlabel firstrow'>Age (years)</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -459,7 +459,7 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 <td class='lastrow'>58.0 [46.0, 68.0]</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>testost</span></td>
+<td class='rowlabel firstrow'>testost</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -495,7 +495,7 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood)
 <td class='lastrow'>3 (3.9%)</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>prolactn</span></td>
+<td class='rowlabel firstrow'>prolactn</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -567,17 +567,17 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
 </tr>
 <tr>
 <th class='rowlabel firstrow lastrow'></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=298)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=48)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=135)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=29)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=433)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=77)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=298)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=48)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=135)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=29)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=433)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=77)</span></span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>Age<span class='varunits'> (years)</span></span></td>
+<td class='rowlabel firstrow'>Age (years)</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -613,7 +613,7 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
 <td class='lastrow'>58.4 (1.10%)</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>testost</span></td>
+<td class='rowlabel firstrow'>testost</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -658,7 +658,7 @@ table1(~ageblood + testost + prolactn|case + curpmh, data = blood,
 <td class='lastrow'>3 (3.9%)</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>prolactn</span></td>
+<td class='rowlabel firstrow'>prolactn</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -780,17 +780,17 @@ render.continuous = my_summary)
 </tr>
 <tr>
 <th class='rowlabel firstrow lastrow'></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=298)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=48)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=135)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=29)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>no<br/><span class='stratn'>(N=433)</span></span></th>
-<th class='firstrow lastrow'><span class='stratlabel'>yes<br/><span class='stratn'>(N=77)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=298)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=48)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=135)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=29)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>no<br><span class='stratn'>(N=433)</span></span></th>
+<th class='firstrow lastrow'><span class='stratlabel'>yes<br><span class='stratn'>(N=77)</span></span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>Age<span class='varunits'> (years)</span></span></td>
+<td class='rowlabel firstrow'>Age (years)</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -817,7 +817,7 @@ render.continuous = my_summary)
 <td class='lastrow'>30.6</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>testost</span></td>
+<td class='rowlabel firstrow'>testost</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
@@ -853,7 +853,7 @@ render.continuous = my_summary)
 <td class='lastrow'>3 (3.9%)</td>
 </tr>
 <tr>
-<td class='rowlabel firstrow'><span class='varlabel'>prolactn</span></td>
+<td class='rowlabel firstrow'>prolactn</td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>
 <td class='firstrow'></td>

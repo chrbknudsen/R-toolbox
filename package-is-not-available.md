@@ -119,7 +119,7 @@ all the available packages in the repositories we have selected:
 ap <- available.packages()
 ```
 
-In this example we find 23080 packages.
+In this example we find 23065 packages.
 
 Rather than viewing all of them, it is better to test if the package we are 
 looking for is actually available:

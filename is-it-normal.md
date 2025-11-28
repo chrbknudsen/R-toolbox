@@ -44,8 +44,8 @@ And then by extracting the bill depth of chinstrap penguins:
 
 
 ``` r
-normal_test_data <- penguins %>% 
-  filter(species == "Chinstrap") %>% 
+normal_test_data <- penguins |> 
+  filter(species == "Chinstrap") |> 
   select(bill_depth_mm)
 ```
 
@@ -77,13 +77,13 @@ closer look at bill_depth_mm where mean and median are closest:
 
 
 ``` r
-normal_test_data %>% 
+normal_test_data |> 
   ggplot(aes(x=bill_depth_mm)) +
   geom_histogram()
 ```
 
 ``` output
-`stat_bin()` using `bins = 30`. Pick better value `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 <img src="fig/is-it-normal-rendered-histogram-1.png" style="display: block; margin: auto;" />
@@ -101,7 +101,7 @@ are often a better way of visualizing the distribution:
 
 
 ``` r
-normal_test_data %>% 
+normal_test_data |> 
   ggplot(aes(x=bill_depth_mm)) +
   geom_density()
 ```
@@ -134,7 +134,7 @@ graphical way:
 
 
 ``` r
-normal_test_data %>% 
+normal_test_data |> 
   ggplot(aes(sample = bill_depth_mm)) +
   geom_qq() +
   geom_qq_line()
@@ -195,17 +195,6 @@ Base-R do not have functions for this, but the package `e1071` does:
 
 ``` r
 library(e1071)
-```
-
-``` output
-
-Attaching package: 'e1071'
-```
-
-``` output
-The following object is masked from 'package:ggplot2':
-
-    element
 ```
 
 #### Skewness

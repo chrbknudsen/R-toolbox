@@ -53,7 +53,7 @@ suffixed with the digit "2":
 
 
 ``` r
-density <- boneden %>% select(age, contains("2"))
+density <- boneden |> select(age, contains("2"))
 head(density)
 ```
 
@@ -91,7 +91,7 @@ done with:
 
 
 ``` r
-lm(fs2 ~ ht2, data = density) %>% 
+lm(fs2 ~ ht2, data = density) |> 
   summary()
 ```
 
@@ -136,7 +136,7 @@ pipe the result to the summary function to take a closer look:
 
 
 ``` r
-lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) %>% 
+lm(fs2 ~ ht2 + age + wt2 + tea2 + cof2, data = density) |> 
 summary()
 ```
 
@@ -192,7 +192,7 @@ But let us remove them one by one. First coffee that has the worst p-value:
 
 
 ``` r
-lm(fs2 ~ ht2 + age + wt2 + tea2, data = density) %>% summary()
+lm(fs2 ~ ht2 + age + wt2 + tea2, data = density) |> summary()
 ```
 
 ``` output
@@ -255,7 +255,7 @@ variable measured by the p-value, and that is the next one we will remove:
 
 
 ``` r
-lm(fs2 ~ ht2 + age + wt2 , data = density) %>% summary()
+lm(fs2 ~ ht2 + age + wt2 , data = density) |> summary()
 ```
 
 ``` output
@@ -317,7 +317,7 @@ What is the adjusted R squared value?
 
 
 ``` r
-dens_exercise <- boneden %>% 
+dens_exercise <- boneden |> 
   select(age, contains("1"), -c(cur1, ls1, fn1, men1 ))
 
 model_1 <- lm(fs1~., data = dens_exercise)
@@ -352,7 +352,7 @@ Let us add information about menopausal status, `men2`:
 
 
 ``` r
-density <- density %>% 
+density <- density |> 
   mutate(men2 = factor(men2))
 
 cat_model <- lm(fs2 ~ ht2 + age + wt2 + men2, data = density)
