@@ -630,7 +630,7 @@ library(keras3)
 install_keras(envname = '~/r-tensorflow')
 ```
 
-You can check that it is working in the same way as you did with to the better solution above.
+You can check that it is working in the same way as you did with the Good Solution above.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
