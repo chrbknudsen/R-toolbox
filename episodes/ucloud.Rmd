@@ -1,31 +1,28 @@
 ---
-title: 'R on Ucloud'
+title: 'R on UCloud'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What is Ucloud?
-- How do we use R and RStudio on Ucloud?
+- What is UCloud?
+- How do we use R and RStudio on UCloud?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to acces RStudio and R on Ucloud
-- Demonstrate how to setup drives and additional software working with Ucloud
+- Explain how to acces RStudio and R on UCloud
+- Demonstrate how to setup drives and additional software working with UCloud
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-
-
-You need to run R on a computer that have more muscles than you own. 
+You need to run R on a computer that has more muscles than you own. 
 
 If you are a student at UCPH, you are in luck, because you have access to a 
 High Performance Computing (HPC) facility;
-ucloud. It can be acessed at cloud.sdu.dk using the normal UCPH login and 
+UCloud. It can be acessed at cloud.sdu.dk using the normal UCPH login and 
 password.
 
 
@@ -33,7 +30,7 @@ Depending on the user allowances, it will look something like this.
 
 ![](fig/ucloud_front.png)
 
-Ucloud provides access to a multitude of different applications organized in the
+ provides access to a multitude of different applications organized in the
 application store:
 
 ![](fig/ucloud_store.png)
@@ -83,7 +80,7 @@ The computer used for writing this text have 20 cores.
 This is nice, for the core can - in principle - only do one calculation at a time.
 When we calculate `1+1`, that is the only thing the core can do at that precise moment.
 
-The thruth is a lot more complicated, but the analogy is useful in order to understand
+The truth is a lot more complicated, but the analogy is useful in order to understand
 why it can be nice to have more than one.
 
 Having access to more than one core allow us to run some of our calculations in
@@ -95,7 +92,7 @@ Some calculations we want to do in R can be parallelized, where we ask one core
 to distribute the tasks to 10 different cores. The calculation will then be done
 much faster, than if only one core worked on the problem.
 
-Chosing a machine on Ucloud with a lot of cores will not necesarily speed up
+Chosing a machine on  with a lot of cores will not necesarily speed up
 your work. The code you run will have to be written to make use of all the cores.
 And sometimes it takes longer to do that, than just leaving all the work to a
 single core.
@@ -136,14 +133,14 @@ Because we are running a virtual computer, rather than a real computer, most of
 what we do will disappear when we restart the computer. In R we typically 
 installs a number of libraries or packages. Those will vanish into thin air when
 the virtual machine is closed down. In a section below we will cover access to
-drives on Ucloud which to a certain degree can help us. But if we do not take
+drives on  which to a certain degree can help us. But if we do not take
 precautions, we will have to install R-packages every time we start up a 
-new virtual machine on Ucloud
+new virtual machine on 
 
 ### Cost
 
 We might be tempted to let the virtual machine run forever, instead of only for
-1 hour. But Ucloud is a limited resource, and we only have a specific allowance 
+1 hour. But  is a limited resource, and we only have a specific allowance 
 in total. Running a machine with one virutal CPU for one hour consumes 1 "core-hour"
 of our allowance. Running a machine with 64 virtual CPUs for one hour consumes 
 64 core-hours. And when we run out of allowance - the machine will close down.
@@ -160,7 +157,7 @@ And because we are not running on a real computer, everything will be lost.
 
 ### Your drive
 
-Not all is lost when you restart a virtual machine. Ucloud provides you
+Not all is lost when you restart a virtual machine.  provides you
 with a drive:
 
 ![](fig/ucloud_drive.png)
@@ -227,10 +224,12 @@ The very first thing we should always do, is to create a project. At the
 upper right hand corner we see where we can do that: 
 
 ![](fig/ucloud_rstudio_2.png)
+
 Click new project, create it in a "new Directory" and change the subdirectory
 in which the project is created to the directory we made earlier. THIS IS IMPORTANT!
 
 ![](fig/ucloud_rstudio_3.png)
+
 We now have a project running in RStudio on a virtual machine on UCloud, and
 we are ready to work!
 
@@ -247,7 +246,7 @@ there.
 ### Where can I find the job again?
 
 Sometimes we close a window, or nagivate away from it. Where can we find it again?
-In the navigation bar to the left in Ucloud we find this icon. 
+In the navigation bar to the left in  we find this icon. 
 ![](fig/ucloud_running_jobs.png)
 It provides us with a list or running jobs (yes, we can have more than one). Click
 on the job, and we get back to the job, where we can extend time or open the 
@@ -261,22 +260,23 @@ the "Stop application" button. Remember to save your scripts in RStudio first!
 
 ### How do I get files out of UCloud?
 
-This can be done in several different ways. Ucloud provides guides on how to
-syncronise files. And there are archiving tools that can zip and download 
+This can be done in several different ways.  provides guides on how to
+synchronise files. And there are archiving tools that can zip and download 
 your files.
 
 The easy way is to do it through RStudio. Select the folder and/or files you
 want to save, click on the little cogwheel saying "More" and chose "Export".
 RStudio will now zip the files, and ask you where to save them.
+
 ![](fig/ucloud_save.png)
 
 :::: instructor
-To do: include how to use the UCloud archiving app to download an entrie folder
+To do: include how to use the UCloud archiving app to download an entire folder
 ::::
 
 ### How do I get files into UCloud
 
-Again - Ucloud have services that can assist. But the easiest way is to
+Again -  has documentation that can help you. But the easiest way is to
 note that there is an "Upload" button in the Files pane in RStudio. Use that.
 
 ### What types of machines do I have access to?
@@ -330,6 +330,7 @@ call it "setup.R"
 Copy the code below into that file, and run the code _line-by-line_. That is because
 some of the lines of code restart R. This is necessary for R to read-in new
 options and settings. And when R is restarted, it does not know where to continue.
+So you'll have to feed it the lines one at a time.
 
 ```{r eval =F}
 # Set path to renv cache
@@ -449,7 +450,7 @@ renv::install("rstudio/gtools")
 is fast. The example shows gtools - exchange the package name
 for what is actually missing.
 
-## Setup when you need python
+## Setup when you need Python
 
 In machine learning, many of the algorithms we
 work with require us to have specific Python libraries installed and
@@ -476,11 +477,11 @@ that also has Python packages installed and accessible to R (in jargon, it has t
 to load, and a bit more prone to errors.
 
 Therefore, we recommend setting up a separate R environment that is just for interfacing with Python,
-e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get-started-with-RStudio!)
+e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get-started-with-rstudio)
 and [creating a new project](#creating-a-project). Give the project a Directory name that helps you remember
 this is your environment for using Python.
 
-Then run:
+The following code will allow you to use Python packages in R and sets up Tensorflow and Keras, two the most commonly used machine learning packages:
 
 ```{r eval = FALSE}
 
@@ -633,10 +634,10 @@ You can check that it is working in the same way as you did with to the better s
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Ucloud provide access to a multitude of advanced software that we are not able to run locally
-- Running RStudio on Ucloud give us access to more compute and memory than we have on our own computer
-- More advanced work might require a quite complicated setup
+- UCloud provides access to a multitude of advanced software that we are not able to run locally
+- Running RStudio on UCloud gives us access to more compute and memory than we have on our own computer
 - Restarting a virtual machine means all our work and setup might be lost, unless we take certain precautions.
+- More advanced work might require a quite complicated setup
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
