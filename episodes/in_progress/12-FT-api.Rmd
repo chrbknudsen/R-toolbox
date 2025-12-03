@@ -10,10 +10,7 @@ keypoints:
   - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("12-")
-```
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -109,12 +106,12 @@ Hvad der kan være særligt interessant, er type 11, "parlamentarisk forsamling"
 Det er her vi finder Folketingssamlingerne:
 
 ```{r eval = F}
- %>% 
-  fromJSON() %>%
-  .$value %>% 
-  slice(1) %>% 
-  t() %>% 
-  knitr::kable() %>% 
+ |> 
+  fromJSON() |>
+  .$value |> 
+  slice(1) |> 
+  t() |> 
+  knitr::kable() |> 
   writeClipboard()
 ```
 Vær opmærksom på, at der har sneget sig en registrering af Europarådet ind 
@@ -167,9 +164,9 @@ pågældende samling.
 ```{r}
 library(jsonlite)
 # fromJSON("https://oda.ft.dk/api/$metadata#Debat")
-fromJSON("https://oda.ft.dk/api/AktørAktør") %>% 
-  .$value %>% 
-  select(-opdateringsdato) %>% 
+fromJSON("https://oda.ft.dk/api/AktørAktør") |> 
+  .$value |> 
+  select(-opdateringsdato) |> 
   knitr::kable()
 ```
 

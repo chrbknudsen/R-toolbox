@@ -1,0 +1,107 @@
+git:
+  https://carpentries-incubator.github.io/git-novice-branch-pr/
+  https://carpentries-incubator.github.io/git-Rstudio-course/
+  https://carpentries-incubator.github.io/advanced-git/
+  https://carpentries-incubator.github.io/collaborative-git-and-github-lesson/
+  
+gis:
+  https://carpentries-incubator.github.io/r-geospatial-urban/
+  
+stat:
+  https://carpentries-incubator.github.io/statistical-inference-for-biology/
+  https://carpentries-incubator.github.io/r-survival-analysis/
+  https://carpentries-incubator.github.io/statistics-r-public-health/
+  https://carpentries-incubator.github.io/simple-linear-regression-public-health/
+  https://carpentries-incubator.github.io/multiple-linear-regression-public-health/
+  https://carpentries-incubator.github.io/logistic-regression-public-health/
+  https://carpentries-incubator.github.io/linear-mixed-models-public-health/
+  https://carpentries-incubator.github.io/high-dimensional-stats-r/
+  https://carpentries-incubator.github.io/high-dimensional-analysis-in-python/
+  https://carpentries-incubator.github.io/statistical-probabilistic-programming-r/
+  
+ML:
+  https://carpentries-incubator.github.io/machine-learning-novice-r/
+  
+  
+blandet:
+  https://carpentries-incubator.github.io/open-science-with-r/
+  https://carpentries-incubator.github.io/lesson-R-packaging/
+  https://carpentries-incubator.github.io/markdown-intro/
+  https://carpentries-incubator.github.io/R-archaeology-lesson/
+  https://carpentries-incubator.github.io/r-tidyverse-4-datasets/
+  https://carpentries-incubator.github.io/R-ecology-lesson-intermediate/
+  https://carpentries-incubator.github.io/data-organisation-for-better-analysis/
+  https://carpentries-incubator.github.io/R-help-reprexes/
+  https://milospopovic.net/blog
+  https://www.cedricscherer.com/
+  https://www.cedricscherer.com/top/links/
+  https://heads.ku.dk/course/ - se også https://github.com/Center-for-Health-Data-Science
+  
+esoterica:
+  https://carpentries-incubator.github.io/lc-litsearchr/
+  https://carpentries-incubator.github.io/r-for-artists/
+  
+vis:
+  https://carpentries-incubator.github.io/intro-data-viz/
+  https://carpentries-incubator.github.io/hermes_stat_inf_data_vis/
+  https://friendly.github.io/6135/index.html
+
+
+Note. Bias er her et teknisk begreb. 
+It's remarkable how often "bias" means "differs from my bias."
+
+grafer
+https://cran.r-project.org/web/packages/ggdag/vignettes/intro-to-ggdag.html
+
+Clustering metoder
+
+1. K-Means Clustering: 
+This is a centroid-based algorithm, where the goal is to minimize the sum of distances between points and their respective cluster centroid.
+2. Hierarchical Clustering: 
+This method creates a tree of clusters. It is subdivided into Agglomerative (bottom-up approach) and Divisive (top-down approach).
+3. DBSCAN (Density-Based Spatial Clustering of Applications with Noise): 
+This algorithm defines clusters as areas of high density separated by areas of low density.
+4. Mean Shift Clustering: 
+It is a centroid-based algorithm, which updates candidates for centroids to be the mean of points within a given region.
+5. Gaussian Mixture Models (GMM): 
+This method uses a probabilistic model to represent the presence of subpopulations within an overall population without requiring to assign each data point to a cluster.
+6. Spectral Clustering: 
+It uses the eigenvalues of a similarity matrix to reduce dimensionality before applying a clustering algorithm, typically K-means.
+7. OPTICS (Ordering Points To Identify the Clustering Structure): 
+Similar to DBSCAN, but creates a reachability plot to determine clustering structure.
+8. Affinity Propagation: 
+It sends messages between pairs of samples until a set of exemplars and corresponding clusters gradually emerges.
+9. BIRCH (Balanced Iterative Reducing and Clustering using Hierarchies): 
+Designed for large datasets, it incrementally and dynamically clusters incoming multi-dimensional metric data points.
+10. CURE (Clustering Using Representatives): 
+It identifies clusters by shrinking each cluster to a certain number of representative points rather than the centroid.
+
+
+
+Gem aldrig valuta som floats - eller i R-verdenen som dbl eller num.
+
+ res <- 0.10+0.10+0.10 
+ print(res, digits = 17)
+
+Så. Gem det som et ørebeløb i int, og juster på visningen.
+
+Men pas også på med renteberegninger hvis du er i regnskabsverdenen. Der skal være
+5 betydende cifre for at overholde bogføringsloven. 
+
+
+der kan være problemer med at downloade youtube videoer med yt-dlp. 
+I Linux Mint eksisterer der en 4kTube pro ting der stadig kan.
+https://bsky.app/profile/epimethods.bsky.social/post/3lyljho52w22i
+
+
+https://www.timeanddate.com/ er cool.
+
+bemærk. ugenumre er vanskelige. der er år med 54 uger... Og det kan være forskelligt fra
+land til land. Vær opmærksom på at vi ikke engnag følger en fælles standard i EU
+
+https://statisticsglobe.com/
+
+venn diagrammer: https://krassowski.github.io/complex-upset/articles/Examples_R.html
+
+
+https://github.com/Chandra0505/Data-Science-Resources/blob/master/machine-learning/Practical%20Statistics%20for%20Data%20Scientists.pdf

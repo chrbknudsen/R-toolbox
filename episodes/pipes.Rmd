@@ -114,8 +114,8 @@ After constructing a longer pipe in order to get at specific result, we
 end up assigning the result to a new object. Sometimes the same object:
 
 ```{r eval = FALSE}
-my_data <- my_data %>% 
-  filter(lending > 10) %>% 
+my_data <- my_data |> 
+  filter(lending > 10) |> 
   mutate(area = lenght * width)
 ```
 
@@ -123,7 +123,7 @@ The assignment pipe can shorten this:
 
 ```{r eval = FALSE}
 my_data %<>% 
-  filter(lending > 10) %>% 
+  filter(lending > 10) |> 
   mutate(area = lenght * width)
 ```
 

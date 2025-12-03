@@ -23,6 +23,32 @@ library(palmerpenguins)
 ```
 
 
+Cleaning data
+
+Correcting errors: This can include fixing typos, syntax errors, or invalid entries.
+
+Handling missing data: Data cleaning involves filling in missing values or removing records with missing information.
+
+Step number 1 is identifying missing data
+
+identifikation. Fjernelse. Alternativer til at fjerne.
+
+
+Removing duplicates: Duplicate entries are identified and removed to ensure each record is unique.
+
+Standardizing formats: Inconsistent formats, such as different ways of writing dates or addresses, are standardized across the dataset.
+
+Cross-checking and validating: Information is cross-checked for accuracy and consistency, sometimes against other data sources.
+
+Modifying or deleting irrelevant data: Corrupt, irrelevant, or out-of-date information is modified or deleted. 
+
+
+Duplicates
+
+Identificer dubletter. Fjern dubletter
+
+Handle missing values. Start med at finde dem
+
 ## Introduction
 Og det er elementær fordi det er de grundlæggende elementer. Så måske et andet
 ord? det er elementary som i "periodic table of the elements".
@@ -57,8 +83,8 @@ dataframe.
 
 Used for selecting individual variables - otherwise known as columns. Here we
 are selecting the columns `species` and `island`:
-```{r}
-penguins %>%
+```{r selecting}
+penguins |>
   select(species, island)
 ```
 
@@ -69,8 +95,8 @@ interested in two.
 Rather than specifying which columns we are interested in, we can specify
 which columns we are _not_ interested in:
 
-```{r}
-penguins %>% 
+```{r negative_select}
+penguins |> 
   select(-c(bill_length_mm, bill_depth_mm, year))
 ```
 Collecting the uninteresting columns in a vector, and placing a `-` in front,
@@ -79,16 +105,16 @@ three columns we are not interested in, than specifying the six columns that we
 _are_ interested in.
 
 A range of functions for selecting columns exists:
-```{r}
-penguins %>% 
+```{r functional_select}
+penguins |> 
   select(-starts_with("bill"), year)
 ```
 Most can be found in the help for the package `tidyselect`.
 
 A special way of specifying columns is the  `:` notation:
 
-```{r}
-penguins %>% 
+```{r range_select}
+penguins |> 
   select(species:bill_depth_mm)
 ```
 
@@ -99,8 +125,8 @@ It selects all columns from `species` to `bill_depth_mm` (inclusive).
 The filter() function filters data, that is returns only the rows that conform
 to one or more criteria:
 
-```{r}
-penguins %>% 
+```{r filtering}
+penguins |> 
   filter(species == "Adelie")
 ```
 
@@ -114,16 +140,16 @@ We are able to do a multitude of logical comparisons. Is bill_lenght_mm larger
 than 40 mm? Simply enter the expression `bill_length > 40`. Does `species` begin
 with an "A"? Give filter() the expression str_starts(species, "A")
 
-```{r}
-penguins %>% 
+```{r functional_filtering}
+penguins |> 
   filter(str_starts(species, "A"))
 ```
 
 Any expression that can return a TRUE or FALSE value can be used in a filter(), 
 and multiple expressions can be added:
 
-```{r}
-penguins %>% 
+```{r multiple_filtering}
+penguins |> 
   filter(str_starts(species, "A"),
          bill_length_mm > 40 | bill_depth_mm < 20)
 ```
@@ -134,9 +160,9 @@ is larger than 40, and bill_depth_mm is smaller than 20.
 
 The mutate() function allows us to make new columns, based on existing columns:
 
-```{r}
-penguins %>% 
-  select(species, bill_length_mm) %>% 
+```{r mutating}
+penguins |> 
+  select(species, bill_length_mm) |> 
   mutate(bill_length_inch = bill_length_mm*0.0393701)
 ```
 
@@ -152,8 +178,8 @@ By default mutate adds new columns to the end of the dataframe. A few arguments
 
 The summarise function allows us to summarise values in columns to a single value:
 
-```{r}
-penguins %>% 
+```{r summarising}
+penguins |> 
   summarise(average_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 Note that the result is a dataframe. We get the column with the name that we
@@ -161,16 +187,16 @@ specified, and a value calculated, here with mean(body_mass_g, na.rm = TRUE).
 
 We are able to calculate more than one summary statistic:
 
-```{r}
-penguins %>% 
+```{r multiple_summarising}
+penguins |> 
   summarise(average_weight = mean(body_mass_g, na.rm = TRUE),
             std_dev_weight = sd(body_mass_g, na.rm = TRUE))
 ```
 Any function that can take a vector (remember that a column in a dataframe is a 
 vector), and return a single value, can be used, including string-functions:
 
-```{r}
-penguins %>% 
+```{r second_summarising}
+penguins |> 
   summarise(a_whole_lot_of_islands = paste0(island, collapse  = ""))
 ```
 But try to use more meaningful functions than this example...
@@ -178,18 +204,18 @@ But try to use more meaningful functions than this example...
 `summarise` combined with `filter` allows us to calculate the mean weight
 of Adelie penguins:
 
-```{r}
-penguins %>% 
-  filter(species == "Adelie") %>% 
+```{r filter_and_summarise}
+penguins |> 
+  filter(species == "Adelie") |> 
   summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 
 If we want to do that calculation for each species of penguin, we can group 
 the dataframe:
 
-```{r}
-penguins %>% 
-  group_by(species) %>% 
+```{r grouped_summarising}
+penguins |> 
+  group_by(species) |> 
   summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 
@@ -198,9 +224,9 @@ penguins %>%
 
 group_by allows us to group on more than one variable/column. 
 
-```{r}
-penguins %>% 
-  group_by(species, sex) %>% 
+```{r multiple_grouping}
+penguins |> 
+  group_by(species, sex) |> 
   summarise(avg_weight = mean(body_mass_g, na.rm = TRUE))
 ```
 
@@ -210,10 +236,10 @@ dataframe, grouped by "species". Summarise always removes the last level of grou
 If we do further operations on this dataframe, they will be done on a grouped
 dataframe. We should therefore _always_ add an "ungroup" function to our pipe:
 
-```{r}
-penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) %>% 
+```{r ungrouping}
+penguins |> 
+  group_by(species, sex) |> 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) |> 
   ungroup()
 ```
 
@@ -224,11 +250,11 @@ Doing that assures that subsequent operations happens on an ungrouped dataframe.
 Finally - primarily for presentation purposes, we might want to sort a dataframe.
 
 We do that using the `arrange()` function:
-```{r}
-penguins %>% 
-  group_by(species, sex) %>% 
-  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) %>% 
-  ungroup() %>% 
+```{r arrange}
+penguins |> 
+  group_by(species, sex) |> 
+  summarise(avg_weight = mean(body_mass_g, na.rm = TRUE)) |> 
+  ungroup() |> 
   arrange(avg_weight)
 ```
 

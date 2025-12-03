@@ -57,7 +57,7 @@ plot_data <- data.frame(x = x,
                         Normal = normal,
                         Student_t = student_t,
                         Chi_squared = chi_sq,
-                        F_distribution = f_dist) %>%
+                        F_distribution = f_dist) |> 
   pivot_longer(-x, names_to = "Distribution", values_to = "Density")
 
 # Lav plot med facetter

@@ -33,9 +33,9 @@ It typically compares different groups (male~female, treatment~control), to high
 ```{r prep_table1_data, echo = FALSE, warning = FALSE, message =FALSE}
 library(tidyverse)
 library(table1)
-blood <- read_csv("data/BLOOD.csv") %>% 
-  mutate(testost = na_if(testost, 999.0)) %>% 
-  mutate(prolactn = na_if(prolactn, 99.99)) %>% 
+blood <- read_csv("data/BLOOD.csv") |> 
+  mutate(testost = na_if(testost, 999.0)) |> 
+  mutate(prolactn = na_if(prolactn, 99.99)) |> 
   select(-estrone)
 
 blood$case <- factor(blood$case)
@@ -73,7 +73,7 @@ data has the correct structure.
 
 If we follow the general rules of thumb for tidy data, we are off to a good 
 start. This is the structure of the data set we are working with here - after 
-we have made some modifications as described above.
+we have made some modifications regarding labels, levels and units.
 
 ```{r data_structure_example}
 head(blood)
@@ -116,9 +116,9 @@ The data contains missing values, coded as "999.0" for estrone and testost, and
 Let us fix that:
 
 ```{r load-data-2}
-blood <- blood %>% 
-  mutate(estrone = na_if(estrone, 999.0)) %>% 
-  mutate(testost = na_if(testost, 999.0)) %>% 
+blood <- blood |> 
+  mutate(estrone = na_if(estrone, 999.0)) |> 
+  mutate(testost = na_if(testost, 999.0)) |> 
   mutate(prolactn = na_if(prolactn, 99.99)) 
 ```
 
@@ -127,8 +127,8 @@ We then ensure that categorical values are stored as categorical values, and
 adjust the labels of those categorical values:
 
 ```{r load-data-3}
-blood <- blood %>% 
-  mutate(case = factor(case, labels = c("control", "case"))) %>% 
+blood <- blood |> 
+  mutate(case = factor(case, labels = c("control", "case"))) |> 
   mutate(curpmh = factor(curpmh, labels = c("no", "yes")))
 ```
 
@@ -150,7 +150,9 @@ label(blood$ageblood) <- "Age"
 units(blood$ageblood) <- "years"
 ```
 
-Which looks a bit nicer:
+This will add labels to the plot, and allow us to give the data more meaningful
+names and units without changing the date it self. This looks nicer, and is 
+easier to read:
 
 
 ```{r table-one-live-2}

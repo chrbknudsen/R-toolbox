@@ -50,6 +50,8 @@ run without us pointing and clicking. So - instead of importing the data
 in this way, copy the code that RStudio uses to import the data, and
 paste it into your script or document.
 
+This option does not yet exist in Positron.
+
 ## CSV-files
 
 The most basic file type for storing and transferring data. A "simple"
@@ -115,7 +117,7 @@ want to read in:
 Which will read in sheet number 2 from the workbook "filename".
 
 Read the documentation for details on how to read in specific cells or
-ranges.
+ranges. You can find it running `?read_excel`, or `help(read_excel)`.
 
 ## SPSS
 
@@ -134,7 +136,7 @@ library(haven)
 read_spss("filename")
 ```
 
-The function returns at tibble.
+The function returns a tibble.
 
 Note that SPSS uses a variety of different formats. `read_spss()` will
 make a guess of the correct format, but if problems arise, try using one

@@ -50,7 +50,7 @@ pingvinerne er observeret på ud af datasættet:
 
 
 penguin_sample <- sample(c(TRUE, FALSE), nrow(penguins), replace=TRUE, prob=c(0.8,0.2))
-data <- penguins %>% select(-island)
+data <- penguins |> select(-island)
 penguin_train  <- data[penguin_sample, ]
 penguin_test   <- data[!penguin_sample, ]
 

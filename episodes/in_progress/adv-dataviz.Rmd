@@ -48,7 +48,7 @@ theme_set(
 
 
 ```{r}
-penguins %>% 
+penguins |> 
   ggplot(aes(body_mass_g, flipper_length_mm)) +
   geom_point()
 ```
@@ -99,7 +99,7 @@ aes(!!!my_mapping, !!!my_other_mapping)
 
 
 ```{r}
-mtcars %>% ggplot(aes(!!!my_mapping)) + geom_point()
+mtcars |> ggplot(aes(!!!my_mapping)) + geom_point()
 ```
 
 

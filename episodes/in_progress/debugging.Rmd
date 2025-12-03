@@ -1,5 +1,5 @@
 ---
-title: 'debugging'
+title: 'Debugging'
 teaching: 10
 exercises: 2
 ---
@@ -17,14 +17,96 @@ exercises: 2
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+for at demoe kan det være der skal sættes chunk option error = TRUE
+Hvilket skulle gøre det muligt at knitte med fejl.
+
 ## Introduction
+
+Debugging is the task of figuring out why a problem occurs, and how to solve it.
+
+
+Ikke en gennemgang af alle former og metoder. De hyppigst forekommende 
+fejl og hvordan vi fikser dem. 
+
+Der skal så laves en del to, hvor vi kigger på værktøjer.
+
+## Jenny
+https://github.com/jennybc/debugging
+
+
+```{r}
+dat <- data.frame(x = 1, y =2)
+df$x
+```
+
+If at first you don't succeed. Try the exact same thing again!
+
+have you tried turning it off and on again?
+
+Restart R, dont save/reload .Rdata
+Især når ting begynder at blive mærkelige!
+Her skal vi have et billede af "save workspace to .Rdata on exit "never" i options.
+Og dereftre "restart R".
+
+At genstarte, uden at restore data eller gemme environment, er ikke det samme
+som at slette alt i environment. (rm(list = ls()))
+
+Det der overlever er nemlig:
+library(dplyr)
+options(stringsAsFactors = FALSE)
+Sys.setenv(LANGUAGE = "fr")
+attach(iris)
+
+
+En frisk genstart rydder workspace, resetter options og miljøvariable. Clearer 
+search path.
+
+
+Reproduce the problem.
+Now make a reprex Et minim reproducible example.
+reproducible betyder at det ikke må være afhængig af noget vi ikke kan se.
+Problemet er ofte at der er forskel på hvad du siger, tænker eller tror du gør.
+
+Og så hvad du faktisk gør.
+
+Og minimalt. Hvis du skal finde nålen i høstakken. Så er det en god ide at
+lede i en mindre høstak. Så. Små og simple inputs. Ingen overflødige pakker.
+ingen overflødige funktionskald.
+
+Det betyder ofte at du faktisk selv finder problemet og kan løse det. Og hvis
+du ikke kan, så gør det det lettere for andre at finde problemet.
+
+traceback. 
+rlang::last_trace
+
+debuggeren
+browser()
+debug()
+
+## resten ----
 
 se også 
 
 https://cosimameyer.com/post/mastering-debugging-in-r/
+
+debug()
+browser()
+undebug()
+flow()
+
+```{r}
+
+library(flow)
+flow::flow_run(mean(1:5))
+```
+
+
 https://rstats-wtf.github.io/wtf-debugging-slides/#/additional-resources
 
-https://github.com/jennybc/debugging
+https://adv-r.hadley.nz/debugging.html
+
+https://x.com/cogscimom/status/1354508785365078016
 
 # Noter
 pakkerne "flow" og "boomer". 
@@ -52,11 +134,10 @@ rnom(1) # i stedet for rnorm(1)
 
 2. Den hyppigste. Du har glemt at indlæse et bibliotek
 
-## unexpected SPECIAL in %>% 
-
+## unexpected SPECIAL in %>% or |> 
 ```{r eval  =F }
 iris
-%>% select(Species)
+|> select(Species)
 ```
 
 Den er gal med linieskiftet.

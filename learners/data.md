@@ -137,9 +137,12 @@ _Dimensions_: Rows: 510 Columns: 9
 |curpmh    |  Current PMH use <br> 1 = yes <br> 0 = no   |            |       |
 |ageblood  |  Age at blood draw  |                        | years |
 |estradol  |  Estradiol          |                        | pg/mL |
-|estrone   |  Estrone <br> missing = 999             |             | pg/mL |
-|testost   |  Testosterone <br> missing = 999       |             | ng/dL |
-|prolactn  |  Prolactin <br> missing = 99.99          |      | ng/L  |
+|estrone   |  Estrone †              |             | pg/mL |
+|testost   |  Testosterone †       |             | ng/dL |
+|prolactn  |  Prolactin ‡           |      | ng/L  |
+
+† 999 indicates missing data
+‡ 99.99  indicates missing data
 
 ::::
 
@@ -189,18 +192,18 @@ xx2 for the heavier smoking twin
 |  cur       |  Current Smoking            | (cigarettes/day) |
 |  men       |  Menopause Status<br>0: Premenopausal<br> 1: Postmenopausal<br>2: unknown or hysterectomy |                  |
 |  pyr       |  Pack-years smoking         | year             |
-|  ls        |  Lumbar spine               | g/cm^2^          |
-|  fn        |  Femoral neck               | g/cm^2^          |
-|  fs        |  Femoral shaft              | g/cm^2^          |
+|  ls        |  Lumbar spine †             | g/cm^2^          |
+|  fn        |  Femoral neck ‡             | g/cm^2^          |
+|  fs        |  Femoral shaft ⸸            | g/cm^2^          |
 
 Pack-years are defined as how many years the woman have smoked a pack of 
 cigarettes pr day, normally ca. 20 cigarettes pr pack.
 
-Lumbar spine: L1-L5. 
+† Lumbar spine: L1-L5. 
 
-Femoral neck: Collum femoris
+‡ Femoral neck: Collum femoris
 
-Femoral shaft: Corpus femoris
+⸸ Femoral shaft: Corpus femoris
 
 ::::
 
@@ -369,9 +372,15 @@ _Dimensions:_ Rows: 186 Columns: 17
 |  t3      |  Temporal Visit 3                     | mm |
 |  n3      |  Nasal Visit 3                        | mm |
 
-99: Missing values
+99 indicates missing values
 
 ::::
+
+
+### delaney-processed
+
+data fra https://deepchem.io/
+
 
 ### DIABETES
 
@@ -403,10 +412,34 @@ _Dimensions:_ Rows: 910 Columns: 8
 |yr_a1c    |  Yr                            |      |
 |age_yrs   |  Age in years                  | year |
 |gly_a1c   |  Hemoglobin A1c                |  %   |
-|ht_cm     |  Height <br>  missing=999.9    | cm   |
+|ht_cm     |  Height †                      | cm   |
 |wt_kg     |  Weight                        | kg   |
 
+† 999.9 indicates missing data
+
 ::::
+
+### diagnoses
+
+Constructed dataset for comparing how two raters diagnose five different psychiatic disorders,
+
+_Dimensions:_ Rows: 30 Columns: 2     
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/diagnoses.csv)
+
+:::: spoiler
+### Metadata
+
+Two columns, one for each rater. Values indicates:
+
+* dep:  depression
+* dis: dissociative disorder
+* sch: schizofrenia
+* neu: neurosis
+* oth: other
+
+::::
+
 
 ### EAR
 
@@ -487,12 +520,13 @@ _Dimensions:_ Rows: 10 Columns: 6
 
 | Variable   |  LABEL           | unit  |
 |------------|------------------|-------|
-|  Subject   |  SUBJECT #       |       |
+|  Subject   |  Subject number  |       |
 |  Replicat  |  REPLICATE #     |       |
-|  Estrone   |  ESTRONE         | pg/mL |
-|  Estradol  |  ESTRADIOL       | pg/ml |
-|  Androste  |  ANDROSTENEDIONE | ng/dL |
-|  Testost   |  TESTOSTERONE    | ng/dL |
+|  Estrone   |  Estrone         | pg/mL |
+|  Estradol  |  Estradiol       | pg/ml |
+|  Androste  |  Androstenedione | ng/dL |
+|  Testost   |  Testosterone    | ng/dL |
+
 
 ::::
 
@@ -518,13 +552,15 @@ _Dimensions:_ Rows: 211 Columns: 10
 |Ethnic   |  Ethnicity <br> 0 = African-American <br> 1 = Caucasian |         |
 |Entage   |  Age                                                    | year    |
 |Numchild |  Parity, number of children  9=missing                  |         |
-|Agefbo   |  Age at 1st birth (= 0 if numchild = 0)  99 = missing   | year    |
+|Agefbo   |  Age at 1st birth (= 0 if numchild = 0) †               | year    |
 |Anykids	|  Any children <br> 1 = yes <br> 0 = no <br> 9 = missing |         |
-|Agemenar |  Age at menarche <br> 99=missing                        | years   |
+|Agemenar |  Age at menarche †                                      | years   |
 |BMI      |  Body Mass Index                                        | kg/^m^^ |
 |WHR      |  waist-hip ratio                                        |         |
 
 CAVE: Note the coding of Agefbo
+
+† 99 = missing
 
 ::::
 
@@ -766,13 +802,19 @@ WBC: White Bloodcell Count, an indicator of infection.
 
 ### INFANTBP
 
+100 3 day old infants were given a drop of various solutions (salt or sugar),
+and the vigour with witch they sucked was recorded. First ten measurements were
+done with solutions only containing salt (or no salt at all). As a control, after
+the measurements of the response to salt, the response to sugar solutions were
+recorded. A common hypothesis is that the response to the taste of salt depends
+on the blood pressure. Is this true?
+
 _Dimensions:_ Rows: 100 Columns: 18  
 
 [Source](data.md#rosner_1)^1^
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/INFANTBP.csv)
 
-Salt Taste Variables den er på side 202 i bogen
 
 :::: spoiler
 
@@ -781,20 +823,26 @@ Salt Taste Variables den er på side 202 i bogen
 |  Variable  |    Description                       | unit |
 |------------|--------------------------------------|------|
 |  ID        |                                      |      |
-|  Mn_sbp    |  Mean SBP 99.99=missing              |      |
-|  Mn_dbp    |  Mean DBP 99.99=missing              |      |
-|  MSB1slt   |  MSB-trial 1* water                  |      |
-|  MSB2slt   |  MSB-trial 2 water                   |      |
-|  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |      |
-|  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |      |
-|  MSB5slt   |  MSB-trial 5 water                   |      |
-|  MSB6slt   |  MSB-trial 6 water                   |      |
-|  MSB7slt   |  MSB-trial 7 0.3 molar salt + water  |      |
-|  MSB8slt   |  MSB-trial 8 0.3 molar salt + water  |      |
-|  MSB9slt   |  MSB-trial 9 water                   |      |
-|  MSB10slt  |  MSB-trial 10 water                  |      |
+|  Mn_sbp    |  Mean SBP †                          | mmHg |
+|  Mn_dbp    |  Mean DBP †                          | mmHg |
 
-Sugar Taste Variables
+
+**Salt Taste Variables**
+
+|  Variable  |    Description                       | 
+|------------|--------------------------------------|
+|  MSB1slt   |  MSB-trial 1 ‡ water                  |
+|  MSB2slt   |  MSB-trial 2 water                   |
+|  MSB3slt   |  MSB-trial 3 0.1 molar salt + water  |
+|  MSB4slt   |  MSB-trial 4 0.1 molar salt + water  |
+|  MSB5slt   |  MSB-trial 5 water                   |
+|  MSB6slt   |  MSB-trial 6 water                   |
+|  MSB7slt   |  MSB-trial 7 0.3 molar salt + water  |
+|  MSB8slt   |  MSB-trial 8 0.3 molar salt + water  |
+|  MSB9slt   |  MSB-trial 9 water                   |
+|  MSB10slt  |  MSB-trial 10 water                  |
+
+**Sugar Taste Variables**
 
 |  Variable  |   Description                       |
 |------------|-------------------------------------|
@@ -802,14 +850,31 @@ Sugar Taste Variables
 |  MSB2sug   |  MSB-trial 2 water                  |
 |  MSB3sug   |  MSB-trial 3 5% sucrose + water     |
 |  MSB4sug   |  MSB-trial 4 15% sucrose + water    |
-|  MSB5sug   |  MSB-trial 5 non-nutritive sucking  |
+|  MSB5sug   |  MSB-trial 5 non-nutritive sucking⸸ |
 
 
-* for MSB data 999.99 is a missing value; 0 indicates the baby did not suck.
+† For mean bloodpressure (Mn_sbp/Mn_dbp) 99.99 indicates a missing value.
+
+‡ Unit of all MSB data is "mean number of sucks pr burst of sucking". 999.99 indicates a missing value; 0 indicates the baby did not suck.
+
+⸸ non-nutrive sucking is sucking without the infant receiving liquid.
 
 ::::
 
 ### LEAD
+
+A study of the effect of exposure to lead on neurological and psychological 
+parameters for children. 124 children living in varying proximity 
+to a lead smelter in El Paso in Texas, USA in 1972 and 1973 were studied.
+Intelligence tests 
+([WISC](https://en.wikipedia.org/wiki/Wechsler_Intelligence_Scale_for_Children) 
+or [WPPSI](https://en.wikipedia.org/wiki/Wechsler_Preschool_and_Primary_Scale_of_Intelligence)) 
+depending on age were performed as well as a neurological 
+[finger tapping test](https://en.wikipedia.org/wiki/Tapping_rate).
+Behavioral parameters as reported by the parents are also included.
+
+Does lead concentration in the blood affect intelligence, behaviour 
+and neurological parameters?
 
 _Dimensions:_ Rows: 124 Columns: 40  
 
@@ -817,104 +882,97 @@ _Dimensions:_ Rows: 124 Columns: 40
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/LEAD.csv)
 
-siden er nr. 29 i bogen
 
 :::: spoiler
 
 ## Metadata
 
-|  VARIABLE  |  DESCRIPTION                 |
-|------------|------------------------------|
-|  id        |  IDENTIFICATION NUMBER       |
-|  area      |  AREA - RESIDENCE ON AUG'72 <br> 1 = 0-1 MILES FROM SMELTER <br> 2 = 1-2.5 MILES <br> 3 = 2.5-4.1 MILES             |
-|  ageyrs    |  AGE in years           |
-|  sex       |  SEX <br> 1 = MALE <br> 2 = FEMALE       |
+**Demographic variables**
 
+|  Variable  |  Description                 | Unit |
+|------------|------------------------------|------|
+|  id        |  Identification number       |      |
+|  area      |  Residence on Aug '72 <br> 1 = 0-1  <br> 2 = 1-2.5  <br> 3 = 2.5-4.1 | Miles from smelter |
+|  ageyrs    |  Age           | Years |
+|  sex       |  1 = Male <br> 2 = Female       |      |
 
-IQ TEST RESULTS
+**IQ test results**
 
-|  VARIABLE  |  DESCRIPTION                                                           |
+|  Variable  |  Description                                                           |
 |------------|------------------------------------------------------------------------|
-|  iqv_inf   |  INF - INFORMATION SUBTEST IN WISC AND WPPSI                           |
-|  iqv_comp  |  COMP - COMPREHENSION SUBTEST IN WISC AND WPPSI                        |
-|  iqv_ar    |  AR - ARITHMETIC SUBTEST IN WISC AND WPPSI                             |
-|  iqv_ds    |  DS - DIGIT SPAN SUBTEST(WISC) AND SENTENCE COMPLETION(WPPSI)          |
-|  iqv_raw   |  V/RAW - RAW SCORE/VERBAL IQ                                           |
-|  iqp_pc    |  PC - PICTURE COMPLETION SUBTEST IN WISC AND WPPSI                     |
-|  iqp_bd    |  BD - BLOCK DESIGN SUBTEST IN WISC AND WPPSI                           |
-|  iqp_oa    |  OA - OBJECT ASSEMBLY SUBTEST(WISC), ANIMAL HOUSE SUBTEST(WPPSI)       |
-|  iqp_cod   |  COD - CODING SUBTEST(WISC), GEOMETRIC DESIGN SUBTEST(WPPSI)           |
-|  iqp_raw   |  P/RAW - RAW SCORE/PERFORMANCE IQ (TOTAL OF SCORES PC, BD, OA, & COD)  |
-|  hh_index  |  HH/INDEX - HOLLINGSHEAD INDEX OF SOCIAL STATUS                        |
-|  iqv       |  IQV - VERBAL IQ                                                       |
-|  iqp       |  IQP - PERFORMANCE IQ                                                  |
-|  iqf       |  IQF - FULL SCALE IQ (NOT SUM OR AVERAGE OF IQV D IQP)                 |
-|  iq_type   |  TYPE OF IQ TEST <br> 1 = WISC <br> 2 = WPPSI <br> (WISC USUALLY GIVEN TO CHILDREN GE 5 YRS 1 MONTH OF AGE <br> WPPSI USUALLY GIVEN TO CHILDREN LE 5YRS OF AGE)                       |
-|  lead_grp  |  GROUP - BLOOD LEAD LEVEL GROUP                                        |
-|            |  1=BLOOD LEAD LEVELS BELOW 40 MICROGRAMS/100ML IN                      |
-|            |  BOTH 1972 & 1973 (control group)                                      |
-|            |  2=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO                          |
-|            |  40 MICROGRAMS/100ML                                                   |
-|            |  IN BOTH 72 & 73 OR A LEVEL GREATER THAN OR                            |
-|            |  EQUAL TO 40                                                           |
-|            |  IN 73 ALONE (3 CASES ONLY) (currently exposed                         |
-|            |  Group)                                                                |
-|            |  3=BLOOD LEAD LEVELS GREATER THAN OR EQUAL TO                          |
-|            |  40 MICROGRAMS/100ML                                                   |
-|            |  IN 72 AND LESS THAN 40 IN 73                                          |
-|            |  (previously exposed group)                                            |
-|  Group     |  1=control group; 2=exposed group                                      |
-|  ld72      |  LD72 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN72                      |
-|            |  MISSING=99                                                            |
-|  ld73      |  LD73 - BLOOD LEAD VALUES (MICROGRAMS/100ML) IN 73                     |
-|  fst2yrs   |  FST2YRS - DID CHILD LIVE FOR 1ST 2 YRS WITHIN                         |
-|            |  1 MILE OF SMELTER  1=YES  2=NO                                        |
-|  totyrs    |  TOTYRS - TOTAL NUMBER OF YEARS SPENT WITHIN                           |
-|            |  4.1 MILES OF SMELTER                                                  |
+|  iqv_inf   |  Information subtest in WISC and WPPSI                           |
+|  iqv_comp  |  Comprehension subtest in WISC and WPPSI                        |
+|  iqv_ar    |  Arithmetic subtest in WISC and WPPSI                             |
+|  iqv_ds    |  Digit span subtest (WISC) and Sentence Completion (WPPSI)          |
+|  iqv_raw   |  Raw score/Verbal IQ                                           |
+|  iqp_pc    |  Picture completion subtest in WISC and WPPSI                     |
+|  iqp_bd    |  Block design subtest in WISC and WPPSI                           |
+|  iqp_oa    |  Object assembly subtest (WISC), animal house subtest (WPPSI)       |
+|  iqp_cod   |  Coding subtest (WISC), geometric design subtest(WPPSI)           |
+|  iqp_raw   |  Raw socre/performance IQ (total of scores pc, bd, oa & cod)  |
+|  hh_index  |  Hollingshead index of social status                        |
+|  iqv       |  Verbal IQ                                                       |
+|  iqp       |  Performance IQ                                                  |
+|  iqf       |  Full scale IQ (not sum or average of iqv or iqp)                 |
+|  iq_type   |  Type of IQ test <br> 1 = WISC <br> 2 = WPPSI <br> (WISC usually given to children age >= 5 year 1 month<br> WPPSI usually given to children age < 5 year)                       |
 
+**Lead exposure**
 
-SYMPTOM DATA (AS REPORTED BY PARENTS)
+|  Variable  |  Description                                                           | Unit |
+|------------|------------------------------------------------------------------------|------|
+|  lead_grp  |  Blood lead level group <br> 1 = blood lead levels < 40  in both 1972 & 1973 (control group) <br> 2 = blood lead levels >= 40 in both 72 & 1973, or >= 40 in 1973 alone (3 cases) (currently exposed group) <br> 3 = blood lead levels >= 40 in 1972 and < 40 in 1973 (previously exposed group) | µg/100mL |
+|            |  |      |
+|  Group     |  1=control group <br> 2=exposed group                     |      |
+|  ld72      |  Blood lead values in 1972 †                      |  µg/100mL    |
+|  ld73      |  Blood lead values in 1973                     | µg/100mL     |
+|  fst2yrs   |  Did child live for 1st 2 years within 1 mile of smelter <br> 1 = yes <br>  2 = no |      |
+|  totyrs    |  Total number of years spent within 4.1 miles of smelter  |years      |
 
-|  VARIABLE  |  DESCRIPTION                |
+† 99 indicates missing data
+
+**Symptom data (as reported by parents)**
+
+|  Variable  |  Description                |
 |------------|-----------------------------|
-|  pica      |  PICA <br> 1 = YES <br> 2 = NO         |
-|  colic     |  COLIC <br> 1 = YES <br> 2 = NO         |
-|  clumsi    |  CLUMSINESS <br> 1 = YES <br> 2 = NO    |
-|  irrit     |  IRRITABILITY <br> 1 = YES <br> 2 = NO  |
-|  convul    |  CONVULSIONS  <br> 1 = YES <br> 2 = NO   |
+|  pica      |  An eating disorder <br> 1 = yes <br> 2 = no         |
+|  colic     |  Colic <br> 1 = yes <br> 2 = no         |
+|  clumsi    |  Clumsiness <br> 1 = yes <br> 2 = no    |
+|  irrit     |  Irritability <br> 1 = yes <br> 2 = no  |
+|  convul    |  Convulsions  <br> 1 = yes <br> 2 = no   |
 
-CONTAIN NEUROLOGICAL TEST DATA
+**Neurological test data**
 
-|  VARIABLE  |  DESCRIPTION                                                     |
-|------------|------------------------------------------------------------------|
-|  _2plat_r  |  # OF TAPS FOR RIGHT HAND IN THE 2-PLATE TAPPING                 |
-|            |  TEST  (#TAPS IN ONE 10 SECOND TRIAL)                            |
-|            |  MISSING=99                                                      |
-|  _2plat_l  |  # OF TAPS FOR LEFT HAND IN THE 2-PLATE TAPPING TEST             |
-|            |  (#TAPS IN ONE 10 SECOND TRIAL)                                  |
-|            |  MISSING=99                                                      |
-|  visrea_r  |  VISUAL REACTION TIME RIGHT HAND (MILLISECONDS)                  |
-|            |  MISSING=99                                                      |
-|  visrea_l  |  VISUAL REATION TIME LEFT HAND (MILLISECONDS)                    |
-|            |  MISSING=99                                                      |
-|  audrea_r  |  AUDITORY REACTION TIME RIGHT HAND (MILLISECONDS)                |
-|            |  MISSING=99                                                      |
-|  audrea_l  |  AUDITORY REACTION TIME LEFT HAND (MILLISECONDS)                 |
-|            |  MISSING=99                                                      |
-|  fwt_r     |  FINGER-WRIST TAPPING TEST RIGHT HAND                            |
-|            |  (# TAPS IN ONE 10 SECOND TRIAL)                                 |
-|            |  MISSING=99                                                      |
-|  fwt_l     |  FINGER-WRIST TAPPING TEST LEFT HAND                             |
-|            |  (#TAPS IN ONE 10 SECOND TRIAL)                                  |
-|            |  MISSING=99                                                      |
-|  hyperact  |  WWPS - WERRY-WEISS-PETERS SCALE FOR HYPERACTIVITY               |
-|            |  0=NO ACTIVITY . . . . 4=SEVERLY HYPERACTIVE                     |
-|            |  (AS REPORTED BY PARENTS) MISSING=99                             |
-|  maxfwt    |  Finger-wrist tapping test in dominant hand(max of fwt_r,fwt_l)  |
+|  Variable  |  Description                                                     | Unit |
+|------------|------------------------------------------------------------------|------|
+|  _2plat_r  |  Number of taps for right hand in the 2-plate tapping test (number of taps in one 10 second trial)   † |      |
+|  _2plat_l  |  Number of taps for left hand in the 2-plate tapping test (number of taps in one 10 second trial)  † |      |
+|  visrea_r  |  Visual reaction time right hand †                |  ms    |
+|  visrea_l  |  Visual reaction time left hand †                  | ms      |
+|  audrea_r  |  Auditory reaction time right hand †                |   ms   |
+|  audrea_l  |  Auditory reaction time left hand †                |  ms    |
+|  fwt_r     |  Finger-wrist tapping test right hand (number of taps in one 10 second trial)  † |      |
+|  fwt_l     |  Finger-wrist tapping test left hand (number of taps in one 10 second trial)  † |      |
+|  hyperact  |  WWPS - Werry-Weiss-Peters Scale for hyperactivity <br> 0 = no activity . . . . 4 = severely hyperactive <br> (as reported by parents) †|      |
+|  maxfwt    |  Finger-wrist tapping test in dominant hand (max of fwt_r,fwt_l)  |      |
+
+† 99 indicates missing data
 
 ::::
 
 ### MICE
+
+Retinitis Pigmentosa (RP) is a group of hereditary conditions that can 
+cause night blindness and partial or total loss of vision. One method of following
+the progression is taking electroretinograms (ERG), a measure of 
+electrical activity in the retina. Amplitudes of these measurements declines
+as the disease progresses. A hypothesis is
+that direct exposure of the retina to sunligt is harmful. To test this
+hypothesis a specific gene linked to the RP was introduces to a group of mice.
+They were then randomly assigned to lighting conditions (Trtgrp) from birth.
+A control group were treated similarly. 
+
+
+Data should probably be log-transformed to ensure normality.
 
 _Dimensions:_ Rows: 240 Columns: 6
 
@@ -929,11 +987,16 @@ _Dimensions:_ Rows: 240 Columns: 6
 |  Variable  |  Description           | unit |
 |------------|------------------------|------|
 |  Id        |  ID                    |      |
-|  Group     | <br> 1 = RP <br> 2 = NORMAL |      |
-|  Trtgrp    |  TREATMENT GROUP <br> A = LIGHT <br> B = DIM <br> C = DARK |      |
-|  Age       |  AGE                   | days |
-|  B_amp     |  B AMP     |      |
-|  A_amp     |  A AMP     |      |
+|  Group     | <br> 1 = RP <br> 2 = normal |      |
+|  Trtgrp    |  Treatment group <br> A = light <br> B = dim <br> C = dark |      |
+|  Age       |  Age                   | days |
+|  B_amp     |  B Amplitude  †  |      |
+|  A_amp     |  A Amplitude  † ‡  |      |
+
+† The amplitude of B- and A-waves corresponding to different
+frequencies of light in the ERG.
+
+‡ Not measured for the control group
 
 9999 = missing.
 
@@ -974,6 +1037,14 @@ _Dimensions:_ Rows: 72 Columns: 6
 
 ### NIFED
 
+A test of nifedipine as a drug for reducing chest pain in patients with angina.
+Unless the patient was withdrawn, discharged or died the study ran for 14 days.
+Patients were randomly assigned either nifedipine or propanolol, and given
+identical dosage at level 1 of therapy. If pain did not cease or recurred, the 
+patient progressed to level 2 with increased dosage. Similar with a progression
+to level 3. A secondary objective was to understand the effect of these drugs on
+heart rate and blood pressure.
+
 _Dimensions:_ Rows: 34 Columns: 10 
 
 [Source](data.md#rosner_1)^1^
@@ -987,21 +1058,20 @@ _Dimensions:_ Rows: 34 Columns: 10
 |  Variable  |  Description            |  Code                    |
 |------------|-------------------------|--------------------------|
 |  Id        |  ID                     |                          |
-|  trtgrp    |  Treatment group        |  N=nifedipine/P=placebo  |
-|  bashrtrt  |  Baseline heart rate*   |  beats/min               |
-|  lv1hrtrt  |  Level 1 heart rate+    |  beats/min               |
+|  trtgrp    |  Treatment group        |  N=nifedipine/P=propanolol  |
+|  bashrtrt  |  Baseline heart rate †  |  beats/min               |
+|  lv1hrtrt  |  Level 1 heart rate ‡   |  beats/min               |
 |  lv2hrtrt  |  Level 2 heart rate     |  beats/min               |
 |  lv3hrtrt  |  Level 3 heart rate     |  beats/min               |
-|  bassys    |  Baseline systolic bp*  |  mm Hg                   |
-|  lv1sys    |  Level 1 systolic bp    |  mm Hg                   |
+|  bassys    |  Baseline systolic bp † |  mm Hg                   |
+|  lv1sys    |  Level 1 systolic bp ‡  |  mm Hg                   |
 |  lv2sys    |  Level 2 systolic bp    |  mm Hg                   |
 |  lv3sys    |  Level 3 systolic bp    |  mm Hg                   |
 
-::::
 
-* Immediately prior to randomization.
+† Immediately prior to randomization.
 
-+ Highest heart rate and systolic blood pressure at baseline and each level of
+‡ Highest heart rate and systolic blood pressure at baseline and each level of
   therapy respectively.
 
 Values of 999 indicates that either
@@ -1012,6 +1082,8 @@ Values of 999 indicates that either
 
 (c) the patient encountered this level of therapy, but this particular piece
        of data was missing.
+
+::::
 
 ### OTO
 
@@ -1096,17 +1168,17 @@ _Dimensions:_ Rows: 60 Columns: 8
 |  sx_3       |  Sex of 3rd born      |
 |  sx_4       |  Sex of 4th born      |
 |  sx_5       |  Sex of 5th born      |
-|  sexchldn*  |  Sex of all children  |
-|  num_fam**  |  Number of families   |
+|  sexchldn † |  Sex of all children  |
+|  num_fam ‡  |  Number of families   |
 
 + For families with 5+ children, the sex of the first 5 children are listed.
 The number of children is given as 5 for such families.
 
-* The sex of successive births is given. Thus, MMMF means that the first
+† The sex of successive births is given. Thus, MMMF means that the first
 three children were males and the fourth child was a female. There were 484
 such families.
 
-** Number of families with specific gender contribution of children
+‡ Number of families with specific gender contribution of children
 
 Example; there are:
 
@@ -1130,8 +1202,8 @@ sexrat <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/
   
 # Number of families with female first child:
   
-sexrat %>% 
-  filter(sx_1 == "F") %>% 
+sexrat |> 
+  filter(sx_1 == "F") |> 
   summarise(nF1 = sum(num_fam))
 
 # A tibble: 1 x 1
@@ -1141,9 +1213,9 @@ nF1
 
 # Number of those families with a male second child:
 
-sexrat %>% 
+sexrat |> 
   filter(sx_1 == "F",
-         sx_2 == "M") %>% 
+         sx_2 == "M") |> 
   summarise(nF1M2 = sum(num_fam))
 
 # A tibble: 1 x 1
@@ -1201,18 +1273,17 @@ _Dimensions:_ Rows: 234 Columns: 8
 |  Cig_day   |  Cigarettes/day                                     |      |
 |  CO        |  Carbon monoxide (CO) (X 10)             |      |
 |  Min_last  |  Minutes elapsed since last cigarette   |      |
-|  LogCOadj  |  Log CO Adj * (X 1000)                  |      |
+|  LogCOadj  |  Log CO Adj † (X 1000)                  |      |
 |  Day_abs   |  Days abstinent  Those abstinent less than 1 day <br> were given a value of zero.|      |
 
 999 and 9999 = missing values
 
-::::
-
-* This variable represents adjusted carbon monoxide (CO) values. CO values
+† This variable represents adjusted carbon monoxide (CO) values. CO values
 were adjusted for minutes elapsed since last cigarette smoked using the formula
 Log 10 CO (Adjusted) = Log 10 CO - (-0.000638) X (Min - 80), where Min is the
 number of minutes elapsed since the last cigarette smoked.  
 
+::::
 
 ### SWISS
 
@@ -1261,6 +1332,19 @@ For all `creat_xx`: 9.99 indicates missing data, i.e. NA-values.
 ::::
 
 ### TEAR
+
+Tear breakup time (TBUT) is the time, measured in second from a blink of the eye to
+the first dry spot appears on the cornea. 
+
+A pilotstudy comprising 14 individuals were examined under three different
+protocols A, B and C. Under protocol A TBUT were measured as a baseline, and 
+were then instructed to not blink for 3 seconds. An eyedrop were then administered,
+and TBUT were measured immediately after, and again after 5, 10 and 15 minutes.
+For protocal B and C, subjects were instructed to not blink for 6 and 10 seconds
+respectively. Data were replicated two times, for both eyes.
+
+Is there an immediate effect of the eye drop? Does the effect of the eye drop
+change over time?
 
 _Dimensions:_ Rows: 14 Columns: 61     
 
@@ -1336,6 +1420,17 @@ _Dimensions:_ Rows: 14 Columns: 61
 |  os10p151  |  OS 10 sec 15min post 1        |
 |  os10p152  |  OS 10 sec 15min post 2        | 
 
+A very wide dataset that should be tidied before actual use.
+
+Naming of variables
+| Part | meaning |
+|------|---------|
+| od/os | Rigth (dexter)/ left (sinister) eye |
+| 3,6,10 | Protocol, seconds without blinking |
+| bas, im, pst5, pt10, pt15, ps5, p10, p15 | Time for measurement. Baseline, immedately after application, 5, 10 or 15 minutes post application |
+|1/2 | Replicate number |
+
+
 ::::
 
 ### TEMPERAT
@@ -1353,10 +1448,10 @@ _Dimensions:_ Rows: 630 Columns: 6
 |  Variable  |    LABEL                                       | unit |
 |------------|------------------------------------------------|------|
 |  Date      |  DATE (MDY)                                    |      |
-|  Out_temp  |  OUTSIDE TEMERATURE                            | °F   |
-|  Room      |  ROOM LOCATION                                 |      |
-|  In_temp   |  INSIDE TEMPERATURE                            | °F   |
-|  Cor_fac   |  CORRECTION FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
+|  Out_temp  |  Outside temperature                            | °F   |
+|  Room      |  Room location                                 |      |
+|  In_temp   |  Inside temperature                            | °F   |
+|  Cor_fac   |  Correction FACTOR ADDED<br>1 = YES<br>0 = NO) |      |
 |  Typ_wea   |  TYPE OF WEATHER<br>1 = SUNNY<br>2 = PARTLY CLOUDY<br>3 = CLOUDY<br>4 = RAINY<br>5 = FOGGY <br>9 = MISSING|      |
 
 
@@ -1377,61 +1472,53 @@ _Dimensions:_ Rows: 444 Columns: 12
 |  VARIABLE  |  VARIABLE NAME                                    | unit |
 |------------|---------------------------------------------------|------|
 |  Id        |  ID                                               | |
-|  Age       |  AGE    99=MISSING                                || 
-|  Sex       |  SEX                             | |
-|            |  1 = MALE                          | |
-|            |  2 = FEMALE                          | |
-|  Num_epis  |  NUMBER OF EPISODES OF TENNIS ELBOW 9=MISSING     | |
-|  Typ_last  |  TYPE OF RACQUET USED DURING LAST EPISODE         | |
-|            |  1 = CONVENTIONAL SIZE                      | |
-|            |  2 = MID-SIZE                               | |
-|            |  3 = OVER-SIZE                              | |
-|            |  9 = MISSING                                | |
-|  Wgt_last  |  WEIGHT OF RACQUET USED DURING LAST EPISODE       | |
-|            |          1=HEAVY                                  | |
-|            |          2=MEDIUM                                 | |
-|            |          3=LIGHT                                  | |
-|            |          4=DON'T KNOW                             | |
-|            |          9=MISSING                                | |
-|  Mat_last  |  MATERIAL OF RACQUET USED DURING LAST EPISODE     | |
-|            |          1=WOOD                                   | |
-|            |          2=ALUMINUM                               | |
-|            |          3=FIBERGLASS AND COMPOSITE               | |
-|            |          4=GRAPHITE                               | |
-|            |          5=STEEL                                  | |
-|            |          6=COMPOSITE                              | |
-|            |          7=OTHER                                  | |
-|            |          9=MISSING                                | |
-|  Str_last  |  STRING TYPE OF RACQUET USED DURING LAST EPISODE  | |
-|            |          1=NYLON                                  | |
-|            |          2=GUT                                    | |
-|            |          3=DON'T KNOW                             | |
-|            |          9=MISSING                                | |
-|  Typ_curr  |  TYPE OF RACQUET USED CURRENTLY                   | |
-|            |  1 = CONVENTIONAL SIZE                      | |
-|            |  2 = MID-SIZE                               | |
-|            |  3 = OVER-SIZE                              | |
-|            |  9 = MISSING                                | |
-|  Wgt_curr  |  WEIGHT OF RACQUET USED CURRENTLY                 | |
-|            |  1 = HEAVY                                  | |
-|            |  2 = MEDIUM                                 | |
-|            |  3 = LIGHT                                  | |
-|            |  4 = DON'T KNOW                             | |
-|            |  9 = MISSING                                | |
-|  Mat_curr  |  MATERIAL OF RACQUET USED CURRENTLY               | |
-|            |  1 = WOOD                                   | |
-|            |  2 = ALUMINUM                               | |
-|            |  3 = FIBERGLASS AND COMPOSITE               | |
-|            |  4 = GRAPHITE                               | |
-|            |  5 = STEEL                                  | |
-|            |  6 = COMPOSITE                              | |
-|            |  7 = OTHER                                  | |
-|            |  9 = MISSING                                | |
-|  Str_curr  |  STRING TYPE OF RACQUET USED CURRENTLY            | |
-|            |  1 = NYLON                                  | |
-|            |  2 = GUT                                    | |
-|            |  3 = DON'T KNOW                             | |
-|            |  9 = MISSING                                |  |
+|  Age       |  Age    99=missing                                | years| 
+|  Sex       |  Sex <br> 1 = male <br> 2 = female                             | |
+|  Num_epis  |  Number of episodes of tennis elbow  9= missing     | |
+|  Typ_last  |  Type of raquet used during last episode <br> 1 = conventional size <br> 2 = mid-size <br> 3 = over-size <br> 9 = missing         | |
+|  Wgt_last  |  Weight of racquet used during last episode       | |
+|            |          <br> 1 = heavy                                  | |
+|            |          <br> 2 = medium                                 | |
+|            |          <br> 3 = light                                  | |
+|            |          <br> 4 = don't know                             | |
+|            |          <br> 9 = missing                                | |
+|  Mat_last  |  Material of racquet used during last episode     | |
+|            |        <br>  1 = wood                                   | |
+|            |        <br>  2 = aluminium                               | |
+|            |        <br>  3 = fiberglass and composite               | |
+|            |        <br>  4 = graphite                               | |
+|            |        <br>  5 = steel                                  | |
+|            |        <br>  6 = composite                              | |
+|            |        <br>  7 = other                                  | |
+|            |        <br>  9 = missing                                | |
+|  Str_last  |  String type of racquet used during last episode  | |
+|            |        <br>  1 = nylon                                  | |
+|            |        <br>  2 = gut                                    | |
+|            |        <br>  3 = don't know                             | |
+|            |        <br>  9 = missing                                | |
+|  Typ_curr  |  Type of racquet used currently                   | |
+|            |  <br> 1 = conventional size                      | |
+|            |  <br> 2 = mid-size                               | |
+|            |  <br> 3 = over-size                              | |
+|            |  <br> 9 = missing                                | |
+|  Wgt_curr  |  Weight of racquet used currently                 | |
+|            |  <br> 1 = heavy                                  | |
+|            |  <br> 2 = medium                                 | |
+|            |  <br> 3 = light                                  | |
+|            |  <br> 4 = don't know                             | |
+|            |  <br> 9 = missing                                | |
+|  Mat_curr  |  Material of racquet used currently               | |
+|            |  <br> 1 = wood                                   | |
+|            |  <br> 2 = aluminium                              | |
+|            |  <br> 3 = fiberglass and composite               | |
+|            |  <br> 4 = graphite                               | |
+|            |  <br> 5 = steel                                  | |
+|            |  <br> 6 = composite                              | |
+|            |  <br> 7 = other                                  | |
+|            |  <br> 9 = missing                                | |
+|  Str_curr  |  String type of racquet used currently            | |
+|            |  <br> 1 = nylon                                  | |
+|            |  <br> 2 = gut <br> 3 = don't know <br> 9 = missing                                    | |
 
 ::::
 
@@ -1450,55 +1537,54 @@ _Dimensions:_ Rows: 88 Columns: 16
 |  VARIABLE  |  PERIOD*  |  VARIABLE NAME                                                             |
 |------------|-----------|----------------------------------------------------------------------------|
 |  id        |           |  ID                                                                        |
-|  age       |           |  AGE                                                                       |
-|  sex       |           |  SEX                                                                       |
-|            |           |       1 = MALE                                                             |
-|            |           |       2 = FEMALE                                                           |
-|            |           |       9 = MISSING                                                          |
-|  drg_ord   |           |  DRUG ORDER                                                                |
-|            |           |       1 = MOTRIN-PLACEBO                                                   |
-|            |           |       2 = PLACEBO-MOTRIN                                                   |
-|  painmx_2  |  2        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BAESLINE                                                                |
-|            |           |       1 = WORST                                                            |
-|            |           |       2 = UNCHANGED                                                        |
-|            |           |       3 = SLIGHTLY IMPROVED (25%)                                          |
-|            |           |       4 = MODERATELY IMPROVED (50%)                                        |
-|            |           |       5 = MOSTLY IMPROVED (75%)                                            |
-|            |           |       6 = COMPLETELY IMPROVED                                              |
-|            |           |       9 = MISSING                                                          |
-|  pain12_2  |  2        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE  (SAME CODE AS painmx_2)                        |
-|  painav_2  |  2        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS. BASELINE                  |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_2  |  2        |  OVERALL IMPRESSION OF DRUG EFFICACY VS. BASELINE (SAME CODE AS painmx_2)  |
-|  painmx_3  |  3        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BASELINE   (SAME CODE AS painmx_2)                                      |
-|  pain12_3  |  3        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE   (SAME CODE AS painmx_2)                       |
-|  painav_3  |  3        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE                   |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_3  |  3        |  OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE                           |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painmx_4  |  4        |  DURING STUDY PERIOD, PAIN DURING MAXIMUM ACTIVITY VS                      |
-|            |           |    BASELINE   (SAME CODE AS painmx_2)                                      |
-|  pain12_4  |  4        |  WITHIN 12 HOURS FOLLOWING MAXIMAL ACTIVITY, COMPARED TO                   |
-|            |           |    SAME PERIOD AT BASELINE  (SAME CODE AS painmx_2)                        |
-|  painav_4  |  4        |  DURING THE AVERAGE DAY OF STUDY PERIOD PAIN VS BASELINE                   |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
-|  painov_4  |  4        |  OVERALL IMPRESSION OF DRUG EFFICACY VS BASELINE                           |
-|            |           |    (SAME CODE AS painmx_2)                                                 |
+|  age       |           |  Age                                                                       |
+|  sex       |           |  Sex <br> 1 = male <br> 2 = female <br> 9 = missing                                                                      |
+|  drg_ord   |           |  Drug order <br> 1 = motrin-placebo <br> 2 = placebo-motrin |
+|  painmx_2  |  2        |  During study period, pain during maximum activity vs baseline <br> 1 = worst <br> 2 = unchanged <br> 3 = slightly improved (25%) <br> 4 = moderately improved (50%) <br> 5 = mostly improved (75%) <br> 6 = completely improved <br> 9 = missing |
+|  pain12_2  |  2        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline  (same code as painmx_2)                        |
+|  painav_2  |  2        |  During the average day of study period pain vs. baseline                  |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_2  |  2        |  Overall impression of drug efficacy vs. baseline (same code as painmx_2)  |
+|  painmx_3  |  3        |  During study period, pain during maximum activity vs.                      |
+|            |           |    baseline   (same code as painmx_2)                                      |
+|  pain12_3  |  3        |  Within 12 hours following maximal activity, compared to same period at baseline   (same code as painmx_2)                |
+|  painav_3  |  3        |  During the average day of study period pain vs. baseline                   |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_3  |  3        |  Overall impression of drug efficacy vs. baseline                           |
+|            |           |    (same code as painmx_2)                                                 |
+|  painmx_4  |  4        |  During study period, pain during maximum activity vs.                      |
+|            |           |    baseline   (same code as painmx_2)                                      |
+|  pain12_4  |  4        |  Within 12 hours following maximal activity, compared to                   |
+|            |           |    same period at baseline  (same code as painmx_2)                        |
+|  painav_4  |  4        |  During the average day of study period pain vs. baseline                   |
+|            |           |    (same code as painmx_2)                                                 |
+|  painov_4  |  4        |  Overall impression of drug efficacy vs baseline                           |
+|            |           |    (same code as painmx_2)                                                 |
 
 
-* PERIOD 2 = PAIN SCORES AFTER THE FIRST ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+* PERIOD 2 = Pain scores after the first active drug period compared with baseline
   
-  PERIOD 3 = PAIN SCORES AFTER THE WASHOUT PERIOD COMPARED WITH BASELINE
+  PERIOD 3 = Pain scores after the washout period compared with baseline
 
-  PERIOD 4 = PAIN SCORES AFTER THE SECOND ACTIVE DRUG PERIOD COMPARED WITH BASELINE
+  PERIOD 4 = Pain scores after the second active drug period compared with baseline
 
 ::::
 
 ### VALID
+
+Two ways of assessing consumption of specific foods were compared. 173 nurses
+recored four weeks of diet recording (DR), approximately equally spaced over
+12 months. After each recording period, a food-frequency questionaire (FFQ) were
+completed. Diet recording and subsequent calculation of consumption of specific
+nutrients are considered the gold standard, but are more expensive to administer
+than the FFQ, where subjects record the number of servings of >100 individual
+food items typically eaten. 
+
+Compare the estimates of consumption between the two recording methods. 
+Is a given respondent placed in the same quintile for eg alcohol consumption
+measured by DR as measured by FFQ?
+
 
 _Dimensions:_ Rows: 173 Columns: 9   
 
@@ -1511,16 +1597,16 @@ _Dimensions:_ Rows: 173 Columns: 9
 ## Metadata
 
 |  Variable  |  Description              | unit  |
-|------------|---------------------------|----------------|
-|  Id        |  ID number                |                |
-|  sfat_dr   |  Saturated fat-DR         |        |
-|  sfat_ffq  |  Saturated fat-FFQ        |        |
-|  tfat_dr   |  Total fat-DR             |        |
-|  tfat_ffq  |  Total fat-FFQ            |        |
-|  alco_dr   |  Alcohol consumption-DR   |        |
-|  alco_ffq  |  Alcohol consumption-FFQ  |        |
-|  cal_dr    |  Total calories-DR        |       |
-|  cal_ffq   |  Total calories-FFQ       |       |
+|------------|---------------------------|-------|
+|  Id        |  ID number                |       |
+|  sfat_dr   |  Saturated fat-DR         |   g   | 
+|  sfat_ffq  |  Saturated fat-FFQ        |  g    |
+|  tfat_dr   |  Total fat-DR             |  g    |
+|  tfat_ffq  |  Total fat-FFQ            |  g    |
+|  alco_dr   |  Alcohol consumption-DR   |  oz   |
+|  alco_ffq  |  Alcohol consumption-FFQ  |  oz   |
+|  cal_dr    |  Total calories-DR        | kcal  |
+|  cal_ffq   |  Total calories-FFQ       | kcal  |
 
 ::::
 
@@ -1626,22 +1712,22 @@ _Dimensions:_ Rows: 178 Columns: 14
 
 ## Metadata
 
-|  Variable  |  Description                      |  Unit            |
+|  Variable  |  Description                      |  Unit                      |
 |------------|-----------------------------------|----------------------------|
-|1      |  Cultivar                        |                            | 
-|2        | Alcohol                    |                %            | 
-|3        | Malic acid                    |         g/L                   | 
-|4        | Ash                                 |   g/L                     |         
-|5        | Alcalinity of ash       |   meq/L <br> (milliequivalents per liter)     | 
-|6        | Magnesium                |        mg/L                   |
-|7         | Total phenols                    g/L             |    |
-|8        | Flavanoids               |        g/L                  |
-|9    | Nonflavanoid phenols  |              g/L            |
-|10       | Proanthocyanins  |               g/L             |
-|11       | Colour intensity  |   Absorbance                         |
-|12       | Hue  |  Absorbance-ratio             |
-|13       | OD280/OD315 of diluted wines  | Absorbance-ratio                           |
-|14       | Proline  |  mg/L                          |
+|1           | Cultivar                          |                            | 
+|2           | Alcohol                           |                %           | 
+|3           | Malic acid                        |         g/L                | 
+|4           | Ash                               |   g/L                      |         
+|5           | Alcalinity of ash                 |   meq/L <br> (milliequivalents per liter)     | 
+|6           | Magnesium                         |        mg/L                   |
+|7           | Total phenols                     |g/L    |
+|8           | Flavanoids                        |        g/L                  |
+|9           | Nonflavanoid phenols              |              g/L            |
+|10          | Proanthocyanins                   |               g/L           |
+|11          | Colour intensity                  |   Absorbance                |
+|12          | Hue                               |  Absorbance-ratio           |
+|13          | OD280/OD315 of diluted wines      | Absorbance-ratio            |
+|14          | Proline                           |  mg/L                       |
 
 Absorbance is measured as the sum of absorbance-units at 420, 520 and 620 nm 
 (blue, green and red light respectively, measuring the yellow, red, and blue colours of the wine.)
@@ -1651,6 +1737,77 @@ Hue is measured as absorbance at 420 nm divided by absorbance at 520 nm.
 OD280/OD315 is measured as absorbance at 280 nm divided by absorbance at 315 nm.
 
 ::::
+
+
+### essequal
+
+A subset of data from European Social Survey, ESS11, edition 1.2, containing responses from
+46162 respondents in 28 different countries. Responces relating to respondents
+experience of unfair treatment because of sex have been selected.
+
+_Dimensions:_ Rows: 46162 Columns: 9 
+
+[Source](learners/data.md#ess_11)^11^
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/essequal.csv)
+
+::::spoiler
+### Metadata
+
+|  Variable  |  Description                      |  Unit                      |
+|------------|-----------------------------------|----------------------------|
+| idno           | Respondent's identification number                         |                            |
+|  cntry          |   Country                        |                            |
+|  gndr          |  Sex of respondent. <br> 1: Male <br> 2: Female <br> 9. No answer/missing value                         |                            |
+| trmedmw            | Unfairly treated when visiting a doctor or seeking medical treatment because being a man/woman † |                            |
+| trwrkmw           | Unfairly treated in hiring pay or promotion at work because being a man/woman † |                            |
+| trplcmw           | Unfairly treated by the police because being a man/woman † |                            |
+| trmdcnt            | Women/men: treated equally fairly when seeking medical treatment in country   ‡                       |                            |
+| trwkcnt           | Women/men: treated equally fairly in hiring, pay or promotions at work in [country] ‡ | |
+|  trplcnt          | How fair the police in [country] treat women/men ⸸                         |                            |
+
+† Responses in trmedmw, trwrkmw, trplcmw codes as:
+
+| Value |	Category |
+|-------|----------|
+| 1 | 	Yes, once |
+| 2	| Yes, more than once |
+| 3	| No |
+| 4	| Have never visited doctor or sought medical treatment |
+| 6	| Not applicable* |
+| 7	| Refusal* |
+|8	| Don't know* |
+| 9	| No answer* |
+
+ 
+‡ Responses in trmdcnt, trwkcnt coded as:
+
+| Value |	Category |
+|-------|----------|
+| 1	|Women are treated less fairly than men|
+| 2|	Men are treated less fairly than women|
+| 3|	Women and men are treated equally fairly|
+| 7|	Refusal*|
+| 8	|Don't know*|
+| 9 |	No answer*|
+
+
+
+⸸ Responses in trplcnt coded as:
+
+Value	Category
+1	The police treat women less fairly than men
+2	The police treat men less fairly than women
+3	Women and men are treated equally fairly
+7	Refusal*
+8	Don't know*
+9	No answer*
+
+*) Missing Value
+
+::::
+
+doi:10.21338/ess11md_e01_2
 
 
 
@@ -1687,25 +1844,12 @@ https://www.jstor.org/stable/2532505
 
 <a id = "stoet_10">10</a>: Stoet, G. & Geary, D.C. 2019, A simplified approach to measuring national gender inequality, PLOS ONE, 14(1), 1-18, https://doi.org/10.1371/journal.pone.0205349
 
+<a id = "ess_11">10</a>: ESS11 Multilevel Data, edition 1.2 (published 04.07.25): https://doi.org/10.21338/ess11md_e01_2
 
 
 
-## List of datasets not sufficiently documented yet
-Der hakkes af efterhånden som de er færdige - og så er issue 113 done.
+https://www.unilus.ac.zm/lms/e-books/books/Basic_Sciences/Behavioural%20sciences%20and%20public%20health/Fundamentals%20of%20Biostatistics%20%287th%20Edition%29.pdf
 
-
-* infantbp siden identificeret 202
-* lead siden identificeret 29
-* mice 
-* nephro
-* nifed
-* oto
-* piriform
-* smoke
-* tear
-* temperat
-* tennis1
-* tennis2
-* valid
-* spermatozoa
-* who
+† 
+‡ 
+⸸ 

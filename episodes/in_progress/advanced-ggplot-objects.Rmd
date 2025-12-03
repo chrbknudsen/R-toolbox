@@ -95,7 +95,7 @@ punkter i et plot skal plottes med colour i stedet for shape:
 
 ```{r}
 library(tidyverse)
-mtcars %>% 
+mtcars |> 
   ggplot(aes(mpg, wt, shape = factor(am))) +
   geom_point()
 ```
@@ -104,7 +104,7 @@ Det gør vi ved at bruge tidy evaluation idiomer.
 ```{r}
 noget <- "am"
 andet <- "colour"
-mtcars %>% 
+mtcars |> 
   ggplot(aes(mpg, wt, !!andet := factor(!!as.symbol(noget)))) +
   geom_point()
 
@@ -120,9 +120,9 @@ Hvad hvis vi godt ville plotte med geom_lines i stedet for geom_point?
 
 Fungerer det også med dplyr?
 ```{r}
-mtcars %>% 
-  group_by(!!as.symbol(noget)) %>% 
-  summarise(n = n()) %>% 
+mtcars |> 
+  group_by(!!as.symbol(noget)) |> 
+  summarise(n = n()) |> 
   mutate(test = !!andet)
 ```
 Vil vi styre hvilken geom vi skal bruge, vil det her virke:
@@ -131,13 +131,15 @@ Vil vi styre hvilken geom vi skal bruge, vil det her virke:
 
 a <- "geom_point()"  # eller a <- "geom_line"
 
-mtcars %>%
+mtcars |>
   ggplot(aes(mpg, wt, shape = factor(am))) +
   eval(parse(text = a))  # Evaluere og udføre den dynamiske funktion
 
 ```
 
+vi skal nok have lidt styr på hvad den der `parse` gør. 
 
+og `as.symbol`. Og hvad !! betyder i denne kontekst.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

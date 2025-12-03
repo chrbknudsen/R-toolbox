@@ -66,8 +66,8 @@ model <- MIPModel()
 
 Så tilføjer vi variable:
 
-model <- model %>% 
-      add_variable(x0, lb = 0, ub = 4, type = "continuous") %>%
+model <- model |>
+      add_variable(x0, lb = 0, ub = 4, type = "continuous") |>
       add_variable(x1, lb = 1, type = "continuous")
 
 
@@ -80,16 +80,16 @@ så tilføjer vi de øvrige begrænsninger:
 
 
 
-model <- model %>% 
-      add_constraint(x1 <= 7) %>%
-      add_constraint(x0 + 2*x1 <= 15) %>%
-      add_constraint(x0 + 2*x1 >= 5) %>%
+model <- model |> 
+      add_constraint(x1 <= 7)|>
+      add_constraint(x0 + 2*x1 <= 15) |>
+      add_constraint(x0 + 2*x1 >= 5) |>
       add_constraint(3*x0 + 2*x1 >= 6)
 
 
 Og endelig angiver vi hvad målet er. $x_0 + x_3 + 3$ skal minimeres:
 
-model <- model %>% 
+model <- model |> 
   set_objective(x0+x1+3, sense = "min") 
 
 
@@ -97,7 +97,7 @@ Så er vi klar til at løse modellen:
   
 
 # solve model
-solution <- model %>% 
+solution <- model |> 
   solve_model(highs_optimizer())
 
 
@@ -118,4 +118,3 @@ Og selve løsningen er givet ved:
 solution$solution
 
 
-{% include links.md %}

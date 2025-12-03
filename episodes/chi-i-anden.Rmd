@@ -102,7 +102,7 @@ data <- KUBDatalab::hp_characters
 Det giver os disse tælletal:
 
 ```{r, eval = F}
-data %>% kable()
+data |> kable()
 ```
 Det er de faktuelle optællinger. Vi vil nu gerne vide om der er forskel på 
 kønsfordelingen i de fire huse. Ikke om der er forskel på hvor mange hunner 
@@ -116,8 +116,8 @@ hvis der ikke er forskel.
 Når vi skal finde de forventede tælletal, starter vi med række og kolonne totaler:
 
 ```{r, eval = F}
-data %>% 
-  mutate(række_total = female + male) %>% 
+data |> 
+  mutate(række_total = female + male) |> 
   add_row(hus = "kolonne_total", female = 14+5+6+11, male = 20+11+9+14, række_total= 34+16+15+25)
 ```
 
@@ -141,8 +141,8 @@ Den beregning laver vi for alle cellerne i vores datasæt, og får:
 
 
 ```{r echo=F, eval = F}
-chisq.test(data_1)$expected %>% as_tibble() %>% 
-  mutate(hus = c("slytherin", "gryffindor", "hufflepuff", "ravenclaw"), .before = female) %>% 
+chisq.test(data_1)$expected |>  as_tibble() |> 
+  mutate(hus = c("slytherin", "gryffindor", "hufflepuff", "ravenclaw"), .before = female) |> 
   kable()
 ```
 

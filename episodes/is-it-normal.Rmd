@@ -42,8 +42,8 @@ library(palmerpenguins)
 And then by extracting the bill depth of chinstrap penguins:
 
 ```{r making_test_data}
-normal_test_data <- penguins %>% 
-  filter(species == "Chinstrap") %>% 
+normal_test_data <- penguins |> 
+  filter(species == "Chinstrap") |> 
   select(bill_depth_mm)
 ```
 
@@ -63,7 +63,7 @@ What next. A histogram of the data should look normal. Let us take a
 closer look at bill_depth_mm where mean and median are closest:
 
 ```{r histogram}
-normal_test_data %>% 
+normal_test_data |> 
   ggplot(aes(x=bill_depth_mm)) +
   geom_histogram()
 ```
@@ -71,7 +71,7 @@ normal_test_data %>%
 A normal distribution would have this shape:
 
 ```{r normal_curve, echo = FALSE}
-data.frame(x = rnorm(100)) %>% 
+data.frame(x = rnorm(100)) |> 
 ggplot(aes(x = x)) +
    stat_function(fun = dnorm, args = list(mean = 0, sd = 1)) +
   theme_minimal()
@@ -85,7 +85,7 @@ The shape of a histogram is heavily dependent on the bins we choose. Density plo
 are often a better way of visualizing the distribution:
 
 ```{r densityplot}
-normal_test_data %>% 
+normal_test_data |> 
   ggplot(aes(x=bill_depth_mm)) +
   geom_density()
 ```
@@ -115,7 +115,7 @@ Rather than doing that by hand, we can get R to do it for us in a nice
 graphical way:
 
 ```{r qq-plot}
-normal_test_data %>% 
+normal_test_data |> 
   ggplot(aes(sample = bill_depth_mm)) +
   geom_qq() +
   geom_qq_line()
@@ -361,6 +361,8 @@ conclude that it is not.
 
 
 ::: keypoints
--   Use `.md` files for episodes when you want static content
+-   Begin by a visual inspection to assess if data is normally distributed
+-   Use a statistical test to support your conclusion
+-   Do not fret too much about non-normality. It is quite normal.
 
 :::

@@ -50,13 +50,13 @@ to the actual data values. This prevents misleading interpretations. Example: A 
 ## No gridlines
 
 ```{r}
-et <- penguins %>% 
+et <- penguins |> 
   ggplot(aes(y=species)) +
   geom_bar()  +
   theme_bw() +
   ggtitle("With gridlines")
 
-to <- penguins %>% 
+to <- penguins |> 
   ggplot(aes(y=species)) +
   geom_bar()  +
   theme_bw() +
@@ -105,8 +105,8 @@ Og slet ikke hvis enhederne er forskellige.
 
 ```{r}
 library(palmerpenguins)
-penguins %>% 
-filter(species == "Adelie") %>% 
+penguins |> 
+filter(species == "Adelie") |> 
 ggplot(aes(x=body_mass_g)) +
 geom_line(aes(y = bill_depth_mm)) +
 geom_line(aes(y = flipper_length_mm/5)) +

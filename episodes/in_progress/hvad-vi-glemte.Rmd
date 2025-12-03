@@ -14,7 +14,6 @@ exercises: 2
 
 - Get an overview of some of the rabbit holes.
 
-
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Introduction
@@ -150,10 +149,94 @@ hvor x er en faktor.
 Konverterer du en faktor direkte til en numeric, får du faktor levels (1,2,3 etc)
 i stedet for de numeriske værdier der egenligt ligger i faktoren.
 
+## Prevent fires
+
+![](figs/jb_tweet.png)
+
+What's wrong with rm(list=ls())?
+
+This indicates that whatever you do is not actually reproducible.
+
+What the line _attempts_ to do, is to reset things. To make sure that whatever you have
+in the memory of R, is gone, and that you begin in a fresh environment. The idea is to
+make sure that you begin from scratch and nothing is in the memory of the computer that could affect
+your code.
+
+Given that intention, it does not do enough. 
+
+It will delete objects in memory that you as a user, have created. However, lots of
+other stuff can change the behaviour of R. Any options you may have set to something
+different than default are still set. If you have loaded a library, it is still attached.
+
+Instead - write every script assuming it will be run in a fresh R process. And the best way
+to do that, is to write your scripts in a fresh R process. 
+
+There is not anything bad with `rm(list=ls())`. But it is a warning that your workflow might
+not be reproducible. It works ~95% of the time. And makes it very difficult to fix problems in
+the remaining 5%.
+
+
+## Lazy evaluation
+
+R does what is called lazy evaluation. But what does that mean?
+
+When we write an expression that expression is only evaluated when the result is needed. 
+
+An example:
+
+This is an expression
+
+```{r eval = FALSE}
+stop("error")
+```
+
+`stop` is used to stop a function and return an error message. If we evaluate it, we will get 
+scary red text on the console, an indication of an error, and the messange "error". We get that, because
+the expression is evaluated.
+
+If we write a function that takes two arguments, but only works on one:
+
+```{r}
+lazy_test <- function(x, y){
+    message("only working on x")
+    x^2
+}
+
+
+```
+
+And then pass our stop-expression to that function:
+```{r}
+lazy_test(x = 5, y = stop("error"))
+```
+
+We do not get an error. Because y is not used in the function, the value of y is never 
+calculated, and the `stop("error")` expression is not calculated either.
+
+The opposite of lazy evaluation is eager evaluation. Under eager evaluation, all expressions are
+evaluated whenever they are expressed. As R uses lazy evaluation by default, it is not easy to illustrate.
+Here is an attempt:
+
+```{r}
+f_eager <- function(x, y) {
+  force(y)            # tvinger evaluering af y med det samme
+  message("Beregner x og y")
+  x^2
+}
+
+f_eager(3, stop("fejl")) 
+```
+
+In short, lazy evaluation delays the calculation until a result is actually needed. This will, as a 
+general rule of thumb save ressources. We may not need to evaluate a complex expression, so there is 
+no reason to actually do it. On the other hand, this can make it more difficult to debug code, as the 
+reason for an error might hide many lines earlier than it actually occurs.
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
+- You will continue to learn new stuff
+- Do not despair when you discover things that would have saved a lot of time if only you've known about it earlier. It will happen again!
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

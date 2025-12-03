@@ -35,12 +35,12 @@ Haemoglobin levels, g/100 ml for 70 women, raw data with highest and lowest
 values set as bold:
 ```{r echo  = FALSE}
 set.seed(47)
-haem <- tibble(x=rnorm(70, 11.98429, 1.416122) %>% round(digits = 1)) %>% 
-  mutate(a = rep(paste0("V",1:7),10)) %>% 
-  group_by(a) %>%
-  mutate(row = row_number()) %>% 
-  ungroup() %>% 
-  pivot_wider(names_from = a, values_from = x)  %>% 
+haem <- tibble(x=rnorm(70, 11.98429, 1.416122) |> round(digits = 1)) |> 
+  mutate(a = rep(paste0("V",1:7),10)) |> 
+  group_by(a) |> 
+  mutate(row = row_number()) |> 
+  ungroup() |> 
+  pivot_wider(names_from = a, values_from = x)  |> 
   select(-row)
 min_val <- min(haem)
 max_val <- max(haem)
@@ -50,14 +50,14 @@ min_pos <- which(haem == min_val, arr.ind = TRUE)
 max_pos <- which(haem == max_val, arr.ind = TRUE)
 
 # Create the table using gt and style the min and max values
-gt_table <- gt(haem) %>%
+gt_table <- gt(haem) |> 
   cols_label(
     V1 = "", V2 = "", V3 = "", V4 = "", V5 = "", V6 = "", V7 = ""
   )
 
 # Style the minimum value cells
 for(i in 1:nrow(min_pos)) {
-  gt_table <- gt_table %>%
+  gt_table <- gt_table |> 
     tab_style(
       style = cell_text(weight = "bold"),
       locations = cells_body(
@@ -69,7 +69,7 @@ for(i in 1:nrow(min_pos)) {
 
 # Style the maximum value cells
 for(i in 1:nrow(max_pos)) {
-  gt_table <- gt_table %>%
+  gt_table <- gt_table |> 
     tab_style(
       style = cell_text(weight = "bold"),
       locations = cells_body(
@@ -119,11 +119,13 @@ bikes in a bikelane, measured in km/h.
 Assuming the speed is normally distributed, calculate an interval that contains
 95% of the observed values.
 ```{r echo = F}
-cars %>% 
-  mutate(speed = speed * 1.609344 ) %>% 
+cars |> 
+  mutate(speed = speed * 1.609344 ) |> 
   summarise(mean = mean(speed), sd = sd(speed))
 ```
+
 Mean +/- 1.96 gange sd.
+
 ```{r}
 c(24.7839 - 1.96*8.509639, 24.7839 + 1.96*8.509639)
 ```
@@ -150,6 +152,7 @@ Løsning:
 SEM <- sd(unlist(haem))/sqrt(length(unlist(haem)))
 mean(unlist(haem)) + c(-1,1)*1.96*SEM
 ```
+
 Dette interval indeholder med 95% sandsynlighed gennemsnittet $\mu$ i 
 baggrundspopulationen. Eller, lidt mere upræcist, der er 95%
 sandsynlighed for at baggrundspopulationens gennemsnit $\mu$ er indehold i

@@ -1,0 +1,4557 @@
+---
+title: 'Statistical tests'
+teaching: 0
+exercises: 0
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do I run X statistical test?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Provide a description on how to run common statistical tests
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+<!-- Hyper-lokal css -->
+<style>
+/* Kun på denne side: sæt accordion-item til 1rem */
+.spoiler-accordion li {
+  font-size: 1rem !important;
+  margin-bottom: 0px !important;
+  margin-top: 0px !important;
+  list-style-position: outside !important; /* markør udenfor boksen */
+
+
+}
+</style>
+
+
+
+:::: instructor
+Den her side er virkelig ikke egnet til undervisningsbrug. Det er oversigten
+med eksempler og ret korte forklaringer.
+Hele siden kan nok med fordel deles ret meget op.
+
+Der skal læses korrektur på ALT. Så brug intet i en undervisningssituation 
+før markeringen af manglende korrektur er fjernet.
+
+Samtlige eksempler bør omlægges til noget der bruger datasæt enten fra denne
+side selv, eller fra https://vincentarelbundock.github.io/Rdatasets/
+
+skal indsættes:
+<a id = "test-navn"></a>
+
+::::
+
+A collection of statistical tests
+
+For all tests, the approach is:
+
+1. Formulate hypotheses
+2. Calculate test statistic
+3. Determine p-value
+4. Make decision
+
+The cutoff chosen for all tests is a p-value of 0.05 unless otherwise indicated.
+
+
+
+If a specific test is prefaced with "EJ KORREKTURLÆST" the text, examples etc
+have not been checked.
+
+## One sample tests
+
+
+<a id = "one_sample_chi_square_test"></a>
+
+::::spoiler
+
+### One-sample chi-square test
+
+Or, more complete - one-sample chi-square goodnes-of-fit test.
+
+* **Used for:** Testing whether observed categorical frequencies differ from expected 
+frequencies under a specified distribution.
+* **Real-world example:** Mars Inc. claims a specific distribution of colours in
+their M&M bags. Do the observed proportions in a given bag match their claim?
+
+
+**Assumptions**
+
+* Observations are independent.  
+* Categories are mutually exclusive and collectively exhaustive.
+* _Expected_ count in each category is at least 5 (for the chi-square approximation to be valid). The observed counts can be smaller, it is the expected counts that are important.
+
+**Strengths**
+
+* Simple to compute and interpret.
+* Does not require the data to be normally distributed.
+* Applicable to any number of categories.
+
+**Weaknesses**
+
+* Sensitive to small expected counts.  
+* Does not indicate which categories contribute most to the discrepancy without further investigation.
+* Requires independence; cannot be used for paired or repeated measures.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** The proportions of M&M colours equal the manufacturer’s claimed distribution.  
+* **Alternative hypothesis (H₁):** The proportion of at least one colour differs from the claimed distribution.
+
+
+```{r one_sample_chi_square_test}
+# Observed counts of M&M colors:
+observed <- c(red = 20, blue = 25, green = 15, brown = 18, orange = 12, yellow = 10)
+
+# Manufacturer's claimed proportions.
+p_expected <- c(red = 0.12, blue = 0.24, green = 0.16, brown = 0.14, orange = 0.20, yellow = 0.14)
+
+# Perform one-sample chi-square goodness-of-fit test:
+test_result <- chisq.test(x = observed, p = p_expected)
+
+# Display results:
+test_result
+```
+
+**Interpretation**: The test yields χ² = 10.9 with a p-value = 0.05292. We
+fail to reject the null hypothesis, and there is no evidence to conclude a 
+difference from the claimed distribution.
+
+Note that in this example, the number of observations sums to 100. `chisq.test()`
+normalises the expected values, so we do not _have_ to match the numbers.
+
+::::
+
+<a id = "one_sample_z_test"></a>
+
+::::spoiler
+
+### One-sample z test
+
+* **Used for:** Testing whether the mean of a single sample differs from a known population mean when the population standard deviation is known.  
+* **Real-world example:** Checking if the average diameter of manufactured ball bearings equals the specified 5.00 cm when σ is known. It can differ in three ways. It can differ from the specification. That is a Two-sided test. It can be smaller, that is a (left side) One-sided test. And it can be larger, that is a (right side) One-sided test. 
+
+**Assumptions**
+
+* Sample is a simple random sample from the population.  
+* Observations are independent.  
+* Population standard deviation (σ) is known.  
+* The sampling distribution of the mean is approximately normal (either the population is normal or n is large, e.g. ≥ 30).
+
+**Strengths**
+
+* More powerful than the t-test when σ is truly known.  
+* Simple calculation and interpretation.  
+
+**Weaknesses**
+
+* The true population σ is only very rarely known in practice.  
+* Sensitive to departures from normality for small samples.  
+* Misspecification of σ leads to incorrect inferences.
+
+**Example**
+
+Two-sided:
+
+* **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+* **Alternative hypothesis (H₁):** μ ≠ 5.00 cm.
+
+One-sided, left:
+
+* **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+* **Alternative hypothesis (H₁):** μ < 5.00 cm.
+
+
+One-sided, right:
+
+* **Null hypothesis (H₀):** The true mean diameter μ = 5.00 cm.  
+* **Alternative hypothesis (H₁):** μ > 5.00 cm.
+
+
+```{r one_sample_z_test}
+# Sample of diameters (cm) for 25 ball bearings:
+diameters <- c(5.03, 4.97, 5.01, 5.05, 4.99, 5.02, 5.00, 5.04, 4.96, 5.00,
+               5.01, 4.98, 5.02, 5.03, 4.94, 5.00, 5.02, 4.99, 5.01, 5.03,
+               4.98, 5.00, 5.04, 4.97, 5.02)
+
+# Known population standard deviation:
+sigma <- 0.05
+
+# Hypothesized mean:
+mu0 <- 5.00
+
+# Compute test statistic:
+n <- length(diameters)
+xbar <- mean(diameters)
+z_stat <- (xbar - mu0) / (sigma / sqrt(n))
+
+# Two-sided p-value:
+two_sided_p_value <- 2 * (1 - pnorm(abs(z_stat)))
+
+# Larger p-value
+p_value_larger_mu <- 1- pnorm(z_stat)
+
+# Smaller p-value
+p_value_smaller_mu <- pnorm(z_stat)
+
+# Output results:
+z_stat; two_sided_p_value; p_value_larger_mu; p_value_smaller_mu
+``` 
+
+
+**Interpretation:**
+
+The sample mean is `r round(xbar, 3)` cm. The z-statistic is `r round(z_stat, 2)` 
+with a two-sided p-value of `r signif(two_sided_p_value, 3)`. We
+`r if(two_sided_p_value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(two_sided_p_value < 0.05) "evidence that the average diameter differs from 5.00 cm." else "no evidence to conclude a difference from the specified diameter of 5.00 cm."`
+
+We can similarly reject the hypothesis that the average diameter is larger (p = `r p_value_larger_mu`)
+or that it is smaller (p = `r p_value_smaller_mu`)
+
+::::
+
+<a id = "one_sample_t_test"></a>
+
+::::spoiler
+
+### One-sample t test
+
+EJ KORREKTURLÆST!
+
+Her kan vi nok med fordel bruge samme eksempel som i z-testen.
+
+
+* **Used for:** Testing whether the mean of a single sample differs from a known or hypothesized population mean when the population standard deviation is unknown.  
+* **Real-world example:** Determining if the average exam score of a class differs from the passing threshold of 70%.
+
+**Assumptions:**
+
+* Sample is a simple random sample from the population.  
+* Observations are independent.  
+* The data are approximately normally distributed (especially important for small samples; n ≥ 30 reduces sensitivity).
+
+**Strengths:** 
+* Does not require knowing the population standard deviation.  
+* Robust to mild departures from normality for moderate-to-large sample sizes.  
+* Widely applicable and easily implemented.
+
+**Weaknesses**
+* Sensitive to outliers in small samples.  
+* Performance degrades if normality assumption is seriously violated and n is small.  
+* Degrees of freedom reduce power relative to z-test.
+
+**Example**
+
+* **Null hypothesis (H₀):** The true mean exam score μ = 70.  
+* **Alternative hypothesis (H₁):** μ ≠ 70.
+
+```{r one_sample_t_test}
+# Sample of exam scores for 20 students:
+scores <- c(68, 74, 71, 69, 73, 65, 77, 72, 70, 66,
+            75, 68, 71, 69, 74, 67, 72, 70, 73, 68)
+
+# Hypothesized mean:
+mu0 <- 70
+
+# Perform one-sample t-test:
+test_result <- t.test(x = scores, mu = mu0)
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+
+The sample mean is `r round(mean(scores), 2)`. The t-statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two-sided p-value of `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the class’s average score differs from 70." else "no evidence to conclude the average score differs from the passing threshold of 70."`
+
+::::
+
+<a id = "one_sample_poisson_test"></a>
+
+::::spoiler
+
+### One-sample Poisson test
+
+EJ KORREKTURLÆST!
+
+* **Used for**  Testing whether the observed count of events in a fixed period differs from a hypothesized Poisson rate.  
+* **Real-world example:** Checking if the number of customer arrivals per hour at a call center matches the expected rate of 30 calls/hour.
+
+**Assumptions**
+* Events occur independently.  
+* The rate of occurrence (λ) is constant over the observation period.  
+* The count of events in non-overlapping intervals is independent.
+
+**Strengths**
+* Exact test based on the Poisson distribution (no large-sample approximation needed).  
+* Valid for small counts and rare events.  
+* Simple to implement in R via `poisson.test()`.
+
+**Weaknesses**
+* Sensitive to violations of the Poisson assumptions (e.g., overdispersion or time-varying rate).  
+* Only assesses the overall rate, not the dispersion or clustering of events.  
+* Cannot handle covariates or more complex rate structures.
+
+**Example**
+
+* **Null hypothesis (H₀):** The event rate λ = 30 calls/hour.  
+* **Alternative hypothesis (H₁):** λ ≠ 30 calls/hour.
+
+```{r one_sample_poisson_test}
+# Observed number of calls in one hour:
+observed_calls <- 36
+
+# Hypothesized rate (calls per hour):
+lambda0 <- 30
+
+# Perform one-sample Poisson test (two-sided):
+test_result <- poisson.test(x = observed_calls, T = 1, r = lambda0, alternative = "two.sided")
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+
+The test reports an observed count of `r test_result$statistic` calls versus an expected 30 calls, yielding a p-value of `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the true call rate differs from 30 calls/hour." else "no evidence to conclude the call rate differs from 30 calls/hour."`
+
+::::
+
+<a id = "shapiro_wilk_test"></a>
+
+::::spoiler
+
+### Shapiro–Wilk test for normality
+
+EJ KORREKTURLÆST. DEN HAR VI NOGET UNDERVISNINGSMATERIALE OM I "ER DET NORMALT?"
+
+* **Used for** Testing whether a sample comes from a normally distributed population.  
+* **Real-world example:** Checking if the distribution of daily blood glucose measurements in a patient cohort is approximately normal.
+
+**Assumptions**
+* Observations are independent.  
+* Data are continuous.  
+* No extreme ties or many identical values.
+
+**Strengths**
+* Good power for detecting departures from normality in small to moderate samples (n ≤ 50).  
+* Widely implemented and easy to run in R.  
+* Provides both a test statistic (W) and p-value.
+
+**Weaknesses**
+* Very sensitive to even slight deviations from normality in large samples (n > 2000).  
+* Does not indicate the nature of the departure (e.g., skewness vs. kurtosis).  
+* Ties or repeated values can invalidate the test.
+
+**Example**
+
+* **Null hypothesis (H₀):** The sample is drawn from a normal distribution.  
+* **Alternative hypothesis (H₁):** The sample is not drawn from a normal distribution.
+
+```{r shapiro_wilk_test}
+# Simulate a sample of 30 observations from a normal distribution:
+set.seed(123)
+sample_data <- rnorm(30, mean = 100, sd = 15)
+
+# Perform Shapiro–Wilk test:
+sw_result <- shapiro.test(sample_data)
+
+# Display results:
+sw_result
+```
+
+**Interpretation:**
+
+The Shapiro–Wilk statistic W = `r round(sw_result$statistic, 3)` with p-value = `r signif(sw_result$p.value, 3)`. We
+`r if(sw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(sw_result$p.value < 0.05) "evidence that the data deviate from normality." else "no evidence to conclude a departure from normality."`
+
+::::
+
+<a id = "ks_one_sample"></a>
+
+::::spoiler
+
+### Kolmogorov–Smirnov én-prøve-test (goodness-of-fit)
+
+EJ KORREKTURLÆST. DENNE HAR VI OGSÅ UNDERVISNINGSMATERIALE OM I "ER DET NORMALT"
+
+* **Used for** Testing whether a sample comes from a specified continuous distribution.  
+* **Real-world example:** Checking if patient systolic blood pressures follow a normal distribution with mean 120 mmHg and SD 15 mmHg.
+
+**Assumptions**
+* Observations are independent.  
+* Data are continuous (no ties).  
+* The null distribution is fully specified (parameters known, not estimated from the data).
+
+**Strengths**
+* Nonparametric: makes no assumption about distribution shape beyond continuity.  
+* Sensitive to any kind of departure (location, scale, shape).  
+* Exact distribution of the test statistic under H₀.
+
+**Weaknesses**
+* Requires that distribution parameters (e.g., mean, SD) are known a priori; if estimated from data, p-values are invalid.  
+* Less powerful than parametric tests when the parametric form is correct.  
+* Sensitive to ties and discrete data.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** The blood pressure values follow a Normal(μ = 120, σ = 15) distribution.  
+* **Alternative hypothesis (H₁):** The blood pressure values do not follow Normal(120, 15).
+
+```{r ks_one_sample}
+set.seed(2025)
+# Simulate systolic blood pressure for 40 patients:
+sample_bp <- rnorm(40, mean = 120, sd = 15)
+
+# Perform one-sample Kolmogorov–Smirnov test against N(120,15):
+ks_result <- ks.test(sample_bp, "pnorm", mean = 120, sd = 15)
+
+# Show results:
+ks_result
+```
+
+**Interpretation:**
+
+The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(ks_result$p.value, 3)`. We
+`r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ks_result$p.value < 0.05) "evidence that systolic blood pressures deviate from Normal(120,15)." else "no evidence to conclude deviation from Normal(120,15)."`
+
+::::
+
+
+
+<a id = "chi_square_gof"></a>
+
+::::spoiler
+
+
+### χ² goodness-of-fit test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether observed categorical frequencies differ from expected categorical proportions.  
+* **Real-world example:** Comparing the distribution of blood types in a sample of donors to known population proportions.
+
+**Assumptions**
+* Observations are independent.  
+* Categories are mutually exclusive and exhaustive.  
+* Expected count in each category is at least 5 for the chi-square approximation to hold.
+
+**Strengths**
+* Simple to compute and interpret.  
+* Nonparametric: no requirement of normality.  
+* Flexible for any number of categories.
+
+**Weaknesses**
+* Sensitive to small expected counts (invalidates approximation).  
+* Doesn’t identify which categories drive the discrepancy without further post-hoc tests.  
+* Requires independence—unsuitable for paired or repeated measures.
+
+**Example**
+
+* **Null hypothesis (H₀):** The sample blood type proportions equal the known population proportions (A=0.42, B=0.10, AB=0.04, O=0.44).  
+* **Alternative hypothesis (H₁):** At least one blood type proportion differs from its known value.
+
+```{r chi_square_gof}
+# Observed counts of blood types in 200 donors:
+observed <- c(A = 85, B = 18, AB = 6, O = 91)
+
+# Known population proportions:
+p_expected <- c(A = 0.42, B = 0.10, AB = 0.04, O = 0.44)
+
+# Perform chi-square goodness-of-fit test:
+test_result <- chisq.test(x = observed, p = p_expected)
+
+# Display results:
+test_result
+```
+
+**Interpretation:** 
+
+The test yields χ² = `r round(test_result$statistic, 2)` with p-value = `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that blood type proportions in the sample differ from the population." else "no evidence to conclude the sample proportions differ from the population."`
+
+::::
+
+## To-prøve-tests og parrede tests
+
+
+<a id = "two_sample_f_test"></a>
+
+::::spoiler
+
+### Two-sample F test for variance
+
+EJ KORREKTURLÆST
+
+We use this when we want to determine if two independent samples originate
+from populations with the same variance.
+
+* **Used for** Testing whether two independent samples have equal variances.  
+* **Real-world example:** Comparing the variability in systolic blood pressure measurements between two clinics.
+
+**Assumptions**
+* Both samples consist of independent observations.  
+* Each sample is drawn from a normally distributed population.  
+* Samples are independent of one another.
+
+**Strengths**
+* Simple calculation and interpretation.  
+* Directly targets variance equality, a key assumption in many downstream tests (e.g., t-test).  
+* Exact inference under normality.
+
+**Weaknesses**
+* Highly sensitive to departures from normality.  
+* Only compares variance—doesn’t assess other distributional differences.  
+* Not robust to outliers.
+
+**Example**
+
+* **Null hypothesis (H₀):** σ₁² = σ₂² (the two population variances are equal).  
+* **Alternative hypothesis (H₁):** σ₁² ≠ σ₂² (the variances differ).
+
+```{r two_sample_f_test}
+# Simulate systolic BP (mmHg) from two clinics:
+set.seed(2025)
+clinicA <- rnorm(30, mean = 120, sd = 8)
+clinicB <- rnorm(25, mean = 118, sd = 12)
+
+# Perform two-sample F-test for variances:
+f_result <- var.test(clinicA, clinicB, alternative = "two.sided")
+
+# Display results:
+f_result
+``` 
+
+
+**Interpretation** 
+
+The F statistic is `r round(f_result$statistic, 3)` with numerator df = `r f_result$parameter[1]` and denominator df = `r f_result$parameter[2]`, and p-value = `r signif(f_result$p.value, 3)`. We
+
+`r if(f_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(f_result$p.value < 0.05) "evidence that the variability in blood pressure differs between the two clinics." else "no evidence to conclude a difference in blood pressure variability."`
+
+::::
+
+<a id = "paired_t_test"></a>
+
+::::spoiler
+
+### Paired t-test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the mean difference between two related (paired) samples differs from zero.  
+* **Real-world example:** Comparing patients’ blood pressure before and after administering a new medication.
+
+**Assumptions**
+* Paired observations are independent of other pairs.  
+* Differences between pairs are approximately normally distributed.  
+* The scale of measurement is continuous (interval or ratio).
+
+**Strengths**
+* Controls for between‐subject variability by using each subject as their own control.  
+* More powerful than unpaired tests when pairs are truly dependent.  
+* Easy to implement and interpret.
+
+**Weaknesses**
+* Sensitive to outliers in the difference scores.  
+* Requires that differences be approximately normal, especially for small samples.  
+* Not appropriate if pairing is not justified or if missing data break pairs.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** The mean difference Δ = 0 (no change in blood pressure).  
+* **Alternative hypothesis (H₁):** Δ ≠ 0 (blood pressure changes after medication).
+
+```{r paired_t_test}
+# Simulated systolic blood pressure (mmHg) for 15 patients before and after treatment:
+before <- c(142, 138, 150, 145, 133, 140, 147, 139, 141, 136, 144, 137, 148, 142, 139)
+after  <- c(135, 132, 144, 138, 128, 135, 142, 133, 136, 130, 139, 132, 143, 137, 133)
+
+# Perform paired t-test:
+test_result <- t.test(before, after, paired = TRUE)
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+
+The mean difference (before – after) is `r round(mean(before - after), 2)` mmHg. The t‐statistic is `r round(test_result$statistic, 2)` with `r test_result$parameter` degrees of freedom and a two‐sided p‐value of` r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the medication significantly changed blood pressure." else "no evidence that the medication changed blood pressure."`
+
+::::
+
+<a id = "two_sample_t_test_equal_var"></a>
+
+::::spoiler
+
+### Two-sample t test (equal variances)
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the means of two independent samples differ, assuming equal variances. 
+* **Real-world example:** Comparing average systolic blood pressure between male and female patients when variability is similar.
+
+**Assumptions**
+* Observations in each group are independent.  
+* Both populations are normally distributed (especially important for small samples).  
+* The two populations have equal variances (homoscedasticity).
+
+**Strengths**
+* More powerful than Welch’s t-test when variances truly are equal.  
+* Simple computation and interpretation via pooled variance.  
+* Widely implemented and familiar to practitioners.
+
+**Weaknesses**
+* Sensitive to violations of normality in small samples.  
+* Incorrect if variances differ substantially—can inflate Type I error.  
+* Assumes homogeneity of variance, which may not hold in practice.
+
+**Example**
+
+* **Null hypothesis (H₀):** μ₁ = μ₂ (the two population means are equal).  
+* **Alternative hypothesis (H₁):** μ₁ ≠ μ₂ (the means differ).
+
+```{r two_sample_t_test_equal_var}
+set.seed(2025)
+# Simulate systolic BP (mmHg):
+groupA <- rnorm(25, mean = 122, sd = 10)  # e.g., males
+groupB <- rnorm(25, mean = 118, sd = 10)  # e.g., females
+
+# Perform two-sample t-test with equal variances:
+test_result <- t.test(groupA, groupB, var.equal = TRUE)
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+
+The pooled estimate of the difference in means is `r round(mean(groupA) - mean(groupB), 2)` mmHg. The t-statistic is `r round(test_result$statistic, 2)` with df = `r test_result$parameter` and p-value = `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the average systolic blood pressure differs between the two groups." else "no evidence of a difference in average systolic blood pressure."`
+
+
+::::
+
+<a id = "two_sample_t_test_unequal_var"></a>
+
+::::spoiler
+
+### Two-sample t test (unequal variances)
+
+EJ KORREKTURLÆST
+
+**Used for** Testing whether the means of two independent samples differ when variances are unequal.  
+* **Real-world example:** Comparing average recovery times for two different therapies when one therapy shows more variable outcomes.
+
+**Assumptions**
+* Observations in each group are independent.  
+* Each population is approximately normally distributed (especially important for small samples).  
+* Does **not** assume equal variances across groups.
+
+**Strengths**
+* Controls Type I error when variances differ.  
+* More reliable than the pooled‐variance t‐test under heteroskedasticity.  
+* Simple to implement via `t.test(..., var.equal = FALSE)` in R.
+
+**Weaknesses**
+* Slight loss of power compared to equal-variance t‐test when variances truly are equal.  
+* Sensitive to departures from normality in small samples.  
+* Degrees of freedom are approximated (Welch–Satterthwaite), which can reduce interpretability.
+
+**Example**
+
+* **Null hypothesis (H₀):** μ₁ = μ₂ (the two population means are equal).  
+* **Alternative hypothesis (H₁):** μ₁ ≠ μ₂ (the means differ).
+
+```{r two_sample_t_test_unequal_var}
+set.seed(2025)
+# Simulate recovery times (days) for two therapies:
+therapyA <- rnorm(20, mean = 10, sd = 2)   # Therapy A
+therapyB <- rnorm(25, mean = 12, sd = 4)   # Therapy B (more variable)
+
+# Perform two-sample t-test with unequal variances:
+test_result <- t.test(therapyA, therapyB, var.equal = FALSE)
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+
+The estimated difference in means is `r round(mean(therapyA) - mean(therapyB), 2)` days. The Welch t‐statistic is` r round(test_result$statistic, 2)` with df ≈ `r round(test_result$parameter, 1)` and two‐sided p‐value =` r signif(test_result$p.value, 3`). We
+`r ifelse(test_result$p.value < 0.05, "reject the null hypothesis", "fail to reject the null hypothesis")`.
+Thus, there is
+`r ifelse(test_result$p.value < 0.05, "evidence that the average recovery times differ between therapies.", "no evidence of a difference in average recovery times.")`.
+
+::::
+
+<a id = "mann_whitney_u_test"></a>
+
+::::spoiler
+
+### Mann–Whitney U-test (Wilcoxon rank-sum)
+
+EJ KORREKTURLÆST
+
+* **Used for** Comparing the central tendencies of two independent samples when the data are ordinal or not normally distributed.  
+* **Real-world example:** Testing whether pain scores (0–10) differ between patients receiving Drug A versus Drug B when scores are skewed.
+
+**Assumptions**
+* Observations are independent both within and between groups.  
+* The response variable is at least ordinal.  
+* The two distributions have the same shape (so that differences reflect location shifts).
+
+**Strengths**
+* Nonparametric: does not require normality or equal variances.  
+* Robust to outliers and skewed data.  
+* Simple rank-based calculation.
+
+**Weaknesses**
+* Less powerful than t-test when data are truly normal.  
+* If distributions differ in shape as well as location, interpretation becomes ambiguous.  
+* Only tests for location shift, not differences in dispersion.
+
+**Example**
+
+* **Null hypothesis (H₀):** The distributions of pain scores are identical for Drug A and Drug B.  
+* **Alternative hypothesis (H₁):** The distributions differ in location (median pain differs between drugs).
+
+```{r mann_whitney_u_test}
+# Simulate pain scores (0–10) for two independent groups:
+set.seed(2025)
+drugA <- c(2,3,4,5,4,3,2,6,5,4,  # skewed lower
+           3,4,5,4,3,2,3,4,5,3)
+drugB <- c(4,5,6,7,6,5,7,8,6,7,  # skewed higher
+           6,7,5,6,7,6,8,7,6,7)
+
+# Perform Mann–Whitney U test (Wilcoxon rank-sum):
+mw_result <- wilcox.test(drugA, drugB, alternative = "two.sided", exact = FALSE)
+
+# Display results:
+mw_result
+```
+
+
+**Interpretation:**
+
+The Wilcoxon rank-sum statistic W = `r mw_result$statistic` with p-value = `r signif(mw_result$p.value, 3)`. We
+`r if(mw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(mw_result$p.value < 0.05) "evidence that median pain scores differ between Drug A and Drug B." else "no evidence of a difference in median pain scores between the two treatments."`
+
+::::
+
+<a id = "wilcoxon_signed_rank_test"></a>
+
+::::spoiler
+
+### Wilcoxon signed-rank test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the median difference between paired observations is zero.  
+* **Real-world example:** Comparing patients’ pain scores before and after a new analgesic treatment when differences may not be normally distributed.
+
+**Assumptions**
+* Observations are paired and the pairs are independent.  
+* Differences are at least ordinal and symmetrically distributed around the median.  
+* No large number of exact zero differences (ties).
+
+**Strengths**
+* Nonparametric: does not require normality of differences.  
+* Controls for within‐subject variability by using paired design.  
+* Robust to outliers in the paired differences.
+
+**Weaknesses**
+* Less powerful than the paired t-test when differences are truly normal.  
+* Requires symmetry of the distribution of differences.  
+* Cannot easily handle many tied differences.
+
+**Example**
+
+* **Null hypothesis (H₀):** The median difference in pain score (before – after) = 0 (no change).  
+* **Alternative hypothesis (H₁):** The median difference ≠ 0 (pain changes after treatment).
+
+```{r wilcoxon_signed_rank_test}
+# Simulated pain scores (0–10) for 12 patients:
+before <- c(6, 7, 5, 8, 6, 7, 9, 5, 6, 8, 7, 6)
+after  <- c(4, 6, 5, 7, 5, 6, 8, 4, 5, 7, 6, 5)
+
+# Perform Wilcoxon signed-rank test:
+wsr_result <- wilcox.test(before, after, paired = TRUE, 
+                          alternative = "two.sided", exact = FALSE)
+
+# Display results:
+wsr_result
+```
+
+**Interpretation:**
+
+The Wilcoxon signed‐rank test statistic V =`r wsr_result$statistic` with p-value =` r signif(wsr_result$p.value, 3)`. We
+`r ifelse(wsr_result$p.value < 0.05, "reject the null hypothesis", "fail to reject the null hypothesis")`.
+Thus, there is
+`r ifelse(wsr_result$p.value < 0.05, "evidence that median pain scores change after treatment.", "no evidence of a change in median pain scores after treatment.")`.
+
+::::
+
+<a id = "ks_two_sample"></a>
+
+::::spoiler
+
+### Kolmogorov–Smirnov two-sample-test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether two independent samples come from the same continuous distribution.  
+* **Real-world example:** Comparing the distribution of recovery times for patients receiving Drug A versus Drug B.
+
+**Assumptions**
+* Observations in each sample are independent.  
+* Data are continuous with no ties.  
+* The two samples are drawn from fully specified continuous distributions (no parameters estimated from the same data).
+
+**Strengths**
+* Nonparametric: makes no assumption about the shape of the distribution.  
+* Sensitive to differences in location, scale, or overall shape.  
+* Exact distribution under the null when samples are not too large.
+
+**Weaknesses**
+* Less powerful than parametric alternatives if the true form is known (e.g., t-test for normal data).  
+* Invalid p-values if there are ties or discrete data.  
+* Does not indicate how distributions differ—only that they do.
+
+**Example**
+
+* **Null hypothesis (H₀):** The two samples come from the same distribution.  
+* **Alternative hypothesis (H₁):** The two samples come from different distributions.
+
+```{r ks_two_sample}
+# Simulate recovery times (days) for two therapies:
+set.seed(2025)
+therapyA <- rnorm(30, mean = 10, sd = 2)   # Therapy A
+therapyB <- rnorm(30, mean = 12, sd = 3)   # Therapy B
+
+# Perform two-sample Kolmogorov–Smirnov test:
+ks_result <- ks.test(therapyA, therapyB, alternative = "two.sided", exact = FALSE)
+
+# Display results:
+ks_result
+```
+
+**Interpretation:**
+
+The KS statistic D = `r round(ks_result$statistic, 3)` with p-value = `r signif(ks_result$p.value, 3)`. We
+`r if(ks_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ks_result$p.value < 0.05) "evidence that the distribution of recovery times differs between therapies." else "no evidence that the distributions differ."`
+
+::::
+
+<a id = "levene_test"></a>
+
+::::spoiler
+
+### Levene’s test for homoskedasticitet
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether multiple groups have equal variances.  
+* **Real-world example:** Checking if the variability in patient blood pressure differs between three different clinics.
+
+**Assumptions**
+
+* Observations are independent.  
+* The underlying distributions within each group are approximately symmetric (Levene’s test is robust to non-normality but assumes no extreme skew).
+
+**Strengths**
+* More robust to departures from normality than Bartlett’s test.  
+* Applicable to two or more groups.  
+* Simple to implement and interpret.
+
+**Weaknesses**
+* Less powerful than tests that assume normality when data truly are normal.  
+* Can be sensitive to extreme outliers despite its robustness.  
+* Does not indicate which groups differ in variance without follow-up comparisons.
+
+**Example**
+
+* **Null hypothesis (H₀):** All groups have equal variances (σ₁² = σ₂² = … = σₖ²).  
+* **Alternative hypothesis (H₁):** At least one group’s variance differs.
+
+```{r levene_test}
+# Simulate data for three groups (n = 10 each):
+set.seed(123)
+group   <- factor(rep(c("ClinicA", "ClinicB", "ClinicC"), each = 10))
+scores  <- c(rnorm(10, mean = 120, sd = 5),
+             rnorm(10, mean = 120, sd = 8),
+             rnorm(10, mean = 120, sd = 5))
+df      <- data.frame(group, scores)
+
+# Perform Levene’s test for homogeneity of variances:
+library(car)
+levene_result <- leveneTest(scores ~ group, data = df)
+
+# Show results:
+levene_result
+``` 
+
+**Interpretation:**
+
+Levene’s test yields an F-statistic of `r round(levene_result[["F value"]][1], 2)` 
+with a p-value of `r signif(levene_result[["Pr(>F)"]][1], 3)`. We
+`r if(levene_result[["Pr(>F)"]][1] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means there is
+`r if(levene_result[["Pr(>F)"]][1] < 0.05) "evidence that at least one clinic’s blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
+
+::::
+
+<a id = "bartlett_test"></a>
+
+::::spoiler
+
+### Bartlett’s test for homoskedasticitet
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether multiple groups have equal variances under the assumption of normality.  
+* **Real-world example:** Checking if the variability in laboratory test results differs across three different laboratories.
+
+**Assumptions**
+* Observations within each group are independent.  
+* Each group is drawn from a normally distributed population.  
+* Groups are independent of one another.
+
+**Strengths**
+* More powerful than Levene’s test when normality holds.  
+* Directly targets equality of variances under the normal model.  
+* Simple to compute in R via `bartlett.test()`.
+
+**Weaknesses**
+* Highly sensitive to departures from normality—small deviations can inflate Type I error.  
+* Does not indicate which groups differ without further pairwise testing.  
+* Not robust to outliers.
+
+**Example**
+
+* **Null hypothesis (H₀):** All group variances are equal (σ₁² = σ₂² = σ₃²).  
+* **Alternative hypothesis (H₁):** At least one group variance differs.
+
+```{r bartlett_test}
+# Simulate data for three laboratories (n = 12 each):
+set.seed(456)
+lab      <- factor(rep(c("LabA", "LabB", "LabC"), each = 12))
+values   <- c(rnorm(12, mean = 100, sd = 5),
+              rnorm(12, mean = 100, sd = 8),
+              rnorm(12, mean = 100, sd = 5))
+df       <- data.frame(lab, values)
+
+# Perform Bartlett’s test for homogeneity of variances:
+bartlett_result <- bartlett.test(values ~ lab, data = df)
+
+# Display results:
+bartlett_result
+```
+
+
+**Interpretation:**
+
+Bartlett’s K-squared = `r round(bartlett_result$statistic, 2)` with df = `r bartlett_result$parameter` and p-value = `r signif(bartlett_result$p.value, 3)`. We
+`r if(bartlett_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(bartlett_result$p.value < 0.05) "evidence that at least one laboratory’s variance differs from the others." else "no evidence that variances differ across laboratories."`
+
+
+::::
+
+
+
+## Variansanalyse (ANOVA/ANCOVA)
+
+<a id = "one_way_anova"></a>
+
+::::spoiler
+
+### One-way ANOVA
+
+EJ KORREKTURLÆST
+
+SAMMENHOLD MED [undervisningsudgaven](anova.Rmd)
+
+* **Used for** Testing whether the means of three or more independent groups differ.  
+* **Real-world example:** Comparing average test scores among students taught by three different teaching methods.
+
+**Assumptions**
+* Observations are independent.  
+* Each group’s residuals are approximately normally distributed.  
+* Homogeneity of variances across groups.
+
+**Strengths**
+* Controls Type I error rate when comparing multiple groups.  
+* Simple to compute and interpret via F-statistic.  
+* Foundation for many extensions (e.g., factorial ANOVA, mixed models).
+
+**Weaknesses**
+* Sensitive to heterogeneity of variances, especially with unequal group sizes.  
+* Only tells you that at least one mean differs—does not indicate which groups differ without post-hoc tests.  
+* Assumes normality; moderately robust for large samples, but small samples can be problematic.
+
+**Example**
+
+* **Null hypothesis (H₀):** μ₁ = μ₂ = μ₃ (all three group means are equal).  
+* **Alternative hypothesis (H₁):** At least one group mean differs.
+
+```{r one_way_anova}
+# Simulate exam scores for three teaching methods (n = 20 each):
+set.seed(2025)
+method <- factor(rep(c("Lecture", "Online", "Hybrid"), each = 20))
+scores <- c(rnorm(20, mean = 75, sd = 8),
+            rnorm(20, mean = 80, sd = 8),
+            rnorm(20, mean = 78, sd = 8))
+df     <- data.frame(method, scores)
+
+# Fit one-way ANOVA:
+anova_fit <- aov(scores ~ method, data = df)
+
+# Summarize ANOVA table:
+anova_summary <- summary(anova_fit)
+anova_summary
+```
+
+**Interpretation:**
+
+The ANOVA yields F = `r round(anova_summary[[1]]["method","F value"], 2)` with df₁ =` r anova_summary[[1]]["method","Df"]` and df₂ =` r anova_summary[[1]]["Residuals","Df"]`, and p-value = `r signif(anova_summary[[1]]["method","Pr(>F)"], 3)`. We
+`r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(anova_summary[[1]]["method","Pr(>F)"] < 0.05) "evidence that at least one teaching method yields a different average score." else "no evidence of a difference in mean scores among methods."`
+
+::::
+
+<a id = "one_way_ancova"></a>
+
+::::spoiler
+### One-way ANCOVA
+
+EJ KORREKTURLÆST
+
+* **Used for** Comparing group means on a continuous outcome while adjusting for one continuous covariate.  
+* **Real-world example:** Evaluating whether three different teaching methods lead to different final exam scores after accounting for students’ prior GPA.
+
+**Assumptions**
+* Observations are independent.  
+* The relationship between the covariate and the outcome is linear and the same across groups (homogeneity of regression slopes).  
+* Residuals are normally distributed with equal variances across groups.  
+* Covariate is measured without error and is independent of group assignment.
+
+**Strengths**
+* Removes variability due to the covariate, increasing power to detect group differences.  
+* Controls for confounding by the covariate.  
+* Simple extension of one-way ANOVA with interpretation familiar to ANOVA users.
+
+**Weaknesses**
+* Sensitive to violation of homogeneity of regression slopes.  
+* Mis‐specification of the covariate‐outcome relationship biases results.  
+* Requires accurate measurement of the covariate.  
+* Does not accommodate multiple covariates without extension to factorial ANCOVA or regression.
+
+**Example**
+
+* **Null hypothesis (H₀):** After adjusting for prior GPA, the mean final exam scores are equal across the three teaching methods (μ_Lecture = μ_Online = μ_Hybrid).  
+* **Alternative hypothesis (H₁):** At least one adjusted group mean differs.
+
+```{r one_way_ancova}
+set.seed(2025)
+n <- 20
+method <- factor(rep(c("Lecture","Online","Hybrid"), each = n))
+prior_gpa <- rnorm(3*n, mean = 3.0, sd = 0.3)
+
+# Simulate final exam scores with a covariate effect:
+# true intercepts 75, 78, 80; slope = 5 points per GPA unit; noise sd = 5
+final_score <- 75 + 
+               ifelse(method=="Online", 3, 0) + 
+               ifelse(method=="Hybrid", 5, 0) + 
+               5 * prior_gpa + 
+               rnorm(3*n, sd = 5)
+
+df <- data.frame(method, prior_gpa, final_score)
+
+# Fit one-way ANCOVA:
+ancova_fit <- aov(final_score ~ prior_gpa + method, data = df)
+ancova_summary <- summary(ancova_fit)
+ancova_summary
+```
+
+**Interpretation:**
+
+After adjusting for prior GPA, the effect of teaching method yields F = `r round(ancova_summary[[1]]["method","F value"], 2)` (df₁ =` r ancova_summary[[1]]["method","Df"]`, df₂ =` r ancova_summary[[1]]["Residuals","Df"]`) with p =` r signif(ancova_summary[[1]]["method","Pr(>F)"], 3`). We
+`r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ancova_summary[[1]]["method","Pr(>F)"] < 0.05) "evidence that, controlling for prior GPA, at least one teaching method leads to a different average final score." else "no evidence of differences in final exam scores among methods after adjustment."`.
+
+
+
+::::
+
+<a id = "welchs_anova"></a>
+
+::::spoiler
+
+### Welch’s ANOVA (uden antagelse om lige varianser)
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the means of three or more independent groups differ when variances are unequal.  
+* **Real-world example:** Comparing average systolic blood pressure across three clinics known to have different measurement variability.
+
+**Assumptions**
+* Observations are independent.  
+* Each group’s residuals are approximately normally distributed.  
+* Does **not** assume equal variances across groups.
+
+**Strengths**
+* Controls Type I error under heteroskedasticity better than ordinary ANOVA.  
+* Simple to implement via `oneway.test(..., var.equal = FALSE)`.  
+* More powerful than nonparametric alternatives when normality holds.
+
+**Weaknesses**
+* Sensitive to departures from normality, especially with small sample sizes.  
+* Does not provide post-hoc comparisons by default; requires additional tests.  
+* Still assumes independence and approximate normality within each group.
+
+**Example**
+
+* **Null hypothesis (H₀):** All group means are equal (μ₁ = μ₂ = μ₃).  
+* **Alternative hypothesis (H₁):** At least one group mean differs.
+
+```{r welchs_anova}
+set.seed(2025)
+# Simulate systolic BP (mmHg) for three clinics with unequal variances:
+clinic   <- factor(rep(c("A","B","C"), times = c(15, 20, 12)))
+bp_values <- c(
+  rnorm(15, mean = 120, sd = 5),
+  rnorm(20, mean = 125, sd = 10),
+  rnorm(12, mean = 118, sd = 7)
+)
+df <- data.frame(clinic, bp_values)
+
+# Perform Welch’s one-way ANOVA:
+welch_result <- oneway.test(bp_values ~ clinic, data = df, var.equal = FALSE)
+
+# Display results:
+welch_result
+```
+
+**Interpretation:**
+
+The Welch statistic = `r round(welch_result$statistic, 2)` with df ≈ `r round(welch_result$parameter, 2)`, and p-value = `r signif(welch_result$p.value, 3)`. We
+`r if(welch_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(welch_result$p.value < 0.05) "evidence that mean blood pressure differs across the clinics." else "no evidence of a difference in mean blood pressure among the clinics."`
+
+::::
+
+<a id = "repeated_measures_anova"></a>
+
+::::spoiler
+
+### Repeated-measures ANOVA
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the means of three or more related (within‐subject) conditions differ.  
+* **Real-world example:** Assessing whether students’ reaction times change across three levels of sleep deprivation (0 h, 12 h, 24 h) measured on the same individuals.
+
+**Assumptions**
+* Observations (subjects) are independent.  
+* The dependent variable is approximately normally distributed in each condition.  
+* **Sphericity:** variances of the pairwise differences between conditions are equal.
+
+**Strengths**
+* Controls for between‐subject variability by using each subject as their own control.  
+* More powerful than independent‐groups ANOVA when measures are correlated.  
+* Can model complex within‐subject designs (e.g. time × treatment interactions).
+
+**Weaknesses**
+* Sensitive to violations of sphericity (inflates Type I error).  
+* Missing data in any condition drops the entire subject (unless using more advanced mixed‐model methods).  
+* Interpretation can be complex when there are many levels or interactions.
+
+**Example**
+
+* **Null hypothesis (H₀):** The mean reaction time is the same across 0 h, 12 h, and 24 h sleep deprivation.  
+* **Alternative hypothesis (H₁):** At least one condition’s mean reaction time differs.
+
+```{r repeated_measures_anova}
+set.seed(2025)
+n_subj <- 12
+subject <- factor(rep(1:n_subj, each = 3))
+condition <- factor(rep(c("0h","12h","24h"), times = n_subj))
+# Simulate reaction times (ms):
+rt <- c(rnorm(n_subj, mean = 300, sd = 20),
+        rnorm(n_subj, mean = 320, sd = 20),
+        rnorm(n_subj, mean = 340, sd = 20))
+df <- data.frame(subject, condition, rt)
+
+# Fit repeated-measures ANOVA:
+rm_fit <- aov(rt ~ condition + Error(subject/condition), data = df)
+rm_summary <- summary(rm_fit)
+
+# Display results:
+rm_summary
+```
+
+**Interpretation:**
+
+The within‐subjects effect of sleep deprivation yields F =  `r round(rm_summary[[2]][[1]]["condition","F value"], 2)` with df₁ = `r rm_summary[[2]][[1]]["condition","Df"]` and df₂ = `r
+rm_summary[[2]][[1]]["Residuals","Df"]`, p = `r signif(rm_summary[[2]][[1]]["condition","Pr(>F)"], 3)`. We
+`r if(rm_summary[[2]][[1]]["condition","Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(rm_summary[[2]][[1]]["condition","Pr(>F)"] < 0.05) "evidence that reaction times differ across levels of sleep deprivation." else "no evidence that reaction times differ across sleep deprivation conditions."`
+
+
+::::
+
+<a id = "manova"></a>
+
+::::spoiler
+
+### MANOVA
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing for differences on multiple continuous dependent variables across one or more grouping factors simultaneously.  
+* **Real-world example:** Evaluating whether three different diets lead to different patterns of weight loss and cholesterol reduction.
+
+**Assumptions**
+* Multivariate normality of the dependent variables within each group.  
+* Homogeneity of covariance matrices across groups.  
+* Observations are independent.  
+* Linear relationships among dependent variables.
+
+**Strengths**
+* Controls family-wise Type I error by testing all DVs together.  
+* Can detect patterns that univariate ANOVAs might miss.  
+* Provides multiple test statistics (Pillai, Wilks, Hotelling–Lawley, Roy) for flexibility.
+
+**Weaknesses**
+* Sensitive to violations of multivariate normality and homogeneity of covariances.  
+* Requires larger sample sizes as the number of DVs increases.  
+* Interpretation can be complex; follow-up analyses often needed to determine which DVs drive effects.
+
+**Example**
+
+* **Null hypothesis (H₀):** The vector of means for weight loss and cholesterol change is equal across the three diet groups.  
+* **Alternative hypothesis (H₁):** At least one diet group differs on the combination of weight loss and cholesterol change.
+
+```{r manova}
+set.seed(2025)
+n_per_group <- 15
+diet <- factor(rep(c("LowFat", "LowCarb", "Mediterranean"), each = n_per_group))
+
+# Simulate outcomes:
+weight_loss <- c(rnorm(n_per_group, mean = 5,  sd = 1.5),
+                 rnorm(n_per_group, mean = 8,  sd = 1.5),
+                 rnorm(n_per_group, mean = 7,  sd = 1.5))
+cholesterol  <- c(rnorm(n_per_group, mean = 10, sd = 2),
+                 rnorm(n_per_group, mean = 12, sd = 2),
+                 rnorm(n_per_group, mean = 9,  sd = 2))
+
+df <- data.frame(diet, weight_loss, cholesterol)
+
+# Fit MANOVA:
+manova_fit <- manova(cbind(weight_loss, cholesterol) ~ diet, data = df)
+
+# Summarize using Pillai’s trace:
+manova_summary <- summary(manova_fit, test = "Pillai")
+manova_summary
+```
+
+**Interpretation:**
+
+Pillai’s trace = `r round(manova_summary$stats[1,"Pillai"], 3)`, F = `r round(manova_summary$stats[1,"approx F"], 2)` with df = `r manova_summary$stats[2,"Df"]`, and p-value = `r signif(manova_summary$stats[1, "Pr(>F)"], 3)`. We
+`r if(manova_summary$stats[1, "Pr(>F)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that there is
+
+`r if(manova_summary$stats[1,"Pr(>F)"] < 0.05) "a significant multivariate effect of diet on weight loss and cholesterol change." else "no multivariate evidence that the diets differ on the combined outcomes."`
+
+
+
+Pillai?
+
+
+Der er fire almindeligt brugte taststatistikker i MANOVA. Pillai, Wilks' lambd,
+Hotelling-Lawleys trace og Roys largest root.
+
+Pillai’s trace (også kaldet Pillai–Bartlett’s trace) er én af fire almindeligt brugte multivariate test-statistikker i MANOVA (ud over Wilks’ lambda, Hotelling–Lawley’s trace og Roy’s largest root). Kort om Pillai:
+
+Definition: Summen af egenværdierne divideret med (1 + egenværdierne) for hver kanonisk variabel. Det giver en samlet målestok for, hvor stor en andel af den totale variation der forklares af gruppetilhørsforholdet på tværs af alle afhængige variable.
+
+Fortolkning: Højere Pillai-værdi (op til 1) indikerer stærkere multivariat effekt.
+
+Hvorfor vælge Pillai?
+
+Robusthed: Pillai’s trace er den mest robuste over for overtrædelser af antagelserne om homogen kovarians og multivariat normalitet. Hvis dine data har ulige gruppe-størrelser eller let skæve fordelinger, er Pillai ofte det sikreste valg.
+
+Type I-kontrol: Den holder typisk kontrol med falsk positive (Type I-fejl) bedre end de andre, når antagelser brydes.
+
+Er det altid det bedste valg?
+
+Ikke nødvendigvis. Hvis dine data strengt opfylder antagelserne (multivariat normalitet, homogen kovarians og rimeligt store, ensartede grupper), kan de andre statistikker være mere “kraftfulde” (dvs. give større chance for at opdage en ægte effekt).
+
+Wilks’ lambda er mest brugt i traditionel litteratur og har ofte god power under idéelle forhold.
+
+Hotelling–Lawley’s trace kan være særligt følsom, når få kanoniske dimensioner bærer meget af effekten.
+
+Roy’s largest root er ekstremt kraftfuld, hvis kun én kanonisk variabel adskiller grupperne, men er også mest sårbar gruppe-størrelser.over for antagelsesovertrædelser.
+
+Kort anbefaling:
+
+Brug Pillai’s trace som standard, især hvis du er usikker på antagelsesopfyldelsen eller har små/ulige 
+
+Overvej Wilks’ lambda eller andre, hvis dine data opfylder alle antagelser solidt, og du ønsker maksimal statistisk power.
+
+Tjek altid flere tests; hvis de konkluderer ens, styrker det din konklusion.
+
+
+#### Wilks’ lambda  
+- **Definition:** Ratio of the determinant of the within‐groups SSCP (sum of squares and cross‐products) matrix to the determinant of the total SSCP matrix:  
+  \[
+    \Lambda = \frac{\det(W)}{\det(T)} = \prod_{i=1}^s \frac{1}{1 + \lambda_i}
+  \]  
+  hvor \(\lambda_i\) er de canoniske egenværdier.  
+- **Fortolkning:** Værdier nær 0 indikerer stor multivariat effekt (mellem‐grupper‐variation >> inden‐gruppe‐variation), værdier nær 1 indikerer lille eller ingen effekt.  
+- **Styrker:**  
+  - Klassisk og mest udbredt i litteraturen.  
+  - God power under ideal antagelsesopfyldelse (multivariat normalitet, homogene kovarianser).  
+- **Svagheder:**  
+  - Mindre robust ved skæve fordelinger eller ulige gruppe‐størrelser.  
+  - Kan undervurdere effektstørrelse, hvis én eller flere kanoniske variabler bærer effekten ujævnt.  
+- **Anbefaling:**  
+  - Brug Wilks’ lambda, når du er sikker på, at antagelserne er opfyldt, og du ønsker en velkendt statistisk test med god power under idealforhold.
+
+#### Hotelling–Lawley’s trace  
+- **Definition:** Summen af de canoniske egenværdier:  
+  \[
+    T = \sum_{i=1}^s \lambda_i
+  \]  
+- **Fortolkning:** Højere værdi betyder større samlet multivariat effekt.  
+- **Styrker:**  
+  - Sensitiv over for effekter fordelt over flere kanoniske dimensioner.  
+  - Kan være mere kraftfuld end Wilks’ lambda, hvis flere dimensioner bidrager til forskellen.  
+- **Svagheder:**  
+  - Mindre robust over for antagelsesbrud end Pillai’s trace.  
+  - Kan overvurdere effektstørrelse, hvis én dimension dominerer kraftigt.  
+- **Anbefaling:**  
+  - Overvej Hotelling–Lawley’s trace, når du forventer, at effekten spreder sig over flere kanoniske variabler, og antagelserne er rimeligt dækket.
+
+#### Roy’s largest root  
+- **Definition:** Den største canoniske egenværdi alene:  
+  \[
+    \Theta = \max_i \lambda_i
+  \]  
+- **Fortolkning:** Måler den stærkeste enkeltdimensionseffekt.  
+- **Styrker:**  
+  - Højest power, når én kanonisk variabel står for størstedelen af gruppedifferensen.  
+  - Let at beregne og fortolke, hvis fokus er på “den stærkeste effekt”.  
+- **Svagheder:**  
+  - Meget følsom over for antagelsesbrud (normalitet, homogene kovarianser).  
+  - Ikke informativ, hvis flere dimensioner bidrager jævnt.  
+- **Anbefaling:**  
+  - Brug Roy’s largest root, når du har en stærk a priori mistanke om én dominerende kanonisk dimension og er komfortabel med forudsætningerne.
+
+**Tips:** Sammenlign altid flere test‐statistikker – hvis de peger i samme retning, styrker det din konklusion. Pillai’s trace er generelt mest robust, Wilks’ lambda mest almindelig, Hotelling–Lawley god til flere dimensioner, og Roy’s largest root bedst, når én dimension dominerer.  
+
+
+::::
+
+<a id = "friedman_test"></a>
+
+::::spoiler
+
+### Friedman test (nonparametrisk gentagne målinger)
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing for differences in central tendency across three or more related (paired) groups when assumptions of repeated‐measures ANOVA are violated.  
+* **Real-world example:** Comparing median pain scores at baseline, 1 hour, and 24 hours after surgery in the same patients.
+
+**Assumptions**
+* Observations are paired and the sets of scores for each condition are related (e.g., repeated measures on the same subjects).  
+* Data are at least ordinal.  
+* The distribution of differences across pairs need not be normal.
+
+**Strengths**
+* Nonparametric: does not require normality or sphericity.  
+* Controls for between‐subject variability by using each subject as their own block.  
+* Robust to outliers and skewed data.
+
+**Weaknesses**
+* Less powerful than repeated‐measures ANOVA when normality and sphericity hold.  
+* Only indicates that at least one condition differs—post‐hoc tests are needed to locate differences.  
+* Assumes similar shaped distributions across conditions.
+
+**Example**
+
+* **Null hypothesis (H₀):** The distributions of scores are the same across all conditions (no median differences).  
+* **Alternative hypothesis (H₁):** At least one condition’s distribution (median) differs.
+
+```{r friedman_test}
+# Simulate pain scores (0–10) for 12 patients at 3 time points:
+set.seed(2025)
+patient   <- factor(rep(1:12, each = 3))
+timepoint <- factor(rep(c("Baseline","1hr","24hr"), times = 12))
+scores    <- c(
+  rpois(12, lambda = 5),   # Baseline
+  rpois(12, lambda = 3),   # 1 hour post-op
+  rpois(12, lambda = 4)    # 24 hours post-op
+)
+df <- data.frame(patient, timepoint, scores)
+
+# Perform Friedman test:
+friedman_result <- friedman.test(scores ~ timepoint | patient, data = df)
+
+# Display results:
+friedman_result
+```
+
+**Interpretation:**
+
+The Friedman chi-squared = `r round(friedman_result$statistic, 2)` with df = `r friedman_result$parameter` and p-value = `r signif(friedman_result$p.value, 3)`. We
+`r if(friedman_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(friedman_result$p.value < 0.05) "evidence that pain scores differ across at least one time point." else "no evidence that pain scores differ across time points."`
+
+::::
+
+<a id = "tukey_hsd"></a>
+
+::::spoiler
+
+### Post-hoc: Tukey HSD
+
+EJ KORREKTURLÆST
+
+* **Used for** Performing pairwise comparisons of group means after a significant one‐way ANOVA to identify which *roups differ.  
+* **Real-world example:** Determining which teaching methods (Lecture, Online, Hybrid) differ in average exam scores after finding an overall effect.
+
+**Assumptions**
+* A significant one‐way ANOVA has been obtained.  
+* Observations are independent.  
+* Residuals from the ANOVA are approximately normally distributed.  
+* Homogeneity of variances across groups (though Tukey’s HSD is fairly robust).
+
+**Strengths**
+* Controls the family‐wise error rate across all pairwise tests.  
+* Provides confidence intervals for each mean difference.  
+* Widely available and simple to interpret.
+
+**Weaknesses**
+* Requires balanced or nearly balanced designs for optimal power.  
+* Less powerful than some alternatives if variances are highly unequal.  
+* Only applies after a significant omnibus ANOVA.
+
+**Example**
+
+* **Null hypothesis (H₀):** All pairwise mean differences between teaching methods are zero (e.g., μ_Lecture – μ_Online = 0, etc.).  
+* **Alternative hypothesis (H₁):** At least one pairwise mean difference ≠ 0.
+
+```{r tukey_hsd}
+set.seed(2025)
+# Simulate exam scores for three teaching methods (n = 20 each):
+method <- factor(rep(c("Lecture", "Online", "Hybrid"), each = 20))
+scores <- c(rnorm(20, mean = 75, sd = 8),
+            rnorm(20, mean = 80, sd = 8),
+            rnorm(20, mean = 78, sd = 8))
+df     <- data.frame(method, scores)
+
+# Fit one-way ANOVA:
+anova_fit <- aov(scores ~ method, data = df)
+
+# Perform Tukey HSD post-hoc:
+tukey_result <- TukeyHSD(anova_fit, "method")
+
+# Display results:
+tukey_result
+```
+
+**Interpretation:**
+
+Each row of the output gives the estimated difference in means, a 95% confidence 
+interval, and an adjusted p‐value. For example, if the Lecture–Online comparison shows a mean difference of –5.0 (95% CI: –8.0 to –2.0, p adj = 0.002), we conclude that the Online method yields significantly higher scores than Lecture. Comparisons with p adj < 0.05 indicate significant mean differences between those teaching methods.
+
+::::
+
+<a id = "dunnett_test"></a>
+
+::::spoiler
+
+### Post-hoc: Dunnett’s test
+
+EJ KORREKTURLÆST
+
+* **Used for** Comparing multiple treatment groups to a single control while controlling the family‐wise error rate.  
+* **Real-world example:** Testing whether two new fertilizers (Fertilizer A, Fertilizer B) improve crop yield compared to the standard fertilizer (Control).
+
+**Assumptions**
+* Observations are independent.  
+* Residuals from the ANOVA are approximately normally distributed.  
+* Homogeneity of variances across groups.  
+* A significant overall ANOVA (omnibus F-test) has been observed or intended.
+
+**Strengths**
+* Controls the family-wise error rate when making multiple comparisons to a control.  
+* More powerful than Tukey HSD when only control comparisons are of interest.  
+* Provides simultaneous confidence intervals and adjusted p-values.
+
+**Weaknesses**
+* Only compares each group to the control; does not test all pairwise contrasts.  
+* Sensitive to violations of normality and homogeneity of variances.  
+* Requires a pre-specified control group.
+
+**Example**
+
+* **Null hypothesis (H₀):** Each treatment mean equals the control mean (e.g., μ_A = μ_Control, μ_B = μ_Control).  
+* **Alternative hypothesis (H₁):** At least one treatment mean differs from the control mean (e.g., μ_A ≠ μ_Control, μ_B ≠ μ_Control).
+
+```{r dunnett_test}
+# Simulate crop yields (kg/plot) for Control and two new fertilizers:
+set.seed(2025)
+treatment <- factor(rep(c("Control", "FertilizerA", "FertilizerB"), each = 20))
+yield     <- c(
+  rnorm(20, mean = 50, sd = 5),   # Control
+  rnorm(20, mean = 55, sd = 5),   # Fertilizer A
+  rnorm(20, mean = 53, sd = 5)    # Fertilizer B
+)
+df <- data.frame(treatment, yield)
+
+# Fit one-way ANOVA:
+fit_anova <- aov(yield ~ treatment, data = df)
+
+# Perform Dunnett's test (each treatment vs. Control):
+library(multcomp)
+dunnett_result <- glht(fit_anova, linfct = mcp(treatment = "Dunnett"))
+
+# Summary with adjusted p-values:
+summary(dunnett_result)
+confint(dunnett_result)
+```
+
+**Interpretation:**
+The Dunnett contrasts compare each fertilizer to Control. For example, if the contrast FertilizerA–Control shows an estimate of r round(coef(dunnett_result)[1], 2) kg with a 95% simultaneous CI [`r round(confint(dunnett_result)$confint[1,1], 2)`, `r round(confint(dunnett_result)$confint[1,2], 2)`] and adjusted p-value = `r signif(summary(dunnett_result)$test$pvalues[1], 3)`, we
+`r if(summary(dunnett_result)$test$pvalues[1] < 0.05) "reject the null for Fertilizer A vs. Control—i.e., Fertilizer A yields significantly different crop output." else "fail to reject the null for Fertilizer A vs. Control."`
+Similarly, for FertilizerB vs. Control (contrast index 2), the estimate is `r round(coef(dunnett_result)[2], 2)` kg (CI [`r round(confint(dunnett_result)$confint[2,1], 2)`, `r round(confint(dunnett_result)$confint[2,2], 2)`], p-value = `r signif(summary(dunnett_result)$test$pvalues[2], 3)`, so we
+`r if(summary(dunnett_result)$test$pvalues[2] < 0.05) "reject the null for Fertilizer B vs. Control." else "fail to reject the null for Fertilizer B vs. Control."`
+
+::::
+
+<a id = "bonferroni_correction"></a>
+
+::::spoiler
+
+### Post-hoc: Bonferroni korrektion
+
+EJ KORREKTURLÆST
+
+* **Used for** Adjusting p-values when performing multiple hypothesis tests to control the family-wise error rate.  
+* **Real-world example:** Comparing mean blood pressure between four different diets with all six pairwise t-tests, using Bonferroni to adjust for multiple comparisons.
+
+**Assumptions**
+* The individual tests (e.g., pairwise t-tests) satisfy their own assumptions (independence, normality, equal variances if applicable).  
+* Tests are independent or positively dependent (Bonferroni remains valid under any dependency but can be conservative).
+
+**Strengths**
+* Simple to calculate: multiply each p-value by the number of comparisons.  
+* Guarantees control of the family-wise error rate at the chosen α level.  
+* Applicable to any set of p-values regardless of test type.
+
+**Weaknesses**
+* Very conservative when many comparisons are made, reducing power.  
+* Can inflate Type II error (miss true effects), especially with large numbers of tests.  
+* Does not take into account the magnitude of dependency among tests.
+
+**Example**
+
+* **Null hypotheses (H₀):** For each pair of diets, the mean blood pressure is equal (e.g., μ_A = μ_B, μ_A = μ_C, …).  
+* **Alternative hypotheses (H₁):** For at least one pair, the means differ.
+
+```{r bonferroni_correction}
+set.seed(2025)
+# Simulate blood pressure for four diet groups (n = 15 each):
+diet  <- factor(rep(c("A","B","C","D"), each = 15))
+bp    <- c(
+  rnorm(15, mean = 120, sd = 8),
+  rnorm(15, mean = 125, sd = 8),
+  rnorm(15, mean = 130, sd = 8),
+  rnorm(15, mean = 135, sd = 8)
+)
+
+# Perform all pairwise t-tests with Bonferroni adjustment:
+pairwise_result <- pairwise.t.test(bp, diet, p.adjust.method = "bonferroni")
+
+# Display results:
+pairwise_result
+```
+
+**Interpretation:**
+
+The output shows adjusted p-values for each pair of diets. For example, if the A vs D comparison has p adj = 0.004 (< 0.05), we reject H₀ for that pair and conclude a significant mean difference. Comparisons with p adj ≥ 0.05 fail to reject H₀, indicating no evidence of difference after correction.
+
+::::
+
+
+
+## Ikke-parametriske k-prøve-tests
+
+<a id = "kruskal_wallis_test"></a>
+
+::::spoiler
+
+### Kruskal–Wallis test
+
+EJ KORREKTURLÆST
+
+* **Used for** Comparing the central tendency of three or more independent groups when the outcome is ordinal or not normally distributed.  
+* **Real-world example:** Testing whether median pain scores differ across four treatment groups in a clinical trial when scores are skewed.
+
+**Assumptions**
+* Observations are independent both within and between groups.  
+* The response variable is at least ordinal.  
+* The distributions of the groups have the same shape (so differences reflect shifts in location).
+
+**Strengths**
+* Nonparametric: does not require normality or equal variances.  
+* Handles ordinal data and skewed continuous data.  
+* Controls Type I error when comparing multiple groups without assuming normality.
+
+**Weaknesses**
+* Less powerful than one-way ANOVA when normality holds.  
+* If group distributions differ in shape, interpretation of a location shift is ambiguous.  
+* Only indicates that at least one group differs—post-hoc tests needed to identify which.
+
+**Example**
+
+* **Null hypothesis (H₀):** The distributions (medians) of the four treatment groups are equal.  
+* **Alternative hypothesis (H₁):** At least one group’s median pain score differs.
+
+```{r kruskal_wallis_test}
+# Simulate pain scores (0–10) for four treatment groups (n = 15 each):
+set.seed(2025)
+group <- factor(rep(c("Placebo","DrugA","DrugB","DrugC"), each = 15))
+scores <- c(
+  rpois(15, lambda = 5),   # Placebo
+  rpois(15, lambda = 4),   # Drug A
+  rpois(15, lambda = 3),   # Drug B
+  rpois(15, lambda = 2)    # Drug C
+)
+df <- data.frame(group, scores)
+
+# Perform Kruskal–Wallis rank‐sum test:
+kw_result <- kruskal.test(scores ~ group, data = df)
+
+# Display results:
+kw_result
+```
+
+**Interpretation:**
+
+The Kruskal–Wallis chi-squared = `r round(kw_result$statistic, 2)` with df = `r kw_result$parameter` and p-value = `r signif(kw_result$p.value, 3)`. We
+`r if(kw_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(kw_result$p.value < 0.05) "evidence that at least one treatment group’s median pain score differs." else "no evidence of a difference in median pain scores among the groups."`
+
+
+::::
+
+
+<a id = "rank_correlation"></a>
+
+::::spoiler
+
+### Rank correlation
+
+EJ KORREKTURLÆST HAV SÆRLIGT FOKUS PÅ OM DER ER FORSKEL PÅ DENNE OG
+SPEARMAN-RANK CORRELATION SENERE
+
+* **Used for** Assessing the strength and direction of a monotonic association between two variables using their ranks.  
+* **Real-world example:** Evaluating whether patients’ pain rankings correlate with their anxiety rankings.
+
+**Assumptions**
+* Observations are independent.  
+* Variables are at least ordinal.  
+* The relationship is monotonic (but not necessarily linear).
+
+**Strengths**
+* Nonparametric: does not require normality.  
+* Robust to outliers in the original measurements.  
+* Captures any monotonic relationship, not limited to linear.
+
+**Weaknesses**
+* Less powerful than Pearson’s correlation when data are bivariate normal and relationship is linear.  
+* Does not distinguish between different monotonic shapes (e.g., concave vs. convex).  
+* Ties reduce the effective sample size and complicate exact p-value calculation.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** There is no monotonic association between X and Y (ρ = 0).  
+* **Alternative hypothesis (H₁):** There is a nonzero monotonic association (ρ ≠ 0).
+
+```{r rank_correlation}
+# Simulate two variables with a monotonic relationship:
+set.seed(2025)
+x <- sample(1:100, 30)
+y <- x + rnorm(30, sd = 10)               # roughly increasing with x
+# Perform Spearman rank correlation test:
+spearman_result <- cor.test(x, y, method = "spearman", exact = FALSE)
+# Display results:
+spearman_result
+```
+
+**Interpretation:**
+
+Spearman’s ρ = `r round(spearman_result$estimate, 3)` with p-value = `r signif(spearman_result$p.value, 3)`. We
+`r if(spearman_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(spearman_result$p.value < 0.05) "evidence of a monotonic association between X and Y." else "no evidence of a monotonic association between X and Y."`
+
+::::
+
+<a id = "anderson_darling_test"></a>
+
+::::spoiler
+
+### Anderson–Darling test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether a sample comes from a specified continuous distribution (most commonly normal).  
+* **Real-world example:** Checking if daily measurement errors from a laboratory instrument follow a normal distribution.
+
+**Assumptions**
+* Observations are independent.  
+* Data are continuous (no excessive ties).  
+* For goodness‐of‐fit to a non‐normal distribution (e.g. exponential), the distribution’s parameters must be fully specified a priori.
+
+**Strengths**
+* More sensitive than the Shapiro–Wilk test to departures in the tails of the distribution.  
+* Applicable to a wide range of target distributions (with the appropriate implementation).  
+* Provides both a test statistic (A²) and p-value.
+
+**Weaknesses**
+* Very sensitive in large samples—small deviations can yield significant results.  
+* If parameters are estimated from the data (e.g. normal mean/SD), p-values may be conservative.  
+* Does not indicate the form of the departure (e.g. skew vs. kurtosis).
+
+**Example**
+
+* **Null hypothesis (H₀):** The sample is drawn from a Normal distribution.  
+* **Alternative hypothesis (H₁):** The sample is not drawn from a Normal distribution.
+
+```{r anderson_darling_test}
+# Install and load nortest if necessary:
+# install.packages("nortest")
+library(nortest)
+
+# Simulate a sample of 40 observations:
+set.seed(123)
+sample_data <- rnorm(40, mean = 100, sd = 15)
+
+# Perform Anderson–Darling test for normality:
+ad_result <- ad.test(sample_data)
+
+# Display results:
+ad_result
+```
+
+**Interpretation:**
+
+The Anderson–Darling statistic A² = `r round(ad_result$statistic, 3)` with p-value = `r signif(ad_result$p.value, 3)`. We
+`r if(ad_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(ad_result$p.value < 0.05) "evidence that the data deviate from normality." else "no evidence to conclude a departure from normality."`
+
+
+::::
+
+
+
+
+## Regression og korrelation
+
+
+<a id = "simple_linear_regression"></a>
+
+::::spoiler
+
+### Simple linear regression
+
+EJ KORREKTURLÆST
+
+* **Used for**
+* Modeling and quantifying the linear relationship between a continuous predictor and a continuous outcome.  
+* **Real-world example:** Predicting house sale price based on living area in square feet.
+
+**Assumptions**
+* A linear relationship between predictor and outcome.  
+* Residuals are independent and normally distributed with mean zero.  
+* Homoscedasticity: constant variance of residuals across values of the predictor.  
+* No influential outliers or high-leverage points.
+
+**Strengths**
+* Provides an interpretable estimate of the change in outcome per unit change in predictor.  
+* Inference on slope and intercept via hypothesis tests and confidence intervals.  
+* Basis for more complex regression models and diagnostics.
+
+**Weaknesses**
+* Only captures linear patterns; will miss nonlinear relationships.  
+* Sensitive to outliers, which can distort estimates and inference.  
+* Extrapolation beyond observed predictor range is unreliable.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** The slope β₁ = 0 (no linear association between x and y).  
+* **Alternative hypothesis (H₁):** β₁ ≠ 0 (a linear association exists).
+
+```{r simple_linear_regression}
+set.seed(2025)
+# Simulate data:
+n <- 50
+x <- runif(n, min = 0, max = 10)
+y <- 2 + 1.5 * x + rnorm(n, sd = 2)
+df <- data.frame(x, y)
+
+# Fit simple linear regression:
+model <- lm(y ~ x, data = df)
+
+# Show summary of model:
+summary(model)
+
+# Plot data with regression line:
+library(ggplot2)
+ggplot(df, aes(x = x, y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Simple Linear Regression of y on x",
+       x = "Predictor (x)",
+       y = "Outcome (y)")
+```
+
+**Interpretation:**
+The estimated slope is `r round(coef(model)[2], 3)`, with a p-value of `r signif(summary(model)$coefficients[2,4], 3)`. We
+`r if(summary(model)$coefficients[2,4] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`,
+indicating that there is
+`r if(summary(model)$coefficients[2,4] < 0.05) "evidence of a significant linear association between x and y." else "no evidence of a linear association between x and y."`
+
+::::
+
+<a id = "multiple_regression"></a>
+
+::::spoiler
+
+### Multiple regression
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling the relationship between one continuous outcome and two or more predictors (continuous or categorical).  
+* **Real-world example:** Predicting house sale price based on living area, number of bedrooms, and neighborhood quality.
+
+**Assumptions**
+* Correct specification: linear relationship between each predictor and the outcome (additivity).  
+* Residuals are independent and normally distributed with mean zero.  
+* Homoscedasticity: constant variance of residuals for all predictor values.  
+* No perfect multicollinearity among predictors.  
+* No influential outliers unduly affecting the model.
+
+**Strengths**
+* Can adjust for multiple confounders or risk factors simultaneously.  
+* Provides estimates and inference (CI, p-values) for each predictor’s unique association with the outcome.  
+* Basis for variable selection, prediction, and causal modeling in observational data.
+
+**Weaknesses**
+* Sensitive to multicollinearity, which inflates variances of coefficient estimates.  
+* Assumes a linear, additive form; interactions or nonlinearity require extension.  
+* Outliers and high-leverage points can distort estimates and inference.  
+* Interpretation can be complex when including many predictors or interactions.
+
+**Example**
+
+* **Null hypothesis (H₀):** All regression coefficients for predictors (β₁, β₂, β₃) are zero (no association).  
+* **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0.
+
+```{r multiple_regression}
+set.seed(2025)
+n <- 100
+# Simulate predictors:
+living_area     <- runif(n, 800, 3500)        # in square feet
+bedrooms        <- sample(2:6, n, replace = TRUE)
+neighborhood    <- factor(sample(c("Low","Medium","High"), n, replace = TRUE))
+# Simulate price with true model:
+price <- 50000 +
+         30 * living_area + 
+         10000 * bedrooms + 
+         ifelse(neighborhood=="Medium", 20000, 
+                ifelse(neighborhood=="High", 50000, 0)) +
+         rnorm(n, sd = 30000)
+df <- data.frame(price, living_area, bedrooms, neighborhood)
+
+# Fit multiple linear regression:
+model_mlr <- lm(price ~ living_area + bedrooms + neighborhood, data = df)
+
+# Show model summary:
+summary(model_mlr)
+```
+
+**Interpretation:**
+
+The overall F-test (in `r round(summary(model_mlr)$fstatistic[1], 2)` on df₁ = `r summary(model_mlr)$fstatistic[2]`, df₂ = `r summary(model_mlr)$fstatistic[3]` has p-value = `r signif(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE), 3)`, so
+`r if(pf(summary(model_mlr)$fstatistic[1], summary(model_mlr)$fstatistic[2], summary(model_mlr)$fstatistic[3], lower.tail=FALSE) < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+
+Individual coefficients: for example, living_area’s estimate is `r round(coef(model_mlr)["living_area"], 2)` (p = `r signif(coef(summary(model_mlr))["living_area","Pr(>|t|)"], 3)`), indicating
+`r if(coef(summary(model_mlr))["living_area","Pr(>|t|)"] < 0.05) "a significant positive association: each additional square foot increases price by about \\$30 on average." else "no significant association between living area and price."`
+
+Similar interpretation applies to bedrooms and neighborhood indicators.
+
+
+::::
+
+<a id = "pearson_correlation"></a>
+
+::::spoiler
+
+### Pearson correlation
+
+EJ KORREKTURLÆST
+
+* **Used for**  Assessing the strength and direction of a linear relationship between two continuous variables.  
+* **Real-world example:** Examining whether students’ hours of study correlate with their exam scores.
+
+**Assumptions**
+* Observations are independent pairs.  
+* Both variables are approximately normally distributed (bivariate normality).  
+* Relationship is linear.  
+* No extreme outliers.
+
+**Strengths**
+* Provides both a correlation coefficient (r) and hypothesis test (t‐statistic, p‐value).  
+* Confidence interval for the true correlation can be obtained.  
+* Well understood and widely used.
+
+**Weaknesses**
+* Sensitive to outliers, which can distort r.  
+* Only measures linear association—will miss non‐linear relationships.  
+* Reliant on normality; departures can affect Type I/II error rates.
+
+**Example**
+
+
+* **Null hypothesis (H₀):** The true Pearson correlation ρ = 0 (no linear association).  
+* **Alternative hypothesis (H₁):** ρ ≠ 0 (a linear association exists).
+
+```{r pearson_correlation}
+set.seed(2025)
+# Simulate data:
+n <- 30
+hours_studied <- runif(n, min = 0, max = 20)
+# Make exam_scores roughly increase with hours_studied + noise:
+exam_scores   <- 50 + 2.5 * hours_studied + rnorm(n, sd = 5)
+
+# Perform Pearson correlation test:
+pearson_result <- cor.test(hours_studied, exam_scores, method = "pearson")
+
+# Display results:
+pearson_result
+```
+
+**Interpretation:**
+The sample Pearson correlation is `r round(pearson_result$estimate, 3)`, with t = `r round(pearson_result$statistic, 2)` on df = `r pearson_result$parameter` and p-value = `r signif(pearson_result$p.value, 3)`. We
+`r if (pearson_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`,
+indicating that there is
+`r if (pearson_result$p.value < 0.05) "evidence of a significant linear association between hours studied and exam scores." else "no evidence of a linear association between hours studied and exam scores."`
+
+
+::::
+
+<a id = "spearman_rank_correlation"></a>
+
+::::spoiler
+
+### Spearman’s rank correlation
+
+EJ KORREKTURLÆST
+**Used for** Assessing the strength and direction of a monotonic association between two variables using their ranks.  
+* **Real-world example:** Evaluating whether patients’ pain rankings correlate with their anxiety rankings.
+
+**Assumptions**
+* Observations are independent pairs.  
+* Variables are at least ordinal.  
+* The relationship is monotonic (consistently increasing or decreasing).
+
+**Strengths**
+* Nonparametric: does not require normality of the underlying data.  
+* Robust to outliers in the original measurements.  
+* Captures any monotonic relationship, not limited to linear.
+
+**Weaknesses**
+* Less powerful than Pearson’s correlation when the true relationship is linear and data are bivariate normal.  
+* Does not distinguish between different monotonic shapes (e.g. concave vs. convex).  
+* Tied ranks reduce effective sample size and can complicate exact p-value calculation.
+
+**Example**
+
+* **Null hypothesis (H₀):** The true Spearman rank correlation ρ = 0 (no monotonic association).  
+* **Alternative hypothesis (H₁):** ρ ≠ 0 (a monotonic association exists).
+
+```{r spearman_rank_correlation}
+# Simulate two variables with a monotonic relationship:
+set.seed(2025)
+x <- sample(1:100, 30)                   # e.g., anxiety scores ranked
+y <- x + rnorm(30, sd = 15)              # roughly increasing with x, plus noise
+
+# Perform Spearman rank correlation test:
+spearman_result <- cor.test(x, y, method = "spearman", exact = FALSE)
+
+# Display results:
+spearman_result
+```
+
+Interpretation:
+Spearman’s rho = `r round(spearman_result$estimate, 3)` with p-value = `r signif(spearman_result$p.value, 3)`. We
+`r if (spearman_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that there is
+`r if (spearman_result$p.value < 0.05) "evidence of a significant monotonic association between the two variables." else "no evidence of a monotonic association between the two variables."`
+
+::::
+
+<a id = "kendall_tau"></a>
+
+::::spoiler
+
+### Kendall’s tau
+
+EJ KORREKTURLÆST
+
+* **Used for** Assessing the strength and direction of a monotonic association between two variables based on concordant and discordant pairs.  
+* **Real-world example:** Evaluating whether the ranking of students by homework completion correlates with their ranking by final exam performance.
+
+**Assumptions**
+* Observations are independent pairs.  
+* Variables are measured on at least an ordinal scale.  
+* The relationship is monotonic (but not necessarily linear).
+
+**Strengths**
+* Nonparametric: does not require any distributional assumptions.  
+* Robust to outliers and tied values (with appropriate corrections).  
+* Directly interprets probability of concordance vs. discordance.
+
+**Weaknesses**
+* Less powerful than Spearman’s rho when the relationship is strictly monotonic and no ties.  
+* Tied ranks reduce effective sample size and require tie corrections.  
+* Only measures monotonic association, not form or magnitude of change.
+
+**Example**
+
+* **Null hypothesis (H₀):** Kendall’s τ = 0 (no association between the two rankings).  
+* **Alternative hypothesis (H₁):** τ ≠ 0 (a monotonic association exists).
+
+```{r kendall_tau}
+# Simulate two sets of rankings for 25 students:
+set.seed(2025)
+homework_rank <- sample(1:25, 25)                  # ranking by homework completion
+exam_rank     <- homework_rank + rpois(25, lambda=2) - 1  # roughly related with some noise
+
+# Perform Kendall’s tau test:
+kendall_result <- cor.test(homework_rank, exam_rank,
+                          method  = "kendall",
+                          exact   = FALSE)
+
+# Display results:
+kendall_result
+```
+
+**Interpretation:**
+Kendall’s τ = `r round(kendall_result$estimate, 3)` with a two-sided p-value = `r signif(kendall_result$p.value, 3)`. We
+`r if(kendall_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(kendall_result$p.value < 0.05) "evidence of a significant monotonic association between homework and exam rankings." else "no evidence of a monotonic association between homework and exam rankings."`
+
+::::
+
+<a id = "multiple_logistic_regression"></a>
+
+::::spoiler
+
+### Multiple logistic regression
+
+EJ KORREKTURLÆST
+
+
+* **Used for** Modeling the probability of a binary outcome as a function of two or more predictors.  
+* **Real-world example:** Predicting whether a patient has heart disease (yes/no) based on age, cholesterol level, and smoking status.
+
+**Assumptions**
+* Outcome is binary (0/1) and observations are independent.  
+* Log-odds of the outcome are a linear function of the predictors (linearity in the logit).  
+* No perfect multicollinearity among predictors.  
+* Large enough sample so that maximum likelihood estimates are stable (rule of thumb: ≥10 events per predictor).
+
+**Strengths**
+* Adjusts for multiple confounders simultaneously.  
+* Coefficients have clear interpretation as log‐odds (or odds ratios).  
+* Flexible: handles continuous, categorical, and interaction terms.
+
+**Weaknesses**
+* Sensitive to complete or quasi‐complete separation (can prevent convergence).  
+* Assumes linearity in the logit—requires transformation or splines if violated.  
+* Interpretation of interactions and higher‐order terms can be complex.  
+* Requires adequate sample size, especially when events are rare.
+
+**Example**
+
+* **Null hypothesis (H₀):** All predictor coefficients β₁ = β₂ = β₃ = 0 (none of the variables affect disease odds).  
+* **Alternative hypothesis (H₁):** At least one βᵢ ≠ 0 (at least one predictor affects odds).
+
+```{r multiple_logistic_regression}
+set.seed(2025)
+n <- 200
+# Simulate predictors:
+age          <- rnorm(n, mean = 60, sd = 10)
+cholesterol  <- rnorm(n, mean = 200, sd = 30)
+smoker       <- factor(rbinom(n, 1, 0.3), labels = c("No", "Yes"))
+
+# Simulate binary outcome via logistic model:
+logit_p <- -5 + 0.04 * age + 0.01 * cholesterol + 1.2 * (smoker=="Yes")
+p        <- 1 / (1 + exp(-logit_p))
+disease  <- rbinom(n, 1, p)
+
+df <- data.frame(disease = factor(disease, labels = c("No","Yes")),
+                 age, cholesterol, smoker)
+
+# Fit multiple logistic regression:
+model <- glm(disease ~ age + cholesterol + smoker,
+             data = df,
+             family = binomial)
+
+# Show summary and odds ratios:
+summary(model)
+exp(coef(model))
+exp(confint(model))
+```
+
+**Interpretation:**
+
+The Wald test for each coefficient (from summary(model)) gives a z-statistic and p-value. For example, if the coefficient for age is β̂ = 0.04 (p = 0.01), its odds ratio is exp(0.04) ≈ 1.04 (95% CI from exp(confint(model))), meaning each additional year of age multiplies the odds of disease by about 1.04.
+
+A significant p-value (e.g., p < 0.05) for cholesterol indicates that higher cholesterol is associated with increased odds (OR = exp(β̂_cholesterol)).
+
+A significant positive coefficient for smoker (β̂ ≈ 1.2, OR ≈ 3.3) implies smokers have about 3.3 times the odds of disease compared to non-smokers, adjusting for age and cholesterol.
+
+You would `r if(any(summary(model)$coefficients[-1,4] < 0.05)) "reject the null hypothesis" else "fail to reject the null hypothesis"` overall, concluding that at least one predictor is significantly associated with the outcome.
+
+::::
+
+<a id = "poisson_regression"></a>
+
+::::spoiler
+
+### Poisson regression
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling count data (events per unit time or space) as a function of one or more predictors.  
+* **Real-world example:** Predicting the number of daily emergency room visits based on average daily temperature.
+
+**Assumptions**
+* Counts follow a Poisson distribution (mean = variance).  
+* Events occur independently.  
+* The log of the expected count is a linear function of the predictors.  
+* No excessive zero‐inflation (if present, consider zero‐inflated models).
+
+**Strengths**
+* Naturally handles non‐negative integer outcomes.  
+* Estimates incidence rate ratios (IRRs) that are easy to interpret.  
+* Can include both categorical and continuous predictors.
+
+**Weaknesses**
+* Sensitive to overdispersion (variance > mean); may need quasi‐Poisson or negative binomial.  
+* Assumes log‐linear relationship—misspecification leads to bias.  
+* Influential observations (e.g., days with extreme counts) can distort estimates.
+
+**Example**
+
+* **Null hypothesis (H₀):** Temperature has no effect on the expected number of ER visits (β₁ = 0).  
+* **Alternative hypothesis (H₁):** Temperature affects the expected number of ER visits (β₁ ≠ 0).
+
+```{r poisson_regression}
+set.seed(2025)
+# Simulate 100 days of data:
+n_days      <- 100
+temp        <- runif(n_days, min = 0,  max = 30)              # average daily temperature (°C)
+# True model: log(rate) = 1 + 0.05 * temp
+log_rate    <- 1 + 0.05 * temp
+expected    <- exp(log_rate)
+er_visits   <- rpois(n_days, lambda = expected)              # simulated counts
+
+df <- data.frame(er_visits, temp)
+
+# Fit Poisson regression:
+pois_fit <- glm(er_visits ~ temp, family = poisson(link = "log"), data = df)
+
+# Display summary:
+summary(pois_fit)
+```
+
+**Interpretation:**
+The estimated coefficient for temperature is `r round(coef(pois_fit)["temp"], 3)`, giving an incidence rate ratio IRR = `r round(exp(coef(pois_fit)["temp"]), 3)`. With a p-value = `r signif(summary(pois_fit)$coefficients["temp","Pr(>|z|)"], 3)`, we
+`r if(summary(pois_fit)$coefficients["temp","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means each 1 °C increase in average daily temperature is associated with a multiplicative change of approximately `r round(exp(coef(pois_fit)["temp"]), 3)` in the expected number of ER visits.
+
+
+
+
+::::
+
+
+<a id = "negative_binomial_regression"></a>
+
+::::spoiler
+
+### Negative binomial regression
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling overdispersed count data (variance > mean) as a function of one or more predictors.  
+* **Real-world example:** Predicting the number of daily asthma attacks per patient based on air pollution level when counts show extra-Poisson variation.
+
+**Assumptions**
+* Counts follow a negative binomial distribution (allows variance > mean).  
+* Events occur independently.  
+* The log of the expected count is a linear function of the predictors.  
+* Overdispersion parameter is constant across observations.
+
+**Strengths**
+* Handles overdispersion naturally without biasing standard errors.  
+* Estimates incidence rate ratios (IRRs) with correct inference.  
+* Can include both continuous and categorical predictors.
+
+**Weaknesses**
+* Requires estimation of an extra dispersion parameter, which may be unstable in small samples.  
+* Sensitive to model misspecification (link function, omitted covariates).  
+* Influential observations can still distort estimates if extreme.
+
+**Example**
+
+* **Null hypothesis (H₀):** Air pollution level has no effect on the expected number of asthma attacks (β₁ = 0).  
+* **Alternative hypothesis (H₁):** Air pollution level affects the expected number of asthma attacks (β₁ ≠ 0).
+
+```{r negative_binomial_regression}
+# install.packages("MASS")  # if necessary
+library(MASS)
+
+set.seed(2025)
+n_patients <- 150
+# Simulate predictor: average daily PM2.5 level (µg/m³)
+pm25       <- runif(n_patients, min = 5, max = 50)
+# True model: log(µ) = 0.5 + 0.04 * pm25, dispersion theta = 2
+log_mu     <- 0.5 + 0.04 * pm25
+mu         <- exp(log_mu)
+attacks    <- rnbinom(n_patients, mu = mu, size = 2)
+
+df_nb <- data.frame(attacks, pm25)
+
+# Fit negative binomial regression:
+nb_fit <- glm.nb(attacks ~ pm25, data = df_nb)
+
+# Display summary:
+summary(nb_fit)
+```
+
+**Interpretation:**
+The estimated coefficient for PM2.5 is `r round(coef(nb_fit)["pm25"], 3)`, giving an incidence rate ratio IRR = `r round(exp(coef(nb_fit)["pm25"]), 3)`. With p-value = `r signif(summary(nb_fit)$coefficients["pm25","Pr(>|z|)"], 3)`, we
+`r if(summary(nb_fit)$coefficients["pm25","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This means each 1 µg/m³ increase in PM2.5 is associated with a multiplicative change of approximately `r round(exp(coef(nb_fit)["pm25"]), 3)` in the expected number of asthma attacks, accounting for overdispersion.
+
+::::
+
+<a id = "ordinal_logistic_regression"></a>
+
+::::spoiler
+
+### Ordinal logistic regression
+
+EJ KORREKTURLÆST
+
+**Used for**
+* Modeling an ordinal outcome (with more than two ordered categories) as a function of one or more predictors.  
+* **Real-world example:** Predicting customer satisfaction levels (Low, Medium, High) based on service wait time and price.
+
+**Assumptions**
+* The dependent variable is ordinal with a meaningful order.  
+* **Proportional odds (parallel lines):** the effect of each predictor is the same across all thresholds between outcome categories.  
+* Observations are independent.  
+* No multicollinearity among predictors.
+
+**Strengths**
+* Makes efficient use of the ordering information in the outcome.  
+* Provides interpretable odds‐ratios for cumulative probabilities.  
+* More powerful than nominal models (e.g., multinomial logit) when the order matters.
+
+**Weaknesses**
+* Relies on the proportional‐odds assumption; violation can bias estimates.  
+* Interpretation can be less intuitive than linear regression.  
+* Cannot easily accommodate non‐proportional effects without extension.
+
+**Example**
+
+* **Null hypothesis (H₀):** Waiting time has no effect on the odds of higher satisfaction (\(\beta_{\text{wait}} = 0\)).  
+* **Alternative hypothesis (H₁):** Waiting time affects the odds of higher satisfaction (\(\beta_{\text{wait}} \neq 0\)).
+
+```{r ordinal_logistic_regression}
+# Load data and package
+library(MASS)
+
+set.seed(2025)
+n <- 120
+# Simulate predictors:
+wait_time <- runif(n,  5, 60)      # waiting time in minutes
+price     <- runif(n, 10, 100)     # price in dollars
+
+# Simulate an ordinal outcome via latent variable:
+latent   <- 2 - 0.03 * wait_time - 0.01 * price + rnorm(n)
+# Define thresholds for three satisfaction levels:
+# latent ≤ 0: Low; 0 < latent ≤ 1: Medium; latent > 1: High
+satisfaction <- cut(latent,
+                    breaks = c(-Inf, 0, 1, Inf),
+                    labels = c("Low","Medium","High"),
+                    ordered_result = TRUE)
+
+df <- data.frame(satisfaction, wait_time, price)
+
+# Fit proportional‐odds (ordinal logistic) model:
+model_polr <- polr(satisfaction ~ wait_time + price, data = df, Hess = TRUE)
+
+# Summarize coefficients and compute p‐values:
+ctable <- coef(summary(model_polr))
+pvals  <- pnorm(abs(ctable[,"t value"]), lower.tail = FALSE) * 2
+results <- cbind(ctable, "p value" = round(pvals, 3))
+
+# Display thresholds and predictor effects:
+results
+```
+
+**Interpretation:**
+The estimated coefficient for wait_time is `r round(coef(model_polr)["wait_time"], 3)`.
+
+The odds‐ratio is `r round(exp(coef(model_polr)["wait_time"]), 3)`, meaning each additional minute of wait changes the odds of being in a higher satisfaction category by that factor.
+
+A p‐value of `r results["wait_time","p value"]` for wait_time indicates
+`r if(results["wait_time","p value"] < 0.05) "rejecting H₀: wait time significantly affects satisfaction odds." else "failing to reject H₀: no evidence wait time affects satisfaction odds."`
+
+Similar interpretation applies to price.
+
+::::
+
+<a id = "linear_mixed_effects_model"></a>
+
+::::spoiler
+
+### Linear mixed-effects modeller (LME)
+
+EJ KORREKTURLÆST
+* **Used for** Modeling continuous outcomes with both fixed effects (predictors of interest) and random effects (to account for grouped or repeated measures).  
+* **Real-world example:** Evaluating the effect of a new teaching method on student test scores, while accounting for variability between classrooms and schools.
+
+**Assumptions**
+* Linear relationship between predictors and outcome.  
+* Residuals are independent and normally distributed with mean zero.  
+* Random effects are normally distributed.  
+* Homoscedasticity: constant variance of residuals.  
+* Random effects structure correctly specified (e.g., intercepts and/or slopes).
+
+**Strengths**
+* Accounts for correlation within clusters (e.g., pupils within the same classroom).  
+* Can handle unbalanced data and missing observations within clusters.  
+* Flexibly models complex hierarchical or longitudinal data structures.
+
+**Weaknesses**
+* Model specification (random effects structure) can be challenging.  
+* Parameter estimation can be computationally intensive and may fail to converge.  
+* Inference (p-values) often relies on approximations or additional packages.
+
+**Example**
+* **Null hypothesis (H₀):** The new teaching method has no effect on student test scores (fixed effect β_method = 0).  
+* **Alternative hypothesis (H₁):** The new teaching method affects student test scores (β_method ≠ 0).
+
+```{r linear_mixed_effects_model}
+# Install/load necessary packages
+# install.packages("lme4"); install.packages("lmerTest")
+library(lme4)
+library(lmerTest)
+
+set.seed(2025)
+# Simulate data: 100 students in 10 classrooms within 3 schools
+n_schools   <-  3
+n_classes   <- 10
+students_pc <- 10
+
+school      <- factor(rep(1:n_schools, each = n_classes * students_pc))
+class       <- factor(rep(1:(n_schools * n_classes), each = students_pc))
+method      <- factor(rep(rep(c("Control","NewMethod"), each = students_pc/2), times = n_schools * n_classes))
+# True model: intercept = 70, method effect = 5 points, random intercepts for class & school, residual sd = 8
+score <- 70 +
+         ifelse(method=="NewMethod", 5, 0) +
+         rnorm(n_schools * n_classes * students_pc, sd = 8) +
+         rep(rnorm(n_schools * n_classes, sd = 4), each = students_pc) +
+         rep(rnorm(n_schools,            sd = 6), each = n_classes * students_pc)
+
+df <- data.frame(score, method, class, school)
+
+# Fit linear mixed-effects model with random intercepts for school and class:
+lme_fit <- lmer(score ~ method + (1 | school/class), data = df)
+
+# Summarize model (includes p-values via lmerTest):
+summary(lme_fit)
+```
+
+**Interpretation:**
+The fixed-effect estimate for NewMethod is `r round(fixef(lme_fit)["methodNewMethod"], 2)` points (SE = `r round(summary(lme_fit)$coefficients["methodNewMethod","Std. Error"], 2)`), with p = `r signif(summary(lme_fit)$coefficients["methodNewMethod","Pr(>|t|)"], 3)`. We
+`r if(summary(lme_fit)$coefficients["methodNewMethod","Pr(>|t|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(summary(lme_fit)$coefficients["methodNewMethod","Pr(>|t|)"] < 0.05) "evidence that the new teaching method significantly changes test scores, accounting for classroom and school variability." else "no evidence that the new teaching method affects test scores after accounting for clustering."`
+
+
+::::
+
+<a id = "generalized_linear_mixed_effects_model"></a>
+
+::::spoiler
+
+### Generalized linear mixed-effects modeller (GLMM)
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling non-normal outcomes (e.g. binary, counts) with both fixed effects and random effects.  
+* **Real-world example:** Predicting whether patients are readmitted (yes/no) based on age and comorbidity score, with random intercepts for each hospital.
+
+**Assumptions**
+* Observations within each cluster (e.g. hospital) are correlated, but clusters are independent.  
+* The conditional distribution of the outcome given predictors and random effects follows a specified exponential‐family distribution (e.g. binomial, Poisson).  
+* The link function (e.g. logit, log) correctly relates the linear predictor to the mean of the outcome.  
+* Random effects are normally distributed.
+
+**Strengths**
+* Can accommodate hierarchical or longitudinal data and non-Gaussian outcomes.  
+* Estimates both population‐level (fixed) effects and cluster‐specific (random) variation.  
+* Flexible: supports a variety of link functions and distributions.
+
+**Weaknesses**
+* Computationally intensive; convergence can fail with complex random‐effects structures.  
+* Inference (especially p-values for fixed effects) relies on approximations.  
+* Model specification (random slopes, link choice) can be challenging.
+
+**Example**
+
+* **Null hypothesis (H₀):** The log-odds of readmission do not depend on age (β_age = 0).  
+* **Alternative hypothesis (H₁):** Age affects the log-odds of readmission (β_age ≠ 0).
+
+```{r generalized_linear_mixed_effects_model}
+# Load packages
+library(lme4)
+
+set.seed(2025)
+# Simulate data for 2000 patients in 20 hospitals:
+n_hospitals <- 20
+patients_per <- 100
+hospital   <- factor(rep(1:n_hospitals, each = patients_per))
+age        <- rnorm(n_hospitals * patients_per, mean = 65, sd = 10)
+comorbidity<- rpois(n_hospitals * patients_per, lambda = 2)
+
+# True model: logit(p) = -2 + 0.03*age + 0.5*comorbidity + random intercept by hospital
+logit_p    <- -2 + 0.03 * age + 0.5 * comorbidity + rnorm(n_hospitals, 0, 0.5)[hospital]
+p_readmit  <- plogis(logit_p)
+readmit    <- rbinom(n_hospitals * patients_per, size = 1, prob = p_readmit)
+
+df_glmm <- data.frame(readmit = factor(readmit, levels = c(0,1)),
+                      age, comorbidity, hospital)
+
+# Fit a binomial GLMM with random intercepts for hospital:
+glmm_fit <- glmer(readmit ~ age + comorbidity + (1 | hospital),
+                  data = df_glmm, family = binomial(link = "logit"))
+
+# Display summary:
+summary(glmm_fit)
+```
+
+**Interpretation:**
+The fixed‐effect estimate for age is `r round(fixef(glmm_fit)["age"], 3)` (SE = `r round(summary(glmm_fit)$coefficients["age","Std. Error"], 3)`), giving an odds ratio of `r round(exp(fixef(glmm_fit)["age"]), 3)` per year of age. With a z‐value = `r round(summary(glmm_fit)$coefficients["age","z value"], 2)` and p ≈ `r signif(summary(glmm_fit)$coefficients["age","Pr(>|z|)"], 3)`, we
+`r if(summary(glmm_fit)$coefficients["age","Pr(>|z|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that age
+`r if(summary(glmm_fit)$coefficients["age","Pr(>|z|)"] < 0.05) "is significantly associated with higher odds of readmission, accounting for hospital clustering." else "is not significantly associated with readmission when accounting for hospital clustering."`
+
+::::
+
+
+<a id = "gee_logistic"></a>
+
+::::spoiler
+
+### Generalized Estimating Equations (GEE)
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling correlated or clustered data (e.g., repeated measures, longitudinal, or clustered observations) when interest lies in population‐averaged effects rather than subject‐specific effects.  
+* **Real-world example:** Estimating the effect of a diabetes education program on the probability of glycemic control (A1C < 7%) over multiple clinic visits per patient.
+
+**Assumptions**
+* Clustered or repeated observations per subject/cluster with some “working” correlation structure (e.g., exchangeable, autoregressive).  
+* Correct specification of the link function and the mean model (e.g., logit link for binary outcomes).  
+* Missing data are missing completely at random (MCAR) or missing at random (MAR), assuming missingness only depends on observed covariates.  
+* Large‐sample inference: GEE relies on asymptotic properties (number of clusters ≫ 1).
+
+**Strengths**
+* Robust (“sandwich”) standard errors even if the working correlation structure is mis‐specified.  
+* Provides marginal (population‐averaged) estimates, often of direct interest in public health/epidemiology.  
+* Accommodates a variety of outcomes (binary, count, continuous) via appropriate link and family.
+
+**Weaknesses**
+* Efficiency can be lost if the working correlation is far from the truth (though estimates remain consistent).  
+* Inference is asymptotic—small numbers of clusters can lead to biased standard errors.  
+* Does not model subject‐specific trajectories; cannot estimate random‐effects variance components.
+
+**Example**
+
+* **Null hypothesis (H₀):** The education program has no effect on odds of glycemic control over time (β_edu = 0).  
+* **Alternative hypothesis (H₁):** The education program changes the odds of glycemic control over time (β_edu ≠ 0).
+
+```{r gee_logistic}
+# Install/load necessary package:
+# install.packages("geepack")
+library(geepack)
+
+set.seed(2025)
+# Simulate data: 100 patients (clusters), each with 4 visits
+n_patients   <- 100
+visits_per   <- 4
+patient_id   <- rep(1:n_patients, each = visits_per)
+visit_number <- rep(1:visits_per, times = n_patients)
+
+# Simulate a binary program indicator (0=no program, 1=received education), randomly assigned at baseline
+edu_program  <- rbinom(n_patients, 1, 0.5)
+edu          <- rep(edu_program, each = visits_per)
+
+# Simulate time effect (visits 1–4 coded 0–3) and baseline covariate (e.g., age)
+age_cont     <- rnorm(n_patients, mean = 60, sd = 10)
+age          <- rep(age_cont, each = visits_per)
+
+# True population‐averaged logistic model:
+# logit(p_ij) = -1 + 0.4 * edu_i - 0.02 * age_i + 0.3 * visit_number_j
+# For simplicity, ignore cluster‐specific random effect; correlation introduced via GEE working structure.
+lin_pred     <- -1 +
+                0.4 * edu +
+               -0.02 * age +
+                0.3 * visit_number
+prob         <- plogis(lin_pred)
+
+# Simulate binary outcome: glycemic control (1=yes, 0=no)
+gly_control  <- rbinom(n_patients * visits_per, 1, prob)
+
+df_gee <- data.frame(
+  patient_id   = factor(patient_id),
+  visit_number = visit_number,
+  edu          = factor(edu, labels = c("NoEdu","Edu")),
+  age          = age,
+  gly_control  = gly_control
+)
+
+# Fit GEE with exchangeable working correlation:
+gee_fit <- geeglm(
+  gly_control ~ edu + age + visit_number,
+  id            = patient_id,
+  family        = binomial(link = "logit"),
+  corstr        = "exchangeable",
+  data          = df_gee
+)
+
+# Display summary:
+summary(gee_fit)
+```
+
+**Interpretation:*'
+
+The estimated coefficient for edu (Edu vs. NoEdu) is `r round(coef(gee_fit)["eduEdu"], 3)`
+. Its robust (“sandwich”) standard error is `r round(summary(gee_fit)$coefficients["eduEdu","Std.err"], 3)`
+
+, yielding a Wald‐type z = `r round(coef(gee_fit)["eduEdu"] / summary(gee_fit)$coefficients["eduEdu","Std.err"], 2)`, with p = `r signif(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"], 3)`. We
+`r if(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"] < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that, across all visits and patients, those in the education program have `r if(summary(gee_fit)$coefficients["eduEdu","Pr(>|W|)"] < 0.05) "significantly" else "no statistically"` difference in odds of glycemic control compared to those without education.
+
+The coefficient for age equals `r round(coef(gee_fit)["age"], 4)` (p = `r signif(summary(gee_fit)$coefficients["age","Pr(>|W|)"], 3)`), indicating each additional year of age multiplies the odds of control by exp(`r round(coef(gee_fit)["age"], 4)`).
+
+The visit_number effect is `r round(coef(gee_fit)["visit_number"], 3)` per visit (p = `r signif(summary(gee_fit)$coefficients["visit_number","Pr(>|W|)"], 3)`), showing whether odds of control change over successive visits.
+
+Because GEE uses a sandwich estimator, these inferences remain valid even if “exchangeable” correlation is not exactly correct, provided we have a sufficiently large number of patients.
+
+
+::::
+
+
+
+## Kontingenstabel- og proportions-tests
+
+
+<a id = "mcnemar_test"></a>
+
+::::spoiler
+
+### McNemar’s test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the proportions of paired binary outcomes differ (i.e., detecting marginal changes in a 2×2 paired table).  
+* **Real-world example:** Determining if a new diagnostic test classification (Positive/Negative) differs from an existing “gold standard” classification on the same patients.
+
+**Assumptions**
+* Data consist of paired binary observations (e.g., before/after, test1/test2) on the same subjects.  
+* Discordant cell counts (subjects where Test A=Positive & Test B=Negative or vice versa) are sufficiently large (≥ 10) for the χ² approximation; otherwise use exact McNemar.  
+* Each pair is independent of all other pairs.
+
+**Strengths**
+* Simple to implement for paired binary data.  
+* Specifically tests for a change in proportion rather than overall association.  
+* Does not require marginal homogeneity for concordant pairs (only discordant pairs matter).
+
+**Weaknesses**
+* Ignores concordant pairs (those where both methods agree), focusing only on discordant counts.  
+* χ² approximation can be invalid if discordant counts are small—requires exact test.  
+* Only applicable to 2×2 paired tables (binary outcomes).
+
+**Example**
+
+* **Null hypothesis (H₀):** The probability of discordant outcomes is the same in both directions (b = c).  
+* **Alternative hypothesis (H₁):** The probability of discordant outcomes differs (b ≠ c).
+
+```{r mcnemar_test}
+# Simulated paired binary data: OldTest vs. NewTest (n = 100 patients)
+#      NewTest
+# OldTest  Positive  Negative
+# Positive      30        20   (b = 20)
+# Negative      10        40   (c = 10)
+
+ctab <- matrix(c(30, 20,
+                 10, 40),
+               nrow = 2,
+               byrow = TRUE,
+               dimnames = list(
+                 OldTest = c("Positive","Negative"),
+                 NewTest = c("Positive","Negative")
+               ))
+
+# Perform McNemar’s test (χ² approximation):
+mcnemar_result <- mcnemar.test(ctab, correct = FALSE)
+
+# Display results:
+mcnemar_result
+```
+
+**Interpretation:**
+The McNemar χ² statistic is `r round(mcnemar_result$statistic, 2)` with p-value = `r signif(mcnemar_result$p.value, 3)`. We
+`r if(mcnemar_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Since b (OldTest Positive, NewTest Negative) = 20 and c (OldTest Negative, NewTest Positive) = 10, a significant result would indicate that the switch in classifications is not symmetric—i.e., the new test’s positive/negative calls differ from the old test more often in one direction than the other.
+
+
+::::
+
+<a id = "fishers_exact_test"></a>
+
+::::spoiler
+
+### Fisher’s exact test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing independence between two categorical variables in a small-sample 2×2 contingency table.  
+* **Real-world example:** Examining whether a new antibiotic leads to cure versus failure in 15 patients (small sample where χ² might be invalid).
+
+**Assumptions**
+* Observations are independent.  
+* Data form a 2×2 table (binary outcome × binary exposure).  
+* Marginal totals are fixed (conditional inference on margins).
+
+**Strengths**
+* Exact p-value without relying on large-sample approximations.  
+* Valid even when expected cell counts are very small or zero.  
+* Simple to implement in R via `fisher.test()`.
+
+**Weaknesses**
+* Only directly applies to 2×2 tables; extensions to larger tables exist but are computationally intensive.  
+* Does not provide an effect-size estimate beyond the odds ratio (which must be computed separately).  
+* Can be conservative (lower power) compared to asymptotic tests with moderate sample sizes.
+
+**Example**
+
+* **Null hypothesis (H₀):** Treatment and outcome are independent (odds ratio = 1).  
+* **Alternative hypothesis (H₁):** Treatment and outcome are not independent (odds ratio ≠ 1).
+
+```{r fishers_exact_test}
+# Construct a 2×2 contingency table:
+#               Outcome
+# Treatment   Cure  Failure
+#   New        7      3
+#   Standard   2      3
+
+ctab <- matrix(c(7, 3,
+                 2, 3),
+               nrow = 2,
+               byrow = TRUE,
+               dimnames = list(
+                 Treatment = c("New", "Standard"),
+                 Outcome   = c("Cure", "Failure")
+               ))
+
+# Perform Fisher’s exact test:
+fisher_result <- fisher.test(ctab, alternative = "two.sided")
+
+# Display results:
+fisher_result
+```
+
+**Interpretation:**
+Fisher’s exact test yields an odds ratio estimate of `r round(fisher_result$estimate, 2)` with a two-sided p-value = `r signif(fisher_result$p.value, 3)`. We
+`r if(fisher_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(fisher_result$p.value < 0.05) "evidence that the probability of cure differs between the new and standard treatments." else "no evidence of a difference in cure rates between the two treatments."`
+
+
+::::
+
+<a id = "barnard_exact_test"></a>
+
+::::spoiler
+
+### Barnard’s exact test
+
+EJ KORREKTURLÆST
+VÆR SÆRLIGT OPMÆRKSOM HER - DER VAR STORE UDFORDRINGER...
+
+* **Used for** Testing independence in a 2×2 contingency table via an unconditional exact test.  
+* **Real-world example:** Determining if a new pain medication and placebo differ in adverse event rates when sample sizes are small.
+
+**Assumptions**
+* Observations are independent and each subject contributes exactly one cell in the 2×2 table.  
+* Only one margin (row or column totals) is fixed; the other margin is free.  
+* Binary outcome (e.g., “Adverse Event: Yes/No”) and binary grouping (“Medication vs. Placebo”).
+
+**Strengths**
+* More powerful than Fisher’s exact test because it does not condition on both margins.  
+* Provides an exact p-value without relying on large‐sample approximations.  
+* Particularly advantageous when margins are not fixed by design.
+
+**Weaknesses**
+* Computationally slower than Fisher’s exact test for larger sample sizes.  
+* Only applies to 2×2 tables (binary × binary).  
+* Requires installation of the **Barnard** package (not in base R).
+
+**Example**
+
+* **Null hypothesis (H₀):** The probability of an adverse event is the same in the Medication and Placebo groups (no association).  
+* **Alternative hypothesis (H₁):** The probability of an adverse event differs between Medication and Placebo.
+
+```{r barnard_exact_test}
+# Install and load the Barnard package (only once if not already installed):
+# install.packages("Barnard")
+library(Barnard)
+
+# Define the 2×2 counts:
+#              AdverseEvent
+# Treatment   Yes   No
+#   Medication  2     8
+#   Placebo     7     3
+n1 <- 2   # Medication & Yes
+n2 <- 8   # Medication & No
+n3 <- 7   # Placebo    & Yes
+n4 <- 3   # Placebo    & No
+
+# Run Barnard's unconditional exact test:
+barnard_result <- barnard.test(n1, n2, n3, n4, pooled = TRUE)
+
+# Display the test result:
+barnard_result
+
+```
+
+**Interpretation:**
+The output includes:
+
+A score statistic (here ≈ 2.24733).
+
+Two nuisance parameter estimates (0.666 for one-sided, 0.500 for two-sided).
+
+Two p-values in $p.value:
+
+barnard_result$p.value[1] = 0.0167869 (one‐sided)
+
+barnard_result$p.value[2] = 0.0334587 (two‐sided)
+
+Two‐sided p‐value (0.0335): Tests whether the adverse‐event probabilities differ in either direction. Since 0.0335 < 0.05, we reject 
+H0
+
+
+  and conclude there is a significant difference in adverse‐event rates between Medication and Placebo.
+
+One‐sided p‐value (0.0168): Tests specifically whether the Medication adverse‐event rate is greater than the Placebo rate. Because 0.0168 < 0.05, we also conclude that Medication has a higher adverse‐event probability than Placebo.
+::::
+
+
+<a id = "cochran_armitage_trend_test"></a>
+
+::::spoiler
+
+### Cochran–Armitage trend test (ordinal tabel)
+
+EJ KORREKTURLÆST
+* **Used for** Testing for a linear trend in proportions across ordered categories in a 2×k contingency table.  
+* **Real-world example:** Assessing whether increasing levels of prenatal vitamin dose (Low, Medium, High) correspond to higher rates of healthy birth outcomes (Yes/No).
+
+**Assumptions**
+* Observations are independent.  
+* Categories of the ordinal predictor have a natural order (e.g., Low < Medium < High).  
+* The response is binary within each category (success/failure).  
+* Expected counts for successes and failures in each category are sufficiently large for the χ² approximation (generally ≥ 5).
+
+**Strengths**
+* Specifically targets a monotonic (linear) increase or decrease in the success probability across ordered groups.  
+* More powerful than a general χ² test of independence when a linear trend is present.  
+* Straightforward to compute via `prop.trend.test()` in R.
+
+**Weaknesses**
+* Only detects a linear trend; non-monotonic patterns (e.g., U-shaped) will be missed.  
+* Requires correct ordering and spacing of category scores; misordering invalidates the test.  
+* Sensitive to small expected counts in any group, which can distort the chi-square approximation.
+
+**Example**
+
+* **Null hypothesis (H₀):** No linear trend in the probability of a healthy birth outcome across dose levels (slope = 0).  
+* **Alternative hypothesis (H₁):** A positive linear trend exists: higher dose levels correspond to higher healthy birth rates (slope > 0).
+
+```{r cochran_armitage_trend_test}
+# Define counts of healthy outcomes by dose:
+#   Low:    30 healthy, 20 unhealthy
+#   Medium: 40 healthy, 10 unhealthy
+#   High:   45 healthy, 5  unhealthy
+
+successes <- c(30, 40, 45)   # number of healthy births in Low, Medium, High
+totals    <- c(50, 50, 50)   # total births in each dose group
+scores    <- c(1, 2, 3)      # equally spaced scores for Low, Medium, High
+
+# Perform Cochran–Armitage trend test via prop.trend.test:
+trend_result <- prop.trend.test(successes, totals, score = scores)
+
+# Display results:
+trend_result
+```
+
+**Interpretation:**
+The Cochran–Armitage test statistic χ² = `r round(trend_result$statistic, 3)` with p-value = `r signif(trend_result$p.value, 3)`. Because the p-value is `r ifelse(trend_result$p.value < 0.05, "< 0.05", paste("=", round(trend_result$p.value, 3)))`, we
+`r if(trend_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(trend_result$p.value < 0.05) "evidence of a positive linear trend: higher prenatal vitamin doses are associated with higher healthy birth rates." else "no evidence of a linear trend in healthy birth rates across dose levels."`
+
+
+::::
+
+<a id = "cochran_q_test"></a>
+
+::::spoiler
+
+### Cochran’s Q test (≥3 matched proportions)
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether proportions of a binary outcome differ across three or more related (matched) groups.  
+* **Real-world example:** Checking if three different allergy medications have different proportions of symptom relief in the same set of patients.
+
+**Assumptions**
+* Each subject is measured on the same binary outcome under each condition (matched/paired design).  
+* Observations (subjects) are independent of one another.  
+* The outcome for each subject in each group is binary (e.g., “relief” vs. “no relief”).  
+
+**Strengths**
+* Extends McNemar’s test to more than two matched proportions.  
+* Controls for subject‐level variability by using each subject as their own block.  
+* Simple test statistic and interpretation via χ² distribution.
+
+**Weaknesses**
+* Only addresses overall difference; does not indicate which pairs of groups differ (post‐hoc tests required).  
+* Sensitive to missing data: any subject missing a response in one condition must be excluded.  
+* Assumes no interactions or clustering beyond the matched sets.
+
+**Example**
+
+* **Null hypothesis (H₀):** The proportion of patients experiencing symptom relief is the same across all three medications (p₁ = p₂ = p₃).  
+* **Alternative hypothesis (H₁):** At least one medication’s relief proportion differs from the others.
+
+```{r cochran_q_test}
+# Install and load DescTools if not already installed:
+# install.packages("DescTools")
+library(DescTools)
+
+# Simulate binary relief outcomes for 12 patients on three medications:
+# 1 = relief, 0 = no relief
+set.seed(2025)
+relief_med1 <- c(1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 1)
+relief_med2 <- c(1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 1)
+relief_med3 <- c(1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1)
+
+# Combine into a matrix: rows = subjects, columns = medications
+relief_matrix <- cbind(relief_med1, relief_med2, relief_med3)
+
+# Perform Cochran’s Q test:
+cq_result <- CochranQTest(relief_matrix)
+
+# Display results:
+cq_result
+```
+**Interpretation:**
+Cochran’s Q statistic = `r round(cq_result$statistic, 3)` with df = `r cq_result$parameter` and p-value = `r signif(cq_result$p.value, 3)`. We
+`r if(cq_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(cq_result$p.value < 0.05) "evidence that at least one medication’s relief proportion differs from the others." else "no evidence that relief proportions differ across the three medications."`
+
+::::
+
+<a id = "stuart_maxwell_test"></a>
+
+::::spoiler
+
+### Stuart–Maxwell test (marginal homogenitet)
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing marginal homogeneity in a square contingency table of paired categorical outcomes (k ≥ 3 categories).  
+* **Real-world example:** Assessing whether patients’ self‐rated pain levels (None, Mild, Moderate, Severe) before and after a new analgesic are distributed the same way.
+
+**Assumptions**
+* Data consist of paired observations on the same subjects, each classified into one of k categories at two time points or under two conditions.  
+* The contingency table is square (same set of k categories for “before” and “after”).  
+* Observations (pairs) are independent of one another.  
+* No cell has zero counts that prevent the necessary sums for the test (ideally none of the off‐diagonal cell sums are zero across all pairs).
+
+**Strengths**
+* Generalizes McNemar’s test to k > 2 categories.  
+* Specifically tests whether the overall marginal (row vs. column) distributions are the same.  
+* Computes a χ²‐statistic based on off‐diagonal discordances, summarizing all category shifts.
+
+**Weaknesses**
+* Only detects overall marginal changes; does not indicate which category pairs drive the difference (post‐hoc needed).  
+* Sensitive to small sample sizes or sparse off‐diagonal entries (may lack power or violate asymptotic χ² approximation).  
+* Assumes symmetry under the null; if many pairs move in one direction but not the reverse, marginal sums can still balance, potentially masking certain shifts.
+
+**Example**
+
+* **Null hypothesis (H₀):** The marginal distribution of pain levels is the same before and after treatment.  
+* **Alternative hypothesis (H₁):** The marginal distributions differ (some shifts in categories occurred).
+
+```{r stuart_maxwell_test}
+# Install and load DescTools if not already installed:
+# install.packages("DescTools")
+library(DescTools)
+
+# Simulate paired pain ratings for 50 patients:
+# Categories: 1=None, 2=Mild, 3=Moderate, 4=Severe
+set.seed(123)
+before <- sample(1:4, 50, replace = TRUE, prob = c(0.10, 0.30, 0.40, 0.20))
+# After treatment: some improvement for many, some unchanged or worse
+after  <- pmin(pmax(before + sample(c(-1, 0, 1), 50, replace = TRUE, prob = c(0.4, 0.4, 0.2)), 1), 4)
+
+# Create a square contingency table of before vs. after:
+pain_table <- table(factor(before, levels = 1:4),
+                    factor(after,  levels = 1:4))
+dimnames(pain_table) <- list(
+  Before = c("None", "Mild", "Moderate", "Severe"),
+  After  = c("None", "Mild", "Moderate", "Severe")
+)
+
+# Perform Stuart–Maxwell test for marginal homogeneity:
+stuart_result <- StuartMaxwellTest(pain_table)
+
+# Display the table and test result:
+pain_table
+stuart_result
+```
+
+**Interpretation:**
+The Stuart–Maxwell χ² statistic = `r round(stuart_result$statistic, 2)` with df = `r stuart_result$parameter` and p-value = `r signif(stuart_result$p.value, 3)`. We
+`r if(stuart_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Since the p-value is r round(stuart_result$p.value, 3), we
+`r if(stuart_result$p.value < 0.05) "conclude that the marginal distribution of pain levels differs before vs. after treatment (some patients shifted categories)." else "conclude there is no evidence of a change in the overall distribution of pain levels."`
+
+::::
+
+<a id = "two_sample_binomial_mh"></a>
+
+::::spoiler
+
+### Two-sample test for binomial proportions / Mantel–Haenszel test
+
+EJ KORREKTURLÆST
+
+* **Used for** Comparing two independent binomial proportions, possibly stratified by a third variable (Mantel–Haenszel).  
+* **Real-world example:** Assessing whether a new vaccine reduces infection rates compared to placebo across multiple clinics.
+
+**Assumptions**
+* Observations within each group (and stratum, if stratified) are independent.  
+* Each observation has a binary outcome (success/failure).  
+* In the unstratified case, the two groups are independent and sample sizes are sufficiently large for the normal approximation (if using a z-test or `prop.test()`).  
+* For the Mantel–Haenszel test: effects are assumed homogeneous across strata (common odds ratio).
+
+**Strengths**
+* Simple two‐sample z‐test or χ²‐based test (`prop.test()`) for unstratified comparisons.  
+* Mantel–Haenszel test controls for confounding by stratification, providing an overall test of association and a pooled odds ratio.  
+* Exact or asymptotic inference available (Fisher’s exact for small counts, Mantel–Haenszel χ² for larger).
+
+**Weaknesses**
+* The unstratified z‐test/χ² test can give misleading results if confounders are present.  
+* Mantel–Haenszel requires the common‐odds‐ratio assumption; if this fails (effect modification), the pooled estimate may be invalid.  
+* Both methods rely on adequate sample sizes in each cell (especially for asymptotic approximations).
+
+**Example**
+
+* **Null hypothesis (H₀):** The infection rates in Vaccine and Placebo groups are equal across clinics (common odds ratio = 1).  
+* **Alternative hypothesis (H₁):** The infection rates differ between Vaccine and Placebo groups (common odds ratio ≠ 1).
+
+```{r two_sample_binomial_mh}
+# Simulated data from two clinics (strata):
+# Clinic A: Vaccine (5 infections / 100), Placebo (15 infections / 100)
+# Clinic B: Vaccine (8 infections / 120), Placebo (20 infections / 120)
+
+# Create a 3‐dimensional array: 2 × 2 × 2 (Treatment × Outcome × Clinic)
+# Dimension names: Treatment = Vaccine, Placebo; Outcome = Infected, NotInfected; Clinic = A, B
+mh_table <- array(
+  c(  5,  95,   # Clinic A, Vaccine
+     15,  85,   # Clinic A, Placebo
+      8, 112,   # Clinic B, Vaccine
+     20, 100 ), # Clinic B, Placebo
+  dim = c(2, 2, 2),
+  dimnames = list(
+    Treatment = c("Vaccine", "Placebo"),
+    Outcome   = c("Infected", "NotInfected"),
+    Clinic    = c("A", "B")
+  )
+)
+
+# Perform Mantel–Haenszel test:
+mh_result <- mantelhaen.test(mh_table, correct = FALSE)
+
+# Display results:
+mh_result
+```
+
+**Interpretation:**
+The Mantel–Haenszel χ² statistic = `r round(mh_result$statistic, 3)` with df = `r mh_result$parameter` and p‐value = `r signif(mh_result$p.value, 3)`. We
+`r if(mh_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, since the p‐value is `r round(mh_result$p.value, 3)`, we
+`r if(mh_result$p.value < 0.05) "conclude there is a significant difference in infection rates between Vaccine and Placebo after controlling for clinic." else "conclude there is no evidence of a difference in infection rates between Vaccine and Placebo after controlling for clinic."`
+
+::::
+
+<a id = "chi_square_rc"></a>
+
+::::spoiler
+
+### Chi-square test for R×C-tabeller
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether two categorical variables (with R rows and C columns) are independent in an R×C contingency table.  
+* **Real-world example:** Assessing if education level (High School, Bachelor’s, Master’s, PhD) is associated with preferred news source (TV, Online, Print) in a survey.
+
+**Assumptions**
+* Observations are independent (each subject contributes to exactly one cell).  
+* The table is R×C with mutually exclusive and exhaustive categories.  
+* Expected count in each cell is at least 5 for the χ² approximation to be valid; otherwise consider collapsing categories or using an exact test.
+
+**Strengths**
+* Simple to compute and interpret via a single χ² statistic and p-value.  
+* Applicable to any R×C table, not just 2×2.  
+* Nonparametric: does not assume any distribution of underlying continuous variables.
+
+**Weaknesses**
+* Sensitive to small expected counts—cells with expected < 5 can invalidate the approximation.  
+* Does not indicate which specific cells contribute most to the dependence; follow-up residual analysis or post-hoc tests are required.  
+* Requires sufficiently large sample sizes; for sparse tables consider Fisher’s exact or Monte Carlo methods.
+
+**Example**
+
+* **Null hypothesis (H₀):** Education level and preferred news source are independent.  
+* **Alternative hypothesis (H₁):** There is an association between education level and preferred news source (they are not independent).
+
+```{r chi_square_rc}
+# Simulate a 4×3 contingency table: Education × NewsSource
+# Rows: High School, Bachelor’s, Master’s, PhD
+# Columns: TV, Online, Print
+edu_levels    <- c("HighSchool", "Bachelors", "Masters", "PhD")
+news_sources  <- c("TV", "Online", "Print")
+
+# Observed counts from a survey of 360 respondents:
+#              TV   Online  Print
+# HighSchool   50    40      10
+# Bachelors    45    70      15
+# Masters      30    80      30
+# PhD          10    30      10
+obs_matrix <- matrix(
+  c(50, 40, 10,
+    45, 70, 15,
+    30, 80, 30,
+    10, 30, 10),
+  nrow = 4,
+  byrow = TRUE,
+  dimnames = list(Education = edu_levels,
+                  NewsSource = news_sources)
+)
+
+# Perform chi-square test of independence:
+chi2_result <- chisq.test(obs_matrix)
+
+# Display results:
+chi2_result
+```
+
+**Interpretation:**
+The test yields χ² = `r round(chi2_result$statistic, 2)` with df = `r chi2_result$parameter` and p-value = `r signif(chi2_result$p.value, 3)`. We
+`r if(chi2_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Since the p-value is `r round(chi2_result$p.value, 3)`, we
+`r if(chi2_result$p.value < 0.05) "conclude there is a significant association between education level and preferred news source." else "conclude there is no evidence of an association between education level and preferred news source."`
+
+If the null is rejected, examine standardized residuals:
+Standardized residuals identify which cells contribute most:
+`r `round(chi2_result$stdres, 2)` 
+Cells with |residual| > 2 indicate categories where the observed count deviates substantially from the expected under independence.
+
+
+
+::::
+
+<a id = "mantel_trend_test"></a>
+
+::::spoiler
+
+### Chi-square test for trend (Mantel-extension)
+
+EJ KORREKTURLÆST
+
+* **Used for**  Testing for a linear (monotonic) association between two ordinal variables in an R×C contingency table (Mantel’s extension of the χ² test).  
+* **Real-world example:** Assessing whether increasing pain‐severity category (None < Mild < Moderate < Severe) is associated with increasing level of inflammation marker (Low < Medium < High) in the same patients.
+
+**Assumptions**
+* Observations are independent.  
+* Both row and column variables are ordinal with a meaningful order.  
+* Expected counts in all cells are sufficiently large (≈ ≥ 5) for the χ² approximation to hold.  
+* The association between row and column scores is (approximately) linear on the log‐odds scale.
+
+**Strengths**
+* Specifically targets a linear trend across ordered categories rather than any arbitrary departure from independence.  
+* More powerful than a general χ² test of independence when the true association is monotonic.  
+* Accommodates arbitrary R×C tables (not limited to 2×k or k×2).
+
+**Weaknesses**
+* Only detects linear-by-linear association; non‐monotonic patterns (e.g. U‐shaped) may be missed.  
+* Requires correct ordering of both row and column categories—misordering invalidates the test.  
+* Sensitive to small expected counts in any cell, which can bias the χ² approximation.
+
+**Example**
+
+* **Null hypothesis (H₀):** No linear trend in the log‐odds of inflammation level across pain‐severity categories (row and column are independent in a linear sense).  
+* **Alternative hypothesis (H₁):** A positive (or negative) linear trend exists: higher pain severity is associated with higher inflammation levels.
+
+```{r mantel_trend_test}
+# Install and load the vcd package if not already installed:
+# install.packages("vcd")
+library(vcd)
+
+# Simulate a 4×3 table of PainSeverity (rows) vs. InflammationLevel (columns)
+# PainSeverity: 1=None, 2=Mild, 3=Moderate, 4=Severe
+# InflammationLevel: 1=Low, 2=Medium, 3=High
+ctab <- matrix(
+  c(30, 10,  5,    # None  
+    20, 25, 10,    # Mild
+    10, 30, 20,    # Moderate
+     5, 15, 35),   # Severe
+  nrow    = 4,
+  byrow   = TRUE,
+  dimnames = list(
+    PainSeverity     = c("None", "Mild", "Moderate", "Severe"),
+    InflammationLevel = c("Low", "Medium", "High")
+  )
+)
+
+# Assign equally spaced scores for each ordinal category:
+row_scores <- c(1, 2, 3, 4)   # PainSeverity scores
+col_scores <- c(1, 2, 3)      # InflammationLevel scores
+
+# Perform Mantel’s linear‐by‐linear association test via CMHtest:
+mantel_result <- CMHtest(
+  x     = ctab,
+  score = list(row = row_scores, col = col_scores)
+)
+
+# Display results:
+mantel_result
+```
+
+**Interpretation:**
+The output shows:
+
+A Mantel χ² statistic (linear‐by‐linear association) and its degrees of freedom (df = 1).
+
+A p‐value testing H₀: “no linear trend in log‐odds of inflammation across pain severity.”
+
+For example, if you see something like:
+
+
+Mantel chi‐square statistic =  25.47  on df = 1,    p‐value < 0.0001
+Because p‐value < 0.05, we reject H₀ and conclude there is a significant positive linear trend: higher pain‐severity categories are associated with higher inflammation levels.
+
+If p‐value ≥ 0.05, we would fail to reject H₀, concluding no evidence of a linear association between pain severity and inflammation level.
+
+
+
+::::
+
+<a id = "chi_square_heterogeneity"></a>
+
+::::spoiler
+
+### Chi-square test for heterogenitet (2×k-tabeller)
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether two groups have the same distribution across k categories (heterogeneity of proportions in a 2×k table).  
+* **Real-world example:** Comparing the distribution of smoking status (Never, Former, Current, Occasional) between males and females.
+
+**Assumptions**
+* Observations are independent.  
+* Categories (columns) are mutually exclusive and exhaustive.  
+* Expected count in each cell is at least 5 for the χ² approximation to be valid.  
+* The table is 2×k (two groups by k categories).
+
+**Strengths**
+* Simple to compute via `chisq.test()` in R.  
+* Tests whether proportions differ across all k categories simultaneously.  
+* Does not require any parametric distribution beyond categorical counts.
+
+**Weaknesses**
+* Sensitive to small expected counts; if many cells have expected < 5, approximation may be invalid.  
+* Only indicates that distributions differ, not which categories drive the difference (follow‐up residual or post‐hoc tests needed).  
+* Requires independence; not suitable for paired or repeated measures.
+
+**Example**
+
+* **Null hypothesis (H₀):** The two groups have the same distribution across the k categories (no heterogeneity).  
+* **Alternative hypothesis (H₁):** At least one category’s proportion differs between the two groups.
+
+```{r chi_square_heterogeneity}
+# Simulate a 2×4 table: Sex (Male/Female) × SmokingStatus (Never, Former, Current, Occasional)
+# Observed counts:
+#            Never  Former  Current  Occasional
+# Male         80      30       50           20
+# Female       90      40       30           10
+
+obs_matrix <- matrix(
+  c(80, 30, 50, 20,
+    90, 40, 30, 10),
+  nrow    = 2,
+  byrow   = TRUE,
+  dimnames = list(
+    Sex           = c("Male", "Female"),
+    SmokingStatus = c("Never", "Former", "Current", "Occasional")
+  )
+)
+
+# Perform chi-square test for heterogeneity:
+chihet_result <- chisq.test(obs_matrix)
+
+# Display results:
+chihet_result
+```
+
+**Interpretation:**
+The χ² statistic = `r round(chihet_result$statistic, 2)` with df = `r chihet_result$parameter` and p-value = `r signif(chihet_result$p.value, 3)`. We
+`r if(chihet_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(chihet_result$p.value < 0.05) "evidence that the distribution of smoking status differs between males and females." else "no evidence that the distributions differ between sexes."`
+
+To see which categories contribute most, examine standardized residuals:
+
+`r round(chihet_result$stdres, 2)`
+Cells with |residual| > 2 indicate categories where observed counts deviate substantially from expected under homogeneity.
+
+::::
+
+
+
+## Incidens- og rate-tests
+
+
+<a id = "one_sample_incidence_rate_test"></a>
+
+::::spoiler
+
+### One-sample test for incidence rates
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether an observed incidence rate (events per unit person‐time) differs from a specified rate.  
+* **Real-world example:** Determining if a hospital’s rate of catheter‐associated infections (per 1,000 patient‐days) equals the national benchmark.
+
+**Assumptions**
+* Events occur independently and follow a Poisson process.  
+* The incidence rate is constant over the observation period.  
+* Person‐time is measured accurately and non‐overlapping.
+
+**Strengths**
+* Exact test based on the Poisson distribution—no large‐sample approximation needed.  
+* Naturally accounts for differing follow‐up times via person‐time.  
+* Valid for rare events and small counts.
+
+**Weaknesses**
+* Sensitive to overdispersion (variance > mean) and violation of Poisson assumptions.  
+* Cannot adjust for covariates or time‐varying rates.  
+* Assumes homogeneity of the rate across the period.
+
+**Example**
+
+* **Null hypothesis (H₀):** The true incidence rate λ = 2 infections per 1,000 patient‐days.  
+* **Alternative hypothesis (H₁):** λ ≠ 2 infections per 1,000 patient‐days.
+
+```{r one_sample_incidence_rate_test}
+# Observed infections and total patient‐days:
+events    <- 8
+patient_days <- 3500   # total follow‐up time in patient‐days
+
+# Hypothesized rate (infections per 1 patient‐day):
+# 2 per 1,000 patient‐days = 0.002 per patient‐day
+rate0     <- 2 / 1000  
+
+# Perform one‐sample incidence‐rate test:
+test_result <- poisson.test(x = events,
+                            T = patient_days,
+                            r = rate0,
+                            alternative = "two.sided")
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+The test compares the observed 8 infections over 3,500 patient‐days to the expected rate of 2/1,000 patient‐days (i.e., 7 infections). With a p‐value of r signif(test_result$p.value, 3), we
+r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis".
+Thus, there is
+r if(test_result$p.value < 0.05) "evidence that the hospital’s infection rate differs from 2 per 1,000 patient‐days." else "no evidence that the infection rate differs from the benchmark."
+
+::::
+
+<a id = "two_sample_incidence_rates"></a>
+
+::::spoiler
+
+### Two-sample comparison of incidence rates
+
+EJ KORREKTURLÆST
+
+**Used for**
+* Comparing incidence rates (events per unit person‐time) between two independent groups.  
+* **Real-world example:** Determining if Hospital A’s rate of central‐line infections (per 1,000 catheter‐days) differs from Hospital B’s rate.
+
+**Assumptions**
+* Events in each group follow a Poisson process.  
+* The incidence rate is constant over person‐time within each group.  
+* Person‐time is measured accurately and non‐overlapping.  
+* Groups are independent and there is no unaccounted confounding.
+
+**Strengths**
+* Accounts for differing follow‐up times via person‐time denominators.  
+* Provides an exact test (via Poisson) for comparing rates without relying on large‐sample normal approximations.  
+* Outputs both a rate‐ratio estimate and confidence interval.
+
+**Weaknesses**
+* Sensitive to violations of the Poisson assumption (e.g., overdispersion or clustering of events).  
+* Does not adjust for covariates—only a crude two‐group comparison.  
+* Assumes constant risk over time within each group; if rates change, inference may be biased.
+
+**Example**
+
+* **Null hypothesis (H₀):** The two incidence rates are equal (\(\lambda_A = \lambda_B\)).  
+* **Alternative hypothesis (H₁):** The incidence rates differ (\(\lambda_A \neq \lambda_B\)).
+
+```{r two_sample_incidence_rates}
+# Observed events and person-time:
+events_A    <- 15    # e.g., central-line infections in Hospital A
+person_days_A <- 2000  # total catheter-days in Hospital A
+
+events_B    <- 25    # e.g., central-line infections in Hospital B
+person_days_B <- 3000  # total catheter-days in Hospital B
+
+# Perform two-sample Poisson test comparing rates:
+test_result <- poisson.test(
+  x = c(events_A, events_B),
+  T = c(person_days_A, person_days_B),
+  ratio      = 1,
+  alternative = "two.sided"
+)
+
+# Display results:
+test_result
+```
+
+**Interpretation:**
+The test reports a rate ratio (Hospital A vs. Hospital B) = `r round(test_result$estimate, 3)`, with a 95% CI = [`r round(test_result$conf.int[1], 3)`, `r round(test_result$conf.int[2], 3)`], and p-value = `r signif(test_result$p.value, 3)`. We
+`r if(test_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, there is
+`r if(test_result$p.value < 0.05) "evidence that the infection rate in Hospital A differs from Hospital B." else "no evidence to conclude a difference in infection rates between the two hospitals."`
+
+
+::::
+
+<a id = "poisson_trend"></a>
+
+::::spoiler
+
+### Trend-test for incidence rates over flere eksponeringsgrupper
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether there is a linear trend in incidence rates across ordered exposure groups.  
+* **Real-world example:** Evaluating whether lung cancer incidence per 1,000 person‐years increases across smoking intensity categories (Non‐smoker, Light‐smoker, Heavy‐smoker).
+
+**Assumptions**
+* Events in each group follow a Poisson process.  
+* The exposure groups have a natural order and can be assigned numeric scores (e.g., 0, 1, 2).  
+* Person‐time denominators are measured accurately and non‐overlapping.  
+* The log‐rate of events is linearly related to the numeric score of the exposure groups.
+
+**Strengths**
+* Directly tests for a dose‐response (linear) relationship in rates.  
+* Accounts for differing person‐time across groups via an offset in Poisson regression.  
+* Provides an estimate of the rate‐ratio per one‐unit increase in the exposure score.
+
+**Weaknesses**
+* Only detects a linear trend; non‐linear patterns across groups may be missed.  
+* Sensitive to misclassification of exposure group ordering or scoring.  
+* Assumes no overdispersion; if variance > mean, inference may be invalid unless corrected.
+
+**Example**
+
+* **Null hypothesis (H₀):** There is no linear trend in incidence rates across exposure groups (β = 0).  
+* **Alternative hypothesis (H₁):** β ≠ 0 (the log‐rate changes linearly with the exposure score).
+
+```{r poisson_trend}
+# Simulated data for three smoking categories:
+# Category labels and numeric scores:
+#   0 = Non‐smoker
+#   1 = Light‐smoker
+#   2 = Heavy‐smoker
+data <- data.frame(
+  smoke_cat   = factor(c("Non", "Light", "Heavy"), 
+                       levels = c("Non","Light","Heavy")),
+  score       = c(0, 1, 2),
+  events      = c(12, 30, 55),    # number of lung cancer cases
+  person_years = c(5000, 4000, 3000)  # total person‐years in each category
+)
+
+# Fit Poisson regression with offset(log(person_years)):
+trend_fit <- glm(events ~ score + offset(log(person_years)),
+                 family = poisson(link = "log"),
+                 data = data)
+
+# Display summary (including coefficient and Wald test for trend):
+summary(trend_fit)
+```
+
+**Interpretation:**
+
+The estimated coefficient for score is `r round(coef(trend_fit)["score"], 3)`.
+
+Exponentiating gives a rate ratio per one‐unit increase in exposure score:
+
+$$\text{RR per category} = \exp\bigl(\beta_{\text{score}}\bigr)$$
+
+From summary(trend_fit), the Wald‐type $z$‐value for score has p‐value = `r signif(summary(trend_fit)$coefficients["score","Pr(>|z|)"], 3)`.
+
+If this p‐value $< 0.05$, we reject $H_{0}$, indicating a significant linear trend in incidence rates across exposure categories.
+
+If the p‐value $\ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a linear trend.
+
+For example, if $\widehat{\beta}_{\text{score}} = 0.45$ (p = 0.002), then
+
+
+$\text{RR} = \exp(0.45) \approx 1.57$
+per category increase, and since p $<0.05$, we conclude that incidence rises significantly from Non‐smoker → Light‐smoker → Heavy‐smoker.
+
+::::
+
+<a id = "Exact_rate_ratio_test"></a>
+
+::::spoiler
+
+### Exact rate ratio test
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing whether the incidence rate in one group differs from that in another group using an exact (Poisson) method for the rate ratio.  
+* **Real-world example:** Comparing ICU infection rates between two antibiotic regimens (A vs. B) when event counts and person‐time are relatively small.
+
+**Assumptions**
+* Events in each group follow a Poisson process.  
+* The rate within each group is constant over the observed person‐time.  
+* Person‐time denominators are measured accurately and non‐overlapping.  
+* Groups are independent (no shared person‐time or overlapping exposure).
+
+**Strengths**
+* Provides an exact confidence interval for the rate ratio and an exact test p‐value without relying on large‐sample normal approximations.  
+* Valid for small counts or rare events.  
+* Directly tests the null hypothesis $\text{RR} = 1$ (where $\text{RR} = \lambda_1 / \lambda_2$).
+
+**Weaknesses**
+* Sensitive to overdispersion (variance > mean) or clustering—assumes Poisson variance equals the mean.  
+* Only compares two groups at a time; cannot easily adjust for covariates.  
+* Assumes constant rate over time; if rates vary, inference can be biased.
+
+**Example**
+
+* **Null hypothesis ($H_{0}$):** The rate in group A equals the rate in group B, i.e.  $\text{RR} = 1$
+* **Alternative hypothesis ($H_{1}$):** The rate in group A differs from the rate in group B, i.e.  $\text{RR} \neq 1$
+
+```{r Exact_rate_ratio_test}
+# Observed events and person-time for two antibiotic regimens:
+# Observed events and person-time for two antibiotic regimens:
+events_A      <- 10    # infections under Regimen A
+person_days_A <- 1200  # total patient‐days for Regimen A
+
+events_B      <- 18    # infections under Regimen B
+person_days_B <- 1500  # total patient‐days for Regimen B
+
+# Perform exact test for comparing two Poisson rates:
+# Note: the argument name for the null ratio is 'r', not 'ratio'.
+rr_test <- poisson.test(
+x           = c(events_A, events_B),
+T           = c(person_days_A, person_days_B),
+r           = 1,
+alternative = "two.sided"
+)
+
+# Display results:
+rr_test
+```
+
+**Interpretation:**
+
+The estimated rate ratio is
+
+$\widehat{\text{RR}} = \dfrac{\lambda_{A}}{\lambda_{B}} = \dfrac{10/1200}{18/1500} = \dfrac{0.00833}{0.01200} \approx 0.694$
+The 95 % exact confidence interval for $\text{RR}$ is
+
+$[\text{CI}_{\text{lower}},\,\text{CI}_{\text{upper}}]$
+
+as reported by rr_test$conf.int.
+
+The two‐sided p‐value is `r signif(rr_test$p.value, 3)`.
+
+If $p < 0.05$, we reject $H_{0}$ and conclude $\text{RR} \neq 1$ (i.e., infection rates differ between Regimen A and B).
+
+If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a difference in infection rates.
+
+For example, if the output shows
+
+rate ratio estimate = 0.694  
+95 % CI = [0.318, 1.515]  
+p‐value = 0.289  
+then, since $p = 0.289 \ge 0.05$, we fail to reject $H_{0}$. There is no evidence that the infection rate for Regimen A differs from Regimen B.
+
+
+::::
+
+
+
+## Overlevelsesanalyse
+
+
+<a id = "log_rank_test"></a>
+
+::::spoiler
+
+### Log-rank test
+
+EJ KORREKTURLÆST
+
+* **Used for** Comparing the survival distributions of two or more groups in time-to-event data.  
+* **Real-world example:** Testing whether patients receiving Drug A have different overall survival than patients receiving Drug B after cancer diagnosis.
+
+**Assumptions**
+* Censoring is independent of survival (noninformative).  
+* Survival times are continuously distributed.  
+* The hazard functions are proportional over time (i.e., the ratio of hazard rates between groups is constant).
+
+**Strengths**
+* Nonparametric: does not assume any specific survival distribution.  
+* Accommodates right-censoring.  
+* Widely used and easy to implement via `survdiff()`.
+
+**Weaknesses**
+* Sensitive to violations of proportional hazards—if hazards cross, test may mislead.  
+* Only tests for equality of entire survival curves, not pinpointing when differences occur.  
+* Requires adequate numbers of events—limited power if many censored observations.
+
+**Example**
+
+* **Null hypothesis ($H_{0}$):** The survival functions in the two groups are equal, i.e.  $S_{A}(t) = S_{B}(t)\quad \text{for all } t$
+* **Alternative hypothesis ($H_{1}$):** The survival functions differ, i.e.  $S_{A}(t) \neq S_{B}(t)\quad \text{for some } t$
+
+
+```{r log_rank_test}
+# Install and load the 'survival' package if necessary:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+# Simulate survival times for two groups (A and B):
+n_A <- 50
+n_B <- 50
+
+# True hazard rates: lambda_A = 0.05, lambda_B = 0.08
+# Exponential survival times (for simplicity)
+time_A <- rexp(n_A, rate = 0.05)
+time_B <- rexp(n_B, rate = 0.08)
+
+# Simulate independent right-censoring times
+censor_A <- rexp(n_A, rate = 0.02)
+censor_B <- rexp(n_B, rate = 0.02)
+
+# Observed time = min(survival, censoring); event indicator = 1 if survival <= censoring
+obs_time_A <- pmin(time_A, censor_A)
+status_A   <- as.numeric(time_A <= censor_A)
+
+obs_time_B <- pmin(time_B, censor_B)
+status_B   <- as.numeric(time_B <= censor_B)
+
+# Combine into one data frame
+group      <- factor(c(rep("A", n_A), rep("B", n_B)))
+time       <- c(obs_time_A, obs_time_B)
+status     <- c(status_A, status_B)
+df_surv    <- data.frame(time, status, group)
+
+# Perform log-rank test comparing groups A and B
+surv_diff <- survdiff(Surv(time, status) ~ group, data = df_surv)
+
+# Display results
+surv_diff
+```
+
+**Interpretation:**
+The log-rank test yields a chi-square statistic $\chi^{2} \;=\; \text{surv_diff\$chisq}$
+
+
+with 1 degree of freedom and p-value = `r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`. We
+`r if((1 - pchisq(surv_diff$chisq, df = 1)) < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+Thus, since $p = \text{`r signif(1 - pchisq(surv_diff$chisq, df = 1), 3)`}$, we
+`r if((1 - pchisq(surv_diff$chisq, df = 1)) < 0.05) "conclude that survival differs between Drug A and Drug B." else "conclude there is no evidence of a difference in survival between Drug A and Drug B."`.
+
+
+::::
+
+<a id="weibull_survival"></a>
+
+::::spoiler
+
+### Parametric survival methods (Weibull)
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling time‐to‐event data with a specified parametric form—specifically the Weibull distribution—for both the baseline hazard and covariate effects.  
+* **Real-world example:** Estimating the effect of a new chemotherapy agent on time to disease progression, assuming a Weibull hazard shape.
+
+**Assumptions**
+* **Weibull distribution**: The survival times \(T\) follow a Weibull distribution with shape parameter \(\alpha\) and scale parameter \(\lambda\), so the hazard is  $h(t) = \alpha \lambda^{\alpha} t^{\alpha - 1}$
+* **Independent censoring**: Censoring times are independent of true event times.  
+* **Correct functional form**: The log of survival time is linearly related to covariates (if covariates are included).  
+* **Linear predictor**: In the accelerated‐failure‐time (AFT) parameterization, we assume  $\log(T_i) = \mathbf{X}_i^\top \boldsymbol{\beta} + \sigma W_i$
+
+where \(W_i\) is a random error with extreme‐value distribution.
+
+**Strengths**
+* Provides a fully specified likelihood, enabling efficient estimation and confidence intervals.  
+* Yields both scale (AFT) and hazard‐ratio interpretations (via transformation).  
+* Can extrapolate beyond observed follow‐up (if model fit is adequate).  
+
+**Weaknesses**
+* Mis‐specification of the Weibull form (shape \(\alpha\) wrong) can bias estimates and inferences.  
+* Less robust than semi‐parametric Cox models if the true hazard is not Weibull‐shaped.  
+* Requires careful checking of model fit (e.g., via residuals or AIC comparisons).
+
+**Example**
+
+* **Null hypothesis (\(H_{0}\))**: The new chemotherapy does not change time to progression, i.e. the coefficient \(\beta_{\text{treatment}} = 0\).  
+* **Alternative hypothesis (\(H_{1}\))**: The new chemotherapy changes time to progression, i.e. \(\beta_{\text{treatment}} \neq 0\).
+
+```{r weibull_survival}
+# Install and load the 'survival' package if not already installed:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+n <- 200
+
+# Simulate a binary treatment indicator (0 = Control, 1 = NewChemo):
+treatment <- rbinom(n, 1, 0.5)
+
+# True Weibull parameters:
+#    shape (alpha) = 1.5
+#    baseline scale (lambda0) = exp(beta0) = exp(3)
+#    treatment effect on log(T) is beta1 = -0.5 (accelerated failure time)
+alpha <- 1.5
+beta0 <- 3
+beta1 <- -0.5
+
+# Simulate true event times from Weibull AFT model:
+#   log(T) = beta0 + beta1 * treatment + sigma * W, where W ~ EV(0,1)
+sigma <- 1 / alpha  # In survreg parameterization, scale = 1/alpha
+
+# Generate extreme‐value errors W:
+W <- evd::revdbeta(n, 1, 1)  # Alternatively, simulate from Gumbel via -log(-log(U))
+
+# Compute log‐times:
+logT <- beta0 + beta1 * treatment + sigma * W
+
+# Convert to event times:
+time <- exp(logT)
+
+# Simulate random right‐censoring times from Uniform(0, 20):
+censor_time <- runif(n, 0, 20)
+
+# Observed time and event indicator:
+obs_time <- pmin(time, censor_time)
+status   <- as.numeric(time <= censor_time)
+
+# Combine into a data frame:
+df_weibull <- data.frame(
+time      = obs_time,
+status    = status,
+treatment = factor(treatment, labels = c("Control","NewChemo"))
+)
+
+# Fit Weibull AFT model using survreg():
+weibull_fit <- survreg(
+Surv(time, status) ~ treatment,
+data   = df_weibull,
+dist   = "weibull"
+)
+
+# Display summary:
+summary(weibull_fit)
+```
+
+**Interpretation:**
+
+In the AFT parameterization, survreg() reports a scale which equals 
+𝜎^=1/𝛼^σ^ =1/ α^ .
+
+Suppose 𝜎^=0.667. Then the estimated shape is
+
+$\widehat{\alpha} = \frac{1}{\hat{\sigma}} = \frac{1}{0.667} \approx 1.50$.
+
+The coefficient for treatmentNewChemo is 
+𝛽^1=−0.482β (for example), with p‐value = 0.012. We test
+
+$H_{0}: \beta_{1} = 0 \quad\text{vs.}\quad H_{1}: \beta_{1} \neq 0$.
+
+Since 𝑝=0.012<0.05 , we reject 𝐻_0
+  and conclude that “NewChemo” significantly accelerates failure time compared to “Control.”
+
+To interpret as a hazard ratio, note that under Weibull AFT, the hazard‐ratio (HR) for treatment is
+$\text{HR} = \exp\bigl(-\beta_{1} \,\hat{\alpha}\bigr)$.
+
+For 
+𝛽^1=−0.482  and 𝛼^=1.50,
+
+$\widehat{\text{HR}} = \exp\bigl(-(-0.482) \times 1.50\bigr) = \exp(0.723) \approx 2.06$.
+
+Since 
+HR^ > 1, patients on “NewChemo” have more rapid progression (higher hazard) than “Control.”
+
+The 95 % confidence interval for 
+𝛽1
+
+  is reported in `r `summary(weibull_fit)$table["treatmentNewChemo", c("Value","Std. Error","p")]`.
+
+If the 95 % CI for 
+𝛽1   is [−0.845,−0.118], then
+
+$\exp\bigl(-(-0.845)\times 1.50\bigr) = 3.20, \quad
+  \exp\bigl(-(-0.118)\times 1.50\bigr) = 1.19$  
+
+giving a 95 % CI for HR: 
+[1.19,3.20]. Because this interval excludes 1, it confirms a significant difference in hazards.
+
+
+::::
+
+<a id="cox_ph_model"></a>
+
+::::spoiler
+
+### Cox proportional hazards model
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling the hazard (instantaneous event rate) for time‐to‐event data as a function of covariates without specifying a baseline hazard.  
+* **Real-world example:** Estimating the effect of a new drug (Drug A vs. Drug B) on time to cancer recurrence, adjusting for age and tumor grade.
+
+**Assumptions**
+* **Proportional hazards**: For any two individuals \(i\) and \(j\),  $ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\boldsymbol{X}_i^\top \boldsymbol{\beta} - \boldsymbol{X}_j^\top \boldsymbol{\beta}\bigr) $
+is constant over time (no interaction between covariates and time).  
+* **Independent censoring**: Censoring times are independent of event times.  
+* **Linearity**: The log‐hazard is a linear function of continuous covariates:  $\log h(t \mid \boldsymbol{X}) = \log h_0(t) + \boldsymbol{X}^\top \boldsymbol{\beta}$.
+
+* No important omitted covariates that interact with time.
+
+**Strengths**
+* **Semi‐parametric**: No need to specify \(h_0(t)\) (baseline hazard) explicitly.  
+* Accommodates right‐censoring and time‐dependent covariates (if extended).  
+* Provides easily interpretable **hazard ratios** (\(\text{HR} = \exp(\beta)\)).  
+* Widely used and implemented (e.g., `coxph()` in R).
+
+**Weaknesses**
+* Sensitive to violation of proportional hazards—if hazards cross, estimates and tests may be invalid.  
+* Does not automatically provide baseline survival estimate unless explicitly requested (e.g., via `survfit()`).  
+* Cannot easily handle non‐linear effects of continuous covariates without transformations or splines.
+
+**Example**
+
+* **Null hypothesis (\(H_{0}\))**: There is no difference in hazard between Drug A and Drug B after adjusting for age and tumor grade, i.e.  $\beta_{\text{drug}} = 0 \quad \Longrightarrow \quad \text{HR} = \exp(\beta_{\text{drug}}) = 1$.
+* **Alternative hypothesis (\(H_{1}\))**: Drug A and Drug B have different hazards, i.e.  $\beta_{\text{drug}} \neq 0 \quad \Longrightarrow \quad \text{HR} \neq 1$.
+
+
+```{r cox_ph_model}
+# Install and load survival package if necessary:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+n <- 200
+
+# Simulate covariates:
+#   drug: 0 = Drug B (reference), 1 = Drug A
+#   age: continuous, uniform 40–80
+#   grade: tumor grade (1,2,3)
+drug  <- rbinom(n, 1, 0.5)
+age   <- runif(n, 40, 80)
+grade <- sample(1:3, n, replace = TRUE)
+
+# True coefficients:
+beta_drug  <- -0.5   # Drug A hazard ratio = exp(-0.5) ≈ 0.61
+beta_age   <- 0.03   # hazard increases 3% per year
+beta_grade <- 0.7    # hazard ratio ≈ exp(0.7) ≈ 2.01 per grade increment
+
+# Baseline hazard simulation via Weibull for simplicity:
+shape   <- 1.5
+scale0  <- 0.01     # baseline scale parameter
+# Linear predictor:
+lin_pred <- beta_drug * drug + beta_age * age + beta_grade * grade
+
+# Simulate survival times from a Weibull:
+#   S(t | X) = exp(- (t * scale0 * exp(lin_pred))^shape )
+u        <- runif(n)
+time     <- (-log(u) / (scale0 * exp(lin_pred)))^(1/shape)
+
+# Simulate censoring times:
+censor_time <- runif(n, 0, 10)
+# Observed time and status:
+obs_time <- pmin(time, censor_time)
+status   <- as.numeric(time <= censor_time)
+
+# Build data frame:
+df_cox <- data.frame(
+time   = obs_time,
+status = status,
+drug   = factor(drug, labels = c("DrugB","DrugA")),
+age    = age,
+grade  = factor(grade, levels = 1:3)
+)
+
+# Fit Cox proportional hazards model:
+cox_fit <- coxph(Surv(time, status) ~ drug + age + grade, data = df_cox)
+
+# Display summary:
+summary(cox_fit)
+```
+
+**Interpretation:**
+
+For each covariate, summary(cox_fit) reports:
+
+Estimated coefficient 𝛽^
+ .
+
+Hazard ratio:
+
+$\widehat{\text{HR}} = \exp(\hat{\beta}).$
+95 % confidence interval for HR.
+
+Wald test (z) statistic and p-value.
+
+Suppose the output shows for drugDrugA:
+
+coef    exp(coef)   se(coef)    z    p  
+-0.512    0.599     0.180    -2.84  0.0045
+
+Then 
+𝛽^_ drug = − 0.512
+
+Hazard ratio:
+$\widehat{\text{HR}} = \exp(-0.512) \approx 0.599$,
+
+meaning patients on Drug A have about 0.60 times the hazard of recurrence compared to Drug B.
+
+The 95 % CI (e.g., [0.427,0.839]) excludes 1, and 
+p=0.0045<0.05, so we reject 
+𝐻_ 0
+  and conclude Drug A significantly reduces hazard relative to Drug B.
+
+For age (e.g., 
+𝛽^_ age = 0.029
+, 
+
+p=0.012):
+
+HR  =exp(0.029)≈1.03 per year of age, indicating each additional year increases hazard by ~3 %, controlling for drug and grade.
+
+Because 
+
+p<0.05, age is a significant predictor of hazard.
+
+For grade (e.g., Grade2: 
+𝛽^ =0.695, HR ≈ 2.00, 
+p=0.001; Grade3: 
+𝛽^ = 1.210, HR ≈ 3.35, 
+p<0.001):
+
+Patients with grade 2 tumors have about twice the hazard compared to grade 1; grade 3 tumors have ~3.35× hazard of grade 1.
+
+Both are highly significant (CIs exclude 1).
+
+Overall, because all covariate p values for drug, age, and grade are < 0.05, we conclude each is significantly associated with time to recurrence, holding the others constant.
+
+::::
+
+<a id="Accelerated-Failure-Time"></a>
+
+::::spoiler
+
+### Accelerated Failure Time (AFT) modeller (eksponentiel, log-logistisk, …)
+
+EJ KORREKTURLÆST
+
+* **Used for** Modeling time‐to‐event data under the assumption that covariates act multiplicatively on survival time (“accelerate” or “decelerate” survival).  
+* **Real‐world example:** Estimating how a new treatment (“Drug A” vs. “Drug B”) affects time to relapse, assuming survival follows an exponential or log‐logistic distribution.
+
+**Assumptions**
+* **AFT form:** For each subject \(i\),  
+  \[
+    \log T_i \;=\; \mathbf{X}_i^\top \boldsymbol{\beta} \;+\; \sigma\,W_i,
+  \]  
+  where \(W_i\) has a known distribution (e.g., extreme‐value for exponential, logistic for log‐logistic).  
+* **Exponential AFT:** \(W_i\) is standard extreme‐value, so survival \(\bigl(T_i\mid \mathbf{X}_i\bigr)\sim \text{Weibull}\) with shape \(\alpha=1\).  
+* **Log‐Logistic AFT:** \(W_i\) is standard logistic, so \(\log T_i\) is logistic, and \(T_i\sim \text{Log‐Logistic}(\alpha,\lambda)\).  
+* Independent right‐censoring: censoring times are independent of event times.  
+* Correct specification of the error distribution (exponential vs. log‐logistic).  
+* Covariates enter linearly on the log‐time scale; no omitted interacting variables.
+
+**Strengths**
+* Provides a direct interpretation in terms of **time ratios**:  
+  \[
+    \text{Time Ratio for covariate }j = \exp\bigl(\beta_{j}\bigr),
+  \]  
+  i.e.\ each unit increase in \(X_j\) multiplies median survival time by \(\exp(\beta_{j})\).  
+* Parametric: can yield more precise estimates (smaller standard errors) if the distributional form is correct.  
+* Can extrapolate beyond the observed data if model fit is adequate.
+
+**Weaknesses**
+* Mis‐specifying the error distribution (e.g.\ assuming exponential when data are log‐logistic) biases estimates and inference.  
+* Less robust than the semi‐parametric Cox model if true hazard shape deviates from assumed form.  
+* Requires checking model fit (e.g.\ via AIC, residual plots) to ensure the chosen distribution is appropriate.
+
+**Example**
+
+* **Null hypothesis (\(H_{0}\)):** Treatment has no effect on log‐survival time, i.e.  
+  $\beta_{\text{treatment}} = 0 \quad \Longrightarrow \quad \text{Time Ratio} = \exp(0) = 1.$
+* Alternative hypothesis (𝐻_1 ): Treatment alters log‐survival time, i.e.
+$\beta_{\text{treatment}} \neq 0 \quad \Longrightarrow \quad \text{Time Ratio} \neq 1.$
+
+```{r Accelerated-Failure-Time}
+# Install and load the 'survival' package if necessary:
+# install.packages("survival")
+library(survival)
+
+set.seed(2025)
+n <- 150
+
+# Simulate a binary treatment indicator: 0 = DrugB, 1 = DrugA
+treatment <- rbinom(n, 1, 0.5)
+
+# True AFT parameters:
+#   beta0 = 2.5 (intercept on log-time scale)
+#   beta_treat = -0.6 (DrugA reduces log-time)
+#   sigma_expo = 1 (exponential AFT → shape = 1/sigma_expo = 1)
+#   sigma_loglog = 0.8 (log-logistic AFT → scale = sigma_loglog)
+beta0        <- 2.5
+beta_treat   <- -0.6
+sigma_expo   <- 1.0    # exponential AFT scale 
+sigma_loglog <- 0.8    # log-logistic AFT scale
+
+# Simulate error terms:
+#   For exponential AFT, W ~ extreme-value(0,1), generate via -log(-log(U))
+u_expo <- runif(n)
+W_expo <- -log(-log(u_expo))
+
+#   For log-logistic AFT, W ~ standard logistic
+W_loglog <- rlogis(n, location = 0, scale = 1)
+
+# Generate log‐times under each AFT model:
+logT_expo   <- beta0 + beta_treat * treatment + sigma_expo * W_expo
+logT_loglog <- beta0 + beta_treat * treatment + sigma_loglog * W_loglog
+
+# Convert to event times:
+time_expo   <- exp(logT_expo)
+time_loglog <- exp(logT_loglog)
+
+# Simulate independent right‐censoring from Uniform(0, 25):
+censor_time <- runif(n, 0, 25)
+
+# Observed times and event indicators:
+obs_time_expo   <- pmin(time_expo,   censor_time)
+status_expo     <- as.numeric(time_expo   <= censor_time)
+
+obs_time_loglog <- pmin(time_loglog, censor_time)
+status_loglog   <- as.numeric(time_loglog <= censor_time)
+
+# Combine into a single data frame (use exponential‐type data here):
+df_aft <- data.frame(
+  time   = obs_time_expo,
+  status = status_expo,
+  treatment = factor(treatment, labels = c("DrugB","DrugA"))
+)
+
+# Fit exponential AFT model via survreg (dist = "exponential"):
+aft_expo_fit <- survreg(
+  Surv(time, status) ~ treatment,
+  data = df_aft,
+  dist = "exponential"
+)
+
+# Fit log-logistic AFT model on the same data (to compare mis-specification):
+aft_loglog_fit <- survreg(
+  Surv(time, status) ~ treatment,
+  data = df_aft,
+  dist = "loglogistic"
+)
+
+# Display summaries:
+summary(aft_expo_fit)
+summary(aft_loglog_fit)
+```
+
+**Interpretation:**
+
+Exponential AFT (dist="exponential")
+
+In the AFT parameterization, the scale reported by survreg() equals 
+σ^ =1 if the shape 
+α=1/ σ^ =1.
+Suppose
+
+scale = 1.02  
+then
+$\widehat{\alpha} = \frac{1}{1.02} \approx 0.98 \approx 1$,
+
+consistent with an exponential hazard.
+
+The coefficient for treatmentDrugA is, e.g., 
+𝛽^_treatment =−0.588 with p‐value = 0.008.
+
+Time Ratio for DrugA vs. DrugB:
+
+$\exp\bigl(\hat{\beta}_{\text{treatment}}\bigr) = \exp(-0.588) \approx 0.556.$
+
+This means that DrugA “accelerates failure” so that median survival time on DrugA is about 55.6 % of that on DrugB (i.e., shorter).
+
+Since p=0.008<0.05, we reject 
+𝐻_0
+  and conclude DrugA significantly changes survival time relative to DrugB.
+
+Log‐Logistic AFT (dist="loglogistic") (mis‐specified model)
+
+The scale σ^   might be, say, 0.90, implying a shape estimate
+
+$\widehat{\alpha} = \frac{1}{0.90} \approx 1.11.$
+
+The coefficient for treatmentDrugA could be 
+
+β^__treatment =−0.482 with p‐value = 0.015.
+
+Time Ratio:
+$\exp(-0.482) \approx 0.618.$
+
+Suggesting DrugA’s median time is ~61.8 % of DrugB’s.
+
+But because the data truly follow an exponential AFT, the log‐logistic fit may have biased 
+β^   and slightly different inference.
+
+Compare AICs:
+AIC(aft_expo_fit, aft_loglog_fit)
+The exponential model should have lower AIC (better fit) if the exponential assumption holds.
+
+In summary, fitting the correctly specified exponential AFT yields a time ratio 
+exp( β^_treatment )≈0.56 (p = 0.008), indicating DrugA significantly reduces survival time. The mis‐specified log‐logistic model gives a similar but biased estimate (time ratio ≈ 0.62, p = 0.015) and higher AIC, illustrating the importance of choosing the correct AFT distribution.
+
+::::
+
+<a id="grays-test"></a>
+
+::::spoiler
+
+### Gray’s test for konkurrentrisiko
+
+EJ KORREKTURLÆST
+
+* **Used for** Testing equality of cumulative incidence functions between groups in the presence of competing risks.  
+* **Real-world example:** Comparing the incidence of cancer relapse (event of interest) between two treatment arms, accounting for death from other causes as a competing event.
+
+**Assumptions**
+* Competing risks are mutually exclusive and each subject experiences at most one event.  
+* Censoring is independent of the event processes.  
+* The cause‐specific hazards are proportional across groups.
+
+**Strengths**
+* Directly compares cumulative incidence functions rather than cause‐specific hazards.  
+* Accounts properly for competing events (does not treat them as noninformative censoring).  
+* Implemented in `cmprsk::cuminc()` with the Gray test built in.
+
+**Weaknesses**
+* Assumes proportional subdistribution hazards (which may be violated).  
+* Sensitive to heavy censoring or sparse events in one group.  
+* Only tests overall equality of curves, not differences at specific time points.
+
+**Example**
+
+* **Null hypothesis ($H_{0}$):**  $F_1^{(1)}(t) = F_2^{(1)}(t)\quad\text{for all }t$
+(the cumulative incidence of the event of interest is the same in both groups).  
+* **Alternative hypothesis ($H_{1}$):**  $F_1^{(1)}(t) \neq F_2^{(1)}(t)\quad\text{for some }t$
+
+
+```{r gray_test}
+# install.packages("cmprsk")  # if needed
+library(cmprsk)
+
+# Simulate competing‐risks data for 100 patients in two arms:
+set.seed(2025)
+n <- 100
+group <- factor(rep(c("A","B"), each = n/2))
+
+# True subdistribution hazards:
+#   cause 1 (relapse): faster in B; cause 2 (death): equal
+lambda1 <- ifelse(group=="A", 0.05, 0.1)
+lambda2 <- 0.03
+
+# Simulate event times via exponential (for simplicity)
+time1 <- rexp(n, rate = lambda1)
+time2 <- rexp(n, rate = lambda2)
+ftime   <- pmin(time1, time2)
+fstatus <- ifelse(time1 <= time2, 1, 2)  # 1=relapse, 2=death
+
+# Compute cumulative incidence and Gray's test:
+ci <- cuminc(ftime, fstatus, group = group)
+
+# ci is a list; test results in ci$Tests
+ci
+```
+
+**Interpretation:**
+The Gray test for cause 1 (relapse) yields
+
+$\chi^2 = \text{ci\$Tests["1  A vs B", "stat"]},\quad p = \text{ci\$Tests["1  A vs B","pv"]}$
+
+If $p < 0.05$, we reject $H_{0}$ and conclude the cumulative incidence of relapse differs between groups A and B.
+
+If $p \ge 0.05$, we fail to reject $H_{0}$, indicating no evidence of a difference in relapse incidence between the treatment arms.
+
+::::
+
+<a id="cox_ph_assumption_test"></a>
+
+::::spoiler
+
+### Test af proportional hazards-antagelsen (Schoenfeld residualer)
+
+EJ KORREKTURLÆST
+
+' **Used for** Testing the proportional‐hazards assumption in Cox models using Schoenfeld residuals.  
+* **Real-world example:** Verifying that the hazard ratio between a new drug and control remains constant over follow‐up time.
+
+**Assumptions**
+* You have a fitted Cox model (`coxph()`).  
+* Censoring is noninformative.  
+* The true hazard ratios are constant over time under the null.
+
+**Strengths**
+* Provides both a global test and covariate‐specific tests.  
+* Uses residuals to detect time‐varying effects.  
+* Easy to implement via `cox.zph()`.
+
+**Weaknesses**
+* Sensitive to sparse data or few events.  
+* May flag minor, clinically irrelevant departures.  
+* Graphical interpretation can be subjective.
+
+**Example**
+
+* **Null hypothesis ($H_0$):** The hazard ratio is constant over time for each covariate, i.e.  
+$ \frac{h_i(t)}{h_j(t)} = \exp\bigl(\beta_k (X_{ik}-X_{jk})\bigr)\quad\text{independent of }t.$
+* **Alternative hypothesis ($H_1$):** At least one covariate’s hazard ratio varies with time.
+
+```{r cox_ph_assumption_test}
+library(survival)
+
+set.seed(2025)
+# Simulate data:
+n <- 200
+drug  <- rbinom(n, 1, 0.5)               # 0=Control, 1=DrugA
+age   <- runif(n, 40, 80)
+grade <- sample(1:3, n, replace = TRUE)
+
+# True hazard: h(t) = h0(t) * exp(-0.5*drug + 0.03*age + 0.7*grade)
+shape  <- 1.5
+scale0 <- 0.01
+linpred <- -0.5*drug + 0.03*age + 0.7*grade
+u       <- runif(n)
+time    <- ( -log(u) / (scale0 * exp(linpred)) )^(1/shape)
+censor  <- runif(n, 0, 10)
+obs_time <- pmin(time, censor)
+status   <- as.numeric(time <= censor)
+
+df_cox <- data.frame(
+time   = obs_time,
+status = status,
+drug   = factor(drug, labels = c("Control","DrugA")),
+age,
+grade  = factor(grade)
+)
+
+# Fit Cox model:
+cox_fit <- coxph(Surv(time, status) ~ drug + age + grade, data = df_cox)
+
+# Test proportional hazards via Schoenfeld residuals:
+zph_test <- cox.zph(cox_fit)
+
+# Display results:
+zph_test
+plot(zph_test)
+```
+
+**Interpretation:**
+
+The output shows a test statistic and p‐value for each covariate and a GLOBAL test.
+
+For each row, p‐value $<0.05$ indicates that covariate’s hazard ratio varies over time.
+
+A GLOBAL p‐value $<0.05$ indicates some covariate violates proportional hazards.
+
+Graphs of residuals vs.\ time (plot(zph_test)) should show a roughly horizontal line under $H_0$. Trends suggest time‐varying effects.
+
+If all p‐values $\ge 0.05$, we fail to reject $H_0$ and conclude the proportional hazards assumption is reasonable.
+
+
+::::
+
+## Aftale- og concordance-mål
+
+
+<a id="kappa_statistic"></a>
+
+::::spoiler
+
+### Kappa statistic
+
+EJ KORREKTURLÆST
+MON IKKE DENNE SNARERE SKAL KONSOLIDERES MED DEN COHENS VI ALLEREDE HAR?
+
+* **Used for** Quantifying agreement between two raters classifying the same subjects into categories, beyond chance.  
+* **Real-world example:** Assessing whether two pathologists agree on “Benign” vs. “Malignant” diagnoses.
+
+**Assumptions**
+* Each subject is independently rated by both raters.  
+* Ratings are categorical (nominal or ordinal).  
+* The marginal distributions of categories need not be equal.
+
+**Strengths**
+* Corrects for agreement expected by chance.  
+* Provides an interpretable coefficient, $\kappa$, ranging from –1 to 1.  
+* Can be weighted for ordinal categories.
+
+**Weaknesses**
+* Sensitive to prevalence and marginal imbalances (“paradox”).  
+* Doesn’t distinguish systematic bias from random disagreement.  
+* Requires at least two raters and non‐sparse tables for stable estimates.
+
+**Example**
+
+* **Null hypothesis ($H_{0}$):** $\kappa = 0$ (no agreement beyond chance).  
+* **Alternative hypothesis ($H_{1}$):** $\kappa \neq 0$ (agreement beyond chance).
+
+```{r kappa_statistic}
+# install.packages("psych")  # if necessary
+library(psych)
+
+set.seed(2025)
+n <- 50
+# Simulate two raters classifying subjects as "Yes" or "No":
+rater1 <- sample(c("Yes","No"), n, replace = TRUE, prob = c(0.6,0.4))
+# Rater2 agrees 70% of the time:
+rater2 <- ifelse(runif(n) < 0.7,
+                 rater1,
+                 ifelse(rater1=="Yes","No","Yes"))
+
+ratings    <- data.frame(rater1, rater2)
+kappa_result <- cohen.kappa(ratings)
+
+# Display results:
+kappa_result
+```
+**Interpretation**
+The estimated Cohen’s $\kappa$ is
+
+$\widehat{\kappa}$ = `r kappa_result$kappa[1]`
+
+The test statistic (z) = kappa_result$z[1] DETTE FUNGERER IKKE - Z ER IKKE I OBJEKTET.
+
+with p-value =$\texttt{signif(kappa_result\$p.value[1], 3)}$. DET HER FUNGERER VIST HELLER IKKE...
+
+Since p = r signif(kappa_result$p.value[1], 3) EJ HELLER DETTE
+
+If p < 0.05, we reject $H_{0}$ and conclude there is agreement beyond chance.
+
+If p ≥ 0.05, we fail to reject $H_{0}$ and conclude no evidence of agreement beyond chance.
+
+Conventionally, $\kappa$ values are interpreted as:
+
+0.01–0.20: slight agreement
+
+0.21–0.40: fair agreement
+
+0.41–0.60: moderate agreement
+
+0.61–0.80: substantial agreement
+
+0.81–1.00: almost perfect agreement
+
+
+
+
+
+::::
+
+<a id="intraclass-correlation-coefficient"></a>
+
+::::spoiler
+
+### Intraclass Correlation Coefficient (ICC)
+
+EJ KORREKTURLÆST
+
+* **Used for** Assessing the reliability or agreement of quantitative measurements made by two or more raters.  
+* **Real-world example:** Determining how consistently three radiologists measure tumor size on MRI scans.
+
+**Assumptions**:
+
+* Measurements are continuous and approximately normally distributed.  
+* Raters are randomly selected (for the “random‐effects” model) or fixed (for the “fixed‐effects” model), depending on choice.
+* No interaction between subjects and raters (i.e., rater effects are consistent across subjects).
+* Balanced design: each subject is rated by the same set of raters.
+
+**Strengths**
+
+* Quantifies both consistency and absolute agreement, with different model/type options.  
+* Can accommodate any number of raters and subjects.  
+* Provides confidence intervals and tests for ICC.
+
+**Weaknesses**
+
+* Sensitive to violations of normality and homogeneity of variance.  
+* Choice of model (one‐way vs. two‐way) and type (consistency vs. agreement) affects results.  
+* Requires balanced data; missing ratings complicate estimation.
+
+**Example**
+
+* *Null hypothesis (H₀)*: The intraclass correlation coefficient ICC = 0 (no reliability beyond chance).  
+* *Alternative hypothesis (H₁)*: ICC > 0 (measurements are more reliable than chance).
+
+```{r intraclass_correlation_coefficient, message=FALSE}
+library(irr)
+
+# Simulate ratings of 10 subjects by 3 raters:
+set.seed(42)
+ratings <- data.frame(
+  rater1 = round(rnorm(10, mean = 50, sd = 5)),
+  rater2 = round(rnorm(10, mean = 50, sd = 5)),
+  rater3 = round(rnorm(10, mean = 50, sd = 5))
+)
+
+# Compute two-way random effects, absolute agreement, single rater ICC:
+icc_result <- icc(ratings,
+                  model = "twoway",
+                  type  = "agreement",
+                  unit  = "single")
+
+# Display results:
+icc_result
+```
+
+**Interpretation:**
+
+The estimated ICC is `r round(icc_result$value, 2)` with a 95% CI [`r round(icc_result$lbound, 2)`, `r round(icc_result$ubound, 2)`] and p-value = `r signif(icc_result$p.value, 3)`. We
+`r if(icc_result$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that
+`r if(icc_result$p.value < 0.05) "there is statistically significant reliability among the raters." else "there is no evidence of reliability beyond chance among the raters."`
+
+::::
+
+<a id="bland_altman"></a>
+
+::::spoiler
+
+### Bland–Altman analysis
+
+EJ KORREKTURLÆST
+
+* **Used for** Assessing agreement between two quantitative measurement methods by examining 
+the mean difference (bias) and the limits of agreement. It tests if any difference
+is constant across the range of measurements, and if there is heteroskedasticity
+in the data (are there differences that are dependent on measurement levels)
+* **Real-world example:** Comparing blood pressure readings from a new wrist monitor and a standard sphygmomanometer.
+
+
+**Assumptions**
+* Paired measurements on the same subjects.  
+* Differences (method A – method B) are approximately normally distributed.  
+* No strong relationship between the magnitude of the measurement and the difference (homoscedasticity).
+
+**Strengths**
+* Provides both a visual (Bland–Altman plot) and numerical summary (bias and limits) of agreement.  
+* Easy to interpret clinically: shows how far apart two methods can differ for most observations.  
+* Does not rely on correlation, which can be misleading for agreement.
+
+**Weaknesses**
+* Assumes constant bias across range of measurements.  
+* Sensitive to outliers, which can widen limits of agreement.  
+* Requires adequate sample size (n ≥ 30 preferred) to estimate limits reliably.
+
+**Example**
+
+* **Null hypothesis (H₀):** Mean difference between methods A and B is zero (no systematic bias).  
+* **Alternative hypothesis (H₁):** Mean difference ≠ 0 (systematic bias exists).
+
+```{r bland_altman}
+# Simulated paired blood pressure measurements (mmHg) on 12 subjects:
+wrist   <- c(120, 122, 118, 121, 119, 117, 123, 120, 118, 119, 122, 121)
+sphyg   <- c(119, 121, 117, 122, 118, 116, 124, 119, 117, 120, 121, 122)
+
+# Compute differences and means:
+diffs    <- wrist - sphyg
+means    <- (wrist + sphyg) / 2
+
+# Calculate bias and limits of agreement:
+bias     <- mean(diffs)
+sd_diff  <- sd(diffs)
+loa_up   <- bias + 1.96 * sd_diff
+loa_low  <- bias - 1.96 * sd_diff
+
+# Test for zero bias:
+t_test   <- t.test(diffs, mu = 0)
+
+# Bland–Altman plot:
+library(ggplot2)
+ba_df <- data.frame(mean = means, diff = diffs)
+ggplot(ba_df, aes(x = mean, y = diff)) +
+  geom_point() +
+  geom_hline(yintercept = bias,    linetype = "solid") +
+  geom_hline(yintercept = loa_up,   linetype = "dashed") +
+  geom_hline(yintercept = loa_low,  linetype = "dashed") +
+  labs(title = "Bland–Altman Plot",
+       x = "Mean of Wrist & Sphyg Measurements",
+       y = "Difference (Wrist – Sphyg)")
+
+# Print numerical results:
+bias; loa_low; loa_up; t_test
+```
+
+**Interpretation**
+The mean difference (bias) is `r round(bias, 2)` units, with 95% limits of 
+agreement from `r round(loa_low, 2)` to `r round(loa_up, 2)` units. 
+The t-test for zero bias yields a p-value of `r signif(t_test$p.value, 3)`, so we
+`r if(t_test$p.value < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
+This indicates that there is
+`r if(t_test$p.value < 0.05) "evidence of systematic bias between methods A and B." else "no statistically significant bias; the two methods agree on average."`
+
+::::
+
+
+Der skal nok suppleres med:
+Weighted κ
+ is used for ordinal values. We use the function kappa2() from the irr package.
+Light’s κ
+ is used for studying interrater agreement between more than 2 raters. We use the function kappamlight() from the irr package.
+Fleiss κ
+ is also used when having more than 2 raters. But does not require the same raters for each subject.
+ 
+ Little's test for MCAR. Fra biblioteket naniar
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use an appropriate statistical test
+- Make sure you understand the assumptions underlying the test
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+

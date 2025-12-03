@@ -56,8 +56,8 @@ Og så laver vi 3D-plottet af Danmark. Det gør vi ikke her, for det kan GitHub
 ikke gøre for os. Bemærk også at der er forældede funktioner i brug her - 
 der er kommet nye. Så denne kode skal nok opdateres:
 
-denmark_mat %>% 
-  sphere_shade(texture= "imhof3") %>% 
+denmark_mat |> 
+  sphere_shade(texture= "imhof3") |> 
    plot_3d(denmark_mat, windowsize = c(1200,1200),
                      zscale = 20, zoom = 0.75, phi = 89, theta = 0, fov = 0, background = "black")
 

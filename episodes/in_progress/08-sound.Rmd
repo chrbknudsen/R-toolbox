@@ -10,16 +10,8 @@ keypoints:
   - "First key point. Brief Answer to questions. (FIXME)"
 ---
 
-```{r, include = FALSE}
-source("../bin/chunk-options.R")
-knitr_fig_path("08-")
-```
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-Eller hvad katten det nu hedder når man ikke visualiserer, men illustrer - 
+Eller hvad katten det nu hedder når man ikke visualiserer, men illustrerer - 
 også et dårligt ord, data med lyd.
 
 Denne pakke gør det direkte i R. Den skal installeres fra github. Læg mærke 
@@ -43,7 +35,7 @@ plot(1:10)
 dev.off()
 ```
 ```{r eval = F}
-plot_df <- mtcars %>% arrange(mpg)
+plot_df <- mtcars |> arrange(mpg)
 
 audio()
 ggplot(plot_df) +

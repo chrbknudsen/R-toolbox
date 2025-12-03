@@ -1,12 +1,12 @@
 ---
-title: 'missing-data'
+title: 'Handling missing data'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How do we handle missing data?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -16,33 +16,132 @@ exercises: 2
 - Demonstrate how to include pieces of code, figures, and nested challenge blocks
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+```{r}
+library(dlookr)
+```
 
-## Introduction
-tre slags manglende data. 
 
-* Missing completely at random
-* Missing at random
-* Missing not at random
 
-Tilgange
+Missing data happens. And they happen for different reasons. 
 
-listwise deletion. Vi sender spørgeskemaer ud. og ikke alle svarer.
-Dem sletter vi. Nogen svarer ikke på alle spørgsmål. Dem sletter vi også.
-Vi kunne også kalde det for "complete case analysis" - vi analyserer kun
-på de komplette cases.
+But in general - missing data is data that should have been there. But isn't.
 
-pairwise deletion
+There reasons are legion. 
 
-Imputationer
+* A measuring device fails measuring the data. Or fails to record it. 
+* In surveys - some respondents refuse, or forget to answer
+* Or maybe the question is not relevant, eg. questions about children that the respondent might not have. Especially if we forget to take it into account designing the survey.
+* Dropout. In longitudional studies some respondents might drop out of the survey. Or the survey might be so long, that respondents give up.
 
-Hot deck imputation
+They can also be missing in different ways:
 
-mean substitution. Dårlig ide
+* MCAR - Missing Completely At Random. Data is missing at random, independent of other data.
+* MAR - Missing At Random. Data is missing at random, but not completely at random. We might randomly miss data for a certain category in our data, but not for others.
+* MNAR - Missing Not At Random. Data is missing for some reason we do not know. People with a too high intake of alcohol tend to not answer questions about that.
 
-regressions subsistitution. Lidt bedre. Men ikke god.
 
-Multiple imputation - lader til at være god.
-maximum likelihood imputation
+You can never assume that data is missing at random. You need to understand why certain data is missing, before deciding how to handle it.
+If your assumptions about why data is missing are wrong, the techniques you chose for handling them can bias your results in unexpected ways.
+
+But first of all, are data missing? 
+
+```{r}
+summary(penguins)
+```
+
+Yes, data is missing in five variables.
+
+
+## Missing completely at random
+
+This is the simplest situation. If data is missing completely at random, simply removing them will not
+affect the rest of the data. 
+
+The most robust way of handling MCAR data is to perform a "listwise deletion", which is just a fanciful way
+of saying that we delete all observations with missing data. We can also call this "complete case analysis".
+
+Removing observations with missing data is trivial. But how do we make sure that data is actually missing 
+completely at random?
+
+A statistical test for that exist. Little's test is available through the library `naniar`.
+The NULL-hypothesis is that data is missing completely at random.
+```{r}
+library(naniar)
+naniar::mcar_test(penguins)
+
+```
+
+Since the p-value is 0.242, that is: larger than 0.05, we can not reject the NULL-hypothesis. And therefore
+we have no evidence against data being missing completely at random, and we can do a listwise deletion on our
+data.
+
+
+### Imputing data
+Vi bliver ofte kede af at slette observationer - for så mange data har vi sjældent.
+Men listwise deletion er nok det mest sikre sådan statistisk, når mængden af 
+manglende data er lille (<5-10%)
+
+Hvis vi vil bevare statistisk styrke, holde mængden af observationer, foretager vi
+imputation.
+Brug imputation hvis:
+Du har mange NA'er og ikke vil miste observationsrækker
+Du laver modeller, der er følsomme over for sample size (fx GLMs)
+Du skal træne maskinlæringsmodeller (de fleste kræver komplette data)
+
+undlad imputering hvis:
+Der kun mangler få værdier
+Du laver deskriptiv statistik, og vil holde alt transparent
+Du ikke vil introducere nogen som helst antagelser
+
+
+
+
+MAR er mere komplekst. Her kan vi med fordel imputere data. 
+
+MNAR - her er der ingen gode løsninger. Overvej at antage forskellige scenarier.
+du kan eksempelvis imputere lav, høj eller gennemsnitlig værdig og sammenligene
+resultaterne.
+
+Du kan ogå imputere baseret på din faglige viden eksempelvis "vi ved fra tidligere
+studier at folk med lav score typisk ikke svarer". og baseret på det imputere lave
+værider (eller høje, hvis det normalt er dem der ikke svarer)
+
+
+
+
+```{r}
+install.packages("naniar")
+library(naniar)
+
+# Test om missingness er MCAR
+
+```
+
+og littles test har null-hypotesen at data er MCAR. Så hvis p-værdien er 
+mindre end 0.05 kan vi afvise null-hypotesen. Og det er ikke det vi er 
+ude efter. 
+
+ p > 0,05, vi kan ikke afvise, at data er MCAR (altså: de kan være MCAR)
+
+Hvis p < 0,05, er der systematik i missingness → ikke MCAR → muligvis MAR eller MNAR
+bemærk at det er omvendt af hvad vi plejer at se. Normalt vil vi gerne se en
+lav p-værdi, fordi vi så kan afvise null-hypotesen, der som regel er at "der er ikke
+noget spændende her". Her vil vi gerne se en høj p-værdi, fordi vi så ikke kan
+afvise null-hypotesen, der her er "det er den lette udgave af problemet".
+
+
+
+## noter om bwplot
+
+When performing multiple imputation of missing data, it is essential to evaluate how the imputed values compare to the observed data. The bwplot() function of the mice package in R offers a straightforward way to visualize and assess these relationships using boxplots.
+The attached image, created with the bwplot() function, showcases how the distributions of observed and imputed values vary across different imputations for multiple variables. Here's what the plot reveals!
+🔹 Plot Explained: The plot compares the distributions of observed (blue boxplots, labeled "0") and imputed values (pink boxplots, labeled "1" to "5") for each variable across five imputations.
+🔹 Observed vs. Imputed Data: For variables such as wgt and bmi, the imputed values closely align with the observed data, indicating that the imputation model effectively captures the underlying structure of the data. However, differences between observed and imputed distributions do not necessarily signify an issue. They may reflect systematic patterns in the missing data that are accurately modeled by the imputation algorithm.
+🔹 Imputation Consistency: Stable distributions across imputations demonstrate consistency and reliability in the imputation process. If variability persists between imputations, it may indicate the need for further iterations or adjustments to the imputation model.
+To generate this plot using the mice package in R:
+library(mice)
+my_imp <- mice(boys)
+bwplot(my_imp)
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

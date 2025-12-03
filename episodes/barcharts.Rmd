@@ -18,7 +18,7 @@ exercises: 2
 
 ## Introduction
 
-Barcharts are easy to make, but how can we get them to look nicer.
+Barcharts are easy to make, but how can we get them to look nicer?
 
 This is a checklist for cleaning up your barchart.
 
@@ -27,7 +27,7 @@ We start by getting some data:
 ```{r setup}
 library(tidyverse)
 library(palmerpenguins)
-penguin_example <- penguins %>% 
+penguin_example <- penguins |> 
   select(species)
 ```
 
@@ -63,7 +63,7 @@ et barchart til at se pænere ud.
 The us make the first barchart:
 
 ```{r first-example}
-penguin_example %>% 
+penguin_example |> 
 ggplot(aes(x = species)) + 
 geom_bar() 
 ```
@@ -76,7 +76,7 @@ The first step would be to do something about the colours, and add labels and
 a title to the plot:
 
 ```{r colours-labels}
-penguin_example %>% 
+penguin_example |> 
 ggplot(aes(x = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -101,8 +101,8 @@ which converts the character vector that is `species` to a factor with levels
 ordered by frequency:
 
 ```{r order}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
 ggplot(aes(x = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -125,8 +125,8 @@ preferable to have the columns as bars on the y-axis. We do that by changing
 the `x` in the `aes()` function to `y`:
 
 ```{r rotation}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
 ggplot(aes(y = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -144,8 +144,8 @@ the number of categories.
 
 
 ```{r text-size}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
 ggplot(aes(y = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -167,8 +167,8 @@ There is a bit of empty space between the columns and the labels on the y-axis.
 Let us get rid of that:
 
 ```{r unnecessary-space}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
 ggplot(aes(y = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -197,8 +197,8 @@ There ar horizontal lines in the plot background that are unnessecary. And the
 grey background we get by default is not very nice. Remove them:
 
 ```{r decluttering}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
 ggplot(aes(y = species)) + 
 geom_bar(fill = "darkorchid3") +
 labs(
@@ -228,8 +228,8 @@ to construct a dataframe with the data:
 
 ```{r count_penguins}
 penguin_count <- count(penguin_example, species)
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
   ggplot(aes(y = species)) + 
   geom_bar(fill = "darkorchid3") +
   labs(
@@ -265,8 +265,8 @@ bars and the text!
 We can do the same with labels if we want:
 
 ```{r labelling}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>%
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
   ggplot(aes(y = species)) + 
   geom_bar(fill = "darkorchid3") +
   labs(
@@ -306,8 +306,8 @@ Depending on aspect ratio of the final plot, number of categories etc, we
 might want to adjust the width of the bars:
 
 ```{r slimmer-bars}
-penguin_example %>% 
-  mutate(species = fct_infreq(species)) %>% 
+penguin_example |> 
+  mutate(species = fct_infreq(species)) |> 
   ggplot(aes(y = species)) + 
   geom_bar(
     fill = "darkorchid3",

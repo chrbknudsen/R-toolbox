@@ -25,11 +25,11 @@ But it is quite different:
 
 ```{r}
 library(tidyplots)
-energy %>%
-    tidyplot(x = year, y = power, colour = energy_source) %>%
-    add_areastack_absolute() %>%
-    adjust_size(width = NA, height = NA) %>%
-    adjust_font(fontsize = 12) %>%
+energy |> 
+    tidyplot(x = year, y = power, colour = energy_source) |> 
+    add_areastack_absolute() |> 
+    adjust_size(width = NA, height = NA) |> 
+    adjust_font(fontsize = 12) |> 
     add_title("Energy Production Over Time")
 
 ```
