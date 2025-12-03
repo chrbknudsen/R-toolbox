@@ -398,7 +398,7 @@ and renv will place both the libraries and the cache in our local project.
 
 ### Do I have to do this every time?
 
-Good news everybody! No.
+Good news everyone! No.
 
 _If_ you start a new virtual machine, and add the _same_ folder in you drive
 on Ucloud to the run, you can open your project again: Navigate to the project
