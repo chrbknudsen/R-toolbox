@@ -1,31 +1,28 @@
 ---
-title: 'R on Ucloud'
+title: 'R on UCloud'
 teaching: 10
 exercises: 2
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- What is Ucloud?
-- How do we use R and RStudio on Ucloud?
+- What is UCloud?
+- How do we use R and RStudio on UCloud?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to acces RStudio and R on Ucloud
-- Demonstrate how to setup drives and additional software working with Ucloud
+- Explain how to acces RStudio and R on UCloud
+- Demonstrate how to setup drives and additional software working with UCloud
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-
-
-
-You need to run R on a computer that have more muscles than you own. 
+You need to run R on a computer that has more muscles than you own. 
 
 If you are a student at UCPH, you are in luck, because you have access to a 
 High Performance Computing (HPC) facility;
-ucloud. It can be acessed at cloud.sdu.dk using the normal UCPH login and 
+UCloud. It can be acessed at cloud.sdu.dk using the normal UCPH login and 
 password.
 
 
@@ -33,7 +30,7 @@ Depending on the user allowances, it will look something like this.
 
 ![](fig/ucloud_front.png)
 
-Ucloud provides access to a multitude of different applications organized in the
+ provides access to a multitude of different applications organized in the
 application store:
 
 ![](fig/ucloud_store.png)
@@ -83,7 +80,7 @@ The computer used for writing this text have 20 cores.
 This is nice, for the core can - in principle - only do one calculation at a time.
 When we calculate `1+1`, that is the only thing the core can do at that precise moment.
 
-The thruth is a lot more complicated, but the analogy is useful in order to understand
+The truth is a lot more complicated, but the analogy is useful in order to understand
 why it can be nice to have more than one.
 
 Having access to more than one core allow us to run some of our calculations in
@@ -95,7 +92,7 @@ Some calculations we want to do in R can be parallelized, where we ask one core
 to distribute the tasks to 10 different cores. The calculation will then be done
 much faster, than if only one core worked on the problem.
 
-Chosing a machine on Ucloud with a lot of cores will not necesarily speed up
+Chosing a machine on  with a lot of cores will not necesarily speed up
 your work. The code you run will have to be written to make use of all the cores.
 And sometimes it takes longer to do that, than just leaving all the work to a
 single core.
@@ -117,7 +114,6 @@ Or use this:
 future::availableCores()
 ```
 
-
 ### Memory
 
 Looking at the interface, we see that we also get access to more memory, or RAM.
@@ -131,21 +127,20 @@ tends to make a copy of the data it manipulates.
 We might therefore have to chose a certain size of virtual machine, not because
 we actually need 64 cores, but because we need the memory.
 
-
 ### It will go away!
 
 Because we are running a virtual computer, rather than a real computer, most of 
 what we do will disappear when we restart the computer. In R we typically 
 installs a number of libraries or packages. Those will vanish into thin air when
 the virtual machine is closed down. In a section below we will cover access to
-drives on Ucloud which to a certain degree can help us. But if we do not take
+drives on  which to a certain degree can help us. But if we do not take
 precautions, we will have to install R-packages every time we start up a 
-new virtual machine on Ucloud
+new virtual machine on 
 
 ### Cost
 
 We might be tempted to let the virtual machine run forever, instead of only for
-1 hour. But Ucloud is a limited resource, and we only have a specific allowance 
+1 hour. But  is a limited resource, and we only have a specific allowance 
 in total. Running a machine with one virutal CPU for one hour consumes 1 "core-hour"
 of our allowance. Running a machine with 64 virtual CPUs for one hour consumes 
 64 core-hours. And when we run out of allowance - the machine will close down.
@@ -162,7 +157,7 @@ And because we are not running on a real computer, everything will be lost.
 
 ### Your drive
 
-Not all is lost when you restart a virtual machine. Ucloud provides you
+Not all is lost when you restart a virtual machine.  provides you
 with a drive:
 
 ![](fig/ucloud_drive.png)
@@ -190,8 +185,7 @@ be difficult to identify and fix.
 
 ::::
 
-
-## Lets get started!
+## Let's get started with RStudio!
 
 Go to the app-store as shown above, and chose RStudio.
 
@@ -205,9 +199,7 @@ click add folder:
 Click in "No directory selected" and then on "Use" to choose "ml-course":
 
 ![](fig/ucloud_start_1.png)
-
-
-And than click "Submit"
+And then click "Submit"
 
 Your request is being processed:
 
@@ -226,12 +218,12 @@ We can also see the "Open interface" button.
 
 If we click that, RStudio opens and we can begin working with R.
 
+## Creating a project
 
 The very first thing we should always do, is to create a project. At the 
 upper right hand corner we see where we can do that: 
 
 ![](fig/ucloud_rstudio_2.png)
-
 
 Click new project, create it in a "new Directory" and change the subdirectory
 in which the project is created to the directory we made earlier. THIS IS IMPORTANT!
@@ -241,13 +233,12 @@ in which the project is created to the directory we made earlier. THIS IS IMPORT
 We now have a project running in RStudio on a virtual machine on UCloud, and
 we are ready to work!
 
-
 ## Housekeeping
 
 ### What to do if RStudio appears to freeze?
 
 First of all - have patience. RStudio appears almost the same when it is frozen
-and if it is working on something that takes time. But take advantadge of the
+and if it is working on something that takes time. But take advantage of the
 fact that this is just a web interface to what is actually running on a 
 virtual remote machine. Close the interface, and open it again. R will still be 
 there.
@@ -255,7 +246,7 @@ there.
 ### Where can I find the job again?
 
 Sometimes we close a window, or nagivate away from it. Where can we find it again?
-In the navigationbar to the left in Ucloud we find this icon. 
+In the navigation bar to the left in  we find this icon. 
 ![](fig/ucloud_running_jobs.png)
 It provides us with a list or running jobs (yes, we can have more than one). Click
 on the job, and we get back to the job, where we can extend time or open the 
@@ -267,30 +258,28 @@ If you are done with your work, and there is no reason to continue running
 the machine, you can stop it early. Find the job (see above), and click and hold
 the "Stop application" button. Remember to save your scripts in RStudio first!
 
-
-
-- how to download an entire folder, so they can download their work at the end of the semester (without having to learn how to sync folders, which I imagine will be too much to ask from this workshop)
-archiver...
-
 ### How do I get files out of UCloud?
 
-This can be done in several different ways. Ucloud provides guides on how to
-syncronise files. And there are archiving tools that can zip and download 
+This can be done in several different ways.  provides guides on how to
+synchronise files. And there are archiving tools that can zip and download 
 your files.
 
 The easy way is to do it through RStudio. Select the folder and/or files you
 want to save, click on the little cogwheel saying "More" and chose "Export".
 RStudio will now zip the files, and ask you where to save them.
+
 ![](fig/ucloud_save.png)
+
+:::: instructor
+To do: include how to use the UCloud archiving app to download an entire folder
+::::
 
 ### How do I get files into UCloud
 
-Again - Ucloud have services that can assist. But the easiest way is to
+Again -  has documentation that can help you. But the easiest way is to
 note that there is an "Upload" button in the Files pane in RStudio. Use that.
 
-
-
-### What types of machines did I have access to?
+### What types of machines do I have access to?
 
 UCloud offers the possibility of "projects" where you choices might be different.
 If you're not in a "project" these will be the default options:
@@ -322,21 +311,8 @@ restarted.
 If you usually start your code with `library(tidyverse)`, you will, on a virtual
 machine, have to start with `install.packages("tidyverse")` instead. _Every time!_
 
-Working with machine learning makes this even worse. Many of the algorithms we
-work with requires us to have specific Python libraries installed, and
-available to R. They also disappear.
-
-And to complicate matters even more, some of them require specific versions of
-Python, and are unable to run on the newest version. And by default the version 
-of Python on Ucloud is the newest.
-
-Below we present two ways of handling this. First "The Good Solution". Which could
-be better. And "The Sledgehammer Solution". Which is the reason we call "The Good
-Solution" good.
-
-
-
-## The Good Solution
+R environments help you handle this. Think of them as bubbles in which you have
+all the right packages installed. 
 
 First of all, and _this is important!_ you chose the folder we demonstrated
 how to use earlier:
@@ -345,19 +321,170 @@ how to use earlier:
 
 The method requires the setup to know exactly where your files are.
 
-Secondly, and for the same reason, you _must_ create a project in the folder 
+Secondly, and for the same reason, you _must_ [create a project](#creating-a-project) in the folder 
 you attached to the run of the virtual machine. 
 
 Then make a script-file. It is not important what you call it, here we 
 call it "setup.R"
 
-Copy the code below into that file, and run the code _line-by-line_.
-
-Some of the lines of code restart R. This is necessary for R to read-in new
+Copy the code below into that file, and run the code _line-by-line_. That is because
+some of the lines of code restart R. This is necessary for R to read-in new
 options and settings. And when R is restarted, it does not know where to continue.
-
+So you'll have to feed it the lines one at a time.
 
 ```{r eval =F}
+# Set path to renv cache
+writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
+# restart R in order to set the environment variable
+.rs.restartR()
+
+# Initializing renv. You will be asked if you want to do it. You do.
+renv::init()
+
+#install all the packages you need. For example:
+install.packages("textdata", prompt = FALSE)
+install.packages("stringr", prompt = FALSE)
+install.packages("glmnet", prompt = FALSE)
+install.packages("quanteda", prompt = FALSE)
+#You can add more packages to the environment later
+#(see below)
+
+# Storing information about installed packages
+# You might be asked if you want to proceed. You do.
+renv::snapshot()
+```
+
+
+::::spoiler
+## Notes on R environments, renv and caches
+
+Data analysis is not worth much, if we are not able to reproduce our results.
+A significant amount of work has therefore gone into providing infrastructure
+for exactly that. One issue is the question of which libraries are used for
+the analysis.
+
+Enter `renv`. `renv` is a library that establishes scaffolding for installing
+libraries in a specific location in an R-project, making it self contained and
+easy to distribute. Normally we would distribute a "lock file" that describes 
+exactly which versions of which packages are used in a project. 
+
+You will see a lot of stuff in the "files" tab. A folder called "renv", a file
+"renv.lock", and probably a file ".Rprofile".
+
+Looking into that, we will find a line of code "source("renv/activate.R")"
+
+When ever we start the project, what ever we have written to 
+.Rprofile will be run. What will be run in this case is the script "activate.R"
+which does a lot of interesting stuff. The important thing is, that 
+the renv-library is started. And whenever we now install a package, it 
+will be installed in the renv folder. Do not delve too deep into that, leave it
+to the machine.
+
+One issue with this is, that there are still installed packages weird places 
+on the machine. Caches of the packages are stored outside our project. The idea
+is that other projects might use these cached packages, and cut down on install
+time. 
+
+In our case, that is not helpful. This cache will disappear when the virtual
+machine is stopped.
+
+In order to handle this, we can specify where the cache should be stored.
+We can do that manually. Or, and this is the preffered solution, make a file
+.Renviron where we specify where renv should place the cache. Having done that
+we need to restart R, and now we can install packages to our hearts delight,
+and renv will place both the libraries and the cache in our local project.
+
+::::
+
+### Do I have to do this every time?
+
+Good news everybody! No.
+
+_If_ you start a new virtual machine, and add the _same_ folder in you drive
+on Ucloud to the run, you can open your project again: Navigate to the project
+folder (you did remember the name, right?), and click on the .Rproj file with 
+the same name as your project. 
+
+Due to the way Renv works, it might take some time to open the project:¨
+
+![](fig/ucloud_taking_longer.png)
+
+### What about other packages?
+
+When you have run the setup above, and opened the project, `renv` is
+running and keeping track of stuff. 
+
+That also means that if you need another package - `tidyverse` comes
+to mind as a frequently used set of packages, you simply install
+tidyverse running `install.packages("tidyverse")` just as you would
+normally do. These new packages are now installed in your project and
+will be available without having to install them repeatedly. 
+
+But remember to run `renv::snapshot()` afterwards to update the 
+registration `renv` keeps of installed packages.
+
+### Other issues
+
+Renv is a bit finicky. You might get messages about packages being in "an inconsistent
+state". Try running this first:
+
+```{r eval = FALSE}
+renv::restore()
+```
+
+And if that does not solve the problem, try:
+
+```{r eval = FALSE}
+renv::rehash()
+renv::snapshot()
+renv::restore()
+```
+
+Sometimes renv forgets that a library is installed...
+
+Fortunately the libraries are easily available, so an 
+```{r eval = FALSE}
+renv::install("rstudio/gtools")
+```
+
+is fast. The example shows gtools - exchange the package name
+for what is actually missing.
+
+## Setup when you need Python
+
+In machine learning, many of the algorithms we
+work with require us to have specific Python libraries installed and
+available to R. Typical examples are tensorflow and keras, which we 
+need to create our own neural networks and fit them to data. Those
+python libraries also disappear from the virtual machine, unless we keep them in our R
+environment as well.
+
+And to complicate matters even more, some of them require specific versions of
+Python, and are unable to run on the newest version. And by default the version 
+of Python on Ucloud is the newest. So we also need to control which version of
+*python* is installed in our environment.
+
+Below we present two ways of handling this. First "The Good Solution". Which could
+be better. And "The Sledgehammer Solution". Which is the reason we call "The Good
+Solution" good.
+
+### The Good Solution
+
+This solution is very similar to what we set up above: an R environment that we can
+work in again and again. However, it is a little more complex to set up an environment
+that also has Python packages installed and accessible to R (in jargon, it has to have another
+*conda environment* inside it). All this extra baggage also makes the environment slower
+to load, and a bit more prone to errors.
+
+Therefore, we recommend setting up a separate R environment that is just for interfacing with Python,
+e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get-started-with-rstudio)
+and [creating a new project](#creating-a-project). Give the project a Directory name that helps you remember
+this is your environment for using Python.
+
+The following code will allow you to use Python packages in R and sets up Tensorflow and Keras, two the most commonly used machine learning packages:
+
+```{r eval = FALSE}
+
 # Set path to renv cache
 writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
 # restart R in order to set the environment variable
@@ -382,7 +509,7 @@ renv::snapshot()
 # restart R to ensure that R knows where miniconda is installed
 .rs.restartR()
 
-# Create python environment
+# Create conda environment
 reticulate::conda_create(
   envname = "my_project_env",
   packages = c("python=3.10", "openssl=3.3.0"),
@@ -415,14 +542,29 @@ med den samme version som der kører på systemet.
 
 Det betyder også, at hvis systemets python-version ændres - kan vi
 få fejlbeskeder om at ssl ikke kan findes.
-
 ::::
 
-One way to check that everything worked, is to run the following script:
+You can access this R-with-python environment just like before: by loading the
+environment in Rstudio. You can [add other packages](#what-about-other-packages)
+to it just like before. But for reasons we do not entirely understand at KUB Datalab (yet), you also
+have to run: 
 
 ```{r eval = FALSE}
 .rs.restartR()
 reticulate::use_condaenv("my_project_env", required = TRUE)
+```
+
+every time you open the project, before actually doing anything else.
+
+One way to check that the whole set-up worked is to run the following script:
+
+```{r eval = FALSE}
+
+#restart R and pull up the conda environment
+.rs.restartR()
+reticulate::use_condaenv("my_project_env", required = TRUE)
+
+#try to access keras and create a neural net
 library(keras3)
 model <- keras_model_sequential() |>
   layer_dense(units = 32, input_shape = c(784)) |>
@@ -431,11 +573,10 @@ model <- keras_model_sequential() |>
   layer_activation("softmax")
 summary(model)
 
-#importing the transformers python module
+#try importing and using the transformers python module
 transformers <- reticulate::import("transformers") 
 autotoken <- transformers$AutoTokenizer
 autoModelClass <- transformers$AutoModelForSequenceClassification
-
 modelname <- "distilbert-base-uncased-finetuned-sst-2-english"
 model <- autoModelClass$from_pretrained(modelname)
 
@@ -446,72 +587,6 @@ If you get a nice summary, everything worked. You might get messages about
 tensorflow not being compiled for working with "GPU"s. Since we do not have 
 access to GPU on the kind of virtual machines we can run RStudio on, on UCloud,
 these can safely be ignored.
-
-#### Do I have to do this every time?
-
-Good news everybody! No.
-
-_If_ you start a new virtual machine, and add the _same_ folder in you drive
-on Ucloud to the run, you can open your project again: Navigate to the project
-folder (you did remember the name, right?), and click on the .Rproj file with 
-the same name as your project. 
-
-Due to the way Renv works, it might take some time to open the project:¨
-
-![](fig/ucloud_taking_longer.png)
-
-And for reasons we do not entirely understand at KUB Datalab (yet), we also
-have to run the 
-
-```{r eval = FALSE}
-.rs.restartR()
-reticulate::use_condaenv("my_project_env", required = TRUE)
-```
-
-Before actually doing anything.
-
-
-#### What about other packages?
-
-When you have run the setup above, and opened the project, `renv` is
-running and keeping track of stuff. 
-
-That also means that if you need another package - `tidyverse` comes
-to mind as a frequently used set of packages, you simply install
-tidyverse running `install.packages("tidyverse")` just as you would
-normally do. These new packages are now installed in your project and
-will be available without having to install them repeatedly. 
-
-But remember to run `renv::snapshot()` afterwards to update the 
-registration `renv` keeps of installed packages.
-
-
-#### Other issues
-
-Renv is a bit finicky. You might get messages about packages being in "an inconsistent
-state". Try running this first:
-
-```{r eval = FALSE}
-renv::restore()
-```
-
-And if that does not solve the problem, try:
-
-```{r eval = FALSE}
-renv::rehash()
-renv::snapshot()
-renv::restore()
-```
-
-Sometimes renv forgets that a library is installed...
-
-Fortunately the libraries are easily available, so an 
-```{r eval = FALSE}
-renv::install("rstudio/keras3")
-```
-
-is fast. The example shows keras3 - exchange the package name
-for what is actually missing.
 
 ### The sledgehammer solution
 
@@ -555,62 +630,14 @@ library(keras3)
 install_keras(envname = '~/r-tensorflow')
 ```
 
-
-You can check that it is working similarly to the better solution above.
-
-
-
-::::spoiler
-## Notes on the good solution
-
-Data analysis is not worth much, if we are not able to reproduce our results.
-A significant amount of work have therefore gone into providing infrastructure
-for exactly that. One issue is the question of which libraries are used for
-the analysis.
-
-Enter `renv`. `renv` is a library that establishes scaffolding for installing
-libraries in a specific location in an R-project, making it self contained and
-easy to distribute. Normally we would distribute a "lock file" that describes 
-exactly which versions of which packages are used in a project. 
-
-
-You will see a lot of stuff in the "files" tab. A folder called "renv", a file
-"renv.lock", and probably a file ".Rprofile".
-
-Looking into that, we will find a line of code "source("renv/activate.R")"
-
-When ever we start the project, what ever we have written to 
-.Rprofile will be run. What will be run in this case is the script "activate.R"
-which does a lot of interesting stuff. The important thing is, that 
-the renv-library is started. And whenever we now install a package, it 
-will be installed in the renv folder. Do not delve too deep into that, leave it
-to the machine.
-
-One issue with this is, that there are still installed packages weird places 
-on the machine. Caches of the packages are stored outside our project. The idea
-is that other projects might use these cached packages, and cut down on install
-time. 
-
-In our case, that is not helpful. This cache will disappear when the virtual
-machine is stopped.
-
-In order to handle this, we can specify where the cache should be stored.
-We can do that manually. Or, and this is the preffered solution, make a file
-.Renviron where we specify where renv should place the cache. Having done that
-we need to restart R, and now we can install packages to our hearts delight,
-and renv will place both the libraries and the cache in our local project.
-
-::::
-
-
-
+You can check that it is working in the same way as you did with the Good Solution above.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Ucloud provide access to a multitude of advanced software that we are not able to run locally
-- Running RStudio on Ucloud give us access to more compute and memory than we have on our own computer
-- More advanced work might require a quite complicated setup
+- UCloud provides access to a multitude of advanced software that we are not able to run locally
+- Running RStudio on UCloud gives us access to more compute and memory than we have on our own computer
 - Restarting a virtual machine means all our work and setup might be lost, unless we take certain precautions.
+- More advanced work might require a quite complicated setup
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
