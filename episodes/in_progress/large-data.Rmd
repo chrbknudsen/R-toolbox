@@ -27,24 +27,24 @@ library(tidyverse)
 vanilla <- nycflights13::flights
 
 
-int_1 <- vanilla %>% 
+int_1 <- vanilla |> 
   mutate(dep_delay = as.integer(dep_delay))
   
 
 
 
-int_all <- vanilla %>% 
+int_all <- vanilla |> 
   mutate(across(c(dep_delay, arr_delay, air_time, flight, distance, hour, minute), as.integer))
 
-fct_1 <- vanilla %>% 
+fct_1 <- vanilla |> 
   mutate(carrier = fct(carrier))
 
-fct_all <- vanilla %>% 
+fct_all <- vanilla |> 
   mutate(across(c(carrier, tailnum, origin, dest), as.factor))
 
 
-all_conv <- vanilla %>% 
-  mutate(across(c(carrier, tailnum, origin, dest), as.factor)) %>% 
+all_conv <- vanilla |> 
+  mutate(across(c(carrier, tailnum, origin, dest), as.factor)) |> 
   mutate(across(c(dep_delay, arr_delay, air_time, flight, distance, hour, minute), as.integer))
 
 
@@ -67,10 +67,10 @@ det er da ikke så ringe endda.
 data.table
 
 
-tbl(con, "flights") %>%
-group_by(origin) %>%
-count(dest, sort = TRUE, name = "N") %>%
-slice_max(order_by = N, n = 3) %>%
+tbl(con, "flights") |>
+group_by(origin) |>
+count(dest, sort = TRUE, name = "N") |>
+slice_max(order_by = N, n = 3) |>
 select(origin, dest)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

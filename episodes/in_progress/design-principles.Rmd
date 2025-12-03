@@ -50,13 +50,13 @@ to the actual data values. This prevents misleading interpretations. Example: A 
 ## No gridlines
 
 ```{r}
-et <- penguins %>% 
+et <- penguins |> 
   ggplot(aes(y=species)) +
   geom_bar()  +
   theme_bw() +
   ggtitle("With gridlines")
 
-to <- penguins %>% 
+to <- penguins |> 
   ggplot(aes(y=species)) +
   geom_bar()  +
   theme_bw() +

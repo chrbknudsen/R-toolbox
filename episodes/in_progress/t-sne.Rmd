@@ -56,7 +56,7 @@ hvad med blomsterne?
 library(Rtsne)
 library(plotly)
 iris_unik <- unique(iris)
-iris_art <- iris_unik %>% pull(Species)
+iris_art <- iris_unik |> pull(Species)
 iris_matrix <- as.matrix(iris_unik[,1:4])
 
 iris_tsne <- Rtsne(iris_matrix, dims = 3)
@@ -66,7 +66,7 @@ iris_data <- tibble(x = iris_tsne$Y[,1], y = iris_tsne$Y[,2], z = iris_tsne$Y[,3
 p <- plot_ly(iris_data, x = ~x, y = ~y, z = ~z, colour = ~art)
 add_markers(p, colour = ~art )
 p
-iris_data %>% ggplot(aes(x,y, colour = art)) +
+iris_data |> ggplot(aes(x,y, colour = art)) +
   geom_point()
 
 

@@ -172,7 +172,7 @@ Adjusted $R^2$ is worse!
 
 and for the men/boys?
 ```{r eval = F}
-lm(FEV ~Age + Hgt , data = fev %>% filter(Sex == 1)) %>% summary()
+lm(FEV ~Age + Hgt , data = fev |> filter(Sex == 1)) |> summary()
 ```
 
 It actually gets better. 
@@ -265,7 +265,7 @@ lm(FEV ~ Age + Hgt + Sex, data = fev)
 
 If we want the polynomial expansion for fx Hgt (automagically):
 ```{r eval = F}
-lm(FEV ~ poly(Hgt, 2, raw=TRUE), data=fev) %>% summary()
+lm(FEV ~ poly(Hgt, 2, raw=TRUE), data=fev) |> summary()
 
 ```
 Or, if we want to control it more directly:

@@ -1202,8 +1202,8 @@ sexrat <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/
   
 # Number of families with female first child:
   
-sexrat %>% 
-  filter(sx_1 == "F") %>% 
+sexrat |> 
+  filter(sx_1 == "F") |> 
   summarise(nF1 = sum(num_fam))
 
 # A tibble: 1 x 1
@@ -1213,9 +1213,9 @@ nF1
 
 # Number of those families with a male second child:
 
-sexrat %>% 
+sexrat |> 
   filter(sx_1 == "F",
-         sx_2 == "M") %>% 
+         sx_2 == "M") |> 
   summarise(nF1M2 = sum(num_fam))
 
 # A tibble: 1 x 1

@@ -26,18 +26,18 @@ We can do more advanced stuff working in markdown (as we do here) by using the `
 ```{r}
 library(knitr)
 library(kableExtra)
-mtcars %>%
-  head() %>%
+mtcars |> 
+  head() |> 
   kable(
     format = "markdown", 
     caption = "Uddrag af `mtcars` dataset"
-  ) %>%
+  ) |> 
   kable_styling(
     bootstrap_options = c("striped", "hover", "condensed", "responsive"),
     full_width = FALSE,
     position = "center"
-  ) %>%
-  row_spec(0, bold = TRUE, background = "#2E3B4E", color = "white") %>%
+  ) |> 
+  row_spec(0, bold = TRUE, background = "#2E3B4E", color = "white") |> 
   row_spec(1:6, background = c("#F5F5F5", "white"))
 ```
 But it is not very intuitive. 

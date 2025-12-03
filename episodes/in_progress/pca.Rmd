@@ -107,7 +107,7 @@ can note that the units of the variables differ widely, and that the values are
 also quite different, as shown by the mean of the values for each cultivar:
 
 ```{r}
-wine %>% group_by(X1) %>% 
+wine |> group_by(X1) |> 
   summarise(across(X2:X14, mean))
 ```
 
@@ -122,9 +122,9 @@ them. But we still believe that the aggregate variability in all the variables
 together will be able to discriminate between them.
 
 ```{r}
-wine %>% 
-  pivot_longer(cols = X2:X14) %>% 
-  mutate(X1 = factor(X1)) %>% 
+wine |> 
+  pivot_longer(cols = X2:X14) |> 
+  mutate(X1 = factor(X1)) |> 
   ggplot(aes(x=value, color = X1, group = X1)) +
   geom_density() +
   facet_wrap(~name, scales = "free")
@@ -139,13 +139,13 @@ column containing the correct answer, X1, where we have information about the
 cultivars.
 
 ```{r}
-cultivars <- wine %>% pull(X1)
+cultivars <- wine |> pull(X1)
 ```
 
 Next we prepare the data, by removing X1:
 
 ```{r}
-wine_to_pca <- wine %>% select(-X1)
+wine_to_pca <- wine |> select(-X1)
 ```
 
 
@@ -161,8 +161,8 @@ the correct results we extracted earlier:
 
 
 ```{r pca-plot}
-pca_wine$x %>% 
-  as_tibble() %>% 
+pca_wine$x |> 
+  as_tibble() |> 
   ggplot(aes(PC1, PC2, colour = factor(cultivars))) + 
   geom_point()
 
@@ -176,13 +176,13 @@ cultivars.
 We made a plot of the `x` component of the result. What else is in there?
 
 ```{r}
-pca_wine %>% names()
+pca_wine |> names()
 ```
 
 Let us look at each of them. First "x"
 
 ```{r}
-pca_wine$x %>% head()
+pca_wine$x |> head()
 ```
 This is the coordinates in the new coordinate system. The plot was made using
 only the first two of the new features/variables/dimensions, and we do that firstly
@@ -292,38 +292,38 @@ We can scale or not. And we can center. Or not. The four combinations in the
 example with data on wine looks like this:
 
 ```{r echo = FALSE}
-pca_ct_st <- prcomp(wine_to_pca, center = TRUE, scale. = TRUE)$x %>% 
-  as_tibble() %>% 
+pca_ct_st <- prcomp(wine_to_pca, center = TRUE, scale. = TRUE)$x |> 
+  as_tibble() |> 
   mutate(cultivar = cultivars)
-pca_ct_sf <- prcomp(wine_to_pca, center = TRUE, scale. = FALSE)$x %>% 
-  as_tibble() %>% 
+pca_ct_sf <- prcomp(wine_to_pca, center = TRUE, scale. = FALSE)$x |> 
+  as_tibble() |> 
   mutate(cultivar = cultivars)
-pca_cf_st <- prcomp(wine_to_pca, center = FALSE, scale. = TRUE)$x %>% 
-  as_tibble() %>% 
+pca_cf_st <- prcomp(wine_to_pca, center = FALSE, scale. = TRUE)$x |> 
+  as_tibble() |> 
   mutate(cultivar = cultivars)
-pca_cf_sf <- prcomp(wine_to_pca, center = FALSE, scale. = FALSE)$x %>% 
-  as_tibble() %>% 
+pca_cf_sf <- prcomp(wine_to_pca, center = FALSE, scale. = FALSE)$x |> 
+  as_tibble() |> 
   mutate(cultivar = cultivars)
 
-ct_st <- pca_ct_st %>% 
+ct_st <- pca_ct_st |> 
   ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
   geom_point() +
   ggtitle("Both centering and scaling") +
   theme(legend.position = "none")
 
-ct_sf <- pca_ct_sf %>% 
+ct_sf <- pca_ct_sf |> 
   ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
   geom_point() +
   ggtitle("Centering, no scaling") +
   theme(legend.position = "none")
 
-cf_st <- pca_cf_st %>% 
+cf_st <- pca_cf_st |> 
   ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
   geom_point() +
   ggtitle("Scaling, no centering") +
   theme(legend.position = "none")
 
-cf_sf <- pca_cf_sf %>% 
+cf_sf <- pca_cf_sf |> 
   ggplot(aes(PC1, PC2, colour = factor(cultivar))) + 
   geom_point() +
   ggtitle("Neither scaling, nor centering") +
@@ -344,8 +344,8 @@ We already have - All data according to the first two principal components
 But if we want PC3 vs PC4, that is straight forward:
 
 ```{r}
-pca_wine$x %>% 
-  as_tibble() %>% 
+pca_wine$x |> 
+  as_tibble() |> 
   ggplot(aes(PC3, PC4, colour = factor(cultivars))) + 
   geom_point()
 ```

@@ -39,17 +39,17 @@ likert_labels <- c(
   "Somewhat Agree", "Agree", "Strongly Agree"
 )
 
-df_long <- df %>%
-  pivot_longer(cols = everything(), names_to = "question", values_to = "response") %>%
+df_long <- df |>
+  pivot_longer(cols = everything(), names_to = "question", values_to = "response") |>
   mutate(
     response = factor(response, levels = 1:7, labels = likert_labels),
     question = factor(question, levels = unique(question))
   )
 
 # Tæl og beregn procenter
-df_count <- df_long %>%
-  count(question, response) %>%
-  group_by(question) %>%
+df_count <- df_long |>
+  count(question, response) |>
+  group_by(question) |>
   mutate(
     percent = n / sum(n) * 100,
     direction = case_when(
@@ -58,12 +58,12 @@ df_count <- df_long %>%
       TRUE ~ "pos"
     ),
     response = factor(response, levels = likert_labels)
-  ) %>%
+  ) |>
   arrange(question, direction, response)
 
 # Beregn stacking-positioner
-df_stack <- df_count %>%
-  group_by(question, direction) %>%
+df_stack <- df_count |>
+  group_by(question, direction) |>
   mutate(
     xpos_start = case_when(
       direction == "neg" ~ -rev(cumsum(rev(percent))),
@@ -78,9 +78,9 @@ df_stack <- df_count %>%
 
 questions <- levels(df_stack$question)
 
-df_main <- df_stack %>% filter(direction != "neu")
-df_neutral <- df_stack %>%
-  filter(direction == "neu") %>%
+df_main <- df_stack |> filter(direction != "neu")
+df_neutral <- df_stack |>
+  filter(direction == "neu") |>
   mutate(
     xpos_start = -percent / 2,
     xpos_end = percent / 2,

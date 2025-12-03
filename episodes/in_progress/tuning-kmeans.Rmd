@@ -105,7 +105,7 @@ And now we can plot the result:
 
 ```{r}
 library(tidyverse)
-wss_df %>%
+wss_df |> 
   ggplot(aes(x = k, y = wss)) +
   geom_point() +
   geom_line() +
@@ -154,12 +154,12 @@ remove the cultivar column.
 :::: solution
 ```{r}
 library(dplyr)
-vin <- vin %>% select(-cultivar)
+vin <- vin |> select(-cultivar)
 wss <- map_dbl(1:10, function(k){
   kmeans(vin, centers = k, nstart = 20)$tot.withinss
 })
 tibble(k = 1:10,
-                 wss = wss) %>%
+                 wss = wss) |> 
   ggplot(aes(x = k, y = wss)) +
   geom_point() +
   geom_line()

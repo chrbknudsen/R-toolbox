@@ -40,9 +40,9 @@ rep(7 ,8 ),
 rep(8 ,10),
 rep(9 ,8 ),
 rep(10, 7))
-space_worm_teeth <- space_worm_teeth %>% 
-  as_tibble_col(column_name = "space_worm_teeth")   %>% 
-  count(space_worm_teeth) %>% 
+space_worm_teeth <- space_worm_teeth |> 
+  as_tibble_col(column_name = "space_worm_teeth")   |> 
+  count(space_worm_teeth) |> 
   mutate(prob = n/sum(n))
 
 
@@ -76,11 +76,11 @@ You get the point.
 Det ville se således ud:
 
 
-space_worm_teeth %>% 
-  mutate(uniform = 1/11) %>% 
+space_worm_teeth |> 
+  mutate(uniform = 1/11) |> 
   pivot_longer(prob:uniform,
                names_to = "fordeling",
-               values_to = "value") %>% 
+               values_to = "value") |> 
   ggplot(aes(space_worm_teeth, value, fill=fordeling)) +
   geom_col(position="dodge")
 
@@ -97,8 +97,8 @@ plat. Hvis den er 50%, ser det således ud:
 
 
 
-data.frame(x=0:10) %>% 
-  mutate(bino = dbinom(x,10,0.5)) %>% 
+data.frame(x=0:10) |> 
+  mutate(bino = dbinom(x,10,0.5)) |> 
   ggplot(aes(x,bino)) +
   geom_col()
 
@@ -111,8 +111,8 @@ lidt under 5%.
 Men i samme øjeblik vi ændrer på den sandsynlighed, skifter plottet udseende:
 
 
-data.frame(x=0:10) %>% 
-  mutate(bino = dbinom(x,10,0.6)) %>% 
+data.frame(x=0:10) |> 
+  mutate(bino = dbinom(x,10,0.6)) |> 
   ggplot(aes(x,bino)) +
   geom_col()
 
@@ -124,8 +124,8 @@ Og ændrer vi endnu mere på det, så går det helt galt:
 
 
 ```{r}
-data.frame(x=0:10) %>% 
-  mutate(bino = dbinom(x,10,0.8)) %>% 
+data.frame(x=0:10) |> 
+  mutate(bino = dbinom(x,10,0.8)) |> 
   ggplot(aes(x,bino)) +
   geom_col()
 ```
@@ -148,7 +148,7 @@ rep(6 ,12),
 rep(7 ,8 ),
 rep(8 ,10),
 rep(9 ,8 ),
-rep(10, 7)) %>% mean()
+rep(10, 7)) |> mean()
 ```
 Hvorfor er n = 10, og ikke 100? Det skal jeg lige vride hjernen omkring...
 
@@ -157,19 +157,19 @@ Anyway, sandsynligheden er 0.544
 Nu kan vi beregne hvad sandsynligheden for at observere et bestemt antal tænder er:
 
 ```{r}
-space_worm_teeth %>% 
+space_worm_teeth |> 
   mutate(binom = dbinom(space_worm_teeth, 10, 0.544))
 ```
 
 og vi kan plotte det, sammen med vores oprindelige fordeling af tænder:
 
 ```{r}
-space_worm_teeth %>% 
-  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) %>% 
-  select(space_worm_teeth, prob, binom) %>% 
+space_worm_teeth |> 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) |> 
+  select(space_worm_teeth, prob, binom) |> 
   pivot_longer(prob:binom,
                names_to = "fordeling",
-               values_to = "value") %>% 
+               values_to = "value") |> 
   ggplot(aes(space_worm_teeth, value, fill = fordeling)) +
   geom_col(position = "dodge")
 ```
@@ -177,12 +177,12 @@ space_worm_teeth %>%
 Man kunne være fristet til at sige at det ligner mere. Men hvor meget mere?
 
 ```{r}
-space_worm_teeth %>% 
-  mutate(uniform = 1/11) %>% 
-  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) %>% 
+space_worm_teeth |> 
+  mutate(uniform = 1/11) |> 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) |> 
   pivot_longer(prob:binom, 
                names_to = "fordeling",
-               values_to = "value") %>% 
+               values_to = "value") |> 
   ggplot(aes(space_worm_teeth, value, fill = fordeling)) +
   geom_col(position = "dodge")
 ```
@@ -216,11 +216,11 @@ Hvad sker der? Hvis de to sandsynligheder er ens, er brøken lig 1. Og logaritme
 Anyway, lad os beregne forskellen mellem den sande værdi, og de to fordelinger:
 
 ```{r}
-space_worm_teeth %>% 
-  mutate(uniform = 1/11) %>% 
-  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) %>% 
-  mutate(kl_uniform = prob*log(prob/uniform)) %>% 
-  mutate(kl_binom = prob*log(prob/binom)) %>% 
+space_worm_teeth |> 
+  mutate(uniform = 1/11) |> 
+  mutate(binom = dbinom(space_worm_teeth, 10, 0.544)) |> 
+  mutate(kl_uniform = prob*log(prob/uniform)) |> 
+  mutate(kl_binom = prob*log(prob/binom)) |> 
   summarise(KL_uniform = sum(kl_uniform), 
             KL_binom = sum(kl_binom))
 ```
