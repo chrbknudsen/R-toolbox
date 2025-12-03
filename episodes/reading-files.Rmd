@@ -50,6 +50,8 @@ run without us pointing and clicking. So - instead of importing the data
 in this way, copy the code that RStudio uses to import the data, and
 paste it into your script or document.
 
+This option does not yet exist in Positron.
+
 ## CSV-files
 
 The most basic file type for storing and transferring data. A "simple"
