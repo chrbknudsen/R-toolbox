@@ -24,19 +24,19 @@ Det skal vi have transformeret, så det får denne form:
 
 
 ```{r echo = FALSE}
-df <- df %>% 
+df <- df |> 
   pivot_longer(
     cols = c(ivf, icsi, icsi_b5, icsi_b6, ivf_b5, ivf_b6, icsi_p, ivf_p),
     names_to = c("fert", "var"),
     names_sep = "_"
-  ) %>% 
+  ) |> 
   pivot_wider(
     names_from = var,
     values_from = value
-  ) %>% 
-  group_by(fert) %>% 
-  uncount(`NA`) %>%
-  group_by(id,fert) %>%
+  ) |> 
+  group_by(fert) |> 
+  uncount(`NA`) |> 
+  group_by(id,fert) |> 
   mutate(
     p  = if_else(row_number() <= first(p), 1, 0),
     b5 = if_else(row_number() <= first(b5), 1, 0),
@@ -59,14 +59,14 @@ df <- df %>%
   pivot_wider(
     names_from = var,
     values_from = value
-  ) %>% 
-  group_by(fert) %>% 
-  uncount(`NA`) %>%
-  group_by(id,fert) %>%
+  ) |> 
+  group_by(fert) |> 
+  uncount(`NA`) |> 
+  group_by(id,fert) |> 
   mutate(
     p  = if_else(row_number() <= first(p), 1, 0),
     b5 = if_else(row_number() <= first(b5), 1, 0),
     b6 = if_else(row_number() <= first(b6), 1, 0)
-  ) %>%
+  ) |> 
   ungroup()
 ```

@@ -134,11 +134,10 @@ rnom(1) # i stedet for rnorm(1)
 
 2. Den hyppigste. Du har glemt at indlæse et bibliotek
 
-## unexpected SPECIAL in %>% 
-
+## unexpected SPECIAL in %>% or |> 
 ```{r eval  =F }
 iris
-%>% select(Species)
+|> select(Species)
 ```
 
 Den er gal med linieskiftet.

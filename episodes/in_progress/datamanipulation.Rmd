@@ -141,7 +141,7 @@ than 40 mm? Simply enter the expression `bill_length > 40`. Does `species` begin
 with an "A"? Give filter() the expression str_starts(species, "A")
 
 ```{r functional_filtering}
-penguins %>% 
+penguins |> 
   filter(str_starts(species, "A"))
 ```
 
@@ -149,7 +149,7 @@ Any expression that can return a TRUE or FALSE value can be used in a filter(),
 and multiple expressions can be added:
 
 ```{r multiple_filtering}
-penguins %>% 
+penguins |> 
   filter(str_starts(species, "A"),
          bill_length_mm > 40 | bill_depth_mm < 20)
 ```
