@@ -70,7 +70,7 @@ summary(fev)
 Vi ved ikke helt hvad en "scatterplot analysis" er. Men her er et scatterplot:
 
 ```{r eval = F}
-fev %>% ggplot(aes(x=Hgt, y = FEV)) +
+fev |> ggplot(aes(x=Hgt, y = FEV)) +
   geom_point() 
 ```
 Det får os til at tro at der måske er en lineær sammenhæng mellem højde og lungevolumen.
@@ -79,7 +79,7 @@ Det får os til at tro at der måske er en lineær sammenhæng mellem højde og 
 
 ggplot kan lave det direkte. Men husk at sætte "method" i geom_smooth:
 ```{r eval = F}
-fev %>% ggplot(aes(x=Hgt, y = FEV)) +
+fev |> ggplot(aes(x=Hgt, y = FEV)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -141,7 +141,7 @@ We can make the previous plot, just coloured by Sex (Sex is recorded as
 0's and 1's). We need to coeerce Sex to a categorical variable using `factor()`:
 
 ```{r eval = F}
-fev %>% ggplot(aes(x=Hgt, y = FEV, colour = factor(Sex))) +
+fev |> ggplot(aes(x=Hgt, y = FEV, colour = factor(Sex))) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -154,7 +154,7 @@ Maybe FEV is dependent on both Height **and** Age?
 
 
 model2 <- lm(FEV ~Age + Hgt , data = fev)
-model2 %>% summary()
+model2 |> |> summary()
 ```
 In the simpler model Adjusted R-squared was 
 0.7533. This larger model represents a slight improvement.
@@ -165,7 +165,7 @@ What if we only look at the girls/women?
 
 
 ```{r eval = F}
-lm(FEV ~Age + Hgt , data = fev %>% filter(Sex == 0)) %>% summary()
+lm(FEV ~Age + Hgt , data = fev |> filter(Sex == 0)) |> summary()
 ```
 Adjusted $R^2$ is worse!
 
@@ -208,7 +208,7 @@ Does the final bit make sense? Physiologically? No idea.
 Looking closer at the model result:
 
 ```{r eval = F}
-lm(FEV ~ Age:factor(Sex) + Hgt:factor(Sex) + Age*Hgt, data = fev)  %>% summary()
+lm(FEV ~ Age:factor(Sex) + Hgt:factor(Sex) + Age*Hgt, data = fev)  |> summary()
 ```
 The model is now so complicated that we see elements that are not significant.
 Maybe the model is too complicated.
@@ -294,7 +294,7 @@ mylogit <- glm(admit ~ gre + gpa + rank, family = binomial(link = "logit"),
 ```
 
 ```{r eval = F}
-myprobit %>% summary()
+myprobit |> summary()
 ```
 ```{r eval = F}
 mylogit
