@@ -37,11 +37,9 @@ data format.
 RStudio makes it simple to load most common data formats: Click on
 the file in the "Files" tab in RStudio, and choose "Import Dataset":
 
-![](fig/import_wizzard_gif.gif)
-
 RStudio will then provide an interface for loading the data:
 
-![](fig/data_import.png)
+![](fig/import_wizzard_gif.gif)
 
 However in general we prefer to have a script or a document, that can be
 run without us pointing and clicking. So - instead of importing the data
