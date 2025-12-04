@@ -161,6 +161,17 @@ and follow the instructions. You might need additional rights on the repo.
 
 Remember to update or add the DOI to config.yaml.
 
+## Citation
+
+It is useful for others to be able to cite the course material.
+
+Make a file "CITATION" in the root of the course project. 
+
+Then go to https://citation-file-format.github.io/cff-initializer-javascript/#/ (because the IT-department blocks https://bit.ly/cffinit), and create (or update) the file.
+Fill out or update the information, remember the DOI, and save the content, not to CITATION.cff, but to CITATION. 
+Commit etc. 
+
+
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
