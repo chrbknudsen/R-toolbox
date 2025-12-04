@@ -83,16 +83,19 @@ When all actions have run - look for the green checkmarks, go to "Settings",
 choose "Pages".
 
 :::: caution
-## renv messes things up!
+## renv can mess things up!
 
 Sandpaper uses the renv environment manager to handle dependencies in the
-packages you use. But that handling appears to be different on a windows
-machine and on the virtual Linux machine that GitHub actions uses. 
+packages you use. 
 
-So: DO NOT COMMIT AND PUSH ANY renv TO GITHUB. IT WILL BREAK THE GENERATION
-OF THE PAGES.
+That can give problems. The solution is this. Delete the renv directory, and the renv.lock file. Then run this:
 
-If you do - delete the renv directory.
+```{r eval = FALSE}
+sandpaper::use_package_cache()
+sandpaper::manage_deps()
+
+```
+
 
 ::::
 
@@ -129,6 +132,36 @@ The easiest way to update is to simply copy the relevant episode from here, to
 your own local repo. Then commit, push etc.
 
 Remember that any changes you have made will be gone!
+
+## Exotic packages
+
+If you need packages from github, you will need to install them using `renv`:
+
+```{r eval = FALSE}
+renv::install("clauswilke/colorblindr") 
+# Then write the lockfile:
+renv::snapshot()
+```
+
+## Releases
+
+We would like to have DOIs on our courses.
+
+When a course have reached a finishedish form, we make a "release". On the github repo page, click "Create a new release".
+Create a new tag with the version number, eg v.0.5.0. Give it a relaease title, typically the name of the course and the 
+version number.
+
+Write releasenotes - consider using the function "Generate release notes" to get an initial text. But beware that it 
+will use messages from commits and PRs and we are not that disciplined writing those...
+
+Then click "Publish release".
+
+Go to https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content
+and follow the instructions. You might need additional rights on the repo.
+
+Remember to update or add the DOI to config.yaml.
+
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
