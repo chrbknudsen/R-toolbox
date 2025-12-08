@@ -1,0 +1,162 @@
+---
+title: "Parallellization in R"
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What are CPUs and cores?
+- How can we use parallellization to speed up calculations in R?
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Learn how to use parallellization on a local machine (your computer)
+- Learn how to use parallellization on a virtual machine (e.g. on UCloud)
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## What are CPUs and cores?
+
+Every computer has at least one CPU. It is the physical unit that actually runs your 
+code. When we ask R to calculate `1+1`, it is the CPU that does the calculation.
+
+Most modern CPU have multiple "cores". So in reality it is not the CPU that actually
+performs the calculation, it is one of the cores in the CPU. 
+
+The computer used for writing this text has 20 cores.
+
+This is nice, for the core can - in principle - only do one calculation at a time.
+When we calculate `1+1`, that is the only thing the core can do at that precise moment.
+
+The truth is a lot more complicated, but the analogy is useful in order to understand
+why it can be nice to have more than one.
+
+Having access to more than one core allow us to run some of our calculations in
+parallel. If you are asked to do 10 simple multiplications, you are finished
+when you have done 10 multiplications. Ask a friend to help, and do 5 yourself,
+and let your friend do 5 - you will be done in half the time. 
+
+## What is parallelization?
+
+Parallel processing means that your computer is using several of its cores at once,
+because a task can be split into sub-tasks that can be performed independently from one another.
+Some calculations we want to do in R can be parallellized, for example because we want to do
+the same calculation many times on different data points. The calculation will then be done
+much faster than if only one core worked on the problem.
+
+Choosing a machine on  with a lot of cores will not necessarily speed up
+your work. The code you run will have to be written to make use of all the cores.
+And sometimes it takes longer to do that than just leaving all the work to a
+single core.
+
+## Setting up parallellization on your own computer
+
+How do we find out how many cores we have? In R, the library `parallel` has
+a function `detectCores()` that returns the number of cores we have access to:
+
+```{r}
+library(parallel)
+useCores <- detectCores()
+```
+
+It can be nice to use one fewer core than you have on your machine, so that I can use the remaining one to do other things in the meantime:
+
+```{r}
+useCores <- detectCores() - 1
+```
+
+## Setting up parallellization on a virtual machine
+
+Sometimes, we are able to use virtual machines with far more cores than we have on our own computer. A virtual machine is a kind of simulated computer that is running on another, bigger computer (sometimes called a "high-performance cluster" or HPC if it is very big). 
+
+:::: instructor
+To do: hyperlink to the UCloud page:
+
+One HPC that students and employees at Danish universities have access to is UCloud. Here we get access to a _lot_ of cores. Read our guide to R on UCloud [here](link).
+::::
+
+In order for the big computer to split itself among different users or different tasks, every user or task gets allocated its own chunk of the big computer in the form of a virtual machine. When you spin up a virtual machine, you ask for a number of cores (and an amount of RAM) from the big computer to be set aside and made available to you, as if you got your own mini-machine inside the big machine.
+
+On virtual machines, `detectCores()` will often not work because it will detect the number of cores that are there on the big computer, the physical machine you are running your code on. This is different from the number of cores that are actually available on the virtual machine that you requested, which is what we need. There are workarounds, but they are different for every HPC. the easiest thing is just to set `useCores` manually, based on how many CPUs you requested for your virtual machine.
+
+```{r}
+useCores <- 8 #however many CPUs you requested
+```
+
+We will also need the horribly-named `RhpcBLASctl` package to make sure that the number of threads (simultaneously running tasks) is the same as the number of cores.
+
+```{r}
+#set various options to this useCores, so
+#R knows that this is the number of
+#thread and cores you want
+library("RhpcBLASctl")
+omp_set_num_threads(useCores) 
+blas_set_num_threads(useCores)
+```
+
+## Trying out parallellization
+
+Regardless of what method we used to detect the number of cores (and set up the number of threads), we can now try out. First of all, we need to "register" that we want to use this number of cores for the script:
+
+```{r message = FALSE}
+library(doParallel)
+cl <- makeCluster(useCores) 
+registerDoParallel(cl) 
+```
+
+Next, we can try out two versions of a script, one with and one without parallellization. In both cases, we will calculate the means of 1000 lists of 5000 random numbers each. This is a perfect example of a parallellizable taks, because it is made up of 1000 sub-tasks that don't depend on one another at all. They can simply be done at the same time rather than one at a time.
+
+The following script does the task in  a parallellized way. The `foreach()` function will automatically know how many cores we registered earlier, and by using `%dopar%`, we tell it to actually use all those cores at once (parallellize). We are not interested in the means themselves; instead, we record and print out the time that this operation took (look at the "elapsed" time, in seconds).
+
+```{r cache=TRUE}
+
+library(foreach)
+
+# Number of simulations
+n_sim <- 1000
+vec_length <- 50000
+
+# Time the parallel computation
+t_par <- system.time({
+  results_par <- foreach(i = 1:n_sim, .combine = c) %dopar% {
+    x <- rnorm(vec_length)
+    mean(x)
+  }
+})
+
+print(t_par)
+```
+
+We can compare this was a versions of the same script that does the same thing sequentially, without parallellization (by using `%do%`). Check out how long this takes:
+
+```{r cache=TRUE}
+
+library(foreach)
+
+# Number of simulations
+n_sim <- 1000
+vec_length <- 50000
+
+# Time the sequential computation
+t_seq <- system.time({
+  results_seq <- foreach(i = 1:n_sim, .combine = c) %do% {
+    x <- rnorm(vec_length)
+    mean(x)
+  }
+})
+
+print(t_seq)
+```
+
+On the machine with 8 cores that we tested this on, the parallellized version takes 2-3 times shorter.
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Parallellization means that a task for your computer can be split up into several smaller tasks that can be done side-by-side.
+- It is not always possible or worthwhile.
+- When parallellization is possible, it could allow your code to run much faster, because you are using multiple cores at once.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

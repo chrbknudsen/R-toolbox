@@ -20,17 +20,16 @@ exercises: 2
 
 You need to run R on a computer that has more muscles than you own. 
 
-If you are a student at UCPH, you are in luck, because you have access to a 
+If you are a student at a Danish university, you are in luck, because you have access to a 
 High Performance Computing (HPC) facility;
 UCloud. It can be acessed at cloud.sdu.dk using the normal UCPH login and 
 password.
-
 
 Depending on the user allowances, it will look something like this.
 
 ![](fig/ucloud_front.png)
 
- provides access to a multitude of different applications organized in the
+UCloud provides access to a multitude of different applications organized in the
 application store:
 
 ![](fig/ucloud_store.png)
@@ -45,12 +44,8 @@ This allow us to start a session of RStudio, accessible in the browser.
 
 ![](fig/ucloud_rstudio.png)
 
-
-Note that we can chose different machine types. Parallel processing is not 
-the solution to every problem, but sometimes it is, and here we get access to a
-_lot_ of cores.
-
-You select a suitable type of machine, chose how long you want it to run, 
+Note that we can chose different machine types. You select a suitable type of machine
+(with enough CPUs and RAM, more on this below), chose how long you want it to run, 
 click submit, and after a short wait, you
 can click "Interface", and you will have, in your browser, something that looks
 almost exactly like RStudio.
@@ -58,68 +53,33 @@ almost exactly like RStudio.
 ## This is not a computer as such
 
 What we can start is not a computer. It is a virtual machine. A virtual machine 
-is not a real computer, it is a simulation of a computer, that runs on a larger
+is not a real computer, it is a simulation of a computer that runs on a larger
 computer. Rather than installing an operating system and software on a real 
 computer, we ask the larger computer to start a simulation of a 
 computer. Since we interact with it through the web, we might not discover the
 difference. But there are some, which are important to know about.
 
-### Compute
+### Compute (CPUs)
 
 Running a virtual computer on a HPC-facility gives us access to a lot of resources,
-primarily "CPU"s and "RAM".
+primarily "CPUs" and "RAM". Most modern CPUs have multiple "cores", which are the units
+that do calculations. Roughly speaking, having 6 CPUs with 4 cores each would allow you to
+do 24 calculations at a time, rather than just one.
 
-Your own computer have a CPU. It is the physical unit that actually runs your 
-code. When we ask R to calculate `1+1`, it is the CPU that does the calculation.
+:::: instructor
+To do: hyperlink to the parallelization page for more on cores and parallellization:
 
-Most modern CPU have multiple "cores". So in reality it is not the CPU that actually
-performs the calculation, it is one of the cores in the CPU. 
+For your code to make use of the fact that you have multiple cores, and get the speed benefits,
+you need to set it up do so. This is called parallellization. It is sometimes worthwhile, but
+not always. You can read our short guide on parallellization [here](link).
+::::
 
-The computer used for writing this text have 20 cores.
-
-This is nice, for the core can - in principle - only do one calculation at a time.
-When we calculate `1+1`, that is the only thing the core can do at that precise moment.
-
-The truth is a lot more complicated, but the analogy is useful in order to understand
-why it can be nice to have more than one.
-
-Having access to more than one core allow us to run some of our calculations in
-parallel. If you are asked to do 10 simple multiplications, you are finished
-when you have done 10 multiplications. Ask a friend to help, and do 5 yourself,
-and let your friend do 5 - you will be done in half the time. 
-
-Some calculations we want to do in R can be parallelized, where we ask one core 
-to distribute the tasks to 10 different cores. The calculation will then be done
-much faster, than if only one core worked on the problem.
-
-Chosing a machine on  with a lot of cores will not necesarily speed up
-your work. The code you run will have to be written to make use of all the cores.
-And sometimes it takes longer to do that, than just leaving all the work to a
-single core.
-
-How do we find out how many cores we have? It should be simple. The library `parallel` have
-a function `detectCores()` that returns the number of cores we have access to:
-
-```{r eval = FALSE}
-parallel::detectCores()
-```
-
-Reading the documentation reveals that it is not that simple:
-
-"Where virtual machines are in use, one would hope that the result for logical = TRUE represents the number of CPUs available (or potentially available) to that particular VM."
-
-Or use this:
-
-```{r eval = FALSE}
-future::availableCores()
-```
-
-### Memory
+### Memory (RAM)
 
 Looking at the interface, we see that we also get access to more memory, or RAM.
 
 RAM is the short term memory of the 
-computer. If we want to manipulate 10 Gb data, we need to be able to have
+computer. If we want to manipulate 10 Gb of data, we need to be able to have
 10 Gb of data in the memory of the computer. And we probably need to have
 access to much more than 10 Gb, because R likes to use a lot of memory, and 
 tends to make a copy of the data it manipulates.
@@ -157,7 +117,7 @@ And because we are not running on a real computer, everything will be lost.
 
 ### Your drive
 
-Not all is lost when you restart a virtual machine.  provides you
+Not all is lost when you restart a virtual machine. UCloud provides you
 with a drive:
 
 ![](fig/ucloud_drive.png)
@@ -314,20 +274,15 @@ machine, have to start with `install.packages("tidyverse")` instead. _Every time
 R environments help you handle this. Think of them as bubbles in which you have
 all the right packages installed. 
 
-First of all, and _this is important!_ you chose the folder we demonstrated
+First of all, and make sure that when you start your Rstudio job, you attach the folder we demonstrated
 how to use earlier:
 
 ![](fig/ucloud_start_1.png)
 
-The method requires the setup to know exactly where your files are.
+Secondly, and for the same reason, you _must_ [create a project](#creating-a-project) in that
+same folder, the one you attached to the run of the virtual machine.
 
-Secondly, and for the same reason, you _must_ [create a project](#creating-a-project) in the folder 
-you attached to the run of the virtual machine. 
-
-Then make a script-file. It is not important what you call it, here we 
-call it "setup.R"
-
-Copy the code below into that file, and run the code _line-by-line_. That is because
+Then start the RStudio job and run the following code _line-by-line_. That is needed because
 some of the lines of code restart R. This is necessary for R to read-in new
 options and settings. And when R is restarted, it does not know where to continue.
 So you'll have to feed it the lines one at a time.
@@ -338,13 +293,13 @@ writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
 # restart R in order to set the environment variable
 .rs.restartR()
 
-# Initializing renv. You will be asked if you want to do it. You do.
+# Initializing renv. You might be asked if you want to do it.
+# You do (enter "y").
 renv::init()
 
 #install all the packages you need. For example:
 install.packages("textdata", prompt = FALSE)
 install.packages("stringr", prompt = FALSE)
-install.packages("glmnet", prompt = FALSE)
 install.packages("quanteda", prompt = FALSE)
 #You can add more packages to the environment later
 #(see below)
@@ -373,7 +328,7 @@ You will see a lot of stuff in the "files" tab. A folder called "renv", a file
 
 Looking into that, we will find a line of code "source("renv/activate.R")"
 
-When ever we start the project, what ever we have written to 
+When ever we start the project, whatever we have written to 
 .Rprofile will be run. What will be run in this case is the script "activate.R"
 which does a lot of interesting stuff. The important thing is, that 
 the renv-library is started. And whenever we now install a package, it 
@@ -454,7 +409,7 @@ for what is actually missing.
 
 In machine learning, many of the algorithms we
 work with require us to have specific Python libraries installed and
-available to R. Typical examples are tensorflow and keras, which we 
+available to R. Typical examples are `Tensorflow` and `Keras`, which we 
 need to create our own neural networks and fit them to data. Those
 python libraries also disappear from the virtual machine, unless we keep them in our R
 environment as well.
@@ -481,7 +436,8 @@ e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get
 and [creating a new project](#creating-a-project). Give the project a Directory name that helps you remember
 this is your environment for using Python.
 
-The following code will allow you to use Python packages in R and sets up Tensorflow and Keras, two the most commonly used machine learning packages:
+The following code will allow you to use Python packages in R and sets up `Tensorflow` and `Keras`, two of
+the most commonly used machine learning packages. Once again, you need to run it line by line:
 
 ```{r eval = FALSE}
 
@@ -494,7 +450,8 @@ writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
 renv::init()
 
 # Yes, it should be possible to do this in one go. 
-# It fails. So, three lines of code...
+# It fails. So, three lines of code. Again, run these
+# line by line (important!) and select "y" if prompted:
 renv::install("reticulate", prompt = FALSE)
 renv::install('rstudio/tensorflow', prompt = FALSE)
 renv::install("rstudio/keras", prompt = FALSE)
