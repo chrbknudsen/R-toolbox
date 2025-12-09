@@ -86,6 +86,7 @@ episodes:
 - anova.Rmd
 - cohens-kappa.Rmd
 - ucloud.Rmd
+- parallellization.Rmd
 - pipes.Rmd
 - gis_setup.Rmd
 - git-00-setup.Rmd
