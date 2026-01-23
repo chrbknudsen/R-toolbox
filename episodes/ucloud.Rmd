@@ -419,12 +419,6 @@ Python, and are unable to run on the newest version. And by default the version
 of Python on Ucloud is the newest. So we also need to control which version of
 *python* is installed in our environment.
 
-Below we present two ways of handling this. First "The Good Solution". Which could
-be better. And "The Sledgehammer Solution". Which is the reason we call "The Good
-Solution" good.
-
-### The Good Solution
-
 This solution is very similar to what we set up above: an R environment that we can
 work in again and again. However, it is a little more complex to set up an environment
 that also has Python packages installed and accessible to R (in jargon, it has to have another
@@ -446,8 +440,21 @@ writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
 # restart R in order to set the environment variable
 .rs.restartR()
 
-# Initializing renv. You will be asked if you want to do it. You do.
+# Initializing renv. You might be asked if you want to do it.
+# You do (enter "y").
 renv::init()
+
+#install all the packages you need. For example:
+install.packages("textdata", prompt = FALSE)
+install.packages("stringr", prompt = FALSE)
+install.packages("quanteda", prompt = FALSE)
+
+#You can add more packages to the environment later
+#(see below)
+
+# Storing information about installed packages
+# You might be asked if you want to proceed. You do.
+renv::snapshot()
 
 # Yes, it should be possible to do this in one go. 
 # It fails. So, three lines of code. Again, run these
@@ -463,34 +470,57 @@ reticulate::install_miniconda(path = "python_env")
 # You might be asked if you want to proceed. You do.
 renv::snapshot()
 
-# restart R to ensure that R knows where miniconda is installed
+# restart R
 .rs.restartR()
 
-# Create conda environment
+library(reticulate)
+
+# Locate the python installation you made
+# In order to force reticulate to recognize it_
+conda <- file.path(getwd(), "python_env", "bin", "conda")
+
+# Create the environment:
 reticulate::conda_create(
-  envname = "my_project_env",
-  packages = c("python=3.10", "openssl=3.3.0"),
-  channels = c("conda-forge")
+  envname  = "my_project_env",
+  packages = c("python=3.10", "pip"),
+  channels = "conda-forge",
+  conda    = conda
 )
 
-# Install Python packages in the environment
-reticulate::conda_install(envname = "my_project_env", 
-                          packages = c("numpy>=1.24", 
-                                       "pandas>=2.1", 
-                                       "tensorflow>=2.13", 
-                                       "keras>=2.13"))
-reticulate::conda_install(envname = "my_project_env", packages = c("transformers>=4.30"))
-reticulate::conda_install(envname = "my_project_env", packages = c("pytorch"))
+# Set variables pointing to the environment just created
+env <- file.path(getwd(), "python_env", "envs", "my_project_env")
+envlib <- file.path(env, "lib")
+Sys.setenv(LD_LIBRARY_PATH = paste(envlib, Sys.getenv("LD_LIBRARY_PATH"), sep=":"))
 
-# Restart R - this might not be necessary - we do it anyway
-.rs.restartR()
+# Specify the environment to use:
+reticulate::use_condaenv("my_project_env", conda = conda, required = TRUE)
 
-# Specify which environment is to be used
-reticulate::use_condaenv("my_project_env", required = TRUE)
+# Install base python packages.
+# Installation is pinned to specific versions.
+# If other versions are needed, avoid ">="
+reticulate::py_install(
+  packages = c(
+    "numpy==1.26.*",
+    "pandas==2.1.*",
+    "tensorflow==2.16.*",
+    "keras==3.*"
+  ),
+  pip = TRUE
+)
 
-# Storing information about installed packages
-# You might be asked if you want to proceed. You do.
+# If needed, install transformers and torch as well.
+# Again avoid ">=", instead specify the exact version if you need another:
+reticulate::py_install(
+  packages = c(
+    "transformers==4.30.*",
+    "torch==2.2.*"
+  ),
+  pip = TRUE
+)
+
+# Save the environment:
 renv::snapshot()
+
 ```
 
 :::: instructor
@@ -508,7 +538,8 @@ have to run:
 
 ```{r eval = FALSE}
 .rs.restartR()
-reticulate::use_condaenv("my_project_env", required = TRUE)
+conda <- file.path(getwd(), "python_env", "bin", "conda")
+reticulate::use_condaenv("my_project_env", conda = conda, required = TRUE)
 ```
 
 every time you open the project, before actually doing anything else.
@@ -518,26 +549,23 @@ One way to check that the whole set-up worked is to run the following script:
 ```{r eval = FALSE}
 
 #restart R and pull up the conda environment
+
 .rs.restartR()
-reticulate::use_condaenv("my_project_env", required = TRUE)
+conda <- file.path(getwd(), "python_env", "bin", "conda")
+reticulate::use_condaenv("my_project_env", conda = conda, required = TRUE)
 
 #try to access keras and create a neural net
 library(keras3)
+
 model <- keras_model_sequential() |>
   layer_dense(units = 32, input_shape = c(784)) |>
   layer_activation("relu") |>
   layer_dense(units = 10) |>
   layer_activation("softmax")
+
 summary(model)
-
-#try importing and using the transformers python module
-transformers <- reticulate::import("transformers") 
-autotoken <- transformers$AutoTokenizer
-autoModelClass <- transformers$AutoModelForSequenceClassification
-modelname <- "distilbert-base-uncased-finetuned-sst-2-english"
-model <- autoModelClass$from_pretrained(modelname)
-
 ```
+
 
 If you get a nice summary, everything worked. You might get messages about
 "ssl not installed". Those can be ignored. And you will also get warnings about
@@ -545,49 +573,25 @@ tensorflow not being compiled for working with "GPU"s. Since we do not have
 access to GPU on the kind of virtual machines we can run RStudio on, on UCloud,
 these can safely be ignored.
 
-### The sledgehammer solution
 
-This has worked consistently. But take a long time and needs to be repeated 
-every time you start a new machine. It will work, but only by being pretty
-violent with the virtual machine.
+<!-- 
+THIS FAILS - I HAVE NOT BEEN ABLE TO GET SSL UP AND RUNNING ON UCLOUD
 
-When you have started the virtual machine, and opened a project, make a new R-script
-in the project, copy the following code (or download it from here), and run it
-line by line.
+reticulate::conda_install(
+  envname  = "my_project_env",
+  packages = c("openssl", "ca-certificates", "certifi"),
+  channels = "conda-forge",
+  conda    = conda
+)
 
-```{r eval = F}
-# Run shell commands from R
-system2("sudo", args = c("add-apt-repository", "-y", "ppa:deadsnakes/ppa"))
-system2("sudo", args = c("apt-get", "update"))
-system2("sudo", args = c("apt-get", "install", "-y", "python3.9", "python3.9-venv", "python3.9-dev"))
+transformers <- reticulate::import("transformers") 
+autotoken <- transformers$AutoTokenizer
+autoModelClass <- transformers$AutoModelForSequenceClassification
+modelname <- "distilbert-base-uncased-finetuned-sst-2-english"
+model <- autoModelClass$from_pretrained(modelname)
+summary(model)
+ -->
 
-# Python setup
-system2("python3.9", args = c("-m", "ensurepip", "--upgrade"))
-system2("python3.9", args = c("-m", "pip", "install", "--upgrade", "pip"))
-system2("python3.9", args = c("-m", "pip", "install", "numpy"))
-
-# Create and activate environment
-system2("python3.9", args = c("-m", "venv", "~/r-tensorflow"))
-
-# Activate virtual environment and install packages
-system2("bash", args = c("-c", "source ~/r-tensorflow/bin/activate && pip install numpy tensorflow keras spacy && python -m spacy download en_core_web_sm && deactivate"))
-
-# R packages and setup
-Sys.unsetenv('RETICULATE_PYTHON')
-library(reticulate)
-use_virtualenv('~/r-tensorflow', required = TRUE)
-
-install.packages('remotes')
-remotes::install_github('rstudio/tensorflow', upgrade = 'always')
-library(tensorflow)
-install_tensorflow(envname = '~/r-tensorflow', restart_session = FALSE)
-
-remotes::install_github('rstudio/keras')
-library(keras3)
-install_keras(envname = '~/r-tensorflow')
-```
-
-You can check that it is working in the same way as you did with the Good Solution above.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
