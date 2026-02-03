@@ -514,8 +514,7 @@ Det betyder også, at hvis systemets python-version ændres - kan vi
 få fejlbeskeder om at ssl ikke kan findes.
 ::::
 
-You can access this R-with-python environment just like before: by loading the
-environment in Rstudio. You can [add other packages](#what-about-other-packages)
+You can access this R-with-python environment just like before, by opening the project in RStudio: Click on the .proj file. You can [add other packages](#what-about-other-packages)
 to it just like before. But for reasons we do not entirely understand at KUB Datalab (yet), you also
 have to run: 
 
