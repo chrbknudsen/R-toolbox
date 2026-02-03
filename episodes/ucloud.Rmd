@@ -430,31 +430,16 @@ e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get
 and [creating a new project](#creating-a-project). Give the project a Directory name that helps you remember
 this is your environment for using Python.
 
+:::: callout
+The following code set up Python. It should be run in addition to the code setting up your 
+R-environment. That is, when setting up your Python evironment, first run the code above, and
+then the code below.
+::::
+
 The following code will allow you to use Python packages in R and sets up `Tensorflow` and `Keras`, two of
-the most commonly used machine learning packages. Once again, you need to run it line by line:
+the most commonly used machine learning packages. Once again, you need to run it line by line. Remember to first run the setup for R as shown above.:
 
 ```{r eval = FALSE}
-
-# Set path to renv cache
-writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
-# restart R in order to set the environment variable
-.rs.restartR()
-
-# Initializing renv. You might be asked if you want to do it.
-# You do (enter "y").
-renv::init()
-
-#install all the packages you need. For example:
-install.packages("textdata", prompt = FALSE)
-install.packages("stringr", prompt = FALSE)
-install.packages("quanteda", prompt = FALSE)
-
-#You can add more packages to the environment later
-#(see below)
-
-# Storing information about installed packages
-# You might be asked if you want to proceed. You do.
-renv::snapshot()
 
 # Yes, it should be possible to do this in one go. 
 # It fails. So, three lines of code. Again, run these
