@@ -298,9 +298,7 @@ writeLines('RENV_PATHS_CACHE = "renv/cache"', ".Renviron")
 renv::init()
 
 #install all the packages you need. For example:
-install.packages("textdata", prompt = FALSE)
-install.packages("stringr", prompt = FALSE)
-install.packages("quanteda", prompt = FALSE)
+renv::install("textdata", prompt = FALSE)
 #You can add more packages to the environment later
 #(see below)
 
