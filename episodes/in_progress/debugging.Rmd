@@ -58,6 +58,10 @@ options(stringsAsFactors = FALSE)
 Sys.setenv(LANGUAGE = "fr")
 attach(iris)
 
+Har du opdateret? En af de pinlige ting var at fejlmelde noget - der var løst i sidste opdatering af pakken.
+
+Vær opmærksom på, at bare fordi du har en frisk installation af tidyverse, har du ikke nødvendigvis den seneste udgave af
+ggplot2.
 
 En frisk genstart rydder workspace, resetter options og miljøvariable. Clearer 
 search path.
