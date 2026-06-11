@@ -4,90 +4,78 @@ teaching: 0
 exercises: 0
 ---
 
-
 ::::questions
-- "Hvordan ekstraherer jeg lag fra en geotiff fil?"
+- How do I extract layers from a tiff-file?
 ::::
 
 
 ::::objectives
-- "FIXME"
+- Demonstrate how to extract layers from tiff-files
 ::::
 
 
+Tiff (sometimes tif) is a lossless image file format for storing raster graphics. Originally it was designed as a
+common format for manufacturers of scanners. Currently it is popular among photographers as an alternative to lossy
+formats like jpg and png. From the start it allowed for storing several images in one file, eg scans in different resolutions or multiple pages of a multi-page document. 
 
+What is relevant here, is the application of storing different images of the same object in the same file. It is a 
+popular format for storing satelite imagery, where each layer contains different exposures of the same geographical area. Layers can be split by color, where a layer containing the green channel of an rgb-image, can make it easier to
+identify vegetation. 
 
+Layers can also contain different spectral channels, eg infrared in one channel and visible light in another.
 
+All this makes it relevant to be able to split a tiff-file in its individual layers. Several applications supports this (and other manipulation of the files):
 
+- [LibTIFF](https://libtiff.gitlab.io/libtiff)
+- [GIMP](https://www.gimp.org)
+- [ImageMagick](https://imagemagick.org)
 
-install.packages("proj4")
-library(proj4)
-install.packages("rgdal")
-library(rgdal)
+One library for Python supporting this is [Pillow](https://pypi.org/project/pillow/)
 
+In R we use the library `raster`: 
 
-
-
-
-
-
-
-install.packages("sp")
-library(sp)
-
-
-
-
-install.packages("raster")
+```{r}
 library(raster)
+```
 
+har vi faktisk brug for andet end raster?
 
+Here is an example from 
 
-knitr::opts_chunk$set(echo = TRUE)
+![Femlagstiff](../fig/poppendorf_5_band.tif)
 
-
-Tiff-filer kan indeholde lag. Vi er stødt på dem i en situation hvor
-en studerende havde behov for at trække lagene ud af en 
-GeoTIFF fil. 
-
-Her er et eksempel på en tiff-fil med tre lag:
-
-![Trelagstiff](../fig/stacked_tiff.tif)
-
-Vi skal bruge en række biblioteker:
-
-library(raster)
-library(sp)
-library(terra)
-library(proj4)
-library(rgdal)
 
 
 Så kan vi indlæse filen:
 
+```{r}
+tif <- stack("episodes/fig/poppendorf_5_band.tif")
+```
 
-tif <- stack("../fig/stacked_tiff.tif")
 
-Der er tre lag:
+Der er fem lag:
 
+```{r}
 raster::nlayers(tif)
+```
 
 De har navne:
-
+```{r}
 names(tif)
+```
+
+
 
 Og vi kan plotte dem individuelt:
 
+```{r}
+plot(tif$poppendorf_5_band_1)
+```
 
-plot(tif$layer.1)
-plot(tif$layer.2)
-
-plot(tif$layer.3)
-
-
-Vi kan også gemme dem individuelt:
-
-writeRaster(tif$layer.3, "filnavn.tif")
+Og de kan gemmes individuel:
+```{r eval = FALSE}
+writeRaster(tif$poppendorf_5_band_1, "filnavn.tif")
+```
 
 
 ## Noter
@@ -103,7 +91,11 @@ De her lagdelte TIFF filer bruges ofte  til at gennem forskellige "kanaler" i bi
 Det kan være en kanal med landskabet set i IR-spektret. Eller tre kanaler med 
 hver af farverne rød, grøn og blå. Vælger man kun at kigge på det grønne lag, 
 kan det være lettere at identificere hvor vegetationen er.
+library
 
-::::keypoints
-- "FIXME"
-::::
+
+1	Coastal/Aerosol	0,43–0,45 µm
+2	Blå	0,45–0,51 µm
+3	Grøn	0,53–0,59 µm
+4	Rød	0,64–0,67 µm
+5	Nær-infrarød (NIR)	0,85–0,88 µm
