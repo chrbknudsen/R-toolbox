@@ -13,6 +13,12 @@ exercises: 0
 - Demonstrate how to extract layers from tiff-files
 ::::
 
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Layered tiff-files can contain different information
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 Tiff (sometimes tif) is a lossless image file format for storing raster graphics. Originally it was designed as a
 common format for manufacturers of scanners. Currently it is popular among photographers as an alternative to lossy
@@ -38,64 +44,55 @@ In R we use the library `raster`:
 library(raster)
 ```
 
-har vi faktisk brug for andet end raster?
 
-Here is an example from 
+Here is an example of a layered tif:
 
 ![Femlagstiff](../fig/poppendorf_5_band.tif)
 
-
-
-Så kan vi indlæse filen:
+We use the `stack` function to read the file:
 
 ```{r}
 tif <- stack("episodes/fig/poppendorf_5_band.tif")
 ```
 
 
-Der er fem lag:
+This specific file contains 5 layers:
 
 ```{r}
 raster::nlayers(tif)
 ```
 
-De har navne:
+Each layer have name:
+
 ```{r}
 names(tif)
 ```
 
+In some tiff-files they do not have names, but numbers.
 
 
-Og vi kan plotte dem individuelt:
+We can plot the layers individually:
 
 ```{r}
 plot(tif$poppendorf_5_band_1)
 ```
 
-Og de kan gemmes individuel:
+And we can save the individual layers in separate files:
+
 ```{r eval = FALSE}
-writeRaster(tif$poppendorf_5_band_1, "filnavn.tif")
+writeRaster(tif$poppendorf_5_band_1, "filename.tif")
 ```
 
 
-## Noter
+## Note
 
-Filen er grabset fra biblioteket `plainview`, mere specifikt er det et udsnit af
-sattelitfotos fra Landsat 8, omkring byen Poppendorf, lidt til højre for Rostock.
+This file is taken from the library `plainview`. More specifically it is part of a 
+collections of sattelite images from Landsat 8, of the village Poppendorf, located a bit to the right of Rostock in Germany.
 
-Husk også at ikke alle TIFF filer har lag. Så hvis du kun kan trække et enkelt 
-lag ud, så kan det skyldes at der kun er et.
+The individual layers are images captured in different parts of the electromagnetic spectrum, both visible light and near infra red.
 
-De her lagdelte TIFF filer bruges ofte  til at gennem forskellige "kanaler" i billedet.
+Original Landsat images can be accessed from [USGS](https://www.usgs.gov/landsat-missions). Note that this example is colored with 
+false colors, and stacked into a single file. Most data from USGS are provided in individual images for each "band" of the spectrum.
 
-Det kan være en kanal med landskabet set i IR-spektret. Eller tre kanaler med 
-hver af farverne rød, grøn og blå. Vælger man kun at kigge på det grønne lag, 
-kan det være lettere at identificere hvor vegetationen er.
-library
-
-
-1	Coastal/Aerosol	0,43–0,45 µm
-2	Blå	0,45–0,51 µm
-3	Grøn	0,53–0,59 µm
-4	Rød	0,64–0,67 µm
-5	Nær-infrarød (NIR)	0,85–0,88 µm
+Please remember that not all TIFF-files have multiple layers. If you can only extract a single layer, it might be because there
+is only one layer in it.

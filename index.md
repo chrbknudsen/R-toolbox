@@ -2,7 +2,7 @@
 site: sandpaper::sandpaper_site
 ---
 
-Welcome to the UB Datalab R-toolbox course site.
+Welcome to the University library (that is Copenhagen University Library) Datalab R-toolbox course site.
 
 This site is a collection of individual episodes. It is not intended
 as a single course. The concept is for this site to act as the  foundation for made-to-measure courses.
