@@ -664,24 +664,12 @@ the 23 distributions that are defined for positive, real numbers:</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  |                                                                              |=================================                                     |  48%</code></pre>
+<pre class="output" tabindex="0"><code>  |                                                                              |=================================                                     |  48%  |                                                                              |=====================================                                 |  52%  |                                                                              |========================================                              |  57%  |                                                                              |===========================================                           |  61%  |                                                                              |==============================================                        |  65%  |                                                                              |=================================================                     |  70%  |                                                                              |====================================================                  |  74%</code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  |                                                                              |=====================================                                 |  52%</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>  |                                                                              |========================================                              |  57%  |                                                                              |===========================================                           |  61%  |                                                                              |==============================================                        |  65%  |                                                                              |=================================================                     |  70%  |                                                                              |====================================================                  |  74%</code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>  |                                                                              |=======================================================               |  78%  |                                                                              |==========================================================            |  83%Error in solve.default(oout$hessian) :
-  Lapack routine dgesv: system is exactly singular: U[4,4] = 0
-  |                                                                              |=============================================================         |  87%Error in solve.default(oout$hessian) :
+<pre class="output" tabindex="0"><code>  |                                                                              |=======================================================               |  78%  |                                                                              |==========================================================            |  83%  |                                                                              |=============================================================         |  87%Error in solve.default(oout$hessian) :
   Lapack routine dgesv: system is exactly singular: U[4,4] = 0
   |                                                                              |================================================================      |  91%  |                                                                              |===================================================================   |  96%  |                                                                              |======================================================================| 100%</code></pre>
 </div>
@@ -690,7 +678,7 @@ is not possible to fit this particular data to <em>all</em> the
 distributions, and the ones where the fit fails (enough), we will get an
 error message.</p>
 <p>The output from <code>fitDist()</code> will return the best fit:</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -741,7 +729,7 @@ correct one.</p>
 <p>If we start by getting the errors out of the way,
 <code>fit$failed</code> returns the two distributions that failed enough
 to cause errors:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -759,7 +747,7 @@ to cause errors:</p>
 <p>As mentioned <code>fitDist()</code> fitted the data to 23 different
 distributions. We can inspect the rest, and their associated AIC-values
 like this:</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -770,10 +758,10 @@ like this:</p>
 </h3>
 <pre class="output" tabindex="0"><code>    WEI2     WEI3      WEI       GG    BCPEo     BCPE    BCCGo     BCCG
 179.2449 179.2449 179.2449 181.1349 181.4953 181.4953 183.1245 183.1245
-     GB2     BCTo      BCT   exGAUS       GA   LOGNO2    LOGNO       IG
-183.1358 185.1245 185.1245 190.2994 194.4665 198.3047 198.3047 198.3558
+     GB2      BCT     BCTo   exGAUS       GA   LOGNO2    LOGNO       IG
+183.1355 185.1245 185.1247 190.2994 194.4665 198.3047 198.3047 198.3558
   IGAMMA      EXP  PARETO2       GP PARETO2o
-202.6759 861.8066 863.8067 863.8067 863.8071 </code></pre>
+202.6759 861.8066 863.8066 863.8071 863.8077 </code></pre>
 </div>
 <p>Here we get <code>WEI2</code> first, with an AIC of 179.2449, but we
 can see that <code>WEI3</code> and <code>WEI1</code> have almost exactly
@@ -788,7 +776,7 @@ distributions have to be larger than 2 for us to see a significant
 difference.</p>
 <p>We can get more details using the <code>summary()</code>
 function:</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -818,7 +806,7 @@ Global Deviance:     175.245
             SBC:     185.574 </code></pre>
 </div>
 <p>And we can get at graphical description as well:</p>
-<div class="codewrapper sourceCode" id="cb18">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -877,7 +865,7 @@ eruption times are all positive, and on the real number line.</p>
 <p>Behind the scenes <code>fitDist</code> fits the data to the chosen
 selection of distributions, and returns the best.</p>
 <p>Looking at the result of the fit we see this:</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -907,7 +895,7 @@ Global Deviance:     175.245
 <p>and from that we can deduces that if we want to fit the data to eg
 the log-normal distribution (in the documentation we find that the
 abbreviation for that is “LOGNO”), we can do it like this:</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -919,7 +907,7 @@ abbreviation for that is “LOGNO”), we can do it like this:</p>
 <pre class="output" tabindex="0"><code>GAMLSS-RS iteration 1: Global Deviance = 194.3047
 GAMLSS-RS iteration 2: Global Deviance = 194.3047 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb24">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1013,7 +1001,7 @@ any links that you are not going to use.
         | <a href="https://github.com/KUBDatalab/R-toolbox/" class="external-link">Source</a></p>
         <p>
         <a href="https://github.com/KUBDatalab/R-toolbox/blob/main/" class="external-link">Cite</a>
-        | <a href="mailto:kubdatalab@kb.dk">Contact</a> | <a href="https://kub.kb.dk/datalab" class="external-link">About</a></p>
+        | <a href="mailto:kubdatalab@kb.dk">Contact</a> | <a href="https://carpentries.org/about/" class="external-link">About</a></p>
 		</div>
 		<div class="col-md-6">
 
