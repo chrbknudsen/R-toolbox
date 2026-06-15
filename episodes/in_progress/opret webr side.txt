@@ -1,0 +1,58 @@
+1) Åbn projektet rigtigt
+
+• Åbn projektets rodmappe i Positron (File → Open Folder…).
+• Kør alle kommandoer fra projektroden.
+
+2) Quarto-website
+
+• Opret _quarto.yml i roden som website med output-dir = docs, en titel, navbar der peger på slides/demo.qmd, og evt. format.live-html.theme = cosmo.
+• (Din demo.qmd har du allerede; vi rører den ikke her.)
+
+3) Git-repo og branch
+
+• Initialisér repo og første commit:
+git init
+git add .
+git commit -m "første commit"
+• Skift til main:
+git branch -M main
+
+4) Installer “live”-extension lokalt (flad og stabil løsning)
+
+Målet er kun at få mappen _extensions/live ind i projektet:
+• Hent repoet r-wasm/quarto-live som ZIP (eller git clone et vilkårligt sted uden for projektmappen).
+• Kopiér mappen: (kilde) quarto-live/_extensions/live → (mål) dit-projekt/_extensions/live
+• Bekræft at følgende filer nu findes i projektet:
+_extensions/live/live.lua
+_extensions/live/_extension.yml
+_extensions/live/_knitr.qmd
+
+5) Kobl webR ind i dine slides
+
+• I hver slides-fil der skal køre webR, indsæt include-linjen lige efter YAML-headeren (fra slides/ mappen):
+{{< include ../_extensions/live/_knitr.qmd >}}
+• Render altid fra projektroden (samme mappe som _quarto.yml).
+• Preview lokalt:
+quarto preview
+(åbn i ekstern browser via localhost-URL; undgå file://)
+
+6) Udgiv til GitHub Pages (manuel render)
+
+• Opret GitHub-repo: chrbknudsen/webr-test (tomt repo).
+• Tilføj remote:
+git remote add origin https://github.com/chrbknudsen/webr-test.git
+
+• Render lokalt til docs/:
+quarto render
+• Commit og push:
+git add .
+git commit -m "site"
+git push -u origin main
+• På GitHub: Settings → Pages → “Deploy from a branch” → Branch: main → Folder: /docs
+• Siden: https://chrbknudsen.github.io/webr-test/
+
+7) (Valgfrit) Automatisk build på GitHub
+
+• Tilføj en GitHub Actions-workflow der ved push kører “quarto render” og committer docs/ retur til main.
+• Når det er sat op, kan du nøjes med git push, så bygges og udgives siden automatisk.
+• Pages skal stadig pege på main + /docs.

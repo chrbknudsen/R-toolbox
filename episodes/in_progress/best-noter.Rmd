@@ -1,0 +1,63 @@
+---
+title: 'best_noter'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- Hvad skal vi have flyttet fra steder til andre steder
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Flytte ting
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+
+## Introduction
+
+Liste over ting der kan tilføjes når dette er tilføjet, kan R-Bestiarium repoet 
+slettes
+
+Der kan tilføjes en del punkter fra 
+https://kubdatalab.github.io/forklaringer/
+
+
+### også
+
+Ekstrahering af tiff-lag
+https://kubdatalab.github.io/R-Bestiarium/01-extracting-tiff-layers/index.html
+
+
+
+Rayrender - højdemodeller
+https://kubdatalab.github.io/R-Bestiarium/02-ray-render/index.html
+
+
+
+
+
+grabs af youtubevideoer
+https://kubdatalab.github.io/R-Bestiarium/06-grapping-youtube/index.html
+
+
+Generering af farvepaletter
+https://kubdatalab.github.io/R-Bestiarium/15-farver-og-striber/index.html
+
+
+
+https://blogs.rstudio.com/ai/posts/2022-10-06-audio-classification-torch/
+
+Og vel i almindelighed resten af bestiariet.
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

@@ -1,0 +1,42 @@
+---
+title: "t-sne"
+teaching: 0
+exercises: 0
+---
+
+::::questions 
+- "FIXME"
+
+::::
+
+::::objectives
+- "FIXME"
+::::
+
+Hvorfor er det vanskeligt at generere tilfældige tal.
+
+Hvad bruger R tilfældige tal til?
+
+Hvordan gør R?
+
+En mersenne-twister PRNG (P står for Pseudo, så det er ikke helt random)
+
+Har en periode på 2^19937 - 1. Så... der skal genereres ret mange tal før
+det gentager sig.
+
+set.seed()
+
+Hvilke måder kan R gøre det på?
+
+Andre kilder til tilfældige tal. 
+
+
+https://www.random.org/ - atmosfærisk støj
+
+https://random.colorado.edu/
+
+https://quantumnumbers.anu.edu.au/ (requires signup - a free tier exist)
+
+::::keypoints
+- "FIXME"
+::::

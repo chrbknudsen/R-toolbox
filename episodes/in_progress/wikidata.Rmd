@@ -1,0 +1,52 @@
+---
+title: 'hent data fra wikidata'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do you write a lesson using R Markdown and `{sandpaper}`?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+wikidata er en del af infrastrukturen i wikipedia. 
+
+https://www.wikidata.org/
+
+De har udfordringen: Mount Everest har en højde (8848,86 m). Og den skal optræde
+på den engelske wikipedia. Og på den danske. Og på alle de andre udgaver af 
+wikipedia. Og Mount Everest vokser med ca. 4 mm om året. Så højden skal regelmæssigt
+opdateres. I stedet for at gøre det på alle 203 forskellige sprog udgaver af wikipedia-
+opretholdes en central database med højde, som alle udgaverne trækker på.
+
+det betyder også at vi har mulighed for at hente højden af mount everest. Og en
+frygtelig masse andre data.
+
+Så hvordan gør man det?
+
+
+
+```{r}
+library(WikidataR)
+
+
+```
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
