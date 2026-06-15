@@ -1,0 +1,140 @@
+SETUP — Quarto + revealjs + webR (Positron, Windows)
+=========================================================
+
+ikke 100% reproducerbart endnu. Men vi nærmer os.
+
+Mål
+----
+Få webR-kørende slides og website, og udgive til GitHub Pages – uden submodules.
+
+Forudsætninger
+--------------
+- Positron eller RStudio + Quarto installeret (quarto check)
+
+- opret en folder. Ækvivalent til et projekt i Rstudio
+- Opret _quarto.yml
+- Indsæt nedenstående i _quarto.yml
+
+-- start indsæt
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Slides + webR"
+  navbar:
+    left:
+      - text: "Demo"
+        href: slides/demo.qmd
+
+format:
+  live-html:
+    theme: cosmo
+-- slut indsæt
+
+bemærk at hvis quarto præsentationen hedder noget andet end demo.qmd - så skal der stå noget andet.
+Og hvis den ikke ligger i folderen "slides", så skal der også ændres her.
+
+Trin 3 — Hent 'quarto-live' som ZIP (ingen submodule)
+-----------------------------------------------------
+- Gå til https://github.com/r-wasm/quarto-live (code - download zip)
+- Download ZIP og udpak et vilkårligt sted uden for projektmappen.
+
+
+Trin 4 — Installer 'live'-extension fladt i projektet
+-----------------------------------------------------
+- Kopiér mappen fra ZIPpen:  quarto-live/_extensions/live
+- Ind i projektet som:       <projekt-rod>/_extensions/live
+- Tjek at disse tre findes:
+  _extensions/live/live.lua
+  _extensions/live/_extension.yml
+  _extensions/live/_knitr.qmd
+
+
+Trin 3.2 hent en quarto-extention som ZIP
+-------------
+- Hentes her: https://github.com/coatless/quarto-webr (grøn knap - code - download zip)
+- i den zipfil er folderen _extensions/webr
+- den placeres i project folderes rod under 
+_extensions/webr
+
+
+
+Trin 5 — Knyt webR ind i dine slides
+------------------------------------
+- opret slides (eller et ordinært quarto dokumnet). 
+- for dette eksempel kalder vi den for demo.qmd
+- i yaml headere skal der være:
+---start indsæt ---
+
+title: "webR demo"
+format: live-revealjs
+engine: knitr
+filters:
+  - webr
+webr:
+  packages: ["dplyr"]
+--- slut indsæt ---
+
+- bemærk at fra filters til ] ikke er nødvendig. Med mindre du ønsker at der er hurtig adgang til dplyr når siden åbnes.
+- alternativt kan man i slides i de ordinære codechunks - installere pakken med webr::install("dplyr"). Men det tager tid...
+- Det virker med de gængse pakker - men forudsætter at de er kompileret til webr brug.
+
+- I dine slides-filer (fx slides/demo.qmd), lige efter YAML:
+  {{< include ../_extensions/live/_knitr.qmd >}}
+  
+- Når du vil have en kodeblok med r-kode der kan eksekveres indsætter du som sædvanlig. Men som {webr} i stedet for r
+
+Trin 6 — Kør lokalt i terminalen:
+-------------------
+quarto preview
+- Åbn i ekstern browser (localhost-URL). Undgå file:// visning.
+
+Trin 7 — Udgiv til GitHub Pages (manuel render)
+-----------------------------------------------
+- Opret repo på GitHub: chrbknudsen/webr-test (tomt repo).
+git remote add origin https://github.com/chrbknudsen/webr-test.git
+quarto render
+git add .
+git commit -m "site"
+git push -u origin main
+- GitHub → Settings → Pages → Deploy from a branch → Branch: main → Folder: /docs
+- URL: https://chrbknudsen.github.io/webr-test/
+
+Skal det op at køre på github skal følgende tilføjes:
+
+opret filen .github/workflows/quarto-gh-pages.yml med dette indhold
+name: Quarto Publish
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true     # så LaTeX er tilgængelig hvis du laver PDF
+          # pandoc: true    # hvis du vil sikre Pandoc-install
+
+      - name: Render site
+        run: quarto render
+
+      - name: Commit rendered site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "Render site" || echo "No changes to commit"
+          git push
+
+
+Og så skal den aktiveres som action på github. 

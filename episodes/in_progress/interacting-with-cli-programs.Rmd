@@ -1,0 +1,105 @@
+---
+title: 'interacting-with-cli-programs'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- Hvordan kan vi få R til at interagere med programmer?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to use markdown with the new lesson template
+- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+mere specifikt programmer der kører på kommandolinien. Her youtube-dl.
+
+Vi taler ikke om word eller den slags - vi taler om programmer som man kan interagere
+med på kommandolinien. De er ofte små, nyttige, og gør en enkelt specifik ting.
+
+youtube-dl er et eksempel. Det er et program der kan høste data fra youtube - og en
+masse andre videodelingstjenester.
+
+Det er ikke altid helt let at få fat på fordi ikke alle videodelingstjenester
+bryder sig om det. Så det kan anbefales at få fat på den nyeste udgave.
+
+det kan hentes her:
+https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation
+
+Det er pt ikke blokeret af tyskerne.
+
+Og lad nu være med at brug det til at overtræde copyright!
+
+```{r eval = F}
+youtube-dl.exe https://www.youtube.com/watch?v=RG7c83sw6gk --write-info-json
+```
+
+
+Det er det vi skal skrive på kommandolinien (men det virker ikke pt, for vi har 
+en gammel version på softwarecentret. )
+
+Lige dette program har en række nyttige funktioner. argumentet --write-info-json,
+skriver metadata for videoen til en json fil. 
+
+Hvis vi har samlet kommandoerne i en vektor `commands`, kan vi køre dem med
+funktioenn system. 
+
+```{r eval=F}
+for(i in 1:length(commands)){
+  system(commands[i])
+}
+```
+
+
+søgninger
+
+Create a vector containing search terms:
+```{r}
+keywords <- c("Jordan Peterson Motivation",
+              "Jordan Peterson Islam",
+              "Jordan Peterson Postmodernism")
+```
+
+Again youtube-dl will do the work for us, but we still need to generate the
+command for our command line. This function should do the trick:
+
+```{r}
+harvest_keyword_string <- function(keywords, n=5, video=F, exe="youtube-dl.exe"){
+  skip <- "--skip-download"
+  if(video){skip <- ""}
+  search_opt <- paste0("ytsearch", n, collapse="")
+  search_terms <- stringr::str_replace_all(keywords, " ", "_")
+  result <- paste0(exe, ' ', search_opt, ':"', keywords, '" ', skip, 
+                     ' --write-info-json -o "%(title)s-%(id)s-keywords-',search_terms,'"')
+  return(result)
+}
+
+```
+
+This will process our keywords, and generate the commands we need to execute:
+```{r}
+harvest_keyword_string(keywords)
+```
+
+
+Det er youtube - hvordan med andre programmer? Irfanview er et fint eksempel
+der også har kommandolinie muligheder.
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+

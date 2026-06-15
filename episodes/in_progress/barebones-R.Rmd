@@ -1,0 +1,283 @@
+---
+title: 'The absolute minimal introduction to R'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- What do I absolutely need to know about R?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Cover the bare bones knowledge about R that you should know
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Introduction
+
+R is a scriptet programming language, especially suited for working with data.
+
+Programming means that we have to write code, that instructs the computer on what to do.
+
+Scripting that we have a script - containing all the code we would like the computer
+to read, interpret and understand.
+
+Rather than editing a text file, we work with the R-script in an IDE, typically RStudio or
+Positron. Other tools exist, these two are designed to work well with R.
+
+When the computer, or rather the programming language, read the script file, it will
+begin at the first line - line number 1, do what it says there, and continue to line 2.
+
+We can do simple math:
+```{r}
+1 + 1
+```
+
+And when we have that line of code in our IDE, we can place the cursor in the line of code,
+and press control+enter, to execute the code. 
+
+Our IDE will transfer the line of code to the program on our computer, the interpreter, that 
+actually performs what we asked the programmming language to do. R will execute or evaluate the
+code. And return the result in the "console".
+
+Rather than doing this calculation every time, we can save the result to an "object":
+
+```{r}
+result <- 1 + 1
+```
+
+We do that using the assignment operator "<-", which we can read as "take the result from
+the right hand side of the operator, and put it into something on the left hand side". In this
+case an object called result.
+
+We can now do math, or other stuff on that object:
+
+```{r}
+result * 2
+```
+
+## Other "simple" types of data
+
+We can work with other types of data than numbers. 
+
+Text is entered by placing it between quotation marks:
+
+```{r}
+text_object_1 <- "This is text"
+```
+
+It is important to know, that even if it looks like numbers, it might actually be
+text:
+
+```{r}
+number_that_is_text <- "42"
+```
+
+42 is now saved as text. And we are not able to do math on text!
+
+We have other types of data, but the third you should absolutely know about is "booleans".
+
+Is this expression true?
+```{r}
+1 < 3
+```
+
+Yes it is, 1 is smaller than 3.
+
+This however
+
+```{r}
+1 > 3
+```
+
+is false. 1 is _not_ larger than 3.
+
+## More than one number. Or text
+
+When we work with data, we often have more than one number. Or string (as text is often called).
+Or boolean values. 
+
+When we have that, we work with "vectors". A vector is a collection of things of the same type.
+
+We can construct a numeric, containing numbers, vector in many ways:
+
+```{r}
+1:3
+```
+
+Give us the numbers 1, 2 and 3.
+
+```{r}
+c(1, 2, 3)
+```
+
+does the same.
+
+With text, the pattern is the same:
+
+```{r}
+c("A", "B", "C")
+```
+
+If we save a vector to an object we can now do math on it:
+
+```{r}
+num_vec <- c(1, 2, 3)
+sum(num_vec)
+```
+
+Sum adds all the numbers in the vector. A lot of other functions for doing math exist.
+
+We are not able to do math on strings. But there are functions that do things to strings:
+
+```{r}
+str_vec <- c("A", "B", "C")
+tolower(str_vec)
+```
+
+tolower() is a function that transforms strings to be lower-case. And many other functions
+for working with strings exist in R.
+
+## Missing values
+
+Sometimes we have missing values in real live. This is a numeric vector containing a
+missing value:
+
+```{r}
+num_vec_missing <- c(1, 2, 3, NA)
+```
+
+In R we use "NA" to indicate that a value is missing. If we try to do math on
+vectors containing missing values, we will get an error:
+
+```{r}
+sum(num_vec_missing)
+```
+
+We know that the sum of 1, 2 and 3 is 6. But adding an unknown number to 6 - will result
+in an unknown number!
+
+In general functions can be modified to handle missing values:
+
+```{r}
+sum(num_vec_missing, na.rm = TRUE)
+```
+
+na.rm = TRUE, tells the sum function, that it should remove missing values from its
+input, before adding the values together!
+
+## Functions
+
+We have seen a couple of functions already. c() and sum().
+
+We can think of functions as "canned scripts", a number of lines of code, that do 
+something. Rather than writing all the code to add a lot of numbers together, we
+have a function, sum, that does it for us.
+
+Functions have a name, and can be recognised by having a set of parantheses after it.
+
+Always remember to match your parentheses. Things will fail if you dont!
+
+Functions take an input - num_vec_missing for example, and returns a result. They can also
+take "arguments" that modify the behaviour of the function. "na.rm = TRUE" is such an argument.
+
+If you want to know which arguments a function can take, take a look at the help for the function.
+You can do that by typing ?sum (or another functionname than sum), and run that code. 
+
+## Tabular data
+
+Normally we like to work with tabular data - such as we know from Excel.
+
+This is an example:
+
+```{r}
+head(mtcars)
+```
+
+mtcars contain data about cars. And head() is a function that returns the first few lines, rather than everything.
+
+We could type in the data in a table ourself, but normally we use a function:
+
+```{r eval = FALSE}
+read.csv("name_and_path_of_a_file.csv")
+```
+
+This is just an example, but read.csv is used to read CSV files. 
+
+Other file types exist, and you will probably have to use a specific function to readin a
+specific type of file.
+
+Some files have strange formats, and R is not able to handle it on its own.
+
+We could write our own functions to do that. Or we could copy paste something from the 
+internet.
+
+In R that copy-paste exercise is put into a system. Packages are collections for useful functions,
+normally a set of functions for a specific purpose. The package "readr" contains functions for 
+reading in files.
+
+We often need to install packages on our computer:
+
+```{r eval = FALSE}
+install.packages("readr")
+```
+
+When we have installed a package, we need to "activate" or "turn it on" by running a line of code:
+
+```{r}
+library(readr)
+```
+
+We now have accces to a number of other functions for reading files, including a more modern version of read.csv(), called read_csv()
+
+Packages are useful!
+
+## The pipe
+
+The dialect of R we use in KUB Datalab is called "tidyverse". So we often 
+begin by running "install.packages("tidyverse")" followed by "library(tidyverse)".
+
+This contains a number of functions that work nice together, and they work nice together by
+all taking a data frame, a table, as input, doing something with it, and then returning
+a new data frame or table.
+
+We might want to do something with that new data frame. And the concept of the "pipe"
+allow us to do that.
+
+Two kinds of pipes exist. The OG pipe: "%>%" and the new pipe: "|>". They function in
+basically the same way. The data on the left side of the pipe, is passed through
+the pipe, to the function on the right hand side of the pipe.
+
+Note that the left hand side can be a function, as long as it returns, have a result,
+that is a data frame/table, or some other thing that can be used as input in the 
+function on the right hand side.
+
+It can look like this:
+
+```{r eval= FALSE}
+mtcars |> 
+    mutate(new_column = am * 2) |> 
+    filter(mpg > 3)
+```
+
+mtcars contains tabular data about cars. A column in the data is called "am", and have 0 or 1 
+depending on wether the car has manual or automatic gear change.
+
+Mutate creates a new column (called new_column) that is equal to the values in "am" multiplied 
+by 2. The result of that is a new data frame or table, now with a new column.
+The pipe send that to a new function, filter, that filtes our data, and returns all the rows in
+the dataset, where the value in mpg is larger than 3.
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+- Use `.Rmd` files for episodes when you need to generate output
+- Run `sandpaper::check_lesson()` to identify any issues with your lesson
+- Run `sandpaper::build_lesson()` to preview your lesson locally
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
