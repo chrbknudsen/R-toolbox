@@ -1,0 +1,4 @@
+RhpcBLASctl
+foreach
+iterators
+doParallel
