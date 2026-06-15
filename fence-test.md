@@ -1,0 +1,170 @@
+---
+title: 'Fences på vores undervisningssider'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- Hvilke fences har vi til rådighed i det her setup?
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Lever en oversigt over fences vi kan bruge i undervisningsmaterialet.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Fences. Det vi bruger til at indsætte de små (eller ikke så små) farvede blokke
+på siderne. De starter alle med mindst fire ":" og derefter ordet; eksempelvis
+"callout". Og når man er færdig med indholdet, skal der være mindst fire ":" igen.
+
+Hvad er ordet så? Ordet er altid det der står på position X i:
+"dette er en X fence".
+
+
+
+:::: callout
+## dette er en callout fence
+
+
+::::
+
+:::: prereq
+## dette er en prereq fence
+
+
+::::
+
+
+:::: checklist
+## dette er en checklist fence
+
+::::
+
+
+Bemærk at hint-fencen mangler en ikon til venstre.
+
+:::: hint
+## dette er en hint fence
+
+::::
+
+
+:::: discussion
+## dette er en discussion fence
+
+::::
+
+
+:::: testimonial
+## dette er en testimonial fence
+
+::::
+
+:::: instructor
+## dette er en instructor fence
+
+::::
+
+:::: caution
+## Dette er en caution fence
+
+Bemærk at sandpaper vil insistere på ikke at kende til denne fence. Men
+den fungerer altså fint alligevel, så det er fejl under bygningen af siden
+man roligt kan ignorere.
+
+::::
+
+:::: spoiler
+## dette er en spoiler fence
+
+::::
+
+
+:::: challenge
+## dette er en challenge fence
+
+:::: solution
+## Den optræder som regel med en solution fence
+
+Og den er "inde i" challenge fencen.
+
+
+::::
+
+
+::::
+
+
+## Fanegruppe Eksempel
+
+Vi starter med en group-tab fence, og så har vi nogen overskrifter til de
+forskellige tabs, og deres indhold. Vær opmærksom på at når man skifter til 
+eksempelvis "Mac" i en group-tab, så skifter de andre group-tabs også til
+"Mac".
+
+::: group-tab
+
+### Windows
+
+1
+
+### Mac
+
+2
+
+### Linux
+
+3
+
+:::
+
+::: group-tab
+
+### Windows
+
+4
+
+### Mac
+
+5
+
+### Linux
+
+6
+
+### raspbian
+
+7
+
+:::
+
+
+
+``` r
+library(tidyverse)
+```
+
+``` output
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.1     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+```
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Brug fences til at fremhæve eller skjule indhold på siderne.
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+

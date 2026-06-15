@@ -1,0 +1,185 @@
+---
+title: 'Make a new course'
+teaching: 10
+exercises: 2
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- How do I make a new course-page based on this??
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- Explain how to make a new lesson based on this template
+- Provide a checklist for doing so
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+This page is defined as a template-repo at GitHub. That means, that you
+can easily initialize a new repository based on this page.
+
+:::: spoiler
+### How do you make a template-repo?
+
+Go to the main page of the repo you want to make a template.
+
+Click "settings", and, just under the box where you can change the 
+repository name, you will find a tick-box called "Template repository". Tick it.
+
+::::
+
+Go to the [github-repo](https://github.com/KUBDatalab/R-toolbox), and click on 
+the green button "Use this template". Choose "Create a new repository".
+
+Giv the new repository a name. We prefer to let our R-courses begin with "R-".
+
+Make sure the repository is placed under "KUBDatalab", if you want it to be part
+of our eco-system. Otherwise, place it wherever you want.
+
+Also make sure that the repository is "Public".
+
+After GitHub have initialized the new repository based on this template, you
+need to edit the "config.yaml" file. 
+
+* title - selfexplanatory
+* created - the date you did all this.
+* source - change it to the url of the new github-repo. This makes it easier to edit the page in the future.
+* episodes - remove all episodes not to be included in your new course. Change the order if necessary.
+
+Either do this directly on GitHub, or follow the usual process of forking to
+your own GitHub account, and cloning the repo to your computer.
+
+You will also need to update the CITATION.cff file, otherwise the citation will
+point to this site, rather than your own.
+
+You can use https://citation-file-format.github.io/cff-initializer-javascript/#/ to
+edit the existing, or make a new one.
+
+:::: callout
+## Consider deleting stuff
+
+When the page is generated, the scripts identifies all libraries used in all
+episodes. Even if these episodes will not be shown on the page. 
+
+This requires the scripts to download and install all these libraries. And that
+takes time! 
+
+If you delete all unused episodes, you will speed up the following step considerably.
+
+::::
+
+After you have committed your changes to config.yaml, actions begins building 
+the site. Have patience! The first build of the R-PUFF site took 54 minutes.
+
+Don't worry, future changes are a lot faster. An update of the page you are 
+currently reading, took 6 minutes. The scripts only rebuild the pages that are
+changed.
+
+You can follow the process under "Actions" on the repo.
+
+When all actions have run - look for the green checkmarks, go to "Settings",
+choose "Pages".
+
+:::: caution
+## renv can mess things up!
+
+Sandpaper uses the renv environment manager to handle dependencies in the
+packages you use. 
+
+That can give problems. The solution is this. Delete the renv directory, and the renv.lock file. Then run this:
+
+
+``` r
+sandpaper::use_package_cache()
+sandpaper::manage_deps()
+```
+
+
+::::
+
+
+Under "Build and deployment", we are told that the page is "deployed from a branch",
+and below that, you can choose which branch. Chose "gh-pages".
+
+Click "Save". GitHub actions begins again, but do not worry, this step is very 
+fast (depending on a lot of things, we are not paying GitHub, so we depend on
+shared ressources).
+
+
+:::: callout
+
+## Changes are local
+
+You have made a new repo based on the master-version of the toolbox. Any changes
+made to R-toolbox, will _not_ affect your new page. 
+
+Changes made on your new page are similarly not affecting R-toolbox.
+
+::::
+
+## Editing
+
+There are a lot of useful information on https://carpentries.github.io/sandpaper-docs
+
+## Updating
+
+You have a course based on this. Time have passed and there is an update here,
+that you would like to incorporate in your course. 
+
+The easiest way to update is to simply copy the relevant episode from here, to
+your own local repo. Then commit, push etc.
+
+Remember that any changes you have made will be gone!
+
+## Exotic packages
+
+If you need packages from github, you will need to install them using `renv`:
+
+
+``` r
+renv::install("clauswilke/colorblindr") 
+# Then write the lockfile:
+renv::snapshot()
+```
+
+## Releases
+
+We would like to have DOIs on our courses.
+
+When a course have reached a finishedish form, we make a "release". On the github repo page, click "Create a new release".
+Create a new tag with the version number, eg v.0.5.0. Give it a relaease title, typically the name of the course and the 
+version number.
+
+Write releasenotes - consider using the function "Generate release notes" to get an initial text. But beware that it 
+will use messages from commits and PRs and we are not that disciplined writing those...
+
+Then click "Publish release".
+
+Go to https://docs.github.com/en/repositories/archiving-a-github-repository/referencing-and-citing-content
+and follow the instructions. You might need additional rights on the repo.
+
+Remember to update or add the DOI to config.yaml.
+
+## Citation
+
+It is useful for others to be able to cite the course material.
+
+Make a file "CITATION" in the root of the course project. 
+
+Then go to https://citation-file-format.github.io/cff-initializer-javascript/#/ (because the IT-department blocks https://bit.ly/cffinit), and create (or update) the file.
+Fill out or update the information, remember the DOI, and save the content, not to CITATION.cff, but to CITATION. 
+Commit etc. 
+
+
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- It is fairly easy to make a new course page
+- Have patience!
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
