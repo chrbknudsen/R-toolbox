@@ -935,11 +935,7 @@ p_val <- levene_result[1, "Pr(>F)"]
 
 **Interpretation:**
 
-Levene's test yields an F-statistic of `r round(f_stat, 2)` 
-with a p-value of `r signif(p_val, 3)`. We
-`r if(p_val < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`.
-This means there is
-`r if(p_val < 0.05) "evidence that at least one clinic's blood pressure variability differs from the others." else "no evidence of differing variances across clinics."`
+Levene's test yields an F-statistic of `r round(f_stat, 2)` with a p-value of `r signif(p_val, 3)`. We `r if(p_val < 0.05) "reject the null hypothesis" else "fail to reject the null hypothesis"`. This means there is `r if(p_val < 0.05) "evidence that at least one clinic's blood pressure variability differs from the others." else "no evidence of differing variances across clinics."` 
 
 ::::
 
