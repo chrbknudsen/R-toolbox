@@ -161,7 +161,7 @@ i aktøraktør-tabellen. Det giver os alle de aktør-id der er knyttet til den
 pågældende samling.
 
 
-```{r}
+```{r eval = FALSE}
 library(jsonlite)
 # fromJSON("https://oda.ft.dk/api/$metadata#Debat")
 fromJSON("https://oda.ft.dk/api/AktørAktør") |> 
