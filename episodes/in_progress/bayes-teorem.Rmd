@@ -1,19 +1,83 @@
 ---
-title: "Bayes teorem"
-teaching: 42
-exercises: 47
-questions: 
-- "Hvad er Bayes teorem"
-objectives:
-- "Forstå det her nok til at vi kan hjælpe studerende"
-
-keypoints:
-- "FIXME"
-source: Rmd
-math: yes
+title: 'Bayes teorem'
+teaching: 10
+exercises: 2
 ---
 
+:::::::::::::::::::::::::::::::::::::: questions 
 
+- fixme
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- fixme
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+Hvis vi tager en mønt og slår plat og krone. Så forventer vi, hvis mønten er "fair", at 
+få plat halvdelen af gangene. Og krone den anden halvdel.
+
+Så hvis vi slår plat og krone ti gange i træk, og konstaterer at den giver "krone" 10 gange. Har vi så en fair mønt?
+
+Den måde vi normalt tester det på, er at beregne sandsynligheden for at få krone 10 gange i træk, hvis mønten er fair.
+
+Det kan vi beregne ved: ½^10 = 1/1024 = 0.00098. 
+
+det er sandsynligheden for at få to "krone" i træk. Hvis mønten er fair.
+
+Det er ikke specielt sandsynligt. Og så vil vi forkaste null-hypotesen.
+
+Det kaldes "frekventistisk" statistik. Hvis null-hypotesen er sand, hvor sandsynligt er det så at se det udfald vi faktisk får i vores stikprøve?
+Det er ikke specielt sandsynligt, så derfor forkaster vi null-hypotesen.
+
+Men det fortæller os intet om sandsynligheden for at null-hypotesen faktisk er falsk. Hvis vi kaster en fair mønt ofte nok, vil vi opleve at 
+den giver os ti krone i træk på et eller andet tidspunkt.
+
+Vi er fristet til at konkludere at mønten ikke er fair. Men det tillader testen os faktisk ikke at sige. Vi er også fristet til at sige, at sandsynligheden for at 
+null-hypotesen er sand (fair mønt) er 0.00098. Men det må vi heller ikke.
+
+Nu kunne jeg godt tænke mig at vide hvor sandsynligt det er at mønten faktisk er fair - givet at vi lige har slået krone ti gange i træk. Er der en måde at gøre det på?
+
+Det er der, men det kræver at vi tænker sandsynligheder anderledes end vi ellers har været vant til.
+
+Måden er Bayes teorem.
+
+Før vi laver et forsøg har vi en (mere eller mindre kvalificeret) ide om hvor sandsynligt det er at null-hypotesen er sand (eller falsk). Vi har erfaringer,
+vi ved at en tilfældig mønt vi får i supermarkedet med meget stor sandsynlighed er fair. Vi ved også at hvis vi køber en mønt i en butik der sælger 
+tryllekunster med stor sandsynlighed ikke er fair.
+
+Så mit bud på sandsynligheden for at min null-hypotese, at mønte er fair, er 99.99% (for matematikken bryder sammen hvis jeg sætter den til 100%). Det betyder også at mit prior estimat for 
+at mønten ikke er fair er 0.01%
+
+Min h_0 er p = 0.5. Men jeg skal også have en H_1. Den kan vi sætte til p=1. Altså at mønten altid vil give krone.
+
+Det bliver mere komplekst hvis vi ikke har en så entydig H_1. Så begynder chatty at tale m betafordelinger og gennemsnit af sådanne.
+
+
+
+Det er vores "prior". Jeg antager at sandsynligheden for at mønten er fair er 99.99%. Og mønten er fair, og at sandsynligheden for "krone" er 50% hver gang jeg kaster den.
+
+Nu kaster jeg mønten 10 gange, og får "krone" 10 gange.
+
+
+
+
+
+
+
+Kast en mønt ti gange i træk, og konstater at den giver "krone" ti gange.
+
+Hvis vi antager at mønten er "fair", forventer vi at få krone hal
+
+
+
+Når vi normalt har lavet hypotese tests, opstiller vi en null-hypotese: Der er ingen forskel/effekt.
+
+Så tager vi en stikprøve, og ser på resultatet
 
 ### Hvad er det?
 
@@ -185,4 +249,11 @@ $$P(A|B) = \frac{P(B|A)P(A)}{P(B)} = \frac{0.97 * 0.01}{P(B)} = \frac{0.97 * 0.0
 
 Efter den positive test, opdaterer jeg derfor min vurdering af om jeg har COVID 
 fra 1% til 16%. 
+
+
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- Use `.md` files for episodes when you want static content
+
+::::::::::::::::::::::::::::::::::::::::::::::::
 
