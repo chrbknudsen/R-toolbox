@@ -57,9 +57,6 @@ Det er ofte en god ide at tjekke hvordan ens palette bliver opfattet af farvebli
 
 Pakken colorblindr giver et bud på det. Den skal installeres fra github:
 
-```{r}
-library(colorblindr)
-```
 
 
 
