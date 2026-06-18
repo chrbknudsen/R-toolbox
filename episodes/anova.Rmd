@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-B 01-bayes 02-ray-render
+billeder og 07-algebra, 08-konfidens-ratio
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
