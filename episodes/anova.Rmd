@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-factor-analysis flowcharts fordeling_poisson
+23-webscraping, adv-dataviz advanced-ggplot building-models
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
