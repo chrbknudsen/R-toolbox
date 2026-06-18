@@ -19,7 +19,8 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## What is ANOVA
-R-intro-md-v1 r-intro-markdownv2 randum-numbers ridge-regularisation, rstudio.rmd
+
+tuning-kmeans un-normal-data, webassembly, what-is-ml
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
