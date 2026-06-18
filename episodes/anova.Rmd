@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-p-hacking, p-values, plot-with-tidyplot, shinylive, snow-plot
+sql, structure-you-work, t-sne t-tests tables-advanced, tables, text-regex, text-tf-idf
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
