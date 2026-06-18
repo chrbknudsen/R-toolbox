@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-08-sound og 10-ml-metrikker
+mathematic, missing-data, model-control
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
