@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-choropleths, interesting-transformations, kl-divergens, large-data, likert-vis, pca
+interacting-with-cli-programs
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
