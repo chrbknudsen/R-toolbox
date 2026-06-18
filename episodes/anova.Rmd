@@ -20,7 +20,8 @@ exercises: 2
 
 ## What is ANOVA
 
-diagramtest, digitizing-graphs, efa_cfa, elastic-net-regularisation, ggplot-animation, gis, handling-json
+custom-performance-metrik, datamanipulation-advanced, datamanipulation, datatidying, debugging-advanced, debugging, design-principles, hvad-vi-glemte, hypothesis-testing
+
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
 significant difference between them.
