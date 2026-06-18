@@ -19,8 +19,7 @@ exercises: 2
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## What is ANOVA
-
-16-forestplots 17-odds-ratio, 19-edit-data
+bad-data, barebones, bayes-teorem, best-noter
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
