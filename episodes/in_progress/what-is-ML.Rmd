@@ -1,0 +1,93 @@
+---
+title: "forestplots"
+teaching: 42
+exercises: 47
+---
+
+:::::::::::::::::::::::::::::::::::::: questions 
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::: objectives
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## What is machine learning?
+
+Algorithms that learn hwo output (y) depends on input (X):
+
+$$y = f(X) $$
+
+Simplest form: Linear regression:
+
+$$y = mX + b$$
+
+m is slope - b is intercept. But in ML lingo:
+b is "bias" and w is "weights"
+
+
+https://sites.google.com/view/ml-basics/linear-regression-and-gradient-descent
+
+
+```{r}
+
+library(tidyverse)
+data <- tribble(~X, ~y, 0,1,1,3,2,2,3,5,4,7,5,8,6,8,7,9,8,10,9,12)
+data |> 
+    ggplot(aes(X,y)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE)
+```
+
+
+```{r}
+X <- data$X 
+y <- data$y
+```
+
+```{r}
+b <- 1
+w <- 1.5
+y_predicted <- b +w*X
+
+error <- y - y_predicted
+mean(error)
+```
+
+
+error = y-y_predicted
+L2 = ½(y-y_predicted)^2
+::::::::::::::::::::::::::::::::::::: keypoints 
+
+- FIXME
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+```{r}
+library(tidyverse)
+sol_data <- read.csv("https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/delaney-processed.csv") 
+
+sol_data |> names()
+
+X <- sol_data |> 
+    select(Minimum.Degree,  Molecular.Weight,  Number.of.H.Bond.Donors,  Number.of.Rings,  Number.of.Rotatable.Bonds, Polar.Surface.Area) 
+
+y <- sol_data |>  
+    select(measured.log.solubility.in.mols.per.litre)
+
+data_to_fit <- sol_data |> select(measured.log.solubility.in.mols.per.litre,Minimum.Degree,  Molecular.Weight,  Number.of.H.Bond.Donors,  Number.of.Rings,  Number.of.Rotatable.Bonds, Polar.Surface.Area )
+
+model <- lm(measured.log.solubility.in.mols.per.litre ~ ., data = data_to_fit)
+library(tidymodels)
+# install.packages("tidymodels")
+
+augment(model) |> select(measured.log.solubility.in.mols.per.litre, .fitted) |> 
+    mutate(andre = sol_data$ESOL.predicted.log.solubility.in.mols.per.litre)
+
+```
