@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-tuning-kmeans un-normal-data, webassembly, what-is-ml
+factor-analysis flowcharts fordeling_poisson
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
