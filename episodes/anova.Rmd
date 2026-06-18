@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-12 filer om git
+non-linear-regression, notes opgaver packages
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
