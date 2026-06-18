@@ -1,0 +1,212 @@
+---
+title: "Odds, logodds og oddsratio"
+teaching: 42
+exercises: 47
+questions: 
+- "Hvad er odds ratios?"
+objectives:
+- "Forstå det her nok til at vi kan hjælpe studerende"
+
+keypoints:
+- "FIXME"
+source: Rmd
+math: yes
+---
+
+
+
+## Hvad er odds? 
+
+Hvis du spiller på fodboldkampe og sådan noget - så kender du dem.
+
+Odds er en anden måde at angive sandsynligheden for at noget sker.
+
+Det er forholdet mellem at noget sker, og at noget ikke sker. 
+
+Lad os tage et eksempel. 
+FCK spiller 5 kampe mod Brøndby. Hvis vi mener at forholdene taler for at 
+FCK vinder 1 kamp, og taber fire, er odds for at FCK vinder 1 til 4, eller:
+$$\frac{1}{4}$$ Eller 0,25. 
+
+Og her ser vi så bort fra at kampen også kunne ende uafgjort. Lad os antage at
+det ikke er en mulighed for at gøre det hele lidt enklere.
+
+Det er ikke det samme som sandsynligheder. Odds er forholdet mellem at noget sker
+og noget ikke sker. Mens sandsynligheden er sandsynligheden for at noget sker, 
+ud af alt hvad der kan ske. I eksemplet altså 
+
+$$\frac{1}{5}$$ 
+
+Eller 0,20.
+
+Odds for at FCK vinder, er altså forskellig fra sandsynligheden for at FCK
+vinder.
+
+Er der en sammenhæng? Ja. Sandsynligheden for at FCK vinder er 0.2. Sandsynligheden
+for at de taber er 1 - 0.2 = 0.8. 
+Og sandsynligheden for at de vinder divideret med sandsynligheden for at de taber
+er derfor:
+
+$$\frac{0.2}{1-0.2} = \frac{0.2}{0.8} =  0.25$$
+
+Det vil sige at vi kan beregne odds både ved at tælle. Men også ved at kigge på
+sandsynligheden.
+
+Man vil ofte se odds defineret som 
+
+$$\frac{p}{1-p}$$, hvor p er sandsynligheden for at noget sker.
+
+## Hvad er så log odds?
+Odds for at FCK vinder er 1:4. Hvis FCK var et dårligere hold, ville odds måske være 
+1:8 eller 1:42. Hvis odds taler for at FCK taber, ligger odds mellem 0 og 1. 
+
+Men hvis odds i stedet taler for at FCK vinder, eksempelvis at vi forventer at de
+vinder 4 gange ud af 5, vil odds være 4:1. Hvis de er endnu bedre, ville 
+odds måske være 47:1. Det betyder at hvis odds taler for at FCK vinder, vil
+odds ligge mellem 1 og uendelig. 
+
+Lad os sammenligne odds for at FCK vinder i det første eksempel: 1:4 og det 
+andet eksempel, hvor odds for at FCK vinder er 4:1.
+
+Det er jo symmetriske odds. I den ene situation vinder de en gang ud af fem. Og i den anden
+taber de en gang ud af fem.
+
+Det ville være rart om odds også var symmetriske. 
+I det første eksempel er odds 0.25. Og i det andet er odds 4. 
+Det kan vi opnå ved at logaritmere.
+
+
+$$\log({\frac{1}{4}}) = -1.386294$$ 
+
+$$\log({\frac{4}{1}}) = 1.386294$$
+
+Nu er værdierne ens - men med forskelligt fortegn. Det er smart!
+
+
+$log(\frac{p}{1-p})$ kaldes også logit-funktionen, og er fundamentet for 
+logistisk regression.
+
+Så. Odds er forholdet mellem noget der sker, og noget der ikke sker. Og log 
+odds er logaritmen af de odds.
+
+log odds gør ting symmetriske, lettere at fortolke, og gør det muligt at lave
+visse statistiske ting.
+
+## Hvordan så med odds-ratio?
+
+Odds i sig selv er en ratio - men odds-ratio er ratioen, forholdet, mellem to 
+odds.
+
+Vi skal bruge to odds. Så nu lader vi de to hold spille mange kampe. Og så 
+ser vi om der er forskel på om FCK spiller på hjemmebane eller ej.
+
+Sejre til FCK mod Brøndby
+
+| | Vundet |  tabt |
+|---|---|---|
+|hjemmebane | 21 | 115 |
+| udebane | 6 | 200 |
+
+
+Odds for at FCK vinder når de spiller på hjemmebane er:
+
+$$21:115 = \frac{21}{115} = 0.1826087$$
+
+Og odds for at de vinder når de spiller på udebane er:
+
+$$6:200 = \frac{6}{200} = 0.03$$
+
+odds-ratio er derfor: 
+
+$$\frac{\frac{21}{115}}{\frac{6}{200}} = \frac{0.1826087}{0.03} = 6.086957$$
+
+Odds for at FCK vinder er med andre ord lidt mere end 6 gange højere når de
+spiller på hjemmebane, end når de spiller på udebane.
+
+Odds ratio har samme problem som odds. De er ikke symmetriske. Vi kan nemlig 
+beregne det omvendte:
+
+$$\frac{\frac{6}{200}}{\frac{21}{115}} = \frac{0.03}{0.1826087} = 0.1642857$$
+der i en eller anden forstand fortæller hvor mange gange mere (eller mindre) FCK 
+er tilbøjelige til at tabe når de spiller på hjemmebane.
+
+Og her er det så så heldigt at hvis vi logaritmerer disse værdier - så får vi
+pæne symmetriske værdier ganske som for odds:
+
+$$log(6.086957) = 1.806148 \\ log(0.1642857) = -1.806148$$
+
+log-oddsratio indikerer om der er en sammenhæng mellem at FCK spiller på hjemmebane,
+og om de vinder. Store værdier fortæller at hjemmebanen er en god indikator på 
+sejr. Små værdier at hjemmebanen er en dårlig indikator.
+
+Er sammenhængen statistisk signifikant?
+
+Det kan vi finde ud af på tre måder.
+
+## Fischer eksakt
+
+vi skal først og fremmest have data ind i noget som funktionen kan håndtere.
+fisher.test funktionen er glad for matricer. Vi behøver ikke at give den 
+kolonne og rækkenavne. Men det kan gøre det lettere at læse input data. 
+Det gør dog ingen forskel på resultatet af testen:
+
+
+data <- matrix(c(21,15,6,200), nrow = 2)
+rownames(data) <- c("hjemmebane", "udebane")
+colnames(data) <- c("Vundet", "tabt")
+fisher.test(data)
+
+NULL-hypotesen er at der ikke er forskel på de to odds - dvs at odds ratio er 1.
+p værdien er meget lille, så vi kan afvise NULL-hypotesen. Og så er det at vi skal
+holde tungen lige i munden, og huske på at det ikke betyder at den alternative 
+hypotese faktisk er sand. Vi kan blot ikke afvise den.
+
+## chi^2
+
+Man kan også bruge chi^2 testen. Det kan man jo i det hele taget.
+
+chisq.test(data)
+
+## wald testen.
+Der er ikke en direkte test til wald. Men da odds hænger tæt sammen med 
+logistiske regressioner, kan vi lave en logistisk regression på vores data.
+
+vi starter med at få data på en anden form. Bemærk at vi skal have en dummy
+variabel for hjemme/udebane parameteren:
+
+
+vundet <- c(21, 6)
+tabt <- c(115, 200)
+hjemmebane <- c(1, 0)
+
+data <- data.frame(vundet, tabt, hjemmebane)
+data
+
+
+Så foretager vi en logistisk regression:
+
+model <- glm(cbind(vundet, tabt) ~ hjemmebane, family = binomial, data = data)
+summary(model)
+
+Se estimatet for parameteren for "hjemmebane". Det er præcist log odds ratioen
+vi fandt ovenfor! 
+
+Hvordan med z-værdien? Den er 3.783. Hvor kommer det fra?
+
+Testværdien udtrykker hvor mange standardafvigelser der er mellem den observerede
+log odds ratio og 0 (for hvis den er 0, er odds ratio 1 og så er de to odds ens.
+Og så er der ingen forskel)
+
+Standardafvigelsen kan estimeres som:
+$$\sqrt{\frac{1}{21}+\frac{1}{6}+\frac{1}{115}+\frac{1}{200}} = 0.4774739$$
+Vi kommer ikke her ind på hvorfor det er et fornuftigt estimat. Metoden kaldes
+"delta-metoden" og baserer sig på noget med taylor-serier.
+
+Under alle omstændigheder ligger vores estimat på log-odds-ratioen:
+$$\frac{1.806148}{0.4774739} = 3.782716$$
+standardafgivelser fra 0. Den værdi er ret tæt på hvad vi får ud af regressionen.
+Og så kan man slå op i en tabel og få at vide hvilken p-værdi denne test-værdi
+svarer til.
+
+Man kan også konstatere, at hvis estimatet ligger mere end 2 standardafvigelser
+fra 0 - så er den god nok.
