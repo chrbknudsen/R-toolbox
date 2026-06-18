@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-non-linear-regression, notes opgaver packages
+llm-tuning, multinomial-regressoin, parallel, scrolly
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
