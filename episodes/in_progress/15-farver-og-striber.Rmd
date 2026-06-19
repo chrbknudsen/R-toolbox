@@ -1,0 +1,117 @@
+---
+title: "Farver og striber"
+teaching: 0
+exercises: 0
+questions:
+- "Hvordan laver jeg mine egne farveskalaer til ggplot?"
+objectives:
+- "First learning objective. (FIXME)"
+keypoints:
+- "First key point. Brief Answer to questions. (FIXME)"
+---
+
+
+
+Hvordan vælger vi farver til vores plots? Hvordan laver vi vores 
+egne paletter.
+
+
+library(monochromeR)
+
+Der er mange paletter at arbejde med i mange forskellige pakker.
+
+monochromeR gør det relativt let at lave vores egen:
+
+generate_palette("red", modification = "go_darker",
+                 n_colours = 8, view_palette = T)
+
+Og hvis vi vil have blandinger af to farver, eksempelvis hvis vi vil 
+have en palette der giver os farver fra en farve til en anden:
+
+generate_palette("red", blend_colour = "blue",
+                 n_colours = 7, view_palette = T)
+
+
+Paletter kan komme fra andre steder. En populær pakke er "wesanderson", der 
+leverer paletter baseret på de paletter Wes Anderson bruger i hans film. 
+
+Pakken monochromeR kan også vise dem:
+
+
+library(wesanderson)
+
+view_palette(wesanderson::wes_palettes$FantasticFox1)
+
+## Farveblindhed
+
+Det er ofte en god ide at tjekke hvordan ens palette bliver opfattet af farveblinde.
+
+Pakken colorblindr giver et bud på det. Den skal installeres fra github:
+
+
+
+
+Hvorefter vi kan indlæse den.
+
+
+
+cvd_grid vil vise os bruger som udgangspunkt det sidste plot vi lavede.
+
+view_palette(wesanderson::wes_palettes$FantasticFox1)
+cvd_grid()
+
+
+Og det var ethvert plot:
+
+
+ggplot(mtcars, aes(cyl, mpg, colour = gear)) + 
+  geom_point()
+
+cvd_grid()
+
+
+Det en person med normalt farvesyn får her, er et estimat af hvordan et plot vil se ud ved forskellige typer af farveblindhed. Og det er nok blot et estimat, men bedre end ingenting.
+
+Different types of colorblindness exists, and the package give us four different plots,
+one for each type of colorblindness_
+
+* Tritanomaly: Blue-yellow colorblindness. Affects < 0.01%, both men and women.
+* Deutoanomaly: Red-green colorblindness. Affects ~6% of all men.
+* protanomaly: Red-green colorblindness. Affects ~2% of all men.
+* Desaturated attempts to simulate complete colorblindness (akromatopsi). This affects ~0.003% 
+
+### Do we need to take colorblindness into account?
+
+Yes. And no.
+
+There are things that are almost impossible to visualise in palettes that 
+accomodate the different kinds of color blindness. And are completely 
+impossible if they have to accomodate _all_ the different kinds.
+
+Some plots have a primary purpose of being spectacular and visually stunning.
+That can also be extremely difficult if we limit the colors we have to work with.
+
+But. If the purpose of the plot is to convey information about data, rather than
+being art, it is a good idea to take colorblindness into consideration. Not only
+to help color blind people, but also because the choice we make to do that, also makes
+it easier for people with normal color vision, to spot the differences and trends we
+want to illustrate. 
+
+## Hvordan bruger vi så en palette i et plot?
+
+Vi tilføjer en linie til vores plot `scale_fill_manual` eksempelvis:
+
+
+mtcars |> 
+  ggplot(aes(hp, fill = factor(am))) +
+  geom_histogram(position = "dodge") +
+  scale_fill_manual(values=wesanderson::wes_palettes$FantasticFox1)
+  
+
+scale_c
+
+
+## rcolorbrewer
+Der bør også være noget om rcolorbrewer
+
+
