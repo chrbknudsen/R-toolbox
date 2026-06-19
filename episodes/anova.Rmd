@@ -20,7 +20,7 @@ exercises: 2
 
 ## What is ANOVA
 
-12-ft-api
+13-ft-erd
 
 ANOVA (ANalysis Of VAriance) is a statistical method used to compare the
 means of three or more groups in order to determine if there is a
