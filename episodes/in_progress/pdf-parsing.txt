@@ -1,0 +1,1 @@
+openDataloader pdf på github er værd at kigge på i forhold til at parse pdf'er
