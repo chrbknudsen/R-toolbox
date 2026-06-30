@@ -1,0 +1,4 @@
+openDataloader pdf på github er værd at kigge på i forhold til at parse pdf'er
+https://github.com/opendataloader-project/opendataloader-pdf
+
+Eller også er den ikke. Men kig.

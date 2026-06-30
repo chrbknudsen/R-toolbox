@@ -1,0 +1,124 @@
+#  install.packages(c(
+#    "tidyverse", "sf", "rnaturalearth", "cartogram",
+#    "countrycode", "scales", "ggnewscale"
+#  ))
+
+library(tidyverse)
+library(sf)
+library(rnaturalearth)
+library(patchwork)
+library(cartogram)
+library(countrycode)
+library(scales)
+
+# 1. Hent CO2-data fra Our World in Data
+co2 <- read_csv("https://ourworldindata.org/grapher/annual-co2-emissions-per-country.csv") |>
+  filter(Year == 2020) |>
+  transmute(
+    iso3 = Code,
+    co2_total = `Annual CO₂ emissions`
+  )
+
+co2_pc <- read_csv("https://ourworldindata.org/grapher/co-emissions-per-capita.csv") |>
+  filter(Year == 2020) |>
+  transmute(
+    iso3 = Code,
+    co2_per_capita = `CO₂ emissions per capita`
+  )
+
+# 2. Verdenskort
+world <- ne_countries(scale = "medium", returnclass = "sf") |>
+  st_make_valid() |>
+  transmute(
+    iso3 = iso_a3,
+    name = name,
+    geometry
+  )
+
+world <- ne_countries(scale = "medium", returnclass = "sf") |>
+  st_make_valid() |>
+  transmute(
+    iso3 = iso_a3,
+    name = name,
+    geometry
+  ) |>
+  left_join(co2, by = "iso3") |>
+  left_join(co2_pc, by = "iso3") |>
+  filter(!is.na(co2_total), co2_total > 0)
+
+projections <- tribble(
+  ~projection_name, ~crs,
+  "Robinson",   "+proj=robin",
+  "Plate Carrée", "+proj=eqc",
+  "Gall-Peters",  "+proj=cea",
+  "Equal Earth",  "+proj=eqearth",
+  "Mollweide",    "+proj=moll",
+  "Eckert IV",    "+proj=eck4"
+)
+
+make_cartogram <- function(projection_name, crs, itermax = 50) {
+  message("Kører: ", projection_name)
+
+  world_proj <- world |>
+    st_transform(crs)
+
+  cart <- cartogram_cont(
+    world_proj,
+    weight = "co2_total",
+    itermax = itermax
+  )
+
+  ggplot(cart) +
+    geom_sf(
+      aes(fill = co2_per_capita),
+      color = "grey35",
+      linewidth = 0.05
+    ) +
+    scale_fill_viridis_c(
+      option = "magma",
+      trans = "sqrt",
+      labels = label_number(suffix = " t"),
+      name = "CO₂ pr. indbygger"
+    ) +
+    labs(
+      title = projection_name,
+      subtitle = paste("itermax =", itermax)
+    ) +
+    theme_void() +
+    theme(
+      legend.position = "none",
+      plot.title = element_text(face = "bold", size = 11),
+      plot.subtitle = element_text(size = 8)
+    )
+}
+
+plots <- pmap(
+  projections,
+  make_cartogram,
+  itermax = 10
+)
+
+wrap_plots(plots, ncol = 2)
+
+# Hvis du også vil gemme dem enkeltvis:
+
+dir.create("cartogram-tests", showWarnings = FALSE)
+
+for (i in seq_len(nrow(projections))) {
+  p <- make_cartogram(
+    projections$projection_name[i],
+    projections$crs[i],
+    itermax = 50
+  )
+
+  ggsave(
+    filename = file.path(
+      "cartogram-tests",
+      paste0(str_replace_all(projections$projection_name[i], " ", "_"), ".png")
+    ),
+    plot = p,
+    width = 12,
+    height = 7,
+    dpi = 300
+  )
+}
