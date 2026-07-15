@@ -1,0 +1,135 @@
+---
+title: "Sentinel-2 spectral indices"
+teaching: 42
+exercises: 42
+---
+
+::: questions
+-   Hvad er Bayes i relation til klassifikation
+:::
+
+::: objectives
+-   Forstå det her nok til at vi kan hjælpe studerende
+:::
+
+
+
+
+
+
+## Sentinel-2 bands
+
+| Band | Name | Resolution (m/px) | Central Wavelength (nm)| Bandwidth (nm)| 
+|--|-- |--|--|--|
+|B01 aerosol | 60 | 443|20| 
+|B02 | blue  | 10 | 490 | 65 | 
+|B03 | green  | 10 | 560 | 35 | 
+|B04 | red  | 10 | 665 | 30 | 
+|B05 | red edge  | 20 | 705 | 15 | 
+| B06 | ?  | 20 | 740 | 15 | 
+| B07 | ?  | 20 | 783 | 20 | 
+| B08 | NIR  | 10 | 842  | 115 | 
+| B8A| ? | 20 | 865 | 20 | 
+| B09 | ? | 60 | 945 | 20 | 
+| B10| ? | 60 | 1375 | 30 | 
+| B11 | SWIR1 | 20 | 1610 | 90 | 
+| B12 | SWIR2  | 20 | 2190 | 180 | 
+
+
+## Simple RGB Composites
+
+### True color RGB(B04, B03, B02)
+
+En god repræsentation af hvordan vi ville se det med vores blotte øje
+
+### False Color
+
+RGB(B08, B04, B03)
+
+Ret populær, områder med planter fremstår dybrøde. Jo tættere bevokset, jo mørkere rød. Byer og ubevokset jord er grå eller "tan". Vand er blå eller sort.
+
+### SWIR
+RGB(B12, B08, B04)
+
+### Agriculture
+
+RGB(11,8,2)
+crop health. Også nyttig når man skal se hvor der er sket skade ved ild.
+
+
+### Geologi
+
+rgb(12,11,2)
+
+### Bathimetric
+
+RGB(4,3,1)
+
+## Indices
+
+Mange andre findes. 
+Heromkring https://custom-scripts.sentinel-hub.com/sentinel-2/oil-spill-index/
+
+### NDVI
+normalized difference vegetation index
+
+(B8-B4)/(B8 + B4)
+
+kvantificerer grøn vegetation. Det udnytes at klorofyl absorberer røde bølgelængder, og grønne blade spreder NIR.
+
+### ARI
+
+Anthocyanin Reflectance Index
+
+ index = 1.0 / B03 - 1.0 / B05;
+
+### NDMI
+
+Normalized Difference Moisture Index
+
+NDMI = (B08 - B11) / (B08 + B11)
+
+The NDMI is a normalized difference moisture index, that uses NIR and SWIR bands to display moisture.
+
+
+### NDWI
+
+Normalized Difference Water Index
+The NDWI is used to monitor changes related to water content in water bodies.
+NDWI = (B03 - B08) / (B03 + B08)
+
+### NDMI for moisture stress
+
+The NDMI for moisture stress can be used to detect irrigation. It is based on the NDMI and visualized to 4 classes. For all the index values above 0, knowing the land use and land cover, it is possible to determine whether irrigation has taken place.
+
+
+var index = (B08 - B11) / (B08 + B11);
+
+if (index <= 0){
+  return [1, 1, 1];
+}
+if (index <= 0.2){
+  return [0, 0.8, 0.9];
+} 
+if (index <= 0.4){
+  return [0, 0.5, 0.9];
+} 
+else{
+  return [0, 0, 0.7];
+}
+
+### NBR-RAW (Normalized Burn Ratio)
+To detect burned areas, the NBR-RAW index is the most appropriate choice
+
+ To observe burn severity, you may subtract the post-fire NBR image from the pre-fire NBR image.
+
+index = (B08 - B12) / (B08 + B12);
+
+### OSI
+OSI - Oil Spill Index
+OSI = (B03 + B04) / B02;
+
+::: keypoints
+-   FIXME
+
+:::

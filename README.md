@@ -1,7 +1,7 @@
 ## R-toolbox
 
 This is the lesson repository for R-toolbox, a collection of episodes for 
-teaching various topics in R at KUB Datalab. 
+teaching various topics in R at The university library's Datalab. 
 
 We use the Carpentries setup and approach to teaching and developing material.
 
