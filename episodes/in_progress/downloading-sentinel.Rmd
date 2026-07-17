@@ -1,0 +1,56 @@
+---
+title: "Downloading Sentinel"
+teaching: 42
+exercises: 42
+---
+
+::: questions
+-   How do I download satelite data from the Sentinel satelites?
+:::
+
+::: objectives
+-   Be able to select specific areas of interest
+-   Choose imaging from specific dates
+- Choose specific spectral bands
+:::
+
+## Register as a user
+
+![](figs/sentinel-01.png)
+
+
+
+for man kan ikke downloade data uden...
+
+## Chose an area of interest
+
+Zoom ind til det område du er interesseret i. Satelitterne tager et ret stort billede, og man kan downloade hele den optagelse, men
+i almindelighed er vi interesserede i et mindre udsnit - og den efterfølgende databehandling bliver lettere hvis vi ikke skal arbejde med
+næsten en gigabyte data.
+
+![](figs/sentinel-02.png)
+
+
+Vi vælger et udsnit af københavn. man akn se at vi har valgt 317 kvadratkilometer
+
+
+husk - show more for at få alle bånd med. Klik download, og pak zip-filen ud!
+
+![](figs/sentinel-03.png)
+
+![](figs/sentinel-04.png)
+
+![](figs/sentinel-05.png)
+![](figs/sentinel-06.png)
+![](figs/sentinel-07.png)
+![](figs/sentinel-08.png)
+## Quotas
+
+https://browser.dataspace.copernicus.eu/
+
+
+::: keypoints
+-   To minimize the size of data, choose only the area needed
+- Choose the spectral bands you need, instead of everything
+
+:::

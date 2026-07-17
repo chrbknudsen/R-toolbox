@@ -1,0 +1,59 @@
+---
+title: "Introduction to Spatial Data Science"
+teaching: 42
+exercises: 42
+---
+
+::: questions
+-   FIXME
+:::
+
+::: objectives
+-   FIXME
+
+:::
+
+
+## Spatial data
+
+Spatial refers to things relating to or occupying space, and how physical objects, environments and data relate to each other. It describes the physical, 3D-layout of the world around us.
+
+## Spatial data science
+
+Spatial Data Science is the subset of data science that focuses on the
+characteristics of spatial data. It treats **location**, **distance**,
+and **spatial interactions** as core aspects of the data.
+
+The most common output is **maps** that reveal spatial patterns.
+
+## Issues in spatial data science
+
+-  "*Everything is related to everything else, but near things are more related than distant
+things*"). Tobler's first law of geography.
+- Handling geometries on the sphere and on the flat plane.
+- Spatial aggregation may affect the result (modifiable areal unit problem).
+
+## Spatial data representation
+
+Raster data - we can think of them as pixels or a grid of cells.
+
+Vector data - geometries, like points, lines, circles and polygons. Often with associated attributes.
+
+One is not inherently better than the other - they serve different purposes.
+
+```{r}
+par(mfrow = c(1, 2))
+
+f = system.file("episodes/data/dhm_koebenhavn_frederiksberg_10m.tif", package = "terra")
+r = rast(f)
+plot(r, main = "Luxembourg's Elevation [m]")
+
+f = system.file("episodes/data/bydele_and_frederiksberg.gpkg", package = "terra")
+v = vect(f)
+plot(v, "POP", type = "continuous", main = "Luxembourg's Population")
+```
+
+::: keypoints
+- FIXME
+
+:::
