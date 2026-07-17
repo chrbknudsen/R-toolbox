@@ -320,6 +320,12 @@ _Dimensions:_ Rows: 1200 Columns: 18
 
 ::::
 
+### bydele_and_frederiksberg
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/bydele_and_frederiksberg.gpkg)
+
+Geopackage file containing a SpatVector containing polygons describing the 10 suburbs of Copenhagen and Frederiksberg. Data from the [GeoServer](wfs-kbhkort.kk.dk) of the municipality of Copenhagen, and OSM.
+
 ###  CORNEAL
 
 Data from a randomized trial of two different active drugs of the fluoroquinolone-group,
@@ -381,6 +387,15 @@ _Dimensions:_ Rows: 186 Columns: 17
 
 data fra https://deepchem.io/
 
+
+### dhm_koebenhavn_frederiksberg_10m
+
+A 10 meter resolution of "Danmarks Højdemodel - Terræn" cropped to the Frederiksberg and Copenhagen municipalites.
+
+Source of data: https://dataforsyningen.dk/data/930
+
+
+[Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/dhm_koebenhavn_frederiksberg_10m.tif)
 
 ### DIABETES
 
