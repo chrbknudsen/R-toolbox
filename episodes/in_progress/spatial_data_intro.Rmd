@@ -41,7 +41,17 @@ Vector data - geometries, like points, lines, circles and polygons. Often with a
 
 One is not inherently better than the other - they serve different purposes.
 
+```{r}
+par(mfrow = c(1, 2))
 
+f = system.file("episodes/data/dhm_koebenhavn_frederiksberg_10m.tif", package = "terra")
+r = rast(f)
+plot(r, main = "Luxembourg's Elevation [m]")
+
+f = system.file("episodes/data/bydele_and_frederiksberg.gpkg", package = "terra")
+v = vect(f)
+plot(v, "POP", type = "continuous", main = "Luxembourg's Population")
+```
 
 ::: keypoints
 - FIXME
