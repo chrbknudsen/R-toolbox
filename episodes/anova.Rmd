@@ -35,7 +35,7 @@ Studying the length of penguin flippers, we notice that
 there is a difference between the average length between
 three different species of penguins:
 
-```{r, message = FALSE}
+```{r setup, message = FALSE}
 library(tidyverse)
 library(palmerpenguins)
 penguins |> 
@@ -48,7 +48,7 @@ if there is a significant difference between the two groups. But
 here we have three. And when we have three, or more, we use
 the ANOVA-method, or rather the `aov()` function: 
 
-```{r}
+```{r aov_summary}
 aov(flipper_length_mm ~ species, data = penguins) |> 
   summary() 
 ```
@@ -84,7 +84,7 @@ look at both:
 
 Is the data normally distributed?
 
-```{r, message = FALSE, warning = FALSE}
+```{r histogram, message = FALSE, warning = FALSE}
 penguins |> 
   ggplot(aes(x=flipper_length_mm)) +
   geom_histogram() +
@@ -94,7 +94,7 @@ That looks reasonable.
 
 And the residuals?
 
-```{r}
+```{r residuals}
 aov(flipper_length_mm ~ species, data = penguins)$residuals |> 
   hist(.)
 ```
@@ -108,7 +108,7 @@ A weird name, it simply means that the variance in the different
 groups are more or less the same. We can calculate the variance
 and compare:
 
-```{r}
+```{r variance}
 penguins |> 
   group_by(species) |> 
   summarise(variance = var(flipper_length_mm, na.rm = TRUE))
@@ -130,17 +130,17 @@ are three:
 
 Fligner-Killeen test:
 
-```{r}
+```{r flgner.test}
 fligner.test(flipper_length_mm ~ species, data = penguins)
 ```
 
 Bartlett's test:
 
-```{r}
+```{r bartlett.test}
 bartlett.test(flipper_length_mm ~ species, data = penguins)
 ```
 Levene test:
-```{r}
+```{r levene}
 library(car)
 leveneTest(flipper_length_mm ~ species, data = penguins)
 ```
@@ -166,7 +166,7 @@ The most common is the tukeyHSD test, HSD standing for
 result of our ANOVa-analysis and run the `TukeyHSD()` function
 on the result:
 
-```{r}
+```{r tukeyhsd}
 aov_model <- aov(flipper_length_mm ~ species, data = penguins)
 
 TukeyHSD(aov_model)
@@ -189,7 +189,7 @@ of the three species?
 
 
 :::: solution
-```{r}
+```{r solution}
 aov(Sepal.Width ~Species, data = iris) |> 
   summary()
 ```
@@ -203,7 +203,7 @@ Which species differ?
 
 :::: solution
 
-```{r}
+```{r tukey-solution}
 aov(Sepal.Width ~Species, data = iris) |> 
   TukeyHSD()
 
