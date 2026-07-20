@@ -147,6 +147,19 @@ eksempelvis "Mac" i en group-tab, så skifter de andre group-tabs også til
 
 "coatless-rpkg/livelink"
 
+```{r}
+library(livelink)
+```
+
+```{r}
+link <- webr_repl_link({
+  data(mtcars)
+  plot(mtcars$mpg, mtcars$wt)
+})
+
+print(link)
+```
+
 
 ```{r}
 library(tidyverse)
