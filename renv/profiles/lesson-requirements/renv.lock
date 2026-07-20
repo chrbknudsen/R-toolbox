@@ -55,23 +55,6 @@
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
       "Repository": "CRAN"
     },
-    "BH": {
-      "Package": "BH",
-      "Version": "1.90.0-1",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Boost C++ Header Files",
-      "Date": "2025-12-13",
-      "Authors@R": "c(person(\"Dirk\", \"Eddelbuettel\", role = c(\"aut\", \"cre\"), email = \"edd@debian.org\", comment = c(ORCID = \"0000-0001-6419-907X\")), person(\"John W.\", \"Emerson\", role = \"aut\"),  person(\"Michael J.\", \"Kane\", role = \"aut\",  comment = c(ORCID = \"0000-0003-1899-6662\")))",
-      "Description": "Boost provides free peer-reviewed portable C++ source  libraries.  A large part of Boost is provided as C++ template code which is resolved entirely at compile-time without linking.  This  package aims to provide the most useful subset of Boost libraries  for template use among CRAN packages. By placing these libraries in  this package, we offer a more efficient distribution system for CRAN  as replication of this code in the sources of other packages is  avoided. As of release 1.84.0-0, the following Boost libraries are included: 'accumulators' 'algorithm' 'align' 'any' 'atomic' 'beast' 'bimap' 'bind' 'circular_buffer' 'compute' 'concept' 'config' 'container' 'date_time' 'detail' 'dynamic_bitset' 'exception' 'flyweight' 'foreach' 'functional' 'fusion' 'geometry' 'graph' 'heap' 'icl' 'integer' 'interprocess' 'intrusive' 'io' 'iostreams' 'iterator' 'lambda2' 'math' 'move' 'mp11' 'mpl' 'multiprecision' 'numeric' 'pending' 'phoenix' 'polygon' 'preprocessor' 'process' 'propery_tree' 'qvm' 'random' 'range' 'scope_exit' 'smart_ptr' 'sort' 'spirit' 'tuple' 'type_traits' 'typeof' 'unordered' 'url' 'utility' 'uuid'.",
-      "License": "BSL-1.0",
-      "URL": "https://github.com/eddelbuettel/bh, https://dirk.eddelbuettel.com/code/bh.html",
-      "BugReports": "https://github.com/eddelbuettel/bh/issues",
-      "NeedsCompilation": "no",
-      "Author": "Dirk Eddelbuettel [aut, cre] (ORCID: <https://orcid.org/0000-0001-6419-907X>), John W. Emerson [aut], Michael J. Kane [aut] (ORCID: <https://orcid.org/0000-0003-1899-6662>)",
-      "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
-      "Repository": "CRAN"
-    },
     "Barnard": {
       "Package": "Barnard",
       "Version": "1.8",
@@ -1051,38 +1034,6 @@
       "BugReports": "https://github.com/RcppCore/RcppEigen/issues",
       "NeedsCompilation": "yes",
       "Author": "Doug Bates [aut] (<https://orcid.org/0000-0001-8316-9503>), Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>), Romain Francois [aut] (<https://orcid.org/0000-0002-2444-4226>), Yixuan Qiu [aut] (<https://orcid.org/0000-0003-0109-6692>), Authors of Eigen [cph] (Authorship and copyright in included Eigen library as detailed in inst/COPYRIGHTS)",
-      "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
-      "Repository": "CRAN"
-    },
-    "RcppMsgPack": {
-      "Package": "RcppMsgPack",
-      "Version": "0.2.4",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "'MsgPack' C++ Header Files and Interface Functions for R",
-      "Date": "2025-01-19",
-      "Authors@R": "c(person(\"Dirk\", \"Eddelbuettel\", role = c(\"aut\", \"cre\"), email = \"edd@debian.org\", comment = c(ORCID = \"0000-0001-6419-907X\")), person(\"Travers\", \"Ching\", email = \"traversc@gmail.com\", role = \"aut\"), person(\"MsgPack Authors\", role = \"aut\", comment = \"Authors of included MsgPack\"))",
-      "Description": "'MsgPack' header files are provided for use by R packages, along  with the ability to access, create and alter 'MsgPack' objects directly from R. 'MsgPack' is an efficient binary serialization format. It lets you exchange data among multiple languages like 'JSON' but it is faster and smaller. Small integers are encoded into a single byte, and typical short strings require only one extra byte in addition to the strings themselves. This package provides headers from the 'msgpack-c' implementation for C and C++(11) for use by R, particularly 'Rcpp'. The included 'msgpack-c' headers are licensed under the Boost Software License (Version 1.0); the code added by this package as well the R integration are licensed under the GPL (>= 2). See the files 'COPYRIGHTS' and 'AUTHORS' for a full list of  copyright holders and contributors to 'msgpack-c'.",
-      "Copyright": "file inst/COPYRIGHTS",
-      "License": "GPL (>= 2)",
-      "Imports": [
-        "Rcpp"
-      ],
-      "LinkingTo": [
-        "Rcpp",
-        "BH"
-      ],
-      "URL": "https://github.com/eddelbuettel/rcppmsgpack, https://dirk.eddelbuettel.com/code/rcpp.msgpack.html",
-      "BugReports": "https://github.com/eddelbuettel/rcppmsgpack/issues",
-      "RoxygenNote": "6.1.1",
-      "Suggests": [
-        "knitr",
-        "rmarkdown",
-        "microbenchmark"
-      ],
-      "VignetteBuilder": "knitr",
-      "NeedsCompilation": "yes",
-      "Author": "Dirk Eddelbuettel [aut, cre] (<https://orcid.org/0000-0001-6419-907X>), Travers Ching [aut], MsgPack Authors [aut] (Authors of included MsgPack)",
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
       "Repository": "CRAN"
     },
@@ -7035,54 +6986,6 @@
       "Maintainer": "Yihui Xie <xie@yihui.name>",
       "Repository": "CRAN"
     },
-    "livelink": {
-      "Package": "livelink",
-      "Version": "0.1.0",
-      "Source": "GitHub",
-      "Title": "Create Shareable Links for 'webR' and 'Shinylive' Environments",
-      "Authors@R": "c( person(\"James Joseph\", \"Balamuta\", , \"james.balamuta@gmail.com\", role = c(\"aut\", \"cre\", \"cph\")), person(\"reprex authors\", role = \"cph\", comment = \"stringify_expression() and trim_common_leading_ws(), adapted in R/process-input.R; see inst/COPYRIGHTS\") )",
-      "Description": "Creates shareable links for 'R' code in 'WebAssembly' (WASM) Read-Eval-Print Loop (REPL) environments like 'webR' <https://webr.r-wasm.org/> and for 'Shiny' applications using 'Shinylive' <https://shinylive.io/>. Supports single scripts, multi-file projects, exercise and solution pairs, and batch processing. Includes encoding, decoding, and previewing of links for both 'R' and 'Python' environments.",
-      "License": "AGPL (>= 3)",
-      "URL": "https://r-pkg.thecoatlessprofessor.com/livelink/, https://github.com/coatless-rpkg/livelink",
-      "BugReports": "https://github.com/coatless-rpkg/livelink/issues",
-      "Depends": [
-        "R (>= 4.1.0)"
-      ],
-      "Imports": [
-        "base64enc",
-        "cli",
-        "clipr",
-        "jsonlite",
-        "lzstring",
-        "RcppMsgPack",
-        "stats",
-        "tools",
-        "utils"
-      ],
-      "Suggests": [
-        "knitr",
-        "quarto",
-        "testthat (>= 3.0.0)",
-        "withr"
-      ],
-      "Encoding": "UTF-8",
-      "SystemRequirements": "Quarto command line tools (https://github.com/quarto-dev/quarto-cli).",
-      "Config/Needs/website": "pkgdown",
-      "Config/testthat/edition": "3",
-      "Roxygen": "list(markdown = TRUE)",
-      "Collate": "'as-data-frame.R' 'build-webr-repl-link.R' 'classes.R' 'decode-shinylive-link.R' 'utils.R' 'decode-webr-repl-link.R' 'extract-link.R' 'format-methods.R' 'knit-print.R' 'knitr-engine.R' 'options.R' 'process-input.R' 'shinylive-link.R' 'validators.R' 'webr-repl-directory-links.R' 'webr-repl-links.R'",
-      "VignetteBuilder": "quarto",
-      "Config/roxygen2/version": "8.0.0",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "livelink",
-      "RemoteUsername": "coatless-rpkg",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "bffbc75c55afcbdea0bc51a729daea0fda3de23c",
-      "NeedsCompilation": "no",
-      "Author": "James Joseph Balamuta [aut, cre, cph], reprex authors [cph] (stringify_expression() and trim_common_leading_ws(), adapted in R/process-input.R; see inst/COPYRIGHTS)",
-      "Maintainer": "James Joseph Balamuta <james.balamuta@gmail.com>"
-    },
     "lme4": {
       "Package": "lme4",
       "Version": "2.0-6",
@@ -7304,34 +7207,6 @@
       "Collate": "'Dates.r' 'POSIXt.r' 'util.r' 'parse.r' 'timespans.r' 'intervals.r' 'difftimes.r' 'durations.r' 'periods.r' 'accessors-date.R' 'accessors-day.r' 'accessors-dst.r' 'accessors-hour.r' 'accessors-minute.r' 'accessors-month.r' 'accessors-quarter.r' 'accessors-second.r' 'accessors-tz.r' 'accessors-week.r' 'accessors-year.r' 'am-pm.r' 'time-zones.r' 'numeric.r' 'coercion.r' 'constants.r' 'cyclic_encoding.r' 'data.r' 'decimal-dates.r' 'deprecated.r' 'format_ISO8601.r' 'guess.r' 'hidden.r' 'instants.r' 'leap-years.r' 'ops-addition.r' 'ops-compare.r' 'ops-division.r' 'ops-integer-division.r' 'ops-m+.r' 'ops-modulo.r' 'ops-multiplication.r' 'ops-subtraction.r' 'package.r' 'pretty.r' 'round.r' 'stamp.r' 'tzdir.R' 'update.r' 'vctrs.R' 'zzz.R'",
       "NeedsCompilation": "yes",
       "Author": "Vitalie Spinu [aut, cre], Garrett Grolemund [aut], Hadley Wickham [aut], Davis Vaughan [ctb], Ian Lyttle [ctb], Imanuel Costigan [ctb], Jason Law [ctb], Doug Mitarotonda [ctb], Joseph Larmarange [ctb], Jonathan Boiser [ctb], Chel Hee Lee [ctb]",
-      "Repository": "CRAN"
-    },
-    "lzstring": {
-      "Package": "lzstring",
-      "Version": "0.2.0",
-      "Source": "Repository",
-      "Type": "Package",
-      "Title": "Wrapper for 'lz-string' 'C++' Library",
-      "Description": "Provide access to  the 'lz-string'  <http://pieroxy.net/blog/pages/lz-string/index.html> 'C++' library for  Lempel-Ziv (LZ) based compression and decompression of strings.",
-      "License": "MIT + file LICENSE",
-      "Encoding": "UTF-8",
-      "LinkingTo": [
-        "cpp11"
-      ],
-      "Suggests": [
-        "testthat (>= 3.0.0)",
-        "ggplot2",
-        "bench",
-        "jsonlite"
-      ],
-      "Config/testthat/edition": "3",
-      "RoxygenNote": "7.3.1",
-      "URL": "https://parmsam.github.io/lzstring-r/, https://github.com/parmsam/lzstring-r",
-      "Authors@R": "c( person( given = \"Sam\",  family = \"Parmar\", role = c(\"aut\", \"cre\"), email = \"parmartsam@gmail.com\" ), person( given = \"Andrey\",  family = \"Krasnov\",  role = \"cph\", comment = \"Author of included lz-string C++ library\" ), person( given = \"Pawel\", family = \"Rucki\", role = c(\"ctb\"), email = \"pawel.rucki@roche.com\" ))",
-      "BugReports": "https://github.com/parmsam/lzstring-r/issues",
-      "NeedsCompilation": "yes",
-      "Author": "Sam Parmar [aut, cre], Andrey Krasnov [cph] (Author of included lz-string C++ library), Pawel Rucki [ctb]",
-      "Maintainer": "Sam Parmar <parmartsam@gmail.com>",
       "Repository": "CRAN"
     },
     "magrittr": {
