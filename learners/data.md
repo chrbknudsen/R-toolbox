@@ -324,7 +324,7 @@ _Dimensions:_ Rows: 1200 Columns: 18
 
 [Download](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/bydele_and_frederiksberg.gpkg)
 
-Geopackage file containing a SpatVector containing polygons describing the 10 suburbs of Copenhagen and Frederiksberg. Data from the [GeoServer](wfs-kbhkort.kk.dk) of the municipality of Copenhagen, and OSM.
+Geopackage file containing a SpatVector containing polygons describing the 10 suburbs of Copenhagen and Frederiksberg. Data from the [GeoServer](wfs-kbhkort.kk.dk) of the municipality of Copenhagen, and OSM. Population added from https://kk.statistikbank.dk/statbank5a/SelectVarVal/Define.asp?Maintable=KKBEF1&PLanguage=0 and wikipedia 2026
 
 ###  CORNEAL
 
