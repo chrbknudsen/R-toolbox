@@ -143,34 +143,9 @@ eksempelvis "Mac" i en group-tab, så skifter de andre group-tabs også til
 :::
 
 
-Der er flere måder vi kan indsætte mere eller mindre interaktiv kode.
+## livelink
 
-```{r}
-library(livelink)
-link <- webr_repl_link({
-  plot(mtcars$mpg, mtcars$wt)
- })
-
-hmm <- repl_urls(link)
-
-```
-
-Det giver os et [link](`r hmm`)
-
-
-```{r}
-#| livelink: true
-#| autorun: true
-data(mtcars)
-plot(mtcars$mpg, mtcars$wt)   # a comment that survives
-```
-
-```{livelink}
-#| autorun: true
-data(mtcars)
-plot(mtcars$mpg, mtcars$wt)   # a comment that survives
-```
-
+"coatless-rpkg/livelink"
 
 
 ```{r}
