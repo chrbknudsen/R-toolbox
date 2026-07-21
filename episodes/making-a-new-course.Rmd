@@ -143,6 +143,9 @@ renv::install("clauswilke/colorblindr")
 renv::snapshot()
 ```
 
+
+Note that this should work. But that you may have to rebuild the `renv` cache on Github by running the workflow "O3 Maintain: Apply Package Cache" manually.
+
 ## Releases
 
 We would like to have DOIs on our courses.
