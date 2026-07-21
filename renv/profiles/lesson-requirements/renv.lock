@@ -7080,7 +7080,8 @@
       "RemoteRepo": "livelink",
       "RemoteRef": "HEAD",
       "RemoteSha": "924d273aa694403c754f2be3becbacde9d39efbf",
-      "RemoteHost": "api.github.com"
+      "RemoteHost": "api.github.com",
+      "RemotePkgRef": "coatless-rpkg/livelink"
     },
     "lme4": {
       "Package": "lme4",
