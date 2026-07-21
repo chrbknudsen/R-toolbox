@@ -13,8 +13,46 @@ exercises: 42
 :::
 
 
+| Band Number | Band Name                      | Wavelength (µm) |
+|-------------|--------------------------------|-----------------|
+| Band 2      | Blue                           | xx – xx    |
+| Band 3      | Green                          | xx – xx     |
+| Band 4      | Red                            | xx – xx     |
+| Band 5      | Near Infrared (NIR)            | xx – xx     |
+
+: Selected spectral bands from Sentinel 2. {#tbl-sentinel}
+
+data fra denne side, link til vejledning. Note om landsats eksistens
+
+Det her er raster data. Satelitten har taget et billede. Hver "pixel" i billedet svarer til XxX meter, og satteliten har målt
+hvor meget af det lys der reflekteres fra det kvadrat, der er i en bestemt del af spektret. 
+
+Det betyder at vi kan se hvor meget lys der reflekteres i det grønne område, det blå område, og det røde område. 
+
+De tre farver, hvis vi sætter dem sammen, giver os et billede i det synlige område.
+
+Og så har vi også et bånd i NIR-området.
+
+Vi skal måske have en illustration af spektret, og hvordan lys reflekteres.
+
+Vi indlæser et af billederne, og plotter det. Og de andre - og så samler vi rgb til et farvebillede.
+
+Vi plotter også nir.
+
+falske farver - hvor vi kan illustrere vegetation ved at placere grøn i rød kanal.
+
+og ndvi indexet. Det behøver vi ikke forklare i mange detaljer - andet end at kloge mennesker har fundet ud af at grønne planter reflekterer på en måde der gør at det maksimerer i det index.
+
+statistical summary og data processing - hvordan ser data ud, og hvordan skalerer vi.
+
+Thresholding
+
+Simple classification
 
 
+freq(ndvi_class, bylayer = FALSE) som giver os et bud på fordelingen af de forskellige kategorier af vegetation
+
+Øvelser
 
 
 
