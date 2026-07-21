@@ -63,9 +63,9 @@ we begin to see some benefits.
 There are many more reasons to use version control, and we'll explore some of these in the 
 context of data analysis, but first let's learn a bit about a popular version control tool called Git.
 
-[![Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com/comics/archive_print.php?comicid=1531](fig/phd101212s.png)](http://www.phdcomics.com)
+[![Piled Higher and Deeper by Jorge Cham, https://www.phdcomics.com/comics/archive_print.php?comicid=1531](fig/phd101212s.png)](https://www.phdcomics.com)
 
-"Piled Higher and Deeper" by Jorge Cham, http://www.phdcomics.com
+"Piled Higher and Deeper" by Jorge Cham, https://www.phdcomics.com
 
 ## What are Git and GitHub?
 
