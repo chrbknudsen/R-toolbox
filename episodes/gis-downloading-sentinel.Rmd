@@ -34,6 +34,7 @@ Zoom in on the area you are interested in. Depending on the specific satelite, a
 
 ![](figs/sentinel-02.png)
 
+den skal findes i sentinelbilleder, og de skal i øvrigt omdøbes.
 
 Here we select a part of the creater Copenhagen area. 
 
