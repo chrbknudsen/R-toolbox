@@ -14,22 +14,28 @@ exercises: 42
 - Choose specific spectral bands
 :::
 
+The Sentinel satelites are a family of earth observation satelites under the EU Copernicus programme. They collect data on, among other things, land, vegetation, oceans and climate. A lot of the data are freely available from the [Copernicus Browser](https://browser.dataspace.copernicus.eu/)
+
+
 ## Register as a user
+
+A lot of the information from the Sentinel satelites are available without login, but in order to download data you will have to register as a user. It is free, although there are limitations on how much data you can download.
+
+The first step is therefore to register as a user on the platform:
 
 ![](figs/sentinel-01.png)
 
 
 
-for man kan ikke downloade data uden...
-
 ## Chose an area of interest
 
-Zoom ind til det område du er interesseret i. Satelitterne tager et ret stort billede, og man kan downloade hele den optagelse, men
-i almindelighed er vi interesserede i et mindre udsnit - og den efterfølgende databehandling bliver lettere hvis vi ikke skal arbejde med
-næsten en gigabyte data.
+
+Zoom in on the area you are interested in. Depending on the specific satelite, and area, images will be recorded several times pr week. Those images are rather large, and although we can download the entire recording, we often download a smaller part of the image. This also make subsequent data manipulation easier and faster.
 
 ![](figs/sentinel-02.png)
 
+
+Here we select a part of the creater Copenhagen area. 
 
 Vi vælger et udsnit af københavn. man akn se at vi har valgt 317 kvadratkilometer
 
