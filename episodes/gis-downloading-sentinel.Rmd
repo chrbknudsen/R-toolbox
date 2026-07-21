@@ -1,5 +1,5 @@
 ---
-title: "Downloading Sentinel"
+title: "Downloading Sentinel satelite data"
 teaching: 42
 exercises: 42
 ---

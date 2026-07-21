@@ -45,12 +45,12 @@ One is not inherently better than the other - they serve different purposes.
 library(terra)
 par(mfrow = c(1, 2))
 
-f <- "episodes/data/dhm_koebenhavn_frederiksberg_10m.tif"
+f <- "data/dhm_koebenhavn_frederiksberg_10m.tif"
 
 r = rast(f)
 plot(r, main = "Elevation of Copenhagen & Frederiksberg [m]")
 
-f <- "episodes/data/bydele_and_frederiksberg.gpkg"
+f <- "data/bydele_and_frederiksberg.gpkg"
 v = vect(f)
 plot(v, "befolkning", main = "Population of Copenhagen & Frederiksberg")
 ```
