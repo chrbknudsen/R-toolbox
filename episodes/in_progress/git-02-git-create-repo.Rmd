@@ -29,7 +29,7 @@ and instruct the learners to make sure their setup looks like yours:
 2. A browser window with GitHub is open (taking up the right 75% of the screen)
 
 In your browser window, you can have a second tab open with all images for
-this workshop, available at [this URL](http://jennajordan.me/git-novice-speedrun/instructor/images.html)
+this workshop, available at [this URL](https://jennajordan.me/git-novice-speedrun/instructor/images.html)
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
