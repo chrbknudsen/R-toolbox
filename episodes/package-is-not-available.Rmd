@@ -237,7 +237,7 @@ Remember to change the option back to "yes" after installing the offending packa
 
 CRAN is the major repository. BioC a close second. But others exist. 
 If the repository is reasonably compliant with CRAN, 
-`install.packages("Rbbg", repos = "http://r.nonstandard.repo.org")`
+`install.packages("Rbbg", repos = "https://r.nonstandard.repo.org")`
 will work. Otherwise you will have to read the documentation of the non-standard repo.
 
 ## 11. the repo is down or does not exist. 
