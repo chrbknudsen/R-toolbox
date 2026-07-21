@@ -146,9 +146,27 @@ _Dimensions_: Rows: 510 Columns: 9
 
 ::::
 
+### Spectral Sentinel Data
 
+Spectral data of Copenhagen recorded by the Sentinel Satelite system on 2026-05-25.
 
+Four bands are stored here. More are available at the source:
 
+| Band | Name | Resolution (m/px) | Central Wavelength (nm)| Bandwidth (nm)| 
+|B02 | blue  | 10 | 490 | 65 | 
+|B03 | green  | 10 | 560 | 35 | 
+|B04 | red  | 10 | 665 | 30 | 
+| B08 | NIR  | 10 | 842  | 115 | 
+
+[Source](https://browser.dataspace.copernicus.eu/)
+
+[Download (B02)][https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff]
+
+[Download (B03)][https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff]
+
+[Download (B04)][https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff]
+
+[Download (B08)][https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff]
 
 ### BONEDEN
 
