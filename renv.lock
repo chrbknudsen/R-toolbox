@@ -7093,7 +7093,8 @@
       "RemoteUsername": "coatless-rpkg",
       "RemoteRepo": "livelink",
       "RemoteRef": "main",
-      "RemoteSha": "bffbc75c55afcbdea0bc51a729daea0fda3de23c"
+      "RemoteSha": "bffbc75c55afcbdea0bc51a729daea0fda3de23c",
+      "RemotePkgRef": "coatless-rpkg/livelink"
     },
     "lme4": {
       "Package": "lme4",
