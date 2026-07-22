@@ -23,7 +23,7 @@ A lot of the information from the Sentinel satelites are available without login
 
 The first step is therefore to register as a user on the platform:
 
-![](figs/sentinel-01.png)
+![](fig/sentinel-01.png)
 
 
 
@@ -32,8 +32,9 @@ The first step is therefore to register as a user on the platform:
 
 Zoom in on the area you are interested in. Depending on the specific satelite, and area, images will be recorded several times pr week. Those images are rather large, and although we can download the entire recording, we often download a smaller part of the image. This also make subsequent data manipulation easier and faster.
 
-![](figs/sentinel-02.png)
+![](fig/sentinel-02.png)
 
+den skal findes i sentinelbilleder, og de skal i øvrigt omdøbes.
 
 Here we select a part of the creater Copenhagen area. 
 
@@ -42,14 +43,14 @@ Vi vælger et udsnit af københavn. man akn se at vi har valgt 317 kvadratkilome
 
 husk - show more for at få alle bånd med. Klik download, og pak zip-filen ud!
 
-![](figs/sentinel-03.png)
+![](fig/sentinel-03.png)
 
-![](figs/sentinel-04.png)
+![](fig/sentinel-04.png)
 
-![](figs/sentinel-05.png)
-![](figs/sentinel-06.png)
-![](figs/sentinel-07.png)
-![](figs/sentinel-08.png)
+![](fig/sentinel-05.png)
+![](fig/sentinel-06.png)
+![](fig/sentinel-07.png)
+![](fig/sentinel-08.png)
 ## Quotas
 
 https://browser.dataspace.copernicus.eu/
