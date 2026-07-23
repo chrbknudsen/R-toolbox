@@ -12,28 +12,72 @@ exercises: 42
 -   FIXME
 :::
 
+We are going to work with spectral raster data from the European Sentinel satelites. 
 
-| Band Number | Band Name                      | Wavelength (µm) |
-|-------------|--------------------------------|-----------------|
-| Band 2      | Blue                           | xx – xx    |
-| Band 3      | Green                          | xx – xx     |
-| Band 4      | Red                            | xx – xx     |
-| Band 5      | Near Infrared (NIR)            | xx – xx     |
+![](figs/multispektral_imaging.png){alt="illustration of a sentinel satelite capturing multispectral data"}
+
+More specifically we are going to work with four specific bands:
+
+| | Band Number | Band Name                      | Central Wavelength (nm) | Bandwidth (nm)|
+|--|-------------|--------------------------------|-----------------|--|
+|B02| Band 2      | Blue                           | 490    |65|
+|B03| Band 3      | Green                          | 560     |35|
+|B04| Band 4      | Red                            | 665     |30|
+|B08| Band 8      | Near Infrared (NIR)            | 842     |15|
 
 : Selected spectral bands from Sentinel 2. {#tbl-sentinel}
 
-data fra denne side, link til vejledning. Note om landsats eksistens
+These are raster data, containing cells, approximately 5 by 5 meters, with a recording of the reflectance in different wavelengths, depending on which file we are working with.
 
-Det her er raster data. Satelitten har taget et billede. Hver "pixel" i billedet svarer til XxX meter, og satteliten har målt
-hvor meget af det lys der reflekteres fra det kvadrat, der er i en bestemt del af spektret. 
+The files can be downloaded here:
 
-Det betyder at vi kan se hvor meget lys der reflekteres i det grønne område, det blå område, og det røde område. 
+* [B02](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff)
+* [B03](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff)
+* [B04](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff)
+* [B08](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff)
 
-De tre farver, hvis vi sætter dem sammen, giver os et billede i det synlige område.
+Download them to a folder in your project named `data`, either manually or by copy-pasting this code:
 
-Og så har vi også et bånd i NIR-området.
+```{r download-files, eval = FALSE}
 
-Vi skal måske have en illustration af spektret, og hvordan lys reflekteres.
+urls <- c("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+
+download.file(
+  urls,
+  destfile = file.path("data", basename(urls)),
+  mode = "wb"
+)
+```
+
+
+The next step is reading the data into memory. Rather than importing each file separately, we can read in all files in one go:
+
+```{r eval = FALSE}
+library(terra)
+files <- list.files("data/", pattern = ".tiff", full.names = TRUE)
+sentinel <- rast(files)
+```
+
+```{r echo = FALSE}
+library(terra)
+files <- 
+
+files <- c("data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
+"data/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
+"data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
+"data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+sentinel <- rast(files)
+```
+
+
+Basic metadata:
+
+```{r}
+sentinel
+```
 
 Vi indlæser et af billederne, og plotter det. Og de andre - og så samler vi rgb til et farvebillede.
 

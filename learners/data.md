@@ -153,6 +153,7 @@ Spectral data of Copenhagen recorded by the Sentinel Satelite system on 2026-05-
 Four bands are stored here. More are available at the source:
 
 | Band | Name | Resolution (m/px) | Central Wavelength (nm)| Bandwidth (nm)| 
+|---|---|---|---|---| 
 |B02 | blue  | 10 | 490 | 65 | 
 |B03 | green  | 10 | 560 | 35 | 
 |B04 | red  | 10 | 665 | 30 | 
