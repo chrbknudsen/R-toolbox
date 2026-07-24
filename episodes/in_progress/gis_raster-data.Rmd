@@ -61,23 +61,187 @@ files <- list.files("data/", pattern = ".tiff", full.names = TRUE)
 sentinel <- rast(files)
 ```
 
-```{r echo = FALSE}
+```{r echo = FALSE, eval  =FALSE}
 library(terra)
-files <- 
 
-files <- c("data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
-"data/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
+files <-  c("data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
+"data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
 "data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
 "data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+
 sentinel <- rast(files)
 ```
 
+
+```{r echo = FALSE}
+library(terra)
+
+files <-  c("episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
+"episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
+"episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
+"episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+
+sentinel <- rast(files)
+```
 
 Basic metadata:
 
 ```{r}
 sentinel
 ```
+
+The resolution is given in degrees.
+
+We are going to work with individual layers in this object, and have to refer to their names. A renaming is therefore in order:
+
+```{r}
+names(sentinel) <- c("B02", "B03", "B04", "B08")
+```
+
+We can plot the individual layers:
+
+```{r}
+plot(sentinel[["B02"]])
+```
+
+Øvelse:
+Which of the three layers is the most distict?
+
+It might be useful to look at the summary of the data
+
+```{r}
+summary(sentinel)
+```
+
+Øvelse
+Hvad fortæller det os?
+
+svar
+At værdierne går fra 0 til et sted i 60.000 området.
+Det fortæller også at det nok ikke er reflektans vi får ud direkte. Den ville gå fra 0 - ingen reflektans overhovedet, til 1, 100% reflektans.
+
+
+Scaling the data
+
+The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encodes with a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
+
+In order to scale the raw data to values closer related to the physical world, we need to scale the data.
+
+We do that by dividing all values by 65535:
+
+```{r}
+sentinel <- sentinel/65535
+
+summary(sentinel)
+```
+
+
+:::: callout
+
+Note that data from the Landsat family of satelites have to be scaled differently. Information on how is given in the [official documentation from USGS](https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products).
+
+Also note that we can acquire data from Sentinel, that is _not_ stored in 16 bit. In that case we will have to scale using a different parameter, or not at all.
+
+::::
+
+This does not affect the plot, but note the difference in scale:
+
+```{r}
+plot(sentinel[["B02"]])
+```
+
+What about other summary statistics
+
+`summary` give us six different summary statistical parameters.
+
+If we want other parameters we have to extract the raw data for reflectance. The easiest way is to use the `values()` function:
+
+```{r}
+sentinel[["B02"]] |> values(mat = FALSE) |> sd()
+```
+
+By default `values` extract the values as a matrix with one column. Adding `mat = FALSE`, makes it return the raw values as a numeric vector.
+
+Øvelse
+lav et histogram over værdierne i B02 båndet.
+
+svar:
+sentinel[["B02"]] |> values(mat = FALSE) |> hist()
+
+Very dark plots
+
+The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the B02 band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a color scale going from 0 to 1, half of the observations will get the darkest color. About 2/3 of the rest will get the second darkest color, and the higher value observations drown in a sea of blue.
+
+One way of handling this can be to adjust the scale.
+
+DET HER SKAL MÅSKE PILLES UD AF TIDSHENSYn.
+
+```{r}
+plot(
+  sentinel[["B02"]],
+  range = c(0.02, 0.17))
+)
+```
+
+The range specifies, that the color scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same color, as will values higher than 0.17. This results in a larger difference in colors for the values in between, making it easier to see structure in the data.
+
+The range is chosen to approximately exclude the 2% lowest and 2% highest values.
+
+```{r}
+sentinel[["B02"]] |> values(mat = FALSE) |> quantile(probs = c(0.02, 0.98))
+```
+
+For at gøre det hele lidt mere simpelt, har vi i  eksporten fravalgt "data mask" der ville fortælle os hvor evt. manglende værdier
+måtte ligge.
+
+This does not look like Copenhagen!
+
+Well, it does, but we are only observing Copenhagen in one color. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
+
+The `terra` package have a function specifically for that. We specify which band contains values for reflectance in the red part of the spectrum, green and blue:
+
+```{r}
+plotRGB(sentinel, r = 3, g = 2, b = 1,
+  stretch = "lin")
+```
+
+`plotRGB` expects values for each band between 0 and 255. We have more physically relevant values, but the `stretch = "lin"` tells `plotRGB` to "stretch" these values to fit the range of 0 to 255.
+
+What can we use this for?
+
+False colour plots can make it easier to distinguish area with eg vegetation.
+
+eller false colour composite
+
+det efterlader vegetation rødt - fordi planters celle lag "spongy mesophyl" reflects NIR.
+
+
+
+
+```{r}
+plotRGB(sentinel, r = 4, g = 3, b = 2,
+  stretch = "lin")
+
+```
+
+We can use these false colour composites to highlight what is in specific parts of the area we are investigating.
+
+Øvlse 
+
+hvad sker der hvis vi sætter g til at være nir og r til at være noget andet.
+
+What else can we use this for?
+
+Different spectral indices can be used to identify and classify different 
+areas.
+
+A commonly used index is NDVI
+
+$$
+\text{NDVI} = \frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}
+$$
+
+
 
 Vi indlæser et af billederne, og plotter det. Og de andre - og så samler vi rgb til et farvebillede.
 
