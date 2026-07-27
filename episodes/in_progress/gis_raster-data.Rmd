@@ -95,13 +95,15 @@ The resolution is given in degrees.
 We are going to work with individual layers in this object, and have to refer to their names. A renaming is therefore in order:
 
 ```{r}
-names(sentinel) <- c("B02", "B03", "B04", "B08")
+names(sentinel) <- c("blue", "green", "red", "nir")
 ```
+
+
 
 We can plot the individual layers:
 
 ```{r}
-plot(sentinel[["B02"]])
+plot(sentinel[["blue"]])
 ```
 
 Øvelse:
@@ -147,8 +149,9 @@ Also note that we can acquire data from Sentinel, that is _not_ stored in 16 bit
 This does not affect the plot, but note the difference in scale:
 
 ```{r}
-plot(sentinel[["B02"]])
+plot(sentinel[["blue"]])
 ```
+
 
 What about other summary statistics
 
@@ -157,7 +160,7 @@ What about other summary statistics
 If we want other parameters we have to extract the raw data for reflectance. The easiest way is to use the `values()` function:
 
 ```{r}
-sentinel[["B02"]] |> values(mat = FALSE) |> sd()
+sentinel[["blue"]] |> values(mat = FALSE) |> sd()
 ```
 
 By default `values` extract the values as a matrix with one column. Adding `mat = FALSE`, makes it return the raw values as a numeric vector.
@@ -166,7 +169,7 @@ By default `values` extract the values as a matrix with one column. Adding `mat 
 lav et histogram over værdierne i B02 båndet.
 
 svar:
-sentinel[["B02"]] |> values(mat = FALSE) |> hist()
+sentinel[["blue"]] |> values(mat = FALSE) |> hist()
 
 Very dark plots
 
@@ -178,7 +181,7 @@ DET HER SKAL MÅSKE PILLES UD AF TIDSHENSYn.
 
 ```{r}
 plot(
-  sentinel[["B02"]],
+  sentinel[["blue"]],
   range = c(0.02, 0.17))
 )
 ```
@@ -188,7 +191,7 @@ The range specifies, that the color scale should have a minimum at 0.02 reflecta
 The range is chosen to approximately exclude the 2% lowest and 2% highest values.
 
 ```{r}
-sentinel[["B02"]] |> values(mat = FALSE) |> quantile(probs = c(0.02, 0.98))
+sentinel[["blue"]] |> values(mat = FALSE) |> quantile(probs = c(0.02, 0.98))
 ```
 
 For at gøre det hele lidt mere simpelt, har vi i  eksporten fravalgt "data mask" der ville fortælle os hvor evt. manglende værdier
@@ -230,10 +233,11 @@ We can use these false colour composites to highlight what is in specific parts 
 
 hvad sker der hvis vi sætter g til at være nir og r til at være noget andet.
 
-What else can we use this for?
+## What else can we use this for?
 
-Different spectral indices can be used to identify and classify different 
-areas.
+Different materials have different properties. Chlorophyl eg absorbs light in the red part of the spectrum. Therefore leaves reflect less red light. They also reflect strongly in the near-infrared part of the spectrum - because it is scatterede by internal structures in the leaves.
+
+If we calculate the contrast between reflected red light, and NIR - we get an indication that what we are looking at, is vegetation.
 
 A commonly used index is NDVI
 
@@ -241,26 +245,118 @@ $$
 \text{NDVI} = \frac{\text{NIR} - \text{Red}}{\text{NIR} + \text{Red}}
 $$
 
+The signal we are looking for is high reflectances of NIR and low reflectance of red light. Other stuff reflects NIR, but if it also reflects red light, it is probably not vegetation, which does not reflect red ligt.
+
+Dividing with the sum normalizes the index to go between -1 and 1, and it makes the value relative to the total signal in the two bands - making the measurement less dependent on light intensity.
+
+We can calculate a new channel in the data
+
+```{r}
+ndvi <- (sentinel[["nir"]] - sentinel[["red"]])/(sentinel[["nir"]] + sentinel[["red"]])
+```
 
 
-Vi indlæser et af billederne, og plotter det. Og de andre - og så samler vi rgb til et farvebillede.
+The new object `ndvi` is a SpatRaster object just like `sentinel`
+```{r}
+ndvi
+```
 
-Vi plotter også nir.
+```{r}
+plot(ndvi)
+```
 
-falske farver - hvor vi kan illustrere vegetation ved at placere grøn i rød kanal.
+Setting a cutoff where we define areas with an NDVI value larger than 0.4 as vegetation, we can get a map of where there is vegetation in Copenhagen:
+```{r}
+plot(ndvi > 0.4)
+```
 
-og ndvi indexet. Det behøver vi ikke forklare i mange detaljer - andet end at kloge mennesker har fundet ud af at grønne planter reflekterer på en måde der gør at det maksimerer i det index.
+We can also get an indication of how much of Copenhagen that is covered in vegetation. We first extract the values, compare them to 0.4, and calculate the mean, giving us the proprotion of cells in the map with an NDVI indicating vegetation:
 
-statistical summary og data processing - hvordan ser data ud, og hvordan skalerer vi.
+```{r}
+ndvi_values <- ndvi |> values(mat = FALSE) 
+(ndvi_values > 0.4) |> mean(na.rm = TRUE)
+```
 
-Thresholding
 
-Simple classification
+## Simple classification
 
 
-freq(ndvi_class, bylayer = FALSE) som giver os et bud på fordelingen af de forskellige kategorier af vegetation
 
-Øvelser
+Rather than plotting the simple binary "larger than 0.4, yes/no" values, we would like a more differentiated plot.
+
+Several classifications of vegetation based on NDVI-values exist, this is but one:
+
+
+-1–0	Ratings below 0 typically indicate a complete lack of vegetation, such as barren ground or cities.
+0–0.1	Very little vegetation, typically barren ground.
+0.1–0.3	Sparse vegetation, such as scrubland or grass.
+0.3–0.6	Moderate vegetation, like temperate forests; may also indicate unhealthy crops.
+0.6–0.9	Typical range for healthy thriving crops.
+0.9–1	Dense overgrown vegetation, such as rainforests.
+
+https://www.cropler.io/blog-posts/ndvi-classification-understanding-vegetation-health
+
+Making a SpatRaster object containing these categories is a bit more complicated than we are used to.
+
+We need to make a reclassification matrix, indicating the intervals and the class:
+
+```{r}
+rcl <- matrix(
+  c(
+    -1.0, 0.0, 1,  # No vegetation
+     0.0, 0.1, 2,  # Very little vegetation
+     0.1, 0.3, 3,  # Sparse vegetation
+     0.3, 0.6, 4,  # Moderate vegetation
+     0.6, 0.9, 5,  # Healthy crops
+     0.9, 1.0, 6   # Dense vegetation
+  ),
+  ncol = 3,
+  byrow = TRUE
+)
+```
+
+We can then make a new spatRaster object with the classifications using the `classify` function:
+
+```{r}
+ndvi_class <- classify(ndvi, rcl)
+```
+
+And then plot it:
+
+```{r}
+plot(ndvi_class)
+```
+
+The numbering can be replaced by class-names:
+
+```{r}
+levels(ndvi_class) <- data.frame(
+  value = 1:6,
+  class = c(
+    "No vegetation",
+    "Very little vegetation",
+    "Sparse vegetation",
+    "Moderate vegetation",
+    "Healthy thriving crops",
+    "Dense overgrown vegetation"
+  )
+)
+```
+
+```{r}
+plot(ndvi_class)
+```
+
+And we can count how many cells we have in the object of the different categories:
+
+```{r}
+freq(ndvi_class)
+```
+
+```{r}
+freq(ndvi_class) |> 
+    mutate(share = count/sum(count)*100)
+```
 
 
 
