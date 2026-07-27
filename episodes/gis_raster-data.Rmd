@@ -12,31 +12,25 @@ exercises: 42
 -   FIXME
 :::
 
-We are going to work with spectral raster data from the European Sentinel satelites. 
+We are going to work with spectral raster data from the European Sentinel satelites. These satelites capture images of the planet, recording reflected light from the 
+surface in different spectral bands.
 
-![](figs/multispektral_imaging.png){alt="illustration of a sentinel satelite capturing multispectral data"}
+![](fig/multispektral_imaging.png){alt="illustration of a sentinel satelite capturing multispectral data"}
 
-More specifically we are going to work with four specific bands:
+In this session we are working with four specific bands:
 
-| | Band Number | Band Name                      | Central Wavelength (nm) | Bandwidth (nm)|
-|--|-------------|--------------------------------|-----------------|--|
-|B02| Band 2      | Blue                           | 490    |65|
-|B03| Band 3      | Green                          | 560     |35|
-|B04| Band 4      | Red                            | 665     |30|
-|B08| Band 8      | Near Infrared (NIR)            | 842     |15|
+
+| Band Number | Band Name | Central Wavelength (nm) | Bandwidth (nm)| File |
+|-------------|--------------------------------|-----------------|--|--|
+| B02      | Blue | 490    |65| [B02](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff) |
+| B03      | Green | 560     |35| [B03](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff)|
+| B04      | Red | 665     |30| [B04](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff)|
+| B08      | Near Infrared (NIR) | 842     |15| [B08](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff) |
 
 : Selected spectral bands from Sentinel 2. {#tbl-sentinel}
 
-These are raster data, containing cells, approximately 5 by 5 meters, with a recording of the reflectance in different wavelengths, depending on which file we are working with.
 
-The files can be downloaded here:
-
-* [B02](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff)
-* [B03](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff)
-* [B04](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff)
-* [B08](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff)
-
-Download them to a folder in your project named `data`, either manually or by copy-pasting this code:
+Download the files to a folder in your project named `data`, either manually from the linkes above, or by copy-pasting this code:
 
 ```{r download-files, eval = FALSE}
 
@@ -52,16 +46,20 @@ download.file(
 )
 ```
 
+These are raster data, containing cells, approximately 5 by 5 meters, with a recording of the reflected light in different wavelengths, depending on which file we are working with.
 
-The next step is reading the data into memory. Rather than importing each file separately, we can read in all files in one go:
+We are going to use the library `terra`, which provides methods for manipulating and working with spatial data.
 
-```{r eval = FALSE}
+After loading `terra`, we read in all four files using the `rast` function:
+
+```{r read_files_demo, eval = FALSE}
 library(terra)
 files <- list.files("data/", pattern = ".tiff", full.names = TRUE)
 sentinel <- rast(files)
 ```
 
-```{r echo = FALSE, eval  =FALSE}
+```{r read_files_do, echo = FALSE, eval = TRUE, message = FALSE, warning = FALSE}
+#read_demo_2
 library(terra)
 
 files <-  c("data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
@@ -73,24 +71,15 @@ sentinel <- rast(files)
 ```
 
 
-```{r echo = FALSE}
-library(terra)
+## Looking at the data
 
-files <-  c("episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
-"episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
-"episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
-"episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
-
-sentinel <- rast(files)
-```
-
-Basic metadata:
+We can access the basic metadata simply by outputting the object:
 
 ```{r}
 sentinel
 ```
 
-The resolution is given in degrees.
+The extent of the data and the resolution is given in degrees. One thing we can note is that the names are rather long.
 
 We are going to work with individual layers in this object, and have to refer to their names. A renaming is therefore in order:
 
@@ -106,24 +95,82 @@ We can plot the individual layers:
 plot(sentinel[["blue"]])
 ```
 
-Øvelse:
-Which of the three layers is the most distict?
 
-It might be useful to look at the summary of the data
+:::: challenge
+## Which of the four bands is the most distinct
+
+Try plotting the four different bands, and decide which of them you think is the most distinct.
+
+:::: solution
+## Solution
+
+What is the most distinct is of course a matter of taste, but some would argue that the NIR-band is the one that differs most from the others:
+
+`plot(sentinel[["nir"]])`
+
+::::
+::::
+
+It might be useful to look at the summary of the data:
 
 ```{r}
 summary(sentinel)
 ```
 
-Øvelse
-Hvad fortæller det os?
+Note that spatial data is rather large - each layer in this case contains 4 295 016 cells or observations. By default the summary function for these spatial data objects only return summary data for a random sample of 100 000 observations.
 
-svar
-At værdierne går fra 0 til et sted i 60.000 området.
-Det fortæller også at det nok ikke er reflektans vi får ud direkte. Den ville gå fra 0 - ingen reflektans overhovedet, til 1, 100% reflektans.
+:::: challenge
+## What do we learn from the summary?
+
+Discuss what information we gain from the summary?
+
+:::: solution
+## Solution
+
+We observe that the values in each band in the object have values from approximately 0 to somewhere in the 65000's. The mean and medians of the three bands blue, green and red are relatively similarly, whereas the NIR-band have much larger values. 
+
+We also get at strong indication that the raw data in this object, is probably not reflectances directly. The true values of reflectances would go from 0 - indicating no reflectance at all, to 1, indicating 100% reflectance.
+
+This informs how we need to manipulate the raw data.
+
+::::
+::::
 
 
-Scaling the data
+`summary` give us six different summary statistical parameters.
+
+If we want other parameters we have to extract the raw data for reflectance. The easiest way is to use the `values()` function:
+
+```{r}
+sentinel[["blue"]] |> 
+  values(mat = FALSE) |> 
+  sd()
+```
+
+By default `values` extract the values as a matrix with one column. Adding `mat = FALSE`, makes it return the raw values as a numeric vector, that we can pipe to a function of our own choice.
+
+
+
+:::: challenge
+## Make a histogram of the values in the blue band
+
+Extract the data using values. For a quick result you can use the base plot function `hist`
+
+
+:::: solution
+## Solution
+
+`sentinel[["blue"]] |> values(mat = FALSE) |> hist()`
+
+Bonus: Try comparing with the NIR-band.
+
+::::
+::::
+
+
+
+
+## Scaling the data
 
 The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encodes with a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
 
@@ -131,7 +178,7 @@ In order to scale the raw data to values closer related to the physical world, w
 
 We do that by dividing all values by 65535:
 
-```{r}
+```{r scaled_summary, warning = FALSE}
 sentinel <- sentinel/65535
 
 summary(sentinel)
@@ -153,23 +200,6 @@ plot(sentinel[["blue"]])
 ```
 
 
-What about other summary statistics
-
-`summary` give us six different summary statistical parameters.
-
-If we want other parameters we have to extract the raw data for reflectance. The easiest way is to use the `values()` function:
-
-```{r}
-sentinel[["blue"]] |> values(mat = FALSE) |> sd()
-```
-
-By default `values` extract the values as a matrix with one column. Adding `mat = FALSE`, makes it return the raw values as a numeric vector.
-
-Øvelse
-lav et histogram over værdierne i B02 båndet.
-
-svar:
-sentinel[["blue"]] |> values(mat = FALSE) |> hist()
 
 Very dark plots
 
@@ -182,7 +212,7 @@ DET HER SKAL MÅSKE PILLES UD AF TIDSHENSYn.
 ```{r}
 plot(
   sentinel[["blue"]],
-  range = c(0.02, 0.17))
+  range = c(0.02, 0.17)
 )
 ```
 
@@ -343,7 +373,7 @@ levels(ndvi_class) <- data.frame(
 )
 ```
 
-```{r}
+```{r class_plot, warning = FALSE}
 plot(ndvi_class)
 ```
 
@@ -353,7 +383,8 @@ And we can count how many cells we have in the object of the different categorie
 freq(ndvi_class)
 ```
 
-```{r}
+```{r andel_area, message = FALSE}
+library(dplyr)
 freq(ndvi_class) |> 
     mutate(share = count/sum(count)*100)
 ```
