@@ -186,11 +186,11 @@ Bonus: Try comparing with the NIR-band.
 
 ## Scaling the data
 
-The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded as a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
+The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflectanse, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded as a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536). This is an effect of choices made during download, so it is always neccesary to inspect the data and take its provenance into account.
 
 In order to scale the raw data to values closer related to the physical world, we need to scale the data.
 
-We do that by dividing all values by 65535:
+We do that by dividing all values by 65535. This is surprisingly simple:
 
 ```{r scaled_summary, warning = FALSE}
 sentinel <- sentinel/65535
@@ -201,7 +201,7 @@ summary(sentinel)
 
 :::: callout
 
-Note that data from the Landsat family of satelites have to be scaled differently. Information on how is given in the [official documentation from USGS](https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products).
+Note that data from the Landsat family of satelites have to be scaled differently. Information on how is given in the [official documentation from USGS](https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products){target="_blank"}.
 
 Also note that we can acquire data from Sentinel, that is _not_ stored in 16 bit. In that case we will have to scale using a different parameter, or not at all.
 
@@ -215,13 +215,11 @@ plot(sentinel[["blue"]])
 
 
 
-Very dark plots
+## Very dark plots
 
-The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the B02 band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a color scale going from 0 to 1, half of the observations will get the darkest color. About 2/3 of the rest will get the second darkest color, and the higher value observations drown in a sea of blue.
+The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the blue band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a color scale going from 0 to 1, half of the observations will get the darkest color. About 2/3 of the rest will get the second darkest color, and the higher value observations drown in a sea of blue.
 
 One way of handling this can be to adjust the scale.
-
-DET HER SKAL MÅSKE PILLES UD AF TIDSHENSYn.
 
 ```{r}
 plot(
@@ -230,7 +228,7 @@ plot(
 )
 ```
 
-The range specifies, that the color scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same color, as will values higher than 0.17. This results in a larger difference in colors for the values in between, making it easier to see structure in the data.
+The range specifies, that the color scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same color, as will values higher than 0.17. This results in a larger difference in colors for the values in between, making it much easier to see structure in the data.
 
 The range is chosen to approximately exclude the 2% lowest and 2% highest values.
 
@@ -238,14 +236,16 @@ The range is chosen to approximately exclude the 2% lowest and 2% highest values
 sentinel[["blue"]] |> values(mat = FALSE) |> quantile(probs = c(0.02, 0.98))
 ```
 
-For at gøre det hele lidt mere simpelt, har vi i  eksporten fravalgt "data mask" der ville fortælle os hvor evt. manglende værdier
-måtte ligge.
 
-This does not look like Copenhagen!
+
+## "True" color images 
+
+We can definitely identify Copenhagen from the plots made so far. But they do not look like an aerial or satelite photo of Copenhagen would. 
 
 Well, it does, but we are only observing Copenhagen in one color. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
 
-The `terra` package have a function specifically for that. We specify which band contains values for reflectance in the red part of the spectrum, green and blue:
+The `terra` package have a function specifically for that. We specify which bands contains values for reflectance in the red part of the spectrum, green and blue,
+and it make a "composite" plot, where the red band is shown as red, green as green and blue as blue:
 
 ```{r}
 plotRGB(sentinel, r = 3, g = 2, b = 1,
@@ -254,32 +254,49 @@ plotRGB(sentinel, r = 3, g = 2, b = 1,
 
 `plotRGB` expects values for each band between 0 and 255. We have more physically relevant values, but the `stretch = "lin"` tells `plotRGB` to "stretch" these values to fit the range of 0 to 255.
 
-What can we use this for?
 
-False colour plots can make it easier to distinguish area with eg vegetation.
+## False colours
 
-eller false colour composite
+False colour plots can be used to make it easier to distinguish specific areas. Compared to the previous plot, where the green colours represented the green band, false colour plots have the colours represent bands that are not in their part of the spectrum.
 
-det efterlader vegetation rødt - fordi planters celle lag "spongy mesophyl" reflects NIR.
-
-
-
+A popular false colour plot shows the NIR band as red, the red band as green and the green band as blue in the composite plot:
 
 ```{r}
 plotRGB(sentinel, r = 4, g = 3, b = 2,
   stretch = "lin")
-
 ```
 
-We can use these false colour composites to highlight what is in specific parts of the area we are investigating.
+Because plants reflect ligth in the NIR part of the spectrum, the NIR-band have high reflectance values for areas with vegetation. When we plot the NIR-band as red,
+we get a map where vegetation is highligted as red.
 
-Øvlse 
 
-hvad sker der hvis vi sætter g til at være nir og r til at være noget andet.
+:::: challenge
+## Make your own false colour composite plot
+
+Chose on your own which bands should be plotted as red, green and blue in your very own false colour plot
+
+
+:::: solution
+## Suggested Solution
+
+As long as it is your own, there is no wrong answer. This version is nice and orangey:
+
+```{r}
+plotRGB(sentinel, r = 4, g = 2, b = 1,
+  stretch = "lin")
+```
+
+
+
+::::
+::::
+
+
+
 
 ## What else can we use this for?
 
-Different materials have different properties. Chlorophyl eg absorbs light in the red part of the spectrum. Therefore leaves reflect less red light. They also reflect strongly in the near-infrared part of the spectrum - because it is scatterede by internal structures in the leaves.
+Different materials have different properties. Chlorophyl eg absorbs light in the red part of the spectrum. Therefore leaves reflect less red light. They also reflect strongly in the near-infrared part of the spectrum - because it is scattered by internal structures in the leaves.
 
 If we calculate the contrast between reflected red light, and NIR - we get an indication that what we are looking at, is vegetation.
 
@@ -300,16 +317,19 @@ ndvi <- (sentinel[["nir"]] - sentinel[["red"]])/(sentinel[["nir"]] + sentinel[["
 ```
 
 
-The new object `ndvi` is a SpatRaster object just like `sentinel`
+The new object `ndvi` is a SpatRaster object just like `sentinel`, but with only one "band":
 ```{r}
 ndvi
 ```
+
+We can plot it, and get an indication of where in Copenhagen we see vegetation:
 
 ```{r}
 plot(ndvi)
 ```
 
-Setting a cutoff where we define areas with an NDVI value larger than 0.4 as vegetation, we can get a map of where there is vegetation in Copenhagen:
+Setting a cutoff where we define areas with an NDVI value larger than 0.4 as vegetation, we can get a clearer map of where there is vegetation in Copenhagen:
+
 ```{r}
 plot(ndvi > 0.4)
 ```
@@ -321,24 +341,27 @@ ndvi_values <- ndvi |> values(mat = FALSE)
 (ndvi_values > 0.4) |> mean(na.rm = TRUE)
 ```
 
+Or about 40%
 
 ## Simple classification
-
-
 
 Rather than plotting the simple binary "larger than 0.4, yes/no" values, we would like a more differentiated plot.
 
 Several classifications of vegetation based on NDVI-values exist, this is but one:
 
+|NDVI| Interpretation |
+|-|-------|
+|-1 – 0| Ratings below 0 typically indicate a complete lack of vegetation.|
+|0 – 0.1|Very little vegetation, typically barren ground.|
+|0.1 – 0.3|Sparse vegetation; scrubland or grass.|
+|0.3 – 0.6|Moderate vegetation; temperate forests; may also indicate unhealthy crops.|
+|0.6 – 0.9|Typical range for healthy thriving crops.|
+|0.9 – 1|Dense overgrown vegetation; rainforests.|
 
--1–0	Ratings below 0 typically indicate a complete lack of vegetation, such as barren ground or cities.
-0–0.1	Very little vegetation, typically barren ground.
-0.1–0.3	Sparse vegetation, such as scrubland or grass.
-0.3–0.6	Moderate vegetation, like temperate forests; may also indicate unhealthy crops.
-0.6–0.9	Typical range for healthy thriving crops.
-0.9–1	Dense overgrown vegetation, such as rainforests.
 
-https://www.cropler.io/blog-posts/ndvi-classification-understanding-vegetation-health
+: One possible [NDVI-classification](https://www.cropler.io/blog-posts/ndvi-classification-understanding-vegetation-health) {#tbl-ndvi}
+
+
 
 Making a SpatRaster object containing these categories is a bit more complicated than we are used to.
 
@@ -362,10 +385,14 @@ rcl <- matrix(
 We can then make a new spatRaster object with the classifications using the `classify` function:
 
 ```{r}
-ndvi_class <- classify(ndvi, rcl)
+ndvi_class <- classify(x = ndvi, 
+                      rcl = rcl, 
+                      include.lowest = TRUE)
 ```
 
-And then plot it:
+By default `classify` does not include the lowest value in "-1.0, 0.0" in the interval "1". Setting `include.lowest = TRUE` includes -1 in interval "1"
+
+We can then plot it:
 
 ```{r}
 plot(ndvi_class)
@@ -387,15 +414,19 @@ levels(ndvi_class) <- data.frame(
 )
 ```
 
+We now get more a informative legend in the plot:
+
 ```{r class_plot, warning = FALSE}
 plot(ndvi_class)
 ```
 
-And we can count how many cells we have in the object of the different categories:
+Not only can we plot the 6 categories, we can also count how many instances of each category we have, giving a rough indication of the distribution of them in Copenhagen_
 
 ```{r}
 freq(ndvi_class)
 ```
+
+We can then use ordinary `tidyverse` methods to get the distribution in percentages:
 
 ```{r andel_area, message = FALSE}
 library(dplyr)

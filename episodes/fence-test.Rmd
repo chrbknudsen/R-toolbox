@@ -156,6 +156,10 @@ Kan pt installeres fra. Men fungerer ikke her af årsager. Når pakken er tilgæ
 library(tidyverse)
 ```
 
+## Tabeller
+
+Der er ikke en direkte måde at justere bredde af tabeller. Men antallet af "-" i linie to har betydning for hvordan pandoc vælger bredden.
+
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - Brug fences til at fremhæve eller skjule indhold på siderne.
