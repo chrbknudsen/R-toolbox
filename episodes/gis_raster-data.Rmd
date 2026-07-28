@@ -296,7 +296,7 @@ plotRGB(sentinel, r = 4, g = 2, b = 1,
 
 ## What else can we use this for?
 
-Different materials have different properties. Chlorophyl eg absorbs light in the red part of the spectrum. Therefore leaves reflect less red light. They also reflect strongly in the near-infrared part of the spectrum - because it is scatterede by internal structures in the leaves.
+Different materials have different properties. Chlorophyl eg absorbs light in the red part of the spectrum. Therefore leaves reflect less red light. They also reflect strongly in the near-infrared part of the spectrum - because it is scattered by internal structures in the leaves.
 
 If we calculate the contrast between reflected red light, and NIR - we get an indication that what we are looking at, is vegetation.
 
