@@ -186,7 +186,7 @@ Bonus: Try comparing with the NIR-band.
 
 ## Scaling the data
 
-The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded with a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
+The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded as a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
 
 In order to scale the raw data to values closer related to the physical world, we need to scale the data.
 
