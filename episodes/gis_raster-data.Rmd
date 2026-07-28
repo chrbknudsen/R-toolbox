@@ -317,16 +317,19 @@ ndvi <- (sentinel[["nir"]] - sentinel[["red"]])/(sentinel[["nir"]] + sentinel[["
 ```
 
 
-The new object `ndvi` is a SpatRaster object just like `sentinel`
+The new object `ndvi` is a SpatRaster object just like `sentinel`, but with only one "band":
 ```{r}
 ndvi
 ```
+
+We can plot it, and get an indication of where in Copenhagen we see vegetation:
 
 ```{r}
 plot(ndvi)
 ```
 
-Setting a cutoff where we define areas with an NDVI value larger than 0.4 as vegetation, we can get a map of where there is vegetation in Copenhagen:
+Setting a cutoff where we define areas with an NDVI value larger than 0.4 as vegetation, we can get a clearer map of where there is vegetation in Copenhagen:
+
 ```{r}
 plot(ndvi > 0.4)
 ```
@@ -338,24 +341,27 @@ ndvi_values <- ndvi |> values(mat = FALSE)
 (ndvi_values > 0.4) |> mean(na.rm = TRUE)
 ```
 
+Or about 40%
 
 ## Simple classification
-
-
 
 Rather than plotting the simple binary "larger than 0.4, yes/no" values, we would like a more differentiated plot.
 
 Several classifications of vegetation based on NDVI-values exist, this is but one:
 
+|NDVI | Interpretation |
+|--|--|
+|-1–0	| Ratings below 0 typically indicate a complete lack of vegetation, such as barren ground or cities.|
+|0–0.1	|Very little vegetation, typically barren ground.|
+|0.1–0.3	|Sparse vegetation, such as scrubland or grass.|
+|0.3–0.6	|Moderate vegetation, like temperate forests; may also indicate unhealthy crops.|
+|0.6–0.9	|Typical range for healthy thriving crops.|
+|0.9–1	|Dense overgrown vegetation, such as rainforests.|
 
--1–0	Ratings below 0 typically indicate a complete lack of vegetation, such as barren ground or cities.
-0–0.1	Very little vegetation, typically barren ground.
-0.1–0.3	Sparse vegetation, such as scrubland or grass.
-0.3–0.6	Moderate vegetation, like temperate forests; may also indicate unhealthy crops.
-0.6–0.9	Typical range for healthy thriving crops.
-0.9–1	Dense overgrown vegetation, such as rainforests.
 
-https://www.cropler.io/blog-posts/ndvi-classification-understanding-vegetation-health
+: One possible [NDVI-classification](https://www.cropler.io/blog-posts/ndvi-classification-understanding-vegetation-health) {#tbl-ndvi}
+
+
 
 Making a SpatRaster object containing these categories is a bit more complicated than we are used to.
 
