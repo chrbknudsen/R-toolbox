@@ -244,7 +244,7 @@ We can definitely identify Copenhagen from the plots made so far. But they do no
 
 Well, it does, but we are only observing Copenhagen in one color. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
 
-The `terra` package have a function specifically for that. We specify which band contains values for reflectance in the red part of the spectrum, green and blue:
+The `terra` package have a function specifically for that. We specify which bands contains values for reflectance in the red part of the spectrum, green and blue:
 
 ```{r}
 plotRGB(sentinel, r = 3, g = 2, b = 1,
@@ -253,7 +253,10 @@ plotRGB(sentinel, r = 3, g = 2, b = 1,
 
 `plotRGB` expects values for each band between 0 and 255. We have more physically relevant values, but the `stretch = "lin"` tells `plotRGB` to "stretch" these values to fit the range of 0 to 255.
 
-What can we use this for?
+
+## False colours
+
+False colour plots
 
 False colour plots can make it easier to distinguish area with eg vegetation.
 
