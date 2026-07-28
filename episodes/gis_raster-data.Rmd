@@ -244,7 +244,8 @@ We can definitely identify Copenhagen from the plots made so far. But they do no
 
 Well, it does, but we are only observing Copenhagen in one color. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
 
-The `terra` package have a function specifically for that. We specify which bands contains values for reflectance in the red part of the spectrum, green and blue:
+The `terra` package have a function specifically for that. We specify which bands contains values for reflectance in the red part of the spectrum, green and blue,
+and it make a "composite" plot, where the red band is shown as red, green as green and blue as blue:
 
 ```{r}
 plotRGB(sentinel, r = 3, g = 2, b = 1,
@@ -256,28 +257,42 @@ plotRGB(sentinel, r = 3, g = 2, b = 1,
 
 ## False colours
 
-False colour plots
+False colour plots can be used to make it easier to distinguish specific areas. Compared to the previous plot, where the green colours represented the green band, false colour plots have the colours represent bands that are not in their part of the spectrum.
 
-False colour plots can make it easier to distinguish area with eg vegetation.
-
-eller false colour composite
-
-det efterlader vegetation rødt - fordi planters celle lag "spongy mesophyl" reflects NIR.
-
-
-
+A popular false colour plot shows the NIR band as red, the red band as green and the green band as blue in the composite plot:
 
 ```{r}
 plotRGB(sentinel, r = 4, g = 3, b = 2,
   stretch = "lin")
-
 ```
 
-We can use these false colour composites to highlight what is in specific parts of the area we are investigating.
+Because plants reflect ligth in the NIR part of the spectrum, the NIR-band have high reflectance values for areas with vegetation. When we plot the NIR-band as red,
+we get a map where vegetation is highligted as red.
 
-Øvlse 
 
-hvad sker der hvis vi sætter g til at være nir og r til at være noget andet.
+:::: challenge
+## Make your own false colour composite plot
+
+Chose on your own which bands should be plotted as red, green and blue in your very own false colour plot
+
+
+:::: solution
+## Suggested Solution
+
+As long as it is your own, there is no wrong answer. This version is nice and orangey:
+
+```{r}
+plotRGB(sentinel, r = 4, g = 2, b = 1,
+  stretch = "lin")
+```
+
+
+
+::::
+::::
+
+
+
 
 ## What else can we use this for?
 
