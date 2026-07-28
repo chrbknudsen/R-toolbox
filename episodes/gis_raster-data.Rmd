@@ -236,10 +236,11 @@ The range is chosen to approximately exclude the 2% lowest and 2% highest values
 sentinel[["blue"]] |> values(mat = FALSE) |> quantile(probs = c(0.02, 0.98))
 ```
 
-For at gøre det hele lidt mere simpelt, har vi i  eksporten fravalgt "data mask" der ville fortælle os hvor evt. manglende værdier
-måtte ligge.
 
-This does not look like Copenhagen!
+
+## "True" color images 
+
+We can definitely identify Copenhagen from the plots made so far. But they do not look like an aerial or satelite photo of Copenhagen would. 
 
 Well, it does, but we are only observing Copenhagen in one color. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
 
