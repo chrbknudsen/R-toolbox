@@ -30,7 +30,7 @@ In this session we are working with four specific bands:
 : Selected spectral bands from Sentinel 2. {#tbl-sentinel}
 
 
-Download the files to a folder in your project named `data`, either manually from the linkes above, or by copy-pasting this code:
+Download the files to a folder in your project named `data`, either manually from the links above, or by copy-pasting this code:
 
 ```{r download-files, eval = FALSE}
 
