@@ -186,11 +186,11 @@ Bonus: Try comparing with the NIR-band.
 
 ## Scaling the data
 
-The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded as a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
+The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflectanse, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded as a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536). This is an effect of choices made during download, so it is always neccesary to inspect the data and take its provenance into account.
 
 In order to scale the raw data to values closer related to the physical world, we need to scale the data.
 
-We do that by dividing all values by 65535:
+We do that by dividing all values by 65535. This is surprisingly simple:
 
 ```{r scaled_summary, warning = FALSE}
 sentinel <- sentinel/65535
@@ -201,7 +201,7 @@ summary(sentinel)
 
 :::: callout
 
-Note that data from the Landsat family of satelites have to be scaled differently. Information on how is given in the [official documentation from USGS](https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products).
+Note that data from the Landsat family of satelites have to be scaled differently. Information on how is given in the [official documentation from USGS](https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products){target="_blank"}.
 
 Also note that we can acquire data from Sentinel, that is _not_ stored in 16 bit. In that case we will have to scale using a different parameter, or not at all.
 
