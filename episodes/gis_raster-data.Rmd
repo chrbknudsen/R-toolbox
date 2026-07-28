@@ -349,14 +349,14 @@ Rather than plotting the simple binary "larger than 0.4, yes/no" values, we woul
 
 Several classifications of vegetation based on NDVI-values exist, this is but one:
 
-|NDVI | Interpretation |
-|--|--|
-|-1–0	| Ratings below 0 typically indicate a complete lack of vegetation, such as barren ground or cities.|
-|0–0.1	|Very little vegetation, typically barren ground.|
-|0.1–0.3	|Sparse vegetation, such as scrubland or grass.|
-|0.3–0.6	|Moderate vegetation, like temperate forests; may also indicate unhealthy crops.|
-|0.6–0.9	|Typical range for healthy thriving crops.|
-|0.9–1	|Dense overgrown vegetation, such as rainforests.|
+|NDVI| Interpretation |
+|-|-------|
+|-1 – 0| Ratings below 0 typically indicate a complete lack of vegetation.|
+|0 – 0.1|Very little vegetation, typically barren ground.|
+|0.1 – 0.3|Sparse vegetation; scrubland or grass.|
+|0.3 – 0.6|Moderate vegetation; temperate forests; may also indicate unhealthy crops.|
+|0.6 – 0.9|Typical range for healthy thriving crops.|
+|0.9 – 1|Dense overgrown vegetation; rainforests.|
 
 
 : One possible [NDVI-classification](https://www.cropler.io/blog-posts/ndvi-classification-understanding-vegetation-health) {#tbl-ndvi}
