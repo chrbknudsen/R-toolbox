@@ -385,10 +385,14 @@ rcl <- matrix(
 We can then make a new spatRaster object with the classifications using the `classify` function:
 
 ```{r}
-ndvi_class <- classify(ndvi, rcl)
+ndvi_class <- classify(x = ndvi, 
+                      rcl = rcl, 
+                      include.lowest = TRUE)
 ```
 
-And then plot it:
+By default `classify` does not include the lowest value in "-1.0, 0.0" in the interval "1". Setting `include.lowest = TRUE` includes -1 in interval "1"
+
+We can then plot it:
 
 ```{r}
 plot(ndvi_class)
@@ -410,15 +414,19 @@ levels(ndvi_class) <- data.frame(
 )
 ```
 
+We now get more a informative legend in the plot:
+
 ```{r class_plot, warning = FALSE}
 plot(ndvi_class)
 ```
 
-And we can count how many cells we have in the object of the different categories:
+Not only can we plot the 6 categories, we can also count how many instances of each category we have, giving a rough indication of the distribution of them in Copenhagen_
 
 ```{r}
 freq(ndvi_class)
 ```
+
+We can then use ordinary `tidyverse` methods to get the distribution in percentages:
 
 ```{r andel_area, message = FALSE}
 library(dplyr)
