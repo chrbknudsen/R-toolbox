@@ -215,13 +215,11 @@ plot(sentinel[["blue"]])
 
 
 
-Very dark plots
+## Very dark plots
 
-The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the B02 band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a color scale going from 0 to 1, half of the observations will get the darkest color. About 2/3 of the rest will get the second darkest color, and the higher value observations drown in a sea of blue.
+The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the blue band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a color scale going from 0 to 1, half of the observations will get the darkest color. About 2/3 of the rest will get the second darkest color, and the higher value observations drown in a sea of blue.
 
 One way of handling this can be to adjust the scale.
-
-DET HER SKAL MÅSKE PILLES UD AF TIDSHENSYn.
 
 ```{r}
 plot(
@@ -230,7 +228,7 @@ plot(
 )
 ```
 
-The range specifies, that the color scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same color, as will values higher than 0.17. This results in a larger difference in colors for the values in between, making it easier to see structure in the data.
+The range specifies, that the color scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same color, as will values higher than 0.17. This results in a larger difference in colors for the values in between, making it much easier to see structure in the data.
 
 The range is chosen to approximately exclude the 2% lowest and 2% highest values.
 
