@@ -15,7 +15,13 @@ exercises: 42
 We are going to work with spectral raster data from the European Sentinel satelites. These satelites capture images of the planet, recording reflected light from the 
 surface in different spectral bands.
 
-![](fig/multispektral_imaging.png){alt="illustration of a sentinel satelite capturing multispectral data"}
+illustration of a sentinel satelite capturing multispectral data
+
+
+[![](fig/multispektral_imaging.png)](fig/multispektral_imaging.png){target="_blank"}
+
+
+## Get the data
 
 In this session we are working with four specific bands:
 
@@ -28,7 +34,6 @@ In this session we are working with four specific bands:
 | B08      | Near Infrared (NIR) | 842     |15| [B08](https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff) |
 
 : Selected spectral bands from Sentinel 2. {#tbl-sentinel}
-
 
 Download the files to a folder in your project named `data`, either manually from the links above, or by copy-pasting this code:
 
@@ -73,6 +78,8 @@ sentinel <- rast(files)
 
 ## Looking at the data
 
+The four files each contain a spectral band, and those four bands are now contained in one object, `sentinel`.
+
 We can access the basic metadata simply by outputting the object:
 
 ```{r}
@@ -95,6 +102,7 @@ We can plot the individual layers:
 plot(sentinel[["blue"]])
 ```
 
+And it is now revealed that we are working with data covering (part of) the Greater Copenhagen area.
 
 :::: challenge
 ## Which of the four bands is the most distinct
@@ -106,7 +114,10 @@ Try plotting the four different bands, and decide which of them you think is the
 
 What is the most distinct is of course a matter of taste, but some would argue that the NIR-band is the one that differs most from the others:
 
-`plot(sentinel[["nir"]])`
+```{r}
+plot(sentinel[["nir"]])
+```
+
 
 ::::
 ::::
@@ -160,7 +171,10 @@ Extract the data using values. For a quick result you can use the base plot func
 :::: solution
 ## Solution
 
-`sentinel[["blue"]] |> values(mat = FALSE) |> hist()`
+```{r}
+sentinel[["blue"]] |> values(mat = FALSE) |> hist()
+```
+
 
 Bonus: Try comparing with the NIR-band.
 
@@ -172,7 +186,7 @@ Bonus: Try comparing with the NIR-band.
 
 ## Scaling the data
 
-The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encodes with a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
+The data we get from Sentinel has been saved as a 16 bit tiff. That means that the reflektans, which go from 0 - indicating no reflectanse at all, to 1 indicating 100% reflectance, has been encoded with a 16 bit integer, which go from 0 to 65535 (because 2^16 = 65536).
 
 In order to scale the raw data to values closer related to the physical world, we need to scale the data.
 
