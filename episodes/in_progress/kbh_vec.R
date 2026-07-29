@@ -16,7 +16,7 @@ frb <- getbb(
 )
 
 navnefelt <- grep(
-  "name",
+  "navn",
   names(kbh),
   ignore.case = TRUE,
   value = TRUE
@@ -24,19 +24,19 @@ navnefelt <- grep(
 
 områder <- rbind(
   st_sf(
-    navn = kbh[[navnefelt]],
+    name = kbh[[navnefelt]],
     geometry = st_geometry(kbh)
   ),
   st_sf(
-    navn = "Frederiksberg",
+    name = "Frederiksberg",
     geometry = st_geometry(frb)
   )
 )
 
-områder$navn
+områder$name
 
 befolkning <- tribble(
-  ~navn,                ~befolkning,
+  ~name,                ~population,
  "Indre By", 58224,
  "Nørrebro",79779 ,
  "Vanløse", 40847, 
@@ -55,7 +55,7 @@ befolkning <- tribble(
 områder <- områder |>
   left_join(
     befolkning,
-    by = "navn"
+    by = "name"
   )
 
 områder
