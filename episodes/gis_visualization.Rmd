@@ -1,5 +1,5 @@
 ---
-title: "Vector data"
+title: "GIS visualization"
 teaching: 42
 exercises: 42
 ---
@@ -13,7 +13,7 @@ exercises: 42
 
 :::
 
-
+skal der være indhold?
 
 
 

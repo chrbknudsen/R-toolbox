@@ -14,7 +14,21 @@ exercises: 42
 :::
 
 
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
 
+# load the package
+library("terra")
+
+# prevent scientific notation
+options(scipen = 8)
+```
+
+## Introduction
+
+[test](data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff)
 
 
 ::: keypoints
