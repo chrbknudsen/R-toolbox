@@ -107,7 +107,7 @@ From this we learn that a lot of what OpenStreetMaps considers parks, do not hav
 
 Not all parks have names. We can check for missing values using the `is.na()` function on the `name` attribute. Nesting that into the `table()` function, we can see how many parks are nameless:
 
-```{r}
+```{r missing_park_names}
 # Missing park name?
 table(is.na(parks$name))
 ```
@@ -118,12 +118,93 @@ Most of what OSM considers parks in this area have no names.
 
 For simple visualizations, we use the `plot()` function. We would like to have parks overlaid on the neighborhoods, and must use the `add = TRUE` argument to do that. The first plot is displayed as a base layer, and subsequent plots are added on top of that:
 
-```{r}
+```{r simple_plot}
 plot(neighborhoods, main = "Parks in Copenhagen")
 plot(parks, add = TRUE, col = "darkgreen")
 ```
 
 ## Polygon Statistics
+
+Both neighborhoods and parks are polygons with an area and a perimeter. 
+
+The information is not stored directly in the data, but can be calculated from the data using the `expance()` and `perim()` functions from the `terra` package:
+
+```{r}
+neighborhoods$area_m2 <- expanse(neighborhoods, unit = "m")
+neighborhoods$perimeter_m <- perim(neighborhoods)
+neighborhoods
+```
+
+Note that we do not have to provide a unit for the calculation of the perimeter; the only possible output is in meters.
+
+
+:::: challenge
+## Which neighborhood is the smallest?
+
+Try to figure out which of the neighborhoods (and/or Frederiksberg) is the smallest.
+
+
+:::: hint
+## Hint
+We can extract values from the neighborhood object using the `values()` function (just like we did with raster data). After that, we can sort using the tidyverse functions. Remember to run `library(tidyverse)`
+
+An easier solution is to convert the spatial object to a data frame, using either `as.data.frame()` or `as_tibble()`´. The last option give a nicer looking output.
+
+::::
+
+
+:::: solution
+## Solution
+
+
+```{r neighborhood_size}
+#| message: false
+#| warning: false
+library(tidyverse)
+neighborhoods |> 
+    as_tibble() |> 
+    arrange(area_m2) |> 
+    slice(1)
+```
+
+
+::::
+::::
+
+
+
+
+
+
+:::: challenge
+## Add a calculated area and perimeter to the parks
+
+Repeat the calculations we did on the neighborhoods to add areas and perimeters to the parks.
+
+
+
+:::: solution
+## Solution
+
+
+```{r parks_area_perim}
+#| message: false
+#| warning: false
+parks$area_m2 <- expanse(parks, unit = "m")
+parks$perimeter_m <- perim(parks)
+
+```
+
+
+::::
+::::
+
+```{r}
+parks
+```
+
+VI SKAL NOK HAVE PILLET NOGET METADATA UD AF DET HER.
+
 
 ## Spatial Relationships
 
