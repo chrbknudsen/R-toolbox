@@ -66,26 +66,72 @@ neighborhoods <- vect("data/cph_neighborhoods_and_frederiksberg.gpkg")
 parks <- vect("data/parks_cph_frederiksberg.gpkg")
 ```
 
-We can inspect the `name` attribute using the `$` notation, which returns a character vector with the names
-
-OG HER SKAL VI GØRE NOGET, FOR DE ENKELTE POLYGONER HAR IKKE NAVNE HER!
-
-```{r}
-parks$name
-```
-
-A lot of what is registered as parks in OSM are areas without names.
-
 If we are not 100% sure of the quality of the data we have downloaded, it is best practice to check that the
 geometries are valid. The function `is.valid` checks this, and will return TRUE or FALSE for each object within the data. As the `parks` dataset contains 1014 parks, it will be difficult to identify if one of them is invalid. The `all` function returns TRUE if all values are TRUE:
 
 ```{r checking_validity}
+#| collapse: true
 all(is.valid(parks))
 all(is.valid(neighborhoods))
 ```
 
+We can inspect the data by simply calling the name:
 
+```{r inspect_neighborhoods}
+neighborhoods
+```
 
+And we can get a closer look at the `name` attribute using the `$` notation, which returns a character vector with the names of the polygons:
+
+```{r neighborhoods_name}
+neighborhoods$name
+```
+
+:::: challenge
+## What about the names of the parks?
+
+Use the same technique to extract the names of the parks.
+
+:::: solution
+## Solution
+
+To save space this shows only the first 10 names:
+```{r parks_name}
+parks$name |> head(n = 10)
+```
+
+From this we learn that a lot of what OpenStreetMaps considers parks, do not have a name. For serious work we would probably have to apply some sort of selection to this dataset.
+
+::::
+::::
+
+Not all parks have names. We can check for missing values using the `is.na()` function on the `name` attribute. Nesting that into the `table()` function, we can see how many parks are nameless:
+
+```{r}
+# Missing park name?
+table(is.na(parks$name))
+```
+
+Most of what OSM considers parks in this area have no names.
+
+## Simple Plots
+
+For simple visualizations, we use the `plot()` function. We would like to have parks overlaid on the neighborhoods, and must use the `add = TRUE` argument to do that. The first plot is displayed as a base layer, and subsequent plots are added on top of that:
+
+```{r}
+plot(neighborhoods, main = "Parks in Copenhagen")
+plot(parks, add = TRUE, col = "darkgreen")
+```
+
+## Polygon Statistics
+
+## Spatial Relationships
+
+## Availability Analysis
+
+## Proximity Analysis
+
+## Exporting Results
 
 ::: keypoints
 - FIXME
