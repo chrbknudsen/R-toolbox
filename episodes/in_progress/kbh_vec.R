@@ -16,7 +16,7 @@ frb <- getbb(
 )
 
 navnefelt <- grep(
-  "navn",
+  "name",
   names(kbh),
   ignore.case = TRUE,
   value = TRUE
@@ -63,7 +63,7 @@ områder
 
 st_write(
   områder,
-  "episodes/data/bydele_and_frederiksberg.gpkg",
+  "episodes/data/cph_neighborhoods_and_frederiksberg.gpkg",
   layer = "områder",
   delete_layer = TRUE,
   quiet = TRUE
