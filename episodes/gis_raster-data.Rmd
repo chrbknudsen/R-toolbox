@@ -434,7 +434,9 @@ freq(ndvi_class) |>
     mutate(share = count/sum(count)*100)
 ```
 
+This indicates that the greater Copenhagen area is rather green.
 
+Other spectral indeces exists, but might require additional spectral bands to the ones we have access to here.
 
 ::: keypoints
 -   FIXME

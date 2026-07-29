@@ -92,6 +92,8 @@ episodes:
 - spatial_data_intro.Rmd
 - gis-downloading-sentinel.Rmd
 - gis_raster-data.Rmd
+- gis_vector-data.Rmd
+- gis_visualization.Rmd
 - git-00-setup.Rmd
 - git-01-git-intro.Rmd
 - git-09-practice.Rmd
