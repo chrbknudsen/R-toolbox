@@ -1,0 +1,23 @@
+---
+title: "Vector data"
+teaching: 42
+exercises: 42
+---
+
+::: questions
+-   FIXME
+:::
+
+::: objectives
+-   FIXME
+
+:::
+
+
+
+
+
+::: keypoints
+- FIXME
+
+:::
