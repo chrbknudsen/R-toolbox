@@ -20,7 +20,7 @@ exercises: 42
 #| echo: false
 
 # load the package
-library("terra")
+library(terra)
 
 # prevent scientific notation
 options(scipen = 8)
@@ -95,7 +95,7 @@ Use the same technique to extract the names of the parks.
 :::: solution
 ## Solution
 
-To save space this shows only the first 10 names:
+To save space this code only return the first 10 names:
 ```{r parks_name}
 parks$name |> head(n = 10)
 ```
@@ -181,8 +181,6 @@ neighborhoods |>
 
 Repeat the calculations we did on the neighborhoods to add areas and perimeters to the parks.
 
-
-
 :::: solution
 ## Solution
 
@@ -203,10 +201,36 @@ parks$perimeter_m <- perim(parks)
 parks
 ```
 
-VI SKAL NOK HAVE PILLET NOGET METADATA UD AF DET HER.
+To make further analysis easier, we exclude parks smaller than 2000 $m^2$. We can treat the `park` data as a data frame, and select rows based on a logical comparison of `parks$area_m2` with 2000:
+
+```{r}
+parks_clean <- parks[parks$area_m2 > 2000, ] 
+```
 
 
 ## Spatial Relationships
+
+Which neighborhoods have the most parks? 
+
+The function `relate()` take two spatVector objects, and return a logical matrix indicating if there is a relation between the objects in the two spatial vectors. It can handle different relations (see the list in the documentation running `?relate`). Here we ask if there is an intersection between the objects - more intuitively: "is there an overlap". That also means that some parks might be located in more than one neighborhood
+
+```{r}
+intersect_matrix <- relate(neighborhoods, parks_clean, relation = "intersects") 
+```
+
+The result is a logical matrix. We can easily figure out how many parks are in each neighbourhood. Each row is one neighbourhood, each column is a park. And the cell that intersects a row and a column, is TRUE if the park is located (partially) in the neighbourhood. Adding the values in each row, tells us how many parks are in each neighbourhood: 
+
+```{r}
+rowSums(intersect_matrix)
+```
+
+We do not get the names, but the order of neighbourhoods in the matrix is the same as the order of the names of the neighbourhoods in our `neighbourhoods` data. That means we can augment the result and get a nice table:
+
+```{r}
+neighbourhood_stat <- data.frame(name = neighborhoods$name, count = rowSums(intersect_matrix))
+neighbourhood_stat
+```
+
 
 ## Availability Analysis
 
