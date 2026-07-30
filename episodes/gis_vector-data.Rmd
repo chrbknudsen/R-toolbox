@@ -341,7 +341,66 @@ plot(neighborhoods, add = TRUE)
 
 ## Proximity Analysis
 
+What is the closest park? 
+
+The University Library Datalab head quartes is located at X = 12.560613321547443 (longitude) and 
+Y = 55.697361063532114 (latitude). These coordinates were found using Google Maps, which use the WGS 84 (EPSG:4326) coordinate system.
+
+Before we can work with that, we need to construct a vector-object (SpatVector), with these coordinates, and reference system:
+
+```{r}
+datalab <- cbind(12.560613321547443, 55.697361063532114)
+datalab <- vect(datalab, crs = "EPSG:4326")
+```
+
+We can find the nearest park, using the `nearby()` function, which searches for the `k` nearst neighbours. The function returns a matrix with indeces of the closest objects:
+
+```{r}
+idx <- nearby(datalab, parks_clean, centroids = FALSE)
+idx
+```
+
+By default we get 1 nearby result, and we can see that it has index `7` in the `parks_clean` dataset.
+
+
+We can use that to find out which park is the closest:
+```{r}
+parks_clean[7,]
+```
+
+And also the distance, using the `distance()` function:
+
+```{r}
+distance(datalab, parks_clean[7,], unit = "m")
+```
+
+You may have noticed the `centroids = FALSE` argument in the `distance()` function. Its default value is TRUE. This means that the distance is calculated to the centroid of the polygons. 
+
+A centroid is the geometric center of a spatial object - a single point. If we use the `distance()` function without `centroids = FALSE`, we will get the distance to the centroid of the park, rather than its boundary. 
+
+We can calculate centroids with the `centroids()` function, and show its location within the park:
+
+```{r}
+cent <- centroids(parks_clean[7,])
+
+plot(parks_clean[7,])
+plot(cent, add = TRUE)
+```
+
+And if we want the coordinates of this centroid, we can apply the `crds()` function on it:
+
+```{r}
+crds(cent)
+```
+
 ## Exporting Results
+
+Saving our results for later work is relatively simple. The function is `writeVector()`, and we 
+need to provide the name of the data we want to save, and a filename:
+
+```{r eval = FALSE}
+writeVector(parks_clean, "clean_parks.gpkg")
+```
 
 ::: keypoints
 - FIXME
