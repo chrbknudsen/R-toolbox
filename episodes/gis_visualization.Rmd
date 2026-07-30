@@ -13,6 +13,9 @@ exercises: 42
 
 :::
 
+
+Visualisering med tidyterra
+
 skal der være indhold?
 
 
