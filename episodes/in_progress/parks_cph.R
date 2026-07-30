@@ -12,11 +12,11 @@ library(ggplot2)
 # 1. Filstier
 # ------------------------------------------------------------
 
-boundary_file <- "episodes/data/bydele_and_frederiksberg.gpkg"
-
+boundary_file <- "../episodes/data/cph_neighborhoods_and_frederiksberg.gpkg"
+boundary_file <- "episodes/data/cph_neighborhoods_and_frederiksberg.gpkg"
 output_file <- paste0(
   "episodes/data/",
-  "parks_koebenhavn_frederiksberg.gpkg"
+  "parks_cph_frederiksberg.gpkg"
 )
 
 output_layer <- "parks"
@@ -302,6 +302,13 @@ message(
   nrow(parks_clipped)
 )
 
+# ------------------------------------------------------------
+# 12.5 juster metadata
+# ------------------------------------------------------------
+
+parks_clipped <- parks_clipped |>
+  select("osm_id", "name", "dog") 
+
 
 # ------------------------------------------------------------
 # 13. Gem resultatet
@@ -348,7 +355,7 @@ park_map <- ggplot() +
     caption = "Data: OpenStreetMap"
   )
 
-print(park_map)
+
 
 
 # ------------------------------------------------------------
