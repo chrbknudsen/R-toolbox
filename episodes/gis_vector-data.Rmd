@@ -231,8 +231,113 @@ neighbourhood_stat <- data.frame(name = neighborhoods$name, count = rowSums(inte
 neighbourhood_stat
 ```
 
+:::: callout
+But what are the names? 
+
+One problem with this approach is that some of the parks, even those larger than 2,000 square meters, do not have a name.
+
+We can instead rely on the osm_id which uniquely identify the parks.
+
+Adding those to the `intersect_matrix` allow us to know which parks are in which neighbourhoods, and do further analysis on e.g. total park area in different neighbourhoods. We can do that using `colnames()` and `rownames()` as showwn below. After that we can convert the matrix to a data frame. We recommend using `as_tibble()` with the additional argument `rownames = "name`:
+
+```{r eval = FALSE}
+colnames(intersect_matrix) <- parks_clean$osm_id
+rownames(intersect_matrix) <- neighborhoods$name
+
+intersect_matrix |> as_tibble(rownames = "name")
+```
+::::
+
 
 ## Availability Analysis
+
+What is the availability of parks in Copenhagen? Or, which parts of the city lies within 300 meters of a park? And which lies within 1000 meters?
+
+:::: challenge
+How would we do that? Not - how should the code look like, but what would be the conceptual steps in doing that be? Discuss!
+
+:::: solution
+There are probably many ways of doing this. One suggestion would be:
+
+* "Expand", or add 300 (or 1000) meters to each polygon describing a park
+* Merge any of these new polygons if they overlap
+* Plot and colour the new polygons - overlaid on the map of the neighbourhoods
+
+::::
+
+::::
+
+The new polygons we want to look at are the existing polygons - with an added "buffer" of 300 (and 1000) meters.
+
+We create those new polygons using the `buffer()` function:
+
+```{r}
+buffer_100 <- buffer(parks_clean, width = 100)
+buffer_200 <- buffer(parks_clean, width = 200)
+```
+
+Some parks and their buffers, overlap. We can "aggregate" them into single polygons using the `aggregate()` function:
+
+```{r}
+buffer_100 <- aggregate(buffer_100)
+buffer_200 <- aggregate(buffer_200)
+```
+
+And now we can plot them:
+
+```{r}
+plot(buffer_200, col = "lightblue")
+plot(buffer_100, col = "darkblue", add = TRUE)
+plot(neighborhoods, add = TRUE, lwd = 3, border = "red")
+```
+
+Plotting in this way places each new plot on top of the others, so the order is important!
+
+Some of the buffered parks extends outside the city. We can cut the off using the `crop()` function, specifying the borders of the city. We begin by aggregating the neighbourhoods to a single border polygon - just like we aggregated the buffer-zones:
+
+
+```{r}
+
+borders <- aggregate(neighborhoods)
+
+buffer_100 <- crop(buffer_100, borders)
+buffer_200 <- crop(buffer_200, borders)
+```
+
+And now we can repeat the plot - without any bufferzones and parks extending outside the city.
+```{r}
+plot(buffer_200, col = "lightblue")
+plot(buffer_100, col = "darkblue", add = TRUE)
+plot(neighborhoods, add = TRUE, lwd = 3, border = "red")
+```
+
+
+
+
+```{r}
+city_area <- expanse(neighborhoods) |> sum()
+
+
+tribble(~distance, ~cov_area,
+        100, expanse(buffer_100),
+        200, expanse(buffer_200)) |> 
+            mutate(pct_covered = cov_area/city_area*100
+            )
+
+
+```
+
+
+We can also identify the areas where access to parks is more difficult (distances greater than 1,000 m). We can do this by subtracting two vector layers using the erase() function.
+
+```{r}
+bad_access <- erase(aggregate(neighborhoods), buffer_200)
+
+plot(neighborhoods, col = "lightgreen")
+plot(bad_access, col = "red", add = TRUE)
+plot(neighborhoods, add = TRUE)
+
+```
 
 ## Proximity Analysis
 
