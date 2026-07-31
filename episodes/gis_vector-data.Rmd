@@ -231,12 +231,176 @@ neighbourhood_stat <- data.frame(name = neighborhoods$name, count = rowSums(inte
 neighbourhood_stat
 ```
 
+:::: callout
+But what are the names? 
+
+One problem with this approach is that some of the parks, even those larger than 2,000 square meters, do not have a name.
+
+We can instead rely on the osm_id which uniquely identify the parks.
+
+Adding those to the `intersect_matrix` allow us to know which parks are in which neighbourhoods, and do further analysis on e.g. total park area in different neighbourhoods. We can do that using `colnames()` and `rownames()` as showwn below. After that we can convert the matrix to a data frame. We recommend using `as_tibble()` with the additional argument `rownames = "name`:
+
+```{r eval = FALSE}
+colnames(intersect_matrix) <- parks_clean$osm_id
+rownames(intersect_matrix) <- neighborhoods$name
+
+intersect_matrix |> as_tibble(rownames = "name")
+```
+::::
+
 
 ## Availability Analysis
 
+What is the availability of parks in Copenhagen? Or, which parts of the city lies within 300 meters of a park? And which lies within 1000 meters?
+
+:::: challenge
+How would we do that? Not - how should the code look like, but what would be the conceptual steps in doing that be? Discuss!
+
+:::: solution
+There are probably many ways of doing this. One suggestion would be:
+
+* "Expand", or add 300 (or 1000) meters to each polygon describing a park
+* Merge any of these new polygons if they overlap
+* Plot and colour the new polygons - overlaid on the map of the neighbourhoods
+
+::::
+
+::::
+
+The new polygons we want to look at are the existing polygons - with an added "buffer" of 300 (and 1000) meters.
+
+We create those new polygons using the `buffer()` function:
+
+```{r}
+buffer_100 <- buffer(parks_clean, width = 100)
+buffer_200 <- buffer(parks_clean, width = 200)
+```
+
+Some parks and their buffers, overlap. We can "aggregate" them into single polygons using the `aggregate()` function:
+
+```{r}
+buffer_100 <- aggregate(buffer_100)
+buffer_200 <- aggregate(buffer_200)
+```
+
+And now we can plot them:
+
+```{r}
+plot(buffer_200, col = "lightblue")
+plot(buffer_100, col = "darkblue", add = TRUE)
+plot(neighborhoods, add = TRUE, lwd = 3, border = "red")
+```
+
+Plotting in this way places each new plot on top of the others, so the order is important!
+
+Some of the buffered parks extends outside the city. We can cut the off using the `crop()` function, specifying the borders of the city. We begin by aggregating the neighbourhoods to a single border polygon - just like we aggregated the buffer-zones:
+
+
+```{r}
+
+borders <- aggregate(neighborhoods)
+
+buffer_100 <- crop(buffer_100, borders)
+buffer_200 <- crop(buffer_200, borders)
+```
+
+And now we can repeat the plot - without any bufferzones and parks extending outside the city.
+```{r}
+plot(buffer_200, col = "lightblue")
+plot(buffer_100, col = "darkblue", add = TRUE)
+plot(neighborhoods, add = TRUE, lwd = 3, border = "red")
+```
+
+
+
+
+```{r}
+city_area <- expanse(neighborhoods) |> sum()
+
+
+tribble(~distance, ~cov_area,
+        100, expanse(buffer_100),
+        200, expanse(buffer_200)) |> 
+            mutate(pct_covered = cov_area/city_area*100
+            )
+
+
+```
+
+
+We can also identify the areas where access to parks is more difficult (distances greater than 1,000 m). We can do this by subtracting two vector layers using the erase() function.
+
+```{r}
+bad_access <- erase(aggregate(neighborhoods), buffer_200)
+
+plot(neighborhoods, col = "lightgreen")
+plot(bad_access, col = "red", add = TRUE)
+plot(neighborhoods, add = TRUE)
+
+```
+
 ## Proximity Analysis
 
+What is the closest park? 
+
+The University Library Datalab head quartes is located at X = 12.560613321547443 (longitude) and 
+Y = 55.697361063532114 (latitude). These coordinates were found using Google Maps, which use the WGS 84 (EPSG:4326) coordinate system.
+
+Before we can work with that, we need to construct a vector-object (SpatVector), with these coordinates, and reference system:
+
+```{r}
+datalab <- cbind(12.560613321547443, 55.697361063532114)
+datalab <- vect(datalab, crs = "EPSG:4326")
+```
+
+We can find the nearest park, using the `nearby()` function, which searches for the `k` nearst neighbours. The function returns a matrix with indeces of the closest objects:
+
+```{r}
+idx <- nearby(datalab, parks_clean, centroids = FALSE)
+idx
+```
+
+By default we get 1 nearby result, and we can see that it has index `7` in the `parks_clean` dataset.
+
+
+We can use that to find out which park is the closest:
+```{r}
+parks_clean[7,]
+```
+
+And also the distance, using the `distance()` function:
+
+```{r}
+distance(datalab, parks_clean[7,], unit = "m")
+```
+
+You may have noticed the `centroids = FALSE` argument in the `distance()` function. Its default value is TRUE. This means that the distance is calculated to the centroid of the polygons. 
+
+A centroid is the geometric center of a spatial object - a single point. If we use the `distance()` function without `centroids = FALSE`, we will get the distance to the centroid of the park, rather than its boundary. 
+
+We can calculate centroids with the `centroids()` function, and show its location within the park:
+
+```{r}
+cent <- centroids(parks_clean[7,])
+
+plot(parks_clean[7,])
+plot(cent, add = TRUE)
+```
+
+And if we want the coordinates of this centroid, we can apply the `crds()` function on it:
+
+```{r}
+crds(cent)
+```
+
 ## Exporting Results
+
+Saving our results for later work is relatively simple. The function is `writeVector()`, and we 
+need to provide the name of the data we want to save, and a filename:
+
+```{r eval = FALSE}
+writeVector(parks_clean, "clean_parks.gpkg")
+```
 
 ::: keypoints
 - FIXME
