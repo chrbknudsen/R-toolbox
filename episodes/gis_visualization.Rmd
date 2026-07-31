@@ -143,7 +143,55 @@ The north arrow is placed in the *t*op*l*eft corner using the `annotation_north_
 
 The scale, added with `annotation_scale()` take similar arguments.
 
+## Facetting
 
+The only part of the standard ggplot2 template not demonstrated yet, is the facet_*`functions.
+
+If we have more than one layer in our SpatRaster object, we can facet, using `lyr` as the faceting variable:
+
+```{r}
+ggplot() +
+  geom_spatraster(data  = sentinel) +
+  facet_wrap(~lyr)
+```
+
+### RGB composition
+
+
+## Vector data
+
+### Choropleth map
+
+ggplot() +
+  geom_spatvector(data = districts, aes(fill = area_km2), color = "white") +
+  scale_fill_gradient(low = "grey", high = "brown") +
+  labs(title = "Area of districts in Warsaw", fill = expression("Area [km"^2*"]")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+### Combining layers
+
+ggplot() +
+  geom_spatvector(data = districts, fill = NA) +
+  geom_spatvector(data = parks, fill = "darkgreen", color = NA) +
+  labs(title = "Parks in Warsaw") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
+
+### Reprojecting
+ggplot() +
+  geom_spatvector(data = districts, fill = NA) +
+  geom_spatvector(data = parks, fill = "darkgreen", color = NA) +
+  coord_sf(crs = "EPSG:2180", datum = "EPSG:2180") +
+  labs(title = "Parks in Warsaw") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5)
+  )
 
 ::: keypoints
 - FIXME
