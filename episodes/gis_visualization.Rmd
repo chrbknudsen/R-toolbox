@@ -1,5 +1,5 @@
 ---
-title: "GIS visualization"
+title: "Spatial visualization"
 teaching: 42
 exercises: 42
 ---
