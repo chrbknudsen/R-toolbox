@@ -14,7 +14,7 @@ carpentry: 'lc'
 
 # Custom carpentry description
 # This will be used as the alt text for the logo
-# carpentry_description: "Custom Carpentry"
+carpentry_description: "KUB DataLab"
 
 # Overall title for pages.
 title: 'R-toolbox'
@@ -102,13 +102,14 @@ episodes:
 - extracting-tiff-layers.Rmd
 - fence-test.Rmd
 - making-a-new-course.Rmd
-- checkliste.Rmd
 
 # Information for Learners
 learners: 
 
 # Information for Instructors
 instructors: 
+- instructor-notes.md
+- checklist.md
 
 # Learner Profiles
 profiles: 

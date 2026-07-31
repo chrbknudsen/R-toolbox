@@ -1,5 +1,5 @@
 ---
-title: "GIS visualization"
+title: "Spatial visualization"
 teaching: 42
 exercises: 42
 ---
@@ -14,9 +14,134 @@ exercises: 42
 :::
 
 
-Visualisering med tidyterra
+Visualizing spatial data using the `terra` package can be done using the `plot()` methods for quick and simple results.
 
-skal der være indhold?
+If we want to make more advanced visualizations, or if we want to make them more polished and beuautiful, we can use the `gglot2` package, with the help of the `tidyterra` package, augmented by the `ggspatial` package. 
+
+```{r load_libraries}
+#| warning: false
+#| message: false
+library(terra)
+library(ggplot2)
+library(tidyterra)
+library(ggspatial)
+```
+
+
+## Visualization
+
+In `ggplot2` the main functions for making specific graphs are named `geom_*`. Working with spatial raster and vector data, we use `geom_spatraster()` and `geom_spatvector()`.
+
+The rest of the `ggplot2` template, scales, labels etc, are the same.
+
+
+### Raster Data
+
+We begin by reading ind some data
+
+```{r read_files_demo}
+#| eval: false
+library(terra)
+files <- list.files("data/", pattern = ".tiff", full.names = TRUE)
+sentinel <- rast(files)
+```
+
+```{r read_files_do}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+
+library(terra)
+
+files <-  c("data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
+"data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
+"data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
+"data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+
+sentinel <- rast(files)
+```
+
+
+:::: hint
+## Have to download the data again?
+
+Make sure you have a `data` folder in your project folder, and then run this code:
+
+```{r data_download_hint}
+#| eval: false
+urls <- c("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+
+download.file(
+  urls,
+  destfile = file.path("data", basename(urls)),
+  mode = "wb"
+)
+```
+
+::::
+
+We need to prepare the data a bit; easier to type names, and a rescaling to reflectance values, rather than the 16 bit encoding:
+
+
+
+```{r data_prep}
+names(sentinel) <- c("blue", "green", "red", "nir")
+sentinel <- sentinel/65535
+```
+
+
+Normally we would pipe in the data to the `ggplot()` function, but `geom_spatraster()` requires the data to be specified directly in the function:
+```{r initial_spat_plot}
+ggplot() +
+  geom_spatraster(data  = sentinel, 
+  mapping = aes(fill = nir))
+```
+
+Note the message. There are about 4.3 million cells in the nir-layer of this dataset. In order to speed up the plot, `geom_spatraster()` resamples the data to about 500,000 cells.
+
+Having the data in the ggplot environment, we immediately gain access to the tools in ggplot2, and it is easy(ish) to adjust colours, titles and the general theming:
+
+```{r nicer_spat_plot}
+#| message: false
+ggplot() +
+  geom_spatraster(data  = sentinel, 
+                  mapping = aes(fill = nir)) +
+  scale_fill_gradient(low = "black", high = "white") +
+  labs(title = "NIR band",
+       subtitle = "Copenhagen May 25, 2026",
+       fill = "Reflectance") +
+  theme_minimal()
+```
+
+Best practice in spatial data visualization is to include both an arrow indicating north, and a scale using km as its unit.
+
+```{r better_spat_plot}
+#| message: false
+ggplot() +
+  geom_spatraster(data  = sentinel, 
+                  mapping = aes(fill = nir)) +
+  scale_fill_gradient(low = "black", high = "white") +
+  annotation_north_arrow(location = "tl",
+                          pad_x = unit(1, "cm"),
+                          pad_y = unit(1, "cm"),
+                          style = north_arrow_orienteering(fill = c("white", "red"))) +
+    annotation_scale(
+    location = "bl", pad_x = unit(1, "cm"), pad_y = unit(1, "cm"),
+    line_col = "white", text_col = "white", text_cex = 1, bar_cols = c("red", "white")) +
+  labs(title = "NIR band",
+       subtitle = "Copenhagen May 25, 2026",
+       fill = "Reflectance") +
+  theme_minimal()
+```
+
+The north arrow is placed in the *t*op*l*eft corner using the `annotation_north_arrow()` function, and padded with 1 cm of extra space in both directions to move it into the map. By default it is black and white, which can be difficult to see on the mostly darkgrey background, and we have changed the colours to red and white.
+
+The scale, added with `annotation_scale()` take similar arguments.
 
 
 
