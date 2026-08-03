@@ -1,5 +1,5 @@
 ---
-title: "Vector data"
+title: "Spatial Vector Data"
 teaching: 42
 exercises: 42
 ---
