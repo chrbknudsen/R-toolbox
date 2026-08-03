@@ -263,7 +263,7 @@ Start by calculating the area, and then divide the population with the area. We 
 :::: solution
 
 ```{r pop_dens_plot}
-#| eval = false
+#| eval: false
 pop_density <- neighbourhoods |> 
   mutate(area = expanse(neighbourhoods, unit = "km")) |> 
   mutate(pop_density = population/area)
