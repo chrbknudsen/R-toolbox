@@ -358,6 +358,45 @@ Leaflet
 </iframe>
 
 
+```{r leaflet-kort, echo=TRUE, results='asis'}
+library(leaflet)
+library(htmlwidgets)
+
+set.seed(123)
+
+punkter <- data.frame(
+  navn = paste("Punkt", 1:10),
+  lon = runif(10, 12.45, 12.65),
+  lat = runif(10, 55.62, 55.73)
+)
+
+kort <- leaflet(punkter) |>
+  addProviderTiles(providers$CartoDB.Positron) |>
+  addCircleMarkers(
+    lng = ~lon,
+    lat = ~lat,
+    label = ~navn,
+    radius = 6
+  )
+
+htmlwidgets::saveWidget(
+  widget = kort,
+  file = "files/leaflet-eksempel.html",
+  selfcontained = TRUE,
+  title = "Leaflet-eksempel"
+)
+
+cat('
+<iframe
+  src="files/leaflet-eksempel.html"
+  title="Interaktivt Leaflet-kort"
+  width="100%"
+  height="550"
+  style="border: 1px solid #cccccc;">
+</iframe>
+')
+```
+
 ::: keypoints
 - FIXME
 
