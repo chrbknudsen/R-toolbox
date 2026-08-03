@@ -181,7 +181,7 @@ You can remind yourself of the order of bands in our `sentinel` data running `na
 :::: solution
 
 ```{r composite_solution}
-#| eval = false
+#| eval: false
 ggplot() +
   geom_spatraster_rgb(data = sentinel, r = 4, g = 3 , b = 2, stretch = "lin")
 ```
@@ -343,6 +343,7 @@ Note that the choise of Coordinate Reference System depends on the location. For
 ### Interactive maps
 
 Leaflet
+
 
 
 ::: keypoints
