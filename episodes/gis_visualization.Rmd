@@ -341,35 +341,21 @@ Note that the choise of Coordinate Reference System depends on the location. For
 
 
 ### Interactive maps
+source("scripts/make-leaflet-map.R")
+
+Kan vi smide det ind her?
+
+Kan vi skrive indholdet af en chunk?
 
 Leaflet
-```{r}
-library(leaflet)
-
-set.seed(123)
-
-punkter <- data.frame(
-  navn = paste("Punkt", 1:10),
-  lon = runif(10, 12.45, 12.65),
-  lat = runif(10, 55.62, 55.73),
-  værdi = sample(1:100, 10)
-)
-
-leaflet(punkter) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  addCircleMarkers(
-    lng = ~lon,
-    lat = ~lat,
-    radius = ~sqrt(værdi),
-    popup = ~paste0(
-      "<strong>", navn, "</strong><br>",
-      "Værdi: ", værdi
-    ),
-    label = ~navn,
-    stroke = TRUE,
-    fillOpacity = 0.7
-  )
-```
+<iframe
+  src="files/leaflet-eksempel.html"
+  title="Interaktivt Leaflet-kort"
+  width="100%"
+  height="550"
+  style="border: 1px solid #cccccc;"
+  loading="lazy">
+</iframe>
 
 
 ::: keypoints
