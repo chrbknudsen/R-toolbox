@@ -74,7 +74,9 @@ Make sure you have a `data` folder in your project folder, and then run this cod
 urls <- c("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B02_(Raw).tiff",
 "https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B03_(Raw).tiff",
 "https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B04_(Raw).tiff",
-"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff")
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/2026-05-25-00_00_2026-05-25-23_59_Sentinel-2_L2A_B08_(Raw).tiff",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/cph_neighborhoods_and_frederiksberg.gpkg",
+"https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/parks_cph_frederiksberg.gpkg")
 
 download.file(
   urls,
@@ -157,19 +159,124 @@ ggplot() +
 
 ### RGB composition
 
+Just like we could make an RGB-composite image using `plotRGB`, we can also make  them using `ggplot`:
+
+```{r}
+ggplot() +
+  geom_spatraster_rgb(data = sentinel, r = 3, g = 2, b = 1, stretch = "lin")
+```
+
+And now adding titles, captions etc works just like it normally does using `ggplot`
+
+:::: challenge
+Try to plot the common false color composite, where we place the NIR-band in the red channel, the red band in the green channel and the bu
+
+:::: hint
+
+You can remind yourself of the order of bands in our `sentinel` data running `names(sentinel)`
+
+::::
+
+
+:::: solution
+
+```{r composite_solution}
+#| eval = false
+ggplot() +
+  geom_spatraster_rgb(data = sentinel, r = 4, g = 3 , b = 2, stretch = "lin")
+```
+
+::::
+::::
 
 ## Vector data
 
+### Load data
+
+We are going to work with the neighbourhood and parks data for Copenhagen and Frederiksberg again:
+
+```{r read_vect_data}
+neighbourhoods <- vect("data/cph_neighborhoods_and_frederiksberg.gpkg")
+parks <- vect("data/parks_cph_frederiksberg.gpkg")
+```
+
+
 ### Choropleth map
 
+If we inspect the `neighbourhoods` data, we can observe that there is a `population` column in the `values` part of it:
+
+```{r inspecting_neighbourhoods}
+neighbourhoods
+```
+
+We can plot the neighbourhoods, and then colour the polygons, based on the value in `population`;
+
+```{r}
 ggplot() +
-  geom_spatvector(data = districts, aes(fill = area_km2), color = "white") +
+  geom_spatvector(data = neighbourhoods, aes(fill = population))
+```
+
+Note that we map the colour/fill argument to population just like we normally do when we use `ggplot`.
+
+And we can adjust the plot in the exact same way we would do with any other `ggplot`, and add a north-arrow and scale
+
+```{r choropleth}
+ggplot() +
+  geom_spatvector(data = neighbourhoods, aes(fill = population)) +
   scale_fill_gradient(low = "grey", high = "brown") +
-  labs(title = "Area of districts in Warsaw", fill = expression("Area [km"^2*"]")) +
+  labs(title = "Population of neighbourhoods in Copenhagen and Frederiksberg", fill = expression("Population")  annotation_north_arrow(location = "tl",
+                          pad_x = unit(1, "cm"),
+                          pad_y = unit(1, "cm"),
+                          style = north_arrow_orienteering(fill = c("white", "red"))) +
+    annotation_scale(
+    location = "bl", pad_x = unit(1, "cm"), pad_y = unit(1, "cm"),
+    line_col = "white", text_col = "white", text_cex = 1, bar_cols = c("red", "white")) +) +
   theme_minimal() +
   theme(
     plot.title = element_text(face = "bold", hjust = 0.5)
-  )
+  ) +
+      annotation_north_arrow(location = "tl",
+                          pad_x = unit(1, "cm"),
+                          pad_y = unit(1, "cm")) +
+    annotation_scale(
+    location = "bl", pad_x = unit(1, "cm"), pad_y = unit(1, "cm"), text_cex = 1) 
+```
+
+These kinds of maps are useful for visualizing quantities that vary amongst geographical areas. 
+The name `choropleth` originates with greek, khōros (χῶρος), meaning "area or region," and plêthos (πλῆθος), meaning "multitude or quantity".
+
+Here we have visualized the population. If we had the data, we could also visualize other quantities: Propotion of elderly people or frequency of certain diseases, to take just two examples.
+
+
+:::: challenge
+
+With the data we have available, and the techniques we have learned about earlier, try to plot the population density of the neighbourhoods.
+
+:::: hint
+
+Population density is defined as the number of people pr square kilometer (or any other measurement of area). We can find the area of each neighbourhood using the `expanse()` function.
+Start by calculating the area, and then divide the population with the area. We can use the `mutate()` just like normally.
+::::
+
+
+
+:::: solution
+
+```{r pop_dens_plot}
+#| eval = false
+pop_density <- neighbourhoods |> 
+  mutate(area = expanse(neighbourhoods, unit = "km")) |> 
+  mutate(pop_density = population/area)
+
+ggplot() +
+  geom_spatvector(data = pop_density, aes(fill = pop_density))
+
+```
+
+::::
+
+
+::::
 
 ### Combining layers
 
@@ -192,6 +299,11 @@ ggplot() +
   theme(
     plot.title = element_text(face = "bold", hjust = 0.5)
   )
+
+### Interactive maps
+
+Leaflet
+
 
 ::: keypoints
 - FIXME
