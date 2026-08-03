@@ -280,25 +280,65 @@ ggplot() +
 
 ### Combining layers
 
+If we have more than one layer we would like to plot, a `ggplot` method for that exists as well:
+
+```{r}
 ggplot() +
-  geom_spatvector(data = districts, fill = NA) +
-  geom_spatvector(data = parks, fill = "darkgreen", color = NA) +
-  labs(title = "Parks in Warsaw") +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5)
-  )
+  geom_spatvector(data = neighbourhoods) +
+  geom_spatvector(data = parks, fill = "green")
+```
+
+We can even add a layer containing raster data, but we will have to think about the order.
+
+:::: challenge
+
+Try to plot the nir-band from `sentinel`, and then the `neighbourhoods` data. 
+
+
+:::: Hint
+
+Consider playing with the `alpha` and `colour` arguments
+
+::::
+
+:::: solution
+
+One possible way is this.
+
+```{r}
+#| eval: false
+ggplot() +
+  geom_spatraster(data= sentinel, mapping = aes(fill = nir)) +
+  geom_spatvector(data = neighbourhoods, alpha = 0, colour= "white") 
+```
+::::
+
+If `alpha` is not set to 0, the second layer will make the first almost invisible. And the default `colour` for plotting the borders between the neighbourhoods is black and also almost invisible.
+
+::::
+
+
 
 ### Reprojecting
+
+Handling the mapping of data described as points on a globe to data described as points on a two-dimensional map, is not trivial, but we have access to functions that do it for us.
+
+That is called `reprojecting`. We have data projected in one system, but would like to have it in another.
+It is generally important to have all data in the same system, but another advantage is that we can project data described as coordinates in degrees, minutes and seconds into coordinates in km (relative to geodaetic points in the landscape definded by Danish Geodata Agency).
+
+```{r}
 ggplot() +
-  geom_spatvector(data = districts, fill = NA) +
+  geom_spatvector(data = neighbourhoods, fill = NA) +
   geom_spatvector(data = parks, fill = "darkgreen", color = NA) +
-  coord_sf(crs = "EPSG:2180", datum = "EPSG:2180") +
-  labs(title = "Parks in Warsaw") +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = "bold", hjust = 0.5)
-  )
+  coord_sf(
+    crs = "EPSG:25832",
+    datum = "EPSG:4258"
+)
+```
+
+
+Note that the choise of Coordinate Reference System depends on the location. For example it can be relevant to use EPSG::25833 if the data is covering Bornholm.
+
 
 ### Interactive maps
 
