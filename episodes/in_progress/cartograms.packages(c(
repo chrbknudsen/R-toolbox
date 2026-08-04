@@ -71,7 +71,7 @@ make_cartogram <- function(projection_name, crs, itermax = 50) {
   ggplot(cart) +
     geom_sf(
       aes(fill = co2_per_capita),
-      color = "grey35",
+      colour = "grey35",
       linewidth = 0.05
     ) +
     scale_fill_viridis_c(

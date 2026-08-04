@@ -108,7 +108,7 @@ their M&M bags. Do the observed proportions in a given bag match their claim?
 
 
 ```{r one_sample_chi_square_test}
-# Observed counts of M&M colors:
+# Observed counts of M&M colours:
 observed <- c(red = 20, blue = 25, green = 15, brown = 18, orange = 12, yellow = 10)
 
 # Manufacturer's claimed proportions.

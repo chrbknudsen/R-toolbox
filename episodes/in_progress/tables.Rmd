@@ -37,7 +37,7 @@ mtcars |>
     full_width = FALSE,
     position = "center"
   ) |> 
-  row_spec(0, bold = TRUE, background = "#2E3B4E", color = "white") |> 
+  row_spec(0, bold = TRUE, background = "#2E3B4E", colour = "white") |> 
   row_spec(1:6, background = c("#F5F5F5", "white"))
 ```
 But it is not very intuitive. 

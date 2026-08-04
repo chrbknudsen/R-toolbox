@@ -25,7 +25,7 @@ common format for manufacturers of scanners. Currently it is popular among photo
 formats like jpg and png. From the start it allowed for storing several images in one file, eg scans in different resolutions or multiple pages of a multi-page document. 
 
 What is relevant here, is the application of storing different images of the same object in the same file. It is a 
-popular format for storing satelite imagery, where each layer contains different exposures of the same geographical area. Layers can be split by color, where a layer containing the green channel of an rgb-image, can make it easier to
+popular format for storing satelite imagery, where each layer contains different exposures of the same geographical area. Layers can be split by colour, where a layer containing the green channel of an rgb-image, can make it easier to
 identify vegetation. 
 
 Layers can also contain different spectral channels, eg infrared in one channel and visible light in another.
@@ -91,8 +91,8 @@ collections of sattelite images from Landsat 8, of the village Poppendorf, locat
 
 The individual layers are images captured in different parts of the electromagnetic spectrum, both visible light and near infra red.
 
-Original Landsat images can be accessed from [USGS](https://www.usgs.gov/landsat-missions). Note that this example is colored with 
-false colors, and stacked into a single file. Most data from USGS are provided in individual images for each "band" of the spectrum.
+Original Landsat images can be accessed from [USGS](https://www.usgs.gov/landsat-missions). Note that this example is coloured with 
+false colours, and stacked into a single file. Most data from USGS are provided in individual images for each "band" of the spectrum.
 
 Please remember that not all TIFF-files have multiple layers. If you can only extract a single layer, it might be because there
 is only one layer in it.

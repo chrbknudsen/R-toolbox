@@ -291,10 +291,10 @@ possible to enter.
 
 This is par for the course when working with webscraped data. Some of the formatting
 might be important, like headers. Other only confuses the issue, like 
-coloring and different fonts. Automated procedures for removing it is recommended.
+colouring and different fonts. Automated procedures for removing it is recommended.
 
 More incidiuous are the use of formatting in spreadsheet. Spreadsheets using 
-formatting, including colors to indicate values in the data, is a difficult 
+formatting, including colours to indicate values in the data, is a difficult 
 problem to tackle, and should be avoided.
 
 ### Aggregations computed on missing values
