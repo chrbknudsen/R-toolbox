@@ -1,52 +1,52 @@
 ---
-title: "Colorblindness"
+title: "Colourblindness"
 teaching: 0
 exercises: 0
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- Which color should I chose in my visualisations to accomodate colorblind people?
-- Why should I accomodate colorblind people?
+- Which colour should I chose in my visualisations to accomodate colourblind people?
+- Why should I accomodate colourblind people?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Gain an understanding of the pros and cons of chosing colorblind-friendly colors
+- Gain an understanding of the pros and cons of chosing colourblind-friendly colours
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-Not everyone experiences colors in the same way. Stereotypical memes about women seeing six different colors where
-men only see one (violet) not withstanding, the way colors are experienced depends on culture, context, the
+Not everyone experiences colours in the same way. Stereotypical memes about women seeing six different colours where
+men only see one (violet) not withstanding, the way colours are experienced depends on culture, context, the
 quality of the screen we are viewing them on, the specific type of printer we print them on, the lighting. And biology.
 
-Up to about 8% of men, and 0.5% of women have some sort of color blindness. Depending on genetic descent these 
-numbers varies, and to complicate matters further, different types of colorblindness exists. A selection is 
+Up to about 8% of men, and 0.5% of women have some sort of colour blindness. Depending on genetic descent these 
+numbers varies, and to complicate matters further, different types of colourblindness exists. A selection is 
 shown below:
 
-* Tritanomaly: Blue-yellow colorblindness. Affects < 0.01%, both men and women.
-* Deutoanomaly: Red-green colorblindness. Affects ~6% of all men.
-* Protanomaly: Red-green colorblindness. Affects ~2% of all men.
-* Desaturated attempts to simulate complete colorblindness (akromatopsi). This affects ~0.003% 
+* Tritanomaly: Blue-yellow colourblindness. Affects < 0.01%, both men and women.
+* Deutoanomaly: Red-green colourblindness. Affects ~6% of all men.
+* Protanomaly: Red-green colourblindness. Affects ~2% of all men.
+* Desaturated attempts to simulate complete colourblindness (akromatopsi). This affects ~0.003% 
 
 
 
-### Do we need to take colorblindness into account?
+### Do we need to take colourblindness into account?
 
 Yes. And no.
 
 There are things that are almost impossible to visualise in palettes that 
-accomodate the different kinds of color blindness. And are completely 
+accomodate the different kinds of colour blindness. And are completely 
 impossible if they have to accomodate _all_ the different kinds.
 
 Some plots have a primary purpose of being spectacular and visually stunning.
-That can also be extremely difficult if we limit the colors we have to work with.
+That can also be extremely difficult if we limit the colours we have to work with.
 
 But. If the purpose of the plot is to convey information about data, rather than
-being art, it is a good idea to take colorblindness into consideration. 
-Not only to help color blind people, but also because it makes it easier for people
-with normal color vision to spot differences and understand our visusalisations. 
+being art, it is a good idea to take colourblindness into consideration. 
+Not only to help colour blind people, but also because it makes it easier for people
+with normal colour vision to spot differences and understand our visusalisations. 
 
 
 
