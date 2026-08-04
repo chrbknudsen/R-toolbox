@@ -76,7 +76,8 @@ It needs a so called confusion matrix. Let us begin by constructing one.
 
 First we read in the dataset:
 
-```{r message = FALSE}
+```{r read_data}
+#| message: false
 library(tidyverse)
 diagnoses <- read_csv("https://raw.githubusercontent.com/KUBDatalab/R-toolbox/main/episodes/data/diagnoses.csv")
 ```
@@ -90,7 +91,7 @@ Other (oth). To what degree do they agree?
 head(diagnoses)
 ```
 
-```{r}
+```{r confusion_table}
 conf_table <- table(diagnoses)
 conf_table
 ```
@@ -102,7 +103,7 @@ rater1.
 
 This is the table we need to provide to the `Kappa()` function:
 
-```{r}
+```{r calc_kappa}
 library(vcd)
 res.k <- Kappa(conf_table)
 res.k
@@ -149,7 +150,8 @@ is obviously more important than classifying dog breeds.
 [Fleiss et al (2003)](https://onlinelibrary.wiley.com/doi/book/10.1002/0471445428), 
 argues that the rules-of-thumb in this table are good indications:
 
-```{r valuevurdering, echo = F}
+```{r valuevurdering}
+#| echo: false
 tribble(~`Value of K`, ~`Level of agreement`,
         ">0.75", "Excellent agreement beyond chance",
         "0.4> value < 0.75", "Fair to good agreement beyond chance",
@@ -161,7 +163,8 @@ tribble(~`Value of K`, ~`Level of agreement`,
 Whereas [McHugh (2012)](https://doi.org/10.11613/BM.2012.031) presents this
 table:
 
-```{r McHugh_vurdering, echo =F}
+```{r McHugh_vurdering}
+#| echo: false
 tribble(~`Value of K`, ~`Level of agreement`, ~`% of data that are reliable`,
         "0 - 0.20", "None", "0 - 4%",
         "0.21 - 0.39", "Minimal", "4 - 15%",
@@ -216,7 +219,7 @@ If $\kappa$ is different from 0, the agreement is not random.
 If we are looking at two raters, in this example doctors, determining if
 a patient is sick, a simple yes/no question in this case we will get these results:
 
-```{r}
+```{r data_example}
 ##        Doctor2
 ## Doctor1 Yes No Total
 ##   Yes   a   b  R1   
