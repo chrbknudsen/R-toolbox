@@ -6,14 +6,19 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do I make a new course-page based on this??
+- How can a new course site be created from the R-toolbox template?
+- Which configuration, episode, dependency, and citation files must be changed?
+- How can the course be built, published, updated, and released?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to make a new lesson based on this template
-- Provide a checklist for doing so
+- Create a new repository from the template.
+- Configure the title, source, episode order, and other project metadata.
+- Remove unused episodes and dependencies.
+- Build and check the lesson before enabling GitHub Pages.
+- Update citation metadata and create a documented release.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -179,9 +184,11 @@ Commit etc.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- It is fairly easy to make a new course page
-- Have patience!
-
+- A repository created from the template is an independent copy and does not receive later changes automatically.
+- Episode order and visibility are controlled through config.yaml.
+- Unused episode files can still increase dependency installation and build time.
+- The lesson should be built and checked before publication.
+- Releases, citations, and DOIs must refer to the new course rather than to the original template.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
