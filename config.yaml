@@ -94,6 +94,7 @@ episodes:
 - gis_raster-data.Rmd
 - gis_vector-data.Rmd
 - gis_visualization.Rmd
+- spatial_interactive_maps.Rmd
 - git-00-setup.Rmd
 - git-01-git-intro.Rmd
 - git-09-practice.Rmd

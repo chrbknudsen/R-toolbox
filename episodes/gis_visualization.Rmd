@@ -313,10 +313,10 @@ ggplot() +
   geom_spatraster(data= sentinel, mapping = aes(fill = nir)) +
   geom_spatvector(data = neighbourhoods, alpha = 0, colour= "white") 
 ```
-::::
+
 
 If `alpha` is not set to 0, the second layer will make the first almost invisible. And the default `colour` for plotting the borders between the neighbourhoods is black and also almost invisible.
-
+::::
 ::::
 
 
@@ -340,64 +340,6 @@ ggplot() +
 
 
 Note that the choise of Coordinate Reference System depends on the location. For example it can be relevant to use EPSG::25833 if the data is covering Bornholm.
-
-
-### Interactive maps
-source("scripts/make-leaflet-map.R")
-
-Kan vi smide det ind her?
-
-Kan vi skrive indholdet af en chunk?
-
-Leaflet
-<iframe
-  src="files/leaflet-eksempel.html"
-  title="Interaktivt Leaflet-kort"
-  width="100%"
-  height="550"
-  style="border: 1px solid #cccccc;"
-  loading="lazy">
-</iframe>
-
-
-```{r leaflet-kort, echo=TRUE, results='asis'}
-library(leaflet)
-library(htmlwidgets)
-
-set.seed(123)
-
-punkter <- data.frame(
-  navn = paste("Punkt", 1:10),
-  lon = runif(10, 12.45, 12.65),
-  lat = runif(10, 55.62, 55.73)
-)
-
-kort <- leaflet(punkter) |>
-  addProviderTiles(providers$CartoDB.Positron) |>
-  addCircleMarkers(
-    lng = ~lon,
-    lat = ~lat,
-    label = ~navn,
-    radius = 6
-  )
-
-htmlwidgets::saveWidget(
-  widget = kort,
-  file = "files/leaflet-eksempel.html",
-  selfcontained = TRUE,
-  title = "Leaflet-eksempel"
-)
-
-cat('
-<iframe
-  src="files/leaflet-eksempel.html"
-  title="Interaktivt Leaflet-kort"
-  width="100%"
-  height="550"
-  style="border: 1px solid #cccccc;">
-</iframe>
-')
-```
 
 ::: keypoints
 - FIXME
