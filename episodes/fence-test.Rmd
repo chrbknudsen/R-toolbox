@@ -158,7 +158,7 @@ Kan pt installeres fra. Men fungerer ikke her af årsager. Når pakken er tilgæ
 
 
 
-```{r}
+```{r load_library}
 library(tidyverse)
 ```
 
