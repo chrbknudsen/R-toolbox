@@ -6,14 +6,17 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do I ensure that my results can be reproduced?
+- What makes a data analysis reproducible?
+- How can code, documentation, and results be kept together?
+- How can hidden dependencies in an analysis be detected?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown
-- Demonstrate how to include pieces of code
+- Identify common threats to reproducibility in an R workflow.
+- Create an R Markdown document containing text, executable code, and output.
+- Test whether an analysis can be executed in a clean R session.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -178,7 +181,9 @@ and add `library(tidyverse)`.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use RMarkdown to enforce reproducible analysis
+- A reproducible analysis records data, code, software dependencies, and analytical decisions.
+- Rendering an R Markdown document executes the code in a defined order.
+- Analyses should not depend on objects saved in the workspace.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
