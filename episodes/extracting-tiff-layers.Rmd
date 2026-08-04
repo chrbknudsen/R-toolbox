@@ -40,7 +40,7 @@ One library for Python supporting this is [Pillow](https://pypi.org/project/pill
 
 In R we use the library `raster`: 
 
-```{r}
+```{r load_library}
 library(raster)
 ```
 
@@ -51,20 +51,20 @@ Here is an example of a layered tif:
 
 We use the `stack` function to read the file:
 
-```{r}
+```{r read_data}
 tif <- stack("episodes/fig/poppendorf_5_band.tif")
 ```
 
 
 This specific file contains 5 layers:
 
-```{r}
+```{r show_n_layers}
 raster::nlayers(tif)
 ```
 
 Each layer have name:
 
-```{r}
+```{r show_names}
 names(tif)
 ```
 
@@ -73,13 +73,14 @@ In some tiff-files they do not have names, but numbers.
 
 We can plot the layers individually:
 
-```{r}
+```{r plot_a_layer}
 plot(tif$poppendorf_5_band_1)
 ```
 
 And we can save the individual layers in separate files:
 
-```{r eval = FALSE}
+```{r save_layer}
+#| eval: false
 writeRaster(tif$poppendorf_5_band_1, "filename.tif")
 ```
 
