@@ -22,12 +22,14 @@ exercises: 2
 # TL;DR
 
 Formatter data på denne måde:
-```{r, eval = T}
+```{r show data}
+#| eval: true
 data
 ```
 
 Testen kan/skal kun bruge tal, så vi skiller os af med den første kolonne. Dernæst:
-```{r, eval = T}
+```{r run_test}
+#| eval: true
 chisq.test(data_1)
 ```
 
@@ -85,7 +87,8 @@ I stedet for at tælle, hiver vi data ud af KUBDatalabs egen R-pakke. De data
 er igen baseret på data trukket fra wikidata.
 
 Først installerer vi den fra Github:
-```{r eval = F}
+```{r install_data}
+#| eval: false
 devtools::install_github("KUBDatalab/KUBDatalab")
 
 library(KUBDatalab)
@@ -93,7 +96,8 @@ library(KUBDatalab)
 
 Og så har vi data:
 
-```{r, eval = F}
+```{r load_data}
+#| eval: false
 data <- KUBDatalab::hp_characters
 ```
 
@@ -101,9 +105,11 @@ data <- KUBDatalab::hp_characters
 
 Det giver os disse tælletal:
 
-```{r, eval = F}
+```{r count_data}
+#| eval: false
 data |> kable()
 ```
+
 Det er de faktuelle optællinger. Vi vil nu gerne vide om der er forskel på 
 kønsfordelingen i de fire huse. Ikke om der er forskel på hvor mange hunner 
 og hanner der er i Gryffindor. Men om den forskel er forskellig fra forskellen 
@@ -115,7 +121,8 @@ hvis der ikke er forskel.
 
 Når vi skal finde de forventede tælletal, starter vi med række og kolonne totaler:
 
-```{r, eval = F}
+```{r manipulate_data}
+eval: false
 data |> 
   mutate(række_total = female + male) |> 
   add_row(hus = "kolonne_total", female = 14+5+6+11, male = 20+11+9+14, række_total= 34+16+15+25)
@@ -140,7 +147,9 @@ skal 40% af vores 34 gryffindors være af hunkøn:
 Den beregning laver vi for alle cellerne i vores datasæt, og får:
 
 
-```{r echo=F, eval = F}
+```{r run_test_real_data}
+#| echo: false
+#| eval: false
 chisq.test(data_1)$expected |>  as_tibble() |> 
   mutate(hus = c("slytherin", "gryffindor", "hufflepuff", "ravenclaw"), .before = female) |> 
   kable()
@@ -163,12 +172,15 @@ $$(14-13.6)^2/13.6 = 0.01176471$$
 
 Det gør vi så for alle kombinationerne, og lægger tallene sammen.
 
-```{r echo=F, eval = F}
+```{r show_residuals}
+#| echo: false
+#| eval: false
 chisq.test(data_1)$residuals^2
 ```
 
 Lægger vi alle de tal sammen, får vi:
-```{r, eval = F}
+```{r add_square_residuals}
+#| eval: false
 sum(chisq.test(data_1)$residuals^2)
 ```
 
@@ -215,7 +227,8 @@ tre frihedsgrader.
 Chi-i-anden værdien for alpha = 0.05, og tre frihedsgrader (df) er 7.815
 
 Hvordan finder vi den? Det gør vi på denne måde:
-```{r, eval = F}
+```{r calc_test_value}
+#| eval: false
 qchisq(p=0.05, df=3, lower.tail = F)
 ```
 
@@ -233,7 +246,8 @@ at de er uafhængige, så konkluderer vi i almindelighed, at de er uafhængige.
 
 Alt det her gør vi i praksis ikke. Det vi gør er at kaste vores data ind i 
 den rigtige funktion:
-```{r, eval = F}
+```{r run_second_test}
+#| eval: false
 chisq.test(data_1)
 ```
 Det giver os vores test-værdi. Men den kigger vi heller ikke på.
@@ -247,7 +261,8 @@ Summa-summarum, 0.874 er større end 0.05, der er ikke en forskel.
 # Hvad får vi ellers:
 
 Det vi umiddelbart får er
-```{r, eval = T}
+```{r immediate_result}
+#| eval: true
 test <- chisq.test(data_1)
 
 test
@@ -256,40 +271,48 @@ test
 Men resultatet indeholder en del anden interessant:
 
 
-```{r, eval = F}
+```{r show_residuals_2}
+#| eval: false
 test$residuals
 ```
+
 Hvis vi kvadrerer dem, så er det de værdier vi selv fandt ovenfor.
 
 Test-værdien kan trækkes ud på denne måde:
 
 
-```{r, eval = F}
+```{r show_test_value}
+#| eval: false
 test$statistic
 ```
 
 
 Hvis vi ønsker at se de forventede værdier:
-```{r, eval = T}
+```{r show_expected_values}
+#| eval: true
 test$expected
 ```
 
 Og skulle vi have glemt hvilke tal vi puttede ind i funktionen:
-```{r, eval = T}
+```{r show_observed}
+#| eval: true
 test$observed
 ```
 Skal vi bruge den beregnede p-værdi, så er den der også:
-```{r, eval = T}
+```{r show_p_value}
+#| eval: true
 test$p.value
 ```
 
 Tilsvarende med antallet af frihedsgrader:
-```{r, eval = T}
+```{r show_df}
+#| eval: true
 test$parameter
 ```
 
 Har vi glemt hvad det var for en test vi lavede ligger den her:
-```{r, eval = T}
+```{r show_method}
+#| eval: true
 test$method
 ```
 
