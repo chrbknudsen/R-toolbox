@@ -125,7 +125,7 @@ together will be able to discriminate between them.
 wine |> 
   pivot_longer(cols = X2:X14) |> 
   mutate(X1 = factor(X1)) |> 
-  ggplot(aes(x=value, color = X1, group = X1)) +
+  ggplot(aes(x=value, colour = X1, group = X1)) +
   geom_density() +
   facet_wrap(~name, scales = "free")
 ```
@@ -156,7 +156,7 @@ pca_wine <- prcomp(wine_to_pca, scale. = TRUE)
 ```
 
 The new coordinates of the data is stored in the `pca_wine` object, more 
-precisely in `pca_wine$x`. We can plot that, and color the points using
+precisely in `pca_wine$x`. We can plot that, and colour the points using
 the correct results we extracted earlier:
 
 
@@ -457,7 +457,7 @@ plot_ly(data = first3,
         z = ~PC3,
         type = "scatter3d",
         mode = "markers",
-        color = ~cultivar) 
+        colour = ~cultivar) 
 
 ```
 

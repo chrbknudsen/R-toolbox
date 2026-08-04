@@ -217,7 +217,7 @@ plot(sentinel[["blue"]])
 
 ## Very dark plots
 
-The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the blue band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a color scale going from 0 to 1, half of the observations will get the darkest color. About 2/3 of the rest will get the second darkest color, and the higher value observations drown in a sea of blue.
+The plots are almost monochromatic. This is to be expected if we look at the histogram of values from the blue band. Almost all observations are in the very low end. 50% of all observations are belov 0.05. When we plot using a colour scale going from 0 to 1, half of the observations will get the darkest colour. About 2/3 of the rest will get the second darkest colour, and the higher value observations drown in a sea of blue.
 
 One way of handling this can be to adjust the scale.
 
@@ -228,7 +228,7 @@ plot(
 )
 ```
 
-The range specifies, that the color scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same color, as will values higher than 0.17. This results in a larger difference in colors for the values in between, making it much easier to see structure in the data.
+The range specifies, that the colour scale should have a minimum at 0.02 reflectance, and a maximum at 0.17. Values lower than 0.02 will all get the same colour, as will values higher than 0.17. This results in a larger difference in colours for the values in between, making it much easier to see structure in the data.
 
 The range is chosen to approximately exclude the 2% lowest and 2% highest values.
 
@@ -238,11 +238,11 @@ sentinel[["blue"]] |> values(mat = FALSE) |> quantile(probs = c(0.02, 0.98))
 
 
 
-## "True" color images 
+## "True" colour images 
 
 We can definitely identify Copenhagen from the plots made so far. But they do not look like an aerial or satelite photo of Copenhagen would. 
 
-Well, it does, but we are only observing Copenhagen in one color. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
+Well, it does, but we are only observing Copenhagen in one colour. We have values for red, green and blue, and if we plot them together, we will get something that looks more like Copenhagen.
 
 The `terra` package have a function specifically for that. We specify which bands contains values for reflectance in the red part of the spectrum, green and blue,
 and it make a "composite" plot, where the red band is shown as red, green as green and blue as blue:

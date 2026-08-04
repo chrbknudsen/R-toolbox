@@ -169,7 +169,7 @@ ggplot() +
 And now adding titles, captions etc works just like it normally does using `ggplot`
 
 :::: challenge
-Try to plot the common false color composite, where we place the NIR-band in the red channel, the red band in the green channel and the bu
+Try to plot the common false colour composite, where we place the NIR-band in the red channel, the red band in the green channel and the bu
 
 :::: hint
 
@@ -331,7 +331,7 @@ It is generally important to have all data in the same system, but another advan
 ```{r}
 ggplot() +
   geom_spatvector(data = neighbourhoods, fill = NA) +
-  geom_spatvector(data = parks, fill = "darkgreen", color = NA) +
+  geom_spatvector(data = parks, fill = "darkgreen", colour = NA) +
   coord_sf(
     crs = "EPSG:25832",
     datum = "EPSG:4258"

@@ -72,29 +72,29 @@ cvd_grid()
 
 Det en person med normalt farvesyn får her, er et estimat af hvordan et plot vil se ud ved forskellige typer af farveblindhed. Og det er nok blot et estimat, men bedre end ingenting.
 
-Different types of colorblindness exists, and the package give us four different plots,
-one for each type of colorblindness_
+Different types of colourblindness exists, and the package give us four different plots,
+one for each type of colourblindness_
 
-* Tritanomaly: Blue-yellow colorblindness. Affects < 0.01%, both men and women.
-* Deutoanomaly: Red-green colorblindness. Affects ~6% of all men.
-* protanomaly: Red-green colorblindness. Affects ~2% of all men.
-* Desaturated attempts to simulate complete colorblindness (akromatopsi). This affects ~0.003% 
+* Tritanomaly: Blue-yellow colourblindness. Affects < 0.01%, both men and women.
+* Deutoanomaly: Red-green colourblindness. Affects ~6% of all men.
+* protanomaly: Red-green colourblindness. Affects ~2% of all men.
+* Desaturated attempts to simulate complete colourblindness (akromatopsi). This affects ~0.003% 
 
-### Do we need to take colorblindness into account?
+### Do we need to take colourblindness into account?
 
 Yes. And no.
 
 There are things that are almost impossible to visualise in palettes that 
-accomodate the different kinds of color blindness. And are completely 
+accomodate the different kinds of colour blindness. And are completely 
 impossible if they have to accomodate _all_ the different kinds.
 
 Some plots have a primary purpose of being spectacular and visually stunning.
-That can also be extremely difficult if we limit the colors we have to work with.
+That can also be extremely difficult if we limit the colours we have to work with.
 
 But. If the purpose of the plot is to convey information about data, rather than
-being art, it is a good idea to take colorblindness into consideration. Not only
-to help color blind people, but also because the choice we make to do that, also makes
-it easier for people with normal color vision, to spot the differences and trends we
+being art, it is a good idea to take colourblindness into consideration. Not only
+to help colour blind people, but also because the choice we make to do that, also makes
+it easier for people with normal colour vision, to spot the differences and trends we
 want to illustrate. 
 
 ## Hvordan bruger vi så en palette i et plot?
