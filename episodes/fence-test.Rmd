@@ -6,13 +6,19 @@ exercises: 2
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- Hvilke fences har vi til rådighed i det her setup?
+- Hvilke fences understøtter vores Workbench-opsætning?
+- Hvordan indlejres challenges, hints og solutions korrekt?
+- Hvilken fence passer til hvilken undervisningsfunktion?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Lever en oversigt over fences vi kan bruge i undervisningsmaterialet.
+- Oprette og afslutte en fence med korrekt syntaks.
+- Vælge en fence ud fra indholdets undervisningsmæssige funktion.
+- Indlejre hint og solution korrekt i en challenge.
+- Oprette synkroniserede faner med group-tab.
+- Kontrollere resultatet ved at bygge lektionen lokalt.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -162,7 +168,11 @@ Der er ikke en direkte måde at justere bredde af tabeller. Men antallet af "-" 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Brug fences til at fremhæve eller skjule indhold på siderne.
+- Fences giver indholdet semantisk struktur og ikke kun en bestemt farve.
+- Indlejrede fences skal lukkes i omvendt rækkefølge af den, de blev åbnet i.
+- solution og hint hører normalt til en konkret challenge.
+- Instructor-noter kan vises for undervisere uden at fylde i kursistvisningen.
+- Komponenter, som Workbench ikke officielt understøtter, bør testes før de bruges i kursusmateriale.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
