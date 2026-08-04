@@ -30,7 +30,7 @@ at least one package exists that is designed to read a specific weird
 data format.
 :::
 
-![](fig/manyfiles.webp)
+![](fig/manyfiles.webp){alt="Illustration of files stored in many different formats"}
 
 ## Use code!
 
@@ -39,7 +39,7 @@ the file in the "Files" tab in RStudio, and choose "Import Dataset":
 
 RStudio will then provide an interface for loading the data:
 
-![](fig/import_wizzard_gif.gif)
+![](fig/import_wizzard_gif.gif){alt="Animation showing how to import a dataset through RStudio"}
 
 However in general we prefer to have a script or a document, that can be
 run without us pointing and clicking. So - instead of importing the data
@@ -127,7 +127,8 @@ The package `haven` supports reading SPSS (Stata and SAS) files
 
 Use the package to read in spss files:
 
-```{r spss-files, eval = F}
+```{r spss-files}
+#| eval: false
 library(haven)
 read_spss("filename")
 ```
@@ -147,7 +148,8 @@ economics.
 As mentioned above, the `haven` package provides functions for reading
 Stata files:
 
-```{r stata-files, eval = F}
+```{r stata-files}
+#| eval: false
 library(haven)
 read_stata("filename")
 ```
@@ -164,11 +166,12 @@ formats.
 SAS is a proprietary statistical software suite developed by SAS
 Institute.
 
-![](fig/SasScreenshot.png)
+![](fig/SasScreenshot.png){  alt="Screenshot of the SAS statistical software interface"}
 
 The package `haven` can read SAS-files:
 
-```{r sas-files, eval = F}
+```{r sas-files}
+#| eval: false
 library(haven)
 read_sas("filename")
 ```
@@ -206,7 +209,8 @@ row (etc), are called nested, and are often stored or distributed in the
 JSON-format.
 
 JSON can be read using `fromJSON()` from the `jsonlite` library.
-```{r json-files, eval= FALSE}
+```{r json-files}
+#| eval: false
 library(jsonlite)
 fromJSON("filename")
 ```
