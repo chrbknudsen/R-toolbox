@@ -12,7 +12,8 @@ exercises: 2
 -   Explain what tidy data is
 :::
 
-```{r setup, include = FALSE}
+```{r setup}
+#| include: false
 library(tidyr)
 library(dplyr)
 ```
@@ -25,14 +26,14 @@ structured in the right way.
 
 Working within the paradigm of `tidyverse` it is preferable if the data is *tidy*.
 
-![](fig/tidy_why.jpg){alt=''}
+![Artwork by Allison Horst](fig/tidy_why.jpg){alt=''}
 
 
 Tidy data is not the opposite of messy data. Data can be nice and well 
 structured, tidy as in non-messy, without being tidy in the way we understand 
 it in this context.
 
-![](fig/tidy_hadley_2.jpg){alt=''}
+![Artwork by Allison Horst](fig/tidy_hadley_2.jpg){alt=''}
 
 
 Tidy data in the world of R, especially the dialect of R we call tidyverse, 
@@ -42,7 +43,7 @@ are characterized by:
 -   Each observation is a row; each row is an observation.
 -   Each value is a cell; each cell is a single value.
 
-![](fig/tidy_hadley.jpg){alt=''}
+![Artwork by Allison Horst](fig/tidy_hadley.jpg){alt=''}
 
 This way of structuring our data is useful not only in R, but also in other 
 software packages. 
