@@ -49,7 +49,7 @@ paste("This", "new", "lesson", "looks", "good")
 
 :::::::::::::::::::::::::::::::::
 
-```{r}
+```{r load_library}
 library(tidyverse)
 # download.file("https://raw.githubusercontent.com/KUBDatalab/R-PUFF/main/data/FEV.csv", "data/fev.csv", mode = "wb")
 ```
@@ -59,7 +59,8 @@ Ingen har givet os data. Så her er noget data på lungevolumen hos børn/unge
 i alderen 3-19, både rygere og ikke rygere, og af begge køn. Højden 
 har vi også. Højde er i tommer. Volumen tror vi nok er i liter.
 
-```{r eval = F}
+```{r load_data}
+#| eval: false
 fev <- read_csv("data/fev.csv")
 summary(fev)
 
@@ -69,7 +70,8 @@ summary(fev)
 
 Vi ved ikke helt hvad en "scatterplot analysis" er. Men her er et scatterplot:
 
-```{r eval = F}
+```{r scatterplot}
+#| eval: false
 fev |> ggplot(aes(x=Hgt, y = FEV)) +
   geom_point() 
 ```
@@ -78,7 +80,8 @@ Det får os til at tro at der måske er en lineær sammenhæng mellem højde og 
 ## En ret linie
 
 ggplot kan lave det direkte. Men husk at sætte "method" i geom_smooth:
-```{r eval = F}
+```{r regression_line}
+#| eval: false
 fev |> ggplot(aes(x=Hgt, y = FEV)) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -99,7 +102,8 @@ R can find slope and intercept for us:
 
 
 
-```{r eval = F}
+```{r linear_model}
+#| eval: false
 model <- lm(FEV ~ Hgt, data = fev)
 model
 ```
@@ -109,7 +113,8 @@ Read the formula as: FEV is a function of Hgt. Hgt is the independent variabel. 
 
 What else:
 
-```{r eval = F}
+```{r summary_model}
+#| eval: false
 summary(model)
 ```
 Here we get the p-values of the estimates of intercept and slope, handily coded with *** to indicate different levels of significance $\alpha$.
@@ -119,7 +124,8 @@ We also get a $R^2$ value describing the propotion of the variability of the dat
 
 In general it is a good idea to take a look at the residuals:
 
-```{r eval = F}
+```{r hist_residuals}
+#| eval: false
 hist(model$residuals)
 ```
 The residuals should be normal distributed (one of the assumptions of the
@@ -127,7 +133,8 @@ linear regression, but we assume that has been covered in the textbook).
 
 Also take a look at the actual residuals, comparing the predicted values
 with the residuals:
-```{r eval = F}
+```{r plot_fitted_model}
+#| eval: false
 
 plot(fitted(model), model$residuals)
 
@@ -140,7 +147,8 @@ Maybe that dispersion at the end is due to Sex?
 We can make the previous plot, just coloured by Sex (Sex is recorded as
 0's and 1's). We need to coeerce Sex to a categorical variable using `factor()`:
 
-```{r eval = F}
+```{r new_scatter_plot}
+#| eval: false
 fev |> ggplot(aes(x=Hgt, y = FEV, colour = factor(Sex))) +
   geom_point() +
   geom_smooth(method = "lm")
@@ -150,7 +158,8 @@ The dispersion is probably not related to Sex. We almost only have boys/men with
 ## might it be age - multiple regression!
 
 Maybe FEV is dependent on both Height **and** Age?
-```{r eval = F}
+```{r mult_reg}
+#| eval: false
 
 
 model2 <- lm(FEV ~Age + Hgt , data = fev)
@@ -164,14 +173,16 @@ $$FEV = \beta_2Age + \beta_1Hgt + \beta_0$$
 What if we only look at the girls/women?
 
 
-```{r eval = F}
+```{r mult_summary}
+#| eval: false
 lm(FEV ~Age + Hgt , data = fev |> filter(Sex == 0)) |> summary()
 ```
 Adjusted $R^2$ is worse!
 
 
 and for the men/boys?
-```{r eval = F}
+```{r only_male}
+#| eval: false
 lm(FEV ~Age + Hgt , data = fev |> filter(Sex == 1)) |> summary()
 ```
 
@@ -184,7 +195,8 @@ explain it...
 
 It might be easier after looking at the result
 
-```{r eval = F}
+```{r result_of_model}
+#| eval: false
 
 lm(FEV ~ Age:factor(Sex) + Hgt:factor(Sex) + Age*Hgt, data = fev)  
 
@@ -207,7 +219,8 @@ Does the final bit make sense? Physiologically? No idea.
 
 Looking closer at the model result:
 
-```{r eval = F}
+```{r summary_model_2}
+#| eval: false
 lm(FEV ~ Age:factor(Sex) + Hgt:factor(Sex) + Age*Hgt, data = fev)  |> summary()
 ```
 The model is now so complicated that we see elements that are not significant.
@@ -219,20 +232,23 @@ Maybe the model is too complicated.
 
 ## correlation matrix
 Pairwise correlations between the variables:
-```{r eval = F}
+```{r corr_matrix}
+#| eval: false
 cor(fev)
 ```
 
 The diagonal is very uninteresting.
 
 We can get the pairwise $R^2$ directly:
-```{r eval = F}
+```{r Rianden}
+#| eval: false
 cor(fev)^2
 ```
 
 We can visualise it:
 
-```{r eval = F}
+```{r corrplot}
+#| eval: false
 library(corrplot)
 
 corrplot(cor(fev), bg = "black")
@@ -241,7 +257,8 @@ We may need to play around with background colour to even be able to see the
 small values.
 
 We think this function gives a nicer plot:
-```{r eval = F}
+```{r ggally_load}
+#| eval: false
 library(GGally)
 ggpairs(fev, progress = F)
 ```
@@ -251,7 +268,8 @@ ggpairs(fev, progress = F)
 
 We have already seen a non-linear model!
 
-```{r eval = F}
+```{r non_linear}
+#| eval: false
 lm(FEV ~ Age:factor(Sex) + Hgt:factor(Sex) + Age*Hgt, data = fev)
 ```
 We multiply Age and Hgt. That is not linear!
@@ -259,33 +277,39 @@ We multiply Age and Hgt. That is not linear!
 lm can still be used. A non-linear model is simply a linear model with non-linear
 dependent variables.
 
-```{r eval = F}
+```{r non_lin_2}
+#| eval: false
 lm(FEV ~ Age + Hgt + Sex, data = fev)
 ```
 
 If we want the polynomial expansion for fx Hgt (automagically):
-```{r eval = F}
+```{r polynomial_expansion}
+#| eval: false
 lm(FEV ~ poly(Hgt, 2, raw=TRUE), data=fev) |> summary()
 
 ```
 Or, if we want to control it more directly:
-```{r eval = F}
+```{r Iformorecontrol}
+#| eval: false
 lm(FEV ~ Hgt + I(Hgt^2), data = fev)
 ```
 We need to encapsulate the quadratic expression in `I()` - otherwise R will
 try to interpret stuff before lm can do its math.
 
-```{r eval = F}
+```{r read_bin_data}
+#| eval: false
 mydata <- read.csv("https://stats.idre.ucla.edu/stat/data/binary.csv")
 
 ```
 
-```{r eval = F}
+```{r factor_rank}
+#| eval: false
 mydata$rank <- factor(mydata$rank)
 view(mydata)
 ```
 
-```{r eval = F}
+```{r glm_model}
+#| eval: false
 myprobit <- glm(admit ~ gre + gpa + rank, family = binomial(link = "probit"), 
     data = mydata)
 
@@ -293,10 +317,12 @@ mylogit <- glm(admit ~ gre + gpa + rank, family = binomial(link = "logit"),
     data = mydata)
 ```
 
-```{r eval = F}
+```{r glm_model_summary}
+#| eval: false
 myprobit |> summary()
 ```
-```{r eval = F}
+```{r glm_model_output}
+#| eval: false
 mylogit
 ```
 
