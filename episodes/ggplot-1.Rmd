@@ -41,6 +41,14 @@ p_1 <- p_2 + expand_limits(x = c(0,10010), y = c(0,10010))
 p_1 + p_2
 ```
 
+::::spoiler
+## Show the code
+
+```{r origin_00_not_always_good_code, ref.label='origin_00_not_always_good', eval=FALSE}
+```
+
+::::
+
 These two scatterplots show the exact same data, the first have an origin of the coordinate system in (0,0). The other zoom in on the data.
 
 Controlling the scales - to make sure that certain values are included, can be done in several ways.
