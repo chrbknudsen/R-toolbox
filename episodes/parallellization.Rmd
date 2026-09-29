@@ -74,7 +74,7 @@ Sometimes, we are able to use virtual machines with far more cores than we have 
 :::: instructor
 To do: hyperlink to the UCloud page:
 
-One HPC that students and employees at Danish universities have access to is UCloud. Here we get access to a _lot_ of cores. Read our guide to R on UCloud [here](link).
+One HPC that students and employees at Danish universities have access to is UCloud. Here we get access to a _lot_ of cores. Read our guide to [R on UCloud here](ucloud.Rmd).
 ::::
 
 In order for the big computer to split itself among different users or different tasks, every user or task gets allocated its own chunk of the big computer in the form of a virtual machine. When you spin up a virtual machine, you ask for a number of cores (and an amount of RAM) from the big computer to be set aside and made available to you, as if you got your own mini-machine inside the big machine.

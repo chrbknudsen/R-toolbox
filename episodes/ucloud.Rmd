@@ -27,17 +27,17 @@ password.
 
 Depending on the user allowances, it will look something like this.
 
-![](fig/ucloud_front.png)
+![](fig/ucloud_front.png){alt='Ucloud front'}
 
 UCloud provides access to a multitude of different applications organized in the
 application store:
 
-![](fig/ucloud_store.png)
+![](fig/ucloud_store.png){alt='ucloud store'}
 
 Amongst the more popular picks from the store is RStudio:
 
 
-![](fig/ucloud_picks.png)
+![](fig/ucloud_picks.png){alt='RStudio on Ucloud'}
 
 This allow us to start a session of RStudio, accessible in the browser. 
 
@@ -71,7 +71,7 @@ To do: hyperlink to the parallelization page for more on cores and parallellizat
 
 For your code to make use of the fact that you have multiple cores, and get the speed benefits,
 you need to set it up do so. This is called parallellization. It is sometimes worthwhile, but
-not always. You can read our short guide on parallellization [here](link).
+not always. You can read our [short guide on parallellization here](parallellization.Rmd).
 ::::
 
 ### Memory (RAM)
@@ -120,11 +120,11 @@ And because we are not running on a real computer, everything will be lost.
 Not all is lost when you restart a virtual machine. UCloud provides you
 with a drive:
 
-![](fig/ucloud_drive.png)
+![](fig/ucloud_drive.png){alt='ucloud drive'}
 
 
 In it we find a listing of what is in our drive:
-![](fig/ucloud_drive_2.png)
+![](fig/ucloud_drive_2.png){alt='ucloud drive listing'}
 
 The folder "Jobs" contains data from the individual runs of virtual machines you
 have done. And Trash contains deleted files. 
@@ -154,21 +154,21 @@ Chose the "u1-standard-2" machinetype with 2 virtual CPUs and 12 GB memory.
 In order to be able to access our files, go to "Select folders to use" and 
 click add folder:
 
-![](fig/ucloud_start.png)
+![](fig/ucloud_start.png){alt='ucloud start'}
 
 Click in "No directory selected" and then on "Use" to choose "ml-course":
 
-![](fig/ucloud_start_1.png)
+![](fig/ucloud_start_1.png){alt='ucloud choice'}
 And then click "Submit"
 
 Your request is being processed:
 
-![](fig/ucloud_start_2.png)
+![](fig/ucloud_start_2.png){alt='ucloud processing'}
 
 
 And after a short while, you get this:
 
-![](fig/ucloud_start_3.png)
+![](fig/ucloud_start_3.png){alt='ucloud started'}
 
 
 We can see what type of machine we chose, and how much time is remaining. 
@@ -183,12 +183,12 @@ If we click that, RStudio opens and we can begin working with R.
 The very first thing we should always do, is to create a project. At the 
 upper right hand corner we see where we can do that: 
 
-![](fig/ucloud_rstudio_2.png)
+![](fig/ucloud_rstudio_2.png){alt='start project'}
 
 Click new project, create it in a "new Directory" and change the subdirectory
 in which the project is created to the directory we made earlier. THIS IS IMPORTANT!
 
-![](fig/ucloud_rstudio_3.png)
+![](fig/ucloud_rstudio_3.png){alt='start project'}
 
 We now have a project running in RStudio on a virtual machine on UCloud, and
 we are ready to work!
@@ -207,7 +207,7 @@ there.
 
 Sometimes we close a window, or nagivate away from it. Where can we find it again?
 In the navigation bar to the left in  we find this icon. 
-![](fig/ucloud_running_jobs.png)
+![](fig/ucloud_running_jobs.png){alt='ucloud running jobs'}
 It provides us with a list or running jobs (yes, we can have more than one). Click
 on the job, and we get back to the job, where we can extend time or open the 
 interface again.
@@ -228,7 +228,7 @@ The easy way is to do it through RStudio. Select the folder and/or files you
 want to save, click on the little cogwheel saying "More" and chose "Export".
 RStudio will now zip the files, and ask you where to save them.
 
-![](fig/ucloud_save.png)
+![](fig/ucloud_save.png){alt='ucloud save'}
 
 :::: instructor
 To do: include how to use the UCloud archiving app to download an entire folder
@@ -277,7 +277,7 @@ all the right packages installed.
 First of all, and make sure that when you start your Rstudio job, you attach the folder we demonstrated
 how to use earlier:
 
-![](fig/ucloud_start_1.png)
+![](fig/ucloud_start_1.png){alt='ucloud attach folder'}
 
 Secondly, and for the same reason, you _must_ [create a project](#creating-a-project) in that
 same folder, the one you attached to the run of the virtual machine.
@@ -360,7 +360,7 @@ the same name as your project.
 
 Due to the way Renv works, it might take some time to open the project:¨
 
-![](fig/ucloud_taking_longer.png)
+![](fig/ucloud_taking_longer.png){alt='ucloud taking longer'}
 
 ### What about other packages?
 
@@ -424,7 +424,7 @@ that also has Python packages installed and accessible to R (in jargon, it has t
 to load, and a bit more prone to errors.
 
 Therefore, we recommend setting up a separate R environment that is just for interfacing with Python,
-e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get-started-with-rstudio)
+e.g. to do machine learning tasks. Start by launching an RStudio job
 and [creating a new project](#creating-a-project). Give the project a Directory name that helps you remember
 this is your environment for using Python.
 
