@@ -71,7 +71,7 @@ To do: hyperlink to the parallelization page for more on cores and parallellizat
 
 For your code to make use of the fact that you have multiple cores, and get the speed benefits,
 you need to set it up do so. This is called parallellization. It is sometimes worthwhile, but
-not always. You can read our short guide on parallellization [here](link).
+not always. You can read our [short guide on parallellization here](parallellization.Rmd).
 ::::
 
 ### Memory (RAM)
@@ -424,7 +424,7 @@ that also has Python packages installed and accessible to R (in jargon, it has t
 to load, and a bit more prone to errors.
 
 Therefore, we recommend setting up a separate R environment that is just for interfacing with Python,
-e.g. to do machine learning tasks. Start by [launching an RStudio job](#lets-get-started-with-rstudio)
+e.g. to do machine learning tasks. Start by launching an RStudio job
 and [creating a new project](#creating-a-project). Give the project a Directory name that helps you remember
 this is your environment for using Python.
 
