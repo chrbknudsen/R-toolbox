@@ -79,7 +79,7 @@ As indicated in the comparative table, the `magrittr` pipe have a number of sibl
 This pipe allow us to inject a function into a longer set of 
 pipes, without affecting the rest of the flow.
 
-![](fig/tee-pipe.png)
+![](fig/tee-pipe.png){alt='the tee-pipe'}
 
 The tee-pipe sends data to two functions. The immediate next, which
 we want to run for plotting, logging or printing data, and to the 
@@ -326,7 +326,7 @@ This default can be changed:
 
 Tools → Global Options → Code
 
-![](fig/change_pipe.png)
+![](fig/change_pipe.png){alt='change pipe'}
 Place a tickmark in the box next to "Use native pipe operator, |>".
 
 
