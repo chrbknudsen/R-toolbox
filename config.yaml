@@ -88,6 +88,24 @@ episodes:
 - ucloud.Rmd
 - parallellization.Rmd
 - pipes.Rmd
+- gis_setup.Rmd
+- spatial_data_intro.Rmd
+- gis-downloading-sentinel.Rmd
+- gis_raster-data.Rmd
+- gis_vector-data.Rmd
+- gis_visualization.Rmd
+- spatial_interactive_maps.Rmd
+- git-00-setup.Rmd
+- git-01-git-intro.Rmd
+- git-09-practice.Rmd
+- stat-tests-1.Rmd
+- package-is-not-available.Rmd
+- extracting-tiff-layers.Rmd
+- ggplot-1.Rmd
+- fence-test.Rmd
+- making-a-new-course.Rmd
+
+
 
 # Information for Learners
 learners: 
