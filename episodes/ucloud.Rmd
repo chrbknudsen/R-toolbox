@@ -42,7 +42,7 @@ Amongst the more popular picks from the store is RStudio:
 This allow us to start a session of RStudio, accessible in the browser. 
 
 
-![](fig/ucloud_rstudio.png)
+![](fig/ucloud_rstudio.png){alt='RStudio on Ucloud'}
 
 Note that we can chose different machine types. You select a suitable type of machine
 (with enough CPUs and RAM, more on this below), chose how long you want it to run, 
