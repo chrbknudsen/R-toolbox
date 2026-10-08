@@ -113,7 +113,7 @@ want to read in:
 Which will read in sheet number 2 from the workbook "filename".
 
 Read the documentation for details on how to read in specific cells or
-ranges. You can find it running `?read_excel`, or `help(read_excel)`.
+ranges. You can find it running `?read_excel`, or `help(read_excel)`, or online on the [readxl site](https://readxl.tidyverse.org/reference/read_excel.html).
 
 ## SPSS
 

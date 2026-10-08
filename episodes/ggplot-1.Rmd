@@ -20,6 +20,38 @@ exercises: 2
 ## Introduction
 
 
+
+## Basic scaffolding
+
+The basic structure of a ggplot is shown below:
+
+ggplot-layers.png
+https://ggplot2.tidyverse.org/articles/ggplot2.html
+
+
+pivoting.png
+https://epirhandbook.com/en/new_pages/ggplot_basics.html
+
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <SCALE_FUNCTION> +
+  <FACET_FUNCTION> +
+  <THEME_FUNCTION>
+
+```{r}
+library(tidyverse)
+ggplot(mpg) +
+    aes(x = cty, y = hwy) +
+    geom_point()
+```
+
+nedarvning. Konventioner. indpipning
+
 ## Axes
 
 By default ggplot zooms in on the data. This break one of the most popular rules 
@@ -52,6 +84,7 @@ p_1 + p_2
 These two scatterplots show the exact same data, the first have an origin of the coordinate system in (0,0). The other zoom in on the data.
 
 Controlling the scales - to make sure that certain values are included, can be done in several ways.
+
 
 In this specific example data was constructed to be normally distribued around (10000, 10000), and 
 the plot on the left was constructed by adding:
