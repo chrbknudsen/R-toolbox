@@ -1,0 +1,61 @@
+---
+title: "llm noter"
+teaching: 42
+exercises: 42
+---
+
+::: questions
+-   FIXME
+:::
+
+::: objectives
+-   FIXME
+:::
+
+
+## Fake data
+
+vi vil gerne kunne uploade data til chatbotten, så den kan levere kode der kan
+arbejde på vores data.
+
+Men det er ikke (altid) en god ide at uploade data på 300 patienter, eller de data
+der danner fundamentet for det projekt du har gang i, der skal gøre dig til millionær. Eller udløse et patent. For... Ja, tech-giganterne er ikke helt pålidelige.
+
+Så. Producer fake data!
+
+Det findes der naturligvis et bibliotek til:
+
+```{r}
+library(tidyverse)
+library(FakeDataR)
+
+mtcars |>
+    rownames_to_column() |> 
+    generate_fake_data()
+```
+
+Der er nogen detaljer omkring modes der skal studeres lidt mere.
+
+```{r eval = FALSE}
+bundle <- mtcars |> 
+    llm_bundle(
+  n = min(100L, nrow(df)),
+  level = "medium",
+  formats = c("csv","rds"),
+  path = tempdir(), filename = "demo_bundle",
+  seed = 42, write_prompt = TRUE, zip = TRUE
+)
+
+bundle$zip_path
+
+```
+
+1) Upload the schema first so the model understands data types and categories.
+2) Upload the fake data file.
+3) Ask questions about structure, analysis steps, and code. Do NOT expect correct statistics from fake values.
+4) Apply suggested code in your secure environment on the real data.
+
+::: keypoints
+-   FIXME
+
+:::
