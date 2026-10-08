@@ -12,11 +12,46 @@ exercises: 42
 -   FIXME
 :::
 
+https://aicarpentry.org/lessons/#user-novice
+
+linker til
+
+https://southampton-rsg-training.github.io/research-software-ai-tools/index.html
+
+https://southampton-rsg-training.github.io/coding-with-ai/2-ai-assisted-coding.html
+
+https://southampton-rsg-training.github.io/ai-fundamentals-for-researchers/
+
+https://carpentries-lab.github.io/deep-learning-intro/
+
+https://carpentries-incubator.github.io/software-development-with-genai/
+
+https://carpentries-incubator.github.io/genai-implications-cp/
+
+https://carpentries-incubator.github.io/llms-intro-cp/
+
+https://carpentries-incubator.github.io/ai-carpentry-user-workshop-cp/
+
+https://carpentries-incubator.github.io/coding-with-llms-novice/
+
+https://carpentries-incubator.github.io/genai-implications-novice/rigour_transparency.html#what-is-transparency
+
+det meste af det ser interessant ud!
 
 ## Fake data
 
 vi vil gerne kunne uploade data til chatbotten, så den kan levere kode der kan
 arbejde på vores data.
+
+Use when:
+
+You need an LLM or collaborator to reproduce your data shape but not see the real values.
+You want quick, documented synthetic data for demos, tutorials, bug reports, or tests.
+Avoid when:
+
+You need formal differential privacy guarantees (FakeDataR focuses on pragmatic masking and synthesis).
+You need exact statistical fidelity for modeling benchmarks. It is not a drop-in replacement for originals.
+
 
 Men det er ikke (altid) en god ide at uploade data på 300 patienter, eller de data
 der danner fundamentet for det projekt du har gang i, der skal gøre dig til millionær. Eller udløse et patent. For... Ja, tech-giganterne er ikke helt pålidelige.
