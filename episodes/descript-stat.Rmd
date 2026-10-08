@@ -184,7 +184,11 @@ penguins |>
             max = max(body_mass_g, na.rm = T))
 ```
 
-There is a dedicated function, `range()`, that does the same.
+:::: spoiler
+
+## Using `range` instead
+
+A dedicated function, `range()`, does the same.
 However it returns two values (for each row), and the summarise function
 expects to get _one_ value. 
 
@@ -195,6 +199,9 @@ If we would like to use the `range()` function, we can add it using the
 penguins  |> 
   reframe(range = range(body_mass_g, na.rm = T))
 ```
+
+::::
+
 
 :::: instructor
 
